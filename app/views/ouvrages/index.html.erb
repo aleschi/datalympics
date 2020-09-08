@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Liste des Ouvrages</h1>
+
+<table>
+
+
+  <tbody>
+    <% @ouvrages.each do |ouvrage| %>
+      <tr>
+        <td><%= ouvrage.name %></td>
+        <td><%= link_to 'Show', ouvrage %></td>
+        <td><%= link_to 'Edit', edit_ouvrage_path(ouvrage) %></td>
+        <td><%= link_to 'Destroy', ouvrage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ouvrage', new_ouvrage_path %>
+
+<br>
+<div>
+  Importer données csv
+</div>
+<%=form_tag import_ouvrages_path, multipart: true do %>
+
+<%= file_field_tag :file %>
+
+<%= submit_tag 'Importer'%>
+
+<%end%>

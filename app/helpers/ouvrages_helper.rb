@@ -1,0 +1,2 @@
+module OuvragesHelper
+end

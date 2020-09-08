@@ -5,10 +5,9 @@ ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+#gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -52,6 +51,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+  #gem 'pg', '~> 0.21.0'
 end
 
 group :test do
@@ -62,5 +64,9 @@ group :test do
   gem 'chromedriver-helper'
 end
 
+group :production do 
+  gem 'pg', '~> 0.21.0' 
+  gem "rails_12factor"
+end 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+#gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
