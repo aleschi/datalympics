@@ -6,6 +6,7 @@
 
 
   <tbody>
+    <% if @ouvrages.nil?%>
     <% @ouvrages.each do |ouvrage| %>
       <tr>
         <td><%= ouvrage.name %></td>
@@ -13,6 +14,7 @@
         <td><%= link_to 'Edit', edit_ouvrage_path(ouvrage) %></td>
         <td><%= link_to 'Destroy', ouvrage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>
