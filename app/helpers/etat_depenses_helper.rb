@@ -1,0 +1,2 @@
+module EtatDepensesHelper
+end

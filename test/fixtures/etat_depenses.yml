@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2020-09-17 09:29:28
+  beneficiaire: MyString
+  titre: 1
+  categorie: 1
+  ae_prevu: 1.5
+  ae_conso: 1.5
+  cp_prevu: 1.5
+  cp_conso: 1.5
+
+two:
+  date: 2020-09-17 09:29:28
+  beneficiaire: MyString
+  titre: 1
+  categorie: 1
+  ae_prevu: 1.5
+  ae_conso: 1.5
+  cp_prevu: 1.5
+  cp_conso: 1.5

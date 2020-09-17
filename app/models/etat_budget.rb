@@ -1,0 +1,2 @@
+class EtatBudget < ApplicationRecord
+end

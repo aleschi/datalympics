@@ -1,0 +1,2 @@
+module EtatBudgetsHelper
+end

@@ -1,0 +1,47 @@
+<%= form_with(model: etat_budget, local: true) do |form| %>
+  <% if etat_budget.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(etat_budget.errors.count, "error") %> prohibited this etat_budget from being saved:</h2>
+
+      <ul>
+      <% etat_budget.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.datetime_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :budget_total %>
+    <%= form.text_field :budget_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :budget_solideo %>
+    <%= form.text_field :budget_solideo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :budget_cojo %>
+    <%= form.text_field :budget_cojo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :budget_heritage %>
+    <%= form.text_field :budget_heritage %>
+  </div>
+
+  <div class="field">
+    <%= form.label :budget_hauteperformance %>
+    <%= form.text_field :budget_hauteperformance %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

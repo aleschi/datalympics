@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_074801) do
+ActiveRecord::Schema.define(version: 2020_09_17_134426) do
+
+  create_table "etat_budgets", force: :cascade do |t|
+    t.datetime "date"
+    t.float "budget_total"
+    t.float "budget_solideo"
+    t.float "budget_cojo"
+    t.float "budget_heritage"
+    t.float "budget_hauteperformance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "etat_depenses", force: :cascade do |t|
+    t.datetime "date"
+    t.string "beneficiaire"
+    t.integer "titre"
+    t.integer "categorie"
+    t.float "ae_prevu"
+    t.float "ae_conso"
+    t.float "cp_prevu"
+    t.float "cp_conso"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "ouvrages", force: :cascade do |t|
     t.string "name"

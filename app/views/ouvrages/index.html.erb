@@ -6,7 +6,7 @@
 
 
   <tbody>
-    <% if @ouvrages.nil?%>
+    <% if !@ouvrages.nil?%>
     <% @ouvrages.each do |ouvrage| %>
       <tr>
         <td><%= ouvrage.name %></td>

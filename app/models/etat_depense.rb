@@ -1,0 +1,2 @@
+class EtatDepense < ApplicationRecord
+end

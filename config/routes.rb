@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :etat_budgets
+  resources :etat_depenses
   resources :ouvrages do 
     collection {post :import}
   end 

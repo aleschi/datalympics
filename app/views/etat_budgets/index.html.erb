@@ -1,0 +1,67 @@
+<div class="EB_page">
+  <h1 class="EB_title">Le budget de l'Etat</h1>
+  
+  <div class="EB_bt_box">
+    <div class="EB_bt_title"> Budget Total prévu </div>
+    <div class="EB_bt_number"> <%= number_with_delimiter(@etat_budget_actuel.budget_total.to_i, :delimiter => ' ') %>€  </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3">
+      <p class="EB_br_title">Budget SOLIDEO </p>
+      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_actuel.budget_solideo.to_i, :delimiter => ' ') %>€</p>
+    </div>
+    <div class="col-md-3">
+      <p class="EB_br_title">Budget COJO </p>
+      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_actuel.budget_cojo.to_i, :delimiter => ' ') %>€</p>
+    </div>
+    <div class="col-md-3">
+      <p class="EB_br_title">Budget Héritage </p>
+      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_actuel.budget_heritage.to_i, :delimiter => ' ') %>€</p>
+    </div>
+    <div class="col-md-3">
+      <p class="EB_br_title">Budget Haute Performance </p>
+      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_actuel.budget_hauteperformance.to_i, :delimiter => ' ') %>€</p>
+    </div>
+  </div>
+  
+  <div class="EB_new_button">
+    <%= link_to 'Changer le budget prévu', new_etat_budget_path %>
+  </div>
+  
+ <div class="EB_br_title">Budget prévu initialement </div><br>
+  <% if !@etat_budget_first.nil? %>
+  <div class="row">
+    <div class="col-md-3">
+      <p class="EB_br_title">Budget SOLIDEO </p>
+      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_first.budget_solideo.to_i, :delimiter => ' ') %>€</p>
+    </div>
+    <div class="col-md-3">
+      <p class="EB_br_title">Budget COJO </p>
+      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_first.budget_cojo.to_i, :delimiter => ' ') %>€</p>
+    </div>
+    <div class="col-md-3">
+      <p class="EB_br_title">Budget Héritage </p>
+      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_first.budget_heritage.to_i, :delimiter => ' ') %>€</p>
+    </div>
+    <div class="col-md-3">
+      <p class="EB_br_title">Budget Haute Performance </p>
+      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_first.budget_hauteperformance.to_i, :delimiter => ' ') %>€</p>
+    </div>
+  </div>
+  <% end %>
+  
+    <div class="EB_new_button">
+    <%= link_to 'Voir les dépenses de l Etat' , etat_depenses_path %>
+  </div>
+  
+  
+</div>
+
+
+  
+
+
+
+
+

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2020-09-17 09:44:26
+  budget_total: 1.5
+  budget_solideo: 1.5
+  budget_cojo: 1.5
+  budget_heritage: 1.5
+  budget_hauteperformance: 1.5
+
+two:
+  date: 2020-09-17 09:44:26
+  budget_total: 1.5
+  budget_solideo: 1.5
+  budget_cojo: 1.5
+  budget_heritage: 1.5
+  budget_hauteperformance: 1.5

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @etat_budget.date %>
+</p>
+
+<p>
+  <strong>Budget total:</strong>
+  <%= @etat_budget.budget_total %>
+</p>
+
+<p>
+  <strong>Budget solideo:</strong>
+  <%= @etat_budget.budget_solideo %>
+</p>
+
+<p>
+  <strong>Budget cojo:</strong>
+  <%= @etat_budget.budget_cojo %>
+</p>
+
+<p>
+  <strong>Budget heritage:</strong>
+  <%= @etat_budget.budget_heritage %>
+</p>
+
+<p>
+  <strong>Budget hauteperformance:</strong>
+  <%= @etat_budget.budget_hauteperformance %>
+</p>
+
+<%= link_to 'Edit', edit_etat_budget_path(@etat_budget) %> |
+<%= link_to 'Back', etat_budgets_path %>

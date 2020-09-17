@@ -1,0 +1,103 @@
+
+<div class="EB_page">
+  <h1 class="EB_title">Les dépenses de l'Etat</h1>
+  
+  <div class="EB_new_button">
+    <%= link_to 'Ajouter une dépense', new_etat_depense_path %>
+  </div>
+  
+  <% if !@etat_depenses.nil? %>
+  <div class="ED_dates_table">
+    <div class="ED_dates_col">
+        <div class="ED_dates_col_title">
+          Date
+        </div>
+     </div>
+     <div class="ED_dates_col">
+        <div class="ED_dates_col_title">
+          Bénéficiaire
+        </div>
+     </div>
+     <div class="ED_dates_col">
+        <div class="ED_dates_col_title">
+          Titre
+        </div>
+     </div>
+     <div class="ED_dates_col">
+        <div class="ED_dates_col_title">
+          Catégorie
+        </div>
+     </div>
+     <div class="ED_dates_col">
+        <div class="ED_dates_col_title">
+          AE prévus
+        </div>
+     </div>
+    <div class="ED_dates_col">
+        <div class="ED_dates_col_title">
+          AE consommés
+        </div>
+     </div>
+    <div class="ED_dates_col">
+        <div class="ED_dates_col_title">
+          CP prévus
+        </div>
+     </div>
+    <div class="ED_dates_col">
+        <div class="ED_dates_col_title">
+          CP consommés
+        </div>
+     </div>
+  </div>
+ 
+
+    <% @etat_depenses.each do |etat_depense| %>
+    <div class="ED_dates_table">
+      <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= etat_depense.date.strftime("%Y") %>
+        </div>
+      </div>
+    <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= etat_depense.beneficiaire %>
+        </div>
+      </div>
+    <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= etat_depense.titre %>
+        </div>
+      </div>
+    <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= etat_depense.categorie %>
+        </div>
+      </div>
+    <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= etat_depense.ae_prevu %>
+        </div>
+      </div>
+     <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= etat_depense.ae_conso %>
+        </div>
+      </div>
+     <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= etat_depense.cp_prevu %>
+        </div>
+      </div>
+     <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= etat_depense.cp_conso %>
+        </div>
+      </div>
+      </div>
+    <% end %>
+  
+  <% end %>
+</div>
+
+
+
