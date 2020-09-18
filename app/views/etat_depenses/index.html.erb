@@ -48,6 +48,11 @@
           CP consommés
         </div>
      </div>
+     <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          Edit  
+       </div>
+      </div>
   </div>
  
 
@@ -93,6 +98,18 @@
           <%= etat_depense.cp_conso %>
         </div>
       </div>
+       <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= etat_depense.cp_conso %>
+        </div>
+      </div>
+      <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= link_to edit_etat_depense_path(etat_depense) do %> <i class="fas fa-pen"></i><% end %>
+          <%= link_to etat_depense, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %>
+        </div>
+      </div>
+     
       </div>
     <% end %>
   

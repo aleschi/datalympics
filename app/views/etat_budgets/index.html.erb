@@ -66,6 +66,11 @@
             Total
           </div>
        </div>
+      <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          Edit  
+       </div>
+      </div>
     </div>
   
     <% @etat_budgets.order('date DESC').each do |etat_budget| %>
@@ -98,6 +103,12 @@
       <div class="ED_dates_col">
         <div class="ED_dates_col_text">
           <%= etat_budget.budget_total %>
+        </div>
+      </div>
+       <div class="ED_dates_col">
+        <div class="ED_dates_col_text">
+          <%= link_to edit_etat_budget_path(etat_budget) do %> <i class="fas fa-pen"></i><% end %>
+          <%= link_to etat_budget, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %>
         </div>
       </div>
     </div>

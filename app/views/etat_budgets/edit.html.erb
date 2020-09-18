@@ -1,6 +1,9 @@
-<h1>Editing Etat Budget</h1>
+<div class="EB_page">
+<h1 class="EB_title">Modifier le budget de l'état</h1>
 
 <%= render 'form', etat_budget: @etat_budget %>
 
-<%= link_to 'Show', @etat_budget %> |
-<%= link_to 'Back', etat_budgets_path %>
+  <div class="EB_new_button">
+    <%= link_to 'Retour', etat_budgets_path %>
+  </div>
+</div>
