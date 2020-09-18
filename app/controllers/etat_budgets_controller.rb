@@ -7,8 +7,6 @@ class EtatBudgetsController < ApplicationController
     @etat_budgets = EtatBudget.all
     if !EtatBudget.last.nil?
       @etat_budget_actuel = EtatBudget.last
-    else
-      @etat_budget_actuel = 1103000000
     end
     if !EtatBudget.first.nil?
       @etat_budget_first = EtatBudget.first
