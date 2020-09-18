@@ -1,5 +1,10 @@
-<h1>New Etat Depense</h1>
 
-<%= render 'form', etat_depense: @etat_depense %>
+<div class="EB_page">
+  <h1 class="EB_title">Ajouter une nouvelle dépense</h1>
 
-<%= link_to 'Back', etat_depenses_path %>
+  <%= render 'form', etat_depense: @etat_depense %>
+  <br>
+  <div class="EB_new_button">
+  <%= link_to 'Retour', etat_depenses_path %>
+  </div>
+</div>

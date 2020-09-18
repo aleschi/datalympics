@@ -51,7 +51,7 @@
   </div>
  
 
-    <% @etat_depenses.each do |etat_depense| %>
+    <% @etat_depenses.order('date DESC').each do |etat_depense| %>
     <div class="ED_dates_table">
       <div class="ED_dates_col">
         <div class="ED_dates_col_text">

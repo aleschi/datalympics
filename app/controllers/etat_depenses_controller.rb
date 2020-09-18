@@ -28,7 +28,7 @@ class EtatDepensesController < ApplicationController
 
     respond_to do |format|
       if @etat_depense.save
-        format.html { redirect_to @etat_depense, notice: 'Etat depense was successfully created.' }
+        format.html { redirect_to etat_depenses_path, notice: 'Etat depense was successfully created.' }
         format.json { render :show, status: :created, location: @etat_depense }
       else
         format.html { render :new }

@@ -37,7 +37,7 @@ class EtatBudgetsController < ApplicationController
 
     respond_to do |format|
       if @etat_budget.save
-        format.html { redirect_to @etat_budget, notice: 'Etat budget was successfully created.' }
+        format.html { redirect_to etat_budgets_path, notice: 'Etat budget was successfully created.' }
         format.json { render :show, status: :created, location: @etat_budget }
       else
         format.html { render :new }
