@@ -8,7 +8,7 @@ html{
 }
 
 body {
- font-family: 'Open Sans', sans-serif;
+ font-family: 'Karla', sans-serif;
  background: #fff;
  min-height: 100%;
   width:100%;
@@ -18,13 +18,13 @@ body {
   padding-bottom:60px;
  }
 
-.EB_page{
+.EB_page, .ED_page{
   max-width:1200px;
   margin:0 auto;
   padding:50px 30px;
 }
 
-.EB_title{
+.EB_title, .ED_title{
   text-align:center;
   font-size:40px;
   font-weight:600;
@@ -72,29 +72,188 @@ body {
     border-radius:5px;
   }
 }
-
-.field{
-  margin:15px 0px;
+.ED_home_button{
+  a{
+    color:#48AF5C;
+    font-size:15px;
+    text-decoration:none;
+    font-weight:400;
+    display:flex;
+    align-items:center;
+    i{
+      font-size:22px;
+      margin-right:10px;
+    }
+  } 
 }
-.ED_dates_table{
-  display:inline-flex;
-  display: -webkit-inline-flex;
-  width:100%;
+.ED_new_depense{
+  margin-bottom:40px;
+  a{
+    text-decoration:none;
+    color:#444444;
+    font-size:15px;
+    font-weight:400;
+    display:flex;
+    align-items:center;
+    i{
+      color:#48AF5C;
+      font-size:22px;
+      margin-right:8px;
+    }
+  }
 }
-.ED_dates_col{
-  width:auto;
+.ED_table{
+  overflow-x:auto;
+  margin-bottom:50px;
+  table{
+    width:100%;
+    
+   
+    thead{
+      tr{
+        border-bottom:1px solid #48AF5C;
+        margin-bottom: 40px;
+        th{
+          padding:8px 10px;
+          text-align:center;
+          color:#48AF5C;
+          text-transform:uppercase;
+          font-size:15px;
+          border-right:1px solid #48AF5C;
+          
+        } 
+        .border-none{
+            border-right:none;
+          }
+      }
+    }
+    tbody{
+      tr{
+        border-bottom:1px solid #48AF5C;
+        th{
+          padding:8px 10px;
+          text-align:center;
+          color:#444444;
+          text-transform:uppercase;
+          font-size:15px;
+          border-right:1px solid #48AF5C;
+        } 
+        td{
+          padding:8px 10px;
+          text-align:center;
+          color:#444444;
+          text-transform:uppercase;
+          font-size:15px;
+          border-right:1px solid #48AF5C;
+          a{
+            color:#004A70;
+            text-decoration:none;
+            margin:0 5px;
+          }
+         
+        }
+         .border-none{
+            border-right:none;
+          }
+      }  
+    }
+    
+  }
+}
+.ED_chart{
+  margin-bottom:50px;
+}
+.ED_new_form_box{
+  border:2px solid #48AF5C;
+  border-radius:13px;
+  padding:25px 35px;
+  width:40%;
   margin:auto;
 }
+@media(max-width:992px){
+  .ED_new_form_box{
+    width:100%;
+    margin:0 20px;
+  }
+}
+.ED_new_form_field{
+  margin-bottom:14px;
+  position:relative;
+  label{
+    color:#8F8F8F;
+    text-transform:uppercase;
+    font-size:15px;
+    line-height:33px;
+  }
+  select, input{
+    float:right;
+    width:35%;
+    color:#444444;
+    font-size:15px;
+    padding:5px 8px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
 
-.ED_dates_col_title{
-   text-align:center;
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:30px;
+.ED_new_form_input{
+  border: 1px solid #48AF5C;
+  
 }
-.ED_dates_col_text{
-    text-align:center;
-  font-size:14px;
-  font-weight:400;
-  margin-bottom:20px;
+.ED_new_form_input_categorie{
+   border: 1px solid #48AF5C;
 }
+.ED_new_form_input_titre{
+  border: 1px solid #48AF5C;
+}
+.ED_new_form_input_beneficiaire{
+  border: 1px solid #48AF5C;
+}
+.ED_new_form_input_date{
+  border: 1px solid #48AF5C;
+}
+.ED_new_form_field_submit{
+  margin-top:50px;
+  text-align:center;
+  input{
+    color:#fff;
+    font-size:15px;
+    text-transform:uppercase;  
+    background-color:#48AF5C;
+    border-radius:4px;
+    padding:10px 15px;
+    border:none;
+  }
+  
+  
+}
+
+
+.ED_new_form_field_date:after, .ED_new_form_field_beneficiaire:after, .ED_new_form_field_titre:after {
+    content: '<>';
+  font-size: 15px ;
+  color: #48AF5C;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 11px;
+  /*Adjust for position however you want*/
+  
+  top: 7px;
+  padding: 0 0 2px;
+ 
+  /*left line */
+  
+  position: absolute;
+  pointer-events: none;
+}
+
+/* IE11 hide native button (thanks Matt!) */
+select::-ms-expand {
+display: none;
+}
+
+
+

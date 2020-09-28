@@ -1,3 +1,6 @@
+<div class="ED_new_form_box">
+  
+
 <%= form_with(model: etat_depense, local: true) do |form| %>
   <% if etat_depense.errors.any? %>
     <div id="error_explanation">
@@ -11,47 +14,48 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="ED_new_form_field ED_new_form_field_date">
     <%= form.label :date %>
-    <%= form.datetime_select :date %>
+    <%= form.date_select :date, {:order => [:year]}, class: "ED_new_form_input_date"  %>
   </div>
 
-  <div class="field">
-    <%= form.label :beneficiaire %>
-    <%= form.select :beneficiaire, [["Solideo","solideo"],["Cojo", "cojo"],["Haute Performance","hauteperformance"], ["Héritage","heritage"]] %>
+  <div class="ED_new_form_field ED_new_form_field_beneficiaire">
+    <%= form.label :beneficiaire, "Bénéficiaire"%>
+    <%= form.select :beneficiaire, [["Solideo","solideo"],["Cojo", "cojo"],["Haute Performance","hauteperformance"], ["Héritage","heritage"]], {}, class: "ED_new_form_input_beneficiaire" %>
   </div>
 
-  <div class="field">
+  <div class="ED_new_form_field ED_new_form_field_titre">
     <%= form.label :titre %>
-    <%= form.select :titre, [["1",1],["2",2],["3",3],["4",4],["5",5],["6",6],["7",7]] %>
+    <%= form.select :titre, [["1",1],["2",2],["3",3],["4",4],["5",5],["6",6],["7",7]], {}, class: "ED_new_form_input_titre" %>
   </div>
 
-  <div class="field">
-    <%= form.label :categorie %>
-    <%= form.number_field :categorie %>
+  <div class="ED_new_form_field">
+    <%= form.label :categorie, "Catégorie" %>
+    <%= form.number_field :categorie,  class: "ED_new_form_input_categorie" %>
   </div>
 
-  <div class="field">
-    <%= form.label :ae_prevu %>
-    <%= form.text_field :ae_prevu %>
+  <div class="ED_new_form_field">
+    <%= form.label :ae_prevu , "AE prévus"%>
+    <%= form.text_field :ae_prevu , class: "ED_new_form_input"%>
   </div>
 
-  <div class="field">
-    <%= form.label :ae_conso %>
-    <%= form.text_field :ae_conso %>
+  <div class="ED_new_form_field">
+    <%= form.label :ae_conso , "AE consommés" %>
+    <%= form.text_field :ae_conso , class: "ED_new_form_input"%>
   </div>
 
-  <div class="field">
-    <%= form.label :cp_prevu %>
-    <%= form.text_field :cp_prevu %>
+  <div class="ED_new_form_field">
+    <%= form.label :cp_prevu, "CP prévus" %>
+    <%= form.text_field :cp_prevu , class: "ED_new_form_input"%>
   </div>
 
-  <div class="field">
-    <%= form.label :cp_conso %>
-    <%= form.text_field :cp_conso %>
+  <div class="ED_new_form_field">
+    <%= form.label :cp_conso , "CP consommés"%>
+    <%= form.text_field :cp_conso , class: "ED_new_form_input"%>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="ED_new_form_field_submit">
+    <%= form.submit "Ajouter la dépense" %>
   </div>
 <% end %>
+</div>

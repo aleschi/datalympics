@@ -1,10 +1,11 @@
 
 <div class="EB_page">
+  <div class="ED_home_button">
+    <%= link_to etat_depenses_path do %><i class="fas fa-chevron-left"></i>Retour<%end %>
+  </div>
   <h1 class="EB_title">Ajouter une nouvelle dépense</h1>
 
   <%= render 'form', etat_depense: @etat_depense %>
   <br>
-  <div class="EB_new_button">
-  <%= link_to 'Retour', etat_depenses_path %>
-  </div>
+
 </div>

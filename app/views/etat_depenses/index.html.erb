@@ -1,125 +1,70 @@
 
-<div class="EB_page">
-  <h1 class="EB_title">Les dépenses de l'Etat</h1>
+<div class="ED_page">
+  <div class="ED_home_button">
+    <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
+  </div>
+  <h1 class="ED_title">Les dépenses de l'Etat</h1>
   
-  <div class="EB_new_button">
-    <%= link_to 'Ajouter une dépense', new_etat_depense_path %>
+  <div class="ED_chart">
+    <%= line_chart @etat_depenses.group_by_year(:date).sum('cp_conso'),
+    title: 'Suivi des dépenses',
+    colors: ['#48AF5C'],
+    library: {
+      yAxis: {
+           labels: {
+               format: '${value}'
+           }
+       },
+          tooltip: {
+            pointFormat: 'Total: <b>{point.y}</b>',
+            xDateFormat: '%Y',
+            valuePrefix: '$'
+          }
+        }
+%>
   </div>
   
+  <div class="ED_new_depense">
+    <%= link_to new_etat_depense_path do %><i class="fas fa-plus-circle"></i>Ajouter une dépense<%end%>
+  </div>
   <% if !@etat_depenses.nil? %>
-  <div class="ED_dates_table">
-    <div class="ED_dates_col">
-        <div class="ED_dates_col_title">
-          Date
-        </div>
-     </div>
-     <div class="ED_dates_col">
-        <div class="ED_dates_col_title">
-          Bénéficiaire
-        </div>
-     </div>
-     <div class="ED_dates_col">
-        <div class="ED_dates_col_title">
-          Titre
-        </div>
-     </div>
-     <div class="ED_dates_col">
-        <div class="ED_dates_col_title">
-          Catégorie
-        </div>
-     </div>
-     <div class="ED_dates_col">
-        <div class="ED_dates_col_title">
-          AE prévus
-        </div>
-     </div>
-    <div class="ED_dates_col">
-        <div class="ED_dates_col_title">
-          AE consommés
-        </div>
-     </div>
-    <div class="ED_dates_col">
-        <div class="ED_dates_col_title">
-          CP prévus
-        </div>
-     </div>
-    <div class="ED_dates_col">
-        <div class="ED_dates_col_title">
-          CP consommés
-        </div>
-     </div>
-     <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          Edit  
-       </div>
-      </div>
+  <div class="ED_table">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Dates</th>
+          <th scope="col">Bénéficiaire</th>
+          <th scope="col">Titre</th>
+          <th scope="col">Catégorie</th>
+          <th scope="col">AE prévus</th>
+          <th scope="col">AE consommés</th>
+          <th scope="col">CP prévus</th>
+          <th scope="col">CP consommés</th>
+          <th scope="col" class="border-none"> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @etat_depenses.order('date DESC').each do |etat_depense| %>
+        <tr>
+          <th scope="row"><%= etat_depense.date.strftime("%Y") %></th>
+          <td><%= etat_depense.beneficiaire %></td>
+          <td><%= etat_depense.titre %></td>
+          <td><%= etat_depense.categorie %></td>
+          <td><%= etat_depense.ae_prevu.to_i %></td>
+          <td><%= etat_depense.ae_conso.to_i %></td>
+          <td><%= etat_depense.cp_prevu.to_i %></td>
+          <td><%= etat_depense.cp_conso.to_i %></td>
+          <td class="border-none"> <%= link_to edit_etat_depense_path(etat_depense) do %> <i class="fas fa-pen"></i><% end %>
+          <%= link_to etat_depense, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
- 
+  <%end%>
+  
 
-    <% @etat_depenses.order('date DESC').each do |etat_depense| %>
-    <div class="ED_dates_table">
-      <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_depense.date.strftime("%Y") %>
-        </div>
-      </div>
-    <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_depense.beneficiaire %>
-        </div>
-      </div>
-    <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_depense.titre %>
-        </div>
-      </div>
-    <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_depense.categorie %>
-        </div>
-      </div>
-    <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_depense.ae_prevu %>
-        </div>
-      </div>
-     <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_depense.ae_conso %>
-        </div>
-      </div>
-     <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_depense.cp_prevu %>
-        </div>
-      </div>
-     <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_depense.cp_conso %>
-        </div>
-      </div>
-       <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_depense.cp_conso %>
-        </div>
-      </div>
-      <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= link_to edit_etat_depense_path(etat_depense) do %> <i class="fas fa-pen"></i><% end %>
-          <%= link_to etat_depense, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %>
-        </div>
-      </div>
-     
-      </div>
-    <% end %>
-  
-  <% end %>
-  
-  
-   <br><br>
-    <div class="EB_new_button">
-    <%= link_to 'Retour accueil' , root_path %>
-  </div>
+ 
 </div>
 
 
