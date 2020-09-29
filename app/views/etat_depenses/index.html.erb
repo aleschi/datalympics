@@ -5,7 +5,24 @@
   </div>
   <h1 class="ED_title">Les dépenses de l'Etat</h1>
   
-
+  <div class="ED_chart">
+    <%= line_chart @etat_depenses.group_by_year(:date).sum('cp_conso'),
+    title: 'Suivi des dépenses',
+    colors: ['#48AF5C'],
+    library: {
+      yAxis: {
+           labels: {
+               format: '${value}'
+           }
+       },
+          tooltip: {
+            pointFormat: 'Total: <b>{point.y}</b>',
+            xDateFormat: '%Y',
+            valuePrefix: '$'
+          }
+        }
+%>
+  </div>
   
   <div class="ED_new_depense">
     <%= link_to new_etat_depense_path do %><i class="fas fa-plus-circle"></i>Ajouter une dépense<%end%>
