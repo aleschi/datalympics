@@ -4,8 +4,41 @@ class EtatDepensesController < ApplicationController
   # GET /etat_depenses
   # GET /etat_depenses.json
   def index
-    @etat_depenses = EtatDepense.all
+    @etat_depenses = EtatDepense.all.order('date DESC')
+    
   end
+  
+  def index_filter
+  
+    if params[:beneficiaires].nil?
+      params[:beneficiaires] = ["solideo", "cojo", "hauteperformance", "heritage"]
+    end 
+    if params[:titres].nil?
+      params[:titres]=['1','2','3','4','5','6','7']
+    end 
+    if params[:categories].nil?
+      params[:categories]=['1','2','3','4','5']
+    end 
+    if params[:dates].nil?
+      params[:dates]=["2018","2019","2020","2021","2022","2023","2024","2025"]
+    end 
+    
+    @etat_depenses= EtatDepense.where(beneficiaire: params[:beneficiaires], titre: params[:titres],categorie: params[:categories]).order('date DESC').to_a
+    
+    if !@etat_depenses.nil?
+      @etat_depenses.each do |etat_depense|
+        if !params[:dates].include?(etat_depense.date.year.to_s)
+          
+          @etat_depenses.delete(etat_depense)
+          
+        end
+      end 
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+  end 
 
   # GET /etat_depenses/1
   # GET /etat_depenses/1.json
@@ -42,7 +75,7 @@ class EtatDepensesController < ApplicationController
   def update
     respond_to do |format|
       if @etat_depense.update(etat_depense_params)
-        format.html { redirect_to @etat_depense, notice: 'Etat depense was successfully updated.' }
+        format.html { redirect_to etat_depenses_path, notice: 'Etat depense was successfully updated.' }
         format.json { render :show, status: :ok, location: @etat_depense }
       else
         format.html { render :edit }

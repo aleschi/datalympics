@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     collection {post :import}
   end 
   root 'pages#home'
+  
+  get 'etat_depenses_filter' => 'etat_depenses#index_filter'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
