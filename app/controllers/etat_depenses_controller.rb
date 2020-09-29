@@ -20,19 +20,28 @@ class EtatDepensesController < ApplicationController
       params[:categories]=['1','2','3','4','5']
     end 
     if params[:dates].nil?
-      params[:dates]=["2018","2019","2020","2021","2022","2023","2024","2025"]
+      @dates=["2018","2019","2020","2021","2022","2023","2024","2025"]
+    else
+      @dates=params[:dates].to_a
     end 
     
-    @etat_depenses= EtatDepense.where(beneficiaire: params[:beneficiaires], titre: params[:titres],categorie: params[:categories]).order('date DESC').to_a
+    @etat_depenses= EtatDepense.where(beneficiaire: params[:beneficiaires], titre: params[:titres], categorie: params[:categories]).order('date DESC')
+    
+    @etat_depenses = @etat_depenses.to_a 
+    
+    @etat_depenses2 = []
     
     if !@etat_depenses.nil?
       @etat_depenses.each do |etat_depense|
-        if !params[:dates].include?(etat_depense.date.year.to_s)
-          
-          @etat_depenses.delete(etat_depense)
-          
-        end
+       # if @dates.include?(etat_depense.date.year.to_s)
+          @dates.each do |date|
+             if etat_depense.date.year.to_s == date
+               @etat_depenses2 << etat_depense
+             end 
+          end 
       end 
+      
+      @etat_depenses = @etat_depenses2
     end
     
     respond_to do |format|
