@@ -6,7 +6,7 @@
   <h1 class="ED_title">Les dépenses de l'Etat</h1>
   
   <div class="ED_chart">
-    <%= line_chart @etat_depenses.group_by_year(:date).sum('cp_conso'),
+    <%= line_chart @etat_depenses.unscoped.group_by_year(:date).sum('cp_conso'),
     title: 'Suivi des dépenses',
     colors: ['#48AF5C'],
     library: {
