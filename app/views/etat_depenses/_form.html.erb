@@ -41,7 +41,7 @@
 
   <div class="ED_new_form_field">
     <%= form.label :ae_conso , "AE consommés" %>
-    <%= form.text_field :ae_conso , class: "ED_new_form_input"%>
+    <%= form.text_field :ae_conso , class: "ED_new_form_input", id: "ae_conso"%>
   </div>
 
   <div class="ED_new_form_field">
@@ -59,3 +59,9 @@
   </div>
 <% end %>
 </div>
+
+<script>
+  $('#ae_conso').change(function(){
+    
+  })
+</script>

@@ -1,0 +1,106 @@
+<div class="ED_chart">
+    <%= line_chart @etat_depenses.unscoped.group_by_year(:date).sum('cp_conso'), colors: ['#48AF5C'], library: {
+      chart:{
+            backgroundColor: '#E6F0FF',
+            borderRadius: '20px',
+            spacing: [40,40,40,40],
+          },
+
+      title: {
+        text:'Suivi des dépenses',
+        margin:40,
+      },
+      yAxis: {
+        gridLineColor: '#E6F0FF', 
+           labels: {
+               format: '${value}'
+           }
+       },
+          tooltip: {
+            pointFormat: 'Total: <b>{point.y}</b>',
+            xDateFormat: '%Y',
+            valuePrefix: '$'
+          }
+        }
+    %>
+  </div>
+  <div class="row">
+     <div class="col-md-6">
+
+      <%= column_chart [{name: "AE prévus", data: @etat_depenses.unscoped.group_by_year(:date).sum(:ae_prevu)},{name: "AE consommés", data: @etat_depenses.unscoped.group_by_year(:date).sum(:ae_conso)}],colors: ['#004A70','#AED9E6'],  library: {
+        chart:{
+          backgroundColor: '#E6F0FF',
+          borderRadius: '20px',
+          spacing: [40,40,40,40],
+        },
+        title: {
+          text: 'AE prévus VS AE consommés',
+          margin:40,
+        },
+        yAxis: {
+             gridLineColor: '#E6F0FF',         
+        },
+        tooltip: {
+              xDateFormat: '%B',
+            },
+        xAxis: {
+             lineColor: '#004A70',
+             type: 'datetime',
+            
+              title: {
+              text: "Dates",
+             },
+
+         },
+        plotOptions: {
+          column: {
+              tooltip: {
+                xDateFormat: '%B',
+              }
+          }
+        },
+       
+        }
+      %>
+             
+     </div>
+     <div class="col-md-6">
+
+      <%= column_chart [{name: "CP prévus", data: @etat_depenses.unscoped.group_by_year(:date).sum(:cp_prevu)},{name: "CP consommés", data: @etat_depenses.unscoped.group_by_year(:date).sum(:cp_conso)}],colors: ['#004A70','#AED9E6'],  library: {
+        chart:{
+          backgroundColor: '#E6F0FF',
+          borderRadius: '20px',
+          spacing: [40,40,40,40],
+        },
+        title: {
+          text: 'CP prévus VS CP consommés',
+          margin:40,
+        },
+        yAxis: {
+             gridLineColor: '#E6F0FF',         
+        },
+        tooltip: {
+              xDateFormat: '%B',
+            },
+        xAxis: {
+             lineColor: '#004A70',
+             type: 'datetime',
+            
+              title: {
+              text: "Dates",
+             },
+
+         },
+        plotOptions: {
+          column: {
+              tooltip: {
+                xDateFormat: '%B',
+              }
+          }
+        },
+       
+        }
+      %>
+             
+     </div>
+  </div><br><br>    

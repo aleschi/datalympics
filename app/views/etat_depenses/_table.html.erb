@@ -1,3 +1,6 @@
+
+<div  class="table-box">
+
 <% if !@etat_depenses.nil? %>
 
     <div class="ED_table_filtres">
@@ -41,3 +44,8 @@
       Aucune dépense renseignée
     </div>
   <%end%>
+ 
+    <div class="ED_new_depense">
+    <%= link_to new_etat_depense_path do %><i class="fas fa-plus-circle"></i>Ajouter une dépense<%end%>
+  </div> 
+</div>
