@@ -1,5 +1,5 @@
 <div class="ED_chart">
-    <%= line_chart @etat_depenses.unscoped.group_by_year(:date).sum('cp_conso'), colors: ['#48AF5C'], library: {
+    <%= area_chart @etat_depenses.unscoped.group_by_year(:date).sum('cp_conso'), colors: ['#48AF5C'], library: {
       chart:{
             backgroundColor: '#E6F0FF',
             borderRadius: '20px',
@@ -24,6 +24,39 @@
         }
     %>
   </div>
+<div class="ED_chart">
+ 
+    <%= column_chart [{name: "CP solideo", data: @etat_depenses_solideo.unscope(:order).group_by_year(:date).sum(:cp_conso)},{name: "CP cojo", data: @etat_depenses_cojo.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#004A70','#AED9E6'], library: {
+      chart:{
+            backgroundColor: '#E6F0FF',
+            borderRadius: '20px',
+            spacing: [40,40,40,40],
+          },
+
+      title: {
+        text:'Suivi des dépenses des différents acteurs par an',
+        margin:40,
+      },
+      yAxis: {
+        gridLineColor: '#E6F0FF', 
+   
+       },
+      plotOptions: {
+        column: {
+            stacking: 'normal',
+            dataLabels: {
+              #  enabled: true
+              }
+          }
+      },
+          tooltip: {
+             headerFormat: '<b>{point.x}</b><br/>',
+              pointFormat: '{series.name}: {point.y} ({point.percentage:.1f}%)<br/>Total: {point.stackTotal}'
+          }
+        }
+    %>
+  </div>
+
   <div class="row">
      <div class="col-md-6">
 

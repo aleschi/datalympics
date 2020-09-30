@@ -5,6 +5,10 @@ class EtatDepensesController < ApplicationController
   # GET /etat_depenses.json
   def index
     @etat_depenses = EtatDepense.all.order('date DESC')
+    @etat_depenses_solideo = EtatDepense.where("beneficiaire =?", "solideo")
+    @etat_depenses_cojo = EtatDepense.where("beneficiaire =?", "cojo")
+    @etat_depenses_heritage = EtatDepense.where("beneficiaire =?", "heritage")
+    @etat_depenses_hauteperformance = EtatDepense.where("beneficiaire =?", "hauteperformance")
     
   end
   
