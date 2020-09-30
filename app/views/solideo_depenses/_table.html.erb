@@ -1,0 +1,43 @@
+
+<div  class="table-box">
+
+<% if !@solideo_depenses.nil? %>
+
+    <div class="ED_table_filtres">
+      <a type="button" data-toggle="modal" data-target="#filtres" >Filtrer <i class="fas fa-sliders-h"></i></a>
+    </div>
+    <div class="ED_table">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Dates</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Type</th>
+            <th scope="col">Détails</th>
+            <th scope="col" class="border-none"> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @solideo_depenses.each do |solideo_depense| %>
+          <tr>
+            <th scope="row"><%= solideo_depense.date.strftime("%Y") %></th>
+            <td><%= number_with_delimiter(solideo_depense.montant.to_i, :delimiter => ' ') %>€</td>
+            <td><%= solideo_depense.categorie %></td>
+            <td><%= solideo_depense.details %></td>
+            <td class="border-none"> <%= link_to edit_solideo_depense_path(solideo_depense) do %> <i class="fas fa-pen"></i><% end %>
+            <%= link_to solideo_depense, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div>
+      Aucune dépense renseignée
+    </div>
+  <%end%>
+ 
+    <div class="ED_new_depense">
+    <%= link_to new_solideo_depense_path do %><i class="fas fa-plus-circle"></i>Ajouter une dépense<%end%>
+  </div> 
+</div>

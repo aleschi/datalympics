@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @solideo_depense.date %>
+</p>
+
+<p>
+  <strong>Montant:</strong>
+  <%= @solideo_depense.montant %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @solideo_depense.type %>
+</p>
+
+<p>
+  <strong>Details:</strong>
+  <%= @solideo_depense.details %>
+</p>
+
+<%= link_to 'Edit', edit_solideo_depense_path(@solideo_depense) %> |
+<%= link_to 'Back', solideo_depenses_path %>

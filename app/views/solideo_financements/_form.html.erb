@@ -1,0 +1,69 @@
+<div class="SD_new_form_box">
+<%= form_with(model: solideo_financement, local: true) do |form| %>
+  <% if solideo_financement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(solideo_financement.errors.count, "error") %> prohibited this solideo_financement from being saved:</h2>
+
+      <ul>
+      <% solideo_financement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financeur %>
+    <%= form.text_field :financeur %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financement_prevu %>
+    <%= form.text_field :financement_prevu %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financement_2018 %>
+    <%= form.text_field :financement_2018 %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financement_2019 %>
+    <%= form.text_field :financement_2019 %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financement_2020 %>
+    <%= form.text_field :financement_2020 %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financement_2021 %>
+    <%= form.text_field :financement_2021 %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financement_2022 %>
+    <%= form.text_field :financement_2022 %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financement_2023 %>
+    <%= form.text_field :financement_2023 %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financement_2024 %>
+    <%= form.text_field :financement_2024 %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :financement_2025 %>
+    <%= form.text_field :financement_2025 %>
+  </div>
+
+  <div class="SD_new_form_field_submit">
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>

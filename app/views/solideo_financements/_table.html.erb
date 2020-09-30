@@ -1,0 +1,55 @@
+
+<div  class="table-box">
+
+<% if !@solideo_financements.nil? %>
+
+    <div class="ED_table_filtres">
+      <a type="button" data-toggle="modal" data-target="#filtres" >Filtrer <i class="fas fa-sliders-h"></i></a>
+    </div>
+    <div class="ED_table">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Financeur</th>
+            <th scope="col">Financement prévu</th>
+            <th scope="col">Financement 2018</th>
+            <th scope="col">Financement 2019</th>
+            <th scope="col">Financement 2020</th>
+            <th scope="col">Financement 2021</th>
+            <th scope="col">Financement 2022</th>
+            <th scope="col">Financement 2023</th>
+            <th scope="col">Financement 2024</th>
+            <th scope="col">Financement 2025</th>
+            <th scope="col" class="border-none"> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @solideo_financements.each do |solideo_financement| %>
+          <tr>
+            <th scope="row"><%= solideo_financement.financeur %></th>
+            <td><%= number_with_delimiter(solideo_financement.financement_prevu.to_i, :delimiter => ' ') %>€</td>
+            <td><%= number_with_delimiter(solideo_financement.financement_2018.to_i, :delimiter => ' ') %>€</td>
+            <td><%= number_with_delimiter(solideo_financement.financement_2019.to_i, :delimiter => ' ') %>€</td>
+            <td><%= number_with_delimiter(solideo_financement.financement_2020.to_i, :delimiter => ' ') %>€</td>
+            <td><%= number_with_delimiter(solideo_financement.financement_2021.to_i, :delimiter => ' ') %>€</td>
+            <td><%= number_with_delimiter(solideo_financement.financement_2022.to_i, :delimiter => ' ') %>€</td>
+            <td><%= number_with_delimiter(solideo_financement.financement_2023.to_i, :delimiter => ' ') %>€</td>
+            <td><%= number_with_delimiter(solideo_financement.financement_2024.to_i, :delimiter => ' ') %>€</td>
+            <td><%= number_with_delimiter(solideo_financement.financement_2025.to_i, :delimiter => ' ') %>€</td>
+            <td class="border-none"> <%= link_to edit_solideo_financement_path(solideo_financement) do %> <i class="fas fa-pen"></i><% end %>
+            <%= link_to solideo_financement, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div>
+      Aucune dépense renseignée
+    </div>
+  <%end%>
+ 
+    <div class="ED_new_depense">
+    <%= link_to new_solideo_financement_path do %><i class="fas fa-plus-circle"></i>Modifier l'ensemble des financement ou ajouter un financeur<%end%>
+  </div> 
+</div>

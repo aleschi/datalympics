@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2020-09-30
+  montant: 1.5
+  type: 
+  details: MyString
+
+two:
+  date: 2020-09-30
+  montant: 1.5
+  type: 
+  details: MyString

@@ -1,0 +1,36 @@
+<div class="topo-box">
+  <div class="topo-chart">
+    <%= pie_chart @solideo_financements.group(:financeur).sum(:financement_prevu) ,  library: {
+     chart: {
+       backgroundColor: '#F3F8FF',
+        type: 'pie',
+        options3d: {
+            enabled: true,
+            alpha: 45
+        }
+    },
+
+      title: {
+        text:'Financements publics de la Solideo',
+        margin:40,
+      },
+     plotOptions: {
+        pie: {
+            innerSize: 100,
+            depth: 45
+        }
+    },
+  }
+   
+    %>
+  </div>
+  <div class="topo-financeurs">
+    <div class="topo-financeurs-title">Financeurs</div>
+    <% @solideo_financements.each do |solideo_financement| %>
+      <div class="topo-financeurs-name"><%= solideo_financement.financeur %> <span><%= number_with_delimiter(solideo_financement.financement_prevu.to_i, :delimiter => ' ')%>€</span></div>
+    <% end %>
+  </div>
+  <div class="topo-financement-chart">
+    
+  </div>
+</div>

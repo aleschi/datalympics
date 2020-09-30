@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :solideo_depenses
+  resources :solideo_financements do 
+    collection {post :import}
+  end 
   resources :etat_budgets
   resources :etat_depenses
   resources :ouvrages do 

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  financeur: MyString
+  financement_prevu: 1.5
+  financement_2018: 1.5
+  financement_2019: 1.5
+  financement_2020: 1.5
+  financement_2021: 1.5
+  financement_2022: 1.5
+  financement_2023: 1.5
+  financement_2024: 1.5
+  financement_2025: 1.5
+
+two:
+  financeur: MyString
+  financement_prevu: 1.5
+  financement_2018: 1.5
+  financement_2019: 1.5
+  financement_2020: 1.5
+  financement_2021: 1.5
+  financement_2022: 1.5
+  financement_2023: 1.5
+  financement_2024: 1.5
+  financement_2025: 1.5

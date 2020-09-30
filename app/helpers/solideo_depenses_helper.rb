@@ -1,0 +1,2 @@
+module SolideoDepensesHelper
+end

@@ -18,13 +18,13 @@ body {
   padding-bottom:60px;
  }
 
-.EB_page, .ED_page{
+.EB_page, .ED_page, .SD_page {
   max-width:1200px;
   margin:0 auto;
   padding:50px 30px;
 }
 
-.EB_title, .ED_title{
+.EB_title, .ED_title, .SD_title{
   text-align:center;
   font-size:40px;
   font-weight:600;
@@ -72,7 +72,7 @@ body {
     border-radius:5px;
   }
 }
-.ED_home_button{
+.ED_home_button, .SD_home_button{
   a{
     color:#48AF5C;
     font-size:15px;
@@ -163,7 +163,7 @@ body {
 .ED_chart{
   margin-bottom:50px;
 }
-.ED_new_form_box{
+.ED_new_form_box, .SD_new_form_box{
   border:2px solid #48AF5C;
   border-radius:13px;
   padding:25px 35px;
@@ -171,12 +171,12 @@ body {
   margin:auto;
 }
 @media(max-width:992px){
-  .ED_new_form_box{
+  .ED_new_form_box, .SD_new_form_box{
     width:100%;
     margin:0 20px;
   }
 }
-.ED_new_form_field{
+.ED_new_form_field, .SD_new_form_field{
   margin-bottom:14px;
   position:relative;
   label{
@@ -197,23 +197,23 @@ body {
   }
 }
 
-.ED_new_form_input{
+.ED_new_form_input, .SD_new_form_input{
   border: 1px solid #48AF5C;
   
 }
-.ED_new_form_input_categorie{
+.ED_new_form_input_categorie, .SD_new_form_input_categorie{
    border: 1px solid #48AF5C;
 }
-.ED_new_form_input_titre{
+.ED_new_form_input_titre, .SD_new_form_input_titre{
   border: 1px solid #48AF5C;
 }
-.ED_new_form_input_beneficiaire{
+.ED_new_form_input_beneficiaire, .SD_new_form_input_beneficiaire{
   border: 1px solid #48AF5C;
 }
-.ED_new_form_input_date{
+.ED_new_form_input_date, .SD_new_form_input_date{
   border: 1px solid #48AF5C;
 }
-.ED_new_form_field_submit{
+.ED_new_form_field_submit, .SD_new_form_field_submit{
   margin-top:50px;
   text-align:center;
   input{
@@ -230,7 +230,7 @@ body {
 }
 
 
-.ED_new_form_field_date:after, .ED_new_form_field_beneficiaire:after, .ED_new_form_field_titre:after {
+.ED_new_form_field_date:after, .ED_new_form_field_beneficiaire:after, .ED_new_form_field_titre:after, .SD_new_form_field_date:after, .SD_new_form_field_beneficiaire:after, .SD_new_form_field_titre:after {
     content: '<>';
   font-size: 15px ;
   color: #48AF5C;
@@ -342,4 +342,37 @@ display: none;
   background-color:#F3F8FF;
   border-radius:20px;
   padding: 40px;
+}
+
+.topo-box{
+   background-color:#F3F8FF;
+  border-radius:20px;
+  padding: 40px;
+   display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  align-items:center;
+}
+
+.topo-financeurs-title{
+  font-size:16px;
+  font-weight:700;
+  padding:4px 8px;
+  color:#fff;
+  background-color:#48AF5C;
+  margin-bottom:10px;
+  text-decoration:uppercase;
+}
+.topo-financeurs-name{
+  color:#48AF5C;
+  font-size:16px;
+  font-weight:700;
+  margin-bottom:5px;
+  text-decoration:uppercase;
+  span{
+    font-weight:500;
+    font-size:12px;
+  }
 }

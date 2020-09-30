@@ -1,0 +1,39 @@
+<div class="SD_new_form_box">
+<%= form_with(model: solideo_depense, local: true) do |form| %>
+  <% if solideo_depense.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(solideo_depense.errors.count, "error") %> prohibited this solideo_depense from being saved:</h2>
+
+      <ul>
+      <% solideo_depense.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="SD_new_form_field SD_new_form_field_date">
+    <%= form.label :date %>
+    <%= form.date_select :date, {:order => [:year]}, class: "SD_new_form_input_date"   %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :montant %>
+    <%= form.text_field :montant, class: "SD_new_form_input" %>
+  </div>
+
+  <div class="SD_new_form_field  SD_new_form_field_titre">
+    <%= form.label :categorie, "Catégorie" %>
+    <%= form.select :categorie, [["Ouvrages","ouvrages"],["Frais de fonctionnement","fonctionnement"],["Frais de Réserve","reserve"],["Fonds innovation","innovation"]], {},  class: "SD_new_form_input_categorie" %>
+  </div>
+
+  <div class="SD_new_form_field">
+    <%= form.label :details %>
+    <%= form.text_field :details, class: "SD_new_form_input" %>
+  </div>
+
+  <div class="SD_new_form_field_submit">
+    <%= form.submit "Ajouter"%>
+  </div>
+<% end %>
+</div>

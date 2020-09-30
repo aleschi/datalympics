@@ -1,0 +1,2 @@
+class SolideoDepense < ApplicationRecord
+end
