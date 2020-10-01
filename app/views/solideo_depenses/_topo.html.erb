@@ -1,0 +1,125 @@
+
+<div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>Poles dépenses solideo</span>
+  </div>
+  <div class="SD-topo_chart-box">
+    <div class="topo-chart">
+      <%= pie_chart({"Ouvrages" => 1130507000, "Réserve" => 94470000, "Innovation" => 47300000, "Frais de fonctionnement" => 103975000}, library: {
+      chart: {
+           backgroundColor: '#F3F8FF',
+        style:{
+          fontFamily: "Spectral",
+          }
+        },
+
+        tooltip: {
+          useHTML: true,
+          pointFormat: 'Montant : <b>{point.y:,.0f}€</b><br>',
+          shared: true,  
+        },
+
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+               # cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<em>{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %</em>',
+                    style: {
+                      color: "#8F8F8F",
+                      fontSize: "12px",
+                      fontWeight: "400",
+
+                      }
+                }
+            }
+        },
+      }) %>
+
+  </div>
+
+    <div id="SD-topo-repartitio">
+  
+         <%= column_chart [{name: "Montant actuels", data: @solideo_depenses.unscope(:order).group(:categorie).sum('montant')}, {name: "prévu", data: [["ouvrages",2222222],["reserve",2222222],["fonctionnement", 2222222],["innovation",2222222]]} ], library: {
+      chart:{
+          type: 'column',
+           backgroundColor: '#F3F8FF',
+           style:{
+          fontFamily: "Spectral",
+          },
+          },
+
+      title: {
+        text:'Avancée ',
+        margin:40,
+         style: {
+                      color: "#8F8F8F",
+                      fontSize: "12px",
+                      fontWeight: "400",
+
+                      },
+      },
+  plotOptions: {
+        column: {
+            stacking: 'percent'
+        }
+    },
+  legend: {
+        reversed: true
+    },
+  xAxis: {
+    reversed: false,
+    },
+      yAxis: {
+        gridLineColor: '#E6F0FF', 
+       },
+          tooltip: {
+            pointFormat: 'Total: <b>{point.y}</b>',
+            xDateFormat: '%Y',
+            valuePrefix: '$'
+          }
+        }
+    %>
+    </div>
+            
+
+  </div>
+</div>
+  
+
+<script>
+Highcharts.chart('SD-topo-repartition', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: null
+    },
+    xAxis: {
+        categories: ['Ouvrages', 'Réserve', 'Innovation', 'Frais de fonctionnement']
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Avancement'
+        }
+    },
+    tooltip: {
+        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+        shared: true
+    },
+    plotOptions: {
+        column: {
+            stacking: 'percent'
+        }
+    },
+    series: [{
+        name: 'Budget restant',
+        data: [5, 3, 4, 7]
+    }, {
+        name: 'Budget utilisé',
+        data: [3, 4, 4, 2]
+    }]
+});
+</script>

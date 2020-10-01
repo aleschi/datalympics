@@ -5,8 +5,6 @@ class SolideoFinancementsController < ApplicationController
   # GET /solideo_financements.json
   def index
     @solideo_financements = SolideoFinancement.all
-    @solideo_financements_etat = SolideoFinancement.where("financeur = ?", "Etat").first.financement_prevu
-    @solideo_financements_collectivites = SolideoFinancement.where("financeur != ?", "etat").sum(:financement_prevu)
   end
 
   # GET /solideo_financements/1

@@ -6,9 +6,10 @@ class SolideoDepensesController < ApplicationController
   def index
     @solideo_depenses = SolideoDepense.all
     @solideo_financements = SolideoFinancement.all
-    
-    @solideo_financements_etat = SolideoFinancement.where("financeur = ?", "Etat").first.financement_prevu
-    @solideo_financements_collectivites = SolideoFinancement.where("financeur != ?", "etat").sum(:financement_prevu)
+    @solideo_depenses_ouvrages = SolideoDepense.all.where('categorie = ?', "ouvrages")
+    @solideo_depenses_reserve = SolideoDepense.all.where('categorie = ?', "reserve")
+    @solideo_depenses_innovation = SolideoDepense.all.where('categorie = ?', "innovation")
+    @solideo_depenses_fonctionnement = SolideoDepense.all.where('categorie = ?', "fonctionnement")
   end
 
   # GET /solideo_depenses/1

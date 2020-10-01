@@ -344,7 +344,7 @@ display: none;
   padding: 40px;
 }
 
-.topo-box{
+.SF-topo-box{
    background-color:#F3F8FF;
   border-radius:20px;
   padding: 40px;
@@ -356,23 +356,73 @@ display: none;
   align-items:center;
 }
 
-.topo-financeurs-title{
+.SF-topo-financeurs-title span{
   font-size:16px;
   font-weight:700;
   padding:4px 8px;
   color:#fff;
   background-color:#48AF5C;
   margin-bottom:10px;
-  text-decoration:uppercase;
+  text-transform:uppercase;
 }
-.topo-financeurs-name{
+.SF-topo-financeurs-name{
   color:#48AF5C;
   font-size:16px;
   font-weight:700;
   margin-bottom:5px;
-  text-decoration:uppercase;
+  text-transform:uppercase;
   span{
     font-weight:500;
     font-size:12px;
+    margin-left:50px;
   }
 }
+.SF-topo-financeurs-subtitle{
+  font-family: 'Spectral', sans-serif;
+  color: #8F8F8F;
+  font-weight:300;
+  font-style: italic;
+  font-size:12px;
+  text-align:right;
+  margin-bottom:5px;
+}
+.SD-topo-box{
+   background-color:#F3F8FF;
+  border-radius:20px;
+  padding: 40px;
+ 
+}
+.SD-topo-box-title span{
+  font-size:16px;
+  font-weight:700;
+  padding:4px 8px;
+  color:#fff;
+  background-color:#48AF5C;
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+.SD-topo_chart-box{
+    display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  align-items:center;
+}
+
+.SD-table-box{
+   background-color:#F3F8FF;
+  border-radius:20px;
+  padding: 40px;
+   display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  align-items:center;
+}
+
+.SD-table-box-left{
+  width:50%;
+}
+

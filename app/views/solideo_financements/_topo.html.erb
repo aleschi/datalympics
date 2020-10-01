@@ -1,4 +1,4 @@
-<div class="topo-box">
+<div class="SF-topo-box">
   <div class="topo-chart">
     <%= pie_chart @solideo_financements.group(:financeur).sum(:financement_prevu) ,  library: {
      chart: {
@@ -7,12 +7,19 @@
         options3d: {
             enabled: true,
             alpha: 45
-        }
+        },
+       style:{
+          fontFamily: "Spectral",
+          },
     },
 
       title: {
-        text:'Financements publics de la Solideo',
+        text:'<em>Financements publics de la Solideo</em>',
         margin:40,
+        style: {
+          color: '#8F8F8F',
+        
+          }
       },
      plotOptions: {
         pie: {
@@ -23,14 +30,18 @@
   }
    
     %>
+
   </div>
-  <div class="topo-financeurs">
-    <div class="topo-financeurs-title">Financeurs</div>
+  <div class="SF-topo-financeurs">
+    <div class="SF-topo-financeurs-title"><span>Financeurs</span></div><br>
+    <div class="SF-topo-financeurs-subtitle">
+      Financements prévus | Financement actuel reçus
+    </div>
     <% @solideo_financements.each do |solideo_financement| %>
-      <div class="topo-financeurs-name"><%= solideo_financement.financeur %> <span><%= number_with_delimiter(solideo_financement.financement_prevu.to_i, :delimiter => ' ')%>€</span></div>
+    
+    <div class="SF-topo-financeurs-name"><%= solideo_financement.financeur %> 
+        <span class="pull-right"><%= number_with_delimiter(solideo_financement.financement_prevu.to_i, :delimiter => ' ')%> € | <%= number_with_delimiter((solideo_financement.financement_2018.to_i+ solideo_financement.financement_2019.to_i + solideo_financement.financement_2020.to_i), :delimiter => ' ') %> €</span></div>
     <% end %>
   </div>
-  <div class="topo-financement-chart">
-    
-  </div>
+ 
 </div>
