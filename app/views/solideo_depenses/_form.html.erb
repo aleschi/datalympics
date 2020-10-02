@@ -18,19 +18,23 @@
   </div>
 
   <div class="SD_new_form_field">
-    <%= form.label :montant %>
-    <%= form.text_field :montant, class: "SD_new_form_input" %>
+    <%= form.label :ouvrages %>
+    <%= form.text_field :ouvrages, class: "SD_new_form_input" %>
   </div>
-
-  <div class="SD_new_form_field  SD_new_form_field_titre">
-    <%= form.label :categorie, "Catégorie" %>
-    <%= form.select :categorie, [["Ouvrages","ouvrages"],["Frais de fonctionnement","fonctionnement"],["Frais de Réserve","reserve"],["Fonds innovation","innovation"]], {},  class: "SD_new_form_input_categorie" %>
-  </div>
-
   <div class="SD_new_form_field">
-    <%= form.label :details %>
-    <%= form.text_field :details, class: "SD_new_form_input" %>
+    <%= form.label :fonctionnement %>
+    <%= form.text_field :fonctionnement, class: "SD_new_form_input" %>
   </div>
+  <div class="SD_new_form_field">
+    <%= form.label :reserve %>
+    <%= form.text_field :reserve, class: "SD_new_form_input" %>
+  </div>
+  <div class="SD_new_form_field">
+    <%= form.label :innovation %>
+    <%= form.text_field :innovation, class: "SD_new_form_input" %>
+  </div>
+
+  
 
   <div class="SD_new_form_field_submit">
     <%= form.submit "Ajouter"%>

@@ -1,6 +1,7 @@
+<% if !@solideo_financements.nil?%>
 <div class="SF-topo-box">
   <div class="topo-chart">
-    <%= pie_chart @solideo_financements.group(:financeur).sum(:financement_prevu) ,  library: {
+    <%= pie_chart @solideo_financements.unscope(:order).group(:financeur).sum(:financement_prevu) ,  library: {
      chart: {
        backgroundColor: '#F3F8FF',
         type: 'pie',
@@ -45,3 +46,4 @@
   </div>
  
 </div>
+<% end %>

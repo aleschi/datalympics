@@ -10,6 +10,7 @@
            backgroundColor: '#F3F8FF',
         style:{
           fontFamily: "Spectral",
+          maxWidth: "500px",
           }
         },
 
@@ -38,88 +39,64 @@
       }) %>
 
   </div>
+    
+    <% if !@solideo_depenses.nil?%>
+      <div id="SD-topo-repartition">
 
-    <div id="SD-topo-repartitio">
-  
-         <%= column_chart [{name: "Montant actuels", data: @solideo_depenses.unscope(:order).group(:categorie).sum('montant')}, {name: "prévu", data: [["ouvrages",2222222],["reserve",2222222],["fonctionnement", 2222222],["innovation",2222222]]} ], library: {
-      chart:{
-          type: 'column',
-           backgroundColor: '#F3F8FF',
-           style:{
-          fontFamily: "Spectral",
+        <%= column_chart [ {name: "Budget total prévu", data: [["ouvrages",1130507000],["reserve",94470000],["fonctionnement", 103975000],["innovation",47300000]]},{name: "Budget dépensé", data: [["ouvrages",@solideo_depenses_ouvrages],["reserve",@solideo_depenses_reserve],["fonctionnement", @solideo_depenses_fonctionnement],["innovation",@solideo_depenses_innovation]]} ], library: {
+        chart:{
+            type: 'column',
+            backgroundColor: '#F3F8FF',
+            style:{
+            fontFamily: "Spectral",
+               maxWidth: "500px",
+            },
+            },
+
+        title: {
+          text:'<em>% du budget dépensé par rapport au budget prévu </em>',
+          margin:40,
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
+        },
+        plotOptions: {
+          column: {
+            stacking: 'percent',
+           label: { 
+              enable: true,
+            format: '<em>{point.value}</em>',
+            style: {
+                   color: "#8F8F8F",
+                   fontSize: "12px",
+                   fontWeight: "400",
+                  },
+              },
+           },
           },
-          },
-
-      title: {
-        text:'Avancée ',
-        margin:40,
-         style: {
-                      color: "#8F8F8F",
-                      fontSize: "12px",
-                      fontWeight: "400",
-
-                      },
+      legend: {
+          reversed: true
+        },
+      xAxis: {
+      reversed: false,
       },
-  plotOptions: {
-        column: {
-            stacking: 'percent'
-        }
-    },
-  legend: {
-        reversed: true
-    },
-  xAxis: {
-    reversed: false,
-    },
       yAxis: {
-        gridLineColor: '#E6F0FF', 
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
+          gridLineColor: '#E6F0FF', 
+         },
+      tooltip: {
+
+              pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}€</b><br/>',
+
+            }
           }
-        }
-    %>
-    </div>
-            
+      %>
+      </div>
+    <% end %>      
 
   </div>
+  
+
 </div>
   
 
-<script>
-Highcharts.chart('SD-topo-repartition', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: null
-    },
-    xAxis: {
-        categories: ['Ouvrages', 'Réserve', 'Innovation', 'Frais de fonctionnement']
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Avancement'
-        }
-    },
-    tooltip: {
-        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-        shared: true
-    },
-    plotOptions: {
-        column: {
-            stacking: 'percent'
-        }
-    },
-    series: [{
-        name: 'Budget restant',
-        data: [5, 3, 4, 7]
-    }, {
-        name: 'Budget utilisé',
-        data: [3, 4, 4, 2]
-    }]
-});
-</script>

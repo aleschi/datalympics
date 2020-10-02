@@ -6,10 +6,18 @@ class SolideoDepensesController < ApplicationController
   def index
     @solideo_depenses = SolideoDepense.all
     @solideo_financements = SolideoFinancement.all
-    @solideo_depenses_ouvrages = SolideoDepense.all.where('categorie = ?', "ouvrages")
-    @solideo_depenses_reserve = SolideoDepense.all.where('categorie = ?', "reserve")
-    @solideo_depenses_innovation = SolideoDepense.all.where('categorie = ?', "innovation")
-    @solideo_depenses_fonctionnement = SolideoDepense.all.where('categorie = ?', "fonctionnement")
+    if !@solideo_depenses.nil?
+      @solideo_depenses_ouvrages = @solideo_depenses.sum('ouvrages')
+      @solideo_depenses_reserve = @solideo_depenses.sum('reserve')
+      @solideo_depenses_innovation = @solideo_depenses.sum('innovation')
+      @solideo_depenses_fonctionnement = @solideo_depenses.sum('fonctionnement')
+    else
+      @solideo_depenses_ouvrages = 0
+      @solideo_depenses_reserve = 0
+      @solideo_depenses_innovation = 0
+      @solideo_depenses_fonctionnement = 0
+    end 
+    
   end
 
   # GET /solideo_depenses/1
@@ -74,6 +82,6 @@ class SolideoDepensesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def solideo_depense_params
-      params.require(:solideo_depense).permit(:date, :montant, :categorie, :details)
+      params.require(:solideo_depense).permit(:date, :ouvrages, :reserve, :fonctionnement, :innovation)
     end
 end

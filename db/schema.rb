@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_30_133353) do
+ActiveRecord::Schema.define(version: 2020_10_02_090625) do
 
   create_table "etat_budgets", force: :cascade do |t|
     t.datetime "date"
@@ -44,11 +44,12 @@ ActiveRecord::Schema.define(version: 2020_09_30_133353) do
 
   create_table "solideo_depenses", force: :cascade do |t|
     t.date "date"
-    t.float "montant"
-    t.string "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "categorie"
+    t.float "ouvrages"
+    t.float "fonctionnement"
+    t.float "reserve"
+    t.float "innovation"
   end
 
   create_table "solideo_financements", force: :cascade do |t|
