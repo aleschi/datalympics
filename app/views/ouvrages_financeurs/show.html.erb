@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ouvrage:</strong>
+  <%= @ouvrages_financeur.ouvrage %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ouvrages_financeur.name %>
+</p>
+
+<p>
+  <strong>Financement prevu:</strong>
+  <%= @ouvrages_financeur.financement_prevu %>
+</p>
+
+<p>
+  <strong>Financement actuel:</strong>
+  <%= @ouvrages_financeur.financement_actuel %>
+</p>
+
+<%= link_to 'Edit', edit_ouvrages_financeur_path(@ouvrages_financeur) %> |
+<%= link_to 'Back', ouvrages_financeurs_path %>

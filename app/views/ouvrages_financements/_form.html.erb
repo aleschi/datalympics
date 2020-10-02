@@ -1,0 +1,37 @@
+<%= form_with(model: ouvrages_financement, local: true) do |form| %>
+  <% if ouvrages_financement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ouvrages_financement.errors.count, "error") %> prohibited this ouvrages_financement from being saved:</h2>
+
+      <ul>
+      <% ouvrages_financement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ouvrage_id %>
+    <%= form.text_field :ouvrage_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :montant %>
+    <%= form.text_field :montant %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

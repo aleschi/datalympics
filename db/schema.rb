@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_090625) do
+ActiveRecord::Schema.define(version: 2020_10_02_150218) do
 
   create_table "etat_budgets", force: :cascade do |t|
     t.datetime "date"
@@ -40,6 +40,39 @@ ActiveRecord::Schema.define(version: 2020_10_02_090625) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "maitre_oeuvre"
+    t.float "budget"
+  end
+
+  create_table "ouvrages_depenses", force: :cascade do |t|
+    t.date "date"
+    t.integer "ouvrage_id"
+    t.string "name"
+    t.float "montant"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ouvrage_id"], name: "index_ouvrages_depenses_on_ouvrage_id"
+  end
+
+  create_table "ouvrages_financements", force: :cascade do |t|
+    t.date "date"
+    t.integer "ouvrage_id"
+    t.string "name"
+    t.float "montant"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "montant_prevu"
+    t.index ["ouvrage_id"], name: "index_ouvrages_financements_on_ouvrage_id"
+  end
+
+  create_table "ouvrages_financeurs", force: :cascade do |t|
+    t.integer "ouvrage_id"
+    t.string "name"
+    t.float "financement_prevu"
+    t.float "financement_actuel"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ouvrage_id"], name: "index_ouvrages_financeurs_on_ouvrage_id"
   end
 
   create_table "solideo_depenses", force: :cascade do |t|

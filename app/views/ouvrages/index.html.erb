@@ -1,6 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Liste des Ouvrages</h1>
+<div class="SD_page">
+  <div class="SD_home_button">
+    <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
+  </div>
+  <h1 class="SD_title">Les ouvrages</h1>
 
 <table>
 
@@ -10,6 +12,8 @@
     <% @ouvrages.each do |ouvrage| %>
       <tr>
         <td><%= ouvrage.name %></td>
+        <td><%= ouvrage.maitre_oeuvre %></td>
+        <td><%= ouvrage.budget.to_i %></td>
         <td><%= link_to 'Show', ouvrage %></td>
         <td><%= link_to 'Edit', edit_ouvrage_path(ouvrage) %></td>
         <td><%= link_to 'Destroy', ouvrage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -23,14 +27,5 @@
 
 <%= link_to 'New Ouvrage', new_ouvrage_path %>
 
-<br>
-<div>
-  Importer données csv
+
 </div>
-<%=form_tag import_ouvrages_path, multipart: true do %>
-
-<%= file_field_tag :file %>
-
-<%= submit_tag 'Importer'%>
-
-<%end%>

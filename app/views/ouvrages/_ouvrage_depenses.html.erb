@@ -1,0 +1,76 @@
+<div  class="SD-table-box">
+    <div>
+    <%= line_chart @ouvrage_depenses.unscope(:order).group_by_year(:date).sum('montant'), library: {
+      chart:{
+            backgroundColor: '#F3F8FF',
+           
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         
+          }
+          },
+
+      title: {
+        text:'<em>Suivi annuel des dépenses</em>',
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
+      },
+      yAxis: {
+        gridLineColor: '#E6F0FF', 
+           labels: {
+               format: '${value}'
+           }
+       },
+          tooltip: {
+            pointFormat: 'Total: <b>{point.y}</b>',
+            xDateFormat: '%Y',
+            valuePrefix: '$'
+          }
+        }
+    %>
+  </div>
+  <div class="SD-table-box-left">
+    <% if !@ouvrage_depenses.nil? %>
+
+      
+        <div class="ED_table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Dates</th>
+                <th scope="col">Montant</th>
+                <th scope="col">Beneficiaire</th>
+                <th scope="col" class="border-none"> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @ouvrage_depenses.order('date DESC').each do |ouvrage_depense| %>
+              <tr>
+                <th scope="row"><%= ouvrage_depense.date.strftime("%Y") %></th>
+                <td><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</td>
+                <td><%= ouvrage_depense.name %></td>
+            
+                <td class="border-none"> <%= link_to edit_ouvrages_depense_path(ouvrage_depense) do %> <i class="fas fa-pen"></i><% end %>
+                <%= link_to ouvrages_depense, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div>
+          Aucune dépense renseignée
+        </div>
+      <%end%>
+
+      <div class="ED_new_depense">
+        <%= link_to new_ouvrages_depense_path do %><i class="fas fa-plus-circle"></i>Ajouter une dépense<%end%>
+      </div> 
+      
+  </div>
+  
+  </div>

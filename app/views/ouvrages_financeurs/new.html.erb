@@ -1,0 +1,14 @@
+<h1>New Ouvrages Financeur</h1>
+<div>
+  Importer données csv
+</div>
+<%=form_tag import_ouvrages_financeurs_path, multipart: true do %>
+
+<%= file_field_tag :file %>
+
+<%= submit_tag 'Importer'%>
+
+<%end%>
+<%= render 'form', ouvrages_financeur: @ouvrages_financeur %>
+
+<%= link_to 'Back', ouvrages_financeurs_path %>

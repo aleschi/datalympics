@@ -18,7 +18,7 @@ body {
   padding-bottom:60px;
  }
 
-.EB_page, .ED_page, .SD_page {
+.EB_page, .ED_page, .SD_page, .O_page {
   max-width:1200px;
   margin:0 auto;
   padding:50px 30px;
@@ -72,7 +72,7 @@ body {
     border-radius:5px;
   }
 }
-.ED_home_button, .SD_home_button{
+.ED_home_button, .SD_home_button, .O_home_button{
   a{
     color:#48AF5C;
     font-size:15px;
@@ -356,7 +356,7 @@ display: none;
   align-items:center;
 }
 
-.SF-topo-financeurs-title span{
+.SF-topo-financeurs-title span, .O-topo-financeurs-title span{
   font-size:16px;
   font-weight:700;
   padding:4px 8px;
@@ -365,7 +365,7 @@ display: none;
   margin-bottom:10px;
   text-transform:uppercase;
 }
-.SF-topo-financeurs-name{
+.SF-topo-financeurs-name, .O-topo-financeurs-name{
   color:#48AF5C;
   font-size:16px;
   font-weight:700;
@@ -377,7 +377,7 @@ display: none;
     margin-left:50px;
   }
 }
-.SF-topo-financeurs-subtitle{
+.SF-topo-financeurs-subtitle, .O-topo-financeurs-subtitle{
   font-family: 'Spectral', sans-serif;
   color: #8F8F8F;
   font-weight:300;
@@ -417,5 +417,23 @@ display: none;
 
 }
 
-
-
+.O_title span{
+    font-size:16px;
+  font-weight:700;
+  padding:4px 8px;
+  color:#fff;
+  background-color:#48AF5C;
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+.O-topo-box{
+   background-color:#F3F8FF;
+  border-radius:20px;
+  padding: 40px;
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  align-items:center;
+}

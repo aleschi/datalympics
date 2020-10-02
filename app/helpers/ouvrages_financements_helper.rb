@@ -1,0 +1,2 @@
+module OuvragesFinancementsHelper
+end

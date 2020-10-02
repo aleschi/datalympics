@@ -1,4 +1,15 @@
 <h1>New Ouvrage</h1>
+<br>
+<div>
+  Importer données csv
+</div>
+<%=form_tag import_ouvrages_path, multipart: true do %>
+
+<%= file_field_tag :file %>
+
+<%= submit_tag 'Importer'%>
+
+<%end%>
 
 <%= render 'form', ouvrage: @ouvrage %>
 

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ouvrages Depenses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Ouvrage</th>
+      <th>Name</th>
+      <th>Montant</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ouvrages_depenses.each do |ouvrages_depense| %>
+      <tr>
+        <td><%= ouvrages_depense.date %></td>
+        <td><%= ouvrages_depense.ouvrage %></td>
+        <td><%= ouvrages_depense.name %></td>
+        <td><%= ouvrages_depense.montant %></td>
+        <td><%= link_to 'Show', ouvrages_depense %></td>
+        <td><%= link_to 'Edit', edit_ouvrages_depense_path(ouvrages_depense) %></td>
+        <td><%= link_to 'Destroy', ouvrages_depense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ouvrages Depense', new_ouvrages_depense_path %>

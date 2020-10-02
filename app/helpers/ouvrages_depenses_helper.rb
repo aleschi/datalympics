@@ -1,0 +1,2 @@
+module OuvragesDepensesHelper
+end
