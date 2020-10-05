@@ -22,13 +22,7 @@ class OuvragesFinancementsController < ApplicationController
   end
   
   def import
-    @ouvrages_financements = OuvragesFinancement.import(params[:file])
-    if !@ouvrages_financements.nil?
-      @ouvrages_financements.each do |ouvrage_financement|
-        ouvrage_financement.date = params[:date]
-        ouvrage_financement.save 
-      end 
-    end 
+    @ouvrages_financements = OuvragesFinancement.import(params[:file], params[:date_year].to_i, params[:date_month].to_i)
     redirect_to ouvrages_financements_path
   end
 

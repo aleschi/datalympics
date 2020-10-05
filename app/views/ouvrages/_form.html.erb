@@ -1,3 +1,4 @@
+<div class="ED_new_form_box">
 <%= form_with(model: ouvrage, local: true) do |form| %>
   <% if ouvrage.errors.any? %>
     <div id="error_explanation">
@@ -11,12 +12,13 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
+  <div class="ED_new_form_field">
+    <%= form.label :name, "Nom de l'ouvrage" %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="ED_new_form_field_submit">
+    <%= form.submit 'Ajouter '%>
   </div>
 <% end %>
+</div>

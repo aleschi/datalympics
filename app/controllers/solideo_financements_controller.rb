@@ -10,6 +10,9 @@ class SolideoFinancementsController < ApplicationController
   # GET /solideo_financements/1
   # GET /solideo_financements/1.json
   def show
+    
+    @financeur=SolideoFinancement.where('financeur = ?', @solideo_financement.financeur)
+    @ouvrage_finances = OuvragesFinancement.where('name = ?', @solideo_financement.financeur)
   end
 
   # GET /solideo_financements/new
@@ -26,6 +29,10 @@ class SolideoFinancementsController < ApplicationController
     SolideoFinancement.import(params[:file])
     redirect_to solideo_financements_path
     
+  end 
+  
+  def collectivites
+    @solideo_financements = SolideoFinancement.where('financeur != ?', 'Etat').all
   end 
 
   # POST /solideo_financements
@@ -76,6 +83,6 @@ class SolideoFinancementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def solideo_financement_params
-      params.require(:solideo_financement).permit(:financeur, :financement_prevu, :financement_2018, :financement_2019, :financement_2020, :financement_2021, :financement_2022, :financement_2023, :financement_2024, :financement_2025)
+      params.require(:solideo_financement).permit(:financeur, :date, :montant_prevu, :montant, :categorie)
     end
 end

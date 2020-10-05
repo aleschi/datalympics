@@ -1,16 +1,26 @@
-<h1>New Ouvrage</h1>
-<br>
-<div>
-  Importer données csv
+<div class="EB_page">
+  <div class="ED_home_button">
+    <%= link_to ouvrages_path do %><i class="fas fa-chevron-left"></i>Retour<%end %>
+  </div>
+  <h1 class="EB_title">Ajouter un ouvrage</h1>
+
+  <div class="new-ouvrage-text">
+    Importer les données (format csv) 
+  </div>
+  <%=form_tag import_ouvrages_path, multipart: true do %>
+    
+  <div class="new-ouvrage-file">
+    <%= file_field_tag :file %>
+  </div>
+
+    <div class="ED_new_form_field_submit">
+      <%= submit_tag 'Importer'%>
+    </div>
+
+  <%end%>
+
+  
+ <h1 class="EB_title">Ou ajouter manuellement </h1>
+ <%= render 'form', ouvrage: @ouvrage %>
+
 </div>
-<%=form_tag import_ouvrages_path, multipart: true do %>
-
-<%= file_field_tag :file %>
-
-<%= submit_tag 'Importer'%>
-
-<%end%>
-
-<%= render 'form', ouvrage: @ouvrage %>
-
-<%= link_to 'Back', ouvrages_path %>

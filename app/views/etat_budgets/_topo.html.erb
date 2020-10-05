@@ -1,0 +1,102 @@
+
+<div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>Répartition Budget état</span>
+  </div>
+  <div class="SD-topo_chart-box">
+    <div class="topo-chart">
+      <%= pie_chart({"SOLIDEO" => @etat_budget_actuel.budget_solideo.to_i, "COJO" => @etat_budget_actuel.budget_cojo.to_i, "Héritage" => @etat_budget_actuel.budget_heritage.to_i, "Haute Performance" => @etat_budget_actuel.budget_hauteperformance.to_i}, library: {
+      chart: {
+           backgroundColor: '#F3F8FF',
+        style:{
+          fontFamily: "Spectral",
+          maxWidth: "500px",
+          }
+        },
+
+        tooltip: {
+          useHTML: true,
+          pointFormat: 'Montant : <b>{point.y:,.0f}€</b><br>',
+          shared: true,  
+        },
+
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+               # cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<em>{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %</em>',
+                    style: {
+                      color: "#8F8F8F",
+                      fontSize: "12px",
+                      fontWeight: "400",
+
+                      }
+                }
+            }
+        },
+      }) %>
+
+  </div>
+    
+    <% if !@etat_depenses.nil?%>
+      <div id="SD-topo-repartition">
+
+        <%= column_chart [ {name: "Budget Etat prévu", data: [["SOLIDEO",@etat_budget_actuel.budget_solideo.to_i],["COJO",@etat_budget_actuel.budget_cojo.to_i],["Héritage", @etat_budget_actuel.budget_heritage.to_i],["Haute Performance",@etat_budget_actuel.budget_hauteperformance.to_i]]},{name: "Budget dépensé", data: [["SOLIDEO",@etat_depenses_solideo.to_i],["COJO",@etat_depenses_cojo.to_i],["Héritage", @etat_depenses_heritage.to_i],["Haute Performance",@etat_depenses_hauteperformance.to_i]]} ], library: {
+        chart:{
+            type: 'column',
+            backgroundColor: '#F3F8FF',
+            style:{
+            fontFamily: "Spectral",
+               maxWidth: "500px",
+            },
+            },
+
+        title: {
+          text:'<em>% du budget dépensé par rapport au budget prévu </em>',
+          margin:40,
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
+        },
+        plotOptions: {
+          column: {
+            stacking: 'percent',
+           label: { 
+              enable: true,
+            format: '<em>{point.value}</em>',
+            style: {
+                   color: "#8F8F8F",
+                   fontSize: "12px",
+                   fontWeight: "400",
+                  },
+              },
+           },
+          },
+      legend: {
+          reversed: true
+        },
+      xAxis: {
+      reversed: false,
+      },
+      yAxis: {
+          gridLineColor: '#E6F0FF', 
+         },
+      tooltip: {
+
+              pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}€</b><br/>',
+
+            }
+          }
+      %>
+      </div>
+    <% end %>      
+
+  </div>
+  
+
+</div>
+  
+

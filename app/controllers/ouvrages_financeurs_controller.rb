@@ -5,6 +5,7 @@ class OuvragesFinanceursController < ApplicationController
   # GET /ouvrages_financeurs.json
   def index
     @ouvrages_financeurs = OuvragesFinanceur.all
+    @solideo_financements = SolideoFinancement.where('financeur != ?', 'Etat').all
   end
 
   # GET /ouvrages_financeurs/1

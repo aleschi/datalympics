@@ -2,30 +2,26 @@
   <div class="SD_home_button">
     <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
   </div>
-  <h1 class="SD_title">Les ouvrages</h1>
-
+  <h1 class="O_title"><span>Ouvrages</span></h1>
 <table>
 
 
   <tbody>
     <% if !@ouvrages.nil?%>
     <% @ouvrages.each do |ouvrage| %>
-      <tr>
-        <td><%= ouvrage.name %></td>
-        <td><%= ouvrage.maitre_oeuvre %></td>
-        <td><%= ouvrage.budget.to_i %></td>
-        <td><%= link_to 'Show', ouvrage %></td>
-        <td><%= link_to 'Edit', edit_ouvrage_path(ouvrage) %></td>
-        <td><%= link_to 'Destroy', ouvrage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="O-name">
+      <%= link_to ouvrage do %>
+        <%= ouvrage.name %>          
+      <% end %>
+      </div>
     <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Ouvrage', new_ouvrage_path %>
-
+<div class="ED_new_depense">
+<%= link_to new_ouvrage_path do%><i class="fas fa-plus-circle"></i> Ajouter un ouvrage <% end %>
+  </div>
 
 </div>

@@ -72,6 +72,18 @@ body {
     border-radius:5px;
   }
 }
+.EB-details{
+  text-align:center;
+  a{
+    color:#fff;
+    background-color: #48AF5C;
+    font-size:18px;
+    font-weight:700;
+    padding:6px 10px;
+    border-radius:4px;
+    text-transform:uppercase;
+  }
+}
 .ED_home_button, .SD_home_button, .O_home_button{
   a{
     color:#48AF5C;
@@ -365,17 +377,47 @@ display: none;
   margin-bottom:10px;
   text-transform:uppercase;
 }
+.SF-topo-financeurs-box{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  
+}
 .SF-topo-financeurs-name, .O-topo-financeurs-name{
   color:#48AF5C;
   font-size:16px;
   font-weight:700;
   margin-bottom:5px;
   text-transform:uppercase;
-  span{
-    font-weight:500;
-    font-size:12px;
-    margin-left:50px;
+  width:200px;
+  margin-right:50px;
+  a{
+    color:#48AF5C;
   }
+}
+
+.SF-topo-financeurs-budget{
+  width:200px;
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+}
+.SF-topo-financeurs-budget-prevu{
+   font-weight:500;
+    font-size:12px;
+  color: #8F8F8F;
+  width:50%;
+  text-align:right;
+  margin-right:5px;
+}
+.SF-topo-financeurs-budget-actuel{
+  font-weight:500;
+    font-size:12px ;
+   color:#48AF5C;
+    width:50%;
+  text-align:left;
 }
 .SF-topo-financeurs-subtitle, .O-topo-financeurs-subtitle{
   font-family: 'Spectral', sans-serif;
@@ -426,7 +468,7 @@ display: none;
   margin-bottom:10px;
   text-transform:uppercase;
 }
-.O-topo-box{
+.O-topo-box, .O-jalons-box{
    background-color:#F3F8FF;
   border-radius:20px;
   padding: 40px;
@@ -435,5 +477,54 @@ display: none;
   display: -ms-inline-flex;
   display: -moz-inline-flex;
   width:100%;
-  align-items:center;
+ 
+}
+
+.O-name{
+  a{
+  color: #48AF5C;
+  font-size:15px;
+  font-weight:700;
+  }
+}
+.new-ouvrage-text{
+ color:#444444;
+  font-size:15px;
+  text-align:center;
+}
+.new-ouvrage-file input[type="file"]{
+  margin:auto;
+  text-align:center;
+}
+
+.O-topo-box-infos{
+  width:50%;
+}
+.O-topo-infos-text{
+ color:#8F8F8F;
+ font-size:16px;
+  line-height:22px;
+  font-weight:700;
+  
+}
+
+.O-topo-image{
+  width:300px;
+  height:150px;
+  background-color:#8F8F8F;
+ 
+}
+.ouvrage-edit-btn {
+  margin-top:50px;
+  a {
+  color:#444444;
+  font-size:12px;
+  margin-right:10px
+  }
+}
+.O_jalon{
+  color: #48AF5C;
+  font-size: 16px;
+  font-weight:700;
+  margin-bottom:10px;
 }

@@ -10,8 +10,30 @@ class EtatBudgetsController < ApplicationController
     end
     if !EtatBudget.first.nil?
       @etat_budget_first = EtatBudget.first
-    else
     end
+    
+    @etat_depenses = EtatDepense.all
+    if !EtatDepense.where("beneficiaire =?", "solideo").nil?
+      @etat_depenses_solideo = EtatDepense.where("beneficiaire =?", "solideo").sum('cp_conso')
+    else 
+      @etat_depenses_solideo
+    end 
+    if !EtatDepense.where("beneficiaire =?", "cojo").nil?
+      @etat_depenses_cojo = EtatDepense.where("beneficiaire =?", "cojo").sum('cp_conso')
+    else
+      @etat_depenses_cojo = 0
+    end 
+    if !EtatDepense.where("beneficiaire =?", "heritage").nil?
+      @etat_depenses_heritage = EtatDepense.where("beneficiaire =?", "heritage").sum('cp_conso')
+    else 
+      @etat_depenses_heritage = 0
+    end 
+    if !EtatDepense.where("beneficiaire =?", "hauteperformance").nil?
+      @etat_depenses_hauteperformance = EtatDepense.where("beneficiaire =?", "hauteperformance").sum('cp_conso')
+    else
+      @etat_depenses_hauteperformance = 0
+    end
+          
   end
 
   # GET /etat_budgets/1

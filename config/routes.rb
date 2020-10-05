@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   root 'pages#home'
   
   get 'etat_depenses_filter' => 'etat_depenses#index_filter'
+  
+  get 'collectivites' => 'solideo_financements#collectivites'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

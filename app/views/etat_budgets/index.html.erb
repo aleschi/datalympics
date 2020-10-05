@@ -1,128 +1,14 @@
 <div class="EB_page">
+    <div class="ED_home_button">
+    <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
+  </div>
   <h1 class="EB_title">Le budget de l'Etat</h1>
-  
-  <br><br>
-  <div class="EB_new_button">
-    <%= link_to 'Modifier le budget prévu', new_etat_budget_path %>
-  </div> 
+  <%= render 'topo'%>
+  <%= render 'table'%>
   
 
-  <% if !@etat_budget_actuel.nil? %>
-  <div class="row">
-    <div class="col-md-offset-1 col-md-2">
-      <p class="EB_br_title">Budget SOLIDEO </p>
-      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_actuel.budget_solideo.to_i, :delimiter => ' ') %>€</p>
-    </div>
-    <div class="col-md-2">
-      <p class="EB_br_title">Budget COJO </p>
-      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_actuel.budget_cojo.to_i, :delimiter => ' ') %>€</p>
-    </div>
-    <div class="col-md-2">
-      <p class="EB_br_title">Budget Héritage </p>
-      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_actuel.budget_heritage.to_i, :delimiter => ' ') %>€</p>
-    </div>
-    <div class="col-md-2">
-      <p class="EB_br_title">Budget Haute Performance </p>
-      <p class="EB_br_number"><%= number_with_delimiter(@etat_budget_actuel.budget_hauteperformance.to_i, :delimiter => ' ') %>€</p>
-    </div>
-    <div class="col-md-2">
-      <div class="EB_bt_title"> Budget Total prévu </div>
-      <div class="EB_bt_number"> <%= number_with_delimiter(@etat_budget_actuel.budget_total.to_i, :delimiter => ' ') %>€  </div>
-    </div>
-  </div>
-  <% end %>
-  
-<br><br><br><br>
-  
-   <% if !@etat_budgets.nil? %>
-    <div class="ED_dates_table">
-       <div class="ED_dates_col">
-          <div class="ED_dates_col_title">
-            Date
-          </div>
-       </div>
-       <div class="ED_dates_col">
-          <div class="ED_dates_col_title">
-            Solideo
-          </div>
-       </div>
-       <div class="ED_dates_col">
-          <div class="ED_dates_col_title">
-            Cojo
-          </div>
-       </div>
-       <div class="ED_dates_col">
-          <div class="ED_dates_col_title">
-            Héritage
-          </div>
-       </div>
-       <div class="ED_dates_col">
-          <div class="ED_dates_col_title">
-            Haute Performance
-          </div>
-       </div>
-       <div class="ED_dates_col">
-          <div class="ED_dates_col_title">
-            Total
-          </div>
-       </div>
-      <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          Edit  
-       </div>
-      </div>
-    </div>
-  
-    <% @etat_budgets.order('date DESC').each do |etat_budget| %>
-    <div class="ED_dates_table">
-      <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_budget.date.strftime("%Y") %>
-        </div>
-      </div>
-      <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_budget.budget_solideo %>
-        </div>
-      </div>
-      <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_budget.budget_cojo %>
-        </div>
-      </div>
-      <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_budget.budget_heritage %>
-        </div>
-      </div>
-      <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_budget.budget_hauteperformance %>
-        </div>
-      </div>
-      <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= etat_budget.budget_total %>
-        </div>
-      </div>
-       <div class="ED_dates_col">
-        <div class="ED_dates_col_text">
-          <%= link_to edit_etat_budget_path(etat_budget) do %> <i class="fas fa-pen"></i><% end %>
-          <%= link_to etat_budget, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %>
-        </div>
-      </div>
-    </div>
-    <% end %>
-  <% end %>
-  <br><br>
-    <div class="EB_new_button">
-    <%= link_to 'Voir le détails des dépenses de l Etat' , etat_depenses_path %>
-  </div>
-  
-  <br><br>
-    <div class="EB_new_button">
-    <%= link_to 'Retour accueil' , root_path %>
-  </div>
+
+
   
   
 </div>

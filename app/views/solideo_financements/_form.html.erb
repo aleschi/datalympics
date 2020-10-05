@@ -12,56 +12,32 @@
     </div>
   <% end %>
 
+    <div class="SD_new_form_field SD_new_form_field_date">
+    <%= form.label :date %>
+    <%= form.date_select :date, {:order => [:year]}, class: "SD_new_form_input_date"   %>
+  </div>
+  
   <div class="SD_new_form_field">
     <%= form.label :financeur %>
-    <%= form.text_field :financeur %>
+    <%= form.select :financeur,   [["Financement","privé"], [ "Etat", "Etat"], ["RIF", "RIF"], ["Ville de Paris","Ville de Paris"], ["Métropole Grand Paris","Métropole Grand Paris"], ["CD92", "CD92"], ["CD93", "CD93"], ["CD78","CD78"], ["EPT Plaine Commune","EPT Plaine Commune"], ["EPT Terres d'envol","EPT Terres d'envol"], ["Ville de Dugny","Ville de Dugny"],[ "Ville du Bourget","Ville du Bourget"], [ "CASQY","CASQY"], [ "Ville de Marseille","Ville de Marseille"]]
+ %>
   </div>
 
   <div class="SD_new_form_field">
-    <%= form.label :financement_prevu %>
-    <%= form.text_field :financement_prevu %>
+    <%= form.label :montant_prevu %>
+    <%= form.text_field :montant_prevu %>
+  </div>
+  
+   <div class="SD_new_form_field">
+    <%= form.label :montant %>
+    <%= form.text_field :montant %>
   </div>
 
-  <div class="SD_new_form_field">
-    <%= form.label :financement_2018 %>
-    <%= form.text_field :financement_2018 %>
+   <div class="ED_new_form_field ED_new_form_field_beneficiaire">
+    <%= form.label :categorie, "Catégorie"%>
+    <%= form.select :categorie, [["Ouvrages","ouvrages"],["Reserve", "reserve"],["Frais de fonctionnement","Fonctionnement"], ["Innovation","innovation"]], {}, class: "ED_new_form_input_beneficiaire" %>
   </div>
-
-  <div class="SD_new_form_field">
-    <%= form.label :financement_2019 %>
-    <%= form.text_field :financement_2019 %>
-  </div>
-
-  <div class="SD_new_form_field">
-    <%= form.label :financement_2020 %>
-    <%= form.text_field :financement_2020 %>
-  </div>
-
-  <div class="SD_new_form_field">
-    <%= form.label :financement_2021 %>
-    <%= form.text_field :financement_2021 %>
-  </div>
-
-  <div class="SD_new_form_field">
-    <%= form.label :financement_2022 %>
-    <%= form.text_field :financement_2022 %>
-  </div>
-
-  <div class="SD_new_form_field">
-    <%= form.label :financement_2023 %>
-    <%= form.text_field :financement_2023 %>
-  </div>
-
-  <div class="SD_new_form_field">
-    <%= form.label :financement_2024 %>
-    <%= form.text_field :financement_2024 %>
-  </div>
-
-  <div class="SD_new_form_field">
-    <%= form.label :financement_2025 %>
-    <%= form.text_field :financement_2025 %>
-  </div>
-
+  
   <div class="SD_new_form_field_submit">
     <%= form.submit %>
   </div>

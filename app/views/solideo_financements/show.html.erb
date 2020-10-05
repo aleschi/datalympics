@@ -1,54 +1,135 @@
-<p id="notice"><%= notice %></p>
+<div class="O_page">
+  <div class="O_home_button">
+    <%= link_to collectivites_path do %><i class="fas fa-chevron-left"></i>Retour aux collectivités <%end %>
+  </div>
+  <h1 class="O_title"><span><%= @solideo_financement.financeur %></span></h1>
 
-<p>
-  <strong>Financeur:</strong>
-  <%= @solideo_financement.financeur %>
-</p>
+  <div class="O-topo-box">
+   <div class="O-topo-box-infos"> 
+      <%= pie_chart(@financeur.unscope(:order).group(:categorie).sum('montant_prevu'), library: {
+      chart: {
+           backgroundColor: '#F3F8FF',
+        style:{
+          fontFamily: "Spectral",
+          maxWidth: "500px",
+          }
+        },
 
-<p>
-  <strong>Financement prevu:</strong>
-  <%= @solideo_financement.financement_prevu %>
-</p>
+        tooltip: {
+          useHTML: true,
+          pointFormat: 'Montant : <b>{point.y:,.0f}€</b><br>',
+          shared: true,  
+        },
 
-<p>
-  <strong>Financement 2018:</strong>
-  <%= @solideo_financement.financement_2018 %>
-</p>
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+               # cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<em>{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %</em>',
+                    style: {
+                      color: "#8F8F8F",
+                      fontSize: "12px",
+                      fontWeight: "400",
 
-<p>
-  <strong>Financement 2019:</strong>
-  <%= @solideo_financement.financement_2019 %>
-</p>
+                      }
+                }
+            }
+        },
+      }) %>
 
-<p>
-  <strong>Financement 2020:</strong>
-  <%= @solideo_financement.financement_2020 %>
-</p>
+    </div>
+  <% if !@ouvrage_finances.nil? %>
+  <div class="O-topo-box-financeurs">
+     <div class="O-topo-financeurs-title"><span>Ouvrages financés</span></div><br>
+     <div class="SF-topo-financeurs-box">
+      <div class="SF-topo-financeurs-name"></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
+    </div> <br><br>
+    <% @ouvrage_finances.group(:ouvrage_id).each do |ouvrage_finance| %>
+    <div class="SF-topo-financeurs-box">
+      <div class="SF-topo-financeurs-name"><%= ouvrage_finance.ouvrage.name %> </div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(ouvrage_finance.montant_prevu.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <%= number_with_delimiter(ouvrage_finance.montant.to_i, :delimiter => ' ') %> €</div></div>
+    </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+  
+  
+<div  class="SD-table-box">
+    <div>
+    <%= line_chart [{name: "Budget prévu", data: @financeur.unscope(:order).group_by_year(:date).sum('montant_prevu')}, {name: "budget dépensé", data: @financeur.unscope(:order).group_by_year(:date).sum('montant') } ], library: {
+      chart:{
+            backgroundColor: '#F3F8FF',
+           
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         
+          }
+          },
 
-<p>
-  <strong>Financement 2021:</strong>
-  <%= @solideo_financement.financement_2021 %>
-</p>
+      title: {
+        text:'<em>Suivi des dépenses</em>',
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
+      },
+      yAxis: {
+        gridLineColor: '#E6F0FF', 
+           labels: {
+               format: '${value}'
+           }
+       },
+          tooltip: {
+            pointFormat: 'Total: <b>{point.y}</b>',
+            xDateFormat: '%Y',
+            valuePrefix: '$'
+          }
+        }
+    %>
+  </div>
+  <div class="SD-table-box-left">
+    <% if !@financeur.nil? %>
 
-<p>
-  <strong>Financement 2022:</strong>
-  <%= @solideo_financement.financement_2022 %>
-</p>
+      
+        <div class="ED_table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Dates</th>
+                <th scope="col">Budget prévu </th>
+                <th scope="col">budget réel dépensé</th>
+                <th scope="col">Type</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              <% @financeur.order('date DESC').each do |financement| %>
+              <tr>
+                <th scope="row"><%= financement.date.strftime("%Y") %></th>
+                <td><%= number_with_delimiter(financement.montant_prevu.to_i, :delimiter => ' ') %>€</td>
+                <td><%= number_with_delimiter(financement.montant.to_i, :delimiter => ' ') %>€</td>
+                <td><%= financement.categorie%></td>
+            
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div>
+          Aucune dépense renseignée
+        </div>
+      <%end%>
 
-<p>
-  <strong>Financement 2023:</strong>
-  <%= @solideo_financement.financement_2023 %>
-</p>
-
-<p>
-  <strong>Financement 2024:</strong>
-  <%= @solideo_financement.financement_2024 %>
-</p>
-
-<p>
-  <strong>Financement 2025:</strong>
-  <%= @solideo_financement.financement_2025 %>
-</p>
-
-<%= link_to 'Edit', edit_solideo_financement_path(@solideo_financement) %> |
-<%= link_to 'Back', solideo_financements_path %>
+      
+  </div>
+  
+  </div>
+</div>
+</div>

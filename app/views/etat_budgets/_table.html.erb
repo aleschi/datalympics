@@ -1,0 +1,48 @@
+
+<div  class="table-box">
+
+<% if !@etat_depenses.nil? %>
+
+    <div class="ED_table">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Dates</th>
+            <th scope="col">Solideo</th>
+            <th scope="col">Cojo</th>
+            <th scope="col">Héritage</th>
+            <th scope="col">Haute Performance</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <% @etat_depenses.unscope(:order).group_by_year(:date).each do |etat_depense| %>
+          <tr>
+            <th scope="row"><%= etat_depense.date.strftime("%Y") %></th>
+            <td><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "solideo", etat_depense.date).sum('cp_conso').to_i, :delimiter => ' ') %> €</td>
+            <td><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "cojo", etat_depense.date).sum('cp_conso').to_i, :delimiter => ' ') %> €</td>
+            <td><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "heritage", etat_depense.date).sum('cp_conso').to_i, :delimiter => ' ') %> €</td>
+            <td><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "hauteperformance", etat_depense.date).sum('cp_conso').to_i, :delimiter => ' ') %> €</td>
+ 
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  
+   <br><br>
+     <div class="EB-details">
+    <%= link_to "Voir le détails des dépenses de l'état" , etat_depenses_path %>
+  </div>
+  <% else %>
+    <div>
+      Aucune dépense renseignée
+    </div>
+  <%end%>
+  
+   
+ 
+  
+ 
+    
+</div>

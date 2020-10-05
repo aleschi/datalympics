@@ -1,3 +1,4 @@
+<div class="ED_new_form_box">
 <%= form_with(model: ouvrages_financement, local: true) do |form| %>
   <% if ouvrages_financement.errors.any? %>
     <div id="error_explanation">
@@ -11,27 +12,28 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :date %>
-    <%= form.date_select :date %>
+    <%= form.date_select :date, {:order => [:year]} %>
   </div>
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :ouvrage_id %>
     <%= form.text_field :ouvrage_id %>
   </div>
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :montant %>
     <%= form.text_field :montant %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="ED_new_form_field_submit">
+    <%= form.submit 'Ajouter'%>
   </div>
 <% end %>
+</div>
