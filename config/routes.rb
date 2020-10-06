@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     collection do 
       post 'import' => 'solideo_financements#import'
       post 'import2' => 'solideo_financements#import2'
+      post 'deleteall' => 'solideo_financements#delete_financements'
     end 
     
   end 

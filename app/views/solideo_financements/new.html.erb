@@ -6,128 +6,190 @@
   <h1 class="SD_title">Le financement de la solideo</h1>
     <div class="row">
     <div class="col-md-6">
-       <div>
-         <%=form_tag import_solideo_financements_path, multipart: true do %>
-          <div class="text-center">
-            <%= file_field_tag :file %> 
-            <%= hidden_field_tag :date_year, 2018 %>
-            <%= hidden_field_tag :date_month, 3 %>
+       <div class="SF-new-box">
+         <% if SolideoFinancement.where('date = ? AND montant_prevu > ?', Date.new(2018,3), 0).nil? || SolideoFinancement.where('date = ? AND montant_prevu > ?', Date.new(2018,3), 0).empty? %> 
+           <%=form_tag import_solideo_financements_path, multipart: true do %>
+            <div class="text-center SF-new-input">
+              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter T1 prévu 2018 </span></label>
+              <%= hidden_field_tag :date_year, 2018 %>
+              <%= hidden_field_tag :date_month, 3 %>
+            </div>
+            <div class="SF_new_form_field_submit">
+              <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
+            </div>
+           <%end%> 
+         <% else %>
+          <div class="SF-new-file-exist">
+           <span> T1 2018 prévu <i class="fas fa-check"></i></span>
           </div>
-          <div class="ED_new_form_field_submit">
-           <%= submit_tag 'T1 2018 Importer'%> 
-          </div>
-        <%end%> 
+         <div class="SF-new-file-delete">
+           <%= form_tag deleteall_solideo_financements_path do %>
+           <%= hidden_field_tag :date,Date.new(2018,3) %>
+           <%= button_tag(type: "submit") do %> <i class="fas fa-trash-alt"></i><%end%>
+           <% end %>
+         </div>
+         <% end %>
        </div>
     </div>
     <div class="col-md-6">
-        <div>
-         <%=form_tag import2_solideo_financements_path, multipart: true do %>
-          <div class="text-center">
-            <%= file_field_tag :file %> 
-            <%= hidden_field_tag :date_year, 2018 %>
-            <%= hidden_field_tag :date_month, 3 %>
+        <div class="SF-new-box">
+         <% if SolideoFinancement.where('date = ? AND montant > ?', Date.new(2018,3), 0).nil? || SolideoFinancement.where('date = ? AND montant > ?', Date.new(2018,3), 0).empty? %> 
+           <%=form_tag import2_solideo_financements_path, multipart: true do %>
+            <div class="text-center SF-new-input">
+              <label><%= file_field_tag :file, accept: '.csv'%> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter T1 exec 2018</span> </label>
+              <%= hidden_field_tag :date_year, 2018 %>
+              <%= hidden_field_tag :date_month, 3 %>
+            </div>
+            <div class="SF_new_form_field_submit">
+              <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
+            </div>
+          <%end%> 
+        <% else %>
+          <div class="SF-new-file-exist">
+            <span>T1 2018 exec <i class="fas fa-check"></i> </span>
           </div>
-          <div class="ED_new_form_field_submit">
-           <%= submit_tag 'T1 2018 Importer'%> 
-          </div>
-        <%end%> 
+        <% end %>
        </div>
       
     </div>
   </div>
     <div class="row">
     <div class="col-md-6">
-       <div>
-         <%=form_tag import_solideo_financements_path, multipart: true do %>
-          <div class="text-center">
-            <%= file_field_tag :file %> 
-            <%= hidden_field_tag :date_year, 2018 %>
-            <%= hidden_field_tag :date_month, 6 %>
+       <div class="SF-new-box">
+         <% if SolideoFinancement.where('date = ? AND montant_prevu > ?', Date.new(2018,6), 0).nil? || SolideoFinancement.where('date = ? AND montant_prevu > ?', Date.new(2018,6), 0).empty? %>
+           <%=form_tag import_solideo_financements_path, multipart: true do %>
+            <div class="text-center SF-new-input">
+              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i> <span class="SF-new-input-text">Ajouter T2 prévu 2018</span> </label>
+              <%= hidden_field_tag :date_year, 2018 %>
+              <%= hidden_field_tag :date_month, 6 %>
+            </div>
+            <div class="SF_new_form_field_submit">
+              <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
+            </div>
+          <%end%> 
+        <%else%>
+         <div class="SF-new-file-exist">
+           <span> T2 2018 prévu <i class="fas fa-check"></i></span>
           </div>
-          <div class="ED_new_form_field_submit">
-           <%= submit_tag 'T2 2018 Importer'%> 
-          </div>
-        <%end%> 
+         <div class="SF-new-file-delete">
+           <%= form_tag deleteall_solideo_financements_path do %>
+           <%= hidden_field_tag :date,Date.new(2018,6) %>
+           <%= button_tag(type: "submit") do %> <i class="fas fa-trash-alt"></i><%end%>
+           <% end %>
+         </div>
+        <% end %>
        </div>
     </div>
     <div class="col-md-6">
-        <div>
-         <%=form_tag import2_solideo_financements_path, multipart: true do %>
-          <div class="text-center">
-            <%= file_field_tag :file %> 
-            <%= hidden_field_tag :date_year, 2018 %>
-            <%= hidden_field_tag :date_month, 6 %>
+        <div class="SF-new-box">
+         <% if SolideoFinancement.where('date = ? AND montant > ?', Date.new(2018,6), 0).nil? || SolideoFinancement.where('date = ? AND montant > ?', Date.new(2018,6), 0).empty? %> 
+           <%=form_tag import2_solideo_financements_path, multipart: true do %>
+            <div class="text-center SF-new-input">
+              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter T2 exec 2018 </span></label> 
+              <%= hidden_field_tag :date_year, 2018 %>
+              <%= hidden_field_tag :date_month, 6 %>
+            </div>
+            <div class="SF_new_form_field_submit">
+              <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
+            </div>
+           <%end%> 
+         <% else %>
+          <div class="SF-new-file-exist">
+           <span> T2 2018 exec <i class="fas fa-check"></i></span>
           </div>
-          <div class="ED_new_form_field_submit">
-           <%= submit_tag 'T2 2018 Importer'%> 
-          </div>
-        <%end%> 
+         <% end %>
        </div>
       
     </div>
   </div>
-    <div class="row">
+     <div class="row">
     <div class="col-md-6">
-       <div>
-         <%=form_tag import_solideo_financements_path, multipart: true do %>
-          <div class="text-center">
-            <%= file_field_tag :file %> 
-            <%= hidden_field_tag :date_year, 2018 %>
-            <%= hidden_field_tag :date_month, 9 %>
+       <div class="SF-new-box">
+         <% if SolideoFinancement.where('date = ? AND montant_prevu > ?', Date.new(2018,9), 0).nil? || SolideoFinancement.where('date = ? AND montant_prevu > ?', Date.new(2018,9), 0).empty? %>
+           <%=form_tag import_solideo_financements_path, multipart: true do %>
+            <div class="text-center SF-new-input">
+              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter T3 prévu 2018 </span></label>
+              <%= hidden_field_tag :date_year, 2018 %>
+              <%= hidden_field_tag :date_month, 9 %>
+            </div>
+            <div class="SF_new_form_field_submit">
+              <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
+            </div>
+          <%end%> 
+        <%else%>
+         <div class="SF-new-file-exist">
+           <span> T3 2018 prévu <i class="fas fa-check"></i></span>
           </div>
-          <div class="ED_new_form_field_submit">
-           <%= submit_tag 'T3 2018 Importer'%> 
-          </div>
-        <%end%> 
+        <% end %>
        </div>
     </div>
     <div class="col-md-6">
-        <div>
-         <%=form_tag import2_solideo_financements_path, multipart: true do %>
-          <div class="text-center">
-            <%= file_field_tag :file %> 
-            <%= hidden_field_tag :date_year, 2018 %>
-            <%= hidden_field_tag :date_month, 9 %>
+        <div class="SF-new-box">
+         <% if SolideoFinancement.where('date = ? AND montant > ?', Date.new(2018,9), 0).nil? || SolideoFinancement.where('date = ? AND montant > ?', Date.new(2018,9), 0).empty? %> 
+           <%=form_tag import2_solideo_financements_path, multipart: true do %>
+            <div class="text-center SF-new-input">
+              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter T3 exec 2018 </span></label> 
+              <%= hidden_field_tag :date_year, 2018 %>
+              <%= hidden_field_tag :date_month, 9 %>
+            </div>
+            <div class="SF_new_form_field_submit">
+              <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
+            </div>
+           <%end%> 
+         <% else %>
+          <div class="SF-new-file-exist">
+           <span> T3 2018 exec <i class="fas fa-check"></i></span>
           </div>
-          <div class="ED_new_form_field_submit">
-           <%= submit_tag 'T3 2018 Importer'%> 
-          </div>
-        <%end%> 
-       </div>
-      
-    </div>
-  </div>
-    <div class="row">
-    <div class="col-md-6">
-       <div>
-         <%=form_tag import_solideo_financements_path, multipart: true do %>
-          <div class="text-center">
-            <%= file_field_tag :file %> 
-            <%= hidden_field_tag :date_year, 2018 %>
-            <%= hidden_field_tag :date_month, 12 %>
-          </div>
-          <div class="ED_new_form_field_submit">
-           <%= submit_tag 'T4 2018 Importer'%> 
-          </div>
-        <%end%> 
-       </div>
-    </div>
-    <div class="col-md-6">
-        <div>
-         <%=form_tag import2_solideo_financements_path, multipart: true do %>
-          <div class="text-center">
-            <%= file_field_tag :file %> 
-            <%= hidden_field_tag :date_year, 2018 %>
-            <%= hidden_field_tag :date_month, 12 %>
-          </div>
-          <div class="ED_new_form_field_submit">
-           <%= submit_tag 'T4 2018 Importer'%> 
-          </div>
-        <%end%> 
+         <% end %>
        </div>
       
     </div>
   </div>
+   <div class="row">
+    <div class="col-md-6">
+       <div class="SF-new-box">
+         <% if SolideoFinancement.where('date = ? AND montant_prevu > ?', Date.new(2018,12), 0).nil? || SolideoFinancement.where('date = ? AND montant_prevu > ?', Date.new(2018,12), 0).empty? %>
+           <%=form_tag import_solideo_financements_path, multipart: true do %>
+            <div class="text-center SF-new-input">
+              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter T4 prévu 2018 </span></label>
+              <%= hidden_field_tag :date_year, 2018 %>
+              <%= hidden_field_tag :date_month, 12 %>
+            </div>
+            <div class="SF_new_form_field_submit">
+              <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
+            
+            </div>
+          <%end%> 
+        <%else%>
+         <div class="SF-new-file-exist">
+           <span> T4 2018 prévu <i class="fas fa-check"></i></span>
+          </div>
+        <% end %>
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div class="SF-new-box">
+         <% if SolideoFinancement.where('date = ? AND montant > ?', Date.new(2018,12), 0).nil? || SolideoFinancement.where('date = ? AND montant > ?', Date.new(2018,12), 0).empty? %> 
+           <%=form_tag import2_solideo_financements_path, multipart: true do %>
+            <div class="text-center SF-new-input">
+              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter T4 exec 2018 </span></label> 
+              <%= hidden_field_tag :date_year, 2018 %>
+              <%= hidden_field_tag :date_month, 12 %>
+            </div>
+            <div class="SF_new_form_field_submit">
+              <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
+            
+            </div>
+           <%end%> 
+         <% else %>
+          <div class="SF-new-file-exist">
+           <span> T4 2018 exec <i class="fas fa-check"></i></span>
+          </div>
+         <% end %>
+       </div>
+      
+    </div>
+  </div> 
   
     <div class="row">
     <div class="col-md-6">
@@ -894,3 +956,24 @@
 
 
 </div>
+
+
+<script>
+  $('.SF_new_form_field_submit').hide();
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+         
+              
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $("input").change(function() {
+      readURL(this);
+      $(this).parent().parent().parent().children('.SF_new_form_field_submit').show();
+      $(this).parent().children('.SF-new-input-text').html($(this).val().replace(/C:\\fakepath\\/i, ''));
+  });
+
+</script>

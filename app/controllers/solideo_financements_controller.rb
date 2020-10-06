@@ -35,6 +35,12 @@ class SolideoFinancementsController < ApplicationController
     redirect_to solideo_financements_path    
   end
   
+  def delete_financements
+    @solideo_financements = SolideoFinancement.where('date = ?', params[:date])
+    @solideo_financements.all.destroy_all
+    redirect_to new_solideo_financement_path 
+  end  
+  
   def collectivites
     @solideo_financements = SolideoFinancement.where('financeur != ? AND financeur != ? ', 'Etat', "privé").all
   end 
