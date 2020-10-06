@@ -16,7 +16,7 @@ class EtatBudgetsController < ApplicationController
     if !EtatDepense.where("beneficiaire =?", "solideo").nil?
       @etat_depenses_solideo = EtatDepense.where("beneficiaire =?", "solideo").sum('cp_conso')
     else 
-      @etat_depenses_solideo
+      @etat_depenses_solideo = 0
     end 
     if !EtatDepense.where("beneficiaire =?", "cojo").nil?
       @etat_depenses_cojo = EtatDepense.where("beneficiaire =?", "cojo").sum('cp_conso')

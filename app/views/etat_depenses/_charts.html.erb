@@ -26,7 +26,7 @@
   </div>
 <div class="ED_chart">
  
-    <%= column_chart [{name: "CP solideo", data: @etat_depenses_solideo.unscope(:order).group_by_year(:date).sum(:cp_conso)},{name: "CP cojo", data: @etat_depenses_cojo.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#004A70','#AED9E6'], library: {
+    <%= column_chart [{name: "CP solideo", data: @etat_depenses_solideo.unscope(:order).group_by_year(:date).sum(:cp_conso)},{name: "CP Héritage", data: @etat_depenses_heritage.unscope(:order).group_by_year(:date).sum(:cp_conso)},{name: "CP Haute Performance", data: @etat_depenses_hauteperformance.unscope(:order).group_by_year(:date).sum(:cp_conso)},{name: "CP cojo", data: @etat_depenses_cojo.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#004A70','#AED9E6'], library: {
       chart:{
             backgroundColor: '#E6F0FF',
             borderRadius: '20px',

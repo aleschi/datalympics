@@ -25,7 +25,17 @@
      plotOptions: {
         pie: {
             innerSize: 100,
-            depth: 45
+            depth: 45,
+            dataLabels: {
+                    enabled: true,
+                    format: '<em>{point.name}<br>{point.percentage:.1f} %</em>',
+                    style: {
+                      color: "#8F8F8F",
+                      fontSize: "12px",
+                      fontWeight: "400",
+
+                      }
+                },
         }
     },
   }
@@ -34,7 +44,7 @@
 
   </div>
   <div class="SF-topo-financeurs">
-    <div class="SF-topo-financeurs-title"><span>Financeurs</span></div><br>
+    <div class="SF-topo-financeurs-title"><span>Liste des collectivités</span></div><br>
    
     <div class="SF-topo-financeurs-box">
       <div class="SF-topo-financeurs-name"></div>

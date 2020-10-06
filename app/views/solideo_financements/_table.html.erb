@@ -3,9 +3,7 @@
 
 <% if !@solideo_financements.nil? %>
 
-    <div class="ED_table_filtres">
-      <a type="button" data-toggle="modal" data-target="#filtres" >Filtrer <i class="fas fa-sliders-h"></i></a>
-    </div>
+  
     <div class="ED_table">
       <table>
         <thead>
@@ -26,7 +24,7 @@
             <th scope="row"><%= solideo_financement.financeur %></th>
             <td><%= number_with_delimiter(solideo_financement.montant_prevu.to_i, :delimiter => ' ') %> €</td>
             <td><%= number_with_delimiter(solideo_financement.montant.to_i, :delimiter => ' ') %>€</td>
-            <td><%= solideo_financement.categorie %>€</td>
+            <td><%= solideo_financement.categorie %></td>
             <td class="border-none"> <%= link_to edit_solideo_financement_path(solideo_financement) do %> <i class="fas fa-pen"></i><% end %>
             <%= link_to solideo_financement, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %></td>
           </tr>
@@ -41,6 +39,6 @@
   <%end%>
  
     <div class="ED_new_depense">
-    <%= link_to new_solideo_financement_path do %><i class="fas fa-plus-circle"></i>Modifier l'ensemble des financement ou ajouter un financeur<%end%>
+    <%= link_to new_solideo_financement_path do %><i class="fas fa-plus-circle"></i>Modifier l'ensemble des financements ou ajouter un financeur<%end%>
   </div> 
 </div>

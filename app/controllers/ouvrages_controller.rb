@@ -5,12 +5,13 @@ class OuvragesController < ApplicationController
   # GET /ouvrages.json
   def index
     @ouvrages = Ouvrage.all
+    @ouvrages_financements = OuvragesFinancement.all
   end
 
   # GET /ouvrages/1
   # GET /ouvrages/1.json
   def show
-    @ouvrage_financeurs = OuvragesFinanceur.all.where('ouvrage_id = ?', @ouvrage.id)
+   
     @ouvrage_financements = OuvragesFinancement.all.where('ouvrage_id = ?', @ouvrage.id)
     @ouvrage_depenses = OuvragesDepense.all.where('ouvrage_id = ?', @ouvrage.id)
   end

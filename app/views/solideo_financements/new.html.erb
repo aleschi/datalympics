@@ -4,24 +4,893 @@
   </div>
  
   <h1 class="SD_title">Le financement de la solideo</h1>
-
-  <div>
-   <%=form_tag import_solideo_financements_path, multipart: true do %>
-    <div class="text-center">
-    <%= file_field_tag :file %>     
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2018 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2018 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
     </div>
-    <div class="ED_new_form_field_submit">
-     <%= submit_tag 'Importer'%> 
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2018 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2018 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
     </div>
-    
-
-    <%end%> 
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2018 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2018 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2018 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2018 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2018 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2018 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2018 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2018 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2018 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2018 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2018 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2018 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
   </div>
   
-  <h2 class="SD_title">Ou ajouter un nouveau financeur</h1>
-  <div>
-    <%= render 'form', solideo_financement: @solideo_financement %>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2019 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2019 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2019 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2019 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
   </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2019 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2019 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2019 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2019 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2019 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2019 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2019 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2019 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2019 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2019 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2019 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2019 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+  
+
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2020 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2020 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2020 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2020 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2020 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2020 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2020 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2020 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2020 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2020 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2020 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2020 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2020 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2020 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2020 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2020 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+  
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2021 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2021 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2021 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2021 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2021 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2021 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2021 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2021 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2021 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2021 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2021 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2021 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2021 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2021 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2021 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2021 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+  
+
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2022 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2022 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2022 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2022 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2022 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2022 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2022 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2022 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2022 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2022 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2022 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2022 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2022 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2022 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2022 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2022 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+  
+
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2023 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2023 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2023 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2023 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2023 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2023 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2023 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2023 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2023 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2023 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2023 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2023 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2023 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2023 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2023 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2023 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+  
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2024 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2024 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2024 %>
+            <%= hidden_field_tag :date_month, 3 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T1 2024 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2024 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2024 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2024 %>
+            <%= hidden_field_tag :date_month, 6 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T2 2024 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2024 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2024 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2024 %>
+            <%= hidden_field_tag :date_month, 9 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T3 2024 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+       <div>
+         <%=form_tag import_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2024 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2024 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+         <%=form_tag import2_solideo_financements_path, multipart: true do %>
+          <div class="text-center">
+            <%= file_field_tag :file %> 
+            <%= hidden_field_tag :date_year, 2024 %>
+            <%= hidden_field_tag :date_month, 12 %>
+          </div>
+          <div class="ED_new_form_field_submit">
+           <%= submit_tag 'T4 2024 Importer'%> 
+          </div>
+        <%end%> 
+       </div>
+      
+    </div>
+  </div>
+  
+
+
+
+
+  
+
+
+  
+ 
 
 
 </div>

@@ -22,7 +22,7 @@ class OuvragesFinancementsController < ApplicationController
   end
   
   def import
-    @ouvrages_financements = OuvragesFinancement.import(params[:file], params[:date_year].to_i, params[:date_month].to_i)
+    @ouvrages_financements = OuvragesFinancement.import_ouvrage(params[:file], params[:date_year].to_i, params[:date_month].to_i)
     redirect_to ouvrages_financements_path
   end
 

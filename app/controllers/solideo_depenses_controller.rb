@@ -6,17 +6,7 @@ class SolideoDepensesController < ApplicationController
   def index
     @solideo_depenses = SolideoDepense.all
     @solideo_financements = SolideoFinancement.all
-    if !@solideo_depenses.nil?
-      @solideo_depenses_ouvrages = @solideo_depenses.sum('ouvrages')
-      @solideo_depenses_reserve = @solideo_depenses.sum('reserve')
-      @solideo_depenses_innovation = @solideo_depenses.sum('innovation')
-      @solideo_depenses_fonctionnement = @solideo_depenses.sum('fonctionnement')
-    else
-      @solideo_depenses_ouvrages = 0
-      @solideo_depenses_reserve = 0
-      @solideo_depenses_innovation = 0
-      @solideo_depenses_fonctionnement = 0
-    end 
+   
     
   end
 

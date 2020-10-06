@@ -3,10 +3,8 @@
     <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
   </div>
   <h1 class="O_title"><span>Ouvrages</span></h1>
-<table>
-
-
-  <tbody>
+<div class="SF-topo-box">
+   <div class="SF-topo-financeurs">
     <% if !@ouvrages.nil?%>
     <% @ouvrages.each do |ouvrage| %>
       <div class="O-name">
@@ -16,12 +14,56 @@
       </div>
     <% end %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+
+   
+  <div class="topo-chart">
+    <%= pie_chart @ouvrages.unscope(:order).group(:name).sum(:budget) ,  library: {
+     chart: {
+       backgroundColor: '#F3F8FF',
+        type: 'pie',
+        options3d: {
+            enabled: true,
+            alpha: 45
+        },
+       style:{
+          fontFamily: "Spectral",
+          },
+    },
+
+      title: {
+        text:'<em>Financements des ouvrages </em>',
+        margin:40,
+        style: {
+          color: '#8F8F8F',
+        
+          }
+      },
+     plotOptions: {
+        pie: {
+            innerSize: 140,
+          minSize: 400,
+            depth: 45,
+          dataLabels: {
+                    enabled: false,
+                   # format: '<em> {point.percentage:.1f} %</em>',
+                    style: {
+                      color: "#8F8F8F",
+                      fontSize: "12px",
+                      fontWeight: "400",
+
+                      }
+                }
+        }
+    },
+  }
+   
+    %>
+
+  </div>
+</div>
 
 <br>
-<div class="ED_new_depense">
-<%= link_to new_ouvrage_path do%><i class="fas fa-plus-circle"></i> Ajouter un ouvrage <% end %>
-  </div>
+
 
 </div>

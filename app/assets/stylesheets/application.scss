@@ -126,13 +126,15 @@ body {
         border-bottom:1px solid #48AF5C;
         margin-bottom: 40px;
         th{
-          padding:8px 10px;
+          padding:15px 10px;
           text-align:center;
           color:#48AF5C;
           text-transform:uppercase;
           font-size:15px;
           border-right:1px solid #48AF5C;
-          
+          a{
+            color:#48AF5C;
+          }
         } 
         .border-none{
             border-right:none;
@@ -151,7 +153,7 @@ body {
           border-right:1px solid #48AF5C;
         } 
         td{
-          padding:8px 10px;
+          padding:15px 10px;
           text-align:center;
           color:#444444;
           text-transform:uppercase;
@@ -161,6 +163,27 @@ body {
             color:#004A70;
             text-decoration:none;
             margin:0 5px;
+          }
+          span{
+            color: #48AF5C; 
+          }
+          .table-row{
+                display: inline-flex;
+                display: -webkit-inline-flex;
+                display: -ms-inline-flex;
+                display: -moz-inline-flex;
+                width:100%;
+          }
+          .table-row-left{
+            width:50%;
+            text-align:right;
+            color: #48AF5C; 
+            padding-right:5px;
+          }
+          .table-row-right{
+            width:50%;
+            text-align:left;
+           // color:#8F8F8F;
           }
          
         }

@@ -1,5 +1,6 @@
 <% if !@solideo_financements.nil?%>
 <div class="SF-topo-box">
+   
   <div class="topo-chart">
     <%= pie_chart @solideo_financements.unscope(:order).group(:financeur).sum(:montant_prevu) ,  library: {
      chart: {
@@ -25,7 +26,17 @@
      plotOptions: {
         pie: {
             innerSize: 100,
-            depth: 45
+            depth: 45,
+          dataLabels: {
+                    enabled: true,
+                    format: '<em>{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %</em>',
+                    style: {
+                      color: "#8F8F8F",
+                      fontSize: "12px",
+                      fontWeight: "400",
+
+                      }
+                }
         }
     },
   }
@@ -33,6 +44,7 @@
     %>
 
   </div>
+ 
   <div class="SF-topo-financeurs">
     <div class="SF-topo-financeurs-title"><span>Financeurs</span></div><br>
    
@@ -43,12 +55,13 @@
    
     <% @solideo_financements.group(:financeur).each do |solideo_financement| %>
     <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name"><%= solideo_financement.financeur %> </div>
+      <div class="SF-topo-financeurs-name"><% if solideo_financement.financeur == "Etat"%><%= link_to etat_budgets_path do %><%= solideo_financement.financeur %><%end%> <%else%><%= link_to solideo_financement_path(id: solideo_financement.id) do %><%= solideo_financement.financeur %> <%end%><% end %></div>
       <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(solideo_financement.montant_prevu.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((solideo_financement.montant.to_i), :delimiter => ' ') %> €</div></div>
     </div>           
    
     <% end %>
   </div>
+  
  
 </div>
 <% end %>

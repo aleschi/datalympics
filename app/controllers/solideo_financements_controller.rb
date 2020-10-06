@@ -25,14 +25,18 @@ class SolideoFinancementsController < ApplicationController
   end
   
   def import
-    SolideoFinancement.all.destroy_all
-    SolideoFinancement.import(params[:file])
-    redirect_to solideo_financements_path
-    
-  end 
+    SolideoFinancement.import(params[:file], params[:date_year].to_i, params[:date_month].to_i)
+    OuvragesFinancement.import_ouvrage(params[:file], params[:date_year].to_i, params[:date_month].to_i)
+    redirect_to solideo_financements_path  
+  end
+  def import2
+    SolideoFinancement.import2(params[:file], params[:date_year].to_i, params[:date_month].to_i)
+    OuvragesFinancement.import_ouvrage2(params[:file], params[:date_year].to_i, params[:date_month].to_i)
+    redirect_to solideo_financements_path    
+  end
   
   def collectivites
-    @solideo_financements = SolideoFinancement.where('financeur != ?', 'Etat').all
+    @solideo_financements = SolideoFinancement.where('financeur != ? AND financeur != ? ', 'Etat', "privé").all
   end 
 
   # POST /solideo_financements

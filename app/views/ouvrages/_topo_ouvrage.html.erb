@@ -10,17 +10,17 @@
     </div>
     
   </div>
-  <% if !@ouvrage_financeurs.nil? %>
+  <% if !@ouvrage_financements.nil? %>
   <div class="O-topo-box-financeurs">
      <div class="O-topo-financeurs-title"><span>Financeurs</span></div><br>
     <div class="SF-topo-financeurs-box">
       <div class="SF-topo-financeurs-name"></div>
       <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
     </div> <br><br>
-    <% @ouvrage_financeurs.each do |financeur| %>
+    <% @ouvrage_financements.group(:name).each do |financeur| %>
     <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name"><%= financeur.name %> </div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(financeur.financement_prevu.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <% if !@ouvrage.ouvrages_financements.where('name=?',financeur.name).nil? %> <%= number_with_delimiter(@ouvrage.ouvrages_financements.where('name=?',financeur.name).sum('montant').to_i, :delimiter => ' ') %><% else %> 0<%end%> €</div></div>
+      <div class="SF-topo-financeurs-name"><% if financeur.name == "Etat"%><%= link_to etat_budgets_path do %><%= financeur.name %><%end%><%elsif !SolideoFinancement.where("financeur =?", financeur.name).last.nil? %><%= link_to solideo_financement_path(id: SolideoFinancement.where("financeur =?", financeur.name).last.id) do %><%= financeur.name %><%end%><%else%><%= financeur.name %><%end%> </div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(financeur.montant_prevu.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter(financeur.montant.to_i, :delimiter => ' ') %> €</div></div>
     </div>
       <% end %>
   </div>

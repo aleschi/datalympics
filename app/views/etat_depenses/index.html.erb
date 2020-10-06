@@ -1,19 +1,19 @@
 <%= render 'etat_depenses/search_filtres'%>
 <div class="ED_page">
   <div class="ED_home_button">
-    <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
+    <%= link_to  etat_budgets_path do %><i class="fas fa-chevron-left"></i>Retour Budget Etat<%end %>
   </div>
  
   <h1 class="ED_title">Les dépenses de l'Etat</h1>
+  <div id="table_filtres">
+    <%= render 'table'%>  
+  </div>
   
   <div id="charts">
    <%= render 'charts'%>   
   </div>
   
-  <div id="table_filtres">
-    <%= render 'table'%> 
-    
- </div>
+ 
 
 
 </div>
