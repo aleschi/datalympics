@@ -16,7 +16,16 @@
           </tr>
         </thead>
         <tbody>
-          
+          <% @etat_depenses.unscope(:order).group_by_year(:date).each do |etat_depense| %>
+          <tr>
+            <th scope="row"><%= etat_depense.date.strftime("%Y") %></th>
+            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "solideo", etat_depense.date ).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "solideo",etat_depense.date).sum('cp_prevu').to_i, :delimiter => ' ') %> €</div></div></td>
+            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "cojo", etat_depense.date ).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "cojo", etat_depense.date).sum('cp_prevu').to_i, :delimiter => ' ') %> €</div></div></td>
+            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "heritage", etat_depense.date ).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "heritage", etat_depense.date).sum('cp_prevu').to_i, :delimiter => ' ') %> €</div></div> </td>
+            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "hauteperformance", etat_depense.date ).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date = ?', "hauteperformance", etat_depense.date).sum('cp_prevu').to_i, :delimiter => ' ') %> €</div></div></td>
+            <td class="border-none"><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('date = ?', etat_depense.date ).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('date = ?', etat_depense.date).sum('cp_prevu').to_i, :delimiter => ' ') %> €</div></div></td>
+          </tr>
+          <% end %>
         </tbody>
       </table>
     </div>
