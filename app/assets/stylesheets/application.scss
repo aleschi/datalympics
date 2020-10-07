@@ -18,7 +18,7 @@ body {
   padding-bottom:60px;
  }
 
-.EB_page, .ED_page, .SD_page, .O_page {
+.EB_page, .ED_page, .SD_page, .O_page, .home_page {
   max-width:1200px;
   margin:0 auto;
   padding:50px 30px;
@@ -173,6 +173,7 @@ body {
                 display: -ms-inline-flex;
                 display: -moz-inline-flex;
                 width:100%;
+            font-size:13px;
           }
           .table-row-left{
             width:50%;
@@ -508,6 +509,10 @@ display: none;
   color: #48AF5C;
   font-size:15px;
   font-weight:700;
+    span{
+      font-weight:500;
+      font-size:12px;
+    }
   }
 }
 .new-ouvrage-text{
@@ -593,7 +598,7 @@ display: none;
       border-radius:4px;
   }
 }
-.SF_new_form_field_submit{
+.SF_new_form_field_submit, .SF-new-file-delete{
   margin-left: 10px;
   button{
     color:#48AF5C;
@@ -610,4 +615,47 @@ display: none;
     }
   } 
   
+}
+.home_title{
+  font-size:50px;
+  font-weight:700;
+  color:#444444; 
+  margin-top: 140px;
+  margin-bottom:10px;
+}
+.home_subtitle{
+  color:#444444;
+  font-size:30px;
+}
+.home_choice_text{
+  color:#444444;
+  font-weight:500;
+  font-style: italic; 
+  font-size:26px;
+}
+
+.home_choice_box{
+    display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  align-items:center;
+  margin-top:30px;
+  margin-bottom:60px;
+}
+.home_choice_button{
+  margin-right:20px;
+  a{
+    text-decoration:none;
+    color:#444444;
+    text-transform:uppercase;
+    padding: 10px 14px;
+    border:1px solid #444444;
+    border-radius:4px;
+    font-size:20px;
+    &:hover{
+      cursor:pointer;
+    }
+  }
 }

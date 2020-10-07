@@ -9,7 +9,7 @@
     <% @ouvrages.each do |ouvrage| %>
       <div class="O-name">
       <%= link_to ouvrage do %>
-        <%= ouvrage.name %>          
+        <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>        
       <% end %>
       </div>
     <% end %>
@@ -18,7 +18,7 @@
 
    
   <div class="topo-chart">
-    <%= pie_chart @ouvrages.unscope(:order).group(:name).sum(:budget) ,  library: {
+    <%= pie_chart @ouvrages.unscope(:order).group(:name).sum(:budget), library: {
      chart: {
        backgroundColor: '#F3F8FF',
         type: 'pie',
@@ -32,20 +32,22 @@
     },
 
       title: {
-        text:'<em>Financements des ouvrages </em>',
+        text:'<em>Répartition des financements prévus des ouvrages <br> Total : 1 382 775 000 €</em>',
         margin:40,
         style: {
           color: '#8F8F8F',
         
           }
       },
+      
      plotOptions: {
         pie: {
             innerSize: 140,
-          minSize: 400,
+            minSize: 400,
             depth: 45,
-          dataLabels: {
-                    enabled: false,
+            
+            dataLabels: {
+                    enabled: true,
                    # format: '<em> {point.percentage:.1f} %</em>',
                     style: {
                       color: "#8F8F8F",
@@ -55,6 +57,9 @@
                       }
                 }
         }
+    },
+    tooltip:{  
+         pointFormat: '<span style="color:{point.color}">●</span> Total: <b>{point.y:,.0f}€</b><br/>',  
     },
   }
    

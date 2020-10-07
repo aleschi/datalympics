@@ -1,7 +1,7 @@
 
 <div  class="SD-table-box">
     <div>
-    <%= line_chart [{name: "Dépenses ouvrages", data: @solideo_depenses.unscope(:order).group_by_month(:date).sum('ouvrages')},{name: "Dépenses frais de fonctionnement", data: @solideo_depenses.unscope(:order).group_by_month(:date).sum('fonctionnement')},{name: "Dépenses innovation", data: @solideo_depenses.unscope(:order).group_by_month(:date).sum('innovation')}, {name: "Dépenses réserve", data: @solideo_depenses.unscope(:order).group_by_month(:date).sum('reserve')} ], library: {
+    <%= line_chart [{name: "Dépenses ouvrages", data: @solideo_financements_dates_ouvrages_tuple},{name: "Dépenses frais de fonctionnement", data: @solideo_financements_dates_fonctionnement_tuple},{name: "Dépenses innovation", data: @solideo_financements_dates_innovation_tuple}, {name: "Dépenses réserve", data: @solideo_financements_dates_reserve_tuple} ], library: {
       chart:{
             backgroundColor: '#F3F8FF',
            
@@ -20,6 +20,9 @@
                   fontWeight: "400",
                   },
       },
+  xAxis:{
+    tickInterval: 24 * 3600 * 1000 * 30 * 3,
+    },
       yAxis: {
         gridLineColor: '#E6F0FF', 
            labels: {
@@ -73,6 +76,41 @@
 
     
   </div>
-  
+  <div>
+    <%= line_chart [{name: "Dépenses réelles des ouvrages", data: @solideo_financements_dates_ouvrages_tuple},{name: "Dépenses prévues des ouvrages", data: @solideo_financements_dates_ouvrages_prevu_tuple} ], library: {
+      chart:{
+            backgroundColor: '#F3F8FF',
+           
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         
+          }
+          },
+
+      title: {
+        text:'<em>Comparatif des dépenses prévues et réelles des ouvrages de la Solideo</em>',
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
+      },
+  xAxis:{
+    tickInterval: 24 * 3600 * 1000 * 30 * 3,
+    },
+      yAxis: {
+        gridLineColor: '#E6F0FF', 
+           labels: {
+               format: '${value}'
+           }
+       },
+          tooltip: {
+            pointFormat: 'Total: <b>{point.y}</b>',
+            xDateFormat: '%Y',
+            valuePrefix: '$'
+          }
+        }
+    %>
   </div>
-</div>
+ </div>

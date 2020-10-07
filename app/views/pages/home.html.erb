@@ -1,18 +1,44 @@
-<div class="EB_page">
-  <h1 class="EB_title">
-  Bienvenue sur le site Datalympics !
-  </h1>
-  <div class="EB_new_button">
-    <%= link_to etat_budgets_path do %>Voir le budget de l'Etat <% end %>
-    </div>
+<div class="home_page">
  
-   <div class="EB_new_button">
-    <%= link_to solideo_depenses_path do %>Voir le suivi des dépenses de la Solideo<% end %>
+  
+  <div class="home_choice_text">
+    Suivre les dépenses sur l'action
+  </div>
+  <div class="home_choice_box">
+    <div class="home_choice_button">
+      <%= link_to solideo_depenses_path do %>Solideo<% end %>
     </div>
-  <div class="EB_new_button">
-    <%= link_to ouvrages_path do %>Voir le suivi des ouvrages<% end %>
+    <div class="home_choice_button">
+      <a>COJO</a>
     </div>
-   <div class="EB_new_button">
-    <%= link_to collectivites_path do %>Voir les dépenses des collectivités<% end %>
+    <div class="home_choice_button">
+      <a>Haute Performance</a>
     </div>
+    <div class="home_choice_button">
+      <a>Héritage</a>
+    </div>    
+  </div>
+  
+  <div class="home_choice_text">
+    Suivre les dépenses concernant
+  </div>
+  <div class="home_choice_box">
+    <div class="home_choice_button">
+      <%= link_to etat_budgets_path do %>Etat <% end %>
+    </div>
+    <div class="home_choice_button">
+      <%= link_to collectivites_path do %>Collectivités<% end %>
+    </div> 
+    <div class="home_choice_button">
+      <%= link_to ouvrages_path do %>Ouvrages<% end %>
+    </div>    
+  </div>
+  
+  <h1 class="home_title">
+  Datalympics
+  </h1>
+  <h2 class="home_subtitle">
+    Outil de suivi des financements des jeux olympiques et paralympiques 2024
+  </h2>
+   
 </div>

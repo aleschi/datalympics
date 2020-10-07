@@ -9,7 +9,8 @@ class Ouvrage < ApplicationRecord
       @ouvrage = Ouvrage.new
       @ouvrage.name = row[0]
       @ouvrage.maitre_oeuvre = row[1]
-      @ouvrage.budget = row[2]*1000
+      @ouvrage.budget = row[2]
+      @ouvrage.budget = @ouvrage.budget * 1000
       @ouvrage.save
     end
 

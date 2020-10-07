@@ -6,7 +6,7 @@ class SolideoFinancement < ApplicationRecord
 
     CSV.foreach(file.path) do |row|
       #Ouvrage.create! row.to_hash
-       if row[0] == "RESERVE POUR COMP PROG"
+       if row[0] == "RESERVE"
          1.upto(14).each do |i|
             if !row[i].nil? 
               @solideo_financement = SolideoFinancement.new
@@ -72,7 +72,7 @@ class SolideoFinancement < ApplicationRecord
 
     CSV.foreach(file.path) do |row|
       #Ouvrage.create! row.to_hash
-      if row[0] == "RESERVE POUR COMP PROG"
+      if row[0] == "RESERVE"
          1.upto(14).each do |i|
             if !row[i].nil? 
               @solideo_financement = SolideoFinancement.where('financeur = ? AND categorie = ? AND date = ?', @financeurs[i], "reserve", Date.new(date_year, date_month)).first 
