@@ -69,7 +69,19 @@ class SolideoDepensesController < ApplicationController
   @solideo_financements_dates_ouvrages_prevu_values .map!{|x| @sum += x}
 
   @solideo_financements_dates_ouvrages_prevu_tuple = @solideo_financements_dates_ouvrages_prevu_keys.zip(@solideo_financements_dates_ouvrages_prevu_values)
-   
+  
+    
+    @financeurs_hash = @solideo_financements.group(:financeur).sum('montant')
+    @financeurs = []
+    @financeurs_hash.each do |h|
+      @financeurs << h[0]
+    end
+    
+    @solideo_depenses_hash = SolideoFinancement.unscope(:order).group(:date).sum('montant')
+    @solideo_depenses_array = []
+    @solideo_depenses_hash.each do |h|
+      @solideo_depenses_array << h[0]
+    end 
   end
 
   # GET /solideo_depenses/1

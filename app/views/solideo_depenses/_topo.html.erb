@@ -13,6 +13,14 @@
           maxWidth: "500px",
           }
         },
+  title: {
+    text:'<em>Dépenses prévues de la Solideo</em>',
+        margin:40,
+        style: {
+          color: '#8F8F8F',
+        
+          },
+    },
 
         tooltip: {
          # useHTML: true,
@@ -40,7 +48,7 @@
 
   </div>
     
-    <% if !@solideo_depenses.nil?%>
+    
       <div id="SD-topo-repartition">
 
         <%= column_chart [ {name: "Budget total prévu", data: [["ouvrages",1130507000],["reserve",94470000],["fonctionnement", 103975000],["innovation",47300000]]},{name: "Budget dépensé", data: [["ouvrages",@solideo_financements_ouvrages],["reserve",@solideo_financements_reserve],["fonctionnement", @solideo_financements_fonctionnement],["innovation",@solideo_financements_innovation]]} ], library: {
@@ -92,7 +100,7 @@
           }
       %>
       </div>
-    <% end %>      
+         
 
   </div>
   
