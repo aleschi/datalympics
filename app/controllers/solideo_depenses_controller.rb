@@ -79,11 +79,13 @@ class SolideoDepensesController < ApplicationController
     
     @solideo_depenses_hash = SolideoFinancement.unscope(:order).group(:date).sum('montant')
     @solideo_depenses_array = []
-    if !@solideo_depenses_hash.first[0].nil?
+    
       @solideo_depenses_hash.each do |h|
+        if !h[0].nil?
         @solideo_depenses_array << h[0]
+        end
       end
-    end 
+    
   end
 
   # GET /solideo_depenses/1

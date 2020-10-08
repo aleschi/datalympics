@@ -17,11 +17,13 @@ class SolideoFinancementsController < ApplicationController
     
     @ouvrages_hash = @ouvrage_finances.group(:ouvrage_id).sum('montant')
     @ouvrages = []
-    if !@ouvrages_hash.first[0].nil?
+    
       @ouvrages_hash.each do |h|
+        if !h[0].nil?
         @ouvrages << h[0]
+        end 
       end
-    end
+    
   end 
 
   # GET /solideo_financements/new
