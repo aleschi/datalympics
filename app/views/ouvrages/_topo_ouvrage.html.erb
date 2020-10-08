@@ -4,9 +4,9 @@
       
     </div>
     <div class="O-topo-infos-text">
-      Lieu <br>
+      Lieu : <%= @ouvrage.adresse %><br>
       MO : <%= @ouvrage.maitre_oeuvre %><br>
-      topo <br>
+      Budget : <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €<br>
     </div>
     
   </div>
