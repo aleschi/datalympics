@@ -14,6 +14,14 @@ class OuvragesController < ApplicationController
    
     @ouvrage_financements = OuvragesFinancement.all.where('ouvrage_id = ?', @ouvrage.id)
     @ouvrage_depenses = OuvragesDepense.all.where('ouvrage_id = ?', @ouvrage.id)
+    @ouvrage_financeurs_hash = @ouvrage_financements.group(:name).sum('montant')
+    @ouvrage_financeurs = []
+    @ouvrage_financeurs_hash.each do |h|
+      if !h[0].nil?
+      @ouvrage_financeurs << h[0]
+      end
+    end
+    
   end
 
   # GET /ouvrages/new
