@@ -1,6 +1,6 @@
 <div  class="SD-table-box">
     <div>
-    <%= line_chart @ouvrage.ouvrages_financements.unscope(:order).group_by_month(:date).sum('montant'), library: {
+    <%= line_chart @ouvrage.ouvrages_financements.unscope(:order).group(:date).sum('montant'), library: {
       chart:{
             backgroundColor: '#F3F8FF',
            
