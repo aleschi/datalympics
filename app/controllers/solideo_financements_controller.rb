@@ -5,14 +5,18 @@ class SolideoFinancementsController < ApplicationController
   # GET /solideo_financements.json
   def index
     @solideo_financements = SolideoFinancement.all
-   
+    @financeurs_hash = @solideo_financements.group(:financeur).sum('montant')
+    @financeurs = []
+    @financeurs_hash.each do |h|
+      @financeurs << h[0]
+    end
   end
 
   # GET /solideo_financements/1
   # GET /solideo_financements/1.json
   def show
     
-    @financeur=SolideoFinancement.where('financeur = ?', @solideo_financement.financeur)
+    @financement=SolideoFinancement.where('financeur = ?', @solideo_financement.financeur)
     @ouvrage_finances = OuvragesFinancement.where('name = ?', @solideo_financement.financeur)
     
     @ouvrages_hash = @ouvrage_finances.group(:ouvrage_id).sum('montant')
