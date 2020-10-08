@@ -31,14 +31,14 @@ class SolideoDepensesController < ApplicationController
   @solideo_financements_dates_ouvrages_keys = @solideo_financements_dates_ouvrages.keys
   @solideo_financements_dates_ouvrages_values = @solideo_financements_dates_ouvrages.values
   @sum = 0
-  @solideo_financements_dates_ouvrages_values .map!{|x| @sum += x}
+  @solideo_financements_dates_ouvrages_values.map!{|x| @sum += x}
   @solideo_financements_dates_ouvrages_tuple = @solideo_financements_dates_ouvrages_keys.zip(@solideo_financements_dates_ouvrages_values)
    
   @solideo_financements_dates_reserve = @solideo_financements.where('categorie = ?', "reserve").unscope(:order).group(:date).sum('montant')
   @solideo_financements_dates_reserve_keys = @solideo_financements_dates_reserve.keys
   @solideo_financements_dates_reserve_values = @solideo_financements_dates_reserve.values
   @sum = 0
-  @solideo_financements_dates_reserve_values .map!{|x| @sum += x}
+  @solideo_financements_dates_reserve_values.map!{|x| @sum += x}
   @solideo_financements_dates_reserve_tuple = @solideo_financements_dates_reserve_keys.zip(@solideo_financements_dates_reserve_values)
   
     
@@ -46,7 +46,7 @@ class SolideoDepensesController < ApplicationController
   @solideo_financements_dates_innovation_keys = @solideo_financements_dates_innovation.keys
   @solideo_financements_dates_innovation_values = @solideo_financements_dates_innovation.values
   @sum = 0
-  @solideo_financements_dates_innovation_values .map!{|x| @sum += x}
+  @solideo_financements_dates_innovation_values.map!{|x| @sum += x}
   @solideo_financements_dates_innovation_tuple = @solideo_financements_dates_innovation_keys.zip(@solideo_financements_dates_innovation_values)
   
     
@@ -54,7 +54,7 @@ class SolideoDepensesController < ApplicationController
   @solideo_financements_dates_fonctionnement_keys = @solideo_financements_dates_fonctionnement.keys
   @solideo_financements_dates_fonctionnement_values = @solideo_financements_dates_fonctionnement.values
   @sum = 0
-  @solideo_financements_dates_fonctionnement_values .map!{|x| @sum += x}
+  @solideo_financements_dates_fonctionnement_values.map!{|x| @sum += x}
   @solideo_financements_dates_fonctionnement_tuple = @solideo_financements_dates_fonctionnement_keys.zip(@solideo_financements_dates_fonctionnement_values)
   
     
@@ -62,7 +62,7 @@ class SolideoDepensesController < ApplicationController
   @solideo_financements_dates_ouvrages_prevu_keys = @solideo_financements_dates_ouvrages_prevu.keys
   @solideo_financements_dates_ouvrages_prevu_values = @solideo_financements_dates_ouvrages_prevu.values
   @sum = 0
-  @solideo_financements_dates_ouvrages_prevu_values .map!{|x| @sum += x}
+  @solideo_financements_dates_ouvrages_prevu_values.map!{|x| @sum += x}
   @solideo_financements_dates_ouvrages_prevu_tuple = @solideo_financements_dates_ouvrages_prevu_keys.zip(@solideo_financements_dates_ouvrages_prevu_values)
   
     
