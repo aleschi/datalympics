@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_05_142414) do
+ActiveRecord::Schema.define(version: 2020_10_08_075334) do
 
   create_table "etat_budgets", force: :cascade do |t|
     t.datetime "date"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_10_05_142414) do
   end
 
   create_table "etat_depenses", force: :cascade do |t|
-    t.datetime "date"
+    t.date "date"
     t.string "beneficiaire"
     t.integer "titre"
     t.integer "categorie"
