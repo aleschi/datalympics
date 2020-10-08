@@ -14,7 +14,15 @@ class SolideoFinancementsController < ApplicationController
     
     @financeur=SolideoFinancement.where('financeur = ?', @solideo_financement.financeur)
     @ouvrage_finances = OuvragesFinancement.where('name = ?', @solideo_financement.financeur)
-  end
+    
+    @ouvrages_hash = @ouvrage_finances.group(:ouvrage_id).sum('montant')
+    @ouvrages = []
+    if !@ouvrages_hash.first[0].nil?
+      @ouvrages_hash.each do |h|
+        @ouvrages << h[0]
+      end
+    end
+  end 
 
   # GET /solideo_financements/new
   def new
