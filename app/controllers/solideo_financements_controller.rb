@@ -5,6 +5,7 @@ class SolideoFinancementsController < ApplicationController
   # GET /solideo_financements.json
   def index
     @solideo_financements = SolideoFinancement.all
+   
   end
 
   # GET /solideo_financements/1
@@ -43,6 +44,11 @@ class SolideoFinancementsController < ApplicationController
   
   def collectivites
     @solideo_financements = SolideoFinancement.where('financeur != ? AND financeur != ? ', 'Etat', "privé").all
+     @financeurs_hash = @solideo_financements.group(:financeur).sum('montant')
+    @financeurs = []
+    @financeurs_hash.each do |h|
+      @financeurs << h[0]
+    end
   end 
 
   # POST /solideo_financements

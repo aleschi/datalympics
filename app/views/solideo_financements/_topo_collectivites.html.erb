@@ -51,10 +51,10 @@
       <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
     </div> <br><br>
    
-    <% @solideo_financements.group(:financeur).each do |solideo_financement| %>
+    <% @financeurs.each do |financeur| %>
     <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name"><%= link_to solideo_financement_path(id: solideo_financement.id) do %><%= solideo_financement.financeur %> <% end %></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(solideo_financement.montant_prevu.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((solideo_financement.montant.to_i), :delimiter => ' ') %> €</div></div>
+      <div class="SF-topo-financeurs-name"><%= link_to solideo_financement_path(id: SolideoFinancement.where("financeur = ?", financeur).first.id) do %><%= financeur %> <% end %></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(SolideoFinancement.where("financeur = ?", financeur).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter(SolideoFinancement.where("financeur = ?", financeur).sum('montant').to_i, :delimiter => ' ') %> €</div></div>
     </div>           
    
     <% end %>
