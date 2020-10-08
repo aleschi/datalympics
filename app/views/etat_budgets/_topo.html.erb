@@ -73,6 +73,12 @@
                    fontWeight: "400",
                   },
               },
+             tooltip: {
+             headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
+              pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y:,.0f}€ </b><br/>',
+              valueSuffix: '€',
+            },
+        
            },
           },
       legend: {
@@ -84,11 +90,7 @@
       yAxis: {
           gridLineColor: '#E6F0FF', 
          },
-      tooltip: {
-
-              pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}€</b><br/>',
-
-            }
+  
           }
       %>
       </div>

@@ -626,6 +626,7 @@ display: none;
 .home_subtitle{
   color:#444444;
   font-size:30px;
+  margin-bottom:40px;
 }
 .home_choice_text{
   color:#444444;
@@ -658,4 +659,28 @@ display: none;
       cursor:pointer;
     }
   }
+}
+
+.home_page_1{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  align-items:center;
+}
+.home_image{
+ position:absolute;
+  z-index:-1;
+  min-width:100%;
+  min-height:100vh;
+  img{
+     min-width:100%;
+  min-height:100%;
+  }
+  
+}
+
+.O-topo-box-financeurs{
+  width:50%;
 }

@@ -60,7 +60,7 @@
   
 <div  class="SD-table-box">
     <div>
-    <%= line_chart [{name: "Budget prévu", data: @financement.unscope(:order).group_by_year(:date).sum('montant_prevu')}, {name: "budget dépensé", data: @financement.unscope(:order).group_by_year(:date).sum('montant') } ], library: {
+    <%= line_chart [{name: "Financement prévu", data: @financement.unscope(:order).group_by_year(:date).sum('montant_prevu')}, {name: "Financement attribué", data: @financement.unscope(:order).group_by_year(:date).sum('montant') } ], library: {
       chart:{
             backgroundColor: '#F3F8FF',
            
@@ -72,7 +72,7 @@
           },
 
       title: {
-        text:'<em>Suivi des dépenses</em>',
+        text:'<em>Suivi des financements attribués par la collectivité pour les JOP2024</em>',
         margin:40,
         style: {
                   color: "#8F8F8F",
@@ -103,7 +103,7 @@
               <tr>
                 <th scope="col">Dates</th>
          
-                <th scope="col"> Budget réel dépensé / Budget prévu</th>
+                <th scope="col"> Financement attribué / Financement prévu</th>
                 <th scope="col" class="border-none">Type</th>
                
               </tr>
