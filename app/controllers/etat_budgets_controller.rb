@@ -33,7 +33,13 @@ class EtatBudgetsController < ApplicationController
     else
       @etat_depenses_hauteperformance = 0
     end
-          
+    
+    @etat_depenses_hash = EtatDepense.unscope(:order).group_by_year(:date).sum('cp_conso')
+    @etat_depenses_array = []
+    @etat_depenses_hash.each do |h|
+      @etat_depenses_array << h[0]
+    end 
+    
   end
 
   # GET /etat_budgets/1

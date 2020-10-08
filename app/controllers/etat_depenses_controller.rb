@@ -71,7 +71,7 @@ class EtatDepensesController < ApplicationController
   # POST /etat_depenses.json
   def create
     @etat_depense = EtatDepense.new(etat_depense_params)
-
+    @etat_depense.date = @etat_depense.date.change(month: 1, day: 1)
     respond_to do |format|
       if @etat_depense.save
         format.html { redirect_to etat_depenses_path, notice: 'Etat depense was successfully created.' }
