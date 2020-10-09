@@ -456,6 +456,7 @@ display: none;
    background-color:#F3F8FF;
   border-radius:20px;
   padding: 40px;
+  margin-bottom:30px;
  
 }
 .SD-topo-box-title span{
@@ -476,6 +477,36 @@ display: none;
   align-items:center;
 }
 
+.budget-topo-chart{
+  margin:auto;
+  width:600px;
+}
+.budget-topo-infos{
+    display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.budget-topo-actuel{
+  width:50%;
+  text-align:left;
+  color: #48AF5C;
+  text-transform: uppercase;
+  font-weight:700;
+  font-size:16px;
+}
+.budget-topo-prevu{
+  width:50%;
+  text-align:right;
+  color: #8F8F8F;
+  text-transform: uppercase;
+  font-weight:700;
+  font-size:16px;
+}
 .SD-table-box{
    background-color:#F3F8FF;
   border-radius:20px;
@@ -684,3 +715,4 @@ display: none;
 .O-topo-box-financeurs{
   width:50%;
 }
+

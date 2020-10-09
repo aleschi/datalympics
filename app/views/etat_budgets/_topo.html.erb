@@ -1,17 +1,87 @@
+
+
 <% if !@etat_budget_actuel.nil? %>
 <div class="SD-topo-box">
   <div class="SD-topo-box-title">
-    <span>Répartition Budget état</span>
+    <span>Budget de l'état</span>
+  </div>
+  <div class="SD-topo_chart-box">
+    
+    
+    <div class="budget-topo-chart">
+      <div class="budget-topo-infos">
+        <div class="budget-topo-actuel">
+          Budget total actuel dépensé <br>
+          <%=  number_with_delimiter(@etat_depenses.sum('cp_conso').to_i, :delimiter => ' ') %>€
+        </div>
+        <div class="budget-topo-prevu">
+          Budget total prévu <br>
+          <%=  number_with_delimiter(@etat_budget_actuel.budget_total.to_i, :delimiter => ' ') %>€
+        </div>
+      </div>
+      <div>
+       <%= bar_chart [ {name: "Total prévu", data: [["Total",@etat_budget_actuel.budget_total.to_i]]}, {name: "Total actuel", data: [["Total", @etat_depenses.sum('cp_conso').to_i]]} ], library: {
+      chart: {
+          backgroundColor: '#F3F8FF',
+         inverted: true,
+      
+     
+      type: 'bar', 
+          style:{
+          fontFamily: "Spectral",
+          maxWidth: "600px",
+          }
+        },
+      colors: ["#8F8F8F", "#48AF5C"],
+   yAxis: {
+        gridLineColor: '#F3F8FF', 
+     title: {
+       text: "% atteint du budget total prévu"
+       }
+       },
+
+       plotOptions: {
+          bar: {
+             pointWidth: 10,
+            stacking: 'percent',
+             label: { 
+              enable: false,
+               },
+            },
+         },
+       
+       
+      } %> 
+      </div>
+    </div>
+  </div>
+</div>
+<div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>Répartition des dépenses état</span>
   </div>
   <div class="SD-topo_chart-box">
     <div class="topo-chart">
+     
+   
+      <div>
+    
       <%= pie_chart({"SOLIDEO" => @etat_budget_actuel.budget_solideo.to_i, "COJO" => @etat_budget_actuel.budget_cojo.to_i, "Héritage" => @etat_budget_actuel.budget_heritage.to_i, "Haute Performance" => @etat_budget_actuel.budget_hauteperformance.to_i}, library: {
       chart: {
            backgroundColor: '#F3F8FF',
-        style:{
+        
+           style:{
           fontFamily: "Spectral",
           maxWidth: "500px",
           }
+        },
+   title: {
+          text:'<em>Dépenses Prévisionnelles (2016)</em>',
+     
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
         },
 
         tooltip: {
@@ -36,17 +106,19 @@
                 }
             }
         },
-      }) %>
+      }) %>    
+      </div>
 
   </div>
     
     <% if !@etat_depenses.nil?%>
       <div id="SD-topo-repartition">
 
-        <%= column_chart [ {name: "Budget Etat prévu", data: [["SOLIDEO",@etat_budget_actuel.budget_solideo.to_i],["COJO",@etat_budget_actuel.budget_cojo.to_i],["Héritage", @etat_budget_actuel.budget_heritage.to_i],["Haute Performance",@etat_budget_actuel.budget_hauteperformance.to_i]]},{name: "Budget dépensé", data: [["SOLIDEO",@etat_depenses_solideo.to_i],["COJO",@etat_depenses_cojo.to_i],["Héritage", @etat_depenses_heritage.to_i],["Haute Performance",@etat_depenses_hauteperformance.to_i]]} ], library: {
+        <%= column_chart [ {name: "Budget Etat prévu", data: [["SOLIDEO",@etat_budget_actuel.budget_solideo.to_i],["COJO",@etat_budget_actuel.budget_cojo.to_i],["Héritage", @etat_budget_actuel.budget_heritage.to_i],["Haute Performance",@etat_budget_actuel.budget_hauteperformance.to_i]]},{name: "Budget Etat dépensé", data: [["SOLIDEO",@etat_depenses_solideo.to_i],["COJO",@etat_depenses_cojo.to_i],["Héritage", @etat_depenses_heritage.to_i],["Haute Performance",@etat_depenses_hauteperformance.to_i]]} ], library: {
         chart:{
             type: 'column',
             backgroundColor: '#F3F8FF',
+         
             style:{
             fontFamily: "Spectral",
                maxWidth: "500px",
@@ -54,13 +126,14 @@
             },
 
         title: {
-          text:'<em>% du budget dépensé par rapport au budget prévu </em>',
+          text:'<em>Ratio du budget dépensé à date par rapport au budget prévu </em>',
           margin:40,
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
                   },
         },
+        colors: ["#8F8F8F", "#48AF5C"],
         plotOptions: {
           column: {
             stacking: 'percent',
