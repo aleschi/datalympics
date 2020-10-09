@@ -29,9 +29,9 @@
             <td><%= etat_depense.titre %></td>
             <td><%= etat_depense.categorie %></td>
             <td><%= number_with_delimiter(etat_depense.ae_prevu.to_i, :delimiter => ' ') %> €</td>
-            <td><%= number_with_delimiter(etat_depense.ae_conso.to_i, :delimiter => ' ') %> €</td>
+            <td><%= number_with_delimiter(etat_depense.ae_conso.to_i, :delimiter => ' ') %> € <% if etat_depense.ae_conso.to_i > etat_depense.ae_prevu.to_i %><i class="fas fa-exclamation-circle"></i><% end %></td>
             <td><%= number_with_delimiter(etat_depense.cp_prevu.to_i, :delimiter => ' ') %> €</td>
-            <td><%= number_with_delimiter(etat_depense.cp_conso.to_i, :delimiter => ' ') %> €</td>
+            <td><%= number_with_delimiter(etat_depense.cp_conso.to_i, :delimiter => ' ') %> € <% if etat_depense.cp_conso.to_i > etat_depense.cp_prevu.to_i %><i class="fas fa-exclamation-circle"></i><% end %></td>
             <td class="border-none"> <%= link_to edit_etat_depense_path(etat_depense) do %> <i class="fas fa-pen"></i><% end %>
             <%= link_to etat_depense, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %></td>
           </tr>
@@ -48,4 +48,4 @@
     <div class="ED_new_depense">
     <%= link_to new_etat_depense_path do %><i class="fas fa-plus-circle"></i>Ajouter une dépense<%end%>
   </div> 
-</div>
+</div><br>

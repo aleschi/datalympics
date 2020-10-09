@@ -1,77 +1,29 @@
-<div class="ED_chart">
-    <%= area_chart @etat_depenses.unscoped.group_by_year(:date).sum('cp_conso'), colors: ['#48AF5C'], library: {
-      chart:{
-            backgroundColor: '#E6F0FF',
-            borderRadius: '20px',
-            spacing: [40,40,40,40],
-          },
-
-      title: {
-        text:'Suivi des dépenses',
-        margin:40,
-      },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          }
-        }
-    %>
-  </div>
-<div class="ED_chart">
- 
-    <%= column_chart [{name: "CP solideo", data: @etat_depenses_solideo.unscope(:order).group_by_year(:date).sum(:cp_conso)},{name: "CP Héritage", data: @etat_depenses_heritage.unscope(:order).group_by_year(:date).sum(:cp_conso)},{name: "CP Haute Performance", data: @etat_depenses_hauteperformance.unscope(:order).group_by_year(:date).sum(:cp_conso)},{name: "CP cojo", data: @etat_depenses_cojo.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#004A70','#AED9E6'], library: {
-      chart:{
-            backgroundColor: '#E6F0FF',
-            borderRadius: '20px',
-            spacing: [40,40,40,40],
-          },
-
-      title: {
-        text:'Suivi des dépenses des différents acteurs par an',
-        margin:40,
-      },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-   
-       },
-      plotOptions: {
-        column: {
-            stacking: 'normal',
-            dataLabels: {
-              #  enabled: true
-              }
-          }
-      },
-          tooltip: {
-             headerFormat: '<b>{point.x}</b><br/>',
-              pointFormat: '{series.name}: {point.y} ({point.percentage:.1f}%)<br/>Total: {point.stackTotal}'
-          }
-        }
-    %>
-  </div>
-
+<div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>SOLIDEO</span>
+  </div><br><br>
   <div class="row">
      <div class="col-md-6">
-
-      <%= column_chart [{name: "AE prévus", data: @etat_depenses.unscoped.group_by_year(:date).sum(:ae_prevu)},{name: "AE consommés", data: @etat_depenses.unscoped.group_by_year(:date).sum(:ae_conso)}],colors: ['#004A70','#AED9E6'],  library: {
+        
+      <%= line_chart [{name: "AE prévus", data: @etat_depenses_solideo.unscope(:order).group_by_year(:date).sum(:ae_prevu)},{name: "AE consommés", data: @etat_depenses_solideo.unscope(:order).group_by_year(:date).sum(:ae_conso)}],colors: ['#8F8F8F','#48AF5C'],  library: {
         chart:{
-          backgroundColor: '#E6F0FF',
+          backgroundColor: '#F3F8FF',
           borderRadius: '20px',
-          spacing: [40,40,40,40],
+         
+          style:{
+          fontFamily: "Spectral",
+         
+          },
         },
         title: {
-          text: 'AE prévus VS AE consommés',
-          margin:40,
+          text: '<em>AE prévus VS AE consommés</em>',
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
         },
         yAxis: {
-             gridLineColor: '#E6F0FF',         
+             gridLineColor: '#F3F8FF',         
         },
         tooltip: {
               xDateFormat: '%B',
@@ -99,18 +51,24 @@
      </div>
      <div class="col-md-6">
 
-      <%= column_chart [{name: "CP prévus", data: @etat_depenses.unscoped.group_by_year(:date).sum(:cp_prevu)},{name: "CP consommés", data: @etat_depenses.unscoped.group_by_year(:date).sum(:cp_conso)}],colors: ['#004A70','#AED9E6'],  library: {
+      <%= line_chart [{name: "CP prévus", data: @etat_depenses_solideo.unscope(:order).group_by_year(:date).sum(:cp_prevu)},{name: "CP consommés", data: @etat_depenses_solideo.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#8F8F8F','#48AF5C'],  library: {
         chart:{
-          backgroundColor: '#E6F0FF',
+          backgroundColor: '#F3F8FF',
           borderRadius: '20px',
-          spacing: [40,40,40,40],
+          style:{
+          fontFamily: "Spectral",
+         
+          },
         },
         title: {
-          text: 'CP prévus VS CP consommés',
-          margin:40,
+          text: '<em>CP prévus VS CP consommés</em>',
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
         },
         yAxis: {
-             gridLineColor: '#E6F0FF',         
+             gridLineColor: '#F3F8FF',         
         },
         tooltip: {
               xDateFormat: '%B',
@@ -136,4 +94,104 @@
       %>
              
      </div>
-  </div><br><br>    
+  </div>
+</div>
+
+<div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>COJO</span>
+  </div><br><br>
+  <div class="row">
+     <div class="col-md-6">
+        
+      <%= line_chart [{name: "AE prévus", data: @etat_depenses_cojo.unscope(:order).group_by_year(:date).sum(:ae_prevu)},{name: "AE consommés", data: @etat_depenses_cojo.unscope(:order).group_by_year(:date).sum(:ae_conso)}],colors: ['#8F8F8F','#48AF5C'],  library: {
+        chart:{
+          backgroundColor: '#F3F8FF',
+          borderRadius: '20px',
+         
+          style:{
+          fontFamily: "Spectral",
+         
+          },
+        },
+        title: {
+          text: '<em>AE prévus VS AE consommés</em>',
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
+        },
+        yAxis: {
+             gridLineColor: '#F3F8FF',         
+        },
+        tooltip: {
+              xDateFormat: '%B',
+            },
+        xAxis: {
+             lineColor: '#004A70',
+             type: 'datetime',
+            
+              title: {
+              text: "Dates",
+             },
+
+         },
+        plotOptions: {
+          column: {
+              tooltip: {
+                xDateFormat: '%B',
+              }
+          }
+        },
+       
+        }
+      %>
+             
+     </div>
+     <div class="col-md-6">
+
+      <%= line_chart [{name: "CP prévus", data: @etat_depenses_cojo.unscope(:order).group_by_year(:date).sum(:cp_prevu)},{name: "CP consommés", data: @etat_depenses_cojo.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#8F8F8F','#48AF5C'],  library: {
+        chart:{
+          backgroundColor: '#F3F8FF',
+          borderRadius: '20px',
+          style:{
+          fontFamily: "Spectral",
+         
+          },
+        },
+        title: {
+          text: '<em>CP prévus VS CP consommés</em>',
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  },
+        },
+        yAxis: {
+             gridLineColor: '#F3F8FF',         
+        },
+        tooltip: {
+              xDateFormat: '%B',
+            },
+        xAxis: {
+             lineColor: '#004A70',
+             type: 'datetime',
+            
+              title: {
+              text: "Dates",
+             },
+
+         },
+        plotOptions: {
+          column: {
+              tooltip: {
+                xDateFormat: '%B',
+              }
+          }
+        },
+       
+        }
+      %>
+             
+     </div>
+  </div>
+</div>
