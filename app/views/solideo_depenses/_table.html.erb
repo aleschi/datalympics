@@ -85,7 +85,7 @@
     <span>Suivi trimestriel des dépenses des ouvrages </span>
   </div>
   <div>
-    <%= line_chart [{name: "Décaissements", data: @solideo_financements_dates_ouvrages_tuple},{name: "Engagements", data: @solideo_financements_dates_ouvrages_prevu_tuple} ], library: {
+    <%= line_chart [{name: "Décaissements effectifs", data: @solideo_depenses_ouvrages_reel},{name: "Décaissements prévus", data: @solideo_depenses_ouvrages_prevu} ], library: {
       chart:{
             backgroundColor: '#F3F8FF',
            
@@ -97,7 +97,7 @@
           },
 
       title: {
-        text:'<em>Suivi des décaissements et des engagements des ouvrages de la Solideo</em>',
+        text:'<em>Suivi des décaissements des ouvrages de la Solideo</em>',
         margin:40,
         style: {
                   color: "#8F8F8F",

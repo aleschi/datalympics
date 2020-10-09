@@ -36,6 +36,25 @@ class OuvragesDepensesController < ApplicationController
       end
     end
   end
+  
+  def import
+ 
+    OuvragesDepense.import(params[:file])
+
+    redirect_to ouvrages_depenses_path
+  end 
+  def import2
+ 
+    OuvragesDepense.import2(params[:file])
+
+    redirect_to ouvrages_depenses_path
+  end 
+  def import3
+ 
+    OuvragesDepense.import3(params[:file])
+
+    redirect_to ouvrages_depenses_path
+  end 
 
   # PATCH/PUT /ouvrages_depenses/1
   # PATCH/PUT /ouvrages_depenses/1.json
@@ -69,6 +88,6 @@ class OuvragesDepensesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ouvrages_depense_params
-      params.require(:ouvrages_depense).permit(:date, :ouvrage_id, :name, :montant)
+      params.require(:ouvrages_depense).permit(:date, :ouvrage_id, :name, :montant, :montant_prevu, :montant_engage)
     end
 end

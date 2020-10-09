@@ -1,6 +1,7 @@
 class Ouvrage < ApplicationRecord
  has_many :ouvrages_financeurs 
  has_many :ouvrages_financements
+  has_many :ouvrages_depenses
   require 'csv'
 
   def self.import(file)
