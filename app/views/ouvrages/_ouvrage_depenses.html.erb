@@ -1,4 +1,7 @@
 <div  class="SD-table-box">
+  <div class="SD-topo-box-title">
+    <span>Suivi trimestriel des dépenses de l'ouvrage</span>
+  </div>
     <div>
     <%= line_chart @ouvrage.ouvrages_financements.unscope(:order).group(:date).sum('montant'), library: {
       chart:{
@@ -12,7 +15,7 @@
           },
 
       title: {
-        text:"<em>Suivi des dépenses effectuées pour l'ouvrage</em>",
+        text:"<em>Suivi des décaissements et des engagements pour l'ouvrage</em>",
         margin:40,
         style: {
                   color: "#8F8F8F",
@@ -42,9 +45,9 @@
             <thead>
               <tr>
                 <th scope="col">Dates</th>
-                <th scope="col">Montant</th>
+                <th scope="col">Décaissement</th>
+                <th scope="col" class="border-none">Engagement</th>
       
-                <th scope="col" class="border-none"> Bénéficiaire</th>
               </tr>
             </thead>
             <tbody>
@@ -52,8 +55,9 @@
               <tr>
                 <th scope="row"><%= ouvrage_depense.date.strftime("%b %Y") %></th>
                 <td><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</td>
+                <td><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</td>
              
-              <td class="border-none"></td>
+             
               </tr>
               <% end %>
             </tbody>
