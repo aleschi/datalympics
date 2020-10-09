@@ -55,7 +55,7 @@
               <tr>
                 <th scope="row"><%= ouvrage_depense.date.strftime("%b %Y") %></th>
                 <td><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</td>
-                <td><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</td>
+                <td class="border-none"><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</td>
              
              
               </tr>

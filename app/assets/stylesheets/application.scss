@@ -474,6 +474,16 @@ display: none;
   margin-bottom:10px;
   text-transform:uppercase;
 }
+.SD-topo-box-title-depenses span{
+    font-size:16px;
+  font-weight:700;
+  padding:4px 8px;
+  color:#fff;
+  background-color:#004A70;
+  margin-bottom:10px;
+  text-transform:uppercase;
+  
+}
 .SD-topo_chart-box{
     display: inline-flex;
   display: -webkit-inline-flex;
@@ -493,6 +503,7 @@ display: none;
 
 .budget-topo-chart{
   width:50%;
+  padding: 0px 25px;
 }
 .budget-topo-chart-ecart{
  text-align:center;
@@ -544,6 +555,14 @@ display: none;
   width:50%;
   text-align:left;
   color: #48AF5C;
+  text-transform: uppercase;
+  font-weight:700;
+  font-size:16px;
+}
+.budget-topo-depenses-actuel{
+  width:50%;
+  text-align:left;
+  color: #004A70;
   text-transform: uppercase;
   font-weight:700;
   font-size:16px;
