@@ -4,10 +4,8 @@
 <div class="SD-topo-box">
   <div class="SD-topo-box-title">
     <span>Budget de l'état</span>
-  </div>
-  <div class="SD-topo_chart-box">
-    
-    
+  </div><br><br>
+  <div class="budget-topo_chart-box"> 
     <div class="budget-topo-chart">
       <div class="budget-topo-infos">
         <div class="budget-topo-actuel">
@@ -54,6 +52,26 @@
       } %> 
       </div>
     </div>
+    <div class="budget-topo-chart">
+      <div class="budget-topo-chart-ecart">
+        <div class="budget-topo-chart-ecart-text">
+          Ecart budget total à date <br>(budget prévu a date - budget actuel)
+        </div>
+        <div class="budget-topo-chart-ecart-box">
+          <% if @etat_depenses.sum('cp_prevu').to_i - @etat_depenses.sum('cp_conso').to_i >=  0 %>
+            <div class='box-green'>
+              - <%= (((@etat_depenses.sum('cp_prevu') - @etat_depenses.sum('cp_conso')) / @etat_depenses.sum('cp_prevu'))*100).round(1) %>%<br>
+              <span>- <%= number_with_delimiter((@etat_depenses.sum('cp_prevu').to_i - @etat_depenses.sum('cp_conso').to_i), :delimiter => ' ') %>€</span>
+            </div> 
+          <% else %>
+          <div class='box-red'>
+            <%= (((@etat_depenses.sum('cp_prevu').to_i - @etat_depenses.sum('cp_conso').to_i) / @etat_depenses.sum('cp_prevu').to_i)*100).round %>%<br> 
+            <span><%= number_with_delimiter((@etat_depenses.sum('cp_prevu').to_i - @etat_depenses.sum('cp_conso').to_i), :delimiter => ' ') %>€</span>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
   <br><br>
 </div>
@@ -77,7 +95,7 @@
           }
         },
    title: {
-          text:'<em>Dépenses Prévisionnelles (2016)</em>',
+          text:'<em>Dépenses Totales Prévisionnelles (2016)</em>',
      
           style: {
                   color: "#8F8F8F",
@@ -127,7 +145,7 @@
             },
 
         title: {
-          text:'<em>Ratio du budget dépensé à date par rapport au budget prévu </em>',
+          text:'<em>Ratio du budget dépensé à date par rapport au budget total prévu </em>',
           margin:40,
           style: {
                   color: "#8F8F8F",

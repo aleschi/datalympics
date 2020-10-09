@@ -479,10 +479,53 @@ display: none;
   width:100%;
   align-items:center;
 }
+.budget-topo_chart-box{
+    display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+
+}
 
 .budget-topo-chart{
+  width:50%;
+}
+.budget-topo-chart-ecart{
+ text-align:center;
+}
+.box-green{
+  border: 1px solid #48AF5C;
+  padding: 20px 14px;
+  border-radius:10px;
+  color:#48AF5C;
+  width:200px;
   margin:auto;
-  width:600px;
+  font-weight:700;
+  font-size: 16px;
+  span{
+    color: #8F8F8F
+  }
+}
+.box-red{
+  border: 1px solid #D83E49;
+  padding: 20px 14px;
+  border-radius:10px;
+  color:#D83E49;
+  width:200px;
+  margin:auto;
+  font-weight:700;
+  font-size: 16px;
+  span{
+    color: #8F8F8F
+  }
+}
+.budget-topo-chart-ecart-text{
+  text-transform:uppercase;
+  color: #48AF5C;
+  font-size: 16px;
+  font-weight:700;
+  margin-bottom:30px;
 }
 .budget-topo-infos{
     display: inline-flex;
@@ -683,11 +726,12 @@ display: none;
   margin-right:20px;
   a{
     text-decoration:none;
-    color:#444444;
+    background-color:#444444;
+    color:#fff;
     text-transform:uppercase;
     padding: 10px 14px;
     border:1px solid #444444;
-    border-radius:4px;
+    border-radius:50px;
     font-size:20px;
     &:hover{
       cursor:pointer;
