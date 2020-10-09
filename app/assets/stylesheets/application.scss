@@ -425,11 +425,14 @@ display: none;
 }
 
 .SF-topo-financeurs-budget{
-  width:200px;
+  width:250px;
   display: inline-flex;
   display: -webkit-inline-flex;
   display: -ms-inline-flex;
   display: -moz-inline-flex;
+  i{
+    color: #D83E49;
+  }
 }
 .SF-topo-financeurs-budget-prevu{
    font-weight:500;

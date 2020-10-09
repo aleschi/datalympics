@@ -55,7 +55,7 @@
     <div class="budget-topo-chart">
       <div class="budget-topo-chart-ecart">
         <div class="budget-topo-chart-ecart-text">
-          Ecart budget total à date <br>(budget prévu a date - budget actuel)
+          Ecart budget total à date <br>(= budget prévu a date - budget actuel)
         </div>
         <div class="budget-topo-chart-ecart-box">
           <% if @etat_depenses.sum('cp_prevu').to_i - @etat_depenses.sum('cp_conso').to_i >=  0 %>

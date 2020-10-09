@@ -1,5 +1,8 @@
 
 <div  class="SD-table-box">
+  <div class="SD-topo-box-title">
+    <span>Suivi trimestriel des dépenses de la solideo</span>
+  </div>
     <div>
     <%= line_chart [{name: "Dépenses ouvrages", data: @solideo_financements_dates_ouvrages_tuple},{name: "Dépenses frais de fonctionnement", data: @solideo_financements_dates_fonctionnement_tuple},{name: "Dépenses innovation", data: @solideo_financements_dates_innovation_tuple}, {name: "Dépenses réserve", data: @solideo_financements_dates_reserve_tuple} ], library: {
       chart:{
@@ -13,7 +16,7 @@
           },
 
       title: {
-        text:'<em>Suivi des dépenses de la Solideo</em>',
+        text:'<em>Suivi trimestriel des dépenses de la Solideo</em>',
         margin:40,
         style: {
                   color: "#8F8F8F",
@@ -57,10 +60,10 @@
               <% @solideo_depenses_array.each do |date| %>
               <tr>
                 <th scope="row"><%= date.strftime("%b %Y") %></th>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'ouvrages',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'ouvrages',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€</div></div></td>
-                 <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€</div></div></td>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€</div></div></td>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€</div></div></td>
+                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'ouvrages',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'ouvrages',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'ouvrages',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'ouvrages',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
+                 <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
+                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
+                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
                 <td class="border-none"><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('date = ?',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('date = ?',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€</div></div></td>
                
              </tr>
@@ -76,8 +79,13 @@
 
     
   </div>
+</div><br><br>
+<div  class="SD-table-box">
+  <div class="SD-topo-box-title">
+    <span>Suivi trimestriel des dépenses des ouvrages </span>
+  </div>
   <div>
-    <%= line_chart [{name: "Dépenses réelles des ouvrages", data: @solideo_financements_dates_ouvrages_tuple},{name: "Dépenses prévues des ouvrages", data: @solideo_financements_dates_ouvrages_prevu_tuple} ], library: {
+    <%= line_chart [{name: "Décaissements", data: @solideo_financements_dates_ouvrages_tuple},{name: "Engagements", data: @solideo_financements_dates_ouvrages_prevu_tuple} ], library: {
       chart:{
             backgroundColor: '#F3F8FF',
            
@@ -89,7 +97,7 @@
           },
 
       title: {
-        text:'<em>Comparatif des dépenses prévues et réelles des ouvrages de la Solideo</em>',
+        text:'<em>Suivi des décaissements et des engagements des ouvrages de la Solideo</em>',
         margin:40,
         style: {
                   color: "#8F8F8F",

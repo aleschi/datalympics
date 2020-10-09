@@ -1,4 +1,78 @@
 <% if !@solideo_financements.nil?%>
+<div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>Financement de la Solideo</span>
+  </div><br><br>
+  <div class="budget-topo_chart-box"> 
+    <div class="budget-topo-chart">
+      <div class="budget-topo-infos">
+        <div class="budget-topo-actuel">
+          Financements actuel recus <br>
+          <%=  number_with_delimiter(@solideo_financements.sum('montant').to_i, :delimiter => ' ') %>€
+        </div>
+        <div class="budget-topo-prevu">
+          Financements prévus <br>
+          1 628 520 000€
+        </div>
+      </div>
+      <div>
+       <%= bar_chart [ {name: "Financement total prévu", data: [["Total",1628520000]]}, {name: "Financement actuel", data: [["Total", @solideo_financements.sum('montant').to_i]]} ], library: {
+      chart: {
+          backgroundColor: '#F3F8FF',
+         inverted: true,
+      
+     
+      type: 'bar', 
+          style:{
+          fontFamily: "Spectral",
+          maxWidth: "600px",
+          }
+        },
+      colors: ["#8F8F8F", "#48AF5C"],
+   yAxis: {
+        gridLineColor: '#F3F8FF', 
+     title: {
+       text: "% atteint du financement total prévu"
+       }
+       },
+
+       plotOptions: {
+          bar: {
+             pointWidth: 10,
+            stacking: 'percent',
+             label: { 
+              enable: false,
+               },
+            },
+         },
+       
+       
+      } %> 
+      </div>
+    </div>
+    <div class="budget-topo-chart">
+      <div class="budget-topo-chart-ecart">
+        <div class="budget-topo-chart-ecart-text">
+          Ecart Financement total à date <br>(= financement prévu a date - financement actuel)
+        </div>
+        <div class="budget-topo-chart-ecart-box">
+          <% if @solideo_financements.sum('montant_prevu').to_i - @solideo_financements.sum('montant').to_i >=  0 %>
+            <div class='box-green'>
+              - <%= (((@solideo_financements.sum('montant_prevu') - @solideo_financements.sum('montant')) / @solideo_financements.sum('montant_prevu'))*100).round(1) %>%<br>
+              <span>- <%= number_with_delimiter((@solideo_financements.sum('montant_prevu').to_i - @solideo_financements.sum('montant').to_i), :delimiter => ' ') %>€</span>
+            </div> 
+          <% else %>
+          <div class='box-red'>
+            <%= (((@solideo_financements.sum('montant_prevu').to_i - @solideo_financements.sum('montant').to_i) / @solideo_financements.sum('montant_prevu').to_i)*100).round %>%<br> 
+            <span><%= number_with_delimiter((@solideo_financements.sum('montant_prevu').to_i - @solideo_financements.sum('montant').to_i), :delimiter => ' ') %>€</span>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+</div>
 <div class="SF-topo-box">
    
   <div class="topo-chart">
@@ -16,7 +90,7 @@
     },
 
       title: {
-        text:'<em>Financements de la Solideo</em>',
+        text:'<em>Répartition des financements prévus de la Solideo</em>',
         margin:40,
         style: {
           color: '#8F8F8F',
@@ -50,13 +124,13 @@
    
     <div class="SF-topo-financeurs-box">
       <div class="SF-topo-financeurs-name"></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus à date €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
     </div> <br><br>
    
     <% @financeurs.each do |financeur| %>
     <div class="SF-topo-financeurs-box">
       <div class="SF-topo-financeurs-name"><% if financeur == "Etat"%><%= link_to etat_budgets_path do %><%= financeur %><%end%> <%else%><%= link_to solideo_financement_path(id: SolideoFinancement.where("financeur = ?", financeur).first.id) do %><%= financeur %> <%end%><% end %></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(SolideoFinancement.where("financeur = ?", financeur).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((SolideoFinancement.where("financeur = ?", financeur).sum('montant').to_i), :delimiter => ' ') %> €</div></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(SolideoFinancement.where("financeur = ?", financeur).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((SolideoFinancement.where("financeur = ?", financeur).sum('montant').to_i), :delimiter => ' ') %> € <% if SolideoFinancement.where("financeur = ?", financeur).sum('montant_prevu').to_i > SolideoFinancement.where("financeur = ?", financeur).sum('montant').to_i %><i class="fas fa-exclamation-circle"></i><%end %></div></div>
     </div>           
    
     <% end %>
