@@ -3,7 +3,7 @@
     <span>Suivi trimestriel des dépenses de l'ouvrage</span>
   </div>
     <div>
-    <%= line_chart @ouvrage.ouvrages_financements.unscope(:order).group(:date).sum('montant'), library: {
+    <%= line_chart [{name: "Décaissements", data: @ouvrage.ouvrages_depenses.unscope(:order).group(:date).sum('montant')}, {name: "Décaissements prévus", data: @ouvrage.ouvrages_depenses.unscope(:order).group(:date).sum('montant_prevu')}], library: {
       chart:{
             backgroundColor: '#F3F8FF',
            
@@ -15,7 +15,7 @@
           },
 
       title: {
-        text:"<em>Suivi des décaissements et des engagements pour l'ouvrage</em>",
+        text:"<em>Suivi des décaissements pour l'ouvrage</em>",
         margin:40,
         style: {
                   color: "#8F8F8F",
@@ -45,17 +45,17 @@
             <thead>
               <tr>
                 <th scope="col">Dates</th>
-                <th scope="col">Décaissement</th>
+                <th scope="col">Décaissement (effectif/prevu)</th>
                 <th scope="col" class="border-none">Engagement</th>
       
               </tr>
             </thead>
             <tbody>
-              <% @ouvrage.ouvrages_financements.order('date DESC').each do |ouvrage_depense| %>
+              <% @ouvrage.ouvrages_depenses.order('date DESC').each do |ouvrage_depense| %>
               <tr>
                 <th scope="row"><%= ouvrage_depense.date.strftime("%b %Y") %></th>
-                <td><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</td>
-                <td class="border-none"><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</td>
+                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(ouvrage_depense.montant_prevu.to_i, :delimiter => ' ') %> € <% if ouvrage_depense.montant.to_i > ouvrage_depense.montant_prevu.to_i%> <i class="fas fa-exclamation-circle"></i> <%end %> </div></div></td>
+                <td class="border-none"><%= number_with_delimiter(ouvrage_depense.montant_engage.to_i, :delimiter => ' ') %>€</td>
              
              
               </tr>
@@ -73,4 +73,4 @@
       
   </div>
   
-  </div>
+  </div><br><br>

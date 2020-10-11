@@ -6,6 +6,10 @@ class OuvragesController < ApplicationController
   def index
     @ouvrages = Ouvrage.all
     @ouvrages_financements = OuvragesFinancement.all
+    
+     @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
+    @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')
+    
   end
 
   # GET /ouvrages/1
