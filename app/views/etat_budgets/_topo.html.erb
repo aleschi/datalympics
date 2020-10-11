@@ -65,8 +65,8 @@
             </div> 
           <% else %>
           <div class='box-red'>
-            <%= (((@etat_depenses.sum('cp_prevu').to_i - @etat_depenses.sum('cp_conso').to_i) / @etat_depenses.sum('cp_prevu').to_i)*100).round %>%<br> 
-            <span><%= number_with_delimiter((@etat_depenses.sum('cp_prevu').to_i - @etat_depenses.sum('cp_conso').to_i), :delimiter => ' ') %>€</span>
+            + <%= (((@etat_depenses.sum('cp_conso') - @etat_depenses.sum('cp_prevu')) / @etat_depenses.sum('cp_prevu'))*100).round(1) %>%<br> 
+            <span> + <%= number_with_delimiter((@etat_depenses.sum('cp_conso').to_i - @etat_depenses.sum('cp_prevu').to_i), :delimiter => ' ') %>€</span>
           </div>
           <% end %>
         </div>
