@@ -57,7 +57,7 @@ class SolideoDepensesController < ApplicationController
   @solideo_financements_dates_fonctionnement_values.map!{|x| @sum += x}
   @solideo_financements_dates_fonctionnement_tuple = @solideo_financements_dates_fonctionnement_keys.zip(@solideo_financements_dates_fonctionnement_values)
   
-    
+  @solideo_depenses_ouvrages_total =  OuvragesDepense.all.sum('montant')
 
     @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
     @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')
