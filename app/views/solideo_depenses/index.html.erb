@@ -5,7 +5,116 @@
  
   <h1 class="SD_title">La Solideo</h1>
   
-  <%= render 'solideo_financements/topo'%>
+  <% if !@solideo_financements.nil?%>
+<div class="SD-topo-box">
+  
+  <div class="budget-topo_chart-box"> 
+    <div class="budget-topo-chart">
+      <div class="SD-topo-box-title">
+        <span>Financement de la Solideo</span>
+      </div><br><br>
+      <div class="budget-topo-infos">
+        <div class="budget-topo-actuel">
+          Financements actuel recus <br>
+          <%=  number_with_delimiter(@solideo_financements.sum('montant').to_i, :delimiter => ' ') %>€
+        </div>
+        <div class="budget-topo-prevu">
+          Financements prévus <br>
+          1 628 520 000€
+        </div>
+      </div>
+      <div>
+       <%= bar_chart [ {name: "Financement total prévu", data: [["Total",1628520000]]}, {name: "Financement actuel", data: [["Total", @solideo_financements.sum('montant').to_i]]} ], library: {
+      chart: {
+          backgroundColor: '#F3F8FF',
+         inverted: true,
+      
+     
+      type: 'bar', 
+          style:{
+          fontFamily: "Spectral",
+          maxWidth: "450px",
+          }
+        },
+      colors: ["#8F8F8F", "#48AF5C"],
+   yAxis: {
+        gridLineColor: '#F3F8FF', 
+     title: {
+       text: "% atteint du financement total prévu"
+       }
+       },
+
+       plotOptions: {
+          bar: {
+             pointWidth: 10,
+            stacking: 'percent',
+             label: { 
+              enable: false,
+               },
+            },
+         },
+       
+       
+      } %> 
+      </div><br>
+      <div class="EB-details">
+    <%= link_to "En savoir plus sur les financements " , solideo_financements_path %>
+    </div>
+    </div>
+    <div class="budget-topo-chart">
+      <div class="SD-topo-box-title-depenses">
+        <span>Dépenses de la Solideo</span>
+      </div><br><br>
+      <div class="budget-topo-infos">
+        <div class="budget-topo-depenses-actuel">
+          Dépenses actuelles <br>
+          <%=  number_with_delimiter(@solideo_financements.sum('montant').to_i, :delimiter => ' ') %>€
+        </div>
+        <div class="budget-topo-prevu">
+         Dépenses totales prévues <br>
+          1 628 520 000€
+        </div>
+      </div>
+      <div>
+       <%= bar_chart [ {name: "Dépenses totales prévues", data: [["Total",1628520000]]}, {name: "Dépenses actuelles", data: [["Total", @solideo_financements.sum('montant').to_i]]} ], library: {
+      chart: {
+          backgroundColor: '#F3F8FF',
+         inverted: true,
+      
+     
+      type: 'bar', 
+          style:{
+          fontFamily: "Spectral",
+          maxWidth: "450px",
+          }
+        },
+      colors: ["#8F8F8F", "#004A70"],
+   yAxis: {
+        gridLineColor: '#F3F8FF', 
+     title: {
+       text: "% atteint des dépenses totales prévues"
+       }
+       },
+
+       plotOptions: {
+          bar: {
+             pointWidth: 10,
+            stacking: 'percent',
+             label: { 
+              enable: false,
+               },
+            },
+         },
+       
+       
+      } %> 
+      </div>
+     
+    </div>
+  </div>
+  <br><br>
+</div>
+  <% end %> 
   <br><br>
   <%= render 'topo'%>
   <br><br>

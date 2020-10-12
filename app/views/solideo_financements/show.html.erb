@@ -45,12 +45,12 @@
      <div class="O-topo-financeurs-title"><span>Ouvrages financés</span></div><br>
      <div class="SF-topo-financeurs-box">
       <div class="SF-topo-financeurs-name"></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus à date €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
     </div> <br><br>
     <% @ouvrages.each do |ouvrage| %>
     <div class="SF-topo-financeurs-box">
       <div class="SF-topo-financeurs-name"><%= link_to ouvrage_path(ouvrage) do %><%= Ouvrage.find(ouvrage).name %> <% end %></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?',@solideo_financement.financeur, ouvrage).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?',@solideo_financement.financeur, ouvrage).sum('montant').to_i, :delimiter => ' ') %> €</div></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ? AND date <= ?',@solideo_financement.financeur, ouvrage, Date.today).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ? AND date <= ? ',@solideo_financement.financeur, ouvrage, Date.today).sum('montant').to_i, :delimiter => ' ') %> €</div></div>
     </div>
     <% end %>
   </div>

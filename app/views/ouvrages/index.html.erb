@@ -108,48 +108,9 @@
 
 <br><br>
 
-<div  class="SD-table-box">
-  <div class="SD-topo-box-title">
-    <span>Suivi trimestriel des dépenses des ouvrages </span>
-  </div>
-  <div>
-    <%= line_chart [{name: "Décaissements effectifs", data: @solideo_depenses_ouvrages_reel},{name: "Décaissements prévus", data: @solideo_depenses_ouvrages_prevu} ], library: {
-      chart:{
-            backgroundColor: '#F3F8FF',
-           
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'<em>Suivi des décaissements des ouvrages de la Solideo</em>',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  },
-      },
-  xAxis:{
-    tickInterval: 24 * 3600 * 1000 * 30 * 3,
-    },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          }
-        }
-    %>
-  </div>
- </div>
+ <div class="EB-details">
+    <%= link_to "En savoir plus sur les dépenses des ouvrages" , ouvrages_depenses_path %>
+    </div>
 
 
 </div>

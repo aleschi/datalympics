@@ -3,8 +3,12 @@ class OuvragesDepensesController < ApplicationController
 
   # GET /ouvrages_depenses
   # GET /ouvrages_depenses.json
-  def index
+  def index 
+    @ouvrages = Ouvrage.all
     @ouvrages_depenses = OuvragesDepense.all
+    
+     @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
+    @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')
   end
 
   # GET /ouvrages_depenses/1

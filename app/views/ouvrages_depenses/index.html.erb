@@ -1,35 +1,85 @@
-<p id="notice"><%= notice %></p>
+<div class="SD_page">
+ 
+  <h1 class="SD_title">Dépenses des ouvrages</h1>
+  <div  class="SD-table-box">
+    <div class="SD-topo-box-title">
+      <span>Suivi trimestriel des dépenses des ouvrages </span>
+    </div>
+    <div>
+      <%= line_chart [{name: "Décaissements effectifs", data: @solideo_depenses_ouvrages_reel},{name: "Décaissements prévus", data: @solideo_depenses_ouvrages_prevu} ], library: {
+        chart:{
+              backgroundColor: '#F3F8FF',
 
-<h1>Ouvrages Depenses</h1>
+              spacing: [40,40,40,40],
+          style:{
+            fontFamily: "Spectral",
 
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Ouvrage</th>
-      <th>Name</th>
-      <th>Montant</th>
-      <th>Montant prévu</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            }
+            },
 
-  <tbody>
-    <% @ouvrages_depenses.each do |ouvrages_depense| %>
-      <tr>
-        <td><%= ouvrages_depense.date %></td>
-        <td><%= ouvrages_depense.ouvrage %></td>
-        <td><%= ouvrages_depense.name %></td>
-        <td><%= ouvrages_depense.montant %></td>
-        <td><%= ouvrages_depense.montant_prevu %></td>
-        <td><%= link_to 'Show', ouvrages_depense %></td>
-        <td><%= link_to 'Edit', edit_ouvrages_depense_path(ouvrages_depense) %></td>
-        <td><%= link_to 'Destroy', ouvrages_depense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        title: {
+          text:'<em>Suivi des décaissements des ouvrages de la Solideo</em>',
+          margin:40,
+          style: {
+                    color: "#8F8F8F",
+                    fontWeight: "400",
+                    },
+        },
+    xAxis:{
+      tickInterval: 24 * 3600 * 1000 * 30 * 3,
+      },
+        yAxis: {
+          gridLineColor: '#E6F0FF', 
+             labels: {
+                 format: '${value}'
+             }
+         },
+            tooltip: {
+              pointFormat: 'Total: <b>{point.y}</b>',
+              xDateFormat: '%Y',
+              valuePrefix: '$'
+            }
+          }
+      %>
+    </div>
+   </div>
 
-<br>
+  <div  class="table-box">
+  <div class="SD-topo-box-title">
+      <span>Suivi trimestriel des dépenses par ouvrage </span>
+    </div><br><br>
+    <% if !@ouvrages_depenses.nil? %>
 
-<%= link_to 'New Ouvrages Depense', new_ouvrages_depense_path %>
+      <div class="ED_table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Ouvrage</th>
+
+              <th scope="col">Dépenses prévues</th>
+              <th scope="col" class="border-none">Décaissements</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <% @ouvrages_depenses.each do |ouvrages_depense| %>
+            <tr>
+              <th scope="row"><%= ouvrages_depense.date.strftime("%b %Y") %></th>
+              <th scope="row"><%= Ouvrage.find(ouvrages_depense.ouvrage_id).name %></th>
+              <td><%= number_with_delimiter(ouvrages_depense.montant_prevu.to_i, :delimiter => ' ') %> €</td>
+              <td class="border-none"><%= number_with_delimiter(ouvrages_depense.montant.to_i, :delimiter => ' ') %>€ <% if ouvrages_depense.montant.to_i > ouvrages_depense.montant_prevu.to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+             </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div>
+        Aucune dépense renseignée
+      </div>
+    <%end%>
+
+  <br>
+  </div>
+</div>
