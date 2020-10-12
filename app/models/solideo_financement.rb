@@ -83,6 +83,18 @@ class SolideoFinancement < ApplicationRecord
                 if @solideo_financement.montant.to_i != 0
                 @solideo_financement.save
                 end
+              else
+                @solideo_financement = SolideoFinancement.new
+                @solideo_financement.financeur = @financeurs[i]
+                @solideo_financement.categorie = "reserve"
+                @solideo_financement.date = DateTime.new(date_year, date_month)
+                @solideo_financement.montant_prevu = 0
+                @solideo_financement.montant = row[i]
+                @solideo_financement.montant = @solideo_financement.montant * 1000
+
+                if @solideo_financement.montant.to_i != 0
+                @solideo_financement.save
+                end
               end
             end
           end  
@@ -91,6 +103,18 @@ class SolideoFinancement < ApplicationRecord
             if !row[i].nil? 
               @solideo_financement = SolideoFinancement.where('financeur = ? AND categorie = ? AND date = ?', @financeurs[i], "innovation", Date.new(date_year, date_month)).first 
               if !@solideo_financement.nil?
+                @solideo_financement.montant = row[i]
+                @solideo_financement.montant = @solideo_financement.montant * 1000
+
+                if @solideo_financement.montant.to_i != 0
+                @solideo_financement.save
+                end
+              else
+                @solideo_financement = SolideoFinancement.new
+                @solideo_financement.financeur = @financeurs[i]
+                @solideo_financement.categorie = "innovation"
+                @solideo_financement.date = DateTime.new(date_year, date_month)
+                @solideo_financement.montant_prevu = 0
                 @solideo_financement.montant = row[i]
                 @solideo_financement.montant = @solideo_financement.montant * 1000
 
@@ -111,6 +135,18 @@ class SolideoFinancement < ApplicationRecord
                 if @solideo_financement.montant.to_i != 0
                 @solideo_financement.save
                 end
+             else
+                @solideo_financement = SolideoFinancement.new
+                @solideo_financement.financeur = @financeurs[i]
+                @solideo_financement.categorie = "fonctionnement"
+                @solideo_financement.date = DateTime.new(date_year, date_month)
+                @solideo_financement.montant_prevu = 0
+                @solideo_financement.montant = row[i]
+                @solideo_financement.montant = @solideo_financement.montant * 1000
+
+                if @solideo_financement.montant.to_i != 0
+                @solideo_financement.save
+                end
               end
             end
           end  
@@ -119,6 +155,18 @@ class SolideoFinancement < ApplicationRecord
             if !row[i].nil? 
               @solideo_financement = SolideoFinancement.where('financeur = ? AND categorie = ? AND date = ? ', @financeurs[i], "ouvrages", Date.new(date_year, date_month)).first 
               if !@solideo_financement.nil?
+                @solideo_financement.montant = row[i]
+                @solideo_financement.montant = @solideo_financement.montant * 1000
+
+                if @solideo_financement.montant.to_i != 0
+                @solideo_financement.save
+                end
+              else
+                @solideo_financement = SolideoFinancement.new
+                @solideo_financement.financeur = @financeurs[i]
+                @solideo_financement.categorie = "ouvrages"
+                @solideo_financement.date = DateTime.new(date_year, date_month)
+                @solideo_financement.montant_prevu = 0
                 @solideo_financement.montant = row[i]
                 @solideo_financement.montant = @solideo_financement.montant * 1000
 

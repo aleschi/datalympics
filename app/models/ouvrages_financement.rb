@@ -44,6 +44,18 @@ class OuvragesFinancement < ApplicationRecord
                 if @ouvrage_financement.montant.to_i != 0
                 @ouvrage_financement.save
                 end 
+              else
+                @ouvrage_financement = @ouvrage.ouvrages_financements.new
+                @ouvrage_financement.montant_prevu = 0
+                @ouvrage_financement.name = @financeurs[i]
+                @ouvrage_financement.date = DateTime.new(date_year, date_month)
+                @ouvrage_financement.montant = row[i]
+                @ouvrage_financement.montant = @ouvrage_financement.montant * 1000
+                
+                if @ouvrage_financement.montant.to_i != 0
+                  @ouvrage_financement.save
+                end 
+                
               end
             end  
           end

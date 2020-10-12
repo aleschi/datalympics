@@ -8,6 +8,7 @@
       <th>Ouvrage</th>
       <th>Name</th>
       <th>Montant</th>
+      <th>Montant prévu</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,6 +20,7 @@
         <td><%= ouvrages_financement.ouvrage.name %></td>
         <td><%= ouvrages_financement.name %></td>
         <td><%= ouvrages_financement.montant %></td>
+        <td><%= ouvrages_financement.montant_prevu %></td>
         <td><%= link_to 'Show', ouvrages_financement %></td>
         <td><%= link_to 'Edit', edit_ouvrages_financement_path(ouvrages_financement) %></td>
         <td><%= link_to 'Destroy', ouvrages_financement, method: :delete, data: { confirm: 'Are you sure?' } %></td>

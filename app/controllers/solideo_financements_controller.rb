@@ -53,6 +53,8 @@ class SolideoFinancementsController < ApplicationController
   def delete_financements
     @solideo_financements = SolideoFinancement.where('date = ?', params[:date])
     @solideo_financements.all.destroy_all
+    @ouvrages_financements = OuvragesFinancement.where('date = ? ', params[:date])
+    @ouvrages_financements.all.destroy_all
     redirect_to new_solideo_financement_path 
   end  
   
