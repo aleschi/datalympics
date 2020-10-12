@@ -4,7 +4,24 @@
         <span>Financement de la Solideo</span>
       </div><br><br>
   <div class="budget-topo_chart-box"> 
-    <div class="topo-chart">
+   
+    <div class="budget-topo-chart">
+      
+      <div class="budget-topo-infos">
+        <div class="budget-topo-actuel">
+          Financements actuel recus <br>
+          <%=  number_with_delimiter(@solideo_financements.sum('montant').to_i, :delimiter => ' ') %>€
+        </div>
+        <div class="budget-topo-prevu">
+          Financements prévus <br>
+          1 628 520 000€
+        </div>
+      </div>
+      <div id="container2">
+ 
+      </div>
+    </div>
+     <div class="topo-chart">
     
     <%= pie_chart @solideo_financements.unscope(:order).group(:financeur).sum(:montant_prevu) ,  library: {
      chart: {
@@ -49,54 +66,6 @@
 
   </div>
  
-    <div class="budget-topo-chart">
-      
-      <div class="budget-topo-infos">
-        <div class="budget-topo-actuel">
-          Financements actuel recus <br>
-          <%=  number_with_delimiter(@solideo_financements.sum('montant').to_i, :delimiter => ' ') %>€
-        </div>
-        <div class="budget-topo-prevu">
-          Financements prévus <br>
-          1 628 520 000€
-        </div>
-      </div>
-      <div>
-       <%= bar_chart [ {name: "Financement total prévu", data: [["Total",1628520000]]}, {name: "Financement actuel", data: [["Total", @solideo_financements.sum('montant').to_i]]} ], library: {
-      chart: {
-          backgroundColor: '#F3F8FF',
-         inverted: true,
-      
-     
-      type: 'bar', 
-          style:{
-          fontFamily: "Spectral",
-          maxWidth: "450px",
-          }
-        },
-      colors: ["#8F8F8F", "#48AF5C"],
-   yAxis: {
-        gridLineColor: '#F3F8FF', 
-     title: {
-       text: "% atteint du financement total prévu"
-       }
-       },
-
-       plotOptions: {
-          bar: {
-             pointWidth: 10,
-            stacking: 'percent',
-             label: { 
-              enable: false,
-               },
-            },
-         },
-       
-       
-      } %> 
-      </div>
-    </div>
-   
   </div>
   <br><br>
 </div>
@@ -126,3 +95,139 @@
  
 </div>
 <% end %>
+
+
+    <script>
+  // Uncomment to style it like Apple Watch
+/*
+if (!Highcharts.theme) {
+    Highcharts.setOptions({
+        chart: {
+            backgroundColor: 'black'
+        },
+        colors: ['#F62366', '#9DFF02', '#0CCDD6'],
+        title: {
+            style: {
+                color: 'silver'
+            }
+        },
+        tooltip: {
+            style: {
+                color: 'silver'
+            }
+        }
+    });
+}
+// */
+
+/**
+ * In the chart render event, add icons on top of the circular shapes
+ */
+function renderIcons() {
+
+    // Move icon
+    if (!this.series[0].icon) {
+        this.series[0].icon = this.renderer.path(['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8])
+            .attr({
+                stroke: '#303030',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+                'stroke-width': 2,
+                zIndex: 10
+            })
+            .add(this.series[2].group);
+    }
+    this.series[0].icon.translate(
+        this.chartWidth / 2 - 10,
+        this.plotHeight / 2 - this.series[0].points[0].shapeArgs.innerR -
+            (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
+    );
+
+ 
+   
+}
+
+Highcharts.chart('container2', {
+
+    chart: {
+      backgroundColor: '#F3F8FF',
+        type: 'solidgauge',
+        maxWidth: '500px',
+        events: {
+            render: renderIcons
+        }
+    },
+ 
+  title: {
+    text: null,
+  },
+
+    tooltip: {
+      enable:false,
+      //  borderWidth: 0,
+      //  backgroundColor: 'none',
+      //  shadow: false,
+      //  style: {
+      //      fontSize: '16px'
+      //  },
+      //  valueSuffix: '%',
+      //  pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}</span>',
+      //  positioner: function (labelWidth) {
+      //      return {
+      //         x: (this.chart.chartWidth - labelWidth) / 2,
+      //          y: (this.chart.plotHeight / 2) + 15
+      //      };
+      //  }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '80%',
+            innerRadius: '60%',
+            backgroundColor: 'rgba(72,175,92,0.3)',
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+          color: '#48AF5C',
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+              format: '<span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}%</span>',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Financements actuels',
+        data: [{
+            color: '#48AF5C',
+            radius: '80%',
+            innerRadius: '60%',
+            y: <%= ((@solideo_financements.sum('montant')/1628520000)*100).round%>
+        }]
+    }]
+});
+
+  </script>
