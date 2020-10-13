@@ -1,7 +1,7 @@
 
 <div  class="SD-table-box">
   <div class="SD-topo-box-title">
-    <span>Suivi trimestriel des dépenses de la solideo</span>
+    <span>Suivi des dépenses de la solideo</span>
   </div>
     <div>
     <%= line_chart [{name: "Dépenses ouvrages", data: @solideo_financements_dates_ouvrages_tuple},{name: "Dépenses frais de fonctionnement", data: @solideo_financements_dates_fonctionnement_tuple},{name: "Dépenses innovation", data: @solideo_financements_dates_innovation_tuple}, {name: "Dépenses réserve", data: @solideo_financements_dates_reserve_tuple} ], library: {
