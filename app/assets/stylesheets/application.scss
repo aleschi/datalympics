@@ -801,3 +801,17 @@ display: none;
 .highcharts-data-labels.highcharts-series-0.highcharts-solidgauge-series.highcharts-tracker{
   //transform: translate(10px,40px) !important; 
 }
+
+.SF-topo-explication{
+  text-align:center;
+  color: #8f8f8f;
+  font-size:14;
+  font-style: italic;
+  margin-top: 30px;
+  .positive{
+    color:#48AF5C;
+  }
+  .negative{
+    color:#F1013B;
+  }
+}

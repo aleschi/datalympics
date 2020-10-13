@@ -12,6 +12,9 @@
       <div id="container2">
  
       </div>
+      <div class="SF-topo-explication">
+         <% if @solideo_financements.sum('montant') > @solideo_financements.where('date <= ?', Date.today).sum('montant_prevu') %><span class="positive"> + <%= number_with_delimiter((@solideo_financements.sum('montant')-@solideo_financements.where('date <= ?', Date.today).sum('montant_prevu')).to_i, :delimiter => ' ')%> € </span><% else %><span class="negative"> - <%= number_with_delimiter((@solideo_financements.where('date <= ?', Date.today).sum('montant_prevu')-@solideo_financements.sum('montant')).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux financements prévus à date 
+      </div>
     </div>
     <div class="budget-topo-chart">
       <%= column_chart [{name: "Financements prévus", data: @solideo_financements.unscope(:order).group_by_year(:date).sum('montant_prevu')},{name: "Financements reçus", data: @solideo_financements.unscope(:order).group_by_year(:date).sum('montant')}], library: {
