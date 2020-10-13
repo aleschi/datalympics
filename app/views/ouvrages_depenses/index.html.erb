@@ -66,7 +66,7 @@
             <% @ouvrages_depenses.where('date <= ?', Date.today).each do |ouvrages_depense| %>
             <tr>
               <th scope="row"><%= ouvrages_depense.date.strftime("%b %Y") %></th>
-              <th scope="row"><%= Ouvrage.find(ouvrages_depense.ouvrage_id).name %></th>
+              <th scope="row"><%= link_to ouvrage_path(ouvrages_depense.ouvrage_id) do %><%= Ouvrage.find(ouvrages_depense.ouvrage_id).name %><% end %></th>
               <td><%= number_with_delimiter(ouvrages_depense.montant_prevu.to_i, :delimiter => ' ') %> €</td>
               <td class="border-none"><%= number_with_delimiter(ouvrages_depense.montant.to_i, :delimiter => ' ') %>€ <% if ouvrages_depense.montant.to_i > ouvrages_depense.montant_prevu.to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
              </tr>
