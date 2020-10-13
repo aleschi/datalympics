@@ -6,28 +6,22 @@ class SolideoDepensesController < ApplicationController
   def index
     @solideo_depenses = SolideoDepense.all
     @solideo_financements = SolideoFinancement.all
-   if  !@solideo_financements.where('categorie = ?', "ouvrages").nil?
-    @solideo_financements_ouvrages = @solideo_financements.where('categorie = ?', "ouvrages").sum('montant')
-   else
-     @solideo_financements_ouvrages = 0
-   end 
-     if  !@solideo_financements.where('categorie = ?', "reserve").nil?
+    @solideo_depenses_total = OuvragesDepense.all.sum('montant') + @solideo_financements.where('categorie = ?', "reserve").sum('montant') + @solideo_financements.where('categorie = ?', "innovation").sum('montant') + @solideo_financements.where('categorie = ?', "fonctionnement").sum('montant')
+
+
+    @solideo_depenses_ouvrages = OuvragesDepense.all.sum('montant')
     @solideo_financements_reserve = @solideo_financements.where('categorie = ?', "reserve").sum('montant')
-   else
-     @solideo_financements_reserve = 0
-   end 
-     if  !@solideo_financements.where('categorie = ?', "innovation").nil?
     @solideo_financements_innovation = @solideo_financements.where('categorie = ?', "innovation").sum('montant')
-   else
-     @solideo_financements_innovation = 0
-   end 
-     if  !@solideo_financements.where('categorie = ?', "fonctionnement").nil?
     @solideo_financements_fonctionnement = @solideo_financements.where('categorie = ?', "fonctionnement").sum('montant')
-   else
-     @solideo_financements_fonctionnement = 0
-   end 
+
+    @h1 = OuvragesDepense.where('date <= ?', Date.today).all.order('date DESC').unscope(:order).group(:date).sum('montant')
+    @h2 =  @solideo_financements.where('categorie != ? AND date <= ?', "ouvrages", Date.today).order('date DESC').unscope(:order).group(:date).sum('montant')
+    @total = @h1.merge(@h2)
+    @h3 = OuvragesDepense.all.order('date DESC').unscope(:order).group(:date).sum('montant_prevu')
+    @h4 =  @solideo_financements.where('categorie != ?', "ouvrages").order('date DESC').unscope(:order).group(:date).sum('montant_prevu')
+    @total_prevu = @h3.merge(@h4)
     
-  @solideo_financements_dates_ouvrages = @solideo_financements.where('categorie = ?', "ouvrages").order('date DESC').unscope(:order).group(:date).sum('montant')
+  @solideo_financements_dates_ouvrages = OuvragesDepense.all.order('date DESC').unscope(:order).group(:date).sum('montant')
   @solideo_financements_dates_ouvrages_keys = @solideo_financements_dates_ouvrages.keys
   @solideo_financements_dates_ouvrages_values = @solideo_financements_dates_ouvrages.values
   @sum = 0
@@ -35,28 +29,9 @@ class SolideoDepensesController < ApplicationController
   @solideo_financements_dates_ouvrages_tuple = @solideo_financements_dates_ouvrages_keys.zip(@solideo_financements_dates_ouvrages_values)
    
   @solideo_financements_dates_reserve = @solideo_financements.where('categorie = ?', "reserve").order('date DESC').unscope(:order).group(:date).sum('montant')
-  @solideo_financements_dates_reserve_keys = @solideo_financements_dates_reserve.keys
-  @solideo_financements_dates_reserve_values = @solideo_financements_dates_reserve.values
-  @sum = 0
-  @solideo_financements_dates_reserve_values.map!{|x| @sum += x}
-  @solideo_financements_dates_reserve_tuple = @solideo_financements_dates_reserve_keys.zip(@solideo_financements_dates_reserve_values)
-  
-    
-  @solideo_financements_dates_innovation = @solideo_financements.where('categorie = ?', "innovation").order('date DESC').unscope(:order).group(:date).sum('montant')
-  @solideo_financements_dates_innovation_keys = @solideo_financements_dates_innovation.keys
-  @solideo_financements_dates_innovation_values = @solideo_financements_dates_innovation.values
-  @sum = 0
-  @solideo_financements_dates_innovation_values.map!{|x| @sum += x}
-  @solideo_financements_dates_innovation_tuple = @solideo_financements_dates_innovation_keys.zip(@solideo_financements_dates_innovation_values)
-  
-    
+  @solideo_financements_dates_innovation = @solideo_financements.where('categorie = ?', "innovation").order('date DESC').unscope(:order).group(:date).sum('montant')   
   @solideo_financements_dates_fonctionnement = @solideo_financements.where('categorie = ?', "fonctionnement").order('date DESC').unscope(:order).group(:date).sum('montant')
-  @solideo_financements_dates_fonctionnement_keys = @solideo_financements_dates_fonctionnement.keys
-  @solideo_financements_dates_fonctionnement_values = @solideo_financements_dates_fonctionnement.values
-  @sum = 0
-  @solideo_financements_dates_fonctionnement_values.map!{|x| @sum += x}
-  @solideo_financements_dates_fonctionnement_tuple = @solideo_financements_dates_fonctionnement_keys.zip(@solideo_financements_dates_fonctionnement_values)
-  
+ 
   @solideo_depenses_ouvrages_total =  OuvragesDepense.all.sum('montant')
 
     @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
@@ -68,7 +43,7 @@ class SolideoDepensesController < ApplicationController
       @financeurs << h[0]
     end
     
-    @solideo_depenses_hash = SolideoFinancement.order('date DESC').group(:date).sum('montant')
+    @solideo_depenses_hash = SolideoFinancement.where('date <= ?', Date.today).order('date DESC').group(:date).sum('montant')
     @solideo_depenses_array = []
     
       @solideo_depenses_hash.each do |h|

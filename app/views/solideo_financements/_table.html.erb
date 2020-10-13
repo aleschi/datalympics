@@ -5,7 +5,7 @@
   
   
   <div>
-    <%= line_chart [{name: "Financements de l'Etat", data: SolideoFinancement.where("financeur = ? ", "Etat").unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements privés", data: SolideoFinancement.where("financeur = ? ", "privé").unscope(:order).group_by_year(:date).sum('montant')} ], library: {
+    <%= line_chart [{name: "Financements de l'Etat", data: SolideoFinancement.where("financeur = ? AND date <= ?", "Etat", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements privés", data: SolideoFinancement.where("financeur = ? AND date <= ? ", "privé", Date.today).unscope(:order).group_by_year(:date).sum('montant')} ], library: {
       chart:{
             backgroundColor: '#fff',
            
@@ -51,7 +51,7 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-       <%= line_chart [{name: "Financements de l'Etat", data: SolideoFinancement.where("financeur = ? ", "Etat").unscope(:order).group_by_year(:date).sum('montant')}, {name: "Financements prévus de l'Etat", data: SolideoFinancement.where("financeur = ? ", "Etat").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
+       <%= line_chart [{name: "Financements de l'Etat", data: SolideoFinancement.where("financeur = ? AND date <= ?", "Etat", Date.today).unscope(:order).group_by_year(:date).sum('montant')}, {name: "Financements prévus de l'Etat", data: SolideoFinancement.where("financeur = ? ", "Etat").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
       chart:{
             backgroundColor: '#fff',
            
@@ -91,7 +91,7 @@
     %>
     </div>
      <div class="col-md-6">
-       <%= line_chart [{name: "Financements des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements prévus des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
+       <%= line_chart [{name: "Financements des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements prévus des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
       chart:{
             backgroundColor: '#fff',
            

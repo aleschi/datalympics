@@ -3,11 +3,13 @@
   <div class="SD-topo-box-title">
     <span>Suivi des dépenses de la solideo</span>
   </div>
-    <div>
-    <%= line_chart [{name: "Dépenses ouvrages", data: @solideo_financements_dates_ouvrages_tuple},{name: "Dépenses frais de fonctionnement", data: @solideo_financements_dates_fonctionnement_tuple},{name: "Dépenses innovation", data: @solideo_financements_dates_innovation_tuple}, {name: "Dépenses réserve", data: @solideo_financements_dates_reserve_tuple} ], library: {
+    <div class="row">
+      <div class="col-md-12">
+
+    <%= line_chart [{name: "Dépenses", data:  @total},{name: "Dépenses prévues", data:  @total_prevu} ], library: {
       chart:{
             backgroundColor: '#fff',
-           
+            maxWidth: '500px',
             spacing: [40,40,40,40],
         style:{
           fontFamily: "Spectral",
@@ -16,7 +18,7 @@
           },
 
       title: {
-        text:'<em>Suivi trimestriel des dépenses de la Solideo</em>',
+        text:'<em>Suivi des dépenses de la Solideo</em>',
         margin:40,
         style: {
                   color: "#8F8F8F",
@@ -27,7 +29,7 @@
     tickInterval: 24 * 3600 * 1000 * 30 * 3,
     },
       yAxis: {
-        gridLineColor: '#E6F0FF', 
+        gridLineColor: '#fff', 
            labels: {
                format: '${value}'
            }
@@ -39,6 +41,8 @@
           }
         }
     %>
+                
+      </div>
   </div>
   <div class="SD-table-box-left">
     <% if !@solideo_depenses_array.nil? %>

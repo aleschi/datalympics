@@ -9,7 +9,7 @@ class OuvragesDepense < ApplicationRecord
         if !row[0].nil? || !row[0].empty?
           @ouvrage = Ouvrage.find_by_name(row[0])
           if !@ouvrage.nil?
-            1.upto(20).each do |i|
+            1.upto(29).each do |i|
               if !row[i].nil? 
                 if @ouvrage.ouvrages_depenses.where('date = ?', Date.new(2018) + (i*3 - 1).months).count == 0
                   @ouvrage_depense = @ouvrage.ouvrages_depenses.new
@@ -36,7 +36,7 @@ class OuvragesDepense < ApplicationRecord
         if !row[0].nil? || !row[0].empty?
           @ouvrage = Ouvrage.find_by_name(row[0])
           if !@ouvrage.nil?
-            1.upto(20).each do |i|
+            1.upto(29).each do |i|
               if !row[i].nil? 
                 if @ouvrage.ouvrages_depenses.where('date = ?', Date.new(2018) + (i*3 - 1).months).count == 0
                   @ouvrage_depense = @ouvrage.ouvrages_depenses.new
@@ -62,7 +62,7 @@ class OuvragesDepense < ApplicationRecord
         if !row[0].nil? || !row[0].empty?
           @ouvrage = Ouvrage.find_by_name(row[0])
           if !@ouvrage.nil?
-            1.upto(20).each do |i|
+            1.upto(29).each do |i|
               if !row[i].nil? 
                 if @ouvrage.ouvrages_depenses.where('date = ?', Date.new(2018) + (i*3 - 1).months).count == 0
                   @ouvrage_depense = @ouvrage.ouvrages_depenses.new
