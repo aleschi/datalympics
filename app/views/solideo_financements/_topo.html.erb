@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="budget-topo-chart">
-      <%= column_chart [{name: "financements prévus", data: @solideo_financements.unscope(:order).group_by_year(:date).sum('montant_prevu')},{name: "financements reçus", data: @solideo_financements.unscope(:order).group_by_year(:date).sum('montant')}], library: {
+      <%= column_chart [{name: "Financements prévus", data: @solideo_financements.unscope(:order).group_by_year(:date).sum('montant_prevu')},{name: "Financements reçus", data: @solideo_financements.unscope(:order).group_by_year(:date).sum('montant')}], library: {
         chart:{
             type: 'column',
             backgroundColor: '#fff',
@@ -22,45 +22,45 @@
             fontFamily: "Spectral",
                maxWidth: "500px",
             },
+         
             },
-
+      
         title: {
-          text:'<em>Financements reçus et prévus par année</em>',
+          text:'<em>Financements reçus et prévus par année en €</em>',
           margin:40,
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
                   },
         },
-  colors: ["#8F8F8F", "#48AF5C"],
-        plotOptions: {
-          column: {
-           pointWidth: 15,
-           label: { 
-              enable: true,
-            format: '<em>{point.value}</em>',
-            style: {
-                   color: "#8F8F8F",
-                   fontSize: "12px",
-                   fontWeight: "400",
-                  },
-              },
-           },
-          },
-      legend: {
-          reversed: true
+      xAxis:  {
+        type: 'datetime',
         },
-      xAxis: {
-      reversed: false,
-      },
+        
       yAxis: {
           gridLineColor: '#fff', 
          },
-      tooltip: {
+        colors: ["#8F8F8F", "#48AF5C"],
+     
+  
+        plotOptions: {
+          column: {
+           pointWidth: 15,
+           tooltip: {        
+              backgroundColor: "#fff",        
+              style: {
+                  fontSize: '12px',     
+              },
+              xDateFormat: '%Y',
+              useHTML: true,
+              pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{series.name}</b><br/>',
 
-              pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}€</b><br/>',
+             },
+           },
+    
+          },
 
-            }
+
           }
       %>
     </div>
