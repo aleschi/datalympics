@@ -68,40 +68,6 @@
         
       </div><br><br>
       
-      <div>
-        <%= bar_chart [ {name: "Total prévu", data: [["Total",1382775000]]}, {name: "Total actuel", data: [["Total", OuvragesDepense.all.sum('montant').to_i]]} ], library: {
-      chart: {
-          backgroundColor: '#fff',
-         inverted: true,
-      
-     
-      type: 'bar', 
-          style:{
-          fontFamily: "Spectral",
-          maxWidth: "500px",
-          }
-        },
-      colors: ["#8F8F8F", "#48AF5C"],
-   yAxis: {
-        gridLineColor: '#fff', 
-     title: {
-       text: "% atteint du budget total prévu des ouvrages "
-       }
-       },
-
-       plotOptions: {
-          bar: {
-             pointWidth: 10,
-            stacking: 'percent',
-             label: { 
-              enable: false,
-               },
-            },
-         },
-       
-       
-      } %>
-      </div>
 
     </div>
   </div>
