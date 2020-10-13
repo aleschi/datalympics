@@ -10,6 +10,24 @@ class SolideoFinancementsController < ApplicationController
     @financeurs_hash.each do |h|
       @financeurs << h[0]
     end
+    @solideo_financements_etat_prevu = SolideoFinancement.where("financeur = ? ", "Etat").sum('montant_prevu')
+    @solideo_financements_etat_prevu_date = SolideoFinancement.where("financeur = ? AND date <= ? ", "Etat", Date.today).sum('montant_prevu')
+    @solideo_financements_etat = SolideoFinancement.where("financeur = ? ", "Etat").sum('montant')
+    @solideo_financements_prive_prevu = SolideoFinancement.where("financeur = ? ", "privé").sum('montant_prevu')   
+    @solideo_financements_prive_prevu_date = SolideoFinancement.where("financeur = ? AND date <= ?", "privé", Date.today).sum('montant_prevu')
+    @solideo_financements_prive = SolideoFinancement.where("financeur = ? ", "privé").sum('montant')
+    @solideo_financements_collectivites_prevu = SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").sum('montant_prevu')
+    @solideo_financements_collectivites_prevu_date = SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).sum('montant_prevu')
+    @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").sum('montant')
+    
+    @solideo_financements_hash = SolideoFinancement.order('date DESC').group(:date).sum('montant')
+    @solideo_financements_array = []
+    
+      @solideo_financements_hash.each do |h|
+        if !h[0].nil?
+        @solideo_financements_array << h[0]
+        end
+      end
   end
 
   # GET /solideo_financements/1

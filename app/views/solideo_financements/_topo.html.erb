@@ -7,30 +7,26 @@
    
     <div class="budget-topo-chart">
       
-      <div class="budget-topo-infos">
-        <div class="budget-topo-actuel">
-          Financements actuel recus <br>
-          <%=  number_with_delimiter(@solideo_financements.sum('montant').to_i, :delimiter => ' ') %>€
-        </div>
-        <div class="budget-topo-prevu">
-          Financements prévus <br>
-          1 628 520 000€
-        </div>
-      </div>
+    
+ 
       <div id="container2">
  
       </div>
     </div>
-     <div class="topo-chart">
     
-    <%= pie_chart @solideo_financements.unscope(:order).group(:financeur).sum(:montant_prevu) ,  library: {
+  </div>
+  <br><br>
+</div>
+<div class="SD-topo-box">
+  
+ <div class="SF-topo-financeurs-title"><span>Financeurs de la solideo</span></div><br>
+  <div class="SD-topo_chart-box">
+   <div class="topo-chart">
+    
+    <%= pie_chart({"Etat" => @solideo_financements_etat_prevu, "Privés" =>  @solideo_financements_prive_prevu, "Collectivités" => @solideo_financements_collectivites_prevu} ,  library: {
      chart: {
-       backgroundColor: '#F3F8FF',
-        type: 'pie',
-        options3d: {
-            enabled: true,
-            alpha: 45
-        },
+       backgroundColor: '#fff',
+    
        style:{
           fontFamily: "Spectral",
           },
@@ -44,10 +40,10 @@
         
           }
       },
+  colors: ['#A2C744',"#4F82CE",'#4FC5CE'],
      plotOptions: {
         pie: {
-            innerSize: 100,
-            depth: 45,
+      
           dataLabels: {
                     enabled: true,
                     format: '<em>{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %</em>',
@@ -60,20 +56,12 @@
                 }
         }
     },
-  }
+  })
    
     %>
 
   </div>
  
-  </div>
-  <br><br>
-</div>
-<div class="SD-topo-box">
-  
- <div class="SF-topo-financeurs-title"><span>Financements de la solideo</span></div><br>
-  <div class="SD-topo_chart-box">
-  
   <div class="SF-topo-financeurs">
     
    
@@ -82,13 +70,23 @@
       <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus à date €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
     </div> <br><br>
    
-    <% @financeurs.each do |financeur| %>
-    <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name"><% if financeur == "Etat"%><%= link_to etat_budgets_path do %><%= financeur %><%end%> <%else%><%= link_to solideo_financement_path(id: SolideoFinancement.where("financeur = ?", financeur).first.id) do %><%= financeur %> <%end%><% end %></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(SolideoFinancement.where("financeur = ?", financeur).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((SolideoFinancement.where("financeur = ?", financeur).sum('montant').to_i), :delimiter => ' ') %> € <% if SolideoFinancement.where("financeur = ?", financeur).sum('montant_prevu').to_i > SolideoFinancement.where("financeur = ?", financeur).sum('montant').to_i %><i class="fas fa-exclamation-circle"></i><%end %></div></div>
-    </div>           
    
-    <% end %>
+    <div class="SF-topo-financeurs-box">
+      <div class="SF-topo-financeurs-name"><%= link_to etat_budgets_path do %>Etat<%end%></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(@solideo_financements_etat_prevu_date.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((@solideo_financements_etat.to_i), :delimiter => ' ') %> € <% if @solideo_financements_etat_prevu_date.to_i > @solideo_financements_etat.to_i %><i class="fas fa-exclamation-circle"></i><%end %></div></div>
+    </div>  
+    
+    <div class="SF-topo-financeurs-box">
+      <div class="SF-topo-financeurs-name"><%= link_to collectivites_path do %>Collectivités <%end%></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(@solideo_financements_collectivites_prevu_date.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((@solideo_financements_collectivites.to_i), :delimiter => ' ') %> € <% if @solideo_financements_collectivites_prevu_date.to_i > @solideo_financements_collectivites.to_i %><i class="fas fa-exclamation-circle"></i><%end %></div></div>
+    </div>
+    
+    <div class="SF-topo-financeurs-box">
+      <div class="SF-topo-financeurs-name">Privés</div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(@solideo_financements_prive_prevu_date.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((@solideo_financements_prive.to_i), :delimiter => ' ') %> € <% if @solideo_financements_prive_prevu_date.to_i > @solideo_financements_prive.to_i %><i class="fas fa-exclamation-circle"></i><%end %></div></div>
+    </div>
+   
+  
   </div>
   </div>
   
@@ -99,30 +97,7 @@
 
     <script>
   // Uncomment to style it like Apple Watch
-/*
-if (!Highcharts.theme) {
-    Highcharts.setOptions({
-        chart: {
-            backgroundColor: 'black'
-        },
-        colors: ['#F62366', '#9DFF02', '#0CCDD6'],
-        title: {
-            style: {
-                color: 'silver'
-            }
-        },
-        tooltip: {
-            style: {
-                color: 'silver'
-            }
-        }
-    });
-}
-// */
 
-/**
- * In the chart render event, add icons on top of the circular shapes
- */
 function renderIcons() {
 
     // Move icon
@@ -143,49 +118,95 @@ function renderIcons() {
             (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
     );
 
- 
-   
+    // Exercise icon
+    if (!this.series[1].icon) {
+        this.series[1].icon = this.renderer.path(
+            ['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8,
+                'M', 8, -8, 'L', 16, 0, 8, 8]
+        )
+            .attr({
+                stroke: '#ffffff',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+                'stroke-width': 2,
+                zIndex: 10
+            })
+            .add(this.series[2].group);
+    }
+    this.series[1].icon.translate(
+        this.chartWidth / 2 - 10,
+        this.plotHeight / 2 - this.series[1].points[0].shapeArgs.innerR -
+            (this.series[1].points[0].shapeArgs.r - this.series[1].points[0].shapeArgs.innerR) / 2
+    );
+
+    // Stand icon
+    if (!this.series[2].icon) {
+        this.series[2].icon = this.renderer.path(['M', 0, 8, 'L', 0, -8, 'M', -8, 0, 'L', 0, -8, 8, 0])
+            .attr({
+                stroke: '#303030',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+                'stroke-width': 2,
+                zIndex: 10
+            })
+            .add(this.series[2].group);
+    }
+
+    this.series[2].icon.translate(
+        this.chartWidth / 2 - 10,
+        this.plotHeight / 2 - this.series[2].points[0].shapeArgs.innerR -
+            (this.series[2].points[0].shapeArgs.r - this.series[2].points[0].shapeArgs.innerR) / 2
+    );
 }
+
 
 Highcharts.chart('container2', {
 
     chart: {
-      backgroundColor: '#F3F8FF',
+      backgroundColor: '#fff',
         type: 'solidgauge',
         maxWidth: '500px',
-        events: {
+      height:'300px',
+      style:{
+          fontFamily: "Spectral",
+          },
+       events: {
             render: renderIcons
         }
+      
     },
  
   title: {
-    text: null,
+    text: "<em>Financements reçus de la Solideo</em> <br> <em>Financements 2018-2025 prévus : 1 628 520 000€</em>",
+    style: {
+          color: '#8F8F8F',
+        
+          }
   },
-
-    tooltip: {
-      enable:false,
-      //  borderWidth: 0,
-      //  backgroundColor: 'none',
-      //  shadow: false,
-      //  style: {
-      //      fontSize: '16px'
-      //  },
-      //  valueSuffix: '%',
-      //  pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}</span>',
-      //  positioner: function (labelWidth) {
-      //      return {
-      //         x: (this.chart.chartWidth - labelWidth) / 2,
-      //          y: (this.chart.plotHeight / 2) + 15
-      //      };
-      //  }
+  tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '12px',
+          color: '#8F8F8F',
+        },
+        //valueSuffix: '€',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 35
+            };
+        }
     },
 
     pane: {
         startAngle: 0,
         endAngle: 360,
         background: [{ // Track for Move
-            outerRadius: '80%',
-            innerRadius: '60%',
+            outerRadius: '90%',
+            innerRadius: '80%',
             backgroundColor: 'rgba(72,175,92,0.3)',
             borderWidth: 0
         }]
@@ -193,39 +214,58 @@ Highcharts.chart('container2', {
 
     yAxis: {
         min: 0,
-        max: 100,
+        max: 1628520000,
         lineWidth: 0,
-        tickPositions: []
+        tickPositions: [1628520000],
+      tickInterval: 1628520000,
+      minorTickInterval: null,
+      tickAmount:1,
+       labels: {
+            step: 1628520000,
+            rotation: 'auto',
+         style: {
+           fontSize: '12px',
+          color: '#8F8F8F',
+          
+         },
+         y: -30,
+        },
     },
 
     plotOptions: {
         solidgauge: {
-          color: '#48AF5C',
+          
+          tooltip: "",
+          
             dataLabels: {
               enabled: true,
               borderWidth: 0,
-        backgroundColor: 'none',
-        shadow: false,
-        style: {
-            fontSize: '16px'
-        },
-        valueSuffix: '%',
-              format: '<span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}%</span>',
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '14px',
+                color: '#48AF5C',
+              },
+              valueSuffix: '€',
+              format: '<span style="color:#8F8F8F; font-size:12px;font-weight:400">{series.name} :</span><br><span>{point.y:,.0f} €</span>',
+            verticalAlign: 'middle',
         
             },
             linecap: 'round',
             stickyTracking: false,
-            rounded: true
+            rounded: true,
+         
         }
     },
+
 
     series: [{
         name: 'Financements actuels',
         data: [{
             color: '#48AF5C',
-            radius: '80%',
-            innerRadius: '60%',
-            y: <%= ((@solideo_financements.sum('montant')/1628520000)*100).round%>
+            radius: '90%',
+            innerRadius: '80%',
+            y: <%= @solideo_financements.sum('montant')%>
         }]
     }]
 });

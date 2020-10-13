@@ -5,7 +5,7 @@
     <div>
     <%= line_chart [{name: "Décaissements", data: @ouvrage.ouvrages_depenses.unscope(:order).group(:date).sum('montant')}, {name: "Décaissements prévus", data: @ouvrage.ouvrages_depenses.unscope(:order).group(:date).sum('montant_prevu')}], library: {
       chart:{
-            backgroundColor: '#F3F8FF',
+            backgroundColor: '#fff',
            
             spacing: [40,40,40,40],
         style:{

@@ -9,7 +9,7 @@ html{
 
 body {
  font-family: 'Karla', sans-serif;
- background: #fff;
+ background: #e7e7e7;
  min-height: 100%;
   width:100%;
  position: relative;
@@ -151,6 +151,11 @@ body {
           text-transform:uppercase;
           font-size:15px;
           border-right:1px solid #48AF5C;
+           a{
+            color:#444444;
+            margin:0 5px;
+             text-decoration:underline;
+          }
         } 
         td{
           padding:15px 10px;
@@ -378,13 +383,13 @@ display: none;
 }
 
 .table-box{
-  background-color:#F3F8FF;
+  background-color:#fff;
   border-radius:20px;
   padding: 40px;
 }
 
 .SF-topo-box{
-   background-color:#F3F8FF;
+   background-color:#fff;
   border-radius:20px;
   padding: 40px;
    display: inline-flex;
@@ -459,7 +464,7 @@ display: none;
   margin-bottom:5px;
 }
 .SD-topo-box{
-   background-color:#F3F8FF;
+   background-color:#fff;
   border-radius:20px;
   padding: 40px;
   margin-bottom:30px;
@@ -576,7 +581,7 @@ display: none;
   font-size:16px;
 }
 .SD-table-box{
-   background-color:#F3F8FF;
+   background-color:#fff;
   border-radius:20px;
   padding: 40px;
 
@@ -592,7 +597,7 @@ display: none;
   text-transform:uppercase;
 }
 .O-topo-box, .O-jalons-box{
-   background-color:#F3F8FF;
+   background-color:#fff;
   border-radius:20px;
   padding: 40px;
   display: inline-flex;
@@ -788,4 +793,11 @@ display: none;
 
 .width-50{
   width:50%;
+}
+
+.highcharts-button-symbol,.highcharts-button.highcharts-contextbutton,.highcharts-button.highcharts-contextbutton.highcharts-button-normal, .highcharts-credits{
+  display:none;
+}
+.highcharts-data-labels.highcharts-series-0.highcharts-solidgauge-series.highcharts-tracker{
+  //transform: translate(10px,40px) !important; 
 }

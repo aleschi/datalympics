@@ -21,7 +21,7 @@
       <div>
       <%= pie_chart @ouvrages.unscope(:order).group(:name).sum(:budget), library: {
        chart: {
-         backgroundColor: '#F3F8FF',
+         backgroundColor: '#fff',
           type: 'pie',
           options3d: {
               enabled: true,
@@ -71,7 +71,7 @@
       <div>
         <%= bar_chart [ {name: "Total prévu", data: [["Total",1382775000]]}, {name: "Total actuel", data: [["Total", OuvragesDepense.all.sum('montant').to_i]]} ], library: {
       chart: {
-          backgroundColor: '#F3F8FF',
+          backgroundColor: '#fff',
          inverted: true,
       
      
@@ -83,7 +83,7 @@
         },
       colors: ["#8F8F8F", "#48AF5C"],
    yAxis: {
-        gridLineColor: '#F3F8FF', 
+        gridLineColor: '#fff', 
      title: {
        text: "% atteint du budget total prévu des ouvrages "
        }

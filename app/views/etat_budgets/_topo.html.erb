@@ -20,7 +20,7 @@
       <div>
        <%= bar_chart [ {name: "Total prévu", data: [["Total",@etat_budget_actuel.budget_total.to_i]]}, {name: "Total actuel", data: [["Total", @etat_depenses.sum('cp_conso').to_i]]} ], library: {
       chart: {
-          backgroundColor: '#F3F8FF',
+          backgroundColor: '#fff',
          inverted: true,
       
      
@@ -32,7 +32,7 @@
         },
       colors: ["#8F8F8F", "#48AF5C"],
    yAxis: {
-        gridLineColor: '#F3F8FF', 
+        gridLineColor: '#fff', 
      title: {
        text: "% atteint du budget total prévu"
        }
@@ -87,7 +87,7 @@
     
       <%= pie_chart({"SOLIDEO" => @etat_budget_actuel.budget_solideo.to_i, "COJO" => @etat_budget_actuel.budget_cojo.to_i, "Héritage" => @etat_budget_actuel.budget_heritage.to_i, "Haute Performance" => @etat_budget_actuel.budget_hauteperformance.to_i}, library: {
       chart: {
-           backgroundColor: '#F3F8FF',
+           backgroundColor: '#fff',
         
            style:{
           fontFamily: "Spectral",
@@ -136,7 +136,7 @@
         <%= column_chart [ {name: "Budget Etat prévu", data: [["SOLIDEO",@etat_budget_actuel.budget_solideo.to_i],["COJO",@etat_budget_actuel.budget_cojo.to_i],["Héritage", @etat_budget_actuel.budget_heritage.to_i],["Haute Performance",@etat_budget_actuel.budget_hauteperformance.to_i]]},{name: "Budget Etat dépensé", data: [["SOLIDEO",@etat_depenses_solideo.to_i],["COJO",@etat_depenses_cojo.to_i],["Héritage", @etat_depenses_heritage.to_i],["Haute Performance",@etat_depenses_hauteperformance.to_i]]} ], library: {
         chart:{
             type: 'column',
-            backgroundColor: '#F3F8FF',
+            backgroundColor: '#fff',
          
             style:{
             fontFamily: "Spectral",

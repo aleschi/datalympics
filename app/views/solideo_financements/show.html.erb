@@ -8,7 +8,7 @@
    <div class="O-topo-box-infos"> 
       <%= pie_chart(@financement.unscope(:order).group(:categorie).sum('montant_prevu'), library: {
       chart: {
-           backgroundColor: '#F3F8FF',
+           backgroundColor: '#fff',
         style:{
           fontFamily: "Spectral",
           maxWidth: "500px",
@@ -62,7 +62,7 @@
     <div>
     <%= line_chart [{name: "Financement prévu", data: @financement.unscope(:order).group_by_year(:date).sum('montant_prevu')}, {name: "Financement attribué", data: @financement.unscope(:order).group_by_year(:date).sum('montant') } ], library: {
       chart:{
-            backgroundColor: '#F3F8FF',
+            backgroundColor: '#fff',
            
             spacing: [40,40,40,40],
         style:{

@@ -3,7 +3,7 @@
   <div class="topo-chart">
     <%= pie_chart @solideo_financements.unscope(:order).group(:financeur).sum(:montant_prevu) ,  library: {
      chart: {
-       backgroundColor: '#F3F8FF',
+       backgroundColor: '#fff',
         type: 'pie',
         options3d: {
             enabled: true,
