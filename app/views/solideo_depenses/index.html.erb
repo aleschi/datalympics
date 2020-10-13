@@ -36,6 +36,9 @@
        
       
     </div>
+      <div class="SF-topo-explication">
+        <% if @solideo_depenses_total_prevu > @solideo_depenses_total%><span class="positive"> - <%= number_with_delimiter((@solideo_depenses_total_prevu - @solideo_depenses_total).to_i, :delimiter => ' ')%> € </span><%else%><span class="negative"> + <%= number_with_delimiter((@solideo_depenses_total - @solideo_depenses_total_prevu).to_i, :delimiter => ' ')%> €</span><%end%> par rapport aux dépenses prévues à date
+      </div>
   </div>
   </div>
   <br><br>
