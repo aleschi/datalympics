@@ -8,7 +8,7 @@ class OuvragesDepensesController < ApplicationController
     @ouvrages_depenses = OuvragesDepense.all
     
      @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
-    @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')
+    @solideo_depenses_ouvrages_reel = OuvragesDepense.where('date <= ?', Date.today).unscope(:order).group(:date).sum('montant')
   end
 
   # GET /ouvrages_depenses/1

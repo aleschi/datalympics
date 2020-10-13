@@ -63,7 +63,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @ouvrages_depenses.each do |ouvrages_depense| %>
+            <% @ouvrages_depenses.where('date <= ?', Date.today).each do |ouvrages_depense| %>
             <tr>
               <th scope="row"><%= ouvrages_depense.date.strftime("%b %Y") %></th>
               <th scope="row"><%= Ouvrage.find(ouvrages_depense.ouvrage_id).name %></th>
