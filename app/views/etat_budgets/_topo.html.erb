@@ -71,7 +71,10 @@
         
       </div>
        <div class="SF-topo-explication">
-         <% if @etat_depenses.sum('cp_conso') > @etat_depenses.where('date <= ?', Date.today).sum('cp_prevu') %><span class="negative"> + <%= number_with_delimiter((@etat_depenses.sum('cp_conso')-@etat_depenses.where('date <= ?', Date.today).sum('cp_prevu')).to_i, :delimiter => ' ')%> € </span><% else %><span class="positive"> - <%= number_with_delimiter((@etat_depenses.where('date <= ?', Date.today).sum('cp_prevu')-@etat_depenses.sum('cp_conso')).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux dépenses prévues à date 
+         <% if @etat_depenses.sum('cp_conso') > @etat_depenses.where('date <= ?', Date.today).sum('cp_prevu') %><span class="negative"> + <%= number_with_delimiter((@etat_depenses.sum('cp_conso')-@etat_depenses.where('date <= ?', Date.today).sum('cp_prevu')).to_i, :delimiter => ' ')%> € </span><% else %><span class="positive"> - <%= number_with_delimiter((@etat_depenses.where('date <= ?', Date.today).sum('cp_prevu')-@etat_depenses.sum('cp_conso')).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux dépenses prévues à date <span class='info'><i class="fas fa-info-circle"></i></span> 
+      </div>
+      <div class="infos-details">
+        Cet écart s'explique par une actualisation des coûts <br>(passage de l'euro courant 2016 à l'euro constant)
       </div>
     </div>
   </div>
@@ -199,7 +202,7 @@
 </div>
 <% end %>
 
-    <script>
+<script>
   // Uncomment to style it like Apple Watch
 
 function renderIcons() {
@@ -340,3 +343,13 @@ Highcharts.chart('container2', {
 });
 
   </script>
+<script>
+  $('.infos-details').hide();
+  $('.info').mouseover(function() {
+    $('.infos-details').show();
+    })
+  $('.info').mouseout(function() {
+    $('.infos-details').hide();
+    })
+
+</script>
