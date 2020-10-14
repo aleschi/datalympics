@@ -2,11 +2,28 @@
   <div class="SD_home_button">
     <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
   </div>
-  <h1 class="O_title"><span>Ouvrages</span></h1>
+    <h1 class="SD_title">Les ouvrages des JOP2024 </h1>
+
   <div class="SF-topo-box">
      <div class="SF-topo-financeurs">
+      
+   <div class="SF-topo-financeurs-title"><span>Liste des ouvrages</span></div><br><br>
       <% if !@ouvrages.nil?%>
-      <% @ouvrages.each do |ouvrage| %>
+       <div class='ouvrages-mo'>
+         MOA : Solideo
+       </div>
+      <% @ouvrages.where('maitre_oeuvre = ?', "SOLIDEO").each do |ouvrage| %>
+        <div class="O-name">
+        <%= link_to ouvrage do %>
+          <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>        
+        <% end %>
+        </div>
+      <% end %>
+       <br><br>
+       <div class='ouvrages-mo'>
+         MOA : Autres
+       </div>
+      <% @ouvrages.where('maitre_oeuvre != ?', "SOLIDEO").each do |ouvrage| %>
         <div class="O-name">
         <%= link_to ouvrage do %>
           <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>        
@@ -33,11 +50,12 @@
       },
 
         title: {
-          text:'<em>Répartition des dépenses prévues des ouvrages <br> Total : 1 382 775 000 €</em>',
+          text:'Répartition des dépenses prévues (2018-2025)',
           margin:40,
           style: {
             color: '#8F8F8F',
-
+            fontSize: '16px',
+            fontStyle: 'italic',
             }
         },
 
@@ -67,16 +85,233 @@
       %>
         
       </div><br><br>
-      
+      <div class="SF-topo-explication">
+        Budget 2018-2025 prévu : 1 382 775 000 €
+      </div>
 
     </div>
   </div>
 
 <br><br>
-
- <div class="EB-details">
-    <%= link_to "En savoir plus sur les dépenses des ouvrages" , ouvrages_depenses_path %>
+<div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>Budget des ouvrages </span>
+  </div><br><br>
+  <div class="budget-topo_chart-box"> 
+    <div class="budget-topo-chart">
+      
+      <div id="container2">
+ 
+      </div>
+      <div class="SF-topo-explication">
+        Budget 2018-2025 prévu :  1 382 775 000€
+      </div>
     </div>
+    <div class="budget-topo-chart">
+      <div>
+
+       <%= column_chart [{name: "Dépenses prévues", data: OuvragesDepense.unscope(:order).group_by_year(:date).sum('montant_prevu')},{name: "Décaissements", data: OuvragesDepense.unscope(:order).group_by_year(:date).sum('montant')}], library: {
+        chart:{
+            type: 'column',
+            backgroundColor: '#fff',
+   
+            style:{
+            fontFamily: "Spectral",  
+               maxWidth: '500px',
+              minWidth: '500px',
+            },
+         
+            },
+      
+        title: {
+          text:'Dépenses réelles et prévues des ouvrages par année en €',
+          margin:40,
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+            fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+        },
+      xAxis:  {
+        type: 'datetime',
+        },
+        
+      yAxis: {
+          gridLineColor: '#fff', 
+         },
+        colors: ["#8F8F8F", "#0287D1"],
+     
+  
+        plotOptions: {
+          column: {
+           pointWidth: 15,
+           tooltip: {        
+              backgroundColor: "#fff",        
+              style: {
+                  fontSize: '12px',     
+              },
+              
+             },
+           },
+    
+          },
+
+
+          }
+      %> 
+      </div>
+      <div class="SF-topo-explication">
+         <% if @solideo_depenses_ouvrages_prevu_date < @solideo_depenses_ouvrages %><span class="negative"> + <%= number_with_delimiter((@solideo_depenses_ouvrages-@solideo_depenses_ouvrages_prevu_date).to_i, :delimiter => ' ')%> € </span><% else %><span class="positive"> - <%= number_with_delimiter((@solideo_depenses_ouvrages_prevu_date-@solideo_depenses_ouvrages).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux dépenses prévues à date.
+         <br><%= link_to "En savoir plus " , ouvrages_depenses_path %>
+      </div> 
+    </div>
+  </div>
+   <br><br>
+ 
+</div>
+
 
 
 </div>
+<script>
+  // Uncomment to style it like Apple Watch
+
+function renderIcons() {
+
+    // Move icon
+    if (!this.series[0].icon) {
+        this.series[0].icon = this.renderer.path(['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8])
+            .attr({
+                stroke: '#303030',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+                'stroke-width': 2,
+                zIndex: 10
+            })
+            .add(this.series[2].group);
+    }
+    this.series[0].icon.translate(
+        this.chartWidth / 2 - 10,
+        this.plotHeight / 2 - this.series[0].points[0].shapeArgs.innerR -
+            (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
+    );
+
+  
+
+   
+}
+
+
+Highcharts.chart('container2', {
+
+    chart: {
+      backgroundColor: '#fff',
+        type: 'solidgauge',
+        maxWidth: '500px',
+      height:'300px',
+      style:{
+          fontFamily: "Spectral",
+          },
+       events: {
+            render: renderIcons
+        }
+      
+    },
+ 
+  title: {
+    text: "Budget actuel dépensé",
+    style: {
+          color: '#8F8F8F',
+        fontStyle: "italic",
+      fontSize: '16px',
+          }
+  },
+  tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '12px',
+          color: '#8F8F8F',
+        },
+        //valueSuffix: '€',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 35
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '90%',
+            innerRadius: '80%',
+            backgroundColor: 'rgba(0,74,72,0.3)',
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max:  1382775000,
+        lineWidth: 0,
+        tickPositions: [1382775000],
+      tickInterval: 1382775000,
+      minorTickInterval: null,
+      tickAmount:1,
+       labels: {
+            step: 1382775000,
+            rotation: 'auto',
+         style: {
+           fontSize: '12px',
+          color: '#8F8F8F',
+          
+         },
+         y: -30,
+        },
+    },
+
+    plotOptions: {
+        solidgauge: {
+          
+          tooltip: "",
+          
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '14px',
+                color: '#0287D1',
+              },
+              valueSuffix: '€',
+              format: '<span style="color:#8F8F8F; font-size:12px;font-weight:400">{series.name} :</span><br><span>{point.y:,.0f} €</span>',
+            verticalAlign: 'middle',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true,
+         
+        }
+    },
+
+
+    series: [{
+        name: 'Dépenses actuelles',
+        data: [{
+            color: '#0287D1',
+            radius: '90%',
+            innerRadius: '80%',
+            y: <%= OuvragesDepense.all.sum('montant') %>
+        }]
+    }]
+});
+
+  </script>
