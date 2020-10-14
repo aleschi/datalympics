@@ -2,7 +2,8 @@
   <div class="O_home_button">
     <%= link_to ouvrages_path do %><i class="fas fa-chevron-left"></i>Retour aux ouvrages<%end %>
   </div>
-  <h1 class="O_title"><span><%= @ouvrage.name %></span></h1>
+  
+    <h1 class="SD_title"><%= @ouvrage.name %></h1>
   <%= render 'topo_ouvrage'%>
   <%= render 'ouvrage_depenses' %>
   <%= render 'jalons' %>
