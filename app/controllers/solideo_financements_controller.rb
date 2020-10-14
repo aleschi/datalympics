@@ -16,7 +16,7 @@ class SolideoFinancementsController < ApplicationController
     @solideo_financements_collectivites_prevu_date = SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).sum('montant_prevu')
     @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").sum('montant')
     
-    @solideo_financements_hash = SolideoFinancement.where('date <= ?', Date.today).order('date DESC').group_by_year(:date).sum('montant')
+    @solideo_financements_hash = SolideoFinancement.where('date <= ?', Date.today).order('date DESC').unscope(:order).group_by_year(:date).sum('montant')
     @solideo_financements_array = []
     
       @solideo_financements_hash.each do |h|
