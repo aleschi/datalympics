@@ -114,6 +114,20 @@ body {
     }
   }
 }
+.download{
+  margin-bottom:0px;
+  text-align:right;
+  a{
+    text-decoration:none;
+    color:#FD9C04;
+    font-size:15px;
+    i{
+      color:#FD9C04;
+      font-size:22px;
+      margin-right:8px;
+    }
+  }
+}
 .ED_table{
   overflow-x:auto;
   margin-bottom:50px;
