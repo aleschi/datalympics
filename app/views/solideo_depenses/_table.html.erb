@@ -18,11 +18,13 @@
           },
 
       title: {
-        text:'<em>Suivi des dépenses de la Solideo</em>',
+        text:'Suivi des dépenses de la Solideo',
         margin:40,
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '16px',
                   },
       },
   xAxis:{
@@ -68,7 +70,7 @@
                  <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
                 <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
                 <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
-                <td class="border-none"><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(OuvragesDepense.where(' date = ?',date).sum('montant')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(OuvragesDepense.where(' date = ?',date).sum('montant_prevu')+SolideoFinancement.where('categorie != ? AND date = ?',"ouvrages",date).sum('montant_prevu').to_i, :delimiter => ' ') %>€</div></div></td>
+                <td class="border-none"><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(OuvragesDepense.where(' date = ?',date).sum('montant')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(OuvragesDepense.where(' date = ?',date).sum('montant_prevu')+SolideoFinancement.where('categorie != ? AND date = ?',"ouvrages",date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <%if OuvragesDepense.where(' date = ?',date).sum('montant')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant') > OuvragesDepense.where(' date = ?',date).sum('montant_prevu')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant_prevu') %><i class="fas fa-exclamation-circle"></i><%end %></div></div></td>
                
              </tr>
               <% end %>

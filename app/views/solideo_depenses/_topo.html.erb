@@ -14,10 +14,12 @@
           }
         },
   title: {
-    text:'<em>Dépenses prévues de la Solideo (2016)</em>',
+    text:'Dépenses prévues de la Solideo (2018-2025)',
         margin:40,
         style: {
           color: '#8F8F8F',
+          fontStyle: 'italic',
+      fontSize: '16px',
         
           },
     },
@@ -36,12 +38,13 @@
                # cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<em>{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %</em>',
+                    format: '{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %',
                     style: {
                       color: "#8F8F8F",
                       fontSize: "12px",
                       fontWeight: "400",
-
+                      fontStyle: 'italic',
+      
                       }
                 }
             }
@@ -68,11 +71,13 @@
             },
       
         title: {
-          text:'<em>Dépenses réelles et prévues des ouvrages par année en €</em>',
+          text:'Dépenses réelles et prévues des ouvrages par année en €',
           margin:40,
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
+            fontStyle: 'italic',
+      fontSize: '16px',
                   },
         },
       xAxis:  {
