@@ -2,7 +2,8 @@
   <div class="O_home_button">
     <%= link_to collectivites_path do %><i class="fas fa-chevron-left"></i>Retour aux collectivités <%end %>
   </div>
-  <h1 class="O_title"><span><%= @solideo_financement.financeur %></span></h1>
+   <h1 class="SD_title"><%= @solideo_financement.financeur %> </h1>
+
 
   <div class="O-topo-box">
    <div class="O-topo-box-infos"> 
@@ -57,7 +58,7 @@
   <% end %>
 </div>
   
-  
+  <br><br>
 <div  class="SD-table-box">
     <div>
     <%= line_chart [{name: "Financement prévu", data: @financement.unscope(:order).group_by_year(:date).sum('montant_prevu')}, {name: "Financement attribué", data: @financement.unscope(:order).group_by_year(:date).sum('montant') } ], library: {

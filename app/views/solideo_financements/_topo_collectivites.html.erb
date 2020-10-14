@@ -5,33 +5,32 @@
      chart: {
        backgroundColor: '#fff',
         type: 'pie',
-        options3d: {
-            enabled: true,
-            alpha: 45
-        },
+
        style:{
           fontFamily: "Spectral",
           },
     },
 
       title: {
-        text:'<em>Répartition des financements des collectivités</em>',
+        text:'Répartition des financements des collectivités',
         margin:40,
         style: {
           color: '#8F8F8F',
-        
+          fontSize: '16px',
+          fontStyle: 'italic',
           }
       },
      plotOptions: {
         pie: {
-            innerSize: 100,
-            depth: 45,
+            innerSize: 90,
+           
+          minSize: 120,
             dataLabels: {
                     enabled: true,
                     format: '<em>{point.name}<br>{point.percentage:.1f} %</em>',
                     style: {
                       color: "#8F8F8F",
-                      fontSize: "12px",
+                      fontSize: "11px",
                       fontWeight: "400",
 
                       }
