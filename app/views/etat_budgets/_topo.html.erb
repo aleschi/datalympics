@@ -12,10 +12,11 @@
  
       </div>
       <div class="SF-topo-explication">
-         <% if @etat_depenses.sum('cp_conso') > @etat_depenses.where('date <= ?', Date.today).sum('cp_prevu') %><span class="negative"> + <%= number_with_delimiter((@etat_depenses.sum('cp_conso')-@etat_depenses.where('date <= ?', Date.today).sum('cp_prevu')).to_i, :delimiter => ' ')%> € </span><% else %><span class="positive"> - <%= number_with_delimiter((@etat_depenses.where('date <= ?', Date.today).sum('cp_prevu')-@etat_depenses.sum('cp_conso')).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux dépenses prévues à date 
+        Budget 2018-2025 prévu : 1 102 857 000€
       </div>
     </div>
     <div class="budget-topo-chart">
+      <div>
        <%= column_chart [{name: "CP prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum('cp_prevu')},{name: "CP consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum('cp_conso')}], library: {
         chart:{
             type: 'column',
@@ -28,11 +29,13 @@
             },
       
         title: {
-          text: "<em>Dépenses de l'Etat par année en €<br> </em>",
+          text: "Budget par année en €",
           margin:40,
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
+            fontStyle: "italic",
+            fontSize: '16px',
                   },
         },
       xAxis:  {
@@ -65,6 +68,11 @@
 
           }
       %>
+        
+      </div>
+       <div class="SF-topo-explication">
+         <% if @etat_depenses.sum('cp_conso') > @etat_depenses.where('date <= ?', Date.today).sum('cp_prevu') %><span class="negative"> + <%= number_with_delimiter((@etat_depenses.sum('cp_conso')-@etat_depenses.where('date <= ?', Date.today).sum('cp_prevu')).to_i, :delimiter => ' ')%> € </span><% else %><span class="positive"> - <%= number_with_delimiter((@etat_depenses.where('date <= ?', Date.today).sum('cp_prevu')-@etat_depenses.sum('cp_conso')).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux dépenses prévues à date 
+      </div>
     </div>
   </div>
   <br><br>
@@ -72,7 +80,7 @@
 <div class="SD-topo-box">
   <div class="SD-topo-box-title">
     <span>Répartition des dépenses état</span>
-  </div>
+  </div><br>
   <div class="SD-topo_chart-box">
     <div class="topo-chart">
      
@@ -89,32 +97,31 @@
           }
         },
    title: {
-          text:'<em>Dépenses Totales Prévisionnelles (2016)</em>',
+          text:'Dépenses Totales Prévisionnelles (2018-2025)',
      
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
+            fontStyle: "italic",
+            fontSize: '16px',
                   },
         },
 
-        tooltip: {
-          useHTML: true,
-          pointFormat: 'Montant : <b>{point.y:,.0f}€</b><br>',
-          shared: true,  
-        },
+ 
 
         plotOptions: {
             pie: {
                 allowPointSelect: true,
+              minSize: 200,
                # cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<em>{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %</em>',
+                    format: '{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %',
                     style: {
                       color: "#8F8F8F",
-                      fontSize: "12px",
+                      fontSize: "11px",
                       fontWeight: "400",
-
+                      fontStyle: "italic",
                       }
                 }
             }
@@ -139,24 +146,28 @@
             },
 
         title: {
-          text:'<em>Ratio du budget dépensé à date par rapport au budget total prévu </em>',
+          text:'Budget dépensé à date par rapport au budget 2025 prévu',
           margin:40,
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
+            fontStyle: "italic",
+            fontSize: '16px',
                   },
         },
         colors: ["#8F8F8F", "#48AF5C"],
         plotOptions: {
           column: {
-            stacking: 'percent',
+            pointWidth: 15,
+            
            label: { 
               enable: true,
-            format: '<em>{point.value}</em>',
+            format: '{point.value}',
             style: {
                    color: "#8F8F8F",
                    fontSize: "12px",
                    fontWeight: "400",
+              fontStyle: "italic",
                   },
               },
              tooltip: {
@@ -234,10 +245,11 @@ Highcharts.chart('container2', {
     },
  
   title: {
-    text: "<em>Dépenses actuelles de l'Etat</em> <br> <em>Budget 2018-2025 prévu : 1 102 857 000€</em>",
+    text: "Budget actuel dépensé",
     style: {
           color: '#8F8F8F',
-        
+        fontStyle: "italic",
+      fontSize: '16px',
           }
   },
   tooltip: {

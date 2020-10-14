@@ -1,7 +1,7 @@
 
 <div  class="table-box">
   <div class="SD-topo-box-title">
-    <span>Répartition annuelles des dépenses de l'état (CP consommés / CP prévus)</span>
+    <span>Répartition annuelle des dépenses de l'état (CP consommés / CP prévus)</span>
   </div><br><br>
 <% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
 
@@ -32,10 +32,10 @@
       </table>
     </div>
   
-   <br><br>
+   
   
      <div class="EB-details">
-    <%= link_to "Voir le détails des dépenses de l'état" , etat_depenses_path %>
+    <%= link_to "détails des dépenses" , etat_depenses_path %>
   </div>
   <% else %>
     <div>
