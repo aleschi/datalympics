@@ -1,141 +1,12 @@
 
-<div  class="table-box">
 
- <div class="SF-topo-financeurs-title"><span>Suivi des financements de la solideo</span></div><br><br>
-  
-  
-  <div>
-    <%= line_chart [{name: "Financements de l'Etat", data: SolideoFinancement.where("financeur = ? AND date <= ?", "Etat", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements privés", data: SolideoFinancement.where("financeur = ? AND date <= ? ", "privé", Date.today).unscope(:order).group_by_year(:date).sum('montant')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'<em>Suivi annuel des financements de la Solideo</em>',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  },
-      },
-  
-      colors: ['#A2C744','#4FC5CE',"#4F82CE"],
-      xAxis:{
-      tickInterval: 24 * 3600 * 1000 * 30 * 3,
-      },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-       tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          },
-        plotOptions: {
-          line: {
-            dashStyle: ["Solid", "Dash","Solid","Dash","Solid","Dash"],
-            }
-          }
-        }
-
-    %>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-       <%= line_chart [{name: "Financements de l'Etat", data: SolideoFinancement.where("financeur = ? AND date <= ?", "Etat", Date.today).unscope(:order).group_by_year(:date).sum('montant')}, {name: "Financements prévus de l'Etat", data: SolideoFinancement.where("financeur = ? ", "Etat").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:"<em>Suivi annuel des financements de l'Etat</em>",
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  },
-      },
-  
-      colors: ['#A2C744','#8f8f8f'],
-      xAxis:{
-      tickInterval: 24 * 3600 * 1000 * 30 * 3,
-      },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-       tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          },
-  }
-
-    %>
-    </div>
-     <div class="col-md-6">
-       <%= line_chart [{name: "Financements des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements prévus des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'<em>Suivi annuel des financements des collectivités</em>',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  },
-      },
-  
-      colors: ['#4FC5CE',"#8f8f8f"],
-      xAxis:{
-      tickInterval: 24 * 3600 * 1000 * 30 * 3,
-      },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-       tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          },
-     
-  }
-    %>
-    </div>
-  </div>
-  
+ <div  class="table-box"> 
 <% if !@solideo_financements_array.nil? && !@solideo_financements_array.empty? %>
-<br><br>
-   <div class="SF-topo-financeurs-title"><span>Détails trimestriels des financements de la solideo par financeur</span></div><br><br>
-  
+
+   <div class="SF-topo-financeurs-title"><span>Détails des financements de la solideo par financeur</span></div><br><br>
+  <div class="ED_table_filtres">
+      <a type="button" data-toggle="modal" data-target="#financementsfiltres" ><i class="fas fa-sliders-h"></i> Filtrer </a>
+    </div>
     <div class="ED_table">
       <table>
         <thead>
@@ -150,22 +21,27 @@
         <tbody>
           <% @solideo_financements_array.each do |date| %>
           <tr>
-            <th scope="row"><%= date.strftime("%b %Y") %></th>
+            <th scope="row"><%= date.strftime("%Y") %></th>
             <th scope="row"><%= link_to etat_budgets_path do %> Etat<% end %></th>
-            <td><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date = ?', 'Etat',date).sum('montant_prevu').to_i, :delimiter => ' ') %> €</td>
-            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date = ?', 'Etat',date).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur = ? AND date = ?', 'Etat',date).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date = ?', 'Etat',date).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
-          </tr>
-          <tr>
-            <th scope="row"><%= date.strftime("%b %Y") %></th>
+            <td><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu').to_i, :delimiter => ' ') %> €</td>
+            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+          </tr> 
+          <% end %>
+          <% @solideo_financements_array.each do |date| %>
+           <tr>
+            <th scope="row"><%= date.strftime("%Y") %></th>
             <th scope="row"><%= link_to collectivites_path do %> Collectivités<% end %></th>
-            <td><%= number_with_delimiter(SolideoFinancement.where('financeur != ? AND financeur != ? AND date = ?', 'Etat',"privé",date).sum('montant_prevu').to_i, :delimiter => ' ') %> €</td>
-            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND financeur != ? AND date = ?', 'Etat',"privé",date).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur = ? AND financeur != ? AND date = ?', 'Etat', "privé",date).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND financeur != ? AND date = ?', 'Etat',"privé",date).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+            <td><%= number_with_delimiter(SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu').to_i, :delimiter => ' ') %> €</td>
+            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat', "privé",date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
           </tr>
+          <% end %>
+
+          <% @solideo_financements_array.each do |date| %>   
           <tr>
-            <th scope="row"><%= date.strftime("%b %Y") %></th>
+            <th scope="row"><%= date.strftime("%Y") %></th>
             <th scope="row"> Privés</th>
-            <td><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date = ?', 'privé',date).sum('montant_prevu').to_i, :delimiter => ' ') %> €</td>
-            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date = ?', 'privé',date).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur = ? AND date = ?', 'privé',date).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date = ?', 'privé',date).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+            <td><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu').to_i, :delimiter => ' ') %> €</td>
+            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
           </tr>
           <% end %>
         </tbody>

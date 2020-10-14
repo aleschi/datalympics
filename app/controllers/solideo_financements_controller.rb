@@ -5,11 +5,7 @@ class SolideoFinancementsController < ApplicationController
   # GET /solideo_financements.json
   def index
     @solideo_financements = SolideoFinancement.all
-    @financeurs_hash = @solideo_financements.group(:financeur).sum('montant')
-    @financeurs = []
-    @financeurs_hash.each do |h|
-      @financeurs << h[0]
-    end
+ 
     @solideo_financements_etat_prevu = SolideoFinancement.where("financeur = ? ", "Etat").sum('montant_prevu')
     @solideo_financements_etat_prevu_date = SolideoFinancement.where("financeur = ? AND date <= ? ", "Etat", Date.today).sum('montant_prevu')
     @solideo_financements_etat = SolideoFinancement.where("financeur = ? ", "Etat").sum('montant')
@@ -20,7 +16,7 @@ class SolideoFinancementsController < ApplicationController
     @solideo_financements_collectivites_prevu_date = SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).sum('montant_prevu')
     @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").sum('montant')
     
-    @solideo_financements_hash = SolideoFinancement.where('date <= ?', Date.today).order('date DESC').group(:date).sum('montant')
+    @solideo_financements_hash = SolideoFinancement.where('date <= ?', Date.today).order('date DESC').group_by_year(:date).sum('montant')
     @solideo_financements_array = []
     
       @solideo_financements_hash.each do |h|
@@ -28,7 +24,14 @@ class SolideoFinancementsController < ApplicationController
         @solideo_financements_array << h[0]
         end
       end
+
   end
+  
+  def index_filter
+     respond_to do |format|
+      format.js
+    end
+  end 
 
   # GET /solideo_financements/1
   # GET /solideo_financements/1.json
