@@ -1,57 +1,52 @@
-<div class="home_page_1">
+<div class="home_page_1_bis">
 
-<div class="home_image">
+
   <%= image_tag "home.jpg" %>
-</div>
+
 <div class="home_page">
  
-  <h1 class="home_title">
-  Datalympics
-  </h1>
-  <h2 class="home_subtitle">
-    Outil de suivi des financements des jeux olympiques et paralympiques 2024
-  </h2>
-  
-  <div class="home_choice_text">
-    Suivre les dépenses sur l'action
-  </div>
-  <div class="home_choice_box">
-    <div class="home_choice_button">
-      <%= link_to solideo_depenses_path do %>Solideo<% end %>
-    </div>
-    <div class="home_choice_button">
-      <a>COJO</a>
-    </div>
-    <div class="home_choice_button">
-      <a>Haute Performance</a>
-    </div>
-    <div class="home_choice_button">
-      <a>Héritage</a>
-    </div>    
-  </div>
-  
-  <div class="home_choice_text">
-    Suivre les financeurs 
+  <br>
+  <div class="home_choice_text text-center">
+    Suivre les dépenses par acteur 
   </div>
   <div class="home_choice_box">
     <div class="home_choice_button">
       <%= link_to etat_budgets_path do %>Etat <% end %>
-    </div>
-    <div class="home_choice_button">
+    
       <%= link_to collectivites_path do %>Collectivités<% end %>
-    </div> 
-   
-  </div>
+ 
+      <%= link_to solideo_depenses_path do %>Solideo<% end %>
   
-  <div class="home_choice_text">
-    Suivre les ouvrages
+      <a>COJO</a>
+    </div>
+       
   </div>
+ 
+  
+  <div class="home_choice_text text-center">
+    Suivre les dépenses concernant 
+  </div>
+
+
   <div class="home_choice_box">
     
     <div class="home_choice_button">
       <%= link_to ouvrages_path do %>Ouvrages<% end %>
-    </div>    
+
+      <a>Haute Performance</a>
+
+      <a>Héritage</a>
+    </div> 
   </div>
+  
+  
+  <h1 class="home_title">
+  Datalympics
+  </h1>
+  <h2 class="home_subtitle">
+    Outil de suivi des financements des JOP2024
+  </h2>
+
   
    
 </div>
