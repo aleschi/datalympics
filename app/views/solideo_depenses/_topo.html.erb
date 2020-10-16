@@ -2,9 +2,9 @@
 <div class="SD-topo-box">
   <div class="SD-topo-box-title">
     <span>Répartition des dépenses de la solideo</span>
-  </div>
-  <div class="SD-topo_chart-box">
-    <div class="topo-chart">
+  </div><br><br>
+  <div class="budget-topo_chart-box">
+    <div class="budget-topo-chart">
       <%= pie_chart({"Ouvrages" => 1130507000, "Réserve" => 94470000, "Innovation" => 47300000, "Frais de fonctionnement" => 103975000}, library: {
       chart: {
            backgroundColor: '#fff',
@@ -54,7 +54,7 @@
   </div>
     
     
-      <div id="SD-topo-repartition">
+      <div class="budget-topo-chart">
         <div>
  
         <%= column_chart [{name: "Dépenses prévues", data: OuvragesDepense.unscope(:order).group_by_year(:date).sum('montant_prevu')},{name: "Décaissements", data: OuvragesDepense.unscope(:order).group_by_year(:date).sum('montant')}], library: {
@@ -115,7 +115,7 @@
       </div>
      
 
-  </div>
+  </div><br><br>
   
 
 </div>
