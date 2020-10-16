@@ -448,7 +448,17 @@ display: none;
     color:#48AF5C;
   }
 }
-
+.collectivites-ouvrages-name{
+  color:#48AF5C;
+  font-size:15px;
+  font-weight:700;
+  margin-bottom:5px;
+  width:300px;
+  margin-right:0px;
+  a{
+    color:#48AF5C;
+  }
+}
 .SF-topo-financeurs-budget{
   width:250px;
   display: inline-flex;
@@ -828,9 +838,6 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   
 }
 
-.O-topo-box-financeurs{
-  width:50%;
-}
 
 .width-50{
   width:50%;
