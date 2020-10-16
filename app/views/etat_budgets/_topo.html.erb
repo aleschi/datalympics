@@ -92,31 +92,31 @@
     
       <%= pie_chart({"SOLIDEO" => @etat_budget_actuel.budget_solideo.to_i, "COJO" => @etat_budget_actuel.budget_cojo.to_i, "Héritage" => @etat_budget_actuel.budget_heritage.to_i, "Haute Performance" => @etat_budget_actuel.budget_hauteperformance.to_i}, library: {
       chart: {
-           backgroundColor: '#fff',
-        
-           style:{
+          backgroundColor: '#fff',
+          style:{
           fontFamily: "Spectral",
           maxWidth: "500px",
           }
         },
-   title: {
-          text:'Dépenses Totales Prévisionnelles (2018-2025)',
-     
+      title: {
+          text:'Dépenses Totales Prévisionnelles (2018-2025)',   
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-            fontStyle: "italic",
-            fontSize: '16px',
+                  fontStyle: "italic",
+                  fontSize: '16px',
                   },
-        },
-
- 
-
-        plotOptions: {
+       },  
+       tooltip: {
+          
+            headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
+            pointFormat: '<span style="color:{point.color}">Dépenses </span>: <b>{point.y:.0f}%</b><br/>'
+       },
+       plotOptions: {
             pie: {
                 allowPointSelect: true,
-              minSize: 200,
-               # cursor: 'pointer',
+                minSize: 200,
+                # cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
                     format: '{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %',
@@ -126,9 +126,11 @@
                       fontWeight: "400",
                       fontStyle: "italic",
                       }
+                    }
                 }
-            }
-        },
+            },
+  
+  
       }) %>    
       </div>
 
@@ -181,14 +183,9 @@
         
            },
           },
-      legend: {
-          reversed: true
-        },
-      xAxis: {
-      reversed: false,
-      },
+     
       yAxis: {
-          gridLineColor: '#E6F0FF', 
+          gridLineColor: '#fff', 
          },
   
           }
