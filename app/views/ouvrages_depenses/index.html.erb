@@ -51,7 +51,7 @@
       yAxis: {
           gridLineColor: '#fff', 
          },
-        colors: ["#8F8F8F", "#0287D1"],
+        colors: ["#8F8F8F", "#487F7F"],
      
   
         plotOptions: {
@@ -76,7 +76,7 @@
          <% if @solideo_depenses_ouvrages_prevu_date < @solideo_depenses_ouvrages %><span class="negative"> + <%= number_with_delimiter((@solideo_depenses_ouvrages-@solideo_depenses_ouvrages_prevu_date).to_i, :delimiter => ' ')%> € </span><% else %><span class="positive"> - <%= number_with_delimiter((@solideo_depenses_ouvrages_prevu_date-@solideo_depenses_ouvrages).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux dépenses prévues à date.
         <span class='info'><i class="fas fa-info-circle"></i></span>
       <div class="infos-details">
-        Cet écart s'explique par un retard des dépenses lié en partie à la Covid19
+        Cet écart s'explique par un retard des chantiers dû à la Covid19
       </div>
       </div> 
     </div>
@@ -108,9 +108,7 @@
                     fontWeight: "400",
                     },
         },
-    xAxis:{
-      tickInterval: 24 * 3600 * 1000 * 30 * 3,
-      },
+    colors: ["#487F7F", '#8f8f8f'],
         yAxis: {
           gridLineColor: '#E6F0FF', 
              labels: {
@@ -287,7 +285,7 @@ Highcharts.chart('container2', {
               shadow: false,
               style: {
                   fontSize: '14px',
-                color: '#0287D1',
+                color: '#487F7F',
               },
               valueSuffix: '€',
               format: '<span style="color:#8F8F8F; font-size:12px;font-weight:400">{series.name} :</span><br><span>{point.y:,.0f} €</span>',
@@ -305,7 +303,7 @@ Highcharts.chart('container2', {
     series: [{
         name: 'Dépenses actuelles',
         data: [{
-            color: '#0287D1',
+            color: '#487F7F',
             radius: '90%',
             innerRadius: '80%',
             y: <%= OuvragesDepense.all.sum('montant') %>

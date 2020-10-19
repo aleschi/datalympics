@@ -13,12 +13,12 @@ class SolideoDepensesController < ApplicationController
     @solideo_depenses_ouvrages = OuvragesDepense.all.sum('montant')
     @solideo_depenses_ouvrages_prevu_date = OuvragesDepense.where('date <= ?', Date.today).sum('montant_prevu')
 
-    @h1 = OuvragesDepense.where('date <= ?', Date.today).all.order('date DESC').unscope(:order).group(:date).sum('montant')
-    @h2 =  @solideo_financements.where('categorie != ? AND date <= ?', "ouvrages", Date.today).order('date DESC').unscope(:order).group(:date).sum('montant')
-    @total = @h1.merge(@h2)
-    @h3 = OuvragesDepense.all.order('date DESC').unscope(:order).group(:date).sum('montant_prevu')
-    @h4 =  @solideo_financements.where('categorie != ?', "ouvrages").order('date DESC').unscope(:order).group(:date).sum('montant_prevu')
-    @total_prevu = @h3.merge(@h4)
+    @h1 = OuvragesDepense.where('date <= ?', Date.today).unscope(:order).group_by_year(:date).sum('montant')
+    @h2 =  @solideo_financements.where('categorie != ? AND date <= ?', "ouvrages", Date.today).unscope(:order).group_by_year(:date).sum('montant')
+    @total = @h1.merge(@h2){|k,a,b| a+b}
+    @h3 = OuvragesDepense.all.unscope(:order).group_by_year(:date).sum('montant_prevu')
+    @h4 =  @solideo_financements.where('categorie != ?', "ouvrages").unscope(:order).group_by_year(:date).sum('montant_prevu')
+    @total_prevu = @h3.merge(@h4){|k,a,b| a+b}
     
   @solideo_financements_dates_ouvrages = OuvragesDepense.all.order('date DESC').unscope(:order).group(:date).sum('montant')
   @solideo_financements_dates_ouvrages_keys = @solideo_financements_dates_ouvrages.keys
