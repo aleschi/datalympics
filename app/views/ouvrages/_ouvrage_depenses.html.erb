@@ -19,15 +19,11 @@
        <%= column_chart [{name: "Dépenses prévues", data: @ouvrage.ouvrages_depenses.unscope(:order).group_by_year(:date).sum('montant_prevu')},{name: "Décaissements", data: @ouvrage.ouvrages_depenses.unscope(:order).group_by_year(:date).sum('montant')}], library: {
         chart:{
             type: 'column',
-            backgroundColor: '#fff',
-   
+            backgroundColor: '#fff',  
             style:{
             fontFamily: "Spectral",  
-               maxWidth: '500px',
-              minWidth: '500px',
             },
-         
-            },
+        },
       
         title: {
           text:'Dépenses réelles et prévues par année en €',
@@ -35,20 +31,21 @@
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-            fontStyle: 'italic',
-      fontSize: '16px',
+                  fontStyle: 'italic',
+                  fontSize: '16px',
                   },
         },
-      xAxis:  {
-        type: 'datetime',
-        },
-        
-      yAxis: {
+        xAxis:  {
+          type: 'datetime',
+        },   
+        yAxis: {
           gridLineColor: '#fff', 
-         },
-        colors: ["#8F8F8F", "#0287D1"],
-     
-  
+          
+          labels: {
+            format: '{value} E'
+          },
+        },
+        colors: ["#8F8F8F", "#487f7f"],
         plotOptions: {
           column: {
            pointWidth: 15,
@@ -56,14 +53,11 @@
               backgroundColor: "#fff",        
               style: {
                   fontSize: '12px',     
-              },
-              
+              },    
              },
            },
     
           },
-
-
           }
       %> 
       </div>
@@ -80,41 +74,8 @@
   <div class="SD-topo-box-title">
     <span>Suivi trimestriel des dépenses de l'ouvrage</span>
   </div>
-    <div>
-    <%= line_chart [{name: "Décaissements", data: @ouvrage.ouvrages_depenses.unscope(:order).group(:date).sum('montant')}, {name: "Décaissements prévus", data: @ouvrage.ouvrages_depenses.unscope(:order).group(:date).sum('montant_prevu')}], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:"Suivi trimestriel des décaissements",
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-      },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          }
-        }
-    %>
+  <div id="container">
+    
   </div>
   <div class="SD-table-box-left">
     <% if !@ouvrage.ouvrages_financements.nil? %>
@@ -157,32 +118,7 @@
 
 
 <script>
-  // Uncomment to style it like Apple Watch
 
-function renderIcons() {
-
-    // Move icon
-    if (!this.series[0].icon) {
-        this.series[0].icon = this.renderer.path(['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8])
-            .attr({
-                stroke: '#303030',
-                'stroke-linecap': 'round',
-                'stroke-linejoin': 'round',
-                'stroke-width': 2,
-                zIndex: 10
-            })
-            .add(this.series[2].group);
-    }
-    this.series[0].icon.translate(
-        this.chartWidth / 2 - 10,
-        this.plotHeight / 2 - this.series[0].points[0].shapeArgs.innerR -
-            (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
-    );
-
-  
-
-   
-}
 
 
 Highcharts.chart('container2', {
@@ -195,9 +131,7 @@ Highcharts.chart('container2', {
       style:{
           fontFamily: "Spectral",
           },
-       events: {
-            render: renderIcons
-        }
+
       
     },
  
@@ -270,7 +204,7 @@ Highcharts.chart('container2', {
               shadow: false,
               style: {
                   fontSize: '14px',
-                color: '#0287D1',
+                color: '#487f7f',
               },
               valueSuffix: '€',
               format: '<span style="color:#8F8F8F; font-size:12px;font-weight:400">{series.name} :</span><br><span>{point.y:,.0f} €</span>',
@@ -288,7 +222,7 @@ Highcharts.chart('container2', {
     series: [{
         name: 'Dépenses actuelles',
         data: [{
-            color: '#0287D1',
+            color: '#487f7f',
             radius: '90%',
             innerRadius: '80%',
             y: <%= @ouvrage.ouvrages_depenses.sum('montant') %>
@@ -297,3 +231,80 @@ Highcharts.chart('container2', {
 });
 
   </script>
+<script>
+Highcharts.chart('container', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         
+          },
+        scrollablePlotArea: {
+            minWidth: 700,
+            scrollPositionX: 1
+        }
+          },
+
+      title: {
+        text:"Suivi trimestriel des décaissements",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+  colors: ['#487f7f',"#8f8f8f"],
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+        
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018
+        }
+    },
+  xAxis:{
+    max: 2025
+  },
+
+    series: [{
+        name: 'Dépenses',
+        data: <%= @depenses %>,
+    }, {
+        name: 'Dépenses prévues',
+        data: <%= @depenses_prevu %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>

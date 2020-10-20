@@ -7,9 +7,8 @@ class OuvragesController < ApplicationController
     @ouvrages = Ouvrage.all
     @ouvrages_financements = OuvragesFinancement.all
     
-     @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
-    @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')
-    
+    @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
+    @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')    
     
     @solideo_depenses_ouvrages = OuvragesDepense.all.sum('montant')
     @solideo_depenses_ouvrages_prevu_date = OuvragesDepense.where('date <= ?', Date.today).sum('montant_prevu')
@@ -30,6 +29,34 @@ class OuvragesController < ApplicationController
       end
     end
     
+    @h_depenses = @ouvrage.ouvrages_depenses.unscope(:order).group(:date).sum('montant')
+    @h_depenses_prevu = @ouvrage.ouvrages_depenses.unscope(:order).group(:date).sum('montant_prevu')
+    @depenses = []
+    @depenses_prevu = []
+    (2018..2025).each do |annee|    
+      @is_present = false 
+      @h_depenses.each do |h|
+        if h[0].year == annee
+          @depenses << h[1]
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @depenses << 0
+      end
+    end
+    (2018..2025).each do |annee|    
+      @is_present = false 
+      @h_depenses_prevu.each do |h|
+        if h[0].year == annee
+          @depenses_prevu << h[1]
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @depenses_prevu << 0
+      end
+    end
   end
 
   # GET /ouvrages/new
