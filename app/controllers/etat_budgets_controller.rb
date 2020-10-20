@@ -40,6 +40,35 @@ class EtatBudgetsController < ApplicationController
       @etat_depenses_array << h[0]
     end 
     
+    @h_depenses_annee = EtatDepense.all.unscope(:order).group_by_year(:date).sum('cp_conso')
+    @h_depenses_prevu_annee = EtatDepense.all.unscope(:order).group_by_year(:date).sum('cp_prevu')
+    @depenses_annee = []
+    @depenses_prevu_annee = []
+    (2018..2025).each do |annee|    
+      @is_present = false 
+      @h_depenses_annee.each do |h|
+        if h[0].year == annee
+          @depenses_annee << h[1]
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @depenses_annee << 0
+      end
+    end
+    (2018..2025).each do |annee|    
+      @is_present = false 
+      @h_depenses_prevu_annee.each do |h|
+        if h[0].year == annee
+          @depenses_prevu_annee << h[1]
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @depenses_prevu_annee << 0
+      end
+    end
+    
   end
 
   # GET /etat_budgets/1

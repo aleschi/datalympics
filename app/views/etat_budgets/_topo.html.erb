@@ -5,8 +5,8 @@
   <div class="SD-topo-box-title">
     <span>Budget de l'état </span>
   </div><br><br>
-  <div class="budget-topo_chart-box"> 
-    <div class="budget-topo-chart">
+  <div class="row">
+    <div class="col-md-6">
       
       <div id="container2">
  
@@ -15,59 +15,9 @@
         Budget 2018-2025 prévu : 1 102 857 000€
       </div>
     </div>
-    <div class="budget-topo-chart">
-      <div>
-       <%= column_chart [{name: "CP prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum('cp_prevu')},{name: "CP consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum('cp_conso')}], library: {
-        chart:{
-            type: 'column',
-            backgroundColor: '#fff',
-            style:{
-            fontFamily: "Spectral",
-               maxWidth: "500px",
-            },
-         
-            },
-      
-        title: {
-          text: "Budget par année en €",
-          margin:40,
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-            fontStyle: "italic",
-            fontSize: '16px',
-                  },
-        },
-      xAxis:  {
-        type: 'datetime',
-        },
-        
-      yAxis: {
-          gridLineColor: '#fff', 
-         },
-        colors: ["#8F8F8F", "#48AF5C"],
-     
-  
-        plotOptions: {
-          column: {
-           pointWidth: 15,
-           tooltip: {        
-              backgroundColor: "#fff",        
-              style: {
-                  fontSize: '12px',     
-              },
-              xDateFormat: '%Y',
-              useHTML: true,
-              pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{series.name}</b><br/>',
-
-             },
-           },
-    
-          },
-
-
-          }
-      %>
+    <div class="col-md-6">
+      <div id="container-column">
+       
         
       </div>
        <div class="SF-topo-explication">
@@ -84,115 +34,21 @@
   <div class="SD-topo-box-title">
     <span>Répartition des dépenses état</span>
   </div><br>
-  <div class="SD-topo_chart-box">
-    <div class="topo-chart">
-     
-   
-      <div>
-    
-      <%= pie_chart({"SOLIDEO" => @etat_budget_actuel.budget_solideo.to_i, "COJO" => @etat_budget_actuel.budget_cojo.to_i, "Héritage" => @etat_budget_actuel.budget_heritage.to_i, "Haute Performance" => @etat_budget_actuel.budget_hauteperformance.to_i}, library: {
-      chart: {
-          backgroundColor: '#fff',
-          style:{
-          fontFamily: "Spectral",
-          maxWidth: "500px",
-          }
-        },
-      title: {
-          text:'Dépenses Totales Prévisionnelles (2018-2025)',   
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  fontStyle: "italic",
-                  fontSize: '16px',
-                  },
-       },  
-       colors: ['#22e37b','#2e5d63', '#628859','#4a6a75'],
-       tooltip: {
-          
-            headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
-            pointFormat: '<span style="color:{point.color}">Dépenses </span>: <b>{point.y:.0f}%</b><br/>'
-       },
-       plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                minSize: 200,
-                # cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %',
-                    style: {
-                      color: "#8F8F8F",
-                      fontSize: "11px",
-                      fontWeight: "400",
-                      fontStyle: "italic",
-                      }
-                    }
-                }
-            },
-  
-  
-      }) %>    
+  <div class="row">
+    <div class="col-md-6">
+       
+      <div id="container-pie">
+       
       </div>
 
   </div>
-    
+    <div class="col-md-6">   
     <% if !@etat_depenses.nil?%>
-      <div id="SD-topo-repartition">
-
-        <%= column_chart [ {name: "Budget Etat prévu", data: [["SOLIDEO",@etat_budget_actuel.budget_solideo.to_i],["COJO",@etat_budget_actuel.budget_cojo.to_i],["Héritage", @etat_budget_actuel.budget_heritage.to_i],["Haute Performance",@etat_budget_actuel.budget_hauteperformance.to_i]]},{name: "Budget Etat dépensé", data: [["SOLIDEO",@etat_depenses_solideo.to_i],["COJO",@etat_depenses_cojo.to_i],["Héritage", @etat_depenses_heritage.to_i],["Haute Performance",@etat_depenses_hauteperformance.to_i]]} ], library: {
-        chart:{
-            type: 'column',
-            backgroundColor: '#fff',
-         
-            style:{
-            fontFamily: "Spectral",
-               maxWidth: "500px",
-            },
-            },
-
-        title: {
-          text:'Budget dépensé à date par rapport au budget 2025 prévu',
-          margin:40,
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-            fontStyle: "italic",
-            fontSize: '16px',
-                  },
-        },
-        colors: ["#8F8F8F", "#48AF5C"],
-        plotOptions: {
-          column: {
-            pointWidth: 15,
-            
-           label: { 
-              enable: true,
-            format: '{point.value}',
-            style: {
-                   color: "#8F8F8F",
-                   fontSize: "12px",
-                   fontWeight: "400",
-              fontStyle: "italic",
-                  },
-              },
-             tooltip: {
-             headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
-              pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y:,.0f}€ </b><br/>',
-              valueSuffix: '€',
-            },
-        
-           },
-          },
-     
-      yAxis: {
-          gridLineColor: '#fff', 
-         },
-  
-          }
-      %>
-      </div>
-    <% end %>      
+    <div id="container-column2">
+      
+    </div>
+    <% end %>  
+    </div>
 
   </div>
   
@@ -201,32 +57,7 @@
 <% end %>
 
 <script>
-  // Uncomment to style it like Apple Watch
 
-function renderIcons() {
-
-    // Move icon
-    if (!this.series[0].icon) {
-        this.series[0].icon = this.renderer.path(['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8])
-            .attr({
-                stroke: '#303030',
-                'stroke-linecap': 'round',
-                'stroke-linejoin': 'round',
-                'stroke-width': 2,
-                zIndex: 10
-            })
-            .add(this.series[2].group);
-    }
-    this.series[0].icon.translate(
-        this.chartWidth / 2 - 10,
-        this.plotHeight / 2 - this.series[0].points[0].shapeArgs.innerR -
-            (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
-    );
-
-  
-
-   
-}
 
 
 Highcharts.chart('container2', {
@@ -239,9 +70,6 @@ Highcharts.chart('container2', {
       style:{
           fontFamily: "Spectral",
           },
-       events: {
-            render: renderIcons
-        }
       
     },
  
@@ -350,4 +178,243 @@ Highcharts.chart('container2', {
     $('.infos-details').hide();
     })
 
+</script>
+
+<script>
+Highcharts.chart('container-column', {
+  chart:{
+            type: 'column',
+            backgroundColor: '#fff',  
+            style:{
+            fontFamily: "Spectral",  
+              maxWidth: "500px",
+            },
+       
+       
+          },
+
+     title: {
+          text:'Budget par année en €',
+          margin:40,
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: 'italic',
+                  fontSize: '16px',
+                  },
+        },
+  colors: ["#8f8f8f",'#48AF5C'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+   //  type: 'datetime',
+    max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+        },
+      column: {
+           pointWidth: 15,
+           tooltip: {        
+              backgroundColor: "#fff",        
+              style: {
+                  fontSize: '12px',     
+              },    
+             },
+           },
+         
+    },
+
+  
+
+    series: [ {
+        name: 'CP prévus',
+        data: <%= @depenses_prevu_annee %>,
+    },{
+        name: 'CP consommés',
+        data: <%= @depenses_annee %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+<script>
+Highcharts.chart('container-column2', {
+  chart:{
+            type: 'column',
+            backgroundColor: '#fff',  
+            style:{
+            fontFamily: "Spectral",  
+              maxWidth: '500px',
+            },
+            
+       
+          },
+
+     title: {
+          text:'Budget dépensé à date par rapport au budget 2025 prévu',
+          margin:40,
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: 'italic',
+                  fontSize: '16px',
+                  },
+        },
+  colors: ["#8f8f8f", '#48AF5C'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+   categories: ["Solideo", "COJO", "Héritage","Haute Perfomance" ],
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+       
+        },
+      column: {
+           pointWidth: 15,
+           tooltip: {        
+              backgroundColor: "#fff",        
+              style: {
+                  fontSize: '12px',     
+              },    
+             },
+           },
+         
+    },
+
+  
+
+    series: [{
+        name: 'Budget prévu',
+        data: [<%= @etat_budget_actuel.budget_solideo.to_i %>,<%=@etat_budget_actuel.budget_cojo.to_i%>, <%= @etat_budget_actuel.budget_heritage.to_i%>, <%= @etat_budget_actuel.budget_hauteperformance.to_i %>],
+    }, {
+        name: 'Budget accordé',
+        data: [<%= @etat_depenses_solideo.to_i %>,<%=@etat_depenses_cojo.to_i%>, <%= @etat_depenses_heritage.to_i%>, <%= @etat_depenses_hauteperformance.to_i %>],
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+<script>
+Highcharts.chart('container-pie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+        backgroundColor: '#fff',
+          style:{
+          fontFamily: "Spectral",
+          maxWidth: "500px",
+          }
+    },
+    title: {
+         text:'Dépenses Totales Prévisionnelles (2018-2025)',   
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: "italic",
+                  fontSize: '16px',
+                  },
+    },
+  colors: ['#22e37b','#2e5d63', '#628859','#4a6a75'],
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+           minSize: 200,
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b><br>{point.y:,.0f}€ - {point.percentage:.1f} %',
+              style: {
+                      color: "#8F8F8F",
+                      fontSize: "11px",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                      },
+            }
+        }
+    },
+    series: [{
+        name: 'Total',
+        colorByPoint: true,
+        data: [{
+            name: 'Solideo',
+            y: <%= @etat_budget_actuel.budget_solideo.to_i%>,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'COJO',
+            y: <%= @etat_budget_actuel.budget_cojo.to_i%>,
+        }, {
+            name: 'Heritage',
+            y: <%= @etat_budget_actuel.budget_heritage.to_i%>,
+        }, {
+            name: 'Haute Performance',
+            y: <%= @etat_budget_actuel.budget_hauteperformance.to_i%>,
+        }]
+    }]
+});
 </script>
