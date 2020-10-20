@@ -33,10 +33,10 @@ class OuvragesController < ApplicationController
     @h_depenses_prevu = @ouvrage.ouvrages_depenses.unscope(:order).group(:date).sum('montant_prevu')
     @depenses = []
     @depenses_prevu = []
-    (2018..2025).each do |annee|    
+    (1..32).each do |n|    
       @is_present = false 
       @h_depenses.each do |h|
-        if h[0].year == annee
+        if h[0] == Date.new(2018) + (n*3 - 1).months
           @depenses << h[1]
           @is_present = true 
         end 
@@ -45,10 +45,10 @@ class OuvragesController < ApplicationController
          @depenses << 0
       end
     end
-    (2018..2025).each do |annee|    
+    (1..32).each do |n|    
       @is_present = false 
       @h_depenses_prevu.each do |h|
-        if h[0].year == annee
+        if h[0] == Date.new(2018)+ (n*3 - 1).months
           @depenses_prevu << h[1]
           @is_present = true 
         end 

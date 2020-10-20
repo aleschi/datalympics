@@ -268,20 +268,23 @@ Highcharts.chart('container', {
   tooltip: {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
         valueSuffix: '€',
-        
+        xDateFormat: '%b %Y',
     },
-
+  xAxis:{
+     type: 'datetime'
+   // max: 2025,
+  },
     plotOptions: {
         series: {
             label: {
                 connectorAllowed: false
             },
-            pointStart: 2018
+            pointStart: Date.UTC(2018,0, 1),
+          pointInterval: 24*3600*1000*30*3,
         }
     },
-  xAxis:{
-    max: 2025
-  },
+
+  
 
     series: [{
         name: 'Dépenses',
