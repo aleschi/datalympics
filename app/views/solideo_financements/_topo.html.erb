@@ -3,9 +3,9 @@
   <div class="SD-topo-box-title">
         <span>Financements de la Solideo</span>
       </div><br><br>
-  <div class="budget-topo_chart-box"> 
+  <div class="row"> 
    
-    <div class="budget-topo-chart">
+    <div class="col-md-6">
       
     
  
@@ -16,58 +16,10 @@
          <% if @solideo_financements.sum('montant') > @solideo_financements.where('date <= ?', Date.today).sum('montant_prevu') %><span class="positive"> + <%= number_with_delimiter((@solideo_financements.sum('montant')-@solideo_financements.where('date <= ?', Date.today).sum('montant_prevu')).to_i, :delimiter => ' ')%> € </span><% else %><span class="negative"> - <%= number_with_delimiter((@solideo_financements.where('date <= ?', Date.today).sum('montant_prevu')-@solideo_financements.sum('montant')).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux financements prévus à date 
       </div>
     </div>
-    <div class="budget-topo-chart">
-      <%= column_chart [{name: "Financements prévus", data: @solideo_financements.unscope(:order).group_by_year(:date).sum('montant_prevu')},{name: "Financements reçus", data: @solideo_financements.unscope(:order).group_by_year(:date).sum('montant')}], library: {
-        chart:{
-            type: 'column',
-            backgroundColor: '#fff',
-            style:{
-            fontFamily: "Spectral",
-               maxWidth: "500px",
-            },
-         
-            },
-      
-        title: {
-          text:'Financements reçus et prévus par année en €',
-          margin:40,
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-            fontStyle: 'italic',
-          fontSize: '16px',
-                  },
-        },
-      xAxis:  {
-        type: 'datetime',
-        },
+    <div class="col-md-6">
+      <div id="container-column">
         
-      yAxis: {
-          gridLineColor: '#fff', 
-         },
-        colors: ["#8F8F8F", "#48AF5C"],
-     
-  
-        plotOptions: {
-          column: {
-           pointWidth: 15,
-           tooltip: {        
-              backgroundColor: "#fff",        
-              style: {
-                  fontSize: '12px',     
-              },
-              xDateFormat: '%Y',
-              useHTML: true,
-              pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{series.name}</b><br/>',
-
-             },
-           },
-    
-          },
-
-
-          }
-      %>
+      </div>
     </div>
     
   </div>
@@ -76,73 +28,18 @@
 <div class="SD-topo-box">
   
  <div class="SF-topo-financeurs-title"><span>Financeurs de la solideo</span></div><br>
-  <div class="SD-topo_chart-box">
-   <div class="topo-chart width-50">
-    
-    <%= pie_chart({"Etat" => @solideo_financements_etat_prevu, "Privés" =>  @solideo_financements_prive_prevu, "Collectivités" => @solideo_financements_collectivites_prevu} ,  library: {
-     chart: {
-       backgroundColor: '#fff',
-    maxWidth: '500px',
-       style:{
-          fontFamily: "Spectral",
-          },
-    },
-
-      title: {
-        text:'Répartition des financements prévus de la Solideo <br> 2018-2025',
-        margin:40,
-        style: {
-          color: '#8F8F8F',
-        fontStyle: 'italic',
-          fontSize: '16px',
-          }
-      },
-  colors: ['#A2C744',"#4F82CE",'#4FC5CE'],
-     plotOptions: {
-        pie: {
-      minSize: 200,
-          dataLabels: {
-                    enabled: true,
-                    format: '{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %',
-                    style: {
-                      color: "#8F8F8F",
-                      fontSize: "12px",
-                      fontWeight: "400",
-                      fontStyle: 'italic',
-          
-                      }
-                }
-        }
-    },
-  })
-   
-    %>
-
+  <div class="row">
+   <div class="col-md-6">
+    <div id="container-pie">      
+    </div>
   </div>
  
-  <div class="SF-topo-financeurs width-50">
-    
-   
-    <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name"></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus à date €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
-    </div> <br><br>
-   
-   
-    <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name"><%= link_to etat_budgets_path do %>Etat<%end%></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(@solideo_financements_etat_prevu_date.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((@solideo_financements_etat.to_i), :delimiter => ' ') %> € <% if @solideo_financements_etat_prevu_date.to_i > @solideo_financements_etat.to_i %><i class="fas fa-exclamation-circle"></i><%end %></div></div>
-    </div>  
-    
-    <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name"><%= link_to collectivites_path do %>Collectivités <%end%></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(@solideo_financements_collectivites_prevu_date.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((@solideo_financements_collectivites.to_i), :delimiter => ' ') %> € <% if @solideo_financements_collectivites_prevu_date.to_i > @solideo_financements_collectivites.to_i %><i class="fas fa-exclamation-circle"></i><%end %></div></div>
+  <div class="col-md-6">
+    <div id='container-column2'>
+      
     </div>
-    
-    <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name">Privés</div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(@solideo_financements_prive_prevu_date.to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter((@solideo_financements_prive.to_i), :delimiter => ' ') %> € <% if @solideo_financements_prive_prevu_date.to_i > @solideo_financements_prive.to_i %><i class="fas fa-exclamation-circle"></i><%end %></div></div>
-    </div>
+
+ 
    
   
   </div>
@@ -156,133 +53,20 @@
  <div class="SF-topo-financeurs-title"><span>Suivi des financements de la solideo</span></div><br><br>
   
   
-  <div>
-    <%= line_chart [{name: "Financements de l'Etat", data: SolideoFinancement.where("financeur = ? AND date <= ?", "Etat", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements privés", data: SolideoFinancement.where("financeur = ? AND date <= ? ", "privé", Date.today).unscope(:order).group_by_year(:date).sum('montant')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'Suivi annuel des financements de la Solideo',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '16px',
-                  },
-      },
-  
-      colors: ['#A2C744','#4FC5CE',"#4F82CE"],
-      xAxis:{
-      tickInterval: 24 * 3600 * 1000 * 30 * 3,
-      },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-       tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          },
-  
-        }
-
-    %>
+  <div id="container">
+   
   </div>
   <div class="row">
     <div class="col-md-6">
-       <%= line_chart [{name: "Financements de l'Etat", data: SolideoFinancement.where("financeur = ? AND date <= ?", "Etat", Date.today).unscope(:order).group_by_year(:date).sum('montant')}, {name: "Financements prévus de l'Etat", data: SolideoFinancement.where("financeur = ? ", "Etat").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:"Suivi annuel des financements de l'Etat",
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '16px',
-                  },
-      },
-  
-      colors: ['#A2C744','#8f8f8f'],
-      xAxis:{
-      tickInterval: 24 * 3600 * 1000 * 30 * 3,
-      },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-       tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          },
-  }
-
-    %>
+     <div id="container-s1">
+       
+      </div>
     </div>
      <div class="col-md-6">
-       <%= line_chart [{name: "Financements des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Financements prévus des collectivités", data: SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'Suivi annuel des financements des collectivités',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '16px',
-                  },
-      },
-  
-      colors: ['#4FC5CE',"#8f8f8f"],
-      xAxis:{
-      tickInterval: 24 * 3600 * 1000 * 30 * 3,
-      },
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-       tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          },
-     
-  }
-    %>
+       <div id="container-s2">
+       
+      </div>
+      
     </div>
   </div>
 </div>
@@ -291,30 +75,7 @@
     <script>
   // Uncomment to style it like Apple Watch
 
-function renderIcons() {
 
-    // Move icon
-    if (!this.series[0].icon) {
-        this.series[0].icon = this.renderer.path(['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8])
-            .attr({
-                stroke: '#303030',
-                'stroke-linecap': 'round',
-                'stroke-linejoin': 'round',
-                'stroke-width': 2,
-                zIndex: 10
-            })
-            .add(this.series[2].group);
-    }
-    this.series[0].icon.translate(
-        this.chartWidth / 2 - 10,
-        this.plotHeight / 2 - this.series[0].points[0].shapeArgs.innerR -
-            (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
-    );
-
-  
-
-   
-}
 
 
 Highcharts.chart('container2', {
@@ -327,9 +88,7 @@ Highcharts.chart('container2', {
       style:{
           fontFamily: "Spectral",
           },
-       events: {
-            render: renderIcons
-        }
+   
       
     },
  
@@ -430,3 +189,476 @@ Highcharts.chart('container2', {
 });
 
   </script>
+
+
+<script>
+Highcharts.chart('container-column', {
+  chart:{
+            type: 'column',
+            backgroundColor: '#fff',  
+            style:{
+            fontFamily: "Spectral",  
+              maxWidth: "500px",
+            },
+       
+       
+          },
+
+     title: {
+          text:'Suivi des financements de la Solideo',
+          margin:40,
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: 'italic',
+                  fontSize: '16px',
+                  },
+        },
+  colors: ["#8f8f8f",'#48AF5C'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+   //  type: 'datetime',
+    max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+        },
+      column: {
+           pointWidth: 15,
+           tooltip: {        
+              backgroundColor: "#fff",        
+              style: {
+                  fontSize: '12px',     
+              },    
+             },
+           },
+         
+    },
+
+  
+
+    series: [ {
+        name: 'Financements prévus',
+        data: <%= @financements_prevu_annee %>,
+    },{
+        name: 'Financements reçus ',
+        data: <%= @financements_annee %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+
+<script>
+Highcharts.chart('container-pie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+        backgroundColor: '#fff',
+          style:{
+          fontFamily: "Spectral",
+          maxWidth: "500px",
+          }
+    },
+    title: {
+         text:'Dépenses prévues de la Solideo (2018-2025)',   
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: "italic",
+                  fontSize: '16px',
+                  },
+    },
+  colors: ['#A2C744',"#4F82CE",'#4FC5CE'],
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+           minSize: 200,
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b><br>{point.y:,.0f}€ - {point.percentage:.1f} %',
+              style: {
+                      color: "#8F8F8F",
+                      fontSize: "11px",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                      },
+            }
+        }
+    },
+    series: [{
+        name: 'Total',
+        colorByPoint: true,
+        data: [{
+            name: 'Etat',
+            y:  <%= @solideo_financements_etat_prevu%>,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Privés',
+            y: <%= @solideo_financements_prive_prevu%>,
+        }, {
+            name: 'Collectivités',
+            y: <%= @solideo_financements_collectivites_prevu%>,
+        }]
+    }]
+});
+</script>
+<script>
+Highcharts.chart('container-column2', {
+  chart:{
+            type: 'column',
+            backgroundColor: '#fff',  
+            style:{
+            fontFamily: "Spectral",  
+              maxWidth: '500px',
+            },
+            
+       
+          },
+
+     title: {
+          text:'Financement reçu par rapport au financement prévu à date',
+          margin:40,
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: 'italic',
+                  fontSize: '16px',
+                  },
+        },
+  colors: ["#8f8f8f", '#48AF5C'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+   categories: ["Etat", "Collectivités", "Privés"],
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+       
+        },
+      column: {
+           pointWidth: 15,
+           tooltip: {        
+              backgroundColor: "#fff",        
+              style: {
+                  fontSize: '12px',     
+              },    
+             },
+           },
+         
+    },
+
+  
+
+    series: [{
+        name: 'Financements prévus',
+        data: [<%= @solideo_financements_etat_prevu_date.to_i%>,<%=@solideo_financements_collectivites_prevu_date.to_i%>, <%= @solideo_financements_prive_prevu_date.to_i %>],
+    }, {
+        name: 'Financements reçus',
+        data: [<%= @solideo_financements_etat.to_i %>,<%=@solideo_financements_collectivites.to_i%>, <%= @solideo_financements_prive.to_i%>],
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+<script>
+Highcharts.chart('container', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         
+          },
+        scrollablePlotArea: {
+            minWidth: 700,
+            scrollPositionX: 1
+        }
+          },
+
+      title: {
+        text:"Suivi annuel des financements de la Solideo",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+colors: ['#A2C744','#4FC5CE',"#4F82CE"],
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+      max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+
+        }
+    },
+
+  
+
+    series: [{
+        name: 'Financements Etat',
+        data: <%= @financements_annee_etat %>,
+    }, {
+        name: 'Financements Collectivités',
+        data: <%= @financements_annee_co %>,
+    }, {
+        name: 'Financements privés',
+        data: <%= @financements_annee_prive %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+
+<script>
+Highcharts.chart('container-s1', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         maxWidth: '500px',
+          },
+  
+          },
+
+      title: {
+        text:"Suivi annuel des financements de l'Etat'",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+colors: ['#A2C744','#8f8f8f'],
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+      max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+
+        }
+    },
+
+  
+
+    series: [{
+        name: "Financements de l'Etat",
+        data: <%= @financements_annee_etat %>,
+    }, {
+        name: "Financements de l'Etat prévus",
+        data: <%= @financements_annee_etat_prevu %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+<script>
+Highcharts.chart('container-s2', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         maxWidth: '500px',
+          },
+  
+          },
+
+      title: {
+        text:"Suivi annuel des financements des collectivités",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+colors: ['#4FC5CE','#8f8f8f'],
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+      max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+
+        }
+    },
+
+  
+
+    series: [{
+        name: 'Financements des collectivités',
+        data: <%= @financements_annee_co %>,
+    }, {
+        name: 'Financements des collectivités prévus',
+        data: <%= @financements_annee_co_prevu %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>

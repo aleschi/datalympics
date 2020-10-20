@@ -5,9 +5,9 @@
   </div>
    <h1 class="SD_title"><%= @solideo_financement.financeur %> </h1>
 
-
-  <div class="O-topo-box">
-   <div class="O-topo-box-infos"> 
+<div  class="SD-table-box">
+  <div class="row">
+   <div class="col-md-6"> 
       <%= pie_chart(@financement.unscope(:order).group(:categorie).sum('montant_prevu'), library: {
       chart: {
            backgroundColor: '#fff',
@@ -54,7 +54,7 @@
 
     </div>
     <% if !@ouvrages.nil? && !@ouvrages.empty? %>    
-  <div class="width-50">
+  <div class="col-md-6">
     <div class="SD-topo-box-title"><span>Ouvrages financés</span></div>
      <div class="SF-topo-financeurs-box">
       <div class="collectivites-ouvrages-name"></div>
@@ -68,15 +68,16 @@
     <% end %>
   </div>
   <% end %>
-</div><br><br><br>
-  
-<div class="SD-topo-box">
+</div><br><br>
+</div>
+  <br><br>
+<div class="SD-table-box">
   <div class="SD-topo-box-title">
         <span>Suivi des Financements</span>
       </div><br><br>
-  <div class="budget-topo_chart-box"> 
+  <div class="row"> 
    
-    <div class="budget-topo-chart">
+    <div class="col-md-6">
       
     
  
@@ -87,7 +88,7 @@
          <% if @financement.sum('montant') > @financement.where('date <= ?', Date.today).sum('montant_prevu') %><span class="positive"> + <%= number_with_delimiter((@financement.sum('montant')-@financement.where('date <= ?', Date.today).sum('montant_prevu')).to_i, :delimiter => ' ')%> € </span><% else %><span class="negative"> - <%= number_with_delimiter((@financement.where('date <= ?', Date.today).sum('montant_prevu')-@financement.sum('montant')).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux financements prévus à date 
       </div>
     </div>
-    <div class="budget-topo-chart">
+    <div class="col-md-6">
       <%= column_chart [{name: "Financements prévus", data: @financement.unscope(:order).group_by_year(:date).sum('montant_prevu')},{name: "Financements reçus", data: @financement.unscope(:order).group_by_year(:date).sum('montant')}], library: {
         chart:{
             type: 'column',
@@ -144,6 +145,7 @@
   </div>
   <br><br>
 </div>
+  <br><br>
   
 <div  class="SD-table-box">
    <div class="SD-topo-box-title">

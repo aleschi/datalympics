@@ -1,7 +1,8 @@
 <% if !@solideo_financements.nil?%>
-<div class="SF-topo-box">
-  <div class="topo-chart width-50">
-    <div>
+<div class="SD-topo-box">
+<div class="row">
+  <div class="col-md-6">
+    <div id='container-pie'>
     <%= pie_chart @solideo_financements.unscope(:order).group(:financeur).sum(:montant_prevu) ,  library: {
      chart: {
        backgroundColor: '#fff',
@@ -23,9 +24,9 @@
       },
      plotOptions: {
         pie: {
-            innerSize: 90,
+            innerSize: 150,
            
-          minSize: 120,
+          minSize: 200,
             dataLabels: {
                     enabled: true,
                     format: '<em>{point.name}<br>{point.percentage:.1f} %</em>',
@@ -48,7 +49,7 @@
     </div>
 
   </div>
-  <div class="SF-topo-financeurs width-50">
+  <div class="col-md-6">
     <div class="SF-topo-financeurs-title"><span>Liste des collectivités</span></div><br>
    
     <div class="SF-topo-financeurs-box">
@@ -65,5 +66,6 @@
     <% end %>
   </div>
  
+</div>
 </div>
 <% end %>
