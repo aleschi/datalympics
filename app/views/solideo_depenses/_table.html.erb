@@ -8,42 +8,8 @@
        <div class="SD-topo-box-title">
         <span><%= link_to ouvrages_depenses_path do %>Ouvrages<%end%></span>
       </div><br><br>
-        <div>
-    <%= line_chart [{name: "Décaissements", data:  OuvragesDepense.where('date <= ?', Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Décaissements prévus", data:  OuvragesDepense.all.unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-            maxWidth: '500px',
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'Suivi des dépenses des ouvrages de la Solideo',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '16px',
-                  },
-      },
-      colors: ['#487F7F','#8f8f8f'],
-      yAxis: {
-        gridLineColor: '#fff', 
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          }
-        }
-    %>
+        <div id=container-1>
+   
           
         </div>
                 
@@ -52,42 +18,8 @@
           <div class="SD-topo-box-title">
         <span>Fonctionnement</span>
       </div><br><br>
-        <div>
-    <%= line_chart [{name: "Décaissements", data:  @solideo_financements.where('categorie = ? AND date <= ?',"fonctionnement", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Décaissements prévus", data:  @solideo_financements.where('categorie = ?', "fonctionnement").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-            maxWidth: '500px',
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
+        <div id="container-2">
 
-      title: {
-        text:'Suivi des dépenses de fonctionnement de la Solideo',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '16px',
-                  },
-      },
-      colors: ['#E0A922','#8f8f8f'],
-      yAxis: {
-        gridLineColor: '#fff', 
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          }
-        }
-    %>
           
         </div>
            
@@ -98,42 +30,8 @@
           <div class="SD-topo-box-title">
         <span>Innovation</span>
       </div><br><br>
-        <div>
-    <%= line_chart [{name: "Décaissements", data:  @solideo_financements.where('categorie = ? AND date <= ?',"innovation", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Décaissements prévus", data:  @solideo_financements.where('categorie = ?', "innovation").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-            maxWidth: '500px',
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'Suivi des dépenses innovation de la Solideo',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '16px',
-                  },
-      },
-      colors: ['#ac8c97','#8f8f8f'],
-      yAxis: {
-        gridLineColor: '#fff', 
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          }
-        }
-    %>
+        <div id="container-3">
+ 
           
         </div>
            
@@ -143,42 +41,8 @@
           <div class="SD-topo-box-title">
         <span>Réserve</span>
       </div><br><br>
-        <div>
-    <%= line_chart [{name: "Décaissements", data:  @solideo_financements.where('categorie = ? AND date <= ?',"reserve", Date.today).unscope(:order).group_by_year(:date).sum('montant')},{name: "Décaissements prévus", data:  @solideo_financements.where('categorie = ?', "reserve").unscope(:order).group_by_year(:date).sum('montant_prevu')} ], library: {
-      chart:{
-            backgroundColor: '#fff',
-            maxWidth: '500px',
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
+        <div id="container-4">
 
-      title: {
-        text:'Suivi des dépenses réserve de la Solideo',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '16px',
-                  },
-      },
-      colors: ['#F38C75','#8f8f8f'],
-      yAxis: {
-        gridLineColor: '#fff', 
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          }
-        }
-    %>
           
         </div>
            
@@ -223,3 +87,304 @@
 
   </div>
 </div><br><br>
+
+<script>
+Highcharts.chart('container-1', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         maxWidth: '500px'
+          },
+       
+          },
+
+      title: {
+        text:"Suivi des dépenses des ouvrages de la Solideo",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+  colors: ['#487F7F',"#8f8f8f"],
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+      
+    },
+  xAxis:{
+      max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+        }
+    },
+
+  
+
+    series: [{
+        name: 'Dépenses',
+        data: <%= @depenses_annee_ouvrages %>,
+    }, {
+        name: 'Dépenses prévues',
+        data: <%= @depenses_prevu_annee_ouvrages %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+<script>
+Highcharts.chart('container-2', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         maxWidth: '500px'
+          },
+       
+          },
+
+      title: {
+        text:"Suivi des dépenses de fonctionnement de la Solideo",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+  colors: ['#E0A922',"#8f8f8f"],
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+      
+    },
+  xAxis:{
+      max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+        }
+    },
+
+  
+
+    series: [{
+        name: 'Dépenses',
+        data: <%= @depenses_annee_fonctionnement %>,
+    }, {
+        name: 'Dépenses prévues',
+        data: <%= @depenses_prevu_annee_fonctionnement %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+<script>
+Highcharts.chart('container-3', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         maxWidth: '500px'
+          },
+       
+          },
+
+      title: {
+        text:"Suivi des dépenses innovation de la Solideo",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+  colors: ['#ac8c97',"#8f8f8f"],
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+      
+    },
+  xAxis:{
+      max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+        }
+    },
+
+  
+
+    series: [{
+        name: 'Dépenses',
+        data: <%= @depenses_annee_innovation %>,
+    }, {
+        name: 'Dépenses prévues',
+        data: <%= @depenses_prevu_annee_innovation %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+<script>
+Highcharts.chart('container-4', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         maxWidth: '500px'
+          },
+       
+          },
+
+      title: {
+        text:"Suivi des dépenses réserve de la Solideo",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+  colors: ['#F38C75',"#8f8f8f"],
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+      
+    },
+  xAxis:{
+      max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+        }
+    },
+
+  
+
+    series: [{
+        name: 'Dépenses',
+        data: <%= @depenses_annee_reserve%>,
+    }, {
+        name: 'Dépenses prévues',
+        data: <%= @depenses_prevu_annee_reserve %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
