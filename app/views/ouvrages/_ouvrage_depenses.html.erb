@@ -14,52 +14,8 @@
       </div>
     </div>
     <div class="budget-topo-chart">
-      <div>
+      <div id="container-column">
 
-       <%= column_chart [{name: "Dépenses prévues", data: @ouvrage.ouvrages_depenses.unscope(:order).group_by_year(:date).sum('montant_prevu')},{name: "Décaissements", data: @ouvrage.ouvrages_depenses.unscope(:order).group_by_year(:date).sum('montant')}], library: {
-        chart:{
-            type: 'column',
-            backgroundColor: '#fff',  
-            style:{
-            fontFamily: "Spectral",  
-            },
-        },
-      
-        title: {
-          text:'Dépenses réelles et prévues par année en €',
-          margin:40,
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  fontStyle: 'italic',
-                  fontSize: '16px',
-                  },
-        },
-        xAxis:  {
-          type: 'datetime',
-        },   
-        yAxis: {
-          gridLineColor: '#fff', 
-          
-          labels: {
-            format: '{value} E'
-          },
-        },
-        colors: ["#8F8F8F", "#487f7f"],
-        plotOptions: {
-          column: {
-           pointWidth: 15,
-           tooltip: {        
-              backgroundColor: "#fff",        
-              style: {
-                  fontSize: '12px',     
-              },    
-             },
-           },
-    
-          },
-          }
-      %> 
       </div>
       <div class="SF-topo-explication">
          <% if @ouvrage.ouvrages_depenses.where('date <= ?', Date.today).sum('montant_prevu') < @ouvrage.ouvrages_depenses.where('date <= ?', Date.today).sum('montant') %><span class="negative"> + <%= number_with_delimiter((@ouvrage.ouvrages_depenses.where('date <= ?', Date.today).sum('montant')-@ouvrage.ouvrages_depenses.where('date <= ?', Date.today).sum('montant_prevu')).to_i, :delimiter => ' ')%> € </span><% else %><span class="positive"> - <%= number_with_delimiter((@ouvrage.ouvrages_depenses.where('date <= ?', Date.today).sum('montant_prevu')-@ouvrage.ouvrages_depenses.where('date <= ?', Date.today).sum('montant')).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux dépenses prévues à date.
@@ -292,6 +248,90 @@ Highcharts.chart('container', {
     }, {
         name: 'Dépenses prévues',
         data: <%= @depenses_prevu %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+<script>
+Highcharts.chart('container-column', {
+  chart:{
+            type: 'column',
+            backgroundColor: '#fff',  
+            style:{
+            fontFamily: "Spectral",  
+            },
+       
+       
+          },
+
+     title: {
+          text:'Dépenses réelles et prévues par année en €',
+          margin:40,
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: 'italic',
+                  fontSize: '16px',
+                  },
+        },
+  colors: ['#487f7f',"#8f8f8f"],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total €'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: '€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+   //  type: 'datetime',
+    max: 2025,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+        },
+      column: {
+           pointWidth: 15,
+           tooltip: {        
+              backgroundColor: "#fff",        
+              style: {
+                  fontSize: '12px',     
+              },    
+             },
+           },
+         
+    },
+
+  
+
+    series: [{
+        name: 'Décaissements',
+        data: <%= @depenses_annee %>,
+    }, {
+        name: 'Dévaissements prévus',
+        data: <%= @depenses_prevu_annee %>,
     }],
 
     responsive: {

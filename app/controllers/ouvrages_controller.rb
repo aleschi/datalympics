@@ -57,6 +57,35 @@ class OuvragesController < ApplicationController
          @depenses_prevu << 0
       end
     end
+    
+    @h_depenses_annee = @ouvrage.ouvrages_depenses.unscope(:order).group_by_year(:date).sum('montant')
+    @h_depenses_prevu_annee = @ouvrage.ouvrages_depenses.unscope(:order).group_by_year(:date).sum('montant_prevu')
+    @depenses_annee = []
+    @depenses_prevu_annee = []
+    (2018..2025).each do |annee|    
+      @is_present = false 
+      @h_depenses_annee.each do |h|
+        if h[0].year == annee
+          @depenses_annee << h[1]
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @depenses_annee << 0
+      end
+    end
+    (2018..2025).each do |annee|    
+      @is_present = false 
+      @h_depenses_prevu_annee.each do |h|
+        if h[0].year == annee
+          @depenses_prevu_annee << h[1]
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @depenses_prevu_annee << 0
+      end
+    end
   end
 
   # GET /ouvrages/new
