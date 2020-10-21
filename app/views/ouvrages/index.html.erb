@@ -3,11 +3,12 @@
     <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
   </div>
     <h1 class="SD_title">Les ouvrages des JOP2024 </h1>
-
-  <div class="SF-topo-box">
-     <div class="SF-topo-financeurs">
+<div  class="SD-table-box">
+  <div class="SF-topo-financeurs-title"><span>Liste des ouvrages</span></div><br><br>
+  <div class="row">
+     <div class="col-md-6">
+      <div class="ouvrages-box">
       
-   <div class="SF-topo-financeurs-title"><span>Liste des ouvrages</span></div><br><br>
       <% if !@ouvrages.nil?%>
        <div class='ouvrages-mo'>
          MOA : Solideo
@@ -20,21 +21,27 @@
         </div>
       <% end %>
        <br><br>
+      <% @maitre_oeuvre.each do |mo|%>
        <div class='ouvrages-mo'>
-         MOA : Autres
+         MOA : <%= mo %>
        </div>
-      <% @ouvrages.where('maitre_oeuvre != ?', "SOLIDEO").each do |ouvrage| %>
+       <% @ouvrages.where('maitre_oeuvre = ?', mo).each do |ouvrage| %>
         <div class="O-name">
         <%= link_to ouvrage do %>
           <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>        
         <% end %>
         </div>
+       <% end %>
+       <br>
+       <% end %>
+       
       <% end %>
-      <% end %>
+                
+       </div>
     </div>
 
 
-    <div class="topo-chart width-50">
+    <div class="col-md-6">
       <div>
       <%= pie_chart @ouvrages.unscope(:order).group(:name).sum(:budget), library: {
        chart: {
@@ -92,6 +99,6 @@
 
     </div>
   </div>
-
+  </div>
 
 </div>

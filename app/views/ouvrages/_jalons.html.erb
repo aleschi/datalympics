@@ -6,7 +6,86 @@
      <div class="O_jalon">
        Calendrier prévisionnel (2020)
      </div>
-    
+    <div id="container-jalon">
+      
+     </div>
      
   </div>
 </div>
+<script>
+Highcharts.chart('container-jalon', {
+    chart: {
+        type: 'timeline',
+      spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          },
+    
+    },
+    accessibility: {
+        screenReaderSection: {
+            beforeChartFormat: '<h5>{chartTitle}</h5>' +
+                '<div>{typeDescription}</div>' +
+                '<div>{chartSubtitle}</div>' +
+                '<div>{chartLongdesc}</div>' +
+                '<div>{viewTableButton}</div>'
+        },
+        point: {
+            valueDescriptionFormat: '{index}. {point.label}. {point.description}.'
+        }
+    },
+    xAxis: {
+        visible: false
+    },
+    yAxis: {
+        visible: false
+    },
+    title: {
+        text: "Timeline de l'ouvrage",
+      margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+    },
+    
+    colors: [
+        '#4185F3',
+        '#427CDD',
+        '#406AB2',
+        '#3E5A8E',
+        '#3B4A68',
+        '#363C46'
+    ],
+    series: [{
+        data: [{
+            name: "Appel d'offre",
+            label: '2018: xx et yy',
+            description: "L'appel d'offre a été attribuée à  "
+        }, {
+            name: 'Lancement des travaux',
+            label: '2019: début des chantiers',
+            description: 'X et Y chantiers lancés'
+        }, {
+            name: 'Jalon 1 atteint',
+            label: '2020: 25% des travaux ',
+            description: ''
+        }, {
+            name: 'Jalon 2 atteint',
+            label: '2021: 50% des travaux',
+            description: ''
+        }, {
+            name: 'Jalon 3 atteint',
+            label: '2023: 75% des travaux',
+            description: ''
+        }, {
+            name: 'Fin des travaux',
+            label: '2024: chantiers terminés',
+            description: ''
+        }]
+    }]
+});
+  
+  </script>

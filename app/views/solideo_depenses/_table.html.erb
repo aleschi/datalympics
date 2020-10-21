@@ -243,7 +243,7 @@ Highcharts.chart('container-3', {
 
    chart:{
             backgroundColor: '#fff',
-           type: 'spline',
+           type: 'areaspline',
             spacing: [40,40,40,40],
         style:{
           fontFamily: "Spectral",
@@ -253,7 +253,7 @@ Highcharts.chart('container-3', {
           },
 
       title: {
-        text:"Suivi des dépenses innovation de la Solideo",
+        text:"Evolution des fonds innovation de la Solideo",
         margin:40,
         style: {
                   color: "#8F8F8F",
@@ -262,9 +262,9 @@ Highcharts.chart('container-3', {
       fontSize: '16px',
                   },
       },
-  colors: ['#ac8c97',"#8f8f8f"],
+  colors: ["#EBEBEB", '#ac8c97'],
     yAxis: {
-      gridLineColor: '#E6F0FF', 
+      gridLineColor: '#fff', 
         title: {
             text: 'Total €'
         }
@@ -288,12 +288,12 @@ Highcharts.chart('container-3', {
 
   
 
-    series: [{
-        name: 'Dépenses',
-        data: <%= @depenses_annee_innovation %>,
-    }, {
-        name: 'Dépenses prévues',
+    series: [ {
+        name: 'Evolution prévue',
         data: <%= @depenses_prevu_annee_innovation %>,
+    },{
+        name: 'Evolution',
+        data: <%= @depenses_annee_innovation %>,
     }],
 
     responsive: {
@@ -318,7 +318,7 @@ Highcharts.chart('container-4', {
 
    chart:{
             backgroundColor: '#fff',
-           type: 'spline',
+           type: 'areaspline',
             spacing: [40,40,40,40],
         style:{
           fontFamily: "Spectral",
@@ -328,7 +328,7 @@ Highcharts.chart('container-4', {
           },
 
       title: {
-        text:"Suivi des dépenses réserve de la Solideo",
+        text:"Evolution des fonds de réserve de la Solideo",
         margin:40,
         style: {
                   color: "#8F8F8F",
@@ -337,9 +337,9 @@ Highcharts.chart('container-4', {
       fontSize: '16px',
                   },
       },
-  colors: ['#F38C75',"#8f8f8f"],
+  colors: ["#EBEBEB", '#F38C75'],
     yAxis: {
-      gridLineColor: '#E6F0FF', 
+      gridLineColor: '#fff', 
         title: {
             text: 'Total €'
         }
@@ -363,12 +363,12 @@ Highcharts.chart('container-4', {
 
   
 
-    series: [{
-        name: 'Dépenses',
-        data: <%= @depenses_annee_reserve%>,
-    }, {
-        name: 'Dépenses prévues',
+    series: [ {
+        name: 'Evolution prévue',
         data: <%= @depenses_prevu_annee_reserve %>,
+    },{
+        name: 'Evolution',
+        data: <%= @depenses_annee_reserve%>,
     }],
 
     responsive: {

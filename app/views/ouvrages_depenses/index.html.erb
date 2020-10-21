@@ -34,6 +34,14 @@
    <br><br>
  
 </div><br>
+   <div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>Evolution de la maquette </span>
+  </div><br><br>
+    <div id="container-chart">
+      
+    </div>
+  </div>
   <div  class="SD-table-box">
     <div class="SD-topo-box-title">
       <span>Suivi trimestriel des dépenses des ouvrages </span>
@@ -42,6 +50,7 @@
       
     </div>
    </div><br><br>
+ 
 
   <div  class="table-box">
   <div class="SD-topo-box-title">
@@ -378,5 +387,103 @@ Highcharts.chart('container-column', {
         }]
     }
 
+});
+</script>
+
+<script>
+Highcharts.chart('container-chart', {
+    chart: {
+        type: 'waterfall',
+      spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          },
+    },
+
+    title: {
+        text: 'Evolution de la maquette des dépenses des ouvrages ',
+      margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+    },
+
+    xAxis: {
+        type: 'category'
+    },
+
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Montant €'
+        }
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    tooltip: {
+        pointFormat: '<b>${point.y:,.2f}</b> €'
+    },
+
+    series: [{
+        upColor: Highcharts.getOptions().colors[2],
+        color: Highcharts.getOptions().colors[3],
+        data: [{
+            name: 'Prévisionnel 2018',
+            y: 1382775000,
+            color: "#8F8F8F",
+        }, {
+            name: 'Surcoûts indexation ',
+            y: 3100000,
+            color: "#F1013B",
+        }, {
+            name: 'Surcoûts inflation',
+            y: 2100000,
+            color: "#F1013B",
+        }, {
+            name: 'Nouveaux ouvrages',
+            y: 269000000,
+            color: "#F1013B",
+        }, {
+            name: 'Nouveaux chantiers',
+            y: 231000000,
+            color: "#F1013B",
+        },{
+            name: 'Surcoûts construction',
+            y: 83100000,
+            color: "#F1013B",
+        },{
+            name: 'Total avec surcoûts totaux',
+            isIntermediateSum: true,
+            color: "#8F8F8F",
+        }, {
+            name: "Suppression d'ouvrages",
+            y: -342000000,
+          color: "#48AF5C",
+        }, {
+            name: "Suppression de chantiers",
+            y: -233000000,
+          color: "#48AF5C",
+        }, {
+            name: 'Prévisionnel 2019',
+            isSum: true,
+            color: Highcharts.getOptions().colors[1]
+        }],
+        dataLabels: {
+            enabled: true,
+            formatter: function () {
+                return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
+            },
+            style: {
+                fontWeight: 'bold'
+            }
+        },
+        pointPadding: 0
+    }]
 });
 </script>

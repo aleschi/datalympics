@@ -49,7 +49,7 @@ class SolideoDepensesController < ApplicationController
     #ouvrages 
     @depenses_annee_ouvrages = []
     @depenses_prevu_annee_ouvrages = []
-    (2018..2025).each do |annee|    
+    (2018..2020).each do |annee|    
       @is_present = false 
       @h1.each do |h|
         if h[0].year == annee
@@ -79,7 +79,7 @@ class SolideoDepensesController < ApplicationController
     @fonctionnement_p =  @solideo_financements.where('categorie = ? ', "fonctionnement").unscope(:order).group_by_year(:date).sum('montant_prevu')
      @depenses_annee_fonctionnement = []
     @depenses_prevu_annee_fonctionnement = []
-    (2018..2025).each do |annee|    
+    (2018..2020).each do |annee|    
       @is_present = false 
        @fonctionnement_a.each do |h|
         if h[0].year == annee
@@ -104,62 +104,72 @@ class SolideoDepensesController < ApplicationController
       end
     end
     #innovation
+    @budget_innovation_prevu = SolideoFinancement.where('categorie = ?','innovation').sum('montant_prevu')
+    @montant_prevu = 0 #cumul des depenses
+    @montant = 0 #cumul des depenses
     @innovation_a =  @solideo_financements.where('categorie = ? AND date <= ?', "innovation", Date.today).unscope(:order).group_by_year(:date).sum('montant')    
     @innovation_p =  @solideo_financements.where('categorie = ? ', "innovation").unscope(:order).group_by_year(:date).sum('montant_prevu')
      @depenses_annee_innovation = []
     @depenses_prevu_annee_innovation = []
-    (2018..2025).each do |annee|    
+    (2018..2020).each do |annee|    
       @is_present = false 
        @innovation_a.each do |h|
         if h[0].year == annee
-          @depenses_annee_innovation << h[1]
+          @montant = @montant + h[1]
+          @depenses_annee_innovation << @budget_innovation_prevu - @montant
           @is_present = true 
         end 
       end
       if @is_present == false 
-         @depenses_annee_innovation << 0
+         @depenses_annee_innovation << @budget_innovation_prevu - @montant
       end
     end
     (2018..2025).each do |annee|    
       @is_present = false 
        @innovation_p.each do |h|
         if h[0].year == annee
-          @depenses_prevu_annee_innovation << h[1]
+          @montant_prevu = @montant_prevu + h[1]
+          @depenses_prevu_annee_innovation << @budget_innovation_prevu - @montant_prevu
           @is_present = true 
         end 
       end
       if @is_present == false 
-         @depenses_prevu_annee_innovation << 0
+         @depenses_prevu_annee_innovation << @budget_innovation_prevu - @montant_prevu
       end
     end
     
      #reserve
+    @budget_reserve_prevu = SolideoFinancement.where('categorie = ?','reserve').sum('montant_prevu')
+    @montant_reserve_prevu = 0 #cumul des depenses
+    @montant_reserve = 0 #cumul des depenses
     @reserve_a =  @solideo_financements.where('categorie = ? AND date <= ?', "reserve", Date.today).unscope(:order).group_by_year(:date).sum('montant')    
     @reserve_p =  @solideo_financements.where('categorie = ? ', "reserve").unscope(:order).group_by_year(:date).sum('montant_prevu')
      @depenses_annee_reserve = []
     @depenses_prevu_annee_reserve = []
-    (2018..2025).each do |annee|    
+    (2018..2020).each do |annee|    
       @is_present = false 
        @reserve_a.each do |h|
         if h[0].year == annee
-          @depenses_annee_reserve << h[1]
+          @montant_reserve = @montant_reserve + h[1]
+          @depenses_annee_reserve << @budget_reserve_prevu - @montant_reserve
           @is_present = true 
         end 
       end
       if @is_present == false 
-         @depenses_annee_reserve << 0
+         @depenses_annee_reserve << @budget_reserve_prevu - @montant_reserve
       end
     end
     (2018..2025).each do |annee|    
       @is_present = false 
        @reserve_p.each do |h|
         if h[0].year == annee
-          @depenses_prevu_annee_reserve << h[1]
+          @montant_reserve_prevu = @montant_reserve_prevu + h[1]
+          @depenses_prevu_annee_reserve << @budget_reserve_prevu - @montant_reserve_prevu
           @is_present = true 
         end 
       end
       if @is_present == false 
-         @depenses_prevu_annee_reserve << 0
+         @depenses_prevu_annee_reserve << @budget_reserve_prevu - @montant_reserve_prevu
       end
     end
     
