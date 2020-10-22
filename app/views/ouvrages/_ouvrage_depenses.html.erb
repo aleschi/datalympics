@@ -25,14 +25,14 @@
   </div>
    <br><br>
  
-</div><br>
-<div  class="SD-table-box">
-  <div class="SD-topo-box-title">
-    <span>Suivi trimestriel des dépenses de l'ouvrage</span>
-  </div>
+
   <div id="container">
     
-  </div>
+  </div><br><br>
+   <div class="EB-details">
+       <a href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse">Détails des dépenses </a>      
+    </div><br>
+    <section id="MonCollapse" class="collapse">
   <div class="SD-table-box-left">
     <% if !@ouvrage.ouvrages_financements.nil? %>
 
@@ -69,7 +69,7 @@
    
       
   </div>
-  
+  </section>
   </div><br><br>
 
 
@@ -121,8 +121,8 @@ Highcharts.chart('container2', {
         startAngle: 0,
         endAngle: 360,
         background: [{ // Track for Move
-            outerRadius: '90%',
-            innerRadius: '80%',
+            outerRadius: '100%',
+            innerRadius: '90%',
             backgroundColor: 'rgba(0,74,72,0.3)',
             borderWidth: 0
         }]
@@ -179,8 +179,8 @@ Highcharts.chart('container2', {
         name: 'Dépenses actuelles',
         data: [{
             color: '#487f7f',
-            radius: '90%',
-            innerRadius: '80%',
+            radius: '100%',
+            innerRadius: '90%',
             y: <%= @ouvrage.ouvrages_depenses.sum('montant') %>
         }]
     }]
@@ -330,7 +330,7 @@ Highcharts.chart('container-column', {
         name: 'Décaissements',
         data: <%= @depenses_annee %>,
     }, {
-        name: 'Décaissements prévus',
+        name: 'Prévisionnel 2018',
         data: <%= @depenses_prevu_annee %>,
     }],
 
