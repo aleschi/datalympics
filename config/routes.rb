@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  ActiveAdmin.routes(self)
   resources :ouvrages_financements do 
     collection {post :import}
   end
