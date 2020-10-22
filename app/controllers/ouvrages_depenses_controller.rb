@@ -60,7 +60,7 @@ class OuvragesDepensesController < ApplicationController
          @depenses_annee << 0
       end
     end
-    @depenses_prevu_annee_maj_value = [244252000,157128000,83950000,224300000,254300000,210000000,94000000,0]
+    @depenses_prevu_annee_maj_value = [0,0,0,224300000,254300000,210000000,94000000,0]
 
     (2018..2025).each do |annee|    
       @is_present = false 
