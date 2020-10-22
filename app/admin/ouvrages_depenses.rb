@@ -5,7 +5,7 @@ ActiveAdmin.register OuvragesDepense do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-   permit_params :date, :ouvrage_id, :name, :montant, :montant_engage, :montant_prevu
+   permit_params :date, :ouvrage_id, :name, :montant, :montant_engage, :montant_prevu, :date_maquette
   #
   # or
   #

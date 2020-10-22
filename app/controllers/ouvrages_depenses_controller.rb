@@ -157,6 +157,6 @@ OuvragesDepense.all.destroy_all
 
     # Only allow a list of trusted parameters through.
     def ouvrages_depense_params
-      params.require(:ouvrages_depense).permit(:date, :ouvrage_id, :name, :montant, :montant_prevu, :montant_engage)
+      params.require(:ouvrages_depense).permit(:date, :ouvrage_id, :name, :montant, :montant_prevu, :montant_engage, :date_maquette)
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_092114) do
+ActiveRecord::Schema.define(version: 2020_10_22_133602) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2020_10_22_092114) do
     t.datetime "updated_at", null: false
     t.float "montant_engage"
     t.float "montant_prevu"
+    t.date "date_maquette"
     t.index ["ouvrage_id"], name: "index_ouvrages_depenses_on_ouvrage_id"
   end
 
