@@ -28,7 +28,7 @@
   <div class="row">   
       <div class="col-md-6">
           <div class="SD-topo-box-title">
-        <span>Innovation</span>
+        <span>Fonds Innovation</span>
       </div><br><br>
         <div id="container-3">
  
@@ -39,7 +39,7 @@
     
       <div class="col-md-6">
           <div class="SD-topo-box-title">
-        <span>Réserve</span>
+        <span>Fonds Réserve</span>
       </div><br><br>
         <div id="container-4">
 
@@ -49,9 +49,11 @@
       </div>
   </div><br><br>
   <div class="SD-table-box-left">
-    <% if !@solideo_depenses_array.nil? %>
-
-      
+    <div class="EB-details">
+       <a href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse">Détails des dépenses </a>      
+    </div><br>
+    <section id="MonCollapse" class="collapse">
+    <% if !@solideo_depenses_array.nil? %>     
         <div class="ED_table">
           <table>
             <thead>
@@ -79,11 +81,10 @@
             </tbody>
           </table>
         </div>
-      <% else %>
-        <div>
-          Aucune dépense renseignée
-        </div>
-      <%end%>
+    <% else %>
+      <div>Aucune dépense renseignée</div>
+    <%end%>
+    </section>
 
   </div>
 </div><br><br>
@@ -112,7 +113,7 @@ Highcharts.chart('container-1', {
       fontSize: '16px',
                   },
       },
-  colors: ['#487F7F',"#8f8f8f"],
+  colors: ["#8f8f8f",'#487F7F'],
     yAxis: {
       gridLineColor: '#E6F0FF', 
         title: {
@@ -138,12 +139,12 @@ Highcharts.chart('container-1', {
 
   
 
-    series: [{
-        name: 'Dépenses',
-        data: <%= @depenses_annee_ouvrages %>,
-    }, {
+    series: [ {
         name: 'Dépenses prévues',
         data: <%= @depenses_prevu_annee_ouvrages %>,
+    },{
+        name: 'Dépenses',
+        data: <%= @depenses_annee_ouvrages %>,
     }],
 
     responsive: {
@@ -167,36 +168,57 @@ Highcharts.chart('container-1', {
 Highcharts.chart('container-2', {
 
    chart:{
-            backgroundColor: '#fff',
-           type: 'spline',
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
+         backgroundColor: '#fff',
+         zoomType: 'xy',
+         spacing: [40,40,40,40],
+         style:{
+         fontFamily: "Spectral",
          maxWidth: '500px'
-          },
-       
+          },       
           },
 
       title: {
         text:"Suivi des dépenses de fonctionnement de la Solideo",
         margin:40,
         style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
+                color: "#8F8F8F",
+                fontWeight: "400",
+                fontStyle: 'italic',
+                fontSize: '16px',
                   },
       },
-  colors: ['#E0A922',"#8f8f8f"],
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
+
+    yAxis: [{ // Primary yAxis
+        labels: {
+            format: '{value} €',
+            style: {
+                color: '#E0A922'
+            }
+        },
         title: {
-            text: 'Total €'
+            text: 'Montant en €',
+            style: {
+                color: '#E0A922'
+            }
         }
-    },
+    }, { // Secondary yAxis
+        title: {
+            text: 'EPT',
+            style: {
+                color: '#E0A922'
+            }
+        },
+        labels: {
+            format: '{value} EPT',
+            style: {
+                color: '#E0A922'
+            }
+        },
+        opposite: true
+    }] ,
   tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
+      shared: true,
+       // valueSuffix: '€',
       
     },
   xAxis:{
@@ -213,28 +235,34 @@ Highcharts.chart('container-2', {
 
   
 
-    series: [{
-        name: 'Dépenses',
-        data: <%= @depenses_annee_fonctionnement %>,
-    }, {
+    series: [ {
+        name: 'EPT',
+        type: 'column',
+        yAxis: 1,
+      color: '#bdc467',
+     
+        data: [40,60,80,110,100,90,60],
+      
+    },{
         name: 'Dépenses prévues',
+        type: 'spline',
+      color: '#8f8f8f',
+      tooltip: {
+            valueSuffix: '€',
+        },
         data: <%= @depenses_prevu_annee_fonctionnement %>,
+      
+    }, {
+        name: 'Dépenses',
+      type: 'spline',
+      color: '#E0A922',
+        tooltip: {
+            valueSuffix: '€',
+        },
+        data: <%= @depenses_annee_fonctionnement %>,
     }],
 
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
+
 
 });
 </script>
@@ -262,7 +290,7 @@ Highcharts.chart('container-3', {
       fontSize: '16px',
                   },
       },
-  colors: ["#EBEBEB", '#ac8c97'],
+  colors: ["#c4c4c4", '#ac8c97'],
     yAxis: {
       gridLineColor: '#fff', 
         title: {
@@ -337,7 +365,7 @@ Highcharts.chart('container-4', {
       fontSize: '16px',
                   },
       },
-  colors: ["#EBEBEB", '#F38C75'],
+  colors: ["#c4c4c4", '#F38C75'],
     yAxis: {
       gridLineColor: '#fff', 
         title: {
