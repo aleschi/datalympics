@@ -15,7 +15,7 @@
  
       </div>
       <div class="SF-topo-explication">
-        Budget 2018-2025 prévu :  1 382 775 000€
+        Budget total prévu (2020) :  1 417 765 000 €
       </div>
     </div>
     <div class="col-md-6">
@@ -153,14 +153,14 @@ Highcharts.chart('container2', {
 
     yAxis: {
         min: 0,
-        max:  1382775000,
+        max:  1417765000,
         lineWidth: 0,
-        tickPositions: [1382775000],
-      tickInterval: 1382775000,
+        tickPositions: [1417765000],
+      tickInterval: 1417765000,
       minorTickInterval: null,
       tickAmount:1,
        labels: {
-            step: 1382775000,
+            step: 1417765000,
             rotation: 'auto',
          style: {
            fontSize: '12px',
@@ -441,19 +441,35 @@ Highcharts.chart('container-chart', {
     },
 
     series: [{
-        upColor: Highcharts.getOptions().colors[2],
-        color: Highcharts.getOptions().colors[3],
+      data: [{
+        name: "Previsionnel 2018",
+         y: 1382775000,
+         color: "#8F8F8F",
+      }],
+         dataLabels: {
+            enabled: true,
+            formatter: function () {
+                return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
+            },
+            style: {
+                fontWeight: 'bold'
+            }
+        },
+        pointPadding: 0,
+    },
+             {
+        
         data: [{
             name: 'Prévisionnel 2019',
-            y: 1382775000,
+            y: 1386929000,
             color: "#8F8F8F",
         }, {
             name: 'Surcoûts indexation ',
-            y: 3100000,
+            y: 13100000,
             color: "#F1013B",
         }, {
             name: 'Surcoûts inflation',
-            y: 2100000,
+            y: 12100000,
             color: "#F1013B",
         }, {
             name: 'Nouveaux ouvrages',
@@ -473,11 +489,11 @@ Highcharts.chart('container-chart', {
             color: "#8F8F8F",
         }, {
             name: "Suppression d'ouvrages",
-            y: -342000000,
+            y: -352000000,
           color: "#48AF5C",
         }, {
             name: "Suppression de chantiers",
-            y: -233000000,
+            y: -243000000,
           color: "#48AF5C",
         }, {
             name: 'Prévisionnel 2020',
