@@ -24,51 +24,53 @@
     </div>
   </div>
    <br><br>
- 
+    <div id="container-chart">
+      
+    </div><br>
 
-  <div id="container">
-    
-  </div><br><br>
    <div class="EB-details">
        <a href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse">Détails des dépenses </a>      
     </div><br>
     <section id="MonCollapse" class="collapse">
-  <div class="SD-table-box-left">
-    <% if !@ouvrage.ouvrages_financements.nil? %>
+      <div id="container">
+    
+      </div><br><br>
+      <div class="SD-table-box-left">
+        <% if !@ouvrage.ouvrages_financements.nil? %>
 
-      
-        <div class="ED_table">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Dates</th>
-                <th scope="col">Décaissements (effectifs/prévus)</th>
-                <th scope="col" class="border-none">Engagements ?</th>
-      
-              </tr>
-            </thead>
-            <tbody>
-              <% @ouvrage.ouvrages_depenses.order('date DESC').each do |ouvrage_depense| %>
-              <tr>
-                <th scope="row"><%= ouvrage_depense.date.strftime("%b %Y") %></th>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(ouvrage_depense.montant_prevu.to_i, :delimiter => ' ') %> € <% if ouvrage_depense.montant.to_i > ouvrage_depense.montant_prevu.to_i%> <i class="fas fa-exclamation-circle"></i> <%end %> </div></div></td>
-                <td class="border-none"><%= number_with_delimiter(ouvrage_depense.montant_engage.to_i, :delimiter => ' ') %>€</td>
-             
-             
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      <% else %>
-        <div>
-          Aucune dépense renseignée
-        </div>
-      <%end%>
 
-   
-      
-  </div>
+            <div class="ED_table">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Dates</th>
+                    <th scope="col">Décaissements (effectifs/prévus)</th>
+                    <th scope="col" class="border-none">Engagements ?</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @ouvrage.ouvrages_depenses.order('date DESC').each do |ouvrage_depense| %>
+                  <tr>
+                    <th scope="row"><%= ouvrage_depense.date.strftime("%b %Y") %></th>
+                    <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(ouvrage_depense.montant.to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(ouvrage_depense.montant_prevu.to_i, :delimiter => ' ') %> € <% if ouvrage_depense.montant.to_i > ouvrage_depense.montant_prevu.to_i%> <i class="fas fa-exclamation-circle"></i> <%end %> </div></div></td>
+                    <td class="border-none"><%= number_with_delimiter(ouvrage_depense.montant_engage.to_i, :delimiter => ' ') %>€</td>
+
+
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <div>
+              Aucune dépense renseignée
+            </div>
+          <%end%>
+
+
+
+      </div>
   </section>
   </div><br><br>
 
@@ -289,7 +291,7 @@ Highcharts.chart('container-column', {
                   fontSize: '16px',
                   },
         },
-  colors: ['#487f7f',"#8f8f8f"],
+   colors: ['#487f7f','#bdc467',"#8f8f8f"],
     yAxis: {
       gridLineColor: '#fff', 
         title: {
@@ -313,7 +315,10 @@ Highcharts.chart('container-column', {
             pointStart: 2018,
         },
       column: {
-           pointWidth: 15,
+        grouping: false,
+            shadow: false,
+            borderWidth: 0,
+           //pointWidth: 15,
            tooltip: {        
               backgroundColor: "#fff",        
               style: {
@@ -324,13 +329,21 @@ Highcharts.chart('container-column', {
          
     },
 
-  
-
     series: [{
         name: 'Décaissements',
+       pointPadding: 0.4,
+        pointPlacement: -0.2,
         data: <%= @depenses_annee %>,
     }, {
+        name: 'Prévisionnel MAJ 2020',
+        pointPadding: 0.3,
+        pointPlacement: 0.2,
+        data: <%= @depenses_prevu_annee %>,
+      
+    }, {
         name: 'Prévisionnel 2018',
+      pointPadding: 0.4,
+        pointPlacement: 0.2,
         data: <%= @depenses_prevu_annee %>,
     }],
 
@@ -349,5 +362,86 @@ Highcharts.chart('container-column', {
         }]
     }
 
+});
+</script>
+
+<script>
+Highcharts.chart('container-chart', {
+    chart: {
+        type: 'waterfall',
+      spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          },
+    },
+
+    title: {
+        text: 'Evolution de la maquette des dépenses des ouvrages ',
+      margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+    },
+
+    xAxis: {
+        type: 'category'
+    },
+
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Montant €'
+        }
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    tooltip: {
+        pointFormat: '<b>${point.y:,.2f}</b> €'
+    },
+
+    series: [{
+      borderColor: '#fff',
+      data: [{
+            name: 'Prévisionnel 2018',
+            y: 1386929000,
+            color: "#8F8F8F",
+        }, {
+            name: 'Inflation ',
+            y: 13100000,
+            color: "#F1013B",
+        }, {
+            name: 'Nouveaux programmes ',
+            y: 500000000,
+            color: "#F1013B",
+        },{
+            name: 'Surcoûts construction',
+            y: 83100000,
+            color: "#F1013B",
+        }, {
+            name: "Suppression de programmes",
+            y: -185000000,
+          color: "#48AF5C",
+        }, {
+            name: 'Prévisionnel 2020',
+            isSum: true,
+            color: Highcharts.getOptions().colors[1]
+        }],
+        dataLabels: {
+            enabled: true,
+            formatter: function () {
+                return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
+            },
+            style: {
+                fontWeight: 'bold'
+            }
+        },
+        pointPadding: 0
+    }]
 });
 </script>

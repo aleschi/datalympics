@@ -2,7 +2,7 @@
    <div class="SD_home_button">
     <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
   </div>
-  <h1 class="SD_title">Dépenses des ouvrages</h1>
+  <h1 class="SD_title">Budget des ouvrages</h1>
   
   <div class="SD-topo-box">
   <div class="SD-topo-box-title">
@@ -40,7 +40,10 @@
   </div><br><br>
     <div id="container-chart">
       
-    </div>
+    </div><br>
+       <div class="EB-details">
+       <%= link_to ouvrages_path do %>+ d'infos sur les ouvrages<%end %>     
+    </div><br>
   </div>
   <div  class="SD-table-box">
     <div class="SD-topo-box-title">
@@ -441,59 +444,34 @@ Highcharts.chart('container-chart', {
     },
 
     series: [{
+      borderColor: '#fff',
       data: [{
-        name: "Previsionnel 2018",
-         y: 1382775000,
-         color: "#8F8F8F",
-      }],
-         dataLabels: {
-            enabled: true,
-            formatter: function () {
-                return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
-            },
-            style: {
-                fontWeight: 'bold'
-            }
-        },
-        pointPadding: 0,
-    },
-             {
-        
-        data: [{
-            name: 'Prévisionnel 2019',
+            name: 'Prévisionnel 2018',
             y: 1386929000,
             color: "#8F8F8F",
         }, {
-            name: 'Surcoûts indexation ',
+            name: 'Inflation ',
             y: 13100000,
             color: "#F1013B",
         }, {
-            name: 'Surcoûts inflation',
+            name: 'Nouveaux Ouvrages',
             y: 19635800,
             color: "#F1013B",
         }, {
-            name: 'Nouveaux ouvrages',
-            y: 269000000,
-            color: "#F1013B",
-        }, {
-            name: 'Nouveaux chantiers',
-            y: 231000000,
+            name: 'Nouveaux programmes ',
+            y: 500000000,
             color: "#F1013B",
         },{
             name: 'Surcoûts construction',
             y: 83100000,
             color: "#F1013B",
-        },{
-            name: 'Total avec surcoûts totaux',
-            isIntermediateSum: true,
-            color: "#8F8F8F",
         }, {
             name: "Suppression d'ouvrages",
-            y: -342000000,
+            y: -585000000,
           color: "#48AF5C",
         }, {
-            name: "Suppression de chantiers",
-            y: -243000000,
+            name: "Suppression de programmes",
+            y: -185000000,
           color: "#48AF5C",
         }, {
             name: 'Prévisionnel 2020',
@@ -505,8 +483,10 @@ Highcharts.chart('container-chart', {
             formatter: function () {
                 return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
             },
+          
             style: {
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+          
             }
         },
         pointPadding: 0
