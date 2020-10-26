@@ -1,7 +1,7 @@
 
  <div class="SD-topo-box">
   <div class="SD-topo-box-title">
-    <span>Dépenses de l'ouvrage </span>
+    <span>Suivi du Budget</span>
   </div><br><br>
   <div class="budget-topo_chart-box"> 
     <div class="budget-topo-chart">
@@ -10,7 +10,7 @@
  
       </div>
       <div class="SF-topo-explication">
-        Budget 2018-2025 prévu :  <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ') %> €
+        Budget prévu :  <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ') %> €
       </div>
     </div>
     <div class="budget-topo-chart">
@@ -376,7 +376,7 @@ Highcharts.chart('container-chart', {
     },
 
     title: {
-        text: 'Evolution de la maquette des dépenses des ouvrages ',
+        text: "Evolution de la maquette des dépenses de l'ouvrage ",
       margin:40,
         style: {
                   color: "#8F8F8F",

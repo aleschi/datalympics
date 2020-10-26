@@ -1,5 +1,7 @@
 <div class="O-topo-box">
-  <div class="O-topo-box-infos">
+  <div class="row">
+
+  <div class="col-md-6">
     <div class="O-topo-image">
       
     </div>
@@ -10,19 +12,104 @@
     </div>
     
   </div>
-  <% if !@ouvrage_financeurs.nil? && !@ouvrage_financeurs.empty? %>
-  <div class="width-50">
-     <div class="O-topo-financeurs-title"><span>Financeurs</span></div><br>
-    <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name"></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus à date €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
-    </div> <br><br>
-    <% @ouvrage_financeurs.each do |financeur| %>
-    <div class="SF-topo-financeurs-box">
-      <div class="SF-topo-financeurs-name"><% if financeur == "Etat"%><%= link_to etat_budgets_path do %><%= financeur %><%end%><%elsif !SolideoFinancement.where("financeur =?", financeur).last.nil? %><%= link_to solideo_financement_path(id: SolideoFinancement.where("financeur =?", financeur).last.id) do %><%= financeur %><%end%><%else%><%= financeur.name %><%end%> </div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('ouvrage_id = ? AND name = ? AND date <= ? ', @ouvrage.id, financeur, Date.today).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter(OuvragesFinancement.where('ouvrage_id = ? AND name = ? ', @ouvrage.id, financeur).sum('montant').to_i, :delimiter => ' ') %> € <% if OuvragesFinancement.where('ouvrage_id = ? AND name = ? AND date <= ? ', @ouvrage.id, financeur, Date.today).sum('montant_prevu').to_i > OuvragesFinancement.where('ouvrage_id = ? AND name = ? ', @ouvrage.id, financeur).sum('montant').to_i %><i class="fas fa-exclamation-circle"></i><% end %></div></div>
-    </div>
-      <% end %>
+ 
   </div>
-  <% end %>
 </div><br><br><br>
+<div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>Financements</span>
+  </div><br><br>
+  <div class="row">
+    <div class="col-md-6"> 
+      
+     <div id='container-pie'>
+    <%= pie_chart OuvragesFinancement.where('ouvrage_id = ?', @ouvrage.id).unscope(:order).group(:name).sum(:montant_prevu) ,  library: {
+     chart: {
+       backgroundColor: '#fff',
+        type: 'pie',
+
+       style:{
+          fontFamily: "Spectral",
+          },
+    },
+
+      title: {
+        text:'2018',
+      
+        style: {
+          color: '#8F8F8F',
+          fontSize: '16px',
+          fontStyle: 'italic',
+          }
+      },
+     plotOptions: {
+        pie: {
+           size: 100,
+           dataLabels: {
+                    enabled: true,
+                    format: '<em>{point.name}<br>{point.y:,.0f} €</em>',
+                   
+                    
+                    style: {
+                      color: "#8F8F8F",
+                      fontSize: "11px",
+                      fontWeight: "400",
+
+                      }
+                },
+        }
+    },
+  }
+   
+    %>
+      
+    </div>
+    </div>
+    <div class="col-md-6"> 
+      
+     <div id='container-pie'>
+    <%= pie_chart OuvragesFinancement.where('ouvrage_id = ?', @ouvrage.id).unscope(:order).group(:name).sum(:montant_prevu) ,  library: {
+     chart: {
+       backgroundColor: '#fff',
+        type: 'pie',
+
+       style:{
+          fontFamily: "Spectral",
+          },
+    },
+
+      title: {
+        text:'2020',
+      
+        style: {
+          color: '#8F8F8F',
+          fontSize: '16px',
+          fontStyle: 'italic',
+          }
+      },
+     plotOptions: {
+        pie: {
+           size: 200,
+           dataLabels: {
+                    enabled: true,
+                    format: '<em>{point.name}<br>{point.y:,.0f} €</em>',
+                   
+                    
+                    style: {
+                      color: "#8F8F8F",
+                      fontSize: "11px",
+                      fontWeight: "400",
+
+                      }
+                },
+        }
+    },
+  }
+   
+    %>
+      
+    </div>
+    </div>
+  </div>
+</div>
+

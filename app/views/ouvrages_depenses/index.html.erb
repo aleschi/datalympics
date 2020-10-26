@@ -2,6 +2,9 @@
    <div class="SD_home_button">
     <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
   </div>
+   <div class="SD_home_button">
+     <%= link_to ouvrages_path do %><i class="fas fa-chevron-left"></i>Retour aux ouvrages<%end %>
+  </div>
   <h1 class="SD_title">Budget des ouvrages</h1>
   
   <div class="SD-topo-box">
@@ -41,9 +44,46 @@
     <div id="container-chart">
       
     </div><br>
-       <div class="EB-details">
-       <%= link_to ouvrages_path do %>+ d'infos sur les ouvrages<%end %>     
+    <div class="EB-details">
+       <a href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse">Afficher le détail</a>      
     </div><br>
+    <section id="MonCollapse" class="collapse">
+    <div class="table-legend">
+      <div class="table-title">
+        Légende du graphique
+      </div>
+       <table >
+        <tbody>   
+          <tr>
+            <th class="border-bottom">Inflation</td>
+            <td class="border-bottom">augmentation du budget liée à l’inflation et à l’indexation (2%)</td>
+         </tr>
+          <tr>
+            <th class="border-bottom">ajout ouvrages</td>
+            <td class="border-bottom">ajout de l’ouvrage XXX en décidé en CA mars 2019 et de l’ouvrage YYYY décidé en CA septembre 2020</td>
+         </tr>
+          <tr>
+            <th class="border-bottom">ajout programme </td>
+            <td class="border-bottom">ajout du programme XXX sur l’ouvrage XXX pris en charge par la Metropole Grand Paris<br>
+              ajout du programme YYY sur l’ouvrage YYY pris en charge par la Ville de Paris<br>
+              ajout du programme ZZZ sur l’ouvrage ZZZ </td>
+         </tr>
+          <tr>
+            <th class="border-bottom">surcoûts construction</td>
+            <td class="border-bottom">anticipation de l’inflation au-delà de 2020</td>
+         </tr>
+          <tr>
+            <th class="border-bottom">suppresion ouvrages  </td>
+            <td class="border-bottom">supression de l’ouvrage XXX en décidé en CA mars 2019 et de l’ouvrage YYYY décidé en CA septembre 2020</td>
+         </tr>
+          <tr>
+            <th>suppresion programme  </td>
+            <td>suppression du programme XXX sur l’ouvrage XXX </td>
+         </tr>
+        </tbody>
+      </table>
+     </div>
+    </section>
   </div>
   <div  class="SD-table-box">
     <div class="SD-topo-box-title">
@@ -486,7 +526,9 @@ Highcharts.chart('container-chart', {
           
             style: {
                 fontWeight: 'bold',
-          
+                color: '#000',
+            
+              fontFamily: 'Karla',
             }
         },
         pointPadding: 0
