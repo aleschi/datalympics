@@ -1,8 +1,73 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.6/proj4.js"></script>
 <div class="SD_page">
   <div class="SD_home_button">
     <%= link_to root_path do %><i class="fas fa-chevron-left"></i><i class="fas fa-home"></i>Retour accueil<%end %>
   </div>
     <h1 class="SD_title">Les ouvrages des JOP2024 </h1>
+  <div  class="SD-table-box">
+  <div class="SF-topo-financeurs-title"><span>Les ouvrages en chiffres </span></div><br><br>
+  <div class="calendar-infos">
+    <div class="calendar-infos-box">
+      <div>
+        <i class="fas fa-flag"></i>
+      </div>
+      <div>
+        12121212121 €<br>
+        <span>Total</span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-tasks"></i>
+      </div>
+      <div>
+      59<br>
+      <span>ouvrages</span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-flag"></i>
+      </div>
+      <div>
+      2%<br>
+        <span>Ouvrages finalisés</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="calendar-infos">
+    <div class="calendar-infos-box">
+      <div>
+         <i class="fas fa-flag"></i>
+      </div>
+      <div>
+         2000000 €<br>
+        <span>Total actuel</span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-tasks"></i>
+      </div>
+      <div>
+      222<br>
+      <span>Chantiers </span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-flag"></i>
+      </div>
+      <div>
+      82<br>
+        <span>Employés</span>
+      </div>
+    </div>
+
+  </div>
+  </div><br><br>
+<div
 <div  class="SD-table-box">
   <div class="SF-topo-financeurs-title"><span>Liste des ouvrages</span></div><br><br>
   <div class="row">
@@ -99,6 +164,101 @@
 
     </div>
   </div>
+  </div><br><br>
+<div  class="SD-table-box">
+  <div class="SF-topo-financeurs-title"><span>Les ouvrages par MOA </span></div><br><br>
+  <div class="row">
+     <div class="col-md-12">
+       <div id="bubble">
+         
+       </div>
+    </div>
   </div>
-
+</div><br><br>
+  <div  class="SD-table-box">
+  <div class="SF-topo-financeurs-title"><span>Les ouvrages par geolocalisation </span></div><br><br>
+  <div class="row">
+     <div class="col-md-12">
+       <div id="map">
+         
+       </div>
+    </div>
+  </div>
 </div>
+</div>
+<script>
+Highcharts.chart('bubble', {
+    chart: {
+        type: 'packedbubble',
+        height: '400',
+       style:{
+            fontFamily: "Spectral",
+            },
+    },
+    title: {
+        text: "",
+      style: {
+            color: '#8F8F8F',
+            fontSize: '16px',
+            fontStyle: 'italic',
+            }
+    },
+    tooltip: {
+        useHTML: true,
+        pointFormat: '<b>{point.name}:</b> {point.value} €</sub>'
+    },
+    plotOptions: {
+        packedbubble: {
+            minSize: '20%',
+            maxSize: '80%',
+
+            layoutAlgorithm: {
+                splitSeries: true,
+                gravitationalConstant: 1,
+              bubblePadding: 30,
+              enableSimulation: false,
+        
+            },
+          animation: {
+           duration: 1, 
+          },
+         
+            dataLabels: {
+                enabled: true,
+                format: '{series.name}',
+              allowOverlap: false,
+              crop:true,
+              inside: false,
+                style: {
+                    color: 'black',
+                    textOutline: 'none',
+                    fontWeight: 'normal'
+                }
+            }
+        }
+    },
+    series: [
+      <% @maitre_oeuvre_all.each do |mo|%>
+      
+      {
+        name: '<%= mo %>',
+        data: [
+        <% @ouvrages.where('maitre_oeuvre = ?', mo).each do |ouvrage| %>
+        {
+            name: "<%= ouvrage.name %>",
+            value: <%= ouvrage.budget.to_i %>,
+         dataLabels: {
+           enabled:false,
+         },
+        events: {
+                    click: function () {
+                        location.href = '/ouvrages/<%= ouvrage.id%>'
+                    }
+                }
+        }, 
+       <%end%>],
+  
+    }, 
+                 <% end%>  ],
+});
+</script>

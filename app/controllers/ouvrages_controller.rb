@@ -7,12 +7,15 @@ class OuvragesController < ApplicationController
     @ouvrages = Ouvrage.all
     @ouvrages_financements = OuvragesFinancement.all
     @maitre_oeuvre = []
+    @maitre_oeuvre_all = []
     @ouvrages.all.each do |ouvrage|
       if ouvrage.maitre_oeuvre != "SOLIDEO"
       @maitre_oeuvre << ouvrage.maitre_oeuvre
       end
+      @maitre_oeuvre_all << ouvrage.maitre_oeuvre
     end
     @maitre_oeuvre.uniq!
+    @maitre_oeuvre_all.uniq!
     
     @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
     @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')    
