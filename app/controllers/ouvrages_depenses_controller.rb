@@ -108,19 +108,19 @@ class OuvragesDepensesController < ApplicationController
   
   def import
   
-    OuvragesDepense.import(params[:file])
+    OuvragesDepense.import(params[:file], params[:date])
 
     redirect_to ouvrages_depenses_path
   end 
   def import2
 OuvragesDepense.all.destroy_all
-    OuvragesDepense.import2(params[:file])
+    OuvragesDepense.import2(params[:file], params[:date])
 
     redirect_to ouvrages_depenses_path
   end 
   def import3
 
-    OuvragesDepense.import3(params[:file])
+    OuvragesDepense.import3(params[:file], params[:date])
 
     redirect_to ouvrages_depenses_path
   end 

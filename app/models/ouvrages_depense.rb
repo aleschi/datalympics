@@ -3,7 +3,7 @@ class OuvragesDepense < ApplicationRecord
   
   require 'csv'
 
-  def self.import(file)
+  def self.import(file,date_year)
 
       CSV.foreach(file.path) do |row|
         if !row[0].nil? || !row[0].empty?
@@ -21,7 +21,8 @@ class OuvragesDepense < ApplicationRecord
                 @ouvrage_depense.montant = @ouvrage_depense.montant * 1000
                
                 if @ouvrage_depense.montant_prevu.to_i != 0
-                @ouvrage_depense.save
+                 @ouvrage_depense.date_maquette = Date.new(date_year) 
+                 @ouvrage_depense.save
                 end 
               end  
             end
@@ -30,7 +31,7 @@ class OuvragesDepense < ApplicationRecord
       end
     end
   
-  def self.import2(file)
+  def self.import2(file,date_year)
 
       CSV.foreach(file.path) do |row|
         if !row[0].nil? || !row[0].empty?
@@ -47,6 +48,7 @@ class OuvragesDepense < ApplicationRecord
                 @ouvrage_depense.montant_prevu = row[i]
                 @ouvrage_depense.montant_prevu = @ouvrage_depense.montant_prevu * 1000
                 if @ouvrage_depense.montant_prevu.to_i != 0
+                   @ouvrage_depense.date_maquette = Date.new(date_year) 
                 @ouvrage_depense.save
                 end 
               end  
@@ -56,7 +58,7 @@ class OuvragesDepense < ApplicationRecord
       end
     end
   
-  def self.import3(file)
+  def self.import3(file,date_year)
 
       CSV.foreach(file.path) do |row|
         if !row[0].nil? || !row[0].empty?
@@ -74,6 +76,7 @@ class OuvragesDepense < ApplicationRecord
                 @ouvrage_depense.montant_engage = @ouvrage_depense.montant_engage * 1000
                 
                 if @ouvrage_depense.montant_prevu.to_i != 0
+                   @ouvrage_depense.date_maquette = Date.new(date_year) 
                 @ouvrage_depense.save
                 end 
               end  

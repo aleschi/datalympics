@@ -1,3 +1,4 @@
+<script src="https://code.highcharts.com/gantt/modules/current-date-indicator.js"></script>
 <div class="SD-table-box">
    <div class="SD-topo-box-title">
     <span>Calendrier des travaux</span>
@@ -75,9 +76,17 @@ Highcharts.chart('container-steps', {
                   },
     },
 
-    xAxis: {
-        type: 'datetime'
-    },
+    xAxis: [{
+        currentDateIndicator: {
+            width: 1,
+            dashStyle: 'dot',
+            color: 'red',
+            label: {
+                format: '%d %b %Y'
+            }
+        },
+        type: 'datetime',
+    }],
     yAxis: {
         title: {
             text: ''
