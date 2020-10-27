@@ -3,7 +3,9 @@
 
   <div class="col-md-6">
     <div class="O-topo-image">
-      
+      <% if @ouvrage.photo.attached? %>
+      <%= image_tag @ouvrage.photo%>
+      <% end %>
     </div>
     <div class="O-topo-infos-text">
       Lieu : <%= @ouvrage.adresse %><br>

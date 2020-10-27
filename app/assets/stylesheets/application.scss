@@ -679,6 +679,11 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width:300px;
   height:150px;
   background-color:#8F8F8F;
+  overflow:hidden;
+  img{
+    width:100%;
+    height:auto;
+  }
  
 }
 .ouvrage-edit-btn {
@@ -929,6 +934,9 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 16px;
   span{
     color: #8F8F8F;
+    a{
+      color: #8F8F8F;
+    }
   }
   i{
     margin-right:10px;

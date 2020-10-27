@@ -44,7 +44,7 @@
       </div>
       <div>
         <%= number_with_delimiter(OuvragesDepense.all.sum('montant').to_i, :delimiter => ' ') %> €<br>
-        <span>Dépenses actuelles</span>
+        <span><%=link_to ouvrages_depenses_path do %>Dépenses actuelles<% end %></span>
       </div>
     </div>
     <div class="calendar-infos-box">

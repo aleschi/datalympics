@@ -16,6 +16,22 @@
     <%= form.label :name, "Nom de l'ouvrage" %>
     <%= form.text_field :name %>
   </div>
+  <div class="ED_new_form_field">
+    <%= form.label :maitre_oeuvre, "MO de l'ouvrage" %>
+    <%= form.text_field :maitre_oeuvre %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :budget, "budget de l'ouvrage" %>
+    <%= form.text_field :budget %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :adresse, "Adresse de l'ouvrage" %>
+    <%= form.text_field :adresse %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :photo, "Photo de l'ouvrage" %>
+    <%= form.file_field :photo %>
+  </div>
 
   <div class="ED_new_form_field_submit">
     <%= form.submit 'Ajouter '%>

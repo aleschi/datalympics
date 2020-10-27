@@ -21,4 +21,6 @@ class Ouvrage < ApplicationRecord
     end
 
   end
+  
+    has_one_attached :photo, dependent: :destroy
 end
