@@ -986,3 +986,35 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
   }
 }
+.ouvrages-search{
+  border:1px solid #48AF5C;
+  padding:5px 10px;
+  border-radius:50px;
+  margin-bottom:20px;
+}
+.ouvrages-search-field{
+  border:none;
+  color:#000;
+  font-size:16px;
+  outline:none;
+  width:100%;
+}
+.ouvrages-search-field::placeholder{
+  color:#8f8f8f;
+  font-size:16px;
+}
+#map{
+  height:500px;
+}
+
+#map2{
+  height:250px;
+}
+
+.map-icon-label .map-icon {
+	font-size: 24px;
+	color: #FFFFFF;
+	line-height: 48px;
+	text-align: center;
+	white-space: nowrap;
+}

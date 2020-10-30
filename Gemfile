@@ -38,12 +38,14 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'font-awesome-sass', '~> 5.13.0'
 gem 'chartkick'
 gem 'highcharts-rails'
 gem 'groupdate'
 gem 'ransack'
 gem 'activeadmin'
+gem 'geocoder'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

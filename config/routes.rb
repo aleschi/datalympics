@@ -31,5 +31,6 @@ Rails.application.routes.draw do
   get 'solideo_financements_filter' => 'solideo_financements#index_filter'
   
   get 'collectivites' => 'solideo_financements#collectivites'
+  get 'recherche-ouvrages' => 'ouvrages#search'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

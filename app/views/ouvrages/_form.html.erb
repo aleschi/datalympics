@@ -26,7 +26,7 @@
   </div>
   <div class="ED_new_form_field">
     <%= form.label :adresse, "Adresse de l'ouvrage" %>
-    <%= form.text_field :adresse %>
+    <%= form.text_field :adresse, id: "user_input_autocomplete_address" %>
   </div>
   <div class="ED_new_form_field">
     <%= form.label :photo, "Photo de l'ouvrage" %>
@@ -38,3 +38,18 @@
   </div>
 <% end %>
 </div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzB6sn07VIK_DzRsbm87THvZtEO1qPaNg&libraries=places"></script>
+
+
+<script type="text/javascript">
+var input = document.getElementById('user_input_autocomplete_address');
+var options = {
+  types: ['geocode'],
+  componentRestrictions: {country: 'fr'}
+};
+
+autocomplete = new google.maps.places.Autocomplete(input, options);
+  
+
+</script>

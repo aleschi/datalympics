@@ -4,18 +4,23 @@ class OuvragesController < ApplicationController
   # GET /ouvrages
   # GET /ouvrages.json
   def index
+    @q = Ouvrage.all.ransack(params[:q])
+   
     @ouvrages = Ouvrage.all
     @ouvrages_financements = OuvragesFinancement.all
     @maitre_oeuvre = []
     @maitre_oeuvre_all = []
+    @array= []
     @ouvrages.all.each do |ouvrage|
       if ouvrage.maitre_oeuvre != "SOLIDEO"
       @maitre_oeuvre << ouvrage.maitre_oeuvre
       end
       @maitre_oeuvre_all << ouvrage.maitre_oeuvre
+      @array << ouvrage.name
     end
     @maitre_oeuvre.uniq!
     @maitre_oeuvre_all.uniq!
+    
     
     @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
     @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')    
@@ -24,6 +29,17 @@ class OuvragesController < ApplicationController
     @solideo_depenses_ouvrages_prevu_date = OuvragesDepense.where('date <= ?', Date.today).sum('montant_prevu')
 
   end
+  
+  def search 
+    @ouvrages = Ouvrage.all
+    @q = @ouvrages.ransack(params[:q])
+    @ouvrages = @q.result
+    
+    respond_to do |format|
+
+     format.js
+    end
+  end 
 
   # GET /ouvrages/1
   # GET /ouvrages/1.json

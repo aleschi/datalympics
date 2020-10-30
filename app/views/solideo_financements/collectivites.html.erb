@@ -5,234 +5,78 @@
  
   <h1 class="SD_title">Les financements des collectivités pour les JOP2024 </h1>
 
-   <%= render 'topo_collectivites'%>
-  
-  <br><br>
   <div class="SD-topo-box">
   <div class="SD-topo-box-title">
-    <span>Financements des collectivités </span>
+    <span>Les collectivités des JOP2024</span>
   </div><br><br>
-  <div class="row"> 
-    <div class="col-md-6">
-      
-      <div id="container2">
- 
+    
+    <div class="calendar-infos">
+      <div class="calendar-infos-box">
+      <div>
+     <i class="fas fa-city"></i>
       </div>
-      <div class="SF-topo-explication">
-        Budget 2018-2025 prévu :  445 195 000 €
+      <div>
+      12<br>
+      <span>Collectivités </span>
       </div>
     </div>
-    <div class="col-md-6">
-      <div id="container-column">
+    <div class="calendar-infos-box">
+      <div>
+        <i class="fas fa-coins"></i>
+      </div>
+      <div>
+        <%= number_with_delimiter(EtatBudget.last.budget_total.to_i, :delimiter => ' ') %> €<br>
+        <span>Budget Total</span>
+      </div>
+    </div>
+   
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-chart-pie"></i>
+      </div>
+      <div>
+      25%<br>
+        <span>Du budget des JOP2024</span>
+      </div>
+    </div>
 
+  </div><br><br>
+  <div class="calendar-infos">
+     <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-building"></i>
       </div>
-      <div class="SF-topo-explication">
-         <% if SolideoFinancement.where('financeur != ? AND financeur !=? AND date <= ?', 'Etat', 'privé', Date.today).sum('montant') < SolideoFinancement.where('financeur != ? AND financeur !=? AND date <= ?','Etat', 'privé', Date.today).sum('montant_prevu')  %><span class="negative"> - <%= number_with_delimiter((SolideoFinancement.where('financeur != ? AND financeur !=? AND date <= ?','Etat', 'privé', Date.today).sum('montant_prevu')-SolideoFinancement.where('financeur != ? AND financeur !=? AND date <= ?','Etat', 'privé', Date.today).sum('montant')).to_i, :delimiter => ' ')%> € </span><% else %><span class="positive"> + <%= number_with_delimiter((SolideoFinancement.where('financeur != ? AND financeur !=? AND date <= ?','Etat', 'privé', Date.today).sum('montant')-SolideoFinancement.where('financeur != ? AND financeur !=? AND date <= ?','Etat', 'privé', Date.today).sum('montant')).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux financements prévus à date.
-        <span class='info'><i class="fas fa-info-circle"></i></span>
- 
-      </div> 
+      <div>
+      51<br>
+      <span>ouvrages MOA</span>
+      </div>
     </div>
+    <div class="calendar-infos-box">
+      <div>
+         <i class="fas fa-euro-sign"></i>
+      </div>
+      <div>
+        <%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
+        <span>Financements actuels</span>
+      </div>
+    </div>
+    
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-funnel-dollar"></i>
+      </div>
+      <div>
+      55%<br>
+        <span>Du budget de la Solideo</span>
+      </div>
+    </div>
+
   </div>
    <br><br>
  
-</div>
-</div>
-
-
-<script>
-
-Highcharts.chart('container2', {
-
-    chart: {
-      backgroundColor: '#fff',
-        type: 'solidgauge',
-        maxWidth: '500px',
-      height:'300px',
-      style:{
-          fontFamily: "Spectral",
-          },
-
-      
-    },
- 
-  title: {
-    text: "Financements actuels attribués",
-    style: {
-          color: '#8F8F8F',
-        fontStyle: "italic",
-      fontSize: '16px',
-          }
-  },
-  tooltip: {
-        borderWidth: 0,
-        backgroundColor: 'none',
-        shadow: false,
-        style: {
-            fontSize: '12px',
-          color: '#8F8F8F',
-        },
-        //valueSuffix: '€',
-        pointFormat: '',
-        positioner: function (labelWidth) {
-            return {
-                x: (this.chart.chartWidth - labelWidth) / 2,
-                y: (this.chart.plotHeight / 2) + 35
-            };
-        }
-    },
-
-    pane: {
-        startAngle: 0,
-        endAngle: 360,
-        background: [{ // Track for Move
-            outerRadius: '100%',
-            innerRadius: '90%',
-            backgroundColor: 'rgba(72,175,92,0.3)',
-            borderWidth: 0
-        }]
-    },
-
-    yAxis: {
-        min: 0,
-        max:  445195000,
-        lineWidth: 0,
-        tickPositions: [445195000],
-      tickInterval: 445195000,
-      minorTickInterval: null,
-      tickAmount:1,
-       labels: {
-            step: 445195000,
-            rotation: 'auto',
-         style: {
-           fontSize: '12px',
-          color: '#8F8F8F',
-          
-         },
-         y: -30,
-        },
-    },
-
-    plotOptions: {
-        solidgauge: {
-          
-          tooltip: "",
-          
-            dataLabels: {
-              enabled: true,
-              borderWidth: 0,
-              backgroundColor: 'none',
-              shadow: false,
-              style: {
-                  fontSize: '14px',
-                color: '#48AF5C',
-              },
-              valueSuffix: '€',
-              format: '<span style="color:#8F8F8F; font-size:12px;font-weight:400">{series.name} :</span><br><span>{point.y:,.0f} €</span>',
-            verticalAlign: 'middle',
-        
-            },
-            linecap: 'round',
-            stickyTracking: false,
-            rounded: true,
-         
-        }
-    },
-
-
-    series: [{
-        name: 'Financements attribués',
-        data: [{
-            color: '#48AF5C',
-            radius: '100%',
-            innerRadius: '90%',
-            y: <%= SolideoFinancement.where('financeur != ? AND financeur !=?','Etat','privé').sum('montant') %>
-        }]
-    }]
-});
-
-  </script>
-<script>
-Highcharts.chart('container-column', {
-  chart:{
-            type: 'column',
-            backgroundColor: '#fff',  
-            style:{
-            fontFamily: "Spectral",  
-              maxWidth: "500px",
-            },
-       
-       
-          },
-
-     title: {
-          text:'Financements attribués et prévus par année en €',
-          margin:40,
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  fontStyle: 'italic',
-                  fontSize: '16px',
-                  },
-        },
-  colors: ["#8f8f8f",'#48AF5C'],
-    yAxis: {
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Total €'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
-        xDateFormat: '%Y',
-    },
-  xAxis:{
-   //  type: 'datetime',
-    max: 2025,
-  },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2018,
-        },
-      column: {
-           pointWidth: 15,
-           tooltip: {        
-              backgroundColor: "#fff",        
-              style: {
-                  fontSize: '12px',     
-              },    
-             },
-           },
-         
-    },
-
+</div>  <br><br>
+   <%= render 'topo_collectivites'%>
   
 
-    series: [ {
-        name: 'Financements prévus',
-        data: <%= @financements_annee_co_prevu %>,
-    },{
-        name: 'Financements attribués ',
-        data: <%= @financements_annee_co %>,
-    }],
+</div>
 
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-</script>

@@ -1,0 +1,29 @@
+      <% if !@ouvrages.nil?%>
+       <% if @ouvrages.where('maitre_oeuvre = ?', "SOLIDEO").count > 0 %>
+       <div class='ouvrages-mo'>
+         MOA : Solideo
+       </div>
+      <% @ouvrages.where('maitre_oeuvre = ?', "SOLIDEO").each do |ouvrage| %>
+        <div class="O-name">
+        <%= link_to ouvrage do %>
+          <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>        
+        <% end %>
+        </div>
+        <% end %>
+      <% end %>
+       <br><br>
+      <% @maitre_oeuvre.each do |mo|%>
+       <div class='ouvrages-mo'>
+         MOA : <%= mo %>
+       </div>
+       <% @ouvrages.where('maitre_oeuvre = ?', mo).each do |ouvrage| %>
+        <div class="O-name">
+        <%= link_to ouvrage do %>
+          <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>        
+        <% end %>
+        </div>
+       <% end %>
+       <br>
+       <% end %>
+       
+      <% end %>

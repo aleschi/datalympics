@@ -7,36 +7,6 @@
   </div>
   <h1 class="SD_title">Budget des ouvrages</h1>
   
-  <div class="SD-topo-box">
-  <div class="SD-topo-box-title">
-    <span>Budget des ouvrages </span>
-  </div><br><br>
-  <div class="row"> 
-    <div class="col-md-6">
-      
-      <div id="container2">
- 
-      </div>
-      <div class="SF-topo-explication">
-        Budget total prévu (2020) :  1 417 765 000 €
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div id="container-column">
-
-      </div>
-      <div class="SF-topo-explication">
-         <% if @solideo_depenses_ouvrages_prevu_date < @solideo_depenses_ouvrages %><span class="negative"> + <%= number_with_delimiter((@solideo_depenses_ouvrages-@solideo_depenses_ouvrages_prevu_date).to_i, :delimiter => ' ')%> € </span><% else %><span class="positive"> - <%= number_with_delimiter((@solideo_depenses_ouvrages_prevu_date-@solideo_depenses_ouvrages).to_i, :delimiter => ' ')%> €</span><% end %> par rapport aux dépenses prévues à date.
-        <span class='info'><i class="fas fa-info-circle"></i></span>
-      <div class="infos-details">
-        Cet écart s'explique par un retard des chantiers dû à la Covid19
-      </div>
-      </div> 
-    </div>
-  </div>
-   <br><br>
- 
-</div><br>
    <div class="SD-topo-box">
   <div class="SD-topo-box-title">
     <span>Evolution de la maquette </span>
@@ -93,9 +63,9 @@
       
     </div><br><br>
   <div class="EB-details">
-       <a href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse">Détails des dépenses </a>      
+       <a href="#MonCollapse2" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse2">Détails des dépenses </a>      
     </div><br>
-    <section id="MonCollapse" class="collapse">
+    <section id="MonCollapse2" class="collapse">
     <% if !@ouvrages_depenses.nil? %>
         
     <div class="ED_table_filtres">
@@ -138,121 +108,6 @@
   </div>
 </div>
 
-<script>
-  // Uncomment to style it like Apple Watch
-
-
-
-Highcharts.chart('container2', {
-
-    chart: {
-      backgroundColor: '#fff',
-        type: 'solidgauge',
-        maxWidth: '500px',
-      height:'300px',
-      style:{
-          fontFamily: "Spectral",
-          },
-      
-      
-    },
- 
-  title: {
-    text: "Budget actuel dépensé",
-    style: {
-          color: '#8F8F8F',
-        fontStyle: "italic",
-      fontSize: '16px',
-          }
-  },
-  tooltip: {
-        borderWidth: 0,
-        backgroundColor: 'none',
-        shadow: false,
-        style: {
-            fontSize: '12px',
-          color: '#8F8F8F',
-        },
-        //valueSuffix: '€',
-        pointFormat: '',
-        positioner: function (labelWidth) {
-            return {
-                x: (this.chart.chartWidth - labelWidth) / 2,
-                y: (this.chart.plotHeight / 2) + 35
-            };
-        }
-    },
-
-    pane: {
-        startAngle: 0,
-        endAngle: 360,
-        background: [{ // Track for Move
-            outerRadius: '100%',
-            innerRadius: '90%',
-            backgroundColor: 'rgba(0,74,72,0.3)',
-            borderWidth: 0
-        }]
-    },
-
-    yAxis: {
-        min: 0,
-        max:  1417765000,
-        lineWidth: 0,
-        tickPositions: [1417765000],
-      tickInterval: 1417765000,
-      minorTickInterval: null,
-      tickAmount:1,
-       labels: {
-            step: 1417765000,
-            rotation: 'auto',
-         style: {
-           fontSize: '12px',
-          color: '#8F8F8F',
-          
-         },
-         y: -30,
-        },
-    },
-
-    plotOptions: {
-        solidgauge: {
-          
-          tooltip: "",
-          
-            dataLabels: {
-              enabled: true,
-              borderWidth: 0,
-              backgroundColor: 'none',
-              shadow: false,
-              style: {
-                  fontSize: '14px',
-                color: '#487F7F',
-              },
-              valueSuffix: '€',
-              format: '<span style="color:#8F8F8F; font-size:12px;font-weight:400">{series.name} :</span><br><span>{point.y:,.0f} €</span>',
-            verticalAlign: 'middle',
-        
-            },
-            linecap: 'round',
-            stickyTracking: false,
-            rounded: true,
-         
-        }
-    },
-
-
-    series: [{
-        name: 'Dépenses actuelles',
-        data: [{
-            color: '#487F7F',
-            radius: '100%',
-            innerRadius: '90%',
-            y: <%= OuvragesDepense.all.sum('montant') %>
-        }]
-    }]
-});
-
-  </script>
 <script>
   $('.infos-details').hide();
   $('.info').mouseover(function() {
@@ -345,103 +200,6 @@ Highcharts.chart('container', {
 });
 </script>
 
-<script>
-Highcharts.chart('container-column', {
-  chart:{
-            type: 'column',
-            backgroundColor: '#fff',  
-            style:{
-            fontFamily: "Spectral",  
-            },
-       
-       
-          },
-
-     title: {
-          text:'Dépenses réelles et prévues par année en €',
-          margin:40,
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  fontStyle: 'italic',
-                  fontSize: '16px',
-                  },
-        },
-  colors: ['#487f7f','#bdc467',"#8f8f8f"],
-    yAxis: {
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Total €'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
-        xDateFormat: '%Y',
-    },
-  xAxis:{
-   //  type: 'datetime',
-    max: 2025,
-  },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2018,
-        },
-      column: {
-        grouping: false,
-            shadow: false,
-            borderWidth: 0,
-          // pointWidth: 15,
-           tooltip: {        
-              backgroundColor: "#fff",        
-              style: {
-                  fontSize: '12px',     
-              },    
-             },
-           },
-         
-    },
-
-  
-
-    series: [{
-        name: 'Décaissements',
-        pointPadding: 0.4,
-        pointPlacement: -0.2,
-        data: <%= @depenses_annee %>,
-    }, {
-        name: 'Prévisionnel MAJ 2020',
-        pointPadding: 0.3,
-        pointPlacement: 0.2,
-        data: <%= @depenses_prevu_annee_maj_value %>,
-      
-    }, {
-        name: 'Prévisionnel 2018',
-        pointPadding: 0.4,
-        pointPlacement: 0.2,
-        data: <%= @depenses_prevu_annee %>,
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-</script>
 
 <script>
 Highcharts.chart('container-chart', {
