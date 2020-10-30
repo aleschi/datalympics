@@ -204,6 +204,11 @@ class SolideoDepensesController < ApplicationController
         end
       end
     
+     @solideo_financements_etat_prevu = SolideoFinancement.where("financeur = ? ", "Etat").sum('montant_prevu')
+   @solideo_financements_prive_prevu = SolideoFinancement.where("financeur = ? ", "privé").sum('montant_prevu')   
+   @solideo_financements_collectivites_prevu = SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").sum('montant_prevu')
+    
+    
   end
 
   # GET /solideo_depenses/1

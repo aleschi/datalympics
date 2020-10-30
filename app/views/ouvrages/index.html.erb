@@ -89,12 +89,10 @@
   <div class="SF-topo-financeurs-title"><span>Carte des ouvrages</span></div><br><br>
   <div class="row">
      <div class="col-md-6">
-           <%= search_form_for @q, url: recherche_ouvrages_path , method: :post, remote: true do |f| %>
+           <%= search_form_for @q, url: recherche_ouvrages_path , id: "search-form", method: :get, remote: true do |f| %>
         <div class="ouvrages-search">
            <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un ouvrage", data: {autocomplete_source: ouvrages_path} %> 
-           <div class="hidden">
-             <%= submit_tag 'Rechercher' %>
-          </div>
+          
         </div>
           <% end %>          
         
@@ -125,19 +123,15 @@
   // Below is the name of the textfield that will be autocomplete    
     $('#name').autocomplete({
  // This is the source of the auocomplete suggestions. In this case a list of names from the people controller, in JSON format.
-      source: function( request, response ) {
-       $.ajax({
-          type: "get",
-          url: "/recherche-ouvrages",
-          data: { search: request.term },
-          dataType: "json",
-          success: function(data) {
-            response( data );
-          }
-        });
-      },
+     
       //$('#name').data('autocomplete-source'),
-            //source:matieres,
+            source:matieres,
+      select: function(event, ui) {
+        $.ajax({
+          type:'GET',
+          url: '/recherche-ouvrages'
+        });
+    },
         })
      .data("ui-autocomplete")._renderItem = function(ul, item){
        var expression = new RegExp(this.term, "gi");
@@ -154,7 +148,9 @@
       return $("<li></li>")
       .append("<a>"+answer+"</a>")
       .appendTo(ul);
+     
     };
+    
   });
 </script>
 <script>
@@ -235,15 +231,17 @@ Highcharts.chart('bubble', {
 </script>
 
  <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzB6sn07VIK_DzRsbm87THvZtEO1qPaNg&callback=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzB6sn07VIK_DzRsbm87THvZtEO1qPaNg&map_ids=4c4b12db708d00c6&callback=initMap"
       defer
     ></script>
 <script>
 
 function initMap() {
   var map = new google.maps.Map(document.getElementById("map"), {
+    mapId: "4c4b12db708d00c6",
     center: { lat: 48.866667, lng: 2.333333 },
     zoom: 11,
+    
   });
 
   var infowindow = new google.maps.InfoWindow({
@@ -251,20 +249,20 @@ function initMap() {
                        });
               var image = {
                           path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
-                          fillColor: '#3233FF',
+                          fillColor: '#000091',
                           fillOpacity: 1,
                           scale: 0.5,
-                          strokeColor: '#3233FF',
-                          strokeWeight: 14,
+                          strokeColor: '#000091',
+                          strokeWeight: 1,
                           labelOrigin: new google.maps.Point(0, -30)
                         };
               var image2 ={
                           path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
-                          fillColor: '#fff',
+                          fillColor: '#000091',
                           fillOpacity: 1,
-                          scale: 0.5,
-                          strokeColor: '#fff',
-                          strokeWeight: 14,
+                          scale: 0.6,
+                          strokeColor: '#000091',
+                          strokeWeight: 1,
                           labelOrigin: new google.maps.Point(0, -30)
                         };
   

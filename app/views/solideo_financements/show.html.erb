@@ -128,12 +128,12 @@
     <div class="SD-topo-box-title"><span>Ouvrages financés</span></div>
      <div class="SF-topo-financeurs-box">
       <div class="collectivites-ouvrages-name"></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Evolution</em></div></div>
     </div> <br><br>
     <% @ouvrages.each do |ouvrage| %>
     <div class="SF-topo-financeurs-box">
       <div class="collectivites-ouvrages-name"><%= link_to ouvrage_path(ouvrage) do %><%= Ouvrage.find(ouvrage).name %> <% end %></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?',@solideo_financement.financeur, ouvrage).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?',@solideo_financement.financeur, ouvrage).sum('montant').to_i, :delimiter => ' ') %> €</div></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?',@solideo_financement.financeur, ouvrage).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <i class="fas fa-chart-line"></i> +4%</div></div>
     </div>
     <% end %>
   </div>
@@ -144,188 +144,90 @@
 
 <div  class="SD-table-box">
    <div class="SD-topo-box-title">
-        <span>Suivi des Financements par pole</span>
+        <span>Evolution de la maquette des financements de la collectivité</span>
     </div><br><br>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="SD-topo-box-title">
-        <span>Ouvrages</span>
-        </div><br><br>
-        
-    <div>
-    <%= line_chart [{name: "Financement prévus", data: @financement.where('categorie = ?', "ouvrages").unscope(:order).group_by_year(:date).sum('montant_prevu')}, {name: "Financement attribués", data: @financement.where('categorie = ?', "ouvrages").unscope(:order).group_by_year(:date).sum('montant') } ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'Financements des ouvrages',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '12px',
-                  },
-      },
-  colors: ["#8f8f8f","#487F7F"],
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-      
-           labels: {
-               format: '{value:.0f}',
-             
-           },
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y:,.0f}</b>',
-            xDateFormat: '%Y',
- 
-          },
-
-        }
-    %>
-  </div>
-      </div>
-      <div class="col-md-6">
-         <div class="SD-topo-box-title">
-        <span>Fonctionnement</span>
-      </div><br><br>
-        
-    <div id="container-ouvrages">
-    <%= line_chart [{name: "Financement prévus", data: @financement.where('categorie = ?', "fonctionnement").unscope(:order).group_by_year(:date).sum('montant_prevu')}, {name: "Financement attribués", data: @financement.where('categorie = ?', "fonctionnement").unscope(:order).group_by_year(:date).sum('montant') } ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'Financements Fonctionnement',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '12px',
-                  },
-      },
-  colors: ["#8f8f8f","#E0A922"],
-      yAxis: {
-        gridLineColor: '#E6F0FF',
-
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          }
-        }
-    %>
-  </div>
-      </div>
-    </div><br><br>
-  <div class="row">
-    <div class="col-md-6">
-       <div class="SD-topo-box-title">
-        <span>Innovation</span>
-      </div><br><br>
-      
-    <div>
-    <%= line_chart [{name: "Financements prévus", data: @financement.where('categorie = ?', "innovation").unscope(:order).group_by_year(:date).sum('montant_prevu')}, {name: "Financement attribués", data: @financement.where('categorie = ?', "innovation").unscope(:order).group_by_year(:date).sum('montant') } ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'Financements Innovation',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '12px',
-                  },
-      },
-  colors: ["#8f8f8f","#ac8c97"],
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-   
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          },
- 
-        }
-    %>
-  </div>
-      </div>
-    <div class="col-md-6">
-       <div class="SD-topo-box-title">
-        <span>Réserve</span>
-      </div><br><br>
-      
-    <div>
-    <%= line_chart [{name: "Financements prévus", data: @financement.where('categorie = ?', "reserve").unscope(:order).group_by_year(:date).sum('montant_prevu')}, {name: "Financement attribués", data: @financement.where('categorie = ?', "reserve").unscope(:order).group_by_year(:date).sum('montant') } ], library: {
-      chart:{
-            backgroundColor: '#fff',
-           
-        style:{
-          fontFamily: "Spectral",
-         
-          }
-          },
-
-      title: {
-        text:'Financements Réserve',
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '12px',
-                  },
-      },
-  colors: ["#8f8f8f","#F38C75"],
-      yAxis: {
-        gridLineColor: '#E6F0FF', 
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total: <b>{point.y}</b>',
-            xDateFormat: '%Y',
-            valuePrefix: '$'
-          }
-        }
-    %>
-  </div>
-      </div>
-  </div><br>
- 
+<div id="container-chart">
   </div>
 </div>
 </div>
 
+<script>
+Highcharts.chart('container-chart', {
+    chart: {
+        type: 'waterfall',
+      spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          },
+    },
+
+    title: {
+        text: 'Evolution de la maquette de la collectivité ',
+      margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+    },
+
+    xAxis: {
+        type: 'category'
+    },
+
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Montant €'
+        }
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    tooltip: {
+        pointFormat: '<b>${point.y:,.2f}</b> €'
+    },
+
+    series: [{
+      borderColor: '#fff',
+      data: [{
+            name: 'Prévisionnel 2018',
+            y: 1386929000,
+            color: "#8F8F8F",
+        }, {
+            name: 'Ouvrage X',
+            y: 13100000,
+            color: "#F1013B",
+        }, {
+            name: 'Ouvrage Y',
+            y: -196358000,
+            color: "#F1013B",
+        }, {
+            name: 'Ouvrage Z ',
+            y: 500000000,
+            color: "#F1013B",
+        },  {
+            name: 'Prévisionnel 2020',
+            isSum: true,
+            color: Highcharts.getOptions().colors[1]
+        }],
+        dataLabels: {
+            enabled: true,
+            formatter: function () {
+                return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
+            },
+          
+            style: {
+                fontWeight: 'bold',
+                color: '#000',
+            
+              fontFamily: 'Karla',
+            }
+        },
+        pointPadding: 0
+    }]
+});
+</script>

@@ -2,13 +2,16 @@
 @import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
-
+@font-face {
+  font-family: 'Marianne-Regular';
+  src: url('/assets/fonts')
+}
 html{
   height: 100%;
 }
 
 body {
- font-family: 'Karla', sans-serif;
+ font-family: 'Marianne-Regular', sans-serif;
  background: #e7e7e7;
  min-height: 100%;
   width:100%;
