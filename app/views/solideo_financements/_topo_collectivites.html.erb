@@ -1,5 +1,7 @@
 <% if !@solideo_financements.nil?%>
 <div class="SD-topo-box">
+  <div class="SF-topo-financeurs-title"><span>Liste des collectivités</span></div><br><br>
+   
 <div class="row">
   <div class="col-md-6">
     <div id='container-pie'>
@@ -44,23 +46,20 @@
     %>
       
     </div>
-    <div class="SF-topo-explication">
-        Budget 2018-2025 prévu : 445 195 000 €
-    </div>
+  
 
   </div>
   <div class="col-md-6">
-    <div class="SF-topo-financeurs-title"><span>Liste des collectivités</span></div><br>
-   
+    
     <div class="SF-topo-financeurs-box">
       <div class="SF-topo-financeurs-name"></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Fin. actuels €</em></div></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Evolution</em></div></div>
     </div> <br><br>
    
     <% @financeurs.each do |financeur| %>
     <div class="SF-topo-financeurs-box">
       <div class="SF-topo-financeurs-name"><%= link_to solideo_financement_path(id: SolideoFinancement.where("financeur = ?", financeur).first.id) do %><%= financeur %> <% end %></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(SolideoFinancement.where("financeur = ?", financeur).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <%= number_with_delimiter(SolideoFinancement.where("financeur = ?", financeur).sum('montant').to_i, :delimiter => ' ') %> €</div></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(SolideoFinancement.where("financeur = ?", financeur).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> | <i class="fas fa-chart-line"></i> +4%</div></div>
     </div>           
    
     <% end %>

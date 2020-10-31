@@ -10,53 +10,55 @@
       </div><br><br>
   
     <div class="calendar-infos">
+   
      <div class="calendar-infos-box">
       <div>
-      <i class="fas fa-building"></i>
+        <i class="fas fa-coins"></i>
       </div>
       <div>
-      11<br>
+        <%= number_with_delimiter(SolideoFinancement.where('financeur=?',@solideo_financement.financeur).sum('montant_prevu').to_i, :delimiter => ' ') %> €<br>
+        <span>Budget Total</span>
+      </div>
+    </div>
+     <div class="calendar-infos-box">
+      <div>
+     <i class="fas fa-hard-hat"></i>
+      </div>
+      <div>
+      <%=Ouvrage.where('maitre_oeuvre = ?',@solideo_financement.financeur).length%><br>
       <span>ouvrages MOA</span>
       </div>
     </div>
-    <div class="calendar-infos-box">
-      <div>
-         <i class="fas fa-euro-sign"></i>
-      </div>
-      <div>
-        <%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
-        <span>Financements actuels</span>
-      </div>
-    </div>
+    
    
     <div class="calendar-infos-box">
       <div>
       <i class="fas fa-chart-pie"></i>
       </div>
       <div>
-      15%<br>
+      1%<br>
         <span>Du budget des JOP2024</span>
       </div>
     </div>
 
   </div><br><br>
-  <div class="calendar-infos">
-     <div class="calendar-infos-box">
+    <div class="calendar-infos">
+  <div class="calendar-infos-box">
       <div>
-        <i class="fas fa-coins"></i>
+         <i class="fas fa-euro-sign"></i>
       </div>
       <div>
-        <%= number_with_delimiter(EtatBudget.last.budget_total.to_i, :delimiter => ' ') %> €<br>
-        <span>Budget Total</span>
+        <%= number_with_delimiter(SolideoFinancement.where('financeur=?',@solideo_financement.financeur).sum('montant').to_i, :delimiter => ' ') %> €<br>
+        <span>Financements actuels</span>
       </div>
     </div>
-    <div class="calendar-infos-box">
+   <div class="calendar-infos-box">
       <div>
-         <i class="fas fa-chart-line"></i>
+      <i class="fas fa-building"></i>
       </div>
       <div>
-        + 2636523 €<br>
-        <span>Ecart financements prévus</span>
+      <%= @ouvrages_co.length %><br>
+        <span>Ouvrages financés</span>
       </div>
     </div>
     
@@ -65,7 +67,8 @@
       <i class="fas fa-funnel-dollar"></i>
       </div>
       <div>
-      55%<br>
+       <%= ((SolideoFinancement.where('financeur=?',@solideo_financement.financeur).sum('montant_prevu')/SolideoFinancement.all.sum('montant_prevu')).round(2)*100).round%>%<br>
+      
         <span>Du budget de la Solideo</span>
       </div>
     </div>
@@ -123,21 +126,38 @@
       }) %>
 
     </div>
-    <% if !@ouvrages.nil? && !@ouvrages.empty? %>    
+   
   <div class="col-md-6">
     <div class="SD-topo-box-title"><span>Ouvrages financés</span></div>
      <div class="SF-topo-financeurs-box">
       <div class="collectivites-ouvrages-name"></div>
       <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Evolution</em></div></div>
     </div> <br><br>
-    <% @ouvrages.each do |ouvrage| %>
+   
+    <% if Ouvrage.where('maitre_oeuvre = ?',@solideo_financement.financeur).length > 0 %>
+         <div class='ouvrages-mo'>
+         MOA : <%= @solideo_financement.financeur %>
+       </div>
+      <% Ouvrage.where('maitre_oeuvre = ?',@solideo_financement.financeur).each do |ouvrage| %>
+      <div class="SF-topo-financeurs-box">
+        <div class="collectivites-ouvrages-name"><%= link_to ouvrage_path(ouvrage) do %><%= Ouvrage.find(ouvrage.id).name %> <% end %></div>
+        <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?',@solideo_financement.financeur, ouvrage.id).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <i class="fas fa-chart-line"></i> +4%</div></div>
+      </div>
+      <% end %>
+    <% end %>
+     <div class='ouvrages-mo'>
+         MOA : Autres
+       </div>
+    <% @ouvrages_co.each do |ouvrage| %>
+     
+        
     <div class="SF-topo-financeurs-box">
       <div class="collectivites-ouvrages-name"><%= link_to ouvrage_path(ouvrage) do %><%= Ouvrage.find(ouvrage).name %> <% end %></div>
       <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?',@solideo_financement.financeur, ouvrage).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <i class="fas fa-chart-line"></i> +4%</div></div>
     </div>
     <% end %>
   </div>
-  <% end %>
+
 </div><br><br>
 </div>
   <br><br>

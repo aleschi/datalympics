@@ -148,7 +148,11 @@ class SolideoFinancementsController < ApplicationController
         @ouvrages << h[0]
         end 
       end
-    
+    @ouvrages_co=[]
+    OuvragesFinancement.where('name = ?', @solideo_financement.financeur).each do |financement|
+      @ouvrages_co << financement.ouvrage_id 
+    end
+    @ouvrages_co.uniq!
   end 
 
   # GET /solideo_financements/new
