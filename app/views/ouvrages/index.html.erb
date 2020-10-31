@@ -278,7 +278,7 @@ function initMap() {
                 
                       
                           
-                bindInfoWindow(marker, map, infowindow, '<div class="search-container-fluid">'+ '<p class="search-fullname"><%= ouvrage.name%></p>'+ '</div>');
+                bindInfoWindow(marker, map, infowindow, '<div class="search-container-fluid">'+ '<p class="search-name"><%= link_to ouvrage_path(ouvrage) do %><%= ouvrage.name%><% end %></p>'+ '</div>');
        
                   AddMouseover(marker, image, image2);
                       
