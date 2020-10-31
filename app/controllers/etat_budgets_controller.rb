@@ -69,6 +69,13 @@ class EtatBudgetsController < ApplicationController
       end
     end
     
+    @ouvrages= Ouvrage.where("maitre_oeuvre = ? ", 'Etat')
+    @ouvrages_etat=[]
+    OuvragesFinancement.where('name = ?', "Etat").each do |financement|
+      @ouvrages_etat << financement.ouvrage_id 
+    end
+    @ouvrages_etat.uniq!
+    
   end
 
   # GET /etat_budgets/1

@@ -18,10 +18,10 @@
     </div>
     <div class="calendar-infos-box">
       <div>
-      <i class="fas fa-building"></i>
+      <i class="fas fa-hard-hat"></i>
       </div>
       <div>
-      5<br>
+      <%= @ouvrages.length %><br>
       <span>ouvrages MOA</span>
       </div>
     </div>
@@ -48,11 +48,11 @@
     </div>
     <div class="calendar-infos-box">
       <div>
-      <i class="fas fa-project-diagram"></i>
+      <i class="fas fa-building"></i>
       </div>
       <div>
-      4<br>
-        <span>Poles de dépenses</span>
+      <%= @ouvrages_etat.length %><br>
+        <span>Ouvrages financés</span>
       </div>
     </div>
     <div class="calendar-infos-box">
@@ -60,7 +60,7 @@
      <i class="fas fa-funnel-dollar"></i>
       </div>
       <div>
-      60%<br>
+      <%= ((SolideoFinancement.where('financeur=?','Etat').sum('montant_prevu')/SolideoFinancement.all.sum('montant_prevu')).round(2)*100).round%>%<br>
       <span>Du budget de la Solideo </span>
       </div>
     </div>
@@ -70,24 +70,48 @@
   <br><br>
 </div>
 <div class="SD-topo-box">
-  <div class="SD-topo-box-title">
-    <span>Répartition des dépenses état</span>
-  </div><br>
+  
   <div class="row">
     <div class="col-md-6">
-       
+       <div class="SD-topo-box-title">
+    <span>Répartition du budget état</span>
+  </div><br>
       <div id="container-pie">
        
       </div>
 
   </div>
-    <div class="col-md-6">   
-    <% if !@etat_depenses.nil?%>
-    <div id="container-column2">
-      
+    <div class="col-md-6">  
+      <div class="etat-ouvrages-box">
+
+    <div class="SD-topo-box-title">
+    <span>Ouvrages financés par l'Etat</span>
+  </div><br>
+       <div class="SF-topo-financeurs-box">
+      <div class="collectivites-ouvrages-name"></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Evolution</em></div></div>
+    </div> <br><br>
+         <div class='ouvrages-mo'>
+         MOA : ETAT
+       </div>
+    <% @ouvrages.each do |ouvrage| %>
+     
+    <div class="SF-topo-financeurs-box">
+      <div class="collectivites-ouvrages-name"><%= link_to ouvrage_path(ouvrage) do %><%= Ouvrage.find(ouvrage.id).name %> <% end %></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?','Etat', ouvrage.id).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <i class="fas fa-chart-line"></i> +4%</div></div>
     </div>
-    <% end %>  
+    <% end %><br><br>
+       <div class='ouvrages-mo'>
+         Autres ouvrages financés 
+       </div>
+      <% @ouvrages_etat.each do |ouvrage| %>
+       <div class="SF-topo-financeurs-box">
+      <div class="collectivites-ouvrages-name"><%= link_to ouvrage_path(ouvrage) do %><%= Ouvrage.find(ouvrage).name %> <% end %></div>
+      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?','Etat', ouvrage).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <i class="fas fa-chart-line"></i> +4%</div></div>
     </div>
+      <% end %>
+    </div>           
+      </div>
 
   </div>
   

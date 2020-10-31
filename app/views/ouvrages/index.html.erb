@@ -74,17 +74,6 @@
   </div>
   </div><br><br>
 
-
-<div  class="SD-table-box">
-  <div class="SF-topo-financeurs-title"><span>Les ouvrages par MOA </span></div><br><br>
-  <div class="row">
-     <div class="col-md-12">
-       <div id="bubble">
-         
-       </div>
-    </div>
-  </div>
-</div><br><br>
  <div  class="SD-table-box">
   <div class="SF-topo-financeurs-title"><span>Carte des ouvrages</span></div><br><br>
   <div class="row">
@@ -115,6 +104,71 @@
     </div>
   </div>
   </div><br><br>
+ 
+<div  class="SD-table-box">
+  <div class="SF-topo-financeurs-title"><span>Les ouvrages par MOA </span></div><br><br>
+  <div class="row">
+     <div class="col-md-12">
+       <div id="bubble">
+         
+       </div>
+    </div>
+  </div>
+</div><br><br>
+ 
+   <div class="SD-topo-box">
+  <div class="SD-topo-box-title">
+    <span>Evolution de la maquette budgétaire</span>
+  </div><br><br>
+    <div id="container-chart">
+      
+    </div><br>
+    <div class="EB-details">
+       <a href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse">Afficher le détail</a>      
+    </div><br>
+    <section id="MonCollapse" class="collapse">
+    <div class="table-legend">
+      <div class="table-title">
+        Légende du graphique
+      </div>
+       <table >
+        <tbody>   
+          <tr>
+            <th class="border-bottom">Inflation</td>
+            <td class="border-bottom">augmentation du budget liée à l’inflation et à l’indexation (2%)</td>
+         </tr>
+          <tr>
+            <th class="border-bottom">ajout ouvrages</td>
+            <td class="border-bottom">ajout de l’ouvrage XXX en décidé en CA mars 2019 et de l’ouvrage YYYY décidé en CA septembre 2020</td>
+         </tr>
+          <tr>
+            <th class="border-bottom">ajout programme </td>
+            <td class="border-bottom">ajout du programme XXX sur l’ouvrage XXX pris en charge par la Metropole Grand Paris<br>
+              ajout du programme YYY sur l’ouvrage YYY pris en charge par la Ville de Paris<br>
+              ajout du programme ZZZ sur l’ouvrage ZZZ </td>
+         </tr>
+          <tr>
+            <th class="border-bottom">surcoûts construction</td>
+            <td class="border-bottom">anticipation de l’inflation au-delà de 2020</td>
+         </tr>
+          <tr>
+            <th class="border-bottom">suppresion ouvrages  </td>
+            <td class="border-bottom">supression de l’ouvrage XXX en décidé en CA mars 2019 et de l’ouvrage YYYY décidé en CA septembre 2020</td>
+         </tr>
+          <tr>
+            <th>suppresion programme  </td>
+            <td>suppression du programme XXX sur l’ouvrage XXX </td>
+         </tr>
+        </tbody>
+      </table>
+     </div>
+<br><br>
+<div class="EB-details">
+       <%= link_to ouvrages_depenses_path do %>En savoir plus sur les dépenses <i class="fas fa-th-list"></i><% end %>      
+    </div><br>
+    </section>
+  </div>
+
 </div>
 <script>
 
@@ -345,3 +399,96 @@ function initMap() {
                       
 </script>
 
+
+<script>
+Highcharts.chart('container-chart', {
+    chart: {
+        type: 'waterfall',
+      spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          },
+    },
+
+    title: {
+        text: 'Evolution de la maquette des dépenses des ouvrages ',
+      margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+    },
+
+    xAxis: {
+        type: 'category'
+    },
+
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        title: {
+            text: 'Montant €'
+        }
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    tooltip: {
+        pointFormat: '<b>${point.y:,.2f}</b> €'
+    },
+
+    series: [{
+      borderColor: '#fff',
+      data: [{
+            name: 'Prévisionnel 2018',
+            y: 1386929000,
+            color: "#8F8F8F",
+        }, {
+            name: 'Inflation ',
+            y: 13100000,
+            color: "#F1013B",
+        }, {
+            name: 'Nouveaux Ouvrages',
+            y: 19635800,
+            color: "#F1013B",
+        }, {
+            name: 'Nouveaux programmes ',
+            y: 500000000,
+            color: "#F1013B",
+        },{
+            name: 'Surcoûts construction',
+            y: 83100000,
+            color: "#F1013B",
+        }, {
+            name: "Suppression d'ouvrages",
+            y: -585000000,
+          color: "#48AF5C",
+        }, {
+            name: "Suppression de programmes",
+            y: -185000000,
+          color: "#48AF5C",
+        }, {
+            name: 'Prévisionnel 2020',
+            isSum: true,
+            color: Highcharts.getOptions().colors[1]
+        }],
+        dataLabels: {
+            enabled: true,
+            formatter: function () {
+                return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
+            },
+          
+            style: {
+                fontWeight: 'bold',
+                color: '#000',
+            
+              fontFamily: 'Karla',
+            }
+        },
+        pointPadding: 0
+    }]
+});
+</script>
