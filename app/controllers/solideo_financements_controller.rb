@@ -149,8 +149,10 @@ class SolideoFinancementsController < ApplicationController
         end 
       end
     @ouvrages_co=[]
-    OuvragesFinancement.where('name = ?', @solideo_financement.financeur).each do |financement|
+    OuvragesFinancement.where('name = ?', @solideo_financement.financeur).each do |financement| 
+      if Ouvrage.find(financement.ouvrage_id).maitre_oeuvre != @solideo_financement.financeur
       @ouvrages_co << financement.ouvrage_id 
+      end 
     end
     @ouvrages_co.uniq!
   end 

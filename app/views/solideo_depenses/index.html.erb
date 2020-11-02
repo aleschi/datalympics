@@ -12,15 +12,7 @@
       </div><br><br>
   
     <div class="calendar-infos">
-     <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-building"></i>
-      </div>
-      <div>
-      59<br>
-      <span>ouvrages</span>
-      </div>
-    </div>
+     
       <div class="calendar-infos-box">
       <div>
         <i class="fas fa-coins"></i>
@@ -28,6 +20,15 @@
       <div>
         <%= number_with_delimiter(EtatBudget.last.budget_total.to_i, :delimiter => ' ') %> €<br>
         <span>Budget Total</span>
+      </div>
+    </div>
+      <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-building"></i>
+      </div>
+      <div>
+      59<br>
+      <span>ouvrages </span>
       </div>
     </div>
    
@@ -45,15 +46,7 @@
 
   </div><br><br>
   <div class="calendar-infos">
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-building"></i>
-      </div>
-      <div>
-      3<br>
-      <span>ouvrages MOA </span>
-      </div>
-    </div>
+   
      <div class="calendar-infos-box">
       <div>
          <i class="fas fa-euro-sign"></i>
@@ -61,6 +54,15 @@
       <div>
         <%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
         <span>Dépenses actuelles </span>
+      </div>
+    </div>
+     <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-building"></i>
+      </div>
+      <div>
+      3<br>
+      <span>ouvrages MOA </span>
       </div>
     </div>
     <div class="calendar-infos-box">

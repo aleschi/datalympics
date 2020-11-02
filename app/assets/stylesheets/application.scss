@@ -1030,3 +1030,40 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   max-height:400px;
   overflow: scroll;
 }
+
+.ouvrages-options{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+ 
+  text-align:center;
+  margin-top:50px;
+}
+
+.ouvrages-options-link{
+  margin-right:20px;
+  a{
+    background-color: #A9DCD9;
+    color: #fff;
+    font-size:16px;
+    padding: 8px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 2px solid #A9DCD9;
+    text-decoration:none;
+    i{
+      margin-right:10px;
+    }
+    &:hover{
+      background-color: #fff;
+      color: #A9DCD9;
+      border: 2px solid #A9DCD9;
+    }
+  }
+}
+.ouvrages-options-link-active {
+  background-color: #fff !important;
+   color: #A9DCD9 !important;
+      border: 2px solid #A9DCD9 !important;
+}

@@ -81,8 +81,17 @@
 <div  class="SD-table-box">
   <div class="row">
    <div class="col-md-6"> 
+       <div class="SD-topo-box-title">
+    <span>Répartition du budget</span>
+  </div><br>
+     <div>
+
       <%= pie_chart(@financement.unscope(:order).group(:categorie).sum('montant_prevu'), library: {
       chart: {
+        plotBackgroundColor: nil,
+        plotBorderWidth: nil,
+        plotShadow: false,
+        type: 'pie',
            backgroundColor: '#fff',
         style:{
           fontFamily: "Spectral",
@@ -90,8 +99,8 @@
           }
         },
    title: {
-          text:'Répartition des financements de la collectivité (2018-2025)',
-          margin:40,
+          text:'Répartition des financements de la collectivité (prev 2018)',
+      
           style: {
             color: '#8F8F8F',
             fontSize: '16px',
@@ -110,7 +119,7 @@
             pie: {
                 allowPointSelect: true,
               minSize: 200,
-               # cursor: 'pointer',
+                cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
                     format: '{point.name}<br>{point.y:,.0f}€ - {point.percentage:.1f} %',
@@ -124,7 +133,8 @@
             }
         },
       }) %>
-
+       
+     </div>
     </div>
    
   <div class="col-md-6">
@@ -144,9 +154,10 @@
         <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?',@solideo_financement.financeur, ouvrage.id).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <i class="fas fa-chart-line"></i> +4%</div></div>
       </div>
       <% end %>
+    <br><br>
     <% end %>
      <div class='ouvrages-mo'>
-         MOA : Autres
+       <% if Ouvrage.where('maitre_oeuvre = ?',@solideo_financement.financeur).length > 0 %> Autres <% end %>ouvrages financés 
        </div>
     <% @ouvrages_co.each do |ouvrage| %>
      
@@ -164,7 +175,7 @@
 
 <div  class="SD-table-box">
    <div class="SD-topo-box-title">
-        <span>Evolution de la maquette des financements de la collectivité</span>
+        <span>évolution de la maquette des financements de la collectivité</span>
     </div><br><br>
 <div id="container-chart">
   </div>
@@ -182,7 +193,7 @@ Highcharts.chart('container-chart', {
     },
 
     title: {
-        text: 'Evolution de la maquette de la collectivité ',
+        text: 'Evolution de la maquette budgétaire de la collectivité ',
       margin:40,
         style: {
                   color: "#8F8F8F",

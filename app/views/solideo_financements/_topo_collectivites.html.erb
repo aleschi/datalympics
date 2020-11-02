@@ -7,6 +7,9 @@
     <div id='container-pie'>
     <%= pie_chart @solideo_financements.unscope(:order).group(:financeur).sum(:montant_prevu) ,  library: {
      chart: {
+       plotBackgroundColor: nil,
+        plotBorderWidth: nil,
+        plotShadow: false,
        backgroundColor: '#fff',
         type: 'pie',
 
@@ -16,8 +19,8 @@
     },
 
       title: {
-        text:'Répartition des financements des collectivités 2018-2025 ',
-        margin:40,
+        text:'Répartition des financements des collectivités (prev 2018) ',
+   
         style: {
           color: '#8F8F8F',
           fontSize: '16px',

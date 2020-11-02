@@ -7,7 +7,9 @@
     <div class="col-md-6"> 
     <div id="container-pie-financement">
       </div>
-
+<div class="EB-details">
+       <%= link_to solideo_financements_path do %>Détails des financements <i class="fas fa-arrow-circle-right"></i> <% end%>      
+    </div><br>
   </div>
     
     
@@ -193,7 +195,7 @@ Highcharts.chart('container-pie-financement', {
           }
     },
     title: {
-         text:'Financements de la Solideo (2018-2025)',   
+         text:'Financements de la Solideo (prev 2018)',   
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",

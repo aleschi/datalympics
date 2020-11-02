@@ -72,7 +72,9 @@ class EtatBudgetsController < ApplicationController
     @ouvrages= Ouvrage.where("maitre_oeuvre = ? ", 'Etat')
     @ouvrages_etat=[]
     OuvragesFinancement.where('name = ?', "Etat").each do |financement|
+      if Ouvrage.find(financement.ouvrage_id).maitre_oeuvre != "Etat"
       @ouvrages_etat << financement.ouvrage_id 
+      end 
     end
     @ouvrages_etat.uniq!
     
