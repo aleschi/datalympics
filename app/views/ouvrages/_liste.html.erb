@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-md-6">
     <div class="ouvrages-box">
@@ -83,7 +84,13 @@ function initMap() {
                                 position: {lat: <%= ouvrage.latitude%>, lng: <%= ouvrage.longitude%>},
                                 map: map,
                                 icon: image,
-                                map_icon_label: '<span class="map-icon map-icon-hardware-store"></span>',
+                                label: {
+                                     fontFamily: "'Font Awesome 5 Free'",
+                                      text: '\uf6e3', //icon code
+                                      fontWeight: '900', //careful! some icons in FA5 only exist for specific font weights
+                                      color: '#FFFFFF', //color of the text inside marker
+                                      fontSize: '8px'
+                                },
                               });
                 
                       
@@ -140,7 +147,7 @@ function initMap() {
                         google.maps.event.addListener(marker,'mouseover', function() {
                               marker.setIcon(image2);
                               var label = this.getLabel();
-                                label.color="#3233FF";
+                                label.color="white";
                               this.setLabel(label)
                             });
                         google.maps.event.addListener(marker,'mouseout', function() {
