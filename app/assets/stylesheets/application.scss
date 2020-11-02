@@ -4,7 +4,7 @@
 @import "font-awesome";
 @font-face {
   font-family: 'Marianne Regular';
-  src: url('/assets/Marianne-Regular.woff')
+  src: font-url('Marianne-Regular.woff');
 }
 html{
   height: 100%;
