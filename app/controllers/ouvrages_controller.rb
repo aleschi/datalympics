@@ -27,6 +27,12 @@ class OuvragesController < ApplicationController
     
     @solideo_depenses_ouvrages = OuvragesDepense.all.sum('montant')
     @solideo_depenses_ouvrages_prevu_date = OuvragesDepense.where('date <= ?', Date.today).sum('montant_prevu')
+    
+    if params[:term]
+        @ouvrages = Ouvrage.where('name like ?', "%#{params[:term]}%")
+        
+        render json: @ouvrages.map(&:name)  
+      end
 
   end
   
@@ -34,6 +40,19 @@ class OuvragesController < ApplicationController
     @ouvrages = Ouvrage.all
     @q = @ouvrages.ransack(params[:q])
     @ouvrages = @q.result
+    
+    @maitre_oeuvre = []
+    @maitre_oeuvre_all = []
+    @array= []
+    @ouvrages.all.each do |ouvrage|
+      if ouvrage.maitre_oeuvre != "SOLIDEO"
+      @maitre_oeuvre << ouvrage.maitre_oeuvre
+      end
+      @maitre_oeuvre_all << ouvrage.maitre_oeuvre
+      @array << ouvrage.name
+    end
+    @maitre_oeuvre.uniq!
+    @maitre_oeuvre_all.uniq!
     
     respond_to do |format|
 

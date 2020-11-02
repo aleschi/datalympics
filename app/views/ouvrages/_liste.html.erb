@@ -1,3 +1,6 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="ouvrages-box">
       <% if !@ouvrages.nil?%>
        <% if @ouvrages.where('maitre_oeuvre = ?', "SOLIDEO").count > 0 %>
        <div class='ouvrages-mo'>
@@ -27,3 +30,127 @@
        <% end %>
        
       <% end %>
+    </div>
+  </div>
+  <div class="col-md-6">
+      <div id="map">
+      
+      </div>
+
+    </div>
+</div>
+
+ <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzB6sn07VIK_DzRsbm87THvZtEO1qPaNg&map_ids=4c4b12db708d00c6&callback=initMap"
+      defer
+    ></script>
+<script>
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById("map"), {
+    mapId: "4c4b12db708d00c6",
+    center: { lat: <%= @ouvrages.first.latitude%>, lng: <%= @ouvrages.first.longitude%> },
+    zoom: 11,
+    
+  });
+
+  var infowindow = new google.maps.InfoWindow({
+                         content:''
+                       });
+              var image = {
+                          path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+                          fillColor: '#000091',
+                          fillOpacity: 1,
+                          scale: 0.5,
+                          strokeColor: '#000091',
+                          strokeWeight: 1,
+                          labelOrigin: new google.maps.Point(0, -30)
+                        };
+              var image2 ={
+                          path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+                          fillColor: '#000091',
+                          fillOpacity: 1,
+                          scale: 0.6,
+                          strokeColor: '#000091',
+                          strokeWeight: 1,
+                          labelOrigin: new google.maps.Point(0, -30)
+                        };
+  
+  
+        <% @ouvrages.each do |ouvrage| %>
+                        
+                var marker = new google.maps.Marker({
+                                position: {lat: <%= ouvrage.latitude%>, lng: <%= ouvrage.longitude%>},
+                                map: map,
+                                icon: image,
+                                map_icon_label: '<span class="map-icon map-icon-hardware-store"></span>',
+                              });
+                
+                      
+                          
+                bindInfoWindow(marker, map, infowindow, '<div class="search-container-fluid">'+ '<p class="search-name"><%= link_to ouvrage_path(ouvrage) do %><%= ouvrage.name%><% end %></p>'+ '</div>');
+       
+                  AddMouseover(marker, image, image2);
+                      
+                <% end %>
+                }
+                      
+                function bindInfoWindow(marker, map, infowindow, html) {   
+                   
+                        google.maps.event.addListener(marker,'click', function() {
+                              infowindow.setContent(html); 
+                              infowindow.open(map, marker);
+                            });
+                       google.maps.event.addListener(infowindow, 'domready', function() {
+                       // Reference to the DIV which receives the contents of the infowindow using jQuery
+                       var iwOuter = $('.gm-style-iw');
+                       var iwBackground = iwOuter.prev();
+                       // Remove the background shadow DIV
+                       iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+                       // Remove the white background DIV
+                       iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+                       // iwOuter.children().css({'width':'100%'})
+                       //iwOuter.parent().parent().css({left: '20px'});
+                                      // Moves the shadow of the arrow 76px to the left margin 
+                       // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'right: 20px !important;'});
+                        // Moves the arrow 76px to the left margin 
+                       // iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'right: 20px !important;'});
+                                      // Changes the desired color for the tail outline.
+                        // The outline of the tail is composed of two descendants of div which contains the tail.
+                        // The .find('div').children() method refers to all the div which are direct descendants of the previous div. 
+                        iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(130,153,247,0.2) 0px 1px 6px', 'z-index' : '1'});
+                        var iwCloseBtn = iwOuter.next();
+                        // Apply the desired effect to the close button
+                        iwCloseBtn.css({
+                          opacity: '1', // by default the close button has an opacity of 0.7
+                          right: '20px', top: '3px', // button repositioning
+                          color: '#3233FF',
+                          //border: '1px solid transparent', // increasing button border and new color
+                          //'border-radius': '13px', // circular effect
+                          //'box-shadow': '0 0 5px #fff' // 3D effect to highlight the button
+                          });
+                        // The API automatically applies 0.7 opacity to the button after the mouseout event.
+                        // This function reverses this event to the desired value.
+                        iwCloseBtn.mouseout(function(){
+                          $(this).css({opacity: '1'});
+                        })
+                      });
+                    }
+                function AddMouseover(marker, image, image2){
+                        google.maps.event.addListener(marker,'mouseover', function() {
+                              marker.setIcon(image2);
+                              var label = this.getLabel();
+                                label.color="#3233FF";
+                              this.setLabel(label)
+                            });
+                        google.maps.event.addListener(marker,'mouseout', function() {
+                              marker.setIcon(image);
+                              var label = this.getLabel();
+                                label.color="white";
+                              this.setLabel(label)
+                            });
+                      
+                }
+                     
+                      
+</script>
