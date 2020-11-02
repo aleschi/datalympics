@@ -15,6 +15,7 @@
 
        style:{
           fontFamily: "Spectral",
+         maxWidth: "500px",
           },
     },
 
@@ -30,7 +31,8 @@
      plotOptions: {
         pie: {
             innerSize: 130,
-           
+           allowPointSelect: true,
+            cursor: 'pointer',
           minSize: 200,
             dataLabels: {
                     enabled: true,
