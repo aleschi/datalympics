@@ -189,13 +189,13 @@
       var result = expression.exec(item.label);
       var answer; 
       if (result.index == 0){
-        answer = item.label.replace(expression, "<span style='font-weight:bold;color:#3233FF'>" + this.term + "</span>");
+        answer = item.label.replace(expression, "<span style='font-weight:bold;color:#48AF5C'>" + this.term + "</span>");
         return $("<li></li>")
       .append("<a>"+answer+"</a>")
       .prependTo(ul);
       }   
       else
-       answer = item.label.replace(expression, "<span style='font-weight:bold;color:#3233FF'>" + this.term.toLowerCase() + "</span>");
+       answer = item.label.replace(expression, "<span style='font-weight:bold;color:#48AF5C'>" + this.term.toLowerCase() + "</span>");
       return $("<li></li>")
       .append("<a>"+answer+"</a>")
       .appendTo(ul);
