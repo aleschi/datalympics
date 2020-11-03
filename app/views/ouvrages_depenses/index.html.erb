@@ -54,7 +54,7 @@
       </table>
      </div>
     </section>
-  </div>
+  </div><br><br>
   <div  class="SD-table-box">
     <div class="SD-topo-box-title">
       <span>Suivi trimestriel des dépenses des ouvrages </span>
@@ -105,6 +105,35 @@
     <%end%>
     </section>
   <br>
+  </div>
+  
+  <div  class="SD-table-box">
+    <div class="SD-topo-box-title">
+      <span>Suivi des financements des ouvrages</span>
+    </div><br><br>
+    <div class="ED_table">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <% @financeurs.each do |financeur|%>
+            <th scope="col" ><span class="table-ouvrages-financeur"><%= financeur%></span></th>
+            <% end %>
+           
+          </tr>
+        </thead>
+        <tbody>
+          <% @ouvrages.each do |ouvrage| %>
+          <tr>
+            <td class="table-ouvrages-financeur"><span class="table-ouvrages-financeur"><%= ouvrage.name %></span></td>
+            <% @financeurs.each do |financeur|%>
+            <td><div class="table-row"><div class="table-ouvrages-financeur"><% if OuvragesFinancement.where('ouvrage_id = ? AND name = ?',ouvrage.id, financeur ).sum('montant_prevu') > 0 %><%= number_with_delimiter(OuvragesFinancement.where('ouvrage_id = ? AND name = ?',ouvrage.id, financeur ).sum('montant_prevu').to_i, :delimiter => ' ') %> € <% end %></div></td>
+          <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 

@@ -9,7 +9,8 @@ class OuvragesController < ApplicationController
     @ouvrages = Ouvrage.all
     @ouvrages_financements = OuvragesFinancement.all
     @ouvrages_depenses = OuvragesDepense.all
-   
+    @financeurs = ["privé", "Etat", "RIF", "Ville de Paris", "Métropole Grand Paris", "CD92", "CD93", "CD78", "EPT Plaine Commune","EPT Terres d'envol", "Ville de Dugny", "Ville du Bourget", "CASQY", "Ville de Marseille"]
+
     @maitre_oeuvre = []
     @maitre_oeuvre_all = []
     @array= []
