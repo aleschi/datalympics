@@ -78,6 +78,9 @@
     <%= pie_chart OuvragesFinancement.where('ouvrage_id = ?', @ouvrage.id).unscope(:order).group(:name).sum(:montant_prevu) ,  library: {
      chart: {
        backgroundColor: '#fff',
+       plotBackgroundColor: nil,
+        plotBorderWidth: nil,
+        plotShadow: false,
         type: 'pie',
 
        style:{
@@ -96,6 +99,8 @@
       },
      plotOptions: {
         pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
            size: 200,
            dataLabels: {
                     enabled: true,

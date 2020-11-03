@@ -57,7 +57,7 @@
       <i class="fas fa-building"></i>
       </div>
       <div>
-      <%= @ouvrages_co.length %><br>
+      <%= @ouvrages_co.length + Ouvrage.where('maitre_oeuvre = ?',@solideo_financement.financeur).length%><br>
         <span>Ouvrages financés</span>
       </div>
     </div>
@@ -235,7 +235,7 @@ Highcharts.chart('container-chart', {
         }, {
             name: 'Ouvrage Y',
             y: -196358000,
-            color: "#F1013B",
+            color: "#48AF5C",
         }, {
             name: 'Ouvrage Z ',
             y: 500000000,
