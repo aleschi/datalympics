@@ -18,7 +18,7 @@
         <i class="fas fa-coins"></i>
       </div>
       <div>
-        <%= number_with_delimiter(EtatBudget.last.budget_total.to_i, :delimiter => ' ') %> €<br>
+        <%= number_with_delimiter(SolideoFinancement.all.sum('montant_prevu').to_i, :delimiter => ' ') %> €<br>
         <span>Budget Total</span>
       </div>
     </div>
@@ -52,7 +52,7 @@
          <i class="fas fa-euro-sign"></i>
       </div>
       <div>
-        <%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
+        <%= number_with_delimiter(SolideoFinancement.all.sum('montant').to_i, :delimiter => ' ') %> €<br>
         <span>Dépenses actuelles </span>
       </div>
     </div>
