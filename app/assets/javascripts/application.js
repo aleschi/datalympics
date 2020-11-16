@@ -12,10 +12,11 @@
 //
 
 //= require jquery3
-
+//= require bootstrap-sprockets
 //= require jquery-ui
 
-//= require bootstrap-sprockets
+//= require jquery_ujs
+
 
 //= require activestorage
 //= require turbolinks
