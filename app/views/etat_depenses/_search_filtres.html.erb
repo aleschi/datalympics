@@ -5,7 +5,7 @@
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <p class="modal-title modal-title-search-filtres" id="exampleModalLabel">Filtres <i class="fas fa-sliders-h"></i></p>
+        <p class="modal-title modal-title-search-filtres" >Filtres <i class="fas fa-sliders-h"></i></p>
     
       </div>
       
@@ -68,10 +68,6 @@
 </div>
 
 <script>
-
-$('#close-modal').click(function() {
-    $('#filtres').modal('hide');
-});
 $('input').attr('checked', false); 
 
  $('input').change(function()
@@ -83,4 +79,11 @@ $('input').attr('checked', false);
         };
       });
   
+</script>
+
+<script>
+  
+$('#close-modal').click(function() {
+    $('#filtres').modal('hide');
+});
 </script>
