@@ -1,6 +1,6 @@
 class OuvragesFinancementsController < ApplicationController
   before_action :set_ouvrages_financement, only: [:show, :edit, :update, :destroy]
-
+before_action :authenticate_user!
   # GET /ouvrages_financements
   # GET /ouvrages_financements.json
   def index

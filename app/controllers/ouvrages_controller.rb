@@ -1,5 +1,6 @@
 class OuvragesController < ApplicationController
   before_action :set_ouvrage, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
   require 'csv'
   # GET /ouvrages
   # GET /ouvrages.json

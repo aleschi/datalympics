@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 module Datalympics
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.i18n.default_locale = :fr
     config.load_defaults 5.2
     config.active_record.default_timezone = :utc
 config.assets.paths << Rails.root.join("app", "assets", "fonts")

@@ -1,6 +1,6 @@
 class SolideoFinancementsController < ApplicationController
   before_action :set_solideo_financement, only: [:show, :edit, :update, :destroy]
-
+before_action :authenticate_user!
   # GET /solideo_financements
   # GET /solideo_financements.json
   def index

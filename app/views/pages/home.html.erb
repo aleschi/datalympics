@@ -4,7 +4,9 @@
   <%= image_tag "home.jpg" %>
 
 <div class="home_page">
- 
+ <div class="deconnexion-btn">
+    <%= link_to destroy_user_session_path, method: :delete do %> Déconnexion <% end %>
+  </div>
   <br>
   <div class="home_choice_text text-center">
     Suivre le budget par acteur 
@@ -21,6 +23,7 @@
     </div>
        
   </div>
+  
  
 
   

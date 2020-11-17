@@ -1,6 +1,6 @@
 class EtatDepensesController < ApplicationController
   before_action :set_etat_depense, only: [:show, :edit, :update, :destroy]
-
+before_action :authenticate_user!
   # GET /etat_depenses
   # GET /etat_depenses.json
   def index

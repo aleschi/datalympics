@@ -1,0 +1,32 @@
+<div class="EB_page">
+   <div class="ED_new_form_box">
+  <h1 class="EB_title_connexion">Datalympics</h1>
+  <div class="connexion_user">
+    <i class="fas fa-user-circle"></i>
+  </div>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render 'shared/devise_errors' %>
+
+    <div class="form">
+      <%= f.label :email, "Adresse mail" %>
+      <%= f.email_field :email, autofocus: true, required: true, autocomplete: "email", class:"form-field" %>
+    </div>
+
+    <div class="form">
+      <%= f.label :password %>
+      <%= f.password_field :password, required: true, autocomplete: "new-password", class:"form-field"  %>
+    </div>
+
+    <div class="form">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation,required: true, autocomplete: "new-password", class:"form-field"  %>
+    </div>
+
+    <div class="form-submit">
+      <%= f.submit "Inscription", class:"submit-btn" %>
+    </div>
+  <% end %>
+
+  </div>
+</div>

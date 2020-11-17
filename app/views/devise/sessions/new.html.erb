@@ -1,0 +1,59 @@
+<div class="EB_page">
+ <div class="ED_new_form_box">
+   
+  <h1 class="EB_title_connexion">Datalympics</h1>
+  <div class="connexion_user">
+    <i class="fas fa-user-circle"></i>
+  </div>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= render 'shared/devise_errors' %>
+  <div class="form">
+    <%= f.label :email, "Adresse mail" %>
+    <%= f.email_field :email,required: true, autofocus: true, autocomplete: "email",class:"form-field", id: "form-field1" %>
+  </div>
+
+  <div class="form">
+    <%= f.label :password %>
+    <%= f.password_field :password,required: true, autocomplete: "current-password",class:"form-field", id: "form-field2" %>
+  </div>
+
+
+  <div class="form-submit">
+    <%= f.submit "Connexion", class:"submit-btn" %>
+  </div>
+<% end %>
+  </div>
+</div>
+<script>
+ 
+ $(document).ready(function(e) {
+ 
+  $('#form-field1').keyup(function() {
+ 
+    var nombreCaractere = $(this).val().length;
+    var nombreCaractere2 = $('#form-field2').val().length;
+
+ 
+    if ( nombreCaractere > 0 && nombreCaractere2 > 0 ){
+     $(".submit-btn").addClass("submit-btn-active");
+     }
+ 
+  });
+   
+   $('#form-field2').keyup(function() {
+ 
+    var nombreCaractere = $(this).val().length;
+    var nombreCaractere2 = $('#form-field1').val().length;
+
+ 
+    if ( nombreCaractere > 0 && nombreCaractere2 > 0 ){
+     $(".submit-btn").addClass("submit-btn-active");
+     }
+ 
+  });
+ 
+});
+   
+
+</script>

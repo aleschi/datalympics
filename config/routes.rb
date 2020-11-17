@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :users, :path => "",
+    :path_names =>  {:sign_in => "connexion", :sign_out => "deconnexion"}
   ActiveAdmin.routes(self)
   resources :ouvrages_financements do 
     collection {post :import}

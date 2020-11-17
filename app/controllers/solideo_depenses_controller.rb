@@ -1,6 +1,6 @@
 class SolideoDepensesController < ApplicationController
   before_action :set_solideo_depense, only: [:show, :edit, :update, :destroy]
-
+before_action :authenticate_user!
   # GET /solideo_depenses
   # GET /solideo_depenses.json
   def index
