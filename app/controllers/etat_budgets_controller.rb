@@ -4,6 +4,7 @@ class EtatBudgetsController < ApplicationController
   # GET /etat_budgets
   # GET /etat_budgets.json
   def index
+    @nav=true
     @etat_budgets = EtatBudget.all
     if !EtatBudget.last.nil?
       @etat_budget_actuel = EtatBudget.last

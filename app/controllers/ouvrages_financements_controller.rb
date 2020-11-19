@@ -4,6 +4,7 @@ before_action :authenticate_user!
   # GET /ouvrages_financements
   # GET /ouvrages_financements.json
   def index
+     @nav=true
     @ouvrages_financements = OuvragesFinancement.all
   end
 

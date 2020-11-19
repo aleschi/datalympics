@@ -4,6 +4,7 @@ before_action :authenticate_user!
   # GET /solideo_depenses
   # GET /solideo_depenses.json
   def index
+     @nav=true
     @solideo_depenses = SolideoDepense.all
     @solideo_financements = SolideoFinancement.all
     @solideo_depenses_total = OuvragesDepense.all.sum('montant') + @solideo_financements.where('categorie = ?', "reserve").sum('montant') + @solideo_financements.where('categorie = ?', "innovation").sum('montant') + @solideo_financements.where('categorie = ?', "fonctionnement").sum('montant')

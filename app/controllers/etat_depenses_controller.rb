@@ -4,6 +4,7 @@ before_action :authenticate_user!
   # GET /etat_depenses
   # GET /etat_depenses.json
   def index
+     @nav=true
     @etat_depenses = EtatDepense.all.order('date DESC')
     @etat_depenses_solideo = EtatDepense.where("beneficiaire =?", "solideo")
     @etat_depenses_cojo = EtatDepense.where("beneficiaire =?", "cojo")

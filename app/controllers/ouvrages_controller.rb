@@ -5,6 +5,7 @@ class OuvragesController < ApplicationController
   # GET /ouvrages
   # GET /ouvrages.json
   def index
+     @nav=true
     @q = Ouvrage.all.ransack(params[:q])
    
     @ouvrages = Ouvrage.all
@@ -96,7 +97,7 @@ class OuvragesController < ApplicationController
   # GET /ouvrages/1
   # GET /ouvrages/1.json
   def show
-   
+    @nav=true
     @ouvrage_financements = OuvragesFinancement.all.where('ouvrage_id = ?', @ouvrage.id)
     @ouvrage_depenses = OuvragesDepense.all.where('ouvrage_id = ?', @ouvrage.id)
     @ouvrage_financeurs_hash = @ouvrage_financements.group(:name).sum('montant')

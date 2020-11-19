@@ -4,6 +4,7 @@ before_action :authenticate_user!
   # GET /solideo_financements
   # GET /solideo_financements.json
   def index
+     @nav=true
     @solideo_financements = SolideoFinancement.all
  
     @solideo_financements_etat_prevu = SolideoFinancement.where("financeur = ? ", "Etat").sum('montant_prevu')
@@ -136,7 +137,7 @@ before_action :authenticate_user!
   # GET /solideo_financements/1
   # GET /solideo_financements/1.json
   def show
-    
+     @nav=true
     @financement=SolideoFinancement.where('financeur = ?', @solideo_financement.financeur)
     @ouvrage_finances = OuvragesFinancement.where('name = ?', @solideo_financement.financeur)
     
@@ -186,6 +187,7 @@ before_action :authenticate_user!
   end  
   
   def collectivites
+     @nav=true
     @solideo_financements = SolideoFinancement.where('financeur != ? AND financeur != ? ', 'Etat', "privé").all
      @financeurs_hash = @solideo_financements.group(:financeur).sum('montant')
     @financeurs = []

@@ -4,6 +4,7 @@
   </div>
  
   <h1 class="SD_title">Le financement de la solideo</h1>
+    <div class="ED_new_form_box2">
     <div class="row">
     <div class="col-md-6">
        <div class="SF-new-box">
@@ -46,8 +47,14 @@
           <%end%> 
         <% else %>
           <div class="SF-new-file-exist">
-            <span>T1 2018 exec <i class="fas fa-check"></i> </span>
+           <span> T1 2018 exec <i class="fas fa-check"></i></span>
           </div>
+          <div class="SF-new-file-delete">
+           <%= form_tag deleteall_solideo_financements_path do %>
+           <%= hidden_field_tag :date, Date.new(2018,3) %>
+           <%= button_tag(type: "submit") do %> <i class="fas fa-trash-alt"></i><%end%>
+           <% end %>
+         </div>
         <% end %>
        </div>
       
@@ -220,7 +227,7 @@
       
     </div>
   </div> 
-  
+
   <div class="row">
     <div class="col-md-6">
        <div class="SF-new-box">
@@ -263,8 +270,14 @@
           <%end%> 
         <% else %>
           <div class="SF-new-file-exist">
-            <span>T1 2019 exec <i class="fas fa-check"></i> </span>
+           <span> T1 2019 prévu <i class="fas fa-check"></i></span>
           </div>
+         <div class="SF-new-file-delete">
+           <%= form_tag deleteall_solideo_financements_path do %>
+           <%= hidden_field_tag :date, Date.new(2019,3) %>
+           <%= button_tag(type: "submit") do %> <i class="fas fa-trash-alt"></i><%end%>
+           <% end %>
+         </div>
         <% end %>
        </div>
       
@@ -480,8 +493,14 @@
           <%end%> 
         <% else %>
           <div class="SF-new-file-exist">
-            <span>T1 2020 exec <i class="fas fa-check"></i> </span>
+           <span> T1 2020 exec <i class="fas fa-check"></i></span>
           </div>
+          <div class="SF-new-file-delete">
+           <%= form_tag deleteall_solideo_financements_path do %>
+           <%= hidden_field_tag :date, Date.new(2020,3) %>
+           <%= button_tag(type: "submit") do %> <i class="fas fa-trash-alt"></i><%end%>
+           <% end %>
+         </div>
         <% end %>
        </div>
       
@@ -1526,7 +1545,8 @@
   </div> 
  
 
-
+    
+  </div>
 
 
 
