@@ -97,6 +97,7 @@ class OuvragesController < ApplicationController
   # GET /ouvrages/1
   # GET /ouvrages/1.json
   def show
+    @navshow = true 
     @nav=true
     @ouvrage_financements = OuvragesFinancement.all.where('ouvrage_id = ?', @ouvrage.id)
     @ouvrage_depenses = OuvragesDepense.all.where('ouvrage_id = ?', @ouvrage.id)

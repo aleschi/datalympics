@@ -12,7 +12,18 @@
       <% end %>
     </div>
   </div>
+  <% if !@navshow.nil? && !@ouvrage.nil?%>
+  <div class="navigation-menu"><%= link_to ouvrages_path, class:"menu" do%><i class="fas fa-arrow-left"></i> Retour aux ouvrages<%end%></div>
 
+  <div class="dropdown navigation-menu ">
+      <a class="menu menu-ouvrages" href="#ouvrages" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="ouvrages" id="btn-collapse-ouvrages"><i class="fas fa-building"></i> Ouvrages <span class="collapse-icon"></span></a>
+    </div>
+
+    <section id="ouvrages" class="collapse">
+      <div class="navigation-menu navigation-menu2"><a class="menu2  menu-ouvrages-ouvrage" do %><%= @ouvrage.name %></a></div>
+
+   </section>
+  <% else%>
     <div class="dropdown navigation-menu ">
       <a class="menu menu-budget-etat" href="#MonCollapse2" id="btn-budget-collapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse2" id="btn-collapse"><i class="fas fa-coins"></i> Mon Budget<span class="collapse-icon"></span></a>
     </div>
@@ -20,9 +31,11 @@
     <section id="MonCollapse2" class="collapse">
       <div class="navigation-menu navigation-menu2"><%= link_to etat_budgets_path, class:"menu2  menu-budget-global" do %>Budget global<%end%></div>
 
-      <div class="navigation-menu navigation-menu2"><%= link_to root_path, class:"menu2 menu-budget-solideo" do %>Budget SOLIDEO <%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_solideo_path, class:"menu2 menu-budget-solideo" do %>Budget SOLIDEO <%end%></div>
 
-      <div class="navigation-menu navigation-menu2"><a class="menu2 menu-budget-solideo"> Budget COJO</a></div>
+      <div class="navigation-menu navigation-menu2"><a class="menu2 menu-budget-cojo"> Budget COJO</a></div>
+      
+       <div class="navigation-menu navigation-menu2"><%= link_to documents_etat_path, class:"menu2 menu-budget-docs" do %> Documents Budgétaires <%end%></div>
 
    </section>
 
@@ -37,7 +50,7 @@
 
       <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_path, class:"menu2 menu-solideo-ouvrages" do%>Ouvrages<%end%></div>
       
-      <div class="navigation-menu navigation-menu2"><a class="menu2 menu-solideo-docs">Docs partagés </a></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to documents_partages_path, class:"menu2 menu-solideo-docs" do%>Documents  <%end%></div>
    </section>
   
   <div class="navigation-menu"><a class="menu"><i class="fas fa-medal"></i> Suivi COJO</a></div>
@@ -45,3 +58,4 @@
   <div class="TB-menu-prof"><%= link_to destroy_user_session_path, method: :delete, class: "menu" do%><i class="fas fa-sign-out-alt"></i>Se déconnecter<% end %></div>
 
 </div>
+<% end %>

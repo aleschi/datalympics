@@ -3,4 +3,11 @@ class PagesController < ApplicationController
   def home
      @nav=true
   end
+  
+  def documents_partages
+     @nav=true
+  end
+  def documents_etat
+     @nav=true
+  end
 end

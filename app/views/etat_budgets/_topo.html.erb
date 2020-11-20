@@ -5,80 +5,77 @@
   <div class="SD-topo-box-title">
     <span>Le Budget de l'état  en chiffres</span>
   </div><br><br>
-  
-    <div class="calendar-infos">
-    <div class="calendar-infos-box">
-      <div>
-        <i class="fas fa-coins"></i>
+    <div class="row">
+    <div class="col-md-4">
+      <div class="calendar-infos">
+        <div class="calendar-infos-box">
+        <div>
+          <i class="fas fa-coins"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter(EtatBudget.last.budget_total.to_i, :delimiter => ' ') %> €<br>
+          <span>Budget Total</span>
+        </div>
       </div>
-      <div>
-        <%= number_with_delimiter(EtatBudget.last.budget_total.to_i, :delimiter => ' ') %> €<br>
-        <span>Budget Total</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-hard-hat"></i>
-      </div>
-      <div>
-      <%= @ouvrages.length %><br>
-      <span>ouvrages MOA</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-chart-pie"></i>
-      </div>
-      <div>
-      25%<br>
-        <span>Du budget des JOP2024</span>
-      </div>
-    </div>
+      </div><br><br>
 
-  </div><br><br>
-  <div class="calendar-infos">
-    <div class="calendar-infos-box">
-      <div>
-         <i class="fas fa-euro-sign"></i>
-      </div>
-      <div>
-        <%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
-        <span>Dépenses actuelles</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-building"></i>
-      </div>
-      <div>
-      <%= @ouvrages_etat.length %><br>
-        <span>Ouvrages financés</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-     <i class="fas fa-funnel-dollar"></i>
-      </div>
-      <div>
-      <%= ((SolideoFinancement.where('financeur=?','Etat').sum('montant_prevu')/SolideoFinancement.all.sum('montant_prevu')).round(2)*100).round%>%<br>
-      <span>Du budget de la Solideo </span>
-      </div>
-    </div>
-    
+      <div class="calendar-infos">
 
+
+      <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-chart-pie"></i>
+        </div>
+        <div>
+        25%<br>
+          <span>Du budget des JOP2024</span>
+        </div>
+      </div>
+
+    </div><br><br>
+      <div class="calendar-infos">
+      <div class="calendar-infos-box">
+        <div>
+           <i class="fas fa-euro-sign"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
+          <span>Dépenses actuelles</span>
+        </div>
+      </div>
+
+
+    </div><br><br>
+      <div class="calendar-infos">
+
+      <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-chart-pie"></i>
+        </div>
+        <div>
+        4<br>
+          <span>Poles de dépenses</span>
+        </div>
+      </div>
+
+    </div>
+    </div>
+      <div class="col-md-8">
+        <div id="container-pie">
+       
+      </div>
+      </div>
   </div>
   <br><br>
 </div>
-<div class="SD-topo-box">
+<div class="SD-topo-box hidden">
   
   <div class="row">
     <div class="col-md-6">
        <div class="SD-topo-box-title">
     <span>Répartition du budget état</span>
   </div><br>
-      <div id="container-pie">
-       
-      </div>
+      
 
   </div>
     <div class="col-md-6">  
@@ -141,10 +138,11 @@ Highcharts.chart('container-pie', {
           style:{
           fontFamily: "Spectral",
           maxWidth: "500px",
-          }
+          },
+      height: '300px',
     },
     title: {
-         text:'Répartition du budget (prev 2018)',   
+         text:null,   
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
@@ -165,7 +163,7 @@ Highcharts.chart('container-pie', {
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
-           minSize: 200,
+           size: 200,
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}</b><br>{point.y:,.0f}€ - {point.percentage:.1f} %',

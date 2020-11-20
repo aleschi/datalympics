@@ -134,6 +134,20 @@ class EtatBudgetsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def budget_solideo
+    @nav=true
+    @ouvrages= Ouvrage.where("maitre_oeuvre = ? ", 'Etat')
+    @ouvrages_etat=[]
+    OuvragesFinancement.where('name = ?', "Etat").each do |financement|
+      if Ouvrage.find(financement.ouvrage_id).maitre_oeuvre != "Etat"
+      @ouvrages_etat << financement.ouvrage_id 
+      end 
+    end
+    @ouvrages_etat.uniq!
+    
+    @etat_depenses = EtatDepense.where("beneficiaire =?", "solideo").order('date DESC')
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

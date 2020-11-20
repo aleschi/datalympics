@@ -12,9 +12,7 @@
    
           
         </div>
-       <div class="EB-details">
-         <%= link_to ouvrages_path do %>Voir les ouvrages <i class="fas fa-arrow-right"></i><% end %>
-      </div><br>
+   
                 
       </div>
       <div class="col-md-6">
@@ -54,9 +52,9 @@
   </div><br><br>
   <div class="SD-table-box-left">
     <div class="EB-details">
-       <a href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse">Détails des dépenses </a>      
+       <a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details">Détails des dépenses </a>      
     </div><br>
-    <section id="MonCollapse" class="collapse">
+    <section id="details" class="collapse">
     <% if !@solideo_depenses_array.nil? %>     
         <div class="ED_table">
           <table>

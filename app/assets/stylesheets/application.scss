@@ -40,7 +40,7 @@ body {
   font-weight:600;
   margin-bottom:20px;
   text-transform:uppercase;
-  color:#48AF5C;
+  color:#000091;
 }
 .connexion_user{
   text-align:center;
@@ -57,7 +57,7 @@ body {
   margin-bottom:10px;
   label{
     display:block;
-    color:#48AF5C;
+    color:#000091;
     text-transform: uppercase;
     font-size: 16px;
   }
@@ -65,7 +65,7 @@ body {
 .form-field{
   width:80%;
   margin:auto;
-  border: 1px solid #48AF5C;
+  border: 1px solid #000091;
   appearance: none;
   outline:none;
   font-size:14px;
@@ -79,16 +79,16 @@ body {
 }
 .submit-btn{
   background-color:#fff;
-  color:#48AF5C;
+  color:#000091;
   font-size:16px;
   text-transform:uppercase;
   padding: 8px 12px;
   border-radius:50px;
   border:none;
-  border:2px solid #48AF5C;
+  border:2px solid #000091;
 }
 .submit-btn-active{
-  background-color:#48AF5C;
+  background-color:#000091;
   color:#fff;
 }
 .deconnexion-btn{
@@ -154,7 +154,7 @@ body {
 }
 .ED_home_button, .SD_home_button, .O_home_button{
   a{
-    color:#48AF5C;
+    color:#000091;
     font-size:15px;
     text-decoration:none;
     font-weight:400;
@@ -205,17 +205,17 @@ body {
    
     thead{
       tr{
-        border-bottom:1px solid #48AF5C;
+        border-bottom:1px solid #000091;
         margin-bottom: 40px;
         th{
           padding:15px 10px;
           text-align:center;
-          color:#48AF5C;
+          color:#000091;
           text-transform:uppercase;
           font-size:15px;
-          border-right:1px solid #48AF5C;
+          border-right:1px solid #000091;
           a{
-            color:#48AF5C;
+            color:#000091;
           }
         } 
         .border-none{
@@ -225,14 +225,14 @@ body {
     }
     tbody{
       tr{
-        border-bottom:1px solid #48AF5C;
+        border-bottom:1px solid #000091;
         th{
           padding:8px 10px;
           text-align:center;
           color:#444444;
           text-transform:uppercase;
           font-size:15px;
-          border-right:1px solid #48AF5C;
+          border-right:1px solid #000091;
            a{
             color:#444444;
             margin:0 5px;
@@ -245,14 +245,14 @@ body {
           color:#8f8f8f;
           text-transform:uppercase;
           font-size:15px;
-          border-right:1px solid #48AF5C;
+          border-right:1px solid #000091;
           a{
             color: rgba(0,74,112,0.4);
             text-decoration:none;
             margin:0 5px;
           }
           span{
-            color: #48AF5C; 
+            color: #000091; 
           }
           .table-row{
                 display: inline-flex;
@@ -265,7 +265,7 @@ body {
           .table-row-left{
             width:50%;
             text-align:right;
-            color: #48AF5C; 
+            color: #000091; 
             padding-right:5px;
           }
           .table-row-right{
@@ -290,7 +290,7 @@ body {
   margin-bottom:50px;
 }
 .ED_new_form_box, .SD_new_form_box{
-  border:2px solid #48AF5C;
+  border:2px solid #000091;
   border-radius:13px;
   padding:25px 35px;
   width:40%;
@@ -299,7 +299,7 @@ body {
    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .ED_new_form_box2{
-  border:2px solid #48AF5C;
+  border:2px solid #000091;
   border-radius:13px;
   padding:25px 35px;
   width:60%;
@@ -335,20 +335,20 @@ body {
 }
 
 .ED_new_form_input, .SD_new_form_input{
-  border: 1px solid #48AF5C;
+  border: 1px solid #000091;
   
 }
 .ED_new_form_input_categorie, .SD_new_form_input_categorie{
-   border: 1px solid #48AF5C;
+   border: 1px solid #000091;
 }
 .ED_new_form_input_titre, .SD_new_form_input_titre{
-  border: 1px solid #48AF5C;
+  border: 1px solid #000091;
 }
 .ED_new_form_input_beneficiaire, .SD_new_form_input_beneficiaire{
-  border: 1px solid #48AF5C;
+  border: 1px solid #000091;
 }
 .ED_new_form_input_date, .SD_new_form_input_date{
-  border: 1px solid #48AF5C;
+  border: 1px solid #000091;
 }
 .ED_new_form_field_submit, .SD_new_form_field_submit{
   margin-top:50px;
@@ -370,7 +370,7 @@ body {
 .ED_new_form_field_date:after, .ED_new_form_field_beneficiaire:after, .ED_new_form_field_titre:after, .SD_new_form_field_date:after, .SD_new_form_field_beneficiaire:after, .SD_new_form_field_titre:after {
     content: '<>';
   font-size: 15px ;
-  color: #48AF5C;
+  color: #000091;
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -397,7 +397,7 @@ display: none;
   text-align:left;
   margin-bottom:30px;
   a{
-    //border: 1px solid #48AF5C;
+    //border: 1px solid #000091;
     border-radius:50px;
     padding: 8px 20px;
     font-size:15px;
@@ -421,18 +421,18 @@ display: none;
   
 }
 .modal-title-search-filtres{
-  color: #48AF5C;
+  color: #000091;
   font-weight:700;
   font-size:22px;
   margin-bottom:20px;
 }
 .modal-search-filters-form-title{
   text-align:left;
-  color: #48AF5C;
+  color: #000091;
   font-size:15px;
   font-weight:700;
   padding-bottom:4px;
-  border-bottom:1px solid #48AF5C;
+  border-bottom:1px solid #000091;
   text-transform:uppercase;
   margin-bottom:14px;
 }
@@ -457,9 +457,9 @@ display: none;
   display:none;
 }
 .modal-search-filters-form-active{
-  background-color:#48AF5C;
+  background-color:#000091;
   color:#fff !important;
-  border: 1px solid #48AF5C;
+  border: 1px solid #000091;
 }
 
 .modal-search-filters-form-btn{
@@ -503,7 +503,7 @@ display: none;
   font-weight:700;
   padding:4px 8px;
   color:#fff;
-  background-color:#48AF5C;
+  background-color:#000091;
   margin-bottom:10px;
   text-transform:uppercase;
 }
@@ -515,7 +515,7 @@ display: none;
   
 }
 .SF-topo-financeurs-name, .O-topo-financeurs-name{
-  color:#48AF5C;
+  color:#000091;
   font-size:16px;
   font-weight:700;
   margin-bottom:5px;
@@ -523,18 +523,18 @@ display: none;
   width:200px;
   margin-right:50px;
   a{
-    color:#48AF5C;
+    color:#000091;
   }
 }
 .collectivites-ouvrages-name{
-  color:#48AF5C;
+  color:#000091;
   font-size:15px;
   font-weight:700;
   margin-bottom:5px;
   width:300px;
   margin-right:0px;
   a{
-    color:#48AF5C;
+    color:#000091;
   }
 }
 .SF-topo-financeurs-budget{
@@ -558,7 +558,7 @@ display: none;
 .SF-topo-financeurs-budget-actuel{
   font-weight:500;
     font-size:12px ;
-   color:#48AF5C;
+   color:#000091;
     width:50%;
   text-align:left;
 }
@@ -584,7 +584,7 @@ display: none;
   font-weight:700;
   padding:4px 8px;
   color:#fff;
-  background-color:#48AF5C;
+  background-color:#000091;
   margin-bottom:10px;
   text-transform:uppercase;
   a{
@@ -626,10 +626,10 @@ display: none;
  text-align:center;
 }
 .box-green{
-  border: 1px solid #48AF5C;
+  border: 1px solid #000091;
   padding: 20px 14px;
   border-radius:10px;
-  color:#48AF5C;
+  color:#000091;
   width:200px;
   margin:auto;
   font-weight:700;
@@ -653,7 +653,7 @@ display: none;
 }
 .budget-topo-chart-ecart-text{
   text-transform:uppercase;
-  color: #48AF5C;
+  color: #000091;
   font-size: 16px;
   font-weight:700;
   margin-bottom:30px;
@@ -671,7 +671,7 @@ display: none;
 .budget-topo-actuel{
   width:50%;
   text-align:left;
-  color: #48AF5C;
+  color: #000091;
   text-transform: uppercase;
   font-weight:700;
   font-size:16px;
@@ -704,7 +704,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-weight:700;
   padding:4px 8px;
   color:#fff;
-  background-color:#48AF5C;
+  background-color:#000091;
   margin-bottom:10px;
   text-transform:uppercase;
 }
@@ -722,7 +722,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
 .O-name{
   a{
-  color: #48AF5C;
+  color: #000091;
   font-size:15px;
   font-weight:700;
     span{
@@ -773,7 +773,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 }
 .O_jalon{
-  color: #48AF5C;
+  color: #000091;
   font-size: 16px;
   font-weight:700;
   margin-bottom:10px;
@@ -794,10 +794,10 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-size:15px;
     padding: 25px 35px;
     color:#444444;
-    border: 1px dashed #48AF5C;
+    border: 1px dashed #000091;
     border-radius:4px;
     i{
-      color: #48AF5C;
+      color: #000091;
       margin-right:5px;
     }
     input{
@@ -816,23 +816,23 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-size:15px;
       padding: 25px 35px;
       color:#fff;
-    background-color: #48AF5C;
+    background-color: #000091;
       border-radius:4px;
   }
 }
 .SF_new_form_field_submit, .SF-new-file-delete{
   margin-left: 10px;
   button{
-    color:#48AF5C;
+    color:#000091;
     font-size:15px;
     text-transform:uppercase;  
     background-color:#fff;
     border-radius:4px;
     padding:20px;
-    border:1px solid #48AF5C;
+    border:1px solid #000091;
     border-radius:50px;
     &:hover{
-     background-color:#48AF5C;
+     background-color:#000091;
       color:#fff;
     }
   } 
@@ -944,7 +944,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-style: italic;
   margin-top: 30px;
   .positive{
-    color:#48AF5C;
+    color:#000091;
   }
   .negative{
     color:#F1013B;
@@ -1008,7 +1008,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width:100%;
   align-items:center;
   margin:auto;
-  color: #48AF5C;
+  color: #000091;
   font-weight:700;
   font-size: 16px;
   span{
@@ -1023,7 +1023,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 }
 .calendar-number{
-  border: 2px solid #48AF5C;
+  border: 2px solid #000091;
   text-align:center;
   vertical-align: middle;
   line-height:60px;
@@ -1066,7 +1066,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 }
 .ouvrages-search{
-  border:1px solid #48AF5C;
+  border:1px solid #000091;
   padding:5px 10px;
   border-radius:50px;
   margin-bottom:20px;
@@ -1155,7 +1155,7 @@ top:0px;
 bottom:0px;
   width:25%;
   padding:30px 2% 50px 2%;
-  background-color:#48AF5C;//#000091;
+  background-color:#000091;//#000091;
   border-radius:0px;
   z-index:1;
   overflow:scroll;
@@ -1185,7 +1185,7 @@ bottom:0px;
   margin-bottom:5px;
   i{
     font-size:50px;
-    color:#C11212;
+    color:#fff;
   }
 }
 .navigation-avatar-name{
@@ -1202,6 +1202,10 @@ bottom:0px;
 .navigation-menu{
   margin-bottom:15px;
   //padding-bottom: 20px;
+  a{
+    text-decoration:none;
+    color:#fff;
+  }
 }
 .navigation-menu2{
   padding-left:30px;
@@ -1222,11 +1226,12 @@ bottom:0px;
   padding:5px;
   border-radius:50px;
   }
-  &:hover, &:active {
+  &:hover, &:active, &:focus {
   text-decoration:none;
   color:#fff;
-  background-color:#6CB87B;
+  background-color:#03036B;
   border-radius:5px;
+    font-weight:700;
   i{
   color: #fff;
   }
@@ -1285,7 +1290,8 @@ bottom:0px;
 }
 .menu-active {
   color:#fff;
-  background-color:#6CB87B;
+  background-color: #03036B;
+
   border-radius:5px;
   font-weight:700;
 
@@ -1301,4 +1307,42 @@ bottom:0px;
 }
 .padding-none{
   padding:0px;
+}
+
+.documents-mois-titre{
+  color: #000091;
+  text-transform:uppercase;
+  font-size:18px;
+  margin-bottom:10px;
+  font-weight:700;
+}
+.documents-mois-doc{
+  color: #8F8F8F;
+  font-size:18px;
+  margin-bottom:10px;
+  font-weight:500;
+  position: relative;
+}
+.documents-etat-btn{
+  position:absolute;
+  right:0;
+  display:inline-flex;
+  a{
+    color:#fff;
+    text-transform:uppercase;
+    font-size:14px;
+    padding:4px 10px;
+    border-radius:50px;
+    background-color: #F29D53;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25);
+    &:hover{
+      cursor:pointer;
+    }
+  }
+}
+.documents-etat-delete{
+  background-color:#fff !important;
+  color:#8F8F8F !important;
+  font-size:14px;
+  box-shadow:none !important;
 }

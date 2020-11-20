@@ -1,7 +1,5 @@
 <div class="O_page">
-  <div class="O_home_button">
-    <%= link_to ouvrages_path do %><i class="fas fa-chevron-left"></i>Retour aux ouvrages<%end %>
-  </div>
+ 
   
     <h1 class="SD_title"><%= @ouvrage.name %></h1>
   <%= render 'topo_ouvrage'%>
@@ -10,3 +8,11 @@
 
 
 </div>
+<script>
+
+  $('.menu-ouvrages-ouvrage').addClass('menu-active2'); 
+  $('.menu-ouvrages').addClass('menu-active'); 
+
+  $('#ouvrages').addClass('in'); 
+
+</script>

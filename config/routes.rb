@@ -28,6 +28,10 @@ Rails.application.routes.draw do
     collection {post :import}
   end 
   root 'pages#home'
+  get 'documents-etat' => 'pages#documents_etat'
+  
+  get 'documents-partages' => 'pages#documents_partages'
+  get 'etat-budget-solideo' => "etat_budgets#budget_solideo"
   
   get 'etat_depenses_filter' => 'etat_depenses#index_filter'
   get 'solideo_financements_filter' => 'solideo_financements#index_filter'

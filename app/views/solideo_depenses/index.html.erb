@@ -1,86 +1,91 @@
 
 <div class="SD_page">
 
-  <h1 class="SD_title">La Solideo</h1>
+  <h1 class="SD_title">Les dépenses de la Solideo</h1>
   
 <div class="SD-table-box">
   <div class="SD-topo-box-title">
         <span>La Solideo en chiffres</span>
       </div><br><br>
-  
-    <div class="calendar-infos">
-     
-      <div class="calendar-infos-box">
-      <div>
-        <i class="fas fa-coins"></i>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="calendar-infos">
+        <div class="calendar-infos-box">
+        <div>
+          <i class="fas fa-coins"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter(SolideoFinancement.all.sum('montant_prevu').to_i, :delimiter => ' ') %> €<br>
+          <span>Budget Total public</span>
+        </div>
       </div>
-      <div>
-        <%= number_with_delimiter(SolideoFinancement.all.sum('montant_prevu').to_i, :delimiter => ' ') %> €<br>
-        <span>Budget Total</span>
+      </div><br><br>
+      <div class="calendar-infos">
+        <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-chart-pie"></i>
+        </div>
+        <div>
+        50%<br>
+          <span>Du budget des JOP2024</span>
+        </div>
       </div>
+      </div><br><br>
+      <div class="calendar-infos">
+       <div class="calendar-infos-box">
+        <div>
+           <i class="fas fa-euro-sign"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter(SolideoFinancement.all.sum('montant').to_i, :delimiter => ' ') %> €<br>
+          <span>Dépenses actuelles </span>
+        </div>
+      </div>
+      </div><br><br>
+      <div class="calendar-infos">
+        <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-building"></i>
+        </div>
+        <div>
+        59<br>
+        <span>ouvrages </span>
+        </div>
+      </div>
+      </div><br><br>
+      <div class="calendar-infos">
+       <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-hard-hat"></i>
+        </div>
+        <div>
+        3<br>
+        <span>ouvrages MOA </span>
+        </div>
+      </div>
+      </div><br><br>
+      <div class="calendar-infos">
+       <div class="calendar-infos-box">
+        <div>
+            <i class="fas fa-people-carry"></i>
+        </div>
+        <div>
+          82 <br>
+          <span>Employés</span>
+        </div>
+      </div>
+      </div>    
     </div>
-      <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-building"></i>
-      </div>
-      <div>
-      59<br>
-      <span>ouvrages </span>
-      </div>
-    </div>
-   
-   
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-chart-pie"></i>
-      </div>
-      <div>
-      50%<br>
-        <span>Du budget des JOP2024</span>
-      </div>
-    </div>
-      
-
-  </div><br><br>
-  <div class="calendar-infos">
-   
-     <div class="calendar-infos-box">
-      <div>
-         <i class="fas fa-euro-sign"></i>
-      </div>
-      <div>
-        <%= number_with_delimiter(SolideoFinancement.all.sum('montant').to_i, :delimiter => ' ') %> €<br>
-        <span>Dépenses actuelles </span>
-      </div>
-    </div>
-     <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-building"></i>
-      </div>
-      <div>
-      3<br>
-      <span>ouvrages MOA </span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-          <i class="fas fa-people-carry"></i>
-      </div>
-      <div>
-        82 <br>
-        <span>Employés</span>
-      </div>
+    <div class="col-md-8">
+      <div id="container-pie">      
+      </div> 
     </div>
     
-    
-
   </div>
    <br><br>
 </div>
   <br><br>
-  <br><br>
-  <%= render 'topo'%>
-  <br><br>
+
   <div id="table_filtres">
     <%= render 'table'%> 
     
@@ -98,4 +103,75 @@
   $('#MonCollapse').addClass('in'); 
 
 </script>
+<script>
+Highcharts.chart('container-pie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+        backgroundColor: '#fff',
+          style:{
+          fontFamily: "Spectral",
+          maxWidth: "500px",
+          },
+      height: '400px',
+    },
+    title: {
+         text:'Répartition des dépenses de la Solideo',   
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: "italic",
+                  fontSize: '16px',
+                  },
+    },
+  colors: ["#487F7F", '#F38C75', "#ac8c97", '#E0A922'],
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+           minSize: 200,
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b><br>{point.y:,.0f}€ - {point.percentage:.1f} %',
+              style: {
+                      color: "#8F8F8F",
+                      fontSize: "11px",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                      },
+            }
+        }
+    },
+    series: [{
+        name: 'Total',
+        colorByPoint: true,
+        data: [{
+            name: 'Ouvrages',
+            y: 1130507000,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Réserve',
+            y: 94470000,
+        }, {
+            name: 'Innovation',
+            y: 47300000,
+        }, {
+            name: 'Fonctionnement',
+            y:103975000,
+        }]
+    }]
+});
+</script>
+
   
