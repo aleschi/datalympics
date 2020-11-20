@@ -27,8 +27,9 @@ Rails.application.routes.draw do
   resources :ouvrages do 
     collection {post :import}
   end 
+  resources :documents
   root 'pages#home'
-  get 'documents-etat' => 'pages#documents_etat'
+  get 'documents-etat' => 'documents#documents_etat'
   
   get 'documents-partages' => 'pages#documents_partages'
   get 'etat-budget-solideo' => "etat_budgets#budget_solideo"

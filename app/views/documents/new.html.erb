@@ -1,0 +1,22 @@
+<%= form_for(@document) do |form| %>
+
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+<div class="field">
+    <%= form.label :appartenance %>
+    <%= form.text_field :appartenance %>
+  </div>
+<div class="field">
+    <%= form.label :extension %>
+    <%= form.text_field :extension %>
+  </div>
+
+ 
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

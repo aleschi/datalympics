@@ -1,3 +1,6 @@
+<% if !@document.nil?%>
+<%= render 'documents/form'%>
+<% end %>
 <div class="SD_page">
  
   <h1 class="SD_title">Documents Budgétaires </h1>
@@ -10,9 +13,26 @@
         <div class="documents-mois-titre">
           2020
         </div>
+       <% if !@documents.nil?%>
+        <% @documents.each do |document| %>
+          <% if document.file.attached?%>
+           <div class="documents-mois-doc">
+             <i class="far fa-file-pdf"></i> <%= document.name%>
+             <div class="documents-etat-btn"><a>Télécharger <i class="fas fa-cloud-download-alt"></i></a><a class="documents-etat-delete"><i class="fas fa-trash-alt"></i></a></div>
+           </div>
+          <% else%>
+            <div class="documents-mois-doc">
+             <i class="far fa-file-pdf"></i> <%= document.name%>
+             <div class="documents-etat-btn"><a type="button" data-toggle="modal" data-target="#file" >Transmettre</a></div>
+           </div>
+          <% end %>
+        <% end %>
+       <% end %> 
+       
+       //
        <div class="documents-mois-doc">
          <i class="far fa-file-pdf"></i> RAP 2020 
-         <div class="documents-etat-btn"><a>Transmettre</a></div>
+         <div class="documents-etat-btn"><a >Transmettre</a></div>
        </div>
        <div class="documents-mois-doc">
          <i class="far fa-file-pdf"></i> PAP 2020 
