@@ -4,8 +4,6 @@ class PagesController < ApplicationController
      @nav=true
   end
   
-  def documents_partages
-     @nav=true
-  end
+
 
 end

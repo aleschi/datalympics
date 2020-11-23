@@ -1,79 +1,12 @@
 <div class="EB_page">
 
-  <h1 class="EB_title">Le budget de l'Etat pour la Solideo</h1>
+  <h1 class="EB_title">Le budget de l'Etat pour le COJO</h1>
   <div class="SD-topo-box">
     <div class="SD-topo-box-title">
-      <span>Le Budget de l'état pour la solideo en chiffres</span>
+      <span>Le Budget de l'état pour le cojo en chiffres</span>
     </div><br><br>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="calendar-infos">
-          <div class="calendar-infos-box">
-        <div>
-          <i class="fas fa-coins"></i>
-        </div>
-        <div>
-          <%= number_with_delimiter(EtatBudget.last.budget_solideo.to_i, :delimiter => ' ') %> €<br>
-          <span>Budget pour Solideo</span>
-        </div>
-      </div>
-        </div><br><br>     
-        <div class="calendar-infos">
-          <div class="calendar-infos-box">
-          <div>
-          <i class="fas fa-chart-pie"></i>
-          </div>
-          <div>
-          84%<br>
-            <span>De mon budget</span>
-          </div>
-        </div>
-      </div><br><br>
-        <div class="calendar-infos">
-          <div class="calendar-infos-box">
-        <div>
-       <i class="fas fa-funnel-dollar"></i>
-        </div>
-        <div>
-        <%= ((SolideoFinancement.where('financeur=?','Etat').sum('montant_prevu')/SolideoFinancement.all.sum('montant_prevu')).round(2)*100).round%>%<br>
-        <span>Du budget de la Solideo </span>
-        </div>
-      </div>
-      </div><br><br>
-        <div class="calendar-infos">
-          <div class="calendar-infos-box">
-        <div>
-           <i class="fas fa-euro-sign"></i>
-        </div>
-        <div>
-          <%= number_with_delimiter(EtatDepense.where('beneficiaire=?','solideo').sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
-          <span>Dépenses actuelles</span>
-        </div>
-      </div>
-        </div><br><br>
-       
-        <div class="calendar-infos">
-          <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-building"></i>
-        </div>
-        <div>
-        <%= @ouvrages_etat.length + @ouvrages.length%><br>
-          <span>Ouvrages financés</span>
-        </div>
-      </div>
-        </div><br><br>
-        
-      </div>
-      <div class="col-md-8">
-        <div id="container-pie">
-       
-      </div>
-      </div>
-    </div>
   </div>
-  
-  <div class="SD-topo-box">
+   <div class="SD-topo-box">
   <div class="SD-topo-box-title">
     <span>Maquette annuelle des dépenses</span>
   </div><br><br>
@@ -257,6 +190,7 @@
           </tr>
         </thead>
         <tbody>
+          <% if !@etat_depenses.nil?%>
           <% @etat_depenses.each do |etat_depense| %>
           <tr>
             <th scope="row"><%= etat_depense.date.strftime("%Y") %></th>
@@ -271,89 +205,19 @@
             <%= link_to etat_depense, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %></td>
           </tr>
           <% end %>
+          <% end %>
         </tbody>
       </table>
     </div>
   </div>
+  </div>
+  
 </div>
-</div>
-
 <script>
 
-  $('.menu-budget-solideo').addClass('menu-active2'); 
+  $('.menu-budget-cojo').addClass('menu-active2'); 
   $('.menu-budget-etat').addClass('menu-active'); 
 
   $('#MonCollapse2').addClass('in'); 
 
-</script>
-
-<script>
-Highcharts.chart('container-pie', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        backgroundColor: '#fff',
-          style:{
-          fontFamily: "Spectral",
-          maxWidth: "500px",
-          },
-      height: '400px',
-    },
-    title: {
-         text:'Répartition du budget de l Etat dans la Solideo',   
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  fontStyle: "italic",
-                  fontSize: '16px',
-                  },
-    },
-  colors: ['#22e37b','#2e5d63', '#628859','#4a6a75'],
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-           size: 200,
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b><br>{point.y:,.0f}€ - {point.percentage:.1f} %',
-              style: {
-                      color: "#8F8F8F",
-                      fontSize: "11px",
-                      fontWeight: "400",
-                      fontStyle: "italic",
-                      },
-            }
-        }
-    },
-    series: [{
-        name: 'Total',
-        colorByPoint: true,
-        data: [{
-            name: 'Ouvrages',
-            y: 800000000,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Fonctionnement',
-            y: 50000000,
-        }, {
-            name: 'Innovation',
-            y: 50000000,
-        }, {
-            name: 'Réserve',
-            y: 32000000,
-        }]
-    }]
-});
 </script>

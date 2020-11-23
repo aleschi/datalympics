@@ -10,15 +10,18 @@
     <br>
     <div class="row">
      <div class="col-md-12">
+       <% @dates.each do |date| %>
+       <% if date <= Date.today.year %>
         <div class="documents-mois-titre">
-          2020
+          <%= date %>
         </div>
        <% if !@documents.nil?%>
         <% @documents.each do |document| %>
+         <% if document.date.year == date %>
           <% if document.file.attached?%>
            <div class="documents-mois-doc">
              <i class="far fa-file-pdf"></i> <%= document.name%>
-             <div class="documents-etat-btn"><a>Télécharger <i class="fas fa-cloud-download-alt"></i></a><a class="documents-etat-delete"><i class="fas fa-trash-alt"></i></a></div>
+             <div class="documents-etat-btn"><%= link_to rails_blob_path(document.file, disposition: 'attachment') do %>Télécharger <i class="fas fa-cloud-download-alt"></i><% end %><%= link_to delete_document_path(id: document.id), method: :post, class:"documents-etat-delete" do%><i class="fas fa-trash-alt"></i><% end%></div>
            </div>
           <% else%>
             <div class="documents-mois-doc">
@@ -26,18 +29,14 @@
              <div class="documents-etat-btn"><a type="button" data-toggle="modal" data-target="#file" >Transmettre</a></div>
            </div>
           <% end %>
+          <% end %>
         <% end %>
+       <br>
        <% end %> 
+       <% end %>
+     <% end %>
        
-       //
-       <div class="documents-mois-doc">
-         <i class="far fa-file-pdf"></i> RAP 2020 
-         <div class="documents-etat-btn"><a >Transmettre</a></div>
-       </div>
-       <div class="documents-mois-doc">
-         <i class="far fa-file-pdf"></i> PAP 2020 
-         <div class="documents-etat-btn"><a>Télécharger <i class="fas fa-cloud-download-alt"></i></a><a class="documents-etat-delete"><i class="fas fa-trash-alt"></i></a></div>
-       </div>
+      
       </div>
     </div>  
   </div>

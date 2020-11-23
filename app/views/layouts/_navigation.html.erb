@@ -11,6 +11,9 @@
       <%= current_user.email%> 
       <% end %>
     </div>
+    <div class="navigation-avatar-name">
+      connecté en tant que : AGENT DB 
+    </div>
   </div>
   <% if !@navshow.nil? && !@ouvrage.nil?%>
   <div class="navigation-menu"><%= link_to ouvrages_path, class:"menu" do%><i class="fas fa-arrow-left"></i> Retour aux ouvrages<%end%></div>
@@ -29,13 +32,13 @@
     </div>
 
     <section id="MonCollapse2" class="collapse">
-      <div class="navigation-menu navigation-menu2"><%= link_to etat_budgets_path, class:"menu2  menu-budget-global" do %>Budget global<%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to etat_budgets_path, class:"menu2  menu-budget-global" do %>Mon Budget global<%end%></div>
 
-      <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_solideo_path, class:"menu2 menu-budget-solideo" do %>Budget SOLIDEO <%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_solideo_path, class:"menu2 menu-budget-solideo" do %>Mon Budget SOLIDEO <%end%></div>
 
-      <div class="navigation-menu navigation-menu2"><a class="menu2 menu-budget-cojo"> Budget COJO</a></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_cojo_path, class:"menu2 menu-budget-cojo" do%>Mon Budget COJO<% end %></div>
       
-       <div class="navigation-menu navigation-menu2"><%= link_to documents_etat_path, class:"menu2 menu-budget-docs" do %> Documents Budgétaires <%end%></div>
+       <div class="navigation-menu navigation-menu2"><%= link_to documents_etat_path, class:"menu2 menu-budget-docs" do %>Mes Documents Budgétaires <%end%></div>
 
    </section>
 
@@ -44,13 +47,13 @@
     </div>
 
     <section id="MonCollapse" class="collapse">
-      <div class="navigation-menu navigation-menu2"><%= link_to solideo_depenses_path, class:"menu2  menu-solideo-depenses" do %>Dépenses<%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to solideo_depenses_path, class:"menu2  menu-solideo-depenses" do %>Budget global<%end%></div>
 
-      <div class="navigation-menu navigation-menu2"><%= link_to solideo_financements_path, class:"menu2 menu-solideo-finances" do %>Financements <%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to solideo_financements_path, class:"menu2 menu-solideo-finances" do %>Financements & Recettes <%end%></div>
 
       <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_path, class:"menu2 menu-solideo-ouvrages" do%>Ouvrages<%end%></div>
       
-      <div class="navigation-menu navigation-menu2"><%= link_to documents_partages_path, class:"menu2 menu-solideo-docs" do%>Documents  <%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to documents_solideo_path, class:"menu2 menu-solideo-docs" do%>Documents  <%end%></div>
    </section>
   
   <div class="navigation-menu"><a class="menu"><i class="fas fa-medal"></i> Suivi COJO</a></div>

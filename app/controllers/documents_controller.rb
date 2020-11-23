@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_etat_depense, only: [:update, :destroy]
+  before_action :set_document, only: [:update, :destroy]
   before_action :authenticate_user!
   def new
     @document = Document.new
@@ -28,13 +28,29 @@ class DocumentsController < ApplicationController
   
   def destroy
     @document.destroy
+    
     respond_to :js 
+  end
+  
+  def delete_file 
+    @document = Document.find(params[:id])
+    @document.file.purge
+    redirect_to documents_etat_path
   end 
+  
   def documents_etat
      @nav=true
     @document= Document.where('appartenance = ?', "etat").first
     @documents= Document.where('appartenance = ?', "etat")
+    
+    @dates = [2025,2024,2023,2022,2021,2020,2019,2018]
   end
+  
+  def documents_solideo
+     @nav=true
+    @documents= Document.where('appartenance = ?', "solideo")
+  end
+ 
   
     private
     # Use callbacks to share common setup or constraints between actions.
@@ -44,6 +60,6 @@ class DocumentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def document_params
-      params.require(:document).permit(:name,:appartenance, :extension, :file)
+      params.require(:document).permit(:name,:appartenance, :extension, :date, :file)
     end
 end

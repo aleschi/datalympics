@@ -1,22 +1,33 @@
+
+<div class="EB_page">
+  <h1 class="EB_title">Ajouter un nouveau document</h1>
+<div class="ED_new_form_box">
+  
 <%= form_for(@document) do |form| %>
 
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
-<div class="field">
+<div class="ED_new_form_field ED_new_form_field_beneficiaire">
     <%= form.label :appartenance %>
-    <%= form.text_field :appartenance %>
+    <%= form.select :appartenance, [["Etat","etat"],["Solideo","solideo"],["Cojo", "cojo"]], {}, class: "ED_new_form_input_beneficiaire" %>
   </div>
-<div class="field">
+<div class="ED_new_form_field">
     <%= form.label :extension %>
-    <%= form.text_field :extension %>
-  </div>
+    <%= form.select :extension, [["PDF","pdf"],["CSV","csv"],["WORD", "word"], ["PPT", "ppt"]], {}, class: "ED_new_form_input_beneficiaire" %>
+</div>
+<div class="ED_new_form_field ED_new_form_field_date">
+  <%= form.label :date %>
+    <%= form.date_select :date, {:order => [:year]}, class: "ED_new_form_input_date" %>
+</div>
 
  
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="ED_new_form_field_submit">
+    <%= form.submit "Ajouter le document" %>
   </div>
 <% end %>
+  </div>
+</div>

@@ -15,7 +15,8 @@
       <%= form_for(@document) do |form| %>
         <div class="document-file-input">
           <label><%= form.file_field :file %>
-            <i class="far fa-file-pdf"></i> <br><span class="input-text"><%= @document.name %></span>
+            <div class="document-type"><i class="far fa-file-pdf"></i> </div>
+            <div class="input-text"><i class="fas fa-plus-circle"></i><br>Ajouter un document</div>
             <div class="document-check">
             <i class="fas fa-check-circle"></i>
           </div>
@@ -36,6 +37,7 @@
 
 <script>
   $('.document-check').hide();
+  $('.document-type').hide();
     function readURL(input) {
       if (input.files && input.files[0]) {
           var reader = new FileReader();
@@ -50,6 +52,7 @@
       readURL(this);
       $('.document-check').show();
       $('.input-text').html($(this).val().replace(/C:\\fakepath\\/i, ''));
+      $('.document-type').show();
   });
 
 </script>

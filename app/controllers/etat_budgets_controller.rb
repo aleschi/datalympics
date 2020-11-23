@@ -148,6 +148,12 @@ class EtatBudgetsController < ApplicationController
     
     @etat_depenses = EtatDepense.where("beneficiaire =?", "solideo").order('date DESC')
   end
+  
+  def budget_cojo
+    @nav=true
+    @etat_depenses = EtatDepense.where("beneficiaire =?", "cojo").order('date DESC')
+ 
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.

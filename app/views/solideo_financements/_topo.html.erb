@@ -1,8 +1,9 @@
+
 <% if !@solideo_financements.nil?%>
 
 <div class="SD-topo-box">
   
- <div class="SF-topo-financeurs-title"><span>Financeurs de la solideo</span></div><br>
+  <div class="SF-topo-financeurs-title"><span>Financeurs de la solideo</span></div><br>
   <div class="row">
    <div class="col-md-6">
     <div id="container-pie">      
@@ -10,24 +11,29 @@
   </div>
  
   <div class="col-md-6">
-    <div id='container-column'>
-      
+   
+    
+     <div id="container-bar">      
     </div>
-
+    
  
    
   
   </div>
   </div>
   
- 
 </div>
 <% end %>
 
 <div class="SD-topo-box">
   
  <div class="SF-topo-financeurs-title"><span>Maquette des financements de la solideo</span></div><br>
-  <div class="row">
+   <div class="row">
+   <div id="container-cylinder">
+     
+   </div>
+  </div>
+ <div class="row">
    <div class="col-md-12">
    <div class="ED_table">
       <table>
@@ -66,18 +72,29 @@
  
 
   </div>
-  
+
  
 </div>
 
 <div  class="table-box">
 
  <div class="SF-topo-financeurs-title"><span>Suivi des financements de la solideo</span></div><br><br>
-  
-  
+    <div class="row">
+      <div class="col-md-12">
+         <div id='container-column'>
+      
+    </div>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md-12">
   <div id="container">
    
   </div>
+    </div>
+  </div>
+
+  
   <div class="row">
     <div class="col-md-6">
      <div id="container-s1">
@@ -102,14 +119,14 @@ Highcharts.chart('container-column', {
             backgroundColor: '#fff',  
             style:{
             fontFamily: "Spectral",  
-              maxWidth: "500px",
+            //  maxWidth: "500px",
             },
        
        
           },
 
      title: {
-          text:'Suivi des financements de la Solideo',
+          text:'Suivi annuel des financements de la Solideo',
           margin:40,
           style: {
                   color: "#8F8F8F",
@@ -266,7 +283,7 @@ Highcharts.chart('container', {
           },
 
       title: {
-        text:"Suivi annuel des financements de la Solideo",
+        text:"Suivi annuel des financements de la Solideo par financeur",
         margin:40,
         style: {
                   color: "#8F8F8F",
@@ -481,5 +498,148 @@ colors: ['#4FC5CE','#8f8f8f'],
         }]
     }
 
+});
+</script>
+<script>
+Highcharts.chart('container-bar', {
+    chart: {
+        type: 'bar',
+      style:{
+          fontFamily: "Spectral",
+         maxWidth: '500px',
+          },
+    },
+    title: {
+        text: 'Financements détaillés de la Solideo',
+      margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+    },
+  colors: ['#4FC5CE'],
+    xAxis: {
+        categories:  ["État", "Concours Privés", "Région IdF", "Ville de Paris", "CD 93", "Plaine co", "Marseille", "Terre d'envol", "MGP", "CD92", "Dugny", "Le Bourget", "CASQY", "CD78"],
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Montant (€)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' millions'
+    },
+  legend: {
+    enabled: false,
+  },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y: 933, color: "#A2C744"}, {y: 182, color: "#4F82CE"}, 135, 135, 67, 35,22,20,17, 5,3,3,2,2],
+     }]
+});
+  </script>
+
+<script>
+Highcharts.chart('container-cylinder', {
+    chart: {
+      style:{
+          fontFamily: "Spectral",
+     
+          },
+        type: 'cylinder',
+        options3d: {
+            enabled: true,
+            alpha: 15,
+            beta: 15,
+            depth: 50,
+            viewDistance: 25,
+        }
+    },
+
+    title: {
+        text: 'Evolution des maquettes de financements',
+      margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+            fontStyle: 'italic',
+            fontSize: '16px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['2018', '2019', '2020', '2021'],
+      gridLineColor: '#E6F0FF', 
+        labels: {
+        //   skew3d: true,
+            style: {
+             //   fontSize: '16px'
+            }
+        }
+    },
+
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        allowDecimals: false,
+        min: 0,
+        title: {
+            text: 'Montant (€)',
+            skew3d: true
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<b>{point.key}</b><br>',
+        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
+    },
+
+    plotOptions: {
+        cylinder: {
+            stacking: 'normal',
+            depth: 40,
+           dataLabels: {
+                enabled: true
+            }
+        }
+    },
+
+    series: [{
+        name: 'Etat',
+        data: [933, 933, 934, 947],
+        stack: 'budget',
+       color: "#A2C744",
+    }, {
+        name: 'Collectivités',
+        data: [340, 340, 340, 329],
+        stack: 'budget',
+      color: '#4FC5CE',
+    }, {
+        name: 'Privé',
+        data: [182, 182, 182, 197],
+        stack: 'budget', 
+      color: "#4F82CE",
+    }]
 });
 </script>

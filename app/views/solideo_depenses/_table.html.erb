@@ -4,9 +4,9 @@
     <span>Suivi du budget par pole de la solideo</span>
   </div><br><br>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
        <div class="SD-topo-box-title">
-        <span><%= link_to ouvrages_depenses_path do %>Ouvrages<%end%></span>
+        <span><%= link_to ouvrages_path do %>Ouvrages<%end%></span>
       </div><br><br>
         <div id=container-1>
    
@@ -15,7 +15,9 @@
    
                 
       </div>
-      <div class="col-md-6">
+  </div>
+  <div class="row">
+      <div class="col-md-12">
           <div class="SD-topo-box-title">
         <span>Fonctionnement</span>
       </div><br><br>
@@ -28,7 +30,7 @@
       </div>
   </div><br>
   <div class="row">   
-      <div class="col-md-6">
+      <div class="col-md-12">
           <div class="SD-topo-box-title">
         <span>Fonds Innovation</span>
       </div><br><br>
@@ -38,8 +40,9 @@
         </div>
            
       </div>
-    
-      <div class="col-md-6">
+  </div>
+     <div class="row"> 
+      <div class="col-md-12">
           <div class="SD-topo-box-title">
         <span>Fonds Réserve</span>
       </div><br><br>
@@ -100,7 +103,7 @@ Highcharts.chart('container-1', {
             spacing: [40,40,40,40],
         style:{
           fontFamily: "Spectral",
-         maxWidth: '500px'
+        // maxWidth: '500px'
           },
        
           },
@@ -175,7 +178,7 @@ Highcharts.chart('container-2', {
          spacing: [40,40,40,40],
          style:{
          fontFamily: "Spectral",
-         maxWidth: '500px'
+         //maxWidth: '500px'
           },       
           },
 
@@ -277,7 +280,7 @@ Highcharts.chart('container-3', {
             spacing: [40,40,40,40],
         style:{
           fontFamily: "Spectral",
-         maxWidth: '500px'
+        // maxWidth: '500px'
           },
        
           },
@@ -352,7 +355,7 @@ Highcharts.chart('container-4', {
             spacing: [40,40,40,40],
         style:{
           fontFamily: "Spectral",
-         maxWidth: '500px'
+        // maxWidth: '500px'
           },
        
           },
