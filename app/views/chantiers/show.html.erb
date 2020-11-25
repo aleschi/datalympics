@@ -80,6 +80,21 @@
     </div><br><br>
   </div>
   
+  <br><br>
+  <div  class="SD-table-box">
+    <div class="SD-topo-box-title">
+      <span>Dépenses</span>
+    </div><br><br>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="container-bar1">
+          
+        </div>
+      </div>
+    
+    </div>
+  </div>
+  
 </div>
 
 
@@ -279,3 +294,63 @@ Highcharts.chart('container-bar0', {
      }]
 });
   </script>
+
+
+<script>
+Highcharts.chart('container-bar1', {
+    chart: {
+        type: 'column',
+      backgroundColor: '#fff',
+          style:{
+          fontFamily: "Spectral",
+         
+          },
+    },
+    title: {
+        text: null,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '16px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['Réalisé 2018', 'Réalisé 2019', "Prév 2020 CA 2020", "Prev atterissage 2020", "Prev 2021"],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget (€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} €</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+          dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y:37, color:"#3233FF" }, {y:67, color:"#3233FF" }, {y:160, color: "#F9EA43"}, {y:111, color: "#8435FA"}, {y:228, color: "#C90200"}]
+
+    }]
+});
+ </script> 

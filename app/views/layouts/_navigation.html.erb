@@ -58,11 +58,13 @@
       <div class="navigation-menu navigation-menu2"><%= link_to solideo_financements_path, class:"menu2 menu-solideo-finances" do %>Financements & Recettes <%end%></div>
 
       <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_path, class:"menu2 menu-solideo-ouvrages" do%>Ouvrages<%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to chantiers_path, class:"menu2 menu-solideo-chantiers" do%>Suivi des risques<%end%></div>
       
       <div class="navigation-menu navigation-menu2"><%= link_to documents_solideo_path, class:"menu2 menu-solideo-docs" do%>Documents  <%end%></div>
    </section>
   
   <div class="navigation-menu"><a class="menu"><i class="fas fa-medal"></i> Suivi COJO</a></div>
+  <div class="TB-menu-prof menu-accueil"><%= link_to root_path, class: "menu" do%><i class="fas fa-home"></i> Accueil<% end %></div>
 
   <div class="TB-menu-prof"><%= link_to destroy_user_session_path, method: :delete, class: "menu" do%><i class="fas fa-sign-out-alt"></i>Se déconnecter<% end %></div>
 

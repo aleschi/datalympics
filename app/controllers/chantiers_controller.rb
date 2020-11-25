@@ -2,6 +2,10 @@ class ChantiersController < ApplicationController
   before_action :set_chantier, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   
+  def index
+    @nav = true
+  end
+  
   def show
     @nav = true
     @navshow = true 

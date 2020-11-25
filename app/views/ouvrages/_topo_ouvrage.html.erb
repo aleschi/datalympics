@@ -1,26 +1,53 @@
-<div class="SD-table-box">
+
   <div class="row">
 
-  <div class="col-md-6">
-    <div class="O-topo-image">
-      <% if @ouvrage.photo.attached? %>
-      <%= image_tag @ouvrage.photo%>
-      <% end %>
+  <div class="col-md-8">
+    <div class="SD-table-box ouvrage-topo-box">
+      <div class="row">
+        <div class="col-md-6">
+           <div class="O-topo-image">
+            <% if @ouvrage.photo.attached? %>
+            <%= image_tag @ouvrage.photo%>
+            <% end %>
+          </div>
+          <div class="O-topo-infos-text">
+            Lieu : <%= @ouvrage.adresse %><br>
+            MOA : <%= @ouvrage.maitre_oeuvre %><br>
+            Budget : <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €<br>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="container-jauge">
+            
+          </div>
+        </div>
+        </div>
     </div>
-    <div class="O-topo-infos-text">
-      Lieu : <%= @ouvrage.adresse %><br>
-      MOA : <%= @ouvrage.maitre_oeuvre %><br>
-      Budget : <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €<br>
-    </div>
-    
   </div>
-    <div class="col-md-6">
-      <div id="map2">
+    <div class="col-md-4">
+      <div class="SD-table-box ouvrage-topo-box">
+        <div class="SD-topo-box-title">
+            <span>Risques identifiés</span>
+         </div><br><br>
+        <div class="jauge-risques">
+          <div class="risque1"></div>
+          <div class="risque2"></div>
+          <div class="risque3 "></div>
+          <div class="risque4 risque-active"></div>
+          <div class="risque5"></div>
+        </div>
         
+        <div class="ouvrages-risques">
+          <i class="fas fa-exclamation-circle"></i> 2 risques identifiés
+        </div>
+        <div class="ouvrages-risques-infos">
+          <i class="fas fa-exclamation-triangle"></i> Chantier A, délai<br>
+          <i class="fas fa-exclamation-triangle"></i> Chantier B, budget 
+        </div>
       </div>
     </div>
  
-  </div>
+ 
 </div><br><br>
 
  <script
@@ -94,4 +121,92 @@ function initMap() {
                      
                       
 </script>
+
+<script>
+
+Highcharts.chart('container-jauge', {
+
+    chart: {
+        type: 'solidgauge',
+        height: '200px',
+     
+    },
+
+    title: {
+        text: null,
+       
+    },
+
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 15
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '100%',
+            innerRadius: '88%',
+            backgroundColor: "#C4C4C4",
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            
+          tooltip: "",
+          
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '14px',
+                color: '#004A70',
+              },
+              valueSuffix: '%',
+              format: '<span style="color:#5770BE; font-size:12px;font-weight:400">{series.name} :</span><br><span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span>',
+            verticalAlign: 'middle',
+              align: 'center',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Budget consommé',
+        data: [{
+            color: "#F29D53",
+            radius: '100%',
+            innerRadius: '88%',
+            y: 33
+        }]
+    }]
+});
+  </script>
 
