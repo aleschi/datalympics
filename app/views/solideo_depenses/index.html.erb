@@ -8,18 +8,9 @@
         <span>La Solideo en chiffres</span>
       </div><br><br>
   <div class="row">
-    <div class="col-md-4">
-      <div class="calendar-infos">
-        <div class="calendar-infos-box">
-        <div>
-          <i class="fas fa-coins"></i>
-        </div>
-        <div>
-          <%= number_with_delimiter(SolideoFinancement.all.sum('montant_prevu').to_i, :delimiter => ' ') %> €<br>
-          <span>Budget Total public</span>
-        </div>
-      </div>
-      </div><br><br>
+    <div class="col-md-6">
+      
+     
       <div class="calendar-infos">
         <div class="calendar-infos-box">
         <div>
@@ -30,15 +21,13 @@
           <span>Du budget des JOP2024</span>
         </div>
       </div>
-      </div><br><br>
-      <div class="calendar-infos">
-       <div class="calendar-infos-box">
+         <div class="calendar-infos-box">
         <div>
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          <%= number_with_delimiter(SolideoFinancement.all.sum('montant').to_i, :delimiter => ' ') %> €<br>
-          <span>Dépenses actuelles </span>
+          4<br>
+          <span>poles de dépenses</span>
         </div>
       </div>
       </div><br><br>
@@ -52,20 +41,7 @@
         <span>ouvrages </span>
         </div>
       </div>
-      </div><br><br>
-      <div class="calendar-infos">
-       <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-hard-hat"></i>
-        </div>
-        <div>
-        3<br>
-        <span>ouvrages MOA </span>
-        </div>
-      </div>
-      </div><br><br>
-      <div class="calendar-infos">
-       <div class="calendar-infos-box">
+        <div class="calendar-infos-box">
         <div>
             <i class="fas fa-people-carry"></i>
         </div>
@@ -74,9 +50,13 @@
           <span>Employés</span>
         </div>
       </div>
-      </div>    
+      </div> 
+       <br> <br><br>
+       <div id="container-bar0">      
     </div>
-    <div class="col-md-8">
+   
+    </div>
+    <div class="col-md-6">
       <div id="container-pie">      
       </div> 
     </div>
@@ -84,6 +64,20 @@
   </div>
    <br><br>
 </div>
+  <br><br>
+  <div  class="SD-table-box">
+    <div class="SD-topo-box-title">
+      <span>Dépenses de la solideo</span>
+    </div><br><br>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="container-bar1">
+          
+        </div>
+      </div>
+    
+    </div>
+  </div>
   <br><br>
 
   <div id="table_filtres">
@@ -173,5 +167,122 @@ Highcharts.chart('container-pie', {
     }]
 });
 </script>
+<script>
+Highcharts.chart('container-bar0', {
+    chart: {
+        type: 'bar',
+      style:{
+          fontFamily: "Spectral",
+         maxWidth: '500px',
+          },
+      height: "200px",
+    },
+    title: {
+        text: null,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+    },
+  colors: ['#4FC5CE'],
+    xAxis: {
+        categories:  ["Budget total","Part public", "Dépenses"],
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Montant (€)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' €'
+    },
+  legend: {
+    enabled: false,
+  },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y: <%= SolideoFinancement.all.sum('montant_prevu').to_i%> , color: "#3233FF"},{y: <%= SolideoFinancement.where('financeur != ?', "privé").sum('montant_prevu').to_i%> , color: "#C90200"}, {y: <%= SolideoFinancement.all.sum('montant').to_i%>, color: "#F9EA43"}],
+     }]
+});
+  </script>
 
-  
+<script>
+Highcharts.chart('container-bar1', {
+    chart: {
+        type: 'column',
+      backgroundColor: '#fff',
+          style:{
+          fontFamily: "Spectral",
+         
+          },
+    },
+    title: {
+        text: null,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '16px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['Réalisé 2018', 'Réalisé 2019', "Prév 2020 CA 2019", "Prev atterissage 2019", "Prev 2021"],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget (€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} €</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+          dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y:37, color:"#3233FF" }, {y:67, color:"#3233FF" }, {y:160, color: "#F9EA43"}, {y:111, color: "#8435FA"}, {y:228, color: "#C90200"}]
+
+    }]
+});
+ </script> 

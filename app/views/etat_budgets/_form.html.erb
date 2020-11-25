@@ -11,37 +11,37 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="ED_new_form_field ED_new_form_field_date">
     <%= form.label :date %>
-    <%= form.datetime_select :date %>
+    <%= form.date_select :date, {:order => [:year]}, class: "ED_new_form_input_date" %>
   </div>
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :budget_total %>
-    <%= form.text_field :budget_total %>
+    <%= form.number_field :budget_total, min:0 %>
   </div>
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :budget_solideo %>
-    <%= form.text_field :budget_solideo %>
+    <%= form.number_field :budget_solideo, min:0  %>
   </div>
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :budget_cojo %>
-    <%= form.text_field :budget_cojo %>
+    <%= form.number_field :budget_cojo, min:0  %>
   </div>
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :budget_heritage %>
-    <%= form.text_field :budget_heritage %>
+    <%= form.number_field :budget_heritage, min:0  %>
   </div>
 
-  <div class="field">
+  <div class="ED_new_form_field">
     <%= form.label :budget_hauteperformance %>
-    <%= form.text_field :budget_hauteperformance %>
+    <%= form.number_field :budget_hauteperformance, min:0  %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="ED_new_form_field_submit">
+    <%= form.submit "Ajouter" %>
   </div>
 <% end %>

@@ -20,8 +20,12 @@
          <% if document.date.year == date %>
           <% if document.file.attached?%>
            <div class="documents-mois-doc">
-             <i class="far fa-file-pdf"></i> <%= document.name%>
-             <div class="documents-etat-btn"><%= link_to rails_blob_path(document.file, disposition: 'attachment') do %>Télécharger <i class="fas fa-cloud-download-alt"></i><% end %><%= link_to delete_document_path(id: document.id), method: :post, class:"documents-etat-delete" do%><i class="fas fa-trash-alt"></i><% end%></div>
+             <% if document.extension == "pdf"%> <i class="far fa-file-pdf"></i>
+             <% elsif document.extension == "csv"%> <i class="far fa-file-excel"></i>
+             <% elsif document.extension == "ppt" %> <i class="far fa-file-powerpoint"></i>
+             <% end %>
+             <%= document.name%>
+             <div class="documents-etat-btn"><%= link_to rails_blob_path(document.file, disposition: 'preview'), target: "_blank" do %>Visualiser <i class="fas fa-eye"></i><% end %><%= link_to delete_document_path(id: document.id), method: :post, class:"documents-etat-delete" do%><i class="fas fa-trash-alt"></i><% end%></div>
            </div>
           <% else%>
             <div class="documents-mois-doc">

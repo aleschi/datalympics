@@ -68,52 +68,6 @@
   </div>
   <br><br>
 </div>
-<div class="SD-topo-box hidden">
-  
-  <div class="row">
-    <div class="col-md-6">
-       <div class="SD-topo-box-title">
-    <span>Répartition du budget état</span>
-  </div><br>
-      
-
-  </div>
-    <div class="col-md-6">  
-      <div class="etat-ouvrages-box">
-
-    <div class="SD-topo-box-title">
-    <span>Ouvrages financés par l'Etat</span>
-  </div><br>
-       <div class="SF-topo-financeurs-box">
-      <div class="collectivites-ouvrages-name"></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><em>Fin. prévus €</em></div><div class="SF-topo-financeurs-budget-actuel"> | <em>Evolution</em></div></div>
-    </div> <br><br>
-         <div class='ouvrages-mo'>
-         MOA : ETAT
-       </div>
-    <% @ouvrages.each do |ouvrage| %>
-     
-    <div class="SF-topo-financeurs-box">
-      <div class="collectivites-ouvrages-name"><%= link_to ouvrage_path(ouvrage) do %><%= Ouvrage.find(ouvrage.id).name %> <% end %></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?','Etat', ouvrage.id).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <i class="fas fa-chart-line"></i> +4%</div></div>
-    </div>
-    <% end %><br><br>
-       <div class='ouvrages-mo'>
-         Autres ouvrages financés 
-       </div>
-      <% @ouvrages_etat.each do |ouvrage| %>
-       <div class="SF-topo-financeurs-box">
-      <div class="collectivites-ouvrages-name"><%= link_to ouvrage_path(ouvrage) do %><%= Ouvrage.find(ouvrage).name %> <% end %></div>
-      <div class="SF-topo-financeurs-budget"><div class="SF-topo-financeurs-budget-prevu"><%= number_with_delimiter(OuvragesFinancement.where('name = ? AND ouvrage_id = ?','Etat', ouvrage).sum('montant_prevu').to_i, :delimiter => ' ')%> €</div><div class="SF-topo-financeurs-budget-actuel"> |  <i class="fas fa-chart-line"></i> +4%</div></div>
-    </div>
-      <% end %>
-    </div>           
-      </div>
-
-  </div>
-  
-
-</div>
 <% end %>
 
 <script>

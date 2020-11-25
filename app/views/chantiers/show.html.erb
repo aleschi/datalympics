@@ -1,0 +1,281 @@
+<div class="O_page">
+  <h1 class="SD_title"><%= @chantier.name %></h1>
+  
+  <div class="SD-table-box">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="chantier-topo-image">
+          <% if @ouvrage.photo.attached? %>
+          <%= image_tag @ouvrage.photo%>
+          <% end %>
+        </div>
+         <div class="O-topo-infos-text">
+          Lieu : <%= @ouvrage.adresse %><br>
+          MOA : <%= @ouvrage.maitre_oeuvre %><br>
+        </div>
+      </div>
+      <div class="col-md-8">
+       
+         <div id="container-bar0">      
+         </div>
+   
+        <div id="container-steps">
+        </div> 
+      </div>
+    </div>
+  </div><br><br>  
+  
+  <div class="row">
+    <div class="col-md-4">
+      <div class="SD-table-box chantiers-delais-box">
+         <div class="SD-topo-box-title">
+            <span>Délais</span>
+         </div><br><br>
+        <div class="jauge-risques">
+          <div class="risque1"></div>
+          <div class="risque2"></div>
+          <div class="risque3 risque-active"></div>
+          <div class="risque4"></div>
+          <div class="risque5"></div>
+        </div>
+        <div>
+          Commentaire :Décalage du rendu des études préalables et de l’AVP mais sans incidence sur les dépots du permis d’aménager et les dates de travaux. Phase travaux à étudier plus finement pour s’assurer que les délais sont suffisants
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="SD-table-box chantiers-budget-box">
+         <div class="SD-topo-box-title">
+            <span>Budget</span>
+         </div><br><br>
+        <div class="jauge-risques">
+          <div class="risque1"></div>
+          <div class="risque2 risque-active"></div>
+          <div class="risque3"></div>
+          <div class="risque4"></div>
+          <div class="risque5"></div>
+        </div>
+        <div>
+          Commentaire : blablabla
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="SD-table-box chantiers-management-box">
+         <div class="SD-topo-box-title">
+            <span>Management</span>
+         </div><br><br>
+      </div><br>
+      <div class="SD-table-box chantiers-management-box">
+         <div class="SD-topo-box-title">
+            <span>Programme</span>
+         </div><br><br>
+      </div>
+    </div>
+  </div> <br><br>
+  
+  <div class="SD-table-box">
+    <div class="SD-topo-box-title">
+      <span>Derniers rapports de supervisions</span>
+    </div><br><br>
+  </div>
+  
+</div>
+
+
+<script>
+
+  $('.menu-ouvrages-ouvrage').addClass('menu-active2'); 
+  $('.menu-ouvrages').addClass('menu-active'); 
+
+  $('#ouvrages').addClass('in'); 
+
+</script>
+
+
+<script>
+Highcharts.chart('container-steps', {
+    chart: {
+        type: 'xrange',
+   height: "120px",
+        style:{
+          fontFamily: "Spectral",
+          },
+    
+    },
+    title: {
+        text: null,
+
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '16px',
+                  },
+    },
+
+    xAxis: [{
+        currentDateIndicator: {
+            width: 1,
+            dashStyle: 'dot',
+            color: 'red',
+            label: {
+                format: '%d %b %Y'
+            }
+        },
+      lineColor: "#8F8F8F",
+        type: 'datetime',
+
+    }],
+    yAxis: {
+        title: {
+            text: null,
+        },
+      gridLineColor: "#fff",
+        categories: ['Chantier A'],
+        reversed: true,
+      labels: {
+        enabled: false,
+      }
+    },
+  legend: {
+    enabled: false,
+  },
+  tooltip: {
+    
+    headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
+    pointFormat: '<span style="color:{point.color}">●</span> {series.name}, deadline : <b>{point.x}</b><br/>',
+    xDateFormat: '%Y',
+  },
+  plotOptions: {
+    xrange: {
+       dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>',
+         verticalAlign: "bottom",
+         padding: 10,
+              style: {
+                      color: "#444444",
+                      fontSize: "12px",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                
+                      },
+            }
+    }
+  },
+    series: [{
+        name: 'Chantier A',
+        // pointPadding: 0,
+        // groupPadding: 0,
+       // borderColor: 'gray',
+    
+        pointWidth: 8,
+        data: [{
+            name: "Appel d'offre",
+            x: Date.UTC(2019, 1, 1),
+            x2: Date.UTC(2020, 1, 1),
+            y: 0,
+             partialFill: {
+               amount: 1,
+               fill: '#F29D53',
+             },
+          borderColor:'#fff',
+          color: '#C4C4C4',
+        }, {
+          name: "Jalon1",
+            x: Date.UTC(2020, 1, 1),
+            x2: Date.UTC(2020, 6, 1),
+            y: 0,
+             borderColor: '#fff',
+          color: '#C4C4C4',
+        }, {
+           name: "Jalon 2",
+            x: Date.UTC(2020, 6, 1),
+            x2: Date.UTC(2022, 1, 1),
+            y: 0,
+          borderColor: '#fff',
+          color: '#C4C4C4',
+        }, {
+           name: "Jalon 3",
+            x: Date.UTC(2022, 1, 1),
+            x2: Date.UTC(2023, 1, 1),
+            y: 0,
+          borderColor: '#fff',
+          color: '#C4C4C4',
+        }, {
+           name: "Jalon 4",
+            x: Date.UTC(2023, 1, 1),
+            x2: Date.UTC(2023, 6, 1),
+            y: 0,
+          borderColor: '#fff',
+          color: '#C4C4C4',
+        }],
+        dataLabels: {
+            enabled: true
+        }
+    }],
+
+});
+</script>
+
+<script>
+Highcharts.chart('container-bar0', {
+    chart: {
+        type: 'bar',
+      style:{
+          fontFamily: "Spectral",
+         maxWidth: '500px',
+          },
+      height: "150px",
+    },
+    title: {
+        text: null,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+    },
+  colors: ['#4FC5CE'],
+    xAxis: {
+        categories:  ["Budget total", "Dépenses", "Dépenses prévues 2021"],
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Montant (€)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' €'
+    },
+  legend: {
+    enabled: false,
+  },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y: <%= @ouvrage.budget.to_i%> , color: "#3233FF"},{y: <%= (@ouvrage.budget/2).to_i%> , color: "#C90200"}, {y: <%= (@ouvrage.budget/3).to_i%>, color: "#F9EA43"}],
+     }]
+});
+  </script>

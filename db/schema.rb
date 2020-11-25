@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_073607) do
+ActiveRecord::Schema.define(version: 2020_11_25_103630) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(version: 2020_11_23_073607) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "chantiers", force: :cascade do |t|
+    t.string "name"
+    t.integer "ouvrage_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ouvrage_id"], name: "index_chantiers_on_ouvrage_id"
   end
 
   create_table "documents", force: :cascade do |t|

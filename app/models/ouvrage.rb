@@ -2,7 +2,7 @@ class Ouvrage < ApplicationRecord
 
  has_many :ouvrages_financements
   has_many :ouvrages_depenses
-  
+  has_many :chantiers 
   geocoded_by :adresse
   after_validation :geocode
   require 'csv'

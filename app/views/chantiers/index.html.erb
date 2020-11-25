@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Chantiers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Ouvrage</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chantiers.each do |chantier| %>
+      <tr>
+        <td><%= chantier.name %></td>
+        <td><%= chantier.ouvrage %></td>
+        <td><%= link_to 'Show', chantier %></td>
+        <td><%= link_to 'Edit', edit_chantier_path(chantier) %></td>
+        <td><%= link_to 'Destroy', chantier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Chantier', new_chantier_path %>

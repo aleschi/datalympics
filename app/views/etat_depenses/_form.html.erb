@@ -36,23 +36,23 @@
 
   <div class="ED_new_form_field">
     <%= form.label :ae_prevu , "AE prévus"%>
-    <%= form.text_field :ae_prevu , class: "ED_new_form_input"%>
+    <%= form.number_field :ae_prevu ,min: 0, step: 1, required: true, class: "ED_new_form_input"%>
   </div>
 
   <div class="ED_new_form_field">
     <%= form.label :ae_conso , "AE consommés" %>
-    <%= form.text_field :ae_conso , class: "ED_new_form_input", id: "ae_conso"%>
+    <%= form.number_field :ae_conso ,min: 0, step: 1, required: true, class: "ED_new_form_input", id: "ae_conso"%>
    
   </div>
 
   <div class="ED_new_form_field">
     <%= form.label :cp_prevu, "CP prévus" %>
-    <%= form.text_field :cp_prevu , class: "ED_new_form_input"%>
+    <%= form.number_field :cp_prevu ,min: 0, step: 1, required: true, class: "ED_new_form_input"%>
   </div>
 
   <div class="ED_new_form_field">
     <%= form.label :cp_conso , "CP consommés"%>
-    <%= form.text_field :cp_conso , class: "ED_new_form_input"%>
+    <%= form.number_field :cp_conso ,min: 0, step: 1, required: true, class: "ED_new_form_input"%>
   </div>
   <div class="ED_new_form_field">
     <label>Commentaires ?</label>

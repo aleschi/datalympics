@@ -139,6 +139,9 @@ Highcharts.chart('container-1', {
                 connectorAllowed: false
             },
             pointStart: 2018,
+           dataLabels: {
+                enabled: true
+            }
         }
     },
 
@@ -235,6 +238,7 @@ Highcharts.chart('container-2', {
                 connectorAllowed: false
             },
             pointStart: 2018,
+         
         }
     },
 
@@ -247,6 +251,9 @@ Highcharts.chart('container-2', {
       color: '#bdc467',
      
         data: [40,60,80,110,100,90,60],
+       dataLabels: {
+                enabled: true
+            }
       
     },{
         name: 'Dépenses prévues',
@@ -325,8 +332,11 @@ Highcharts.chart('container-3', {
         name: 'Evolution prévue',
         data: <%= @depenses_prevu_annee_innovation %>,
     },{
-        name: 'Evolution',
+        name: 'Evolution réelle',
         data: <%= @depenses_annee_innovation %>,
+       dataLabels: {
+                enabled: true,
+            },
     }],
 
     responsive: {
@@ -400,8 +410,11 @@ Highcharts.chart('container-4', {
         name: 'Evolution prévue',
         data: <%= @depenses_prevu_annee_reserve %>,
     },{
-        name: 'Evolution',
+        name: 'Evolution réelle',
         data: <%= @depenses_annee_reserve%>,
+       dataLabels: {
+                enabled: true,
+            },
     }],
 
     responsive: {

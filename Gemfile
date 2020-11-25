@@ -48,6 +48,7 @@ gem 'activeadmin'
 gem 'geocoder'
 gem 'devise'
 gem 'devise-i18n'
+gem 'rails-i18n'
 gem 'toastr-rails'
 
 group :development, :test do

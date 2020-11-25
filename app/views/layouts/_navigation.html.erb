@@ -16,15 +16,21 @@
     </div>
   </div>
   <% if !@navshow.nil? && !@ouvrage.nil?%>
+  <% if !@chantier.nil?%>
+   <div class="navigation-menu"><%= link_to ouvrage_path(@ouvrage), class:"menu" do%><i class="fas fa-arrow-left"></i> Retour à l'ouvrage<%end%></div>
+  <% else %>
   <div class="navigation-menu"><%= link_to ouvrages_path, class:"menu" do%><i class="fas fa-arrow-left"></i> Retour aux ouvrages<%end%></div>
-
+  <% end %>
   <div class="dropdown navigation-menu ">
       <a class="menu menu-ouvrages" href="#ouvrages" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="ouvrages" id="btn-collapse-ouvrages"><i class="fas fa-building"></i> Ouvrages <span class="collapse-icon"></span></a>
     </div>
 
     <section id="ouvrages" class="collapse">
       <div class="navigation-menu navigation-menu2"><a class="menu2  menu-ouvrages-ouvrage" do %><%= @ouvrage.name %></a></div>
-
+      <% if !@chantier.nil?%>
+      <div class="navigation-menu navigation-menu3"><a class="menu2  menu-ouvrages-ouvrage" do %><%= @chantier.name %></a></div>
+      
+      <% end %>
    </section>
   <% else%>
     <div class="dropdown navigation-menu ">

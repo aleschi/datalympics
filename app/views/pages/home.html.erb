@@ -1,38 +1,299 @@
-<div class="home_page_1_bis">
-
-
-  <%= image_tag "home.jpg" %>
-
-<div class="home_page">
- 
-  <br>
-  <div class="home_choice_text text-center">
-    Suivre le budget par acteur 
+<div class="EB_page">
+  <div class="home-title">
+    Bienvenue sur le Tableau de bord de la<br>
+    Direction du Budget
   </div>
-  <div class="home_choice_box">
-    <div class="home_choice_button">
-      <%= link_to etat_budgets_path do %>Etat <% end %>
-    
-      <%= link_to collectivites_path do %>Collectivités<% end %>
- 
-      <%= link_to solideo_depenses_path do %>Solideo<% end %>
   
-      <a>COJO</a>
+  <div class="row">
+    <div class="col-md-6">
+        <div class="home-box">
+    <div class="home-box-title">
+      Mon budget
     </div>
-       
+    <div class="home-box-infos-box">
+      <div class="row">
+        <div class="col-md-6">
+
+          <div>
+            <div class="home-box-infos1">+300 000 000 €</div>
+            <div class="home-box-infos2">dernière dépense</div>
+          </div><br>
+          
+          <div>
+            <div class="home-box-infos1"><i class="fas fa-bell"></i> 1 document à transmettre</div>
+            <div class="home-box-infos2">PAP 2020</div>
+          </div>
+
+          </div>
+
+        <div class="col-md-6">
+          <div id="container-jauge">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+      <div class="col-md-6"> 
+        <div class="home-box">
+    <div class="home-box-title">
+      Ouvrages 
+    </div>
+    <div class="home-box-infos-box">
+      <div class="row">
+        <div class="col-md-6">
+
+          <div>
+            <div class="home-box-infos1">1 risque remonté</div>
+            <div class="home-box-infos2">Village olympique</div>
+          </div><br>
+          
+          <div>
+            <div class="home-box-infos1"><i class="fas fa-bell"></i> 1 document en attente</div>
+            <div class="home-box-infos2">Engagements 2021</div>
+          </div>
+
+          </div>
+
+        <div class="col-md-6">
+          <div id="container-jauge2">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      </div>
   </div>
   
- 
+  <div class="row">
+    <div class="col-md-6">
+      <div class="home-box">
+        <div class="home-box-title">
+          Solideo
+        </div>
+        <div class="home-box-infos-box">
+          <div class="row">
+            <div class="col-md-12">
 
-  
-  <h1 class="home_title">
-  Datalympics
-  </h1>
-  <h2 class="home_subtitle">
-    Outil de suivi des financements des JOP2024
-  </h2>
+              <div>
+                <div class="home-box-infos1">+11 000 000 €</div>
+                <div class="home-box-infos2">dernière dépense</div>
+              </div><br>
 
-  
-   
+              <div>
+                <div class="home-box-infos1"><i class="fas fa-bell"></i> 1 nouveau document</div>
+                <div class="home-box-infos2">Maquette_2020.csv</div>
+              </div>
+
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="home-box">
+        <div class="home-box-title">
+          Cojo
+        </div>
+        <div class="home-box-infos-box">
+          <div class="row">
+            <div class="col-md-12">
+
+              <div>
+                <div class="home-box-infos1">+11 000 000 €</div>
+                <div class="home-box-infos2">dernière dépense</div>
+              </div><br>
+
+              <div>
+                <div class="home-box-infos1"><i class="fas fa-bell"></i> 1 nouveau document</div>
+                <div class="home-box-infos2">Maquette_2020.csv</div>
+              </div>
+
+              </div>
+
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
+
+<script>
+
+Highcharts.chart('container-jauge', {
+
+    chart: {
+        type: 'solidgauge',
+        height: '200px',
+     
+    },
+
+    title: {
+        text: null,
+       
+    },
+
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 15
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '100%',
+            innerRadius: '88%',
+            backgroundColor: "#C4C4C4",
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            
+          tooltip: "",
+          
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '14px',
+                color: '#004A70',
+              },
+              valueSuffix: '%',
+              format: '<span style="color:#5770BE; font-size:12px;font-weight:400">{series.name} :</span><br><span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span>',
+            verticalAlign: 'middle',
+              align: 'center',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Budget consommé',
+        data: [{
+            color: "#F29D53",
+            radius: '100%',
+            innerRadius: '88%',
+            y: 33
+        }]
+    }]
+});
+  </script>
+
+<script>
+
+Highcharts.chart('container-jauge2', {
+
+    chart: {
+        type: 'solidgauge',
+        height: '200px',
+     
+    },
+
+    title: {
+        text: null,
+       
+    },
+
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 15
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '100%',
+            innerRadius: '88%',
+            backgroundColor: "#C4C4C4",
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            
+          tooltip: "",
+          
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '14px',
+                color: '#004A70',
+              },
+              valueSuffix: '%',
+              format: '<span style="color:#5770BE; font-size:12px;font-weight:400">{series.name} :</span><br><span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span>',
+            verticalAlign: 'middle',
+              align: 'center',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Travaux finalisés',
+        data: [{
+            color: "#F29D53",
+            radius: '100%',
+            innerRadius: '88%',
+            y: 13
+        }]
+    }]
+});
+  </script>

@@ -9,7 +9,7 @@
 </div><br><br>
 <div  class="table-box">
   <div class="SD-topo-box-title">
-    <span>Répartition annuelle des dépenses de l'état (CP consommés / CP prévus)</span>
+    <span>Répartition annuelle des dépenses de l'état en K€ (CP consommés / CP prévus)</span>
   </div><br><br>
 <% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
 
@@ -29,11 +29,11 @@
           <% @etat_depenses_array.each do |date| %>
           <tr>
             <th scope="row"><%= date.strftime('%Y') %></th>
-            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "solideo", date+1.day,date-1.day ).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ? ', "solideo",date+1.day, date-1.day).sum('cp_prevu').to_i, :delimiter => ' ') %> € <% if EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "solideo", date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "solideo", date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div></td>
-            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "cojo", date+1.day,date-1.day ).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "cojo", date+1.day, date-1.day).sum('cp_prevu').to_i, :delimiter => ' ') %> € <% if EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "cojo", date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "cojo", date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div></td>
-            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "heritage", date+1.day, date-1.day ).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ? ', "heritage",date+1.day, date-1.day).sum('cp_prevu').to_i, :delimiter => ' ') %> € <% if EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "heritage", date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "heritage", date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div> </td>
-            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "hauteperformance",date+1.day, date-1.day).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ? ', "hauteperformance",date+1.day, date-1.day).sum('cp_prevu').to_i, :delimiter => ' ') %> € <% if EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "hauteperformance", date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "hauteperformance", date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div></td>
-            <td class="border-none"><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(EtatDepense.where('date <= ? AND date >= ?', date+1.day, date-1.day).sum('cp_conso').to_i, :delimiter => ' ') %> € </div> <div class="table-row-right"> / <%= number_with_delimiter(EtatDepense.where('date <= ? AND date >= ? ',date+1.day, date-1.day).sum('cp_prevu').to_i, :delimiter => ' ') %> € <% if EtatDepense.where('date <= ? AND date >= ?', date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('date <= ? AND date >= ?', date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div></td>
+            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "solideo", date+1.day,date-1.day ).sum('cp_conso')/1000).to_i, :delimiter => ' ') %> </div> <div class="table-row-right"> / <%= number_with_delimiter((EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ? ', "solideo",date+1.day, date-1.day).sum('cp_prevu')/1000).to_i, :delimiter => ' ') %> <% if EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "solideo", date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "solideo", date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div></td>
+            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "cojo", date+1.day,date-1.day ).sum('cp_conso')/1000).to_i, :delimiter => ' ') %> </div> <div class="table-row-right"> / <%= number_with_delimiter((EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "cojo", date+1.day, date-1.day).sum('cp_prevu')/1000).to_i, :delimiter => ' ') %> <% if EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "cojo", date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "cojo", date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div></td>
+            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "heritage", date+1.day, date-1.day ).sum('cp_conso')/1000).to_i, :delimiter => ' ') %> </div> <div class="table-row-right"> / <%= number_with_delimiter((EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ? ', "heritage",date+1.day, date-1.day).sum('cp_prevu')/1000).to_i, :delimiter => ' ') %> <% if EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "heritage", date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "heritage", date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div> </td>
+            <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "hauteperformance",date+1.day, date-1.day).sum('cp_conso')/1000).to_i, :delimiter => ' ') %> </div> <div class="table-row-right"> / <%= number_with_delimiter((EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ? ', "hauteperformance",date+1.day, date-1.day).sum('cp_prevu')/1000).to_i, :delimiter => ' ') %> <% if EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "hauteperformance", date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('beneficiaire = ? AND date <= ? AND date >= ?', "hauteperformance", date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div></td>
+            <td class="border-none"><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((EtatDepense.where('date <= ? AND date >= ?', date+1.day, date-1.day).sum('cp_conso')/1000).to_i, :delimiter => ' ') %> </div> <div class="table-row-right"> / <%= number_with_delimiter((EtatDepense.where('date <= ? AND date >= ? ',date+1.day, date-1.day).sum('cp_prevu')/1000).to_i, :delimiter => ' ') %> <% if EtatDepense.where('date <= ? AND date >= ?', date+1.day,date-1.day ).sum('cp_conso').to_i > EtatDepense.where('date <= ? AND date >= ?', date+1.day,date-1.day ).sum('cp_prevu').to_i%><i class="fas fa-exclamation-circle"></i><% end %></div></div></td>
           </tr>
           <% end %>
         </tbody>
@@ -103,23 +103,23 @@ Highcharts.chart('container-chart', {
       borderColor: '#fff',
       data: [{
             name: 'Prévisionnel 2018',
-            y: 1102857000,
+            y: <%= EtatBudget.first.budget_total.to_i%>,
             color: "#8F8F8F",
         }, {
             name: 'Variation Solideo',
-            y: 31000000,
+            y: <%= (EtatBudget.last.budget_solideo-EtatBudget.first.budget_solideo).to_i%>,
             color: "#F1013B",
         }, {
             name: 'Variation COJO',
-            y: 0,
+            y: <%= (EtatBudget.last.budget_cojo-EtatBudget.first.budget_cojo).to_i%>,
             color: "#F1013B",
         }, {
             name: 'Variation héritage',
-            y: 0,
+            y: <%= (EtatBudget.last.budget_heritage-EtatBudget.first.budget_heritage).to_i%>,
             color: "#F1013B",
         },{
             name: 'Variation Haute Performance',
-            y: 0,
+            y: <%= (EtatBudget.last.budget_hauteperformance-EtatBudget.first.budget_hauteperformance).to_i%>,
             color: "#F1013B",
         },  {
             name: 'Prévisionnel 2020',

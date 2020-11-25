@@ -75,7 +75,7 @@
   
   <div class="SD-topo-box">
   <div class="SD-topo-box-title">
-    <span>Maquette annuelle des dépenses</span>
+    <span>Maquette annuelle de répartition des financements de la Solideo </span>
   </div><br><br>
     
     <div class="ED_table">
@@ -141,6 +141,53 @@
     <span>Détails des dépenses</span>
   </div><br><br>
     <div class="row">
+      <div class="col-md-6">
+
+      <%= line_chart [{name: "CP prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_prevu)},{name: "CP consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#8F8F8F','#48AF5C'],  library: {
+        chart:{
+          backgroundColor: '#fff',
+          borderRadius: '20px',
+          style:{
+          fontFamily: "Spectral",
+         
+          },
+        },
+        title: {
+          text: 'CP prévus VS CP consommés',
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+            fontStyle: 'italic',
+            fontSize: '16px',
+                  },
+        },
+        yAxis: {
+             gridLineColor: '#fff',         
+        },
+        tooltip: {
+              xDateFormat: '%B',
+            },
+        xAxis: {
+             lineColor: '#004A70',
+             type: 'datetime',
+            
+              title: {
+              text: "Dates",
+             },
+
+         },
+        plotOptions: {
+          column: {
+              tooltip: {
+                xDateFormat: '%B',
+              }
+          }
+        },
+       
+        }
+      %>
+             
+     </div>
      <div class="col-md-6">
         
       <%= line_chart [{name: "AE prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_prevu)},{name: "AE consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_conso)}],colors: ['#8F8F8F','#48AF5C'],  library: {
@@ -189,53 +236,7 @@
       %>
              
      </div>
-     <div class="col-md-6">
-
-      <%= line_chart [{name: "CP prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_prevu)},{name: "CP consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#8F8F8F','#48AF5C'],  library: {
-        chart:{
-          backgroundColor: '#fff',
-          borderRadius: '20px',
-          style:{
-          fontFamily: "Spectral",
-         
-          },
-        },
-        title: {
-          text: 'CP prévus VS CP consommés',
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-            fontStyle: 'italic',
-            fontSize: '16px',
-                  },
-        },
-        yAxis: {
-             gridLineColor: '#fff',         
-        },
-        tooltip: {
-              xDateFormat: '%B',
-            },
-        xAxis: {
-             lineColor: '#004A70',
-             type: 'datetime',
-            
-              title: {
-              text: "Dates",
-             },
-
-         },
-        plotOptions: {
-          column: {
-              tooltip: {
-                xDateFormat: '%B',
-              }
-          }
-        },
-       
-        }
-      %>
-             
-     </div>
+     
   </div>
     <br>
     <div class="ED_table_filtres">
@@ -263,10 +264,10 @@
           
             <td><%= etat_depense.titre %></td>
             <td><%= etat_depense.categorie %></td>
-            <td><%= number_with_delimiter(etat_depense.ae_prevu.to_i, :delimiter => ' ') %> €</td>
-            <td><%= number_with_delimiter(etat_depense.ae_conso.to_i, :delimiter => ' ') %> € <% if etat_depense.ae_conso.to_i > etat_depense.ae_prevu.to_i %><i class="fas fa-exclamation-circle"></i><% end %></td>
-            <td><%= number_with_delimiter(etat_depense.cp_prevu.to_i, :delimiter => ' ') %> €</td>
-            <td><%= number_with_delimiter(etat_depense.cp_conso.to_i, :delimiter => ' ') %> € <% if etat_depense.cp_conso.to_i > etat_depense.cp_prevu.to_i %><i class="fas fa-exclamation-circle"></i><% end %></td>
+            <td><%= number_with_delimiter((etat_depense.ae_prevu/1000).to_i, :delimiter => ' ') %> k€</td>
+            <td><%= number_with_delimiter((etat_depense.ae_conso/1000).to_i, :delimiter => ' ') %> k€ <% if etat_depense.ae_conso.to_i > etat_depense.ae_prevu.to_i %><i class="fas fa-exclamation-circle"></i><% end %></td>
+            <td><%= number_with_delimiter((etat_depense.cp_prevu/1000).to_i, :delimiter => ' ') %> k€</td>
+            <td><%= number_with_delimiter((etat_depense.cp_conso/1000).to_i, :delimiter => ' ') %> k€ <% if etat_depense.cp_conso.to_i > etat_depense.cp_prevu.to_i %><i class="fas fa-exclamation-circle"></i><% end %></td>
             <td class="border-none"> <%= link_to edit_etat_depense_path(etat_depense) do %> <i class="fas fa-pen"></i><% end %>
             <%= link_to etat_depense, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %></td>
           </tr>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :chantiers
   devise_for :users, :path => "",
     :path_names =>  {:sign_in => "connexion", :sign_out => "deconnexion"}
   ActiveAdmin.routes(self)
