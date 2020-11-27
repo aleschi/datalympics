@@ -14,8 +14,8 @@
             <th scope="col">Date</th>
             <th scope="col">Financeur</th>
             
-            <th scope="col">Financement prévu</th>
-            <th scope="col" class="border-none">Financement attribué</th>
+       
+            <th scope="col" class="border-none">Financement </th>
           </tr>
         </thead>
         <tbody>
@@ -23,16 +23,14 @@
           <tr>
             <th scope="row"><%= date.strftime("%Y") %></th>
             <th scope="row"><%= link_to etat_budgets_path do %> Etat<% end %></th>
-            <td><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu').to_i, :delimiter => ' ') %> €</td>
-            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu').to_i, :delimiter => ' ') %> € / <%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
           </tr> 
           <% end %>
           <% @solideo_financements_array.each do |date| %>
            <tr>
             <th scope="row"><%= date.strftime("%Y") %></th>
             <th scope="row"><%= link_to collectivites_path do %> Collectivités<% end %></th>
-            <td><%= number_with_delimiter(SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu').to_i, :delimiter => ' ') %> €</td>
-            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat', "privé",date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu').to_i, :delimiter => ' ') %> €/<%= number_with_delimiter(SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat', "privé",date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
           </tr>
           <% end %>
 
@@ -40,8 +38,7 @@
           <tr>
             <th scope="row"><%= date.strftime("%Y") %></th>
             <th scope="row"> Privés</th>
-            <td><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu').to_i, :delimiter => ' ') %> €</td>
-            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+            <td class="border-none"><%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu').to_i, :delimiter => ' ') %> €/<%= number_with_delimiter(SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
           </tr>
           <% end %>
         </tbody>

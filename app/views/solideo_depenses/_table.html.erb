@@ -8,7 +8,7 @@
        <div class="SD-topo-box-title">
         <span><%= link_to ouvrages_path do %>Ouvrages<%end%></span>
       </div><br><br>
-        <div id=container-1>
+        <div id="container-1">
    
           
         </div>
@@ -68,18 +68,18 @@
                 <th scope="col">Fonctionnement</th>
                 <th scope="col">Innovation</th>
                 <th scope="col">Réserve</th>
-                <th scope="col" class="border-none">Total</th>
+                <th scope="col" class="border-none">Total (k€)</th>
               </tr>
             </thead>
             <tbody>
               <% @solideo_depenses_array.each do |date| %>
               <tr>
                 <th scope="row"><%= date.strftime("%b %Y") %></th>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(OuvragesDepense.where(' date = ?',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(OuvragesDepense.where('date = ?',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if OuvragesDepense.where('date = ?', date).sum('montant').to_i > OuvragesDepense.where('date = ?', date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
-                 <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <% if SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
-                <td class="border-none"><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(OuvragesDepense.where(' date = ?',date).sum('montant')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant').to_i, :delimiter => ' ') %>€</div> <div class="table-row-right"> / <%= number_with_delimiter(OuvragesDepense.where(' date = ?',date).sum('montant_prevu')+SolideoFinancement.where('categorie != ? AND date = ?',"ouvrages",date).sum('montant_prevu').to_i, :delimiter => ' ') %>€ <%if OuvragesDepense.where(' date = ?',date).sum('montant')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant') > OuvragesDepense.where(' date = ?',date).sum('montant_prevu')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant_prevu') %><i class="fas fa-exclamation-circle"></i><%end %></div></div></td>
+                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((OuvragesDepense.where(' date = ?',date).sum('montant')/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter((OuvragesDepense.where('date = ?',date).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> <% if OuvragesDepense.where('date = ?', date).sum('montant').to_i > OuvragesDepense.where('date = ?', date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
+                 <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant')/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
+                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant')/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
+                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant')/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
+                <td class="border-none"><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(((OuvragesDepense.where(' date = ?',date).sum('montant')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant'))/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter(((OuvragesDepense.where(' date = ?',date).sum('montant_prevu')+SolideoFinancement.where('categorie != ? AND date = ?',"ouvrages",date).sum('montant_prevu'))/1000).to_i, :delimiter => ' ') %> <%if OuvragesDepense.where(' date = ?',date).sum('montant')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant') > OuvragesDepense.where(' date = ?',date).sum('montant_prevu')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant_prevu') %><i class="fas fa-exclamation-circle"></i><%end %></div></div></td>
                
              </tr>
               <% end %>
@@ -118,16 +118,16 @@ Highcharts.chart('container-1', {
       fontSize: '16px',
                   },
       },
-  colors: ["#8f8f8f",'#487F7F'],
+  colors: ["#bfbfbf",'#2E5D63'],
     yAxis: {
       gridLineColor: '#E6F0FF', 
         title: {
-            text: 'Total €'
+            text: 'Total M€'
         }
     },
   tooltip: {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
+        valueSuffix: ' M€',
       
     },
   xAxis:{
@@ -140,7 +140,8 @@ Highcharts.chart('container-1', {
             },
             pointStart: 2018,
            dataLabels: {
-                enabled: true
+                enabled: true,
+             verticalAlign: 'top',
             }
         }
     },
@@ -200,26 +201,26 @@ Highcharts.chart('container-2', {
         labels: {
             format: '{value} €',
             style: {
-                color: '#E0A922'
+                color: '#5770BE'
             }
         },
         title: {
             text: 'Montant en €',
             style: {
-                color: '#E0A922'
+                color: '#5770BE'
             }
         }
     }, { // Secondary yAxis
         title: {
             text: 'ETP',
             style: {
-                color: '#E0A922'
+                color: '#76505B'
             }
         },
         labels: {
             format: '{value} ETP',
             style: {
-                color: '#E0A922'
+                color: '#76505B'
             }
         },
         opposite: true
@@ -248,17 +249,18 @@ Highcharts.chart('container-2', {
         name: 'ETP',
         type: 'column',
         yAxis: 1,
-      color: '#bdc467',
+      color: '#76505B',
      
         data: [40,60,80,110,100,90,60],
        dataLabels: {
-                enabled: true
+                enabled: true,
+                verticalAlign: "center",
             }
       
     },{
         name: 'Dépenses prévues',
         type: 'spline',
-      color: '#8f8f8f',
+      color: '#bfbfbf',
       tooltip: {
             valueSuffix: '€',
         },
@@ -267,7 +269,7 @@ Highcharts.chart('container-2', {
     }, {
         name: 'Dépenses',
       type: 'spline',
-      color: '#E0A922',
+      color: '#5770BE',
         tooltip: {
             valueSuffix: '€',
         },
@@ -302,7 +304,7 @@ Highcharts.chart('container-3', {
       fontSize: '16px',
                   },
       },
-  colors: ["#c4c4c4", '#ac8c97'],
+  colors: ["#bfbfbf", '#20E37B'],
     yAxis: {
       gridLineColor: '#fff', 
         title: {
@@ -380,7 +382,7 @@ Highcharts.chart('container-4', {
       fontSize: '16px',
                   },
       },
-  colors: ["#c4c4c4", '#F38C75'],
+  colors: ["#bfbfbf", '#C68D7B'],
     yAxis: {
       gridLineColor: '#fff', 
         title: {

@@ -143,7 +143,7 @@
     <div class="row">
       <div class="col-md-6">
 
-      <%= line_chart [{name: "CP prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_prevu)},{name: "CP consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#8F8F8F','#48AF5C'],  library: {
+      <%= line_chart [{name: "CP prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_prevu)},{name: "CP consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#bfbfbf','#2E5D63'],  library: {
         chart:{
           backgroundColor: '#fff',
           borderRadius: '20px',
@@ -190,7 +190,7 @@
      </div>
      <div class="col-md-6">
         
-      <%= line_chart [{name: "AE prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_prevu)},{name: "AE consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_conso)}],colors: ['#8F8F8F','#48AF5C'],  library: {
+      <%= line_chart [{name: "AE prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_prevu)},{name: "AE consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_conso)}],colors: ['#bfbfbf','#2E5D63'],  library: {
         chart:{
           backgroundColor: '#fff',
           borderRadius: '20px',
@@ -311,7 +311,7 @@ Highcharts.chart('container-pie', {
                   fontSize: '16px',
                   },
     },
-  colors: ['#22e37b','#2e5d63', '#628859','#4a6a75'],
+  colors: ['#2E5D63','#C68D7B', '#20E37B','#5770BE'],
     tooltip: {
         pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>'
     },

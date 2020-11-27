@@ -872,7 +872,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
    -webkit-box-shadow: 1px 8px 14px rgba(50,50,50,.2); -moz-box-shadow: 1px 8px 14px rgba(50,50,50,.2); -o-box-shadow: 1px 8px 14px rgba(50,50,50,.2);box-shadow: 1px 8px 14px rgba(50,50,50,.2); 
  
 }
-.home-box-title{
+.home-box-title, .home-box-title a{
   border-radius:5px;
   background-color: #000091;
   width:100%;
@@ -1109,7 +1109,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin:auto;
 }
 .ouvrages-budget-infos-number{
-  color: #5770BE;
+  color: #000091;
   font-weight:700;
   font-size: 18px;
 }
@@ -1259,7 +1259,8 @@ bottom:0px;
 }
 .navigation-logo{
   margin-bottom:50px;
-  padding-left:15px;
+  text-align:center;
+ 
   color:#fff;
   font-size:14px;
   text-transform:uppercase;
@@ -1501,37 +1502,37 @@ bottom:0px;
 }
 .risque1{
   width:20%;
-  height:20px;
+  height:15px;
   background-color: #A2C744;
   opacity: 0.3;
 }
 .risque2{
   width:20%;
-  height:20px;
+  height:15px;
   background-color: #A4D7FC;
   opacity: 0.3;
 }
 .risque3{
   width:20%;
-  height:20px;
+  height:15px;
   background-color: #DDE10F;
   opacity: 0.3;
 }
 .risque4{
   width:20%;
-  height:20px;
+  height:15px;
   background-color: #FD9C04;
   opacity: 0.3;
 }
 .risque5{
   width:20%;
-  height:20px;
+  height:15px;
   background-color: #F1013B;
   opacity: 0.3;
 }
 .risque-active{
   opacity:1;
-  height:40px;
+  height:30px;
 }
 .chantiers-delais-box, .chantiers-budget-box{
   height: 420px;

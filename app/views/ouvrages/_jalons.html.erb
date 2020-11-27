@@ -4,23 +4,13 @@
     <span>Calendrier des travaux</span>
   </div><br><br>
   
-        <div class="ouvrages-risques">
-          <i class="fas fa-exclamation-circle"></i> 2 chantiers à risque
-        </div>
         <div class="ouvrages-risques-infos">
           <i class="fas fa-exclamation-triangle"></i> Chantier A, délai 10%<br>
           <i class="fas fa-exclamation-triangle"></i> Chantier B, délai 20% 
-        </div>
+        </div><br><br>
   
   <div class="calendar-infos">
-    <div class="calendar-infos-box">
-      <div class="calendar-number">
-        20%
-      </div>
-      <div>
-        <span>Avancée globale</span>
-      </div>
-    </div>
+    
     <div class="calendar-infos-box">
       <div>
       <i class="fas fa-tasks"></i>
@@ -68,6 +58,9 @@
    <div class="SD-topo-box-title">
     <span>Chemins critiques</span>
   </div><br><br>
+  <div>
+    A voir avec Alexandre
+  </div>
 </div>
 <script>
 Highcharts.chart('container-steps', {
@@ -111,9 +104,10 @@ Highcharts.chart('container-steps', {
         reversed: true,
       labels: {
         formatter: function () {
-            return '<a href="/chantiers/1">' + this.value + '</a>'
+            return '<a style="color: #bfbfbf" href="/chantiers/1">' + this.value + '</a>'
         },
-        useHTML: true
+        useHTML: true,
+        align: "center",
     },
     },
   
@@ -137,37 +131,37 @@ Highcharts.chart('container-steps', {
             y: 0,
              partialFill: {
                amount: 0.25,
-               fill: '#4f82ce',
+               fill: '#2E5D63',
              },
-          borderColor:'#4f82ce',
+          borderColor:'#2E5D63',
           color: '#fff',
         }, {
           name: "Jalon1",
             x: Date.UTC(2020, 1, 1),
             x2: Date.UTC(2020, 6, 1),
             y: 0,
-             borderColor: '#4f82ce',
+             borderColor: '#2E5D63',
           color: '#fff',
         }, {
            name: "Jalon 2",
             x: Date.UTC(2020, 6, 1),
             x2: Date.UTC(2022, 1, 1),
             y: 0,
-          borderColor: '#4f82ce',
+          borderColor: '#2E5D63',
           color: '#fff',
         }, {
            name: "Jalon 3",
             x: Date.UTC(2022, 1, 1),
             x2: Date.UTC(2023, 1, 1),
             y: 0,
-          borderColor: '#4f82ce',
+          borderColor: '#2E5D63',
           color: '#fff',
         }, {
            name: "Jalon 4",
             x: Date.UTC(2023, 1, 1),
             x2: Date.UTC(2023, 6, 1),
             y: 0,
-          borderColor: '#4f82ce',
+          borderColor: '#2E5D63',
           color: '#fff',
         }],
         dataLabels: {
@@ -187,9 +181,9 @@ Highcharts.chart('container-steps', {
             y: 1,
            partialFill: {
                amount: 1,
-          fill: '#4f82ce',
+          fill: '#2E5D63',
            },
-          borderColor: '#4f82ce',
+          borderColor: '#2E5D63',
           color: '#fff',
         }, {
            name: "Jalon 1",
@@ -198,30 +192,30 @@ Highcharts.chart('container-steps', {
             y: 1,
            partialFill: {
                amount: 0.80,
-           fill: '#4f82ce',
+           fill: '#2E5D63',
            },
-          borderColor: '#4f82ce',
+          borderColor: '#2E5D63',
           color: '#fff',
         }, {
            name: "Jalon 2",
             x: Date.UTC(2021, 1, 1),
             x2: Date.UTC(2022, 1, 1),
             y: 1,
-           borderColor: '#4f82ce',
+           borderColor: '#2E5D63',
           color: '#fff',
         }, {
            name: "Jalon 3",
             x: Date.UTC(2022, 1, 1),
             x2: Date.UTC(2023, 1, 1),
             y: 1,
-           borderColor: '#4f82ce',
+           borderColor: '#2E5D63',
           color: '#fff',
         }, {
            name: "Jalon 4",
             x: Date.UTC(2023, 1, 1),
             x2: Date.UTC(2024, 1, 1),
             y: 1,
-           borderColor: '#4f82ce',
+           borderColor: '#2E5D63',
           color: '#fff',
         }],
         dataLabels: {

@@ -54,7 +54,7 @@ before_action :authenticate_user!
       @is_present = false 
       @h1.each do |h|
         if h[0].year == annee
-          @depenses_annee_ouvrages << h[1]
+          @depenses_annee_ouvrages << (h[1]/1000000).round
           @is_present = true 
         end 
       end
@@ -66,7 +66,7 @@ before_action :authenticate_user!
       @is_present = false 
       @h3.each do |h|
         if h[0].year == annee
-          @depenses_prevu_annee_ouvrages << h[1]
+          @depenses_prevu_annee_ouvrages << (h[1]/1000000).round
           @is_present = true 
         end 
       end

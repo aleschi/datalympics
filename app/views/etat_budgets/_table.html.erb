@@ -82,7 +82,13 @@ Highcharts.chart('container-chart', {
     },
 
     xAxis: {
-        type: 'category'
+        type: 'category',
+      labels: {
+                formatter: function () {
+                    return '<a href="/chantiers/1">' + this.value + '</a>'
+                },
+                useHTML: true,
+            },
     },
 
     yAxis: {
@@ -110,6 +116,7 @@ Highcharts.chart('container-chart', {
             name: 'Variation Solideo',
             y: <%= (EtatBudget.last.budget_solideo-EtatBudget.first.budget_solideo).to_i%>,
             color: "#F1013B",
+           
         }, {
             name: 'Variation COJO',
             y: <%= (EtatBudget.last.budget_cojo-EtatBudget.first.budget_cojo).to_i%>,

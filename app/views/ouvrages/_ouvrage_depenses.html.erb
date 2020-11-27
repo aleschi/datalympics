@@ -4,19 +4,16 @@
     <span>Suivi du Budget</span>
   </div><br><br>
    
-        <div class="ouvrages-risques">
-          <i class="fas fa-exclamation-circle"></i> 2 chantiers à risque
-        </div>
         <div class="ouvrages-risques-infos">
           <i class="fas fa-exclamation-triangle"></i> Chantier A, dépassement  10%<br>
           <i class="fas fa-exclamation-triangle"></i> Chantier B, dépassement  20% 
-        </div>
+        </div><br><br>
    <div class="row">
      <div class="col-md-6">
-        <div id="container-bar1"></div>
+        <div id="container-bar0"></div>
      </div>
       <div class="col-md-6">
-       <div id="container-bar0"></div>
+       <div id="container-bar1"></div>
      </div>
    </div>
 
@@ -97,7 +94,7 @@
           fontStyle: 'italic',
           }
       },
-       colors: ["#8993F5","#89E5DC","#8BC8FD","#9CFF90", "#FFB458","#FF678F","#3B3B3F", "#FDEB6B", "#37A09E","#F54E53","#89C7FD"],
+       colors: ["#2E5D63","#C68D7B","#20E37B","#5770BE", "#76505B","#FF678F","#3B3B3F", "#FDEB6B", "#37A09E","#F54E53","#89C7FD"],
      plotOptions: {
         pie: {
            size: 100,
@@ -147,8 +144,8 @@
           fontStyle: 'italic',
           }
       },
-       colors: ["#8993F5","#89E5DC","#8BC8FD","#9CFF90", "#FFB458","#FF678F","#3B3B3F", "#FDEB6B", "#37A09E","#F54E53","#89C7FD"],
-     plotOptions: {
+        colors: ["#2E5D63","#C68D7B","#20E37B","#5770BE", "#76505B","#FF678F","#3B3B3F", "#FDEB6B", "#37A09E","#F54E53","#89C7FD"],
+    plotOptions: {
         pie: {
           allowPointSelect: true,
           cursor: 'pointer',
@@ -203,7 +200,7 @@ Highcharts.chart('container', {
       fontSize: '16px',
                   },
       },
-  colors: ['#487f7f',"#8f8f8f"],
+  colors: ['#2E5D63',"#bfbfbf"],
     yAxis: {
       gridLineColor: '#E6F0FF', 
         title: {
@@ -275,7 +272,7 @@ Highcharts.chart('container-bar0', {
       fontSize: '16px',
                   },
     },
-  colors: ['#4FC5CE'],
+  colors: ['#C68D7B', '#2E5D63'],
     xAxis: {
         categories:  ["Budget initial", "Budget actuel", "Dépenses à 2020 prév", "Dépenses à 2020" ],
         title: {
@@ -312,12 +309,12 @@ Highcharts.chart('container-bar0', {
     },
     series: [{
         name: 'Chantier A',
-      color: "#3233FF",
-        data: [{y: <%= @ouvrage.budget.to_i%> , color: "#3233FF"},{y: <%= (@ouvrage.budget*2.5).to_i%> , color: "#3233FF"}, {y: <%= (@ouvrage.budget/3.5).to_i%>, color: "#3233FF"}, {y: <%= (@ouvrage.budget/1.5).to_i%>, color: "#3233FF"}],
+      color: "#C68D7B",
+        data: [<%= @ouvrage.budget.to_i%>, <%= (@ouvrage.budget*2.5).to_i%> , <%= (@ouvrage.budget/3.5).to_i%>, <%= (@ouvrage.budget/1.5).to_i%>],
      }, {
         name: 'Chantier B',
-       color: "#C90200",
-        data: [{y: <%= @ouvrage.budget.to_i%> , color: "#C90200"},{y: <%= (@ouvrage.budget*2).to_i%> , color: "#C90200"}, {y: <%= (@ouvrage.budget/3).to_i%>, color: "#C90200"}, {y: <%= (@ouvrage.budget/2).to_i%>, color: "#C90200"}],
+       color: "#2E5D63",
+        data: [ <%= @ouvrage.budget.to_i%> ,  <%= (@ouvrage.budget*2).to_i%> , <%= (@ouvrage.budget/3).to_i%>,  <%= (@ouvrage.budget/2).to_i%>],
      }]
 });
   </script>
@@ -344,13 +341,13 @@ Highcharts.chart('container-bar1', {
     },
 
     xAxis: {
-        categories: ['Réalisé 2018', 'Réalisé 2019', "Prév 2020 CA 2020", "Prev atterissage 2020", "Prev 2021"],
+        categories: ['Prévu 2018','Réalisé 2018','Prévu 2019', 'Réalisé 2019', "Prév 2020 CA 2020", "Prev atterissage 2020", "Prev 2021"],
         crosshair: true
     },
     yAxis: {
         min: 0,
         title: {
-            text: 'Budget (€)'
+            text: 'Budget (M€)'
         },
       gridLineColor: "#fff",
     },
@@ -376,7 +373,7 @@ Highcharts.chart('container-bar1', {
     },
     series: [{
         name: 'Budget',
-        data: [{y:37, color:"#3233FF" }, {y:67, color:"#3233FF" }, {y:160, color: "#F9EA43"}, {y:111, color: "#8435FA"}, {y:228, color: "#C90200"}]
+        data: [{y:37, color:"#bfbfbf" },{y:37, color:"#C68D7B" }, {y:57, color:"#bfbfbf" },{y:67, color:"#C68D7B" }, {y:160, color: "#2E5D63"}, {y:111, color: "#20E37B"}, {y:228, color: "#5770BE"}]
 
     }]
 });
@@ -433,19 +430,19 @@ Highcharts.chart('container-chart', {
       data: [{
             name: 'Prévisionnel 2018',
             y: 1386929000,
-            color: "#8F8F8F",
+            color: "#bfbfbf",
         }, {
             name: 'Chantier A ',
             y: 13100000,
-            color: "#F1013B",
+            color: "#C68D7B",
         }, {
             name: 'Chantier B',
             y: 500000000,
-            color: "#F1013B",
+            color: "#C68D7B",
         }, {
             name: 'Prévisionnel 2020',
             isSum: true,
-            color: Highcharts.getOptions().colors[1]
+            color: "#2E5D63"
         }],
         dataLabels: {
             enabled: true,

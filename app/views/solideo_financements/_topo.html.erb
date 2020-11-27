@@ -54,14 +54,14 @@
         
           <tr>
             <th scope="row">Maquette 2018</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
    
           </tr>
         
@@ -108,6 +108,59 @@
       
     </div>
   </div>
+  
+  <br><br>
+  <div class="SD-table-box-left">
+    <div class="EB-details">
+       <a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details">Détails des dépenses </a>      
+    </div><br><br>
+    <section id="details" class="collapse">
+      <% if !@solideo_financements_array.nil? && !@solideo_financements_array.empty? %>
+
+    <div class="ED_table">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Financeur</th>
+            
+       
+            <th scope="col" class="border-none">Financement (K€)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @solideo_financements_array.each do |date| %>
+          <tr>
+            <th scope="row"><%= date.strftime("%Y") %></th>
+            <th scope="row"><%= link_to etat_budgets_path do %> Etat<% end %></th>
+            <td class="border-none"><%= number_with_delimiter((SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> / <%= number_with_delimiter((SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+          </tr> 
+          <% end %>
+          <% @solideo_financements_array.each do |date| %>
+           <tr>
+            <th scope="row"><%= date.strftime("%Y") %></th>
+            <th scope="row"><%= link_to collectivites_path do %> Collectivités<% end %></th>
+            <td class="border-none"><%= number_with_delimiter((SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> /<%= number_with_delimiter((SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat', "privé",date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+          </tr>
+          <% end %>
+
+          <% @solideo_financements_array.each do |date| %>   
+          <tr>
+            <th scope="row"><%= date.strftime("%Y") %></th>
+            <th scope="row"> Privés</th>
+            <td class="border-none"><%= number_with_delimiter((SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> /<%= number_with_delimiter((SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div>
+      Aucune dépense renseignée
+    </div>
+  <%end%>
+    </section>
+  </div>
 </div>
 <br><br>
 
@@ -135,7 +188,7 @@ Highcharts.chart('container-column', {
                   fontSize: '16px',
                   },
         },
-  colors: ["#8f8f8f",'#48AF5C'],
+  colors: ["#BFBFBF",'#2E5D63'],
     yAxis: {
       gridLineColor: '#fff', 
         title: {
@@ -209,10 +262,11 @@ Highcharts.chart('container-pie', {
           style:{
           fontFamily: "Spectral",
           maxWidth: "500px",
-          }
+          },
+   
     },
     title: {
-         text:'Financements de la Solideo (2018-2025)',   
+         text:null,   
           style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
@@ -220,7 +274,7 @@ Highcharts.chart('container-pie', {
                   fontSize: '16px',
                   },
     },
-  colors: ['#A2C744',"#4F82CE",'#4FC5CE'],
+  colors: ['#C68D7B',"#2E5D63",'#20E37B'],
     tooltip: {
         pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>'
     },
@@ -233,10 +287,12 @@ Highcharts.chart('container-pie', {
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
-           minSize: 200,
+           size: 200,
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}</b><br>{point.y:,.0f}€ - {point.percentage:.1f} %',
+              connectorPadding: 0,
+              distance: 10,
+                format: '<b>{point.name}</b><br>{point.y:,.0f}€ <br> {point.percentage:.1f} %',
               style: {
                       color: "#8F8F8F",
                       fontSize: "11px",
@@ -252,8 +308,7 @@ Highcharts.chart('container-pie', {
         data: [{
             name: 'Etat',
             y:  <%= @solideo_financements_etat_prevu%>,
-            sliced: true,
-            selected: true
+           
         }, {
             name: 'Privés',
             y: <%= @solideo_financements_prive_prevu%>,
@@ -292,7 +347,7 @@ Highcharts.chart('container', {
       fontSize: '16px',
                   },
       },
-colors: ['#A2C744','#4FC5CE',"#4F82CE"],
+colors: ['#C68D7B','#20E37B',"#2E5D63"],
     yAxis: {
       gridLineColor: '#E6F0FF', 
         title: {
@@ -372,7 +427,7 @@ Highcharts.chart('container-s1', {
       fontSize: '16px',
                   },
       },
-colors: ['#A2C744','#8f8f8f'],
+colors: ['#C68D7B','#BFBFBF'],
     yAxis: {
       gridLineColor: '#E6F0FF', 
         title: {
@@ -448,7 +503,7 @@ Highcharts.chart('container-s2', {
       fontSize: '16px',
                   },
       },
-colors: ['#4FC5CE','#8f8f8f'],
+colors: ['#20E37B','#BFBFBF'],
     yAxis: {
       gridLineColor: '#E6F0FF', 
         title: {
@@ -510,8 +565,8 @@ Highcharts.chart('container-bar', {
           },
     },
     title: {
-        text: 'Financements détaillés de la Solideo',
-      margin:40,
+        text: null,
+      
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
@@ -519,7 +574,7 @@ Highcharts.chart('container-bar', {
       fontSize: '16px',
                   },
     },
-  colors: ['#4FC5CE'],
+  colors: ['#20E37B'],
     xAxis: {
         categories:  ["État", "Concours Privés", "Région IdF", "Ville de Paris", "CD 93", "Plaine co", "Marseille", "Terre d'envol", "MGP", "CD92", "Dugny", "Le Bourget", "CASQY", "CD78"],
         title: {
@@ -530,7 +585,7 @@ Highcharts.chart('container-bar', {
         min: 0,
       gridLineColor: '#fff', 
         title: {
-            text: 'Montant (€)',
+            text: 'Montant (M€)',
             align: 'high'
         },
         labels: {
@@ -556,7 +611,7 @@ Highcharts.chart('container-bar', {
     },
     series: [{
         name: 'Budget',
-        data: [{y: 933, color: "#A2C744"}, {y: 182, color: "#4F82CE"}, 135, 135, 67, 35,22,20,17, 5,3,3,2,2],
+        data: [{y: 933, color: "#C68D7B"}, {y: 182, color: "#2E5D63"}, 135, 135, 67, 35,22,20,17, 5,3,3,2,2],
      }]
 });
   </script>
@@ -629,17 +684,17 @@ Highcharts.chart('container-cylinder', {
         name: 'Etat',
         data: [933, 933, 934, 947],
         stack: 'budget',
-       color: "#A2C744",
+       color: "#C68D7B",
     }, {
         name: 'Collectivités',
         data: [340, 340, 340, 329],
         stack: 'budget',
-      color: '#4FC5CE',
+      color: '#20E37B',
     }, {
         name: 'Privé',
         data: [182, 182, 182, 197],
         stack: 'budget', 
-      color: "#4F82CE",
+      color: "#2E5D63",
     }]
 });
 </script>

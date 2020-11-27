@@ -17,8 +17,22 @@
       </div>
       <div class="col-md-8">
        
-         <div id="container-bar0">      
-         </div>
+         <div class="row">
+        <div class="ouvrages-budget-infos-box">
+          <div class="ouvrages-budget-infos">
+            <div class="ouvrages-budget-infos-number"><%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €</div>
+          <div class="ouvrages-budget-infos-texte">Budget Initial</div>
+          </div>
+          <div class="ouvrages-budget-infos">
+            <div class="ouvrages-budget-infos-number"><%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €</div>
+            <div class="ouvrages-budget-infos-texte">Côuts actuels </div>
+        </div>
+          <div class="ouvrages-budget-infos">
+            <div class="ouvrages-budget-infos-number"><%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €</div>
+            <div class="ouvrages-budget-infos-texte">Budget actuel </div>
+        </div>
+        </div>
+      </div><br><br>
    
         <div id="container-steps">
         </div> 
@@ -87,7 +101,11 @@
       <span>Dépenses</span>
     </div><br><br>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
+        <div id="container-bar0">      
+         </div>
+      </div>
+      <div class="col-md-6">
         <div id="container-bar1">
           
         </div>
@@ -194,38 +212,38 @@ Highcharts.chart('container-steps', {
             y: 0,
              partialFill: {
                amount: 1,
-               fill: '#F29D53',
+               fill: '#2E5D63',
              },
           borderColor:'#fff',
-          color: '#C4C4C4',
+          color: '#bfbfbf',
         }, {
           name: "Jalon1",
             x: Date.UTC(2020, 1, 1),
             x2: Date.UTC(2020, 6, 1),
             y: 0,
              borderColor: '#fff',
-          color: '#C4C4C4',
+          color: '#bfbfbf',
         }, {
            name: "Jalon 2",
             x: Date.UTC(2020, 6, 1),
             x2: Date.UTC(2022, 1, 1),
             y: 0,
           borderColor: '#fff',
-          color: '#C4C4C4',
+          color: '#bfbfbf',
         }, {
            name: "Jalon 3",
             x: Date.UTC(2022, 1, 1),
             x2: Date.UTC(2023, 1, 1),
             y: 0,
           borderColor: '#fff',
-          color: '#C4C4C4',
+          color: '#bfbfbf',
         }, {
            name: "Jalon 4",
             x: Date.UTC(2023, 1, 1),
             x2: Date.UTC(2023, 6, 1),
             y: 0,
           borderColor: '#fff',
-          color: '#C4C4C4',
+          color: '#bfbfbf',
         }],
         dataLabels: {
             enabled: true
@@ -243,7 +261,7 @@ Highcharts.chart('container-bar0', {
           fontFamily: "Spectral",
          maxWidth: '500px',
           },
-      height: "150px",
+      height:"250px",
     },
     title: {
         text: null,
@@ -291,7 +309,7 @@ Highcharts.chart('container-bar0', {
     },
     series: [{
         name: 'Budget',
-        data: [{y: <%= @ouvrage.budget.to_i%> , color: "#3233FF"},{y: <%= @ouvrage.budget.to_i%> , color: "#3233FF"},{y: <%= (@ouvrage.budget/2).to_i%> , color: "#C90200"}, {y: <%= (@ouvrage.budget/3).to_i%>, color: "#F9EA43"}],
+        data: [{y: <%= @ouvrage.budget.to_i%> , color: "#C68D7B"},{y: <%= @ouvrage.budget.to_i%> , color: "#2E5D63"},{y: <%= (@ouvrage.budget/2).to_i%> , color: "#20E37B"}, {y: <%= (@ouvrage.budget/3).to_i%>, color: "#5770BE"}],
      }]
 });
   </script>
@@ -306,6 +324,7 @@ Highcharts.chart('container-bar1', {
           fontFamily: "Spectral",
          
           },
+      height:"250px",
     },
     title: {
         text: null,
@@ -318,7 +337,7 @@ Highcharts.chart('container-bar1', {
     },
 
     xAxis: {
-        categories: ['Réalisé 2018', 'Réalisé 2019', "Prév 2020 CA 2020", "Prev atterissage 2020", "Prev 2021"],
+        categories: ['Prévu 2018','Réalisé 2018', 'Prévu 2019','Réalisé 2019', "Prév 2020 CA 2020", "Prev atterissage 2020", "Prev 2021"],
         crosshair: true
     },
     yAxis: {
@@ -350,7 +369,7 @@ Highcharts.chart('container-bar1', {
     },
     series: [{
         name: 'Budget',
-        data: [{y:37, color:"#3233FF" }, {y:67, color:"#3233FF" }, {y:160, color: "#F9EA43"}, {y:111, color: "#8435FA"}, {y:228, color: "#C90200"}]
+        data: [{y:37, color:"#bfbfbf" },{y:37, color:"#C68D7B" }, {y:67, color:"#bfbfbf" },{y:67, color:"#C68D7B" }, {y:160, color: "#2E5D63"}, {y:111, color: "#20E37B"}, {y:228, color: "#5770BE"}]
 
     }]
 });
