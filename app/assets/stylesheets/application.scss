@@ -34,6 +34,12 @@ body {
   font-weight:600;
   margin-bottom:50px;
 }
+.SD_subtitle{
+  text-align:center;
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:50px;
+}
 .EB_title_connexion{
   text-align:center;
   font-size:40px;
@@ -880,13 +886,13 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 .home-box-infos-box{
   padding:30px 20px;
 }
-.home-box-infos1{
+.home-box-infos1,.home-box-infos1 a {
   color: #F29D53;
   font-size:18px;
   font-weight:700;
   margin-bottom: 10px;
 }
-.home-box-infos2{
+.home-box-infos2, .home-box-infos2 a{
   color: #5770BE;
   font-size:14px;
   font-weight:700;
@@ -1042,7 +1048,13 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   max-height:500px;
   overflow:scroll;
 }
-
+.table-edit-btn{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+}
 .calendar-infos{
     display: inline-flex;
   display: -webkit-inline-flex;
@@ -1071,6 +1083,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   i{
     margin-right:10px;
     font-size: 22px;
+    width: 25px;
   }
 }
 .calendar-number{
@@ -1083,7 +1096,28 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   height: 60px;
   width:60px;
 }
-
+.ouvrages-budget-infos-box{
+    display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  align-items:center;
+  margin-top:20px;
+}
+.ouvrages-budget-infos{
+  margin:auto;
+}
+.ouvrages-budget-infos-number{
+  color: #5770BE;
+  font-weight:700;
+  font-size: 18px;
+}
+.ouvrages-budget-infos-texte{
+  color: #8F8F8F;
+  font-weight:700;
+  font-size: 18px;
+}
 .table-legend{
   .table-title{
      color: #8F8F8F;
@@ -1204,17 +1238,24 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 position:fixed;
 top:0px;
 bottom:0px;
-  width:25%;
-  padding:30px 2% 50px 2%;
+  width:20%;
+  padding:30px 0px 50px 0px;
   background-color:#000091;//#000091;
   border-radius:0px;
   z-index:1;
   overflow:scroll;
 }
+
 .navigation-left::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 0;
     height: 0;
+}
+@media(min-width:992px){
+.navigation-margin{
+  margin-left:20%;
+  width:80%;
+}
 }
 .navigation-logo{
   margin-bottom:50px;

@@ -1,14 +1,5 @@
 <div  class="table-box">
   <div class="SD-topo-box-title">
-    <span>Évolution de la maquette budgétaire de l'état</span>
-  </div><br><br>
-
-    <div id="container-chart">
-      
-    </div><br>
-</div><br><br>
-<div  class="table-box">
-  <div class="SD-topo-box-title">
     <span>Répartition annuelle des dépenses de l'état en K€ (CP consommés / CP prévus)</span>
   </div><br><br>
 <% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
@@ -57,6 +48,17 @@
  
     
 </div>
+<br><br>
+
+<div  class="table-box">
+  <div class="SD-topo-box-title">
+    <span>Évolution de la maquette budgétaire de l'état</span>
+  </div><br><br>
+
+    <div id="container-chart">
+      
+    </div><br>
+</div><br><br>
 
 
 <script>
@@ -70,8 +72,7 @@ Highcharts.chart('container-chart', {
     },
 
     title: {
-        text: "Evolution de la maquette budgétaire de l'Etat ",
-      margin:40,
+        text: null,
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",

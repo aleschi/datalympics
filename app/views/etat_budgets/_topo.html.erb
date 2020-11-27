@@ -14,7 +14,7 @@
         </div>
         <div>
           <%= number_with_delimiter(EtatBudget.last.budget_total.to_i, :delimiter => ' ') %> €<br>
-          <span>Budget Total</span>
+          <span>Budget initial</span>
         </div>
       </div>
       </div><br><br>
@@ -24,11 +24,25 @@
 
       <div class="calendar-infos-box">
         <div>
-        <i class="fas fa-chart-pie"></i>
+        <i class="fas fa-coins"></i>
         </div>
         <div>
-        25%<br>
-          <span>Du budget des JOP2024</span>
+        <%= number_with_delimiter(EtatBudget.last.budget_total.to_i, :delimiter => ' ') %> €<br>
+          <span>Budget actuel</span>
+        </div>
+      </div>
+
+    </div><br><br><br><br>
+      
+      <div class="calendar-infos">
+
+      <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-euro-sign"></i>
+        </div>
+        <div>
+        <%= number_with_delimiter(EtatDepense.where('date <= ?', Date.today).sum('cp_prevu').to_i, :delimiter => ' ') %> €<br>
+          <span>Dépenses prévues à date</span>
         </div>
       </div>
 
@@ -50,11 +64,11 @@
 
       <div class="calendar-infos-box">
         <div>
-        <i class="fas fa-chart-pie"></i>
+        <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-        4<br>
-          <span>Poles de dépenses</span>
+        <%= ((EtatDepense.all.sum('cp_conso')/EtatBudget.last.budget_total)*100).round %>%<br>
+          <span>Budget consommé</span>
         </div>
       </div>
 
@@ -88,12 +102,13 @@ Highcharts.chart('container-pie', {
         plotBorderWidth: null,
         plotShadow: false,
         type: 'pie',
+      spacing: [0,0,0,0],
         backgroundColor: '#fff',
           style:{
           fontFamily: "Spectral",
-          maxWidth: "500px",
+      
           },
-      height: '300px',
+      height: '350px',
     },
     title: {
          text:null,   
@@ -117,7 +132,7 @@ Highcharts.chart('container-pie', {
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
-           size: 200,
+           size: 250,
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}</b><br>{point.y:,.0f}€ - {point.percentage:.1f} %',

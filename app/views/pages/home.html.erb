@@ -15,13 +15,13 @@
         <div class="col-md-6">
 
           <div>
-            <div class="home-box-infos1">+300 000 000 €</div>
-            <div class="home-box-infos2">dernière dépense</div>
+            <div class="home-box-infos1">+<%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €</div>
+            <div class="home-box-infos2">Dépenses actuelles </div>
           </div><br>
           
           <div>
-            <div class="home-box-infos1"><i class="fas fa-bell"></i> 1 document à transmettre</div>
-            <div class="home-box-infos2">PAP 2020</div>
+            <div class="home-box-infos1"><%= link_to documents_etat_path do %><i class="fas fa-bell"></i> 1 document à transmettre<% end %></div>
+            <div class="home-box-infos2"><%= link_to documents_etat_path do %>PAP 2020<% end %></div>
           </div>
 
           </div>
@@ -45,13 +45,13 @@
         <div class="col-md-6">
 
           <div>
-            <div class="home-box-infos1">1 risque remonté</div>
-            <div class="home-box-infos2">Village olympique</div>
+            <div class="home-box-infos1"><%= link_to chantiers_path do %>8 risques remontés<% end %></div>
+            <div class="home-box-infos2">4 risques de surcoûts <br> 4 risques de retard</div>
           </div><br>
           
           <div>
-            <div class="home-box-infos1"><i class="fas fa-bell"></i> 1 document en attente</div>
-            <div class="home-box-infos2">Engagements 2021</div>
+            <div class="home-box-infos1">+100 000 000 €</div>
+            <div class="home-box-infos2">Surcoûts budgétaires</div>
           </div>
 
           </div>
@@ -78,13 +78,15 @@
             <div class="col-md-12">
 
               <div>
-                <div class="home-box-infos1">+11 000 000 €</div>
-                <div class="home-box-infos2">dernière dépense</div>
+                <div class="home-box-infos1"><i class="fas fa-calendar-day"></i> 8 décembre 2020</div>
+                <div class="home-box-infos2">Prochain CA</div>
               </div><br>
 
               <div>
-                <div class="home-box-infos1"><i class="fas fa-bell"></i> 1 nouveau document</div>
-                <div class="home-box-infos2">Maquette_2020.csv</div>
+                <div class="home-box-infos1"><%= link_to documents_solideo_path do %>Dernier document transmis<% end %></div>
+                <% if @document.file.attached?%>
+                <div class="home-box-infos2"><%= link_to rails_blob_path(@document.file, disposition: 'preview'), target: "_blank" do %>Maquette_2020.csv<% end %></div>
+                <% end %>
               </div>
 
               </div>
@@ -103,13 +105,13 @@
             <div class="col-md-12">
 
               <div>
-                <div class="home-box-infos1">+11 000 000 €</div>
-                <div class="home-box-infos2">dernière dépense</div>
+                <div class="home-box-infos1"><i class="fas fa-calendar-day"></i> 1 Janvier 2022</div>
+                <div class="home-box-infos2">Début des dépenses</div>
               </div><br>
 
               <div>
                 <div class="home-box-infos1"><i class="fas fa-bell"></i> 1 nouveau document</div>
-                <div class="home-box-infos2">Maquette_2020.csv</div>
+                <div class="home-box-infos2">Impacts_2020.csv</div>
               </div>
 
               </div>
@@ -187,7 +189,7 @@ Highcharts.chart('container-jauge', {
                 color: '#004A70',
               },
               valueSuffix: '%',
-              format: '<span style="color:#5770BE; font-size:12px;font-weight:400">{series.name} :</span><br><span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span>',
+              format: '<span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#5770BE; font-size:12px;font-weight:400">{series.name}</span>',
             verticalAlign: 'middle',
               align: 'center',
         
@@ -204,7 +206,7 @@ Highcharts.chart('container-jauge', {
             color: "#F29D53",
             radius: '100%',
             innerRadius: '88%',
-            y: 33
+            y: <%= ((EtatDepense.all.sum('cp_conso')/EtatBudget.last.budget_total)*100).round %>
         }]
     }]
 });
@@ -273,9 +275,10 @@ Highcharts.chart('container-jauge2', {
               style: {
                   fontSize: '14px',
                 color: '#004A70',
+               
               },
               valueSuffix: '%',
-              format: '<span style="color:#5770BE; font-size:12px;font-weight:400">{series.name} :</span><br><span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span>',
+              format: '<span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#5770BE; font-size:12px;font-weight:400">{series.name} </span>',
             verticalAlign: 'middle',
               align: 'center',
         

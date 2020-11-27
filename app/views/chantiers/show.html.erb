@@ -1,5 +1,6 @@
 <div class="O_page">
   <h1 class="SD_title"><%= @chantier.name %></h1>
+  <h1 class="SD_subtitle">Dernière mise à jour : 22 novembre 2020</h1>
   
   <div class="SD-table-box">
     <div class="row">
@@ -255,7 +256,7 @@ Highcharts.chart('container-bar0', {
     },
   colors: ['#4FC5CE'],
     xAxis: {
-        categories:  ["Budget total", "Dépenses", "Dépenses prévues 2021"],
+        categories:  ["Budget initial","Budget actuel", "Dépenses", "Dépenses prévues 2021"],
         title: {
             text: null
         }
@@ -290,7 +291,7 @@ Highcharts.chart('container-bar0', {
     },
     series: [{
         name: 'Budget',
-        data: [{y: <%= @ouvrage.budget.to_i%> , color: "#3233FF"},{y: <%= (@ouvrage.budget/2).to_i%> , color: "#C90200"}, {y: <%= (@ouvrage.budget/3).to_i%>, color: "#F9EA43"}],
+        data: [{y: <%= @ouvrage.budget.to_i%> , color: "#3233FF"},{y: <%= @ouvrage.budget.to_i%> , color: "#3233FF"},{y: <%= (@ouvrage.budget/2).to_i%> , color: "#C90200"}, {y: <%= (@ouvrage.budget/3).to_i%>, color: "#F9EA43"}],
      }]
 });
   </script>
