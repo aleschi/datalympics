@@ -145,7 +145,7 @@ class EtatBudgetsController < ApplicationController
     
      @cp_annee = []
     @cp_prevu_annee= []
-    (2018..2021).each do |annee|    
+    (2018..2019).each do |annee|    
       @is_present = false 
        @cp_c.each do |h|
         if h[0].year == annee
@@ -175,7 +175,7 @@ class EtatBudgetsController < ApplicationController
     
      @ae_annee = []
     @ae_prevu_annee= []
-    (2018..2021).each do |annee|    
+    (2018..2019).each do |annee|    
       @is_present = false 
        @ae_c.each do |h|
         if h[0].year == annee

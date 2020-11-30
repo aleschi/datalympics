@@ -45,12 +45,12 @@
       <div class="row">
         <div class="col-md-6">
           <div>
-            <div class="home-box-infos1">+ XXX XXX XXX €</div>
+            <div class="home-box-infos1">+  <%= number_with_delimiter(OuvragesDepense.all.sum('montant').to_i, :delimiter => ' ') %> €</div>
             <div class="home-box-infos2">Dépenses cumulées</div>
           </div><br>
           
           <div>
-            <div class="home-box-infos1">+ XXX XXX XXX €</div>
+            <div class="home-box-infos1"> + XX%</div>
             <div class="home-box-infos2">Surcoûts budgétaires</div>
           </div><br>
           
