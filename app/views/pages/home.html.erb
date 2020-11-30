@@ -20,7 +20,7 @@
           </div><br>
           
           <div>
-            <div class="home-box-infos1">+ <%= number_with_delimiter((((EtatDepense.all.sum('cp_conso')-EtatDepense.where('date <= ?', Date.today).sum('cp_prevu'))/EtatDepense.where('date <= ?', Date.today).sum('cp_prevu')*100).round).to_i, :delimiter => ' ') %> %</div>
+            <div class="home-box-infos1">+ XX %</div>
             <div class="home-box-infos2">Dépassement budgétaire</div>
           </div><br>
          
@@ -50,7 +50,7 @@
           </div><br>
           
           <div>
-            <div class="home-box-infos1"> + XX%</div>
+            <div class="home-box-infos1"> + XX %</div>
             <div class="home-box-infos2">Surcoûts budgétaires</div>
           </div><br>
           
