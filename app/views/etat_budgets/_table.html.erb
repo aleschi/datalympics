@@ -85,7 +85,11 @@ Highcharts.chart('container-chart', {
         type: 'category',
       labels: {
                 formatter: function () {
-                    return '<a href="/chantiers/1">' + this.value + '</a>'
+                  if (this.value == "ΔSolideo"){
+                    return '<a href="/etat-budget-solideo" style="color:#000091">' + this.value + '</a>'
+                  } else {
+                    return this.value 
+                  }
                 },
                 useHTML: true,
             },
@@ -111,28 +115,28 @@ Highcharts.chart('container-chart', {
       data: [{
             name: 'Prévisionnel 2018',
             y: <%= EtatBudget.first.budget_total.to_i%>,
-            color: "#8F8F8F",
+            color: "#bfbfbf",
         }, {
-            name: 'Variation Solideo',
+            name: 'ΔSolideo',
             y: <%= (EtatBudget.last.budget_solideo-EtatBudget.first.budget_solideo).to_i%>,
-            color: "#F1013B",
+            color: "#C68D7B",
            
         }, {
-            name: 'Variation COJO',
+            name: 'ΔCOJO',
             y: <%= (EtatBudget.last.budget_cojo-EtatBudget.first.budget_cojo).to_i%>,
-            color: "#F1013B",
+            color: "#C68D7B",
         }, {
-            name: 'Variation héritage',
+            name: 'Δhéritage',
             y: <%= (EtatBudget.last.budget_heritage-EtatBudget.first.budget_heritage).to_i%>,
-            color: "#F1013B",
+            color: "#C68D7B",
         },{
-            name: 'Variation Haute Performance',
+            name: 'ΔHaute Performance',
             y: <%= (EtatBudget.last.budget_hauteperformance-EtatBudget.first.budget_hauteperformance).to_i%>,
-            color: "#F1013B",
+            color: "#C68D7B",
         },  {
             name: 'Prévisionnel 2020',
             isSum: true,
-            color: Highcharts.getOptions().colors[1]
+            color: "#2E5D63"
         }],
         dataLabels: {
             enabled: true,
