@@ -75,7 +75,7 @@
   
   <div class="SD-topo-box">
   <div class="SD-topo-box-title">
-    <span>Maquette annuelle de répartition des financements de la Solideo </span>
+    <span>Maquette annuelle de répartition des financements de la Solideo (k€)</span>
   </div><br><br>
     
     <div class="ED_table">
@@ -91,43 +91,47 @@
             <th scope="col">2022</th>
             <th scope="col">2023</th>
             <th scope="col">2024</th>
-            <th scope="col" class="border-none">2025 </th>
+            <th scope="col">2025 </th>
+            <th scope="col" class="border-none">Total </th>
           </tr>
         </thead>
         <tbody>
         
           <tr>
             <th scope="row">Maquette 2018</th>
-              <td>X</td>
-              <td>X</td>
-              <td>X</td>
-              <td>X</td>
-              <td>X</td>
-              <td>X</td>
-              <td>X</td>
-              <td>X</td>
+              <td>48 960</td>
+              <td>63 396</td>
+              <td>120 000</td>
+              <td>200 000</td>
+              <td>200 000</td>
+              <td>190 000</td>
+              <td>70 000</td>
+              <td>40 501</td>
+              <td class="financement-reel">932 857</td>
            </tr>
           <tr>
             <th scope="row">Maquette 2019</th>
-              <td>XX REEL</td>
-              <td>X</td>
-              <td>X</td>
-              <td>X<i class="fas fa-long-arrow-alt-up"></i></td>
-              <td>X<i class="fas fa-long-arrow-alt-up"></i></td>
-              <td>X<i class="fas fa-long-arrow-alt-down"></i></td>
-              <td>X</td>
-              <td>X</td>
+              <td class="financement-reel">48 000 <i class="fas fa-long-arrow-alt-down"></i></td>
+              <td>63 396</td>
+              <td>120 000</td>
+              <td>200 000</td>
+              <td>200 000</td>
+              <td>190 000</td>
+              <td>70 000</td>
+              <td>40 501</td>
+              <td class="financement-reel">932 857</td>
            </tr>
           <tr>
             <th scope="row">Maquette 2020</th>
               <td></td>
               <td>XX REEL</td>
               <td>X</td>
-              <td>X<i class="fas fa-long-arrow-alt-down"></i></td>
-              <td>X<i class="fas fa-long-arrow-alt-up"></i></td>
+              <td>X <i class="fas fa-long-arrow-alt-down"></i></td>
+              <td>X <i class="fas fa-long-arrow-alt-up"></i></td>
               <td>X</td>
               <td>X</td>
               <td>X</td>
+             <td class="financement-reel">X</td>
            </tr>
         
         </tbody>
@@ -138,103 +142,17 @@
   
   <div class="SD-topo-box">
   <div class="SD-topo-box-title">
-    <span>Détails des dépenses</span>
+    <span>Détails des financements en K€</span>
   </div><br><br>
     <div class="row">
       <div class="col-md-6">
 
-      <%= line_chart [{name: "CP prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_prevu)},{name: "CP consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_conso)}],colors: ['#bfbfbf','#2E5D63'],  library: {
-        chart:{
-          backgroundColor: '#fff',
-          borderRadius: '20px',
-          style:{
-          fontFamily: "Spectral",
-         
-          },
-        },
-        title: {
-          text: 'CP prévus VS CP consommés',
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-            fontStyle: 'italic',
-            fontSize: '16px',
-                  },
-        },
-        yAxis: {
-             gridLineColor: '#fff',         
-        },
-        tooltip: {
-              xDateFormat: '%B',
-            },
-        xAxis: {
-             lineColor: '#004A70',
-             type: 'datetime',
-            
-              title: {
-              text: "Dates",
-             },
-
-         },
-        plotOptions: {
-          column: {
-              tooltip: {
-                xDateFormat: '%B',
-              }
-          }
-        },
-       
-        }
-      %>
+        <div id="container-1"></div>
              
      </div>
      <div class="col-md-6">
-        
-      <%= line_chart [{name: "AE prévus", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_prevu)},{name: "AE consommés", data: @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_conso)}],colors: ['#bfbfbf','#2E5D63'],  library: {
-        chart:{
-          backgroundColor: '#fff',
-          borderRadius: '20px',
-         
-          style:{
-          fontFamily: "Spectral",
-         
-          },
-        },
-        title: {
-          text: 'AE prévus VS AE consommés',
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-            fontStyle: 'italic',
-            fontSize: '16px',
-                  },
-        },
-        yAxis: {
-             gridLineColor: '#fff',         
-        },
-        tooltip: {
-              xDateFormat: '%B',
-            },
-        xAxis: {
-             lineColor: '#004A70',
-             type: 'datetime',
-            
-              title: {
-              text: "Dates",
-             },
-
-         },
-        plotOptions: {
-          column: {
-              tooltip: {
-                xDateFormat: '%B',
-              }
-          }
-        },
-       
-        }
-      %>
-             
+        <div id="container-2"></div>
+      
      </div>
      
   </div>
@@ -342,19 +260,173 @@ Highcharts.chart('container-pie', {
         colorByPoint: true,
         data: [{
             name: 'Ouvrages',
-            y: 800000000,
+            y: 769867000,
             sliced: true,
             selected: true
         }, {
             name: 'Fonctionnement',
-            y: 50000000,
+            y: 72975000,
         }, {
             name: 'Innovation',
-            y: 50000000,
+            y: 23382000,
         }, {
             name: 'Réserve',
-            y: 32000000,
+            y: 66633000,
         }]
     }]
+});
+</script>
+
+<script>
+Highcharts.chart('container-1', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         
+          },
+       
+          },
+
+      title: {
+        text:"CP consommés VS CP prévus",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+colors: ['#bfbfbf','#2E5D63'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Montant K€'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: 'K€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+      max: 2021,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+
+        }
+    },
+
+  
+
+    series: [{
+        name: 'CP prévus',
+        data: <%=  @cp_prevu_annee %>,
+    }, {
+        name: 'CP consommés',
+        data: <%=  @cp_annee %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+
+<script>
+Highcharts.chart('container-2', {
+
+   chart:{
+            backgroundColor: '#fff',
+           type: 'spline',
+            spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+         
+          },
+       
+          },
+
+      title: {
+        text:"AE consommés VS AE prévus",
+        margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+      fontSize: '16px',
+                  },
+      },
+colors: ['#bfbfbf','#2E5D63'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Montant K€'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: 'K€',
+        xDateFormat: '%Y',
+    },
+  xAxis:{
+      max: 2021,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2018,
+
+        }
+    },
+
+  
+
+    series: [{
+        name: 'AE prévus',
+        data: <%=  @ae_prevu_annee %>,
+    }, {
+        name: 'AE consommés',
+        data: <%=  @ae_annee %>,
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
 });
 </script>

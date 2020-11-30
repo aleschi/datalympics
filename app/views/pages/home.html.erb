@@ -15,14 +15,15 @@
         <div class="col-md-6">
 
           <div>
-            <div class="home-box-infos1">+<%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €</div>
-            <div class="home-box-infos2">Dépenses actuelles </div>
+            <div class="home-box-infos1">+ <%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €</div>
+            <div class="home-box-infos2">Dépenses cumulées </div>
           </div><br>
           
           <div>
-            <div class="home-box-infos1"><%= link_to documents_etat_path do %><i class="fas fa-bell"></i> 1 document à transmettre<% end %></div>
-            <div class="home-box-infos2"><%= link_to documents_etat_path do %>PAP 2020<% end %></div>
-          </div>
+            <div class="home-box-infos1">+ <%= number_with_delimiter((((EtatDepense.all.sum('cp_conso')-EtatDepense.where('date <= ?', Date.today).sum('cp_prevu'))/EtatDepense.where('date <= ?', Date.today).sum('cp_prevu')*100).round).to_i, :delimiter => ' ') %> %</div>
+            <div class="home-box-infos2">Dépassement budgétaire</div>
+          </div><br>
+         
 
           </div>
 
@@ -43,16 +44,22 @@
     <div class="home-box-infos-box">
       <div class="row">
         <div class="col-md-6">
-
           <div>
-            <div class="home-box-infos1"><%= link_to chantiers_path do %>8 risques remontés<% end %></div>
-            <div class="home-box-infos2">4 risques de surcoûts <br> 4 risques de retard</div>
+            <div class="home-box-infos1">+ XXX XXX XXX €</div>
+            <div class="home-box-infos2">Dépenses cumulées</div>
           </div><br>
           
           <div>
-            <div class="home-box-infos1">+100 000 000 €</div>
+            <div class="home-box-infos1">+ XXX XXX XXX €</div>
             <div class="home-box-infos2">Surcoûts budgétaires</div>
+          </div><br>
+          
+          <div>
+            <div class="home-box-infos3"><%= link_to chantiers_path do %><i class="fas fa-exclamation-triangle"></i> 8 risques remontés<% end %></div>
+           
           </div>
+          
+        
 
           </div>
 
@@ -290,7 +297,7 @@ Highcharts.chart('container-jauge2', {
     },
 
     series: [{
-        name: 'Travaux finalisés',
+        name: 'Budget consommé',
         data: [{
             color: "#F29D53",
             radius: '100%',

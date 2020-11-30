@@ -137,16 +137,68 @@ class EtatBudgetsController < ApplicationController
   
   def budget_solideo
     @nav=true
-    @ouvrages= Ouvrage.where("maitre_oeuvre = ? ", 'Etat')
-    @ouvrages_etat=[]
-    OuvragesFinancement.where('name = ?', "Etat").each do |financement|
-      if Ouvrage.find(financement.ouvrage_id).maitre_oeuvre != "Etat"
-      @ouvrages_etat << financement.ouvrage_id 
-      end 
-    end
-    @ouvrages_etat.uniq!
-    
+  
     @etat_depenses = EtatDepense.where("beneficiaire =?", "solideo").order('date DESC')
+    
+    @cp_c =  @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_conso) 
+    @cp_p =  @etat_depenses.unscope(:order).group_by_year(:date).sum(:cp_prevu)
+    
+     @cp_annee = []
+    @cp_prevu_annee= []
+    (2018..2021).each do |annee|    
+      @is_present = false 
+       @cp_c.each do |h|
+        if h[0].year == annee
+          @cp_annee << (h[1]/1000).round
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @cp_annee << 0
+      end
+    end
+    (2018..2021).each do |annee|    
+      @is_present = false 
+       @cp_p.each do |h|
+        if h[0].year == annee
+          @cp_prevu_annee << (h[1]/1000).round
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @cp_prevu_annee << 0
+      end
+    end
+    
+    @ae_c =  @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_conso) 
+    @ae_p =  @etat_depenses.unscope(:order).group_by_year(:date).sum(:ae_prevu)
+    
+     @ae_annee = []
+    @ae_prevu_annee= []
+    (2018..2021).each do |annee|    
+      @is_present = false 
+       @ae_c.each do |h|
+        if h[0].year == annee
+          @ae_annee << (h[1]/1000).round
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @ae_annee << 0
+      end
+    end
+    (2018..2021).each do |annee|    
+      @is_present = false 
+       @ae_p.each do |h|
+        if h[0].year == annee
+          @ae_prevu_annee << (h[1]/1000).round
+          @is_present = true 
+        end 
+      end
+      if @is_present == false 
+         @ae_prevu_annee << 0
+      end
+    end
   end
   
   def budget_cojo
