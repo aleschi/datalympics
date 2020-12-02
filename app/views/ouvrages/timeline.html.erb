@@ -14,13 +14,13 @@
 
 Highcharts.ganttChart('container-gantt', {
     series: [{
-        name: 'Offices',
+        name: 'Site ',
         data: [{
-            name: 'New offices',
+            name: 'Site A',
             id: 'new_offices',
-            owner: 'Peter'
+          
         }, {
-            name: 'Prepare office building',
+            name: 'Ouvrage X',
             id: 'prepare_building',
             parent: 'new_offices',
             start: Date.UTC(2019, 1, 1),
@@ -28,58 +28,56 @@ Highcharts.ganttChart('container-gantt', {
             completed: {
                 amount: 0.2
             },
-            owner: 'Linda'
+        
         }, {
-            name: 'Inspect building',
+            name: 'Ouvrage X',
             id: 'inspect_building',
             dependency: 'prepare_building',
             parent: 'new_offices',
             start: Date.UTC(2019, 1, 1),
             end: Date.UTC(2022, 1, 1),
-            owner: 'Ivy'
+     
         }, {
-            name: 'Passed inspection',
+            name: 'Ouvrage X',
             id: 'passed_inspection',
             dependency: 'inspect_building',
             parent: 'new_offices',
             start: Date.UTC(2019, 1, 1),
             end: Date.UTC(2022, 1, 1),
-            owner: 'Peter'
+      
         }, {
-            name: 'Relocate',
+            name: 'Ouvrage X',
             id: 'relocate',
             dependency: 'passed_inspection',
             parent: 'new_offices',
-            owner: 'Josh'
+
         }, {
-            name: 'Relocate staff',
+            name: 'Ouvrage X',
             id: 'relocate_staff',
             parent: 'relocate',
             start: Date.UTC(2019, 1, 1),
             end: Date.UTC(2022, 1, 1),
-            owner: 'Mark'
         }, {
-            name: 'Relocate test facility',
+            name: 'Ouvrage X',
             dependency: 'relocate_staff',
             parent: 'relocate',
             start: Date.UTC(2019, 1, 1),
             end: Date.UTC(2022, 1, 1),
-            owner: 'Anne'
+         
         }, {
-            name: 'Relocate cantina',
+            name: 'Ouvrage X',
             dependency: 'relocate_staff',
             parent: 'relocate',
             start: Date.UTC(2019, 1, 1),
             end: Date.UTC(2022, 1, 1),
         }]
     }, {
-        name: 'Product',
+        name: 'site',
         data: [{
-            name: 'New product launch',
+            name: 'Site A',
             id: 'new_product',
-            owner: 'Peter'
         }, {
-            name: 'Development',
+            name: 'Ouvrage X',
             id: 'development',
             parent: 'new_product',
             start: Date.UTC(2019, 1, 1),
@@ -88,29 +86,28 @@ Highcharts.ganttChart('container-gantt', {
                 amount: 0.6,
                 fill: '#e80'
             },
-            owner: 'Susan'
         }, {
-            name: 'Beta',
+            name: 'Ouvrage X',
             id: 'beta',
             dependency: 'development',
             parent: 'new_product',
             start: Date.UTC(2019, 1, 1),
             end: Date.UTC(2022, 1, 1),
-            owner: 'Peter'
+        
         }, {
-            name: 'Final development',
+            name: 'Ouvrage X',
             id: 'finalize',
             dependency: 'beta',
             parent: 'new_product',
             start: Date.UTC(2019, 1, 1),
             end: Date.UTC(2022, 1, 1),
         }, {
-            name: 'Launch',
+            name: 'Ouvrage X',
             dependency: 'finalize',
             parent: 'new_product',
             start: Date.UTC(2019, 1, 1),
             end: Date.UTC(2022, 1, 1),
-            owner: 'Peter'
+           
         }]
     }],
     title: {
