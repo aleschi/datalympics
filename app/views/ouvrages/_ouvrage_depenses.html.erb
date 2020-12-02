@@ -5,8 +5,7 @@
   </div><br><br>
    
         <div class="ouvrages-risques-infos">
-          <i class="fas fa-exclamation-triangle"></i> Chantier A, dépassement  10%<br>
-          <i class="fas fa-exclamation-triangle"></i> Chantier B, dépassement  20% 
+          <i class="fas fa-exclamation-triangle"></i> Surcouts + 300 000 €<br>
         </div><br><br>
    <div class="row">
      <div class="col-md-6">
@@ -16,11 +15,73 @@
        <div id="container-bar1"></div>
      </div>
    </div>
+   <br><br>
+ 
+      <div class="SD-topo-box-title">
+        <span>Infos sur le suivi budgétaire</span>
+      </div><br><br>
+   
+    <div class="flexslider" id="flexslider2">
+        <ul class="slides">
+          <li>  
+            <div class="row">
+              <div class="col-md-6">               
+                <div class="ouvrages-flexslider-text">
+                   <em>Novembre 2020:</em>
+                </div><br>
+                <div class="jauge-risques">
+                  <div class="risque1"></div>
+                  <div class="risque2"></div>
+                  <div class="risque3 "></div>
+                  <div class="risque4 risque-active"></div>
+                  <div class="risque5"></div>
+                </div>
+                  <div class="ouvrages-flexslider-text">
+                    <span>Surcoûts envisagés : + 300 000 €</span> <br><br>
+                    Décalage du rendu des études préalables et de l’AVP mais sans incidence sur les dépots du permis d’aménager et les dates de travaux. Phase travaux à étudier plus finement pour s’assurer que les délais sont suffisants 
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="ouvrages-flexslider-text">
+                  <span><em>Actions envisagées </em></span><br><br>
+                  Impact coût du COVID-19.<br>
+                  Bilan financier à recaler à la rentrée.
+                </div><br>
+              </div>
+            </div>
+          </li>
+          <li> 
+            <div class="row">
+              <div class="col-md-6"> 
+            <div class="ouvrages-flexslider-text">
+               <em>Octobre 2020:</em>
+            </div><br>
+            <div class="jauge-risques">
+              <div class="risque1"></div>
+              <div class="risque2"></div>
+              <div class="risque3 "></div>
+              <div class="risque4 risque-active"></div>
+              <div class="risque5"></div>
+            </div>
+            <div class="ouvrages-flexslider-text">
+              <span>Surcoûts envisagés : + 200 000 €</span><br><br>
+              Décalage du rendu des études préalables et de l’AVP mais sans incidence sur les dépots du permis d’aménager et les dates de travaux. Phase travaux à étudier plus finement pour s’assurer que les délais sont suffisants
+            </div>
+              </div>
+              <div class="col-md-6">
+                <div class="ouvrages-flexslider-text">
+                  <span> <em>Actions envisagées </em></span><br><br>
+                  Impact coût du COVID-19.<br>
+                  Bilan financier à recaler à la rentrée.
+                </div><br>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-    <div id="container-chart">
-      
-    </div><br>
-
+    
+<br><br>
    <div class="EB-details">
        <a href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse">Détails des dépenses </a>      
     </div><br>
@@ -272,9 +333,9 @@ Highcharts.chart('container-bar0', {
       fontSize: '16px',
                   },
     },
-  colors: ['#C68D7B', '#2E5D63'],
+  colors: ['#2E5D63'],
     xAxis: {
-        categories:  ["Budget initial", "Budget actuel", "Dépenses à 2020 prév", "Dépenses à 2020" ],
+        categories:  ["Budget initial", "Budget recalculé", "Dépenses à 2020 prévues", "Dépenses réalisées" ],
         title: {
             text: null
         }
@@ -307,12 +368,8 @@ Highcharts.chart('container-bar0', {
     credits: {
         enabled: false
     },
-    series: [{
-        name: 'Chantier A',
-      color: "#C68D7B",
-        data: [<%= @ouvrage.budget.to_i%>, <%= (@ouvrage.budget*2.5).to_i%> , <%= (@ouvrage.budget/3.5).to_i%>, <%= (@ouvrage.budget/1.5).to_i%>],
-     }, {
-        name: 'Chantier B',
+    series: [ {
+        name: 'Suivi',
        color: "#2E5D63",
         data: [ <%= @ouvrage.budget.to_i%> ,  <%= (@ouvrage.budget*2).to_i%> , <%= (@ouvrage.budget/3).to_i%>,  <%= (@ouvrage.budget/2).to_i%>],
      }]
@@ -357,7 +414,7 @@ Highcharts.chart('container-bar1', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} €</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} M€</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -378,82 +435,12 @@ Highcharts.chart('container-bar1', {
     }]
 });
  </script> 
-
 <script>
-Highcharts.chart('container-chart', {
-    chart: {
-        type: 'waterfall',
-      spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-          },
-    },
-
-    title: {
-        text: "Evolution de la maquette des dépenses de l'ouvrage ",
-      margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-    },
-
-    xAxis: {
-        type: 'category',
-      labels: {
-        formatter: function () {
-            return '<a href="/chantiers/1">' + this.value + '</a>'
-        },
-        useHTML: true,
-      },
-    },
-
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
-        title: {
-            text: 'Montant €'
-        }
-    },
-
-    legend: {
-        enabled: false
-    },
-
-    tooltip: {
-        pointFormat: '<b>${point.y:,.2f}</b> €'
-    },
-
-    series: [{
-      borderColor: '#fff',
-      data: [{
-            name: 'Prévisionnel 2018',
-            y: 1386929000,
-            color: "#bfbfbf",
-        }, {
-            name: 'Chantier A ',
-            y: 13100000,
-            color: "#C68D7B",
-        }, {
-            name: 'Chantier B',
-            y: 500000000,
-            color: "#C68D7B",
-        }, {
-            name: 'Prévisionnel 2020',
-            isSum: true,
-            color: "#2E5D63"
-        }],
-        dataLabels: {
-            enabled: true,
-            formatter: function () {
-                return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
-            },
-            style: {
-                fontWeight: 'bold'
-            }
-        },
-        pointPadding: 0
-    }]
+$(window).load(function() {
+  $('#flexslider2').flexslider({ 
+    animation: "slide",
+    animationLoop: false,
+    slideshow: false, 
+  });
 });
 </script>

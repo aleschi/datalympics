@@ -42,5 +42,7 @@ Rails.application.routes.draw do
   get 'collectivites' => 'solideo_financements#collectivites'
   get 'recherche-ouvrages' => 'ouvrages#search'
   post 'delete-document' => 'documents#delete_file'
+  
+  get 'timeline' => 'ouvrages#timeline'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

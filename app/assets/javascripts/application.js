@@ -12,10 +12,12 @@
 //
 
 //= require jquery3
+//= require jquery
 //= require bootstrap-sprockets
 //= require jquery-ui
 
 //= require jquery_ujs
+//= require jquery.flexslider
 //= require activestorage
 //= require chartkick
 //= require toastr

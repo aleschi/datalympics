@@ -26,6 +26,7 @@
           </div>
         </div>
         </div>
+      <br><br>
       <div class="row">
         <div class="ouvrages-budget-infos-box">
           <div class="ouvrages-budget-infos">
@@ -34,11 +35,11 @@
           </div>
           <div class="ouvrages-budget-infos">
             <div class="ouvrages-budget-infos-number"><%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €</div>
-            <div class="ouvrages-budget-infos-texte">Côuts actuels </div>
+            <div class="ouvrages-budget-infos-texte">Dépenses réalisées </div>
         </div>
           <div class="ouvrages-budget-infos">
             <div class="ouvrages-budget-infos-number"><%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €</div>
-            <div class="ouvrages-budget-infos-texte">Budget actuel </div>
+            <div class="ouvrages-budget-infos-texte">Budget recalculé </div>
         </div>
         </div>
       </div>
@@ -56,7 +57,10 @@
           <div class="risque4 "></div>
           <div class="risque5"></div>
         </div>
-        <br><br><br>
+        <div class="ouvrages-risques-infos">
+          <i class="fas fa-exclamation-triangle"></i> Surcoûts +300 000€ <br>
+        </div><br><br>
+        
         <div class="SD-topo-box-title">
             <span>Maîtrise des délais</span>
          </div><br><br>
@@ -67,7 +71,9 @@
           <div class="risque4 risque-active"></div>
           <div class="risque5"></div>
         </div>
-        
+        <div class="ouvrages-risques-infos">
+          <i class="fas fa-exclamation-triangle"></i> Retard 3-6 mois <br>
+        </div>
       </div>
     </div>
  
@@ -137,11 +143,11 @@ Highcharts.chart('container-jauge', {
               backgroundColor: 'none',
               shadow: false,
               style: {
-                  fontSize: '8px',
+                  fontSize: '10px',
                 color: '#004A70',
               },
               valueSuffix: '%',
-              format: '<span style="font-size:8px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#5770BE; font-size:8px;font-weight:400">{series.name}</span>',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#5770BE; font-size:10px;font-weight:400">{series.name}</span>',
             verticalAlign: 'middle',
               align: 'center',
         
@@ -224,11 +230,11 @@ Highcharts.chart('container-jauge2', {
               backgroundColor: 'none',
               shadow: false,
               style: {
-                  fontSize: '8px',
+                  fontSize: '10px',
                 color: '#004A70',
               },
               valueSuffix: '%',
-              format: '<span style="font-size:8px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#5770BE; font-size:8px;font-weight:400">{series.name}</span>',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#5770BE; font-size:10px;font-weight:400">{series.name}</span>',
             verticalAlign: 'middle',
               align: 'center',
         

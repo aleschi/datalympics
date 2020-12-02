@@ -199,6 +199,7 @@ class OuvragesController < ApplicationController
       end
     end
   end
+  
 
   # PATCH/PUT /ouvrages/1
   # PATCH/PUT /ouvrages/1.json
@@ -223,6 +224,10 @@ class OuvragesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def timeline
+    @nav=true 
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.

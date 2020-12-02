@@ -1,0 +1,135 @@
+<div class="O_page">
+  <h1 class="SD_title">Timeline des ouvrages</h1>
+    <h1 class="SD_subtitle">Dernière mise à jour : 22 novembre 2020</h1> 
+<div class="SD-table-box">
+
+      <div id="container-gantt">
+        
+      </div>
+    </div>
+</div>
+
+
+<script>
+
+Highcharts.ganttChart('container-gantt', {
+    series: [{
+        name: 'Offices',
+        data: [{
+            name: 'New offices',
+            id: 'new_offices',
+            owner: 'Peter'
+        }, {
+            name: 'Prepare office building',
+            id: 'prepare_building',
+            parent: 'new_offices',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+            completed: {
+                amount: 0.2
+            },
+            owner: 'Linda'
+        }, {
+            name: 'Inspect building',
+            id: 'inspect_building',
+            dependency: 'prepare_building',
+            parent: 'new_offices',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+            owner: 'Ivy'
+        }, {
+            name: 'Passed inspection',
+            id: 'passed_inspection',
+            dependency: 'inspect_building',
+            parent: 'new_offices',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+            owner: 'Peter'
+        }, {
+            name: 'Relocate',
+            id: 'relocate',
+            dependency: 'passed_inspection',
+            parent: 'new_offices',
+            owner: 'Josh'
+        }, {
+            name: 'Relocate staff',
+            id: 'relocate_staff',
+            parent: 'relocate',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+            owner: 'Mark'
+        }, {
+            name: 'Relocate test facility',
+            dependency: 'relocate_staff',
+            parent: 'relocate',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+            owner: 'Anne'
+        }, {
+            name: 'Relocate cantina',
+            dependency: 'relocate_staff',
+            parent: 'relocate',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+        }]
+    }, {
+        name: 'Product',
+        data: [{
+            name: 'New product launch',
+            id: 'new_product',
+            owner: 'Peter'
+        }, {
+            name: 'Development',
+            id: 'development',
+            parent: 'new_product',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+            completed: {
+                amount: 0.6,
+                fill: '#e80'
+            },
+            owner: 'Susan'
+        }, {
+            name: 'Beta',
+            id: 'beta',
+            dependency: 'development',
+            parent: 'new_product',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+            owner: 'Peter'
+        }, {
+            name: 'Final development',
+            id: 'finalize',
+            dependency: 'beta',
+            parent: 'new_product',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+        }, {
+            name: 'Launch',
+            dependency: 'finalize',
+            parent: 'new_product',
+            start: Date.UTC(2019, 1, 1),
+            end: Date.UTC(2022, 1, 1),
+            owner: 'Peter'
+        }]
+    }],
+    title: {
+        text: null,
+    },
+    xAxis: {
+        currentDateIndicator: true,
+        min: Date.UTC(2019, 1, 1),
+        max: Date.UTC(2025, 1, 1)
+    }
+});
+</script>
+
+
+<script>
+
+  $('.menu-ouvrages-timeline').addClass('menu-active2'); 
+  $('.menu-ouvrages').addClass('menu-active'); 
+
+  $('#MonCollapse3').addClass('in'); 
+
+</script>
