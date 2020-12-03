@@ -81,7 +81,7 @@ function initMap() {
         <% @ouvrages.each do |ouvrage| %>
                         
                 var marker = new google.maps.Marker({
-                                position: {lat: <%= ouvrage.latitude%>, lng: <%= ouvrage.longitude%>},
+                                position: {lat: <% if ouvrage.latitude.nil?%>48.856614<% else%><%= ouvrage.latitude%><%end%>, lng: <% if ouvrage.longitude.nil?%>2.3522219<% else %><%= ouvrage.longitude%><%end%>},
                                 map: map,
                                 icon: image,
                                 label: {
