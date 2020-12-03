@@ -14,20 +14,57 @@
 
   <div class="ED_new_form_field">
     <%= form.label :name, "Nom de l'ouvrage" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required: true  %>
   </div>
   <div class="ED_new_form_field">
     <%= form.label :maitre_oeuvre, "MO de l'ouvrage" %>
-    <%= form.text_field :maitre_oeuvre %>
+    <%= form.text_field :maitre_oeuvre, required: true  %>
+  </div>
+  <div class="ED_new_form_field ED_new_form_field_date">
+    <%= form.label :date %>
+    <%= form.date_select :date, {:order => [:year]}, class: "ED_new_form_input_date"  %>
   </div>
   <div class="ED_new_form_field">
     <%= form.label :budget, "budget de l'ouvrage" %>
-    <%= form.text_field :budget %>
+    <%= form.number_field :budget, min: 0, required: true  %>
   </div>
   <div class="ED_new_form_field">
     <%= form.label :adresse, "Adresse de l'ouvrage" %>
-    <%= form.text_field :adresse, id: "user_input_autocomplete_address" %>
+      </div>
+  <div class="ED_new_form_field2">
+    <%= form.text_field :adresse, id: "user_input_autocomplete_address", required: true  %>
   </div>
+  <div class="ED_new_form_field">
+    <%= form.label :description%>
+    </div>
+  <div class="ED_new_form_field2">
+    <%= form.text_field :description, required: true %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :phase_jo %>
+    </div>
+  <div class="ED_new_form_field2">
+    <%= form.text_field :phase_jo, required: true  %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :heritage %>
+  </div>
+  <div class="ED_new_form_field2">
+    <%= form.text_field :heritage, required: true  %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :start, "Début des travaux"%>
+  </div>
+  <div class="ED_new_form_field2">
+    <%= form.date_select :start,discard_day: true,  class: "ED_new_form_input_date"  %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :end, "fin des travaux"%>
+      </div>
+  <div class="ED_new_form_field2">
+    <%= form.date_select :end,discard_day: true,  class: "ED_new_form_input_date"  %>
+  </div>
+
   <div class="ED_new_form_field">
     <%= form.label :photo, "Photo de l'ouvrage" %>
     <%= form.file_field :photo %>

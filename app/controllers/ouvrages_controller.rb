@@ -237,6 +237,6 @@ class OuvragesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ouvrage_params
-      params.require(:ouvrage).permit(:name, :adresse, :maitre_oeuvre, :budget ,:photo)
+      params.require(:ouvrage).permit(:name, :adresse, :maitre_oeuvre, :budget ,:photo, :description, :phase_jo, :heritage, :start, :end, :date)
     end
 end

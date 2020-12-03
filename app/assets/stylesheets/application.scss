@@ -339,7 +339,25 @@ body {
     appearance: none;
   }
 }
-
+.ED_new_form_field2{
+   margin-bottom:14px;
+  position:relative;
+  input{
+     width:100%;
+    color:#444444;
+    font-size:15px;
+    padding:5px 8px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  select{
+    color:#444444;
+    font-size:15px;
+    padding:5px 8px;
+  }
+  
+}
 .ED_new_form_input, .SD_new_form_input{
   border: 1px solid #000091;
   
