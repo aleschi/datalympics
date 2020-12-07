@@ -11,47 +11,39 @@
   <div class="row">
     <div class="col-md-12">
        <div class="SF-new-box">
-        <%=form_tag import2_ouvrages_depenses_path, multipart: true do %>
+        <%=form_tag import_ouvrages_depenses_path, multipart: true do %>
          <div class="text-center SF-new-input">
-          <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter les dépenses prévues ouvrages </span></label>
-         <%= hidden_field_tag :date, 2020 %>
-         </div>   
-         <div class="SF_new_form_field_submit">
-            <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
-         </div>
+              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter maquette 2018 </span></label>
+          
+            </div>
+            <div class="SF_new_form_field_submit">
+              <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
+            </div>
+         
         <%end%>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-       <div class="SF-new-box">
-        <%=form_tag import_ouvrages_depenses_path, multipart: true do %>
-        <div class="text-center SF-new-input">
-          <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter les dépenses réelles ouvrages </span></label>
-         <%= hidden_field_tag :date, 2020 %>
-         </div>
-        <div class="SF_new_form_field_submit">
-           <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
-        </div>
-        <%end%>
-         </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-       <div class="SF-new-box">
-        <%=form_tag import3_ouvrages_depenses_path, multipart: true do %>
-         <div class="text-center SF-new-input">
-          <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter les dépenses engagées ouvrages </span></label>
-         <%= hidden_field_tag :date, 2020 %>
-         </div>    
-         <div class="SF_new_form_field_submit">
-          <%= button_tag(type: "submit") do %> <i class="fas fa-check"></i> <% end %>
-         </div>
-        <%end%>
-       </div>
-    </div>
-  </div>
   </div>
 </div>
+
+
+<script>
+  $('.SF_new_form_field_submit').hide();
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+         
+              
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $("input").change(function() {
+      readURL(this);
+      $(this).parent().parent().parent().children('.SF_new_form_field_submit').show();
+      $(this).parent().children('.SF-new-input-text').html($(this).val().replace(/C:\\fakepath\\/i, ''));
+  });
+
+</script>

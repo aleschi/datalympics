@@ -10,8 +10,6 @@ Rails.application.routes.draw do
   resources :ouvrages_depenses do 
     collection do 
       post 'import' => 'ouvrages_depenses#import'
-      post 'import2' => 'ouvrages_depenses#import2'
-      post 'import3' => 'ouvrages_depenses#import3'
     end
   end 
   resources :solideo_depenses

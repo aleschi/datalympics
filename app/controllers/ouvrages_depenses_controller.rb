@@ -109,23 +109,13 @@ before_action :authenticate_user!
   end
   
   def import
-  
-    OuvragesDepense.import(params[:file], params[:date])
+    OuvragesDepense.all.destroy_all
+    
+    OuvragesDepense.import(params[:file])
 
     redirect_to ouvrages_depenses_path
   end 
-  def import2
-OuvragesDepense.all.destroy_all
-    OuvragesDepense.import2(params[:file], params[:date])
 
-    redirect_to ouvrages_depenses_path
-  end 
-  def import3
-
-    OuvragesDepense.import3(params[:file], params[:date])
-
-    redirect_to ouvrages_depenses_path
-  end 
 
   # PATCH/PUT /ouvrages_depenses/1
   # PATCH/PUT /ouvrages_depenses/1.json

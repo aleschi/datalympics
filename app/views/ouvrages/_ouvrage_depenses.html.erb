@@ -71,60 +71,6 @@
           </li>
           <% end %>
           <% end %>
-          <li> 
-            <div class="row">
-              <div class="col-md-6"> 
-            <div class="ouvrages-flexslider-text">
-               <em>Aout 2020:</em>
-            </div><br>
-            <div class="jauge-risques">
-              <div class="risque1"></div>
-              <div class="risque2"></div>
-              <div class="risque3 "></div>
-              <div class="risque4 risque-active"></div>
-              <div class="risque5"></div>
-            </div>
-            <div class="ouvrages-flexslider-text">
-              <span>Surcoûts envisagés : + 200 000 €</span><br><br>
-              Décalage du rendu des études préalables et de l’AVP mais sans incidence sur les dépots du permis d’aménager et les dates de travaux. Phase travaux à étudier plus finement pour s’assurer que les délais sont suffisants
-            </div>
-              </div>
-              <div class="col-md-6">
-                <div class="ouvrages-flexslider-text">
-                  <span> <em>Actions envisagées </em></span><br><br>
-                  Impact coût du COVID-19.<br>
-                  Bilan financier à recaler à la rentrée.
-                </div><br>
-              </div>
-            </div>
-          </li>
-          <li> 
-            <div class="row">
-              <div class="col-md-6"> 
-            <div class="ouvrages-flexslider-text">
-               <em>Juillet 2020:</em>
-            </div><br>
-            <div class="jauge-risques">
-              <div class="risque1"></div>
-              <div class="risque2"></div>
-              <div class="risque3 "></div>
-              <div class="risque4 risque-active"></div>
-              <div class="risque5"></div>
-            </div>
-            <div class="ouvrages-flexslider-text">
-              <span>Surcoûts envisagés : + 200 000 €</span><br><br>
-              Décalage du rendu des études préalables et de l’AVP mais sans incidence sur les dépots du permis d’aménager et les dates de travaux. Phase travaux à étudier plus finement pour s’assurer que les délais sont suffisants
-            </div>
-              </div>
-              <div class="col-md-6">
-                <div class="ouvrages-flexslider-text">
-                  <span> <em>Actions envisagées </em></span><br><br>
-                  Impact coût du COVID-19.<br>
-                  Bilan financier à recaler à la rentrée.
-                </div><br>
-              </div>
-            </div>
-          </li>
         </ul>
       </div>
 
@@ -175,7 +121,7 @@
       </div>
   </section>
   </div>
-
+<% if !@ouvrage.ouvrages_financements.nil? && @ouvrage.ouvrages_financements.count > 0 %>
 <div class="SD-topo-box">
   <div class="SD-topo-box-title">
     <span>Financements</span>
@@ -281,6 +227,7 @@
     </div>
   </div>
 </div>
+<% end %>
 
 <script>
 Highcharts.chart('container', {
@@ -362,6 +309,7 @@ Highcharts.chart('container', {
 
 });
 </script>
+<% if !@ouvrage.ouvrages_financements.nil? && @ouvrage.ouvrages_financements.count > 0 %>
 <script>
 Highcharts.chart('container-bar0', {
     chart: {
@@ -423,7 +371,7 @@ Highcharts.chart('container-bar0', {
      }]
 });
   </script>
-
+<% end %>
 <script>
 Highcharts.chart('container-bar1', {
     chart: {
