@@ -131,7 +131,8 @@ Highcharts.chart('container-1', {
       
     },
   xAxis:{
-      max: 2025,
+      max: 2021,
+     tickInterval: 1,
   },
     plotOptions: {
         series: {
@@ -231,7 +232,8 @@ Highcharts.chart('container-2', {
       
     },
   xAxis:{
-      max: 2025,
+      max: 2021,
+     tickInterval: 1,
   },
     plotOptions: {
         series: {
@@ -258,15 +260,6 @@ Highcharts.chart('container-2', {
             }
       
     },{
-        name: 'Dépenses prévues',
-        type: 'spline',
-      color: '#bfbfbf',
-      tooltip: {
-            valueSuffix: '€',
-        },
-        data: <%= @depenses_prevu_annee_fonctionnement %>,
-      
-    }, {
         name: 'Dépenses',
       type: 'spline',
       color: '#5770BE',
@@ -304,20 +297,21 @@ Highcharts.chart('container-3', {
       fontSize: '16px',
                   },
       },
-  colors: ["#bfbfbf", '#20E37B'],
+  colors: ['#20E37B'],
     yAxis: {
       gridLineColor: '#fff', 
         title: {
-            text: 'Total €'
+            text: 'Total k€'
         }
     },
   tooltip: {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
+        valueSuffix: 'k€',
       
     },
   xAxis:{
-      max: 2025,
+      max: 2021,
+    tickInterval: 1,
   },
     plotOptions: {
         series: {
@@ -330,11 +324,8 @@ Highcharts.chart('container-3', {
 
   
 
-    series: [ {
-        name: 'Evolution prévue',
-        data: <%= @depenses_prevu_annee_innovation %>,
-    },{
-        name: 'Evolution réelle',
+    series: [{
+        name: 'Evolution des fonds innovation',
         data: <%= @depenses_annee_innovation %>,
        dataLabels: {
                 enabled: true,
@@ -382,20 +373,21 @@ Highcharts.chart('container-4', {
       fontSize: '16px',
                   },
       },
-  colors: ["#bfbfbf", '#C68D7B'],
+  colors: ['#C68D7B'],
     yAxis: {
       gridLineColor: '#fff', 
         title: {
-            text: 'Total €'
+            text: 'Total k€'
         }
     },
   tooltip: {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
+        valueSuffix: 'k€',
       
     },
   xAxis:{
-      max: 2025,
+      max: 2021,
+    tickInterval: 1,
   },
     plotOptions: {
         series: {
@@ -408,11 +400,8 @@ Highcharts.chart('container-4', {
 
   
 
-    series: [ {
-        name: 'Evolution prévue',
-        data: <%= @depenses_prevu_annee_reserve %>,
-    },{
-        name: 'Evolution réelle',
+    series: [{
+        name: 'Evolution de la réserve ',
         data: <%= @depenses_annee_reserve%>,
        dataLabels: {
                 enabled: true,

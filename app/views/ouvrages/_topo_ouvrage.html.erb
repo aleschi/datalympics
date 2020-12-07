@@ -34,11 +34,11 @@
           <div class="ouvrages-budget-infos-texte">Budget Initial</div>
           </div>
           <div class="ouvrages-budget-infos">
-            <div class="ouvrages-budget-infos-number"><%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €</div>
+            <div class="ouvrages-budget-infos-number"><% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>XXX<%end%> €</div>
             <div class="ouvrages-budget-infos-texte">Dépenses réalisées </div>
         </div>
           <div class="ouvrages-budget-infos">
-            <div class="ouvrages-budget-infos-number"><%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €</div>
+            <div class="ouvrages-budget-infos-number"><% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.last.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €</div>
             <div class="ouvrages-budget-infos-texte">Budget recalculé </div>
         </div>
         </div>
@@ -58,7 +58,15 @@
           <div class="risque5"></div>
         </div>
         <div class="ouvrages-risques-infos">
-          <i class="fas fa-exclamation-triangle"></i> Surcoûts +300 000€ <br>
+          <% if @ouvrage.ouvrages_financements.count > 0 %>
+          <% if (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i > 0 %>
+          <i class="fas fa-exclamation-triangle"></i> Surcoûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> €<br>
+          <% elsif (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i < 0 %>
+          Baisse des coûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> € <br>
+          <% else %>
+          Pas de surcoûts envisagés
+          <% end %>
+          <% else %><i class="fas fa-exclamation-triangle"></i> Surcoûts :  +300 000 € <br><% end %> 
         </div><br><br>
         
         <div class="SD-topo-box-title">
@@ -72,7 +80,11 @@
           <div class="risque5"></div>
         </div>
         <div class="ouvrages-risques-infos">
-          <i class="fas fa-exclamation-triangle"></i> Retard 3-6 mois <br>
+          <% if @ouvrage.ouvrages_revues.count > 0 %>
+          <% if @ouvrage.ouvrages_revues.last.delai_time.to_i > 0 %>
+          <i class="fas fa-exclamation-triangle"></i>Retard : <%= @ouvrage.ouvrages_revues.last.delai_time.to_i %> mois 
+          <% else %> Aucun retard envisagé <% end %><br>
+          <% else %> <i class="fas fa-exclamation-triangle"></i> Retard : 3-6 mois <% end %><br>
         </div>
       </div>
     </div>
@@ -164,7 +176,7 @@ Highcharts.chart('container-jauge', {
             color: "#F29D53",
             radius: '100%',
             innerRadius: '88%',
-            y: 33
+            y: <%= (@ouvrage.ouvrages_depenses.sum('montant')/@ouvrage.budget*100).round %>
         }]
     }]
 });

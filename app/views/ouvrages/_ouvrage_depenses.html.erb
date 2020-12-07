@@ -5,8 +5,16 @@
   </div><br><br>
    
         <div class="ouvrages-risques-infos">
-          <i class="fas fa-exclamation-triangle"></i> Surcouts + 300 000 €<br>
-        </div><br><br>
+        <% if @ouvrage.ouvrages_financements.count > 0 %>
+          <% if (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i > 0 %>
+          <i class="fas fa-exclamation-triangle"></i> Surcoûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> €<br>
+          <% elsif (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i < 0 %>
+          Baisse des coûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> € <br>
+          <% else %>
+          Pas de surcoûts envisagés
+          <% end %>
+          <% else %><i class="fas fa-exclamation-triangle"></i> Surcoûts :  +300 000 € <br><% end %> 
+   </div><br><br>
    <div class="row">
      <div class="col-md-6">
         <div id="container-bar0"></div>
@@ -23,11 +31,13 @@
    
     <div class="flexslider" id="flexslider2">
         <ul class="slides">
+          <% if @ouvrage.ouvrages_revues.count > 0 %>
+          <% @ouvrage.ouvrages_revues.order('date DESC').each do |revue| %>
           <li>  
             <div class="row">
               <div class="col-md-6">               
                 <div class="ouvrages-flexslider-text">
-                   <em>Novembre 2020:</em>
+                   <em><%= l(revue.date, :format => '%B %Y')%>: </em>
                 </div><br>
                 <div class="jauge-risques">
                   <div class="risque1"></div>
@@ -37,13 +47,51 @@
                   <div class="risque5"></div>
                 </div>
                   <div class="ouvrages-flexslider-text">
-                    <span>Surcoûts envisagés : + 300 000 €</span> <br><br>
-                    Décalage du rendu des études préalables et de l’AVP mais sans incidence sur les dépots du permis d’aménager et les dates de travaux. Phase travaux à étudier plus finement pour s’assurer que les délais sont suffisants 
+                    <span>
+                    <% if @ouvrage.ouvrages_financements.count > 0 %>
+                      <% if (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i > 0 %>
+                      Surcoûts envisagés : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> €<br>
+                      <% elsif (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i < 0 %>
+                      Baisse des coûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> € <br>
+                      <% else %>
+                      Pas de surcoûts envisagés
+                      <% end %>
+                    <% else %>Surcoûts envisagés :  +300 000 € <br><% end %> 
+                    </span> <br><br>
+                    <%= revue.budget_commentaire %>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="ouvrages-flexslider-text">
                   <span><em>Actions envisagées </em></span><br><br>
+                  <%= revue.budget_action %>
+                </div><br>
+              </div>
+            </div>
+          </li>
+          <% end %>
+          <% end %>
+          <li> 
+            <div class="row">
+              <div class="col-md-6"> 
+            <div class="ouvrages-flexslider-text">
+               <em>Aout 2020:</em>
+            </div><br>
+            <div class="jauge-risques">
+              <div class="risque1"></div>
+              <div class="risque2"></div>
+              <div class="risque3 "></div>
+              <div class="risque4 risque-active"></div>
+              <div class="risque5"></div>
+            </div>
+            <div class="ouvrages-flexslider-text">
+              <span>Surcoûts envisagés : + 200 000 €</span><br><br>
+              Décalage du rendu des études préalables et de l’AVP mais sans incidence sur les dépots du permis d’aménager et les dates de travaux. Phase travaux à étudier plus finement pour s’assurer que les délais sont suffisants
+            </div>
+              </div>
+              <div class="col-md-6">
+                <div class="ouvrages-flexslider-text">
+                  <span> <em>Actions envisagées </em></span><br><br>
                   Impact coût du COVID-19.<br>
                   Bilan financier à recaler à la rentrée.
                 </div><br>
@@ -54,7 +102,7 @@
             <div class="row">
               <div class="col-md-6"> 
             <div class="ouvrages-flexslider-text">
-               <em>Octobre 2020:</em>
+               <em>Juillet 2020:</em>
             </div><br>
             <div class="jauge-risques">
               <div class="risque1"></div>
@@ -136,7 +184,7 @@
     <div class="col-md-6"> 
       
      <div id='container-pie'>
-    <%= pie_chart OuvragesFinancement.where('ouvrage_id = ?', @ouvrage.id).unscope(:order).group(:name).sum(:montant_prevu) ,  library: {
+    <%= pie_chart OuvragesFinancement.where('ouvrage_id = ? AND date = ?', @ouvrage.id, @ouvrage.ouvrages_financements.first.date ).unscope(:order).group(:name).sum(:montant) ,  library: {
      chart: {
        backgroundColor: '#fff',
         type: 'pie',
@@ -182,7 +230,7 @@
     <div class="col-md-6"> 
       
      <div id='container-pie'>
-    <%= pie_chart OuvragesFinancement.where('ouvrage_id = ?', @ouvrage.id).unscope(:order).group(:name).sum(:montant_prevu) ,  library: {
+    <%= pie_chart OuvragesFinancement.where('ouvrage_id = ? AND date = ? ', @ouvrage.id, @ouvrage.ouvrages_financements.last.date).unscope(:order).group(:name).sum(:montant) ,  library: {
      chart: {
        backgroundColor: '#fff',
        plotBackgroundColor: nil,
@@ -355,7 +403,7 @@ Highcharts.chart('container-bar0', {
         valueSuffix: ' €'
     },
   legend: {
-    enabled: true,
+    enabled: false,
   },
     plotOptions: {
         bar: {
@@ -371,7 +419,7 @@ Highcharts.chart('container-bar0', {
     series: [ {
         name: 'Suivi',
        color: "#2E5D63",
-        data: [ <%= @ouvrage.budget.to_i%> ,  <%= (@ouvrage.budget*2).to_i%> , <%= (@ouvrage.budget/3).to_i%>,  <%= (@ouvrage.budget/2).to_i%>],
+        data: [ <%= @ouvrage.budget.to_i%> ,  <%= (@ouvrage.ouvrages_financements.last.montant_prevu).to_i%> , <%= @ouvrage.ouvrages_depenses.sum('montant').to_i%>,  <%= @ouvrage.ouvrages_depenses.sum('montant').to_i%>],
      }]
 });
   </script>

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     end 
     
   end 
+  resources :ouvrages_revues
   resources :etat_budgets
   resources :etat_depenses
   resources :ouvrages do 

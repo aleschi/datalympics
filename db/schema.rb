@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_091557) do
+ActiveRecord::Schema.define(version: 2020_12_03_135729) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -137,6 +137,20 @@ ActiveRecord::Schema.define(version: 2020_12_03_091557) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ouvrage_id"], name: "index_ouvrages_financeurs_on_ouvrage_id"
+  end
+
+  create_table "ouvrages_revues", force: :cascade do |t|
+    t.date "date"
+    t.integer "ouvrage_id"
+    t.string "delai_commentaire"
+    t.string "delai_action"
+    t.float "delai_time"
+    t.integer "budget_indicateur"
+    t.string "budget_commentaire"
+    t.string "budget_action"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ouvrage_id"], name: "index_ouvrages_revues_on_ouvrage_id"
   end
 
   create_table "solideo_depenses", force: :cascade do |t|

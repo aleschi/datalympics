@@ -1,84 +1,91 @@
 
 <% if !@solideo_financements.nil?%>
 
-<div class="SD-topo-box">
-  
+<div class="SD-topo-box">  
   <div class="SF-topo-financeurs-title"><span>Financeurs de la solideo</span></div><br>
   <div class="row">
    <div class="col-md-6">
-    <div id="container-pie">      
+      <div id="container-pie"></div>
+    </div> 
+    <div class="col-md-6">  
+      <div id="container-bar"></div>
     </div>
-  </div>
- 
-  <div class="col-md-6">
-   
-    
-     <div id="container-bar">      
-    </div>
-    
- 
-   
-  
-  </div>
-  </div>
-  
+  </div>  
 </div>
 <% end %>
 
 <div class="SD-topo-box">
   
  <div class="SF-topo-financeurs-title"><span>Maquette des financements de la solideo</span></div><br>
-   <div class="row">
-   <div id="container-cylinder">
-     
-   </div>
-  </div>
- <div class="row">
-   <div class="col-md-12">
+
+   <div id="container-cylinder"></div>
+   <br>
+ 
+   <div class="EB-details">
+       <a href="#details-financements" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-financements">Détails des financements </a>      
+   </div><br><br>
+   <section id="details-financements" class="collapse">
    <div class="ED_table">
       <table>
         <thead>
           <tr>
-            <th scope="col">Financeurs</th>
+            <th scope="col"> </th>
+            <th scope="col">Privé</th>
             <th scope="col">ETAT</th>
-            <th scope="col">COL 1</th>
-            <th scope="col">COL 2</th>
-            <th scope="col">COL 3</th>
-            <th scope="col">COL 4</th>
-            <th scope="col">COL 5</th>
-            <th scope="col">COL 6</th>
-            <th scope="col" class="border-none">Privé </th>
+            <th scope="col">RIF</th>
+            <th scope="col">Paris</th>
+            <th scope="col">MGP</th>
+            <th scope="col">CD92</th>
+            <th scope="col">CD93</th>
+            <th scope="col">CD78</th>
+            <th scope="col">ETP PC</th>
+            <th scope="col">ETP TE</th>
+            <th scope="col">Dugny</th>
+            <th scope="col">Bourget</th>
+            <th scope="col">CASQY</th>
+            <th scope="col" class="border-none">Marseille </th>
           </tr>
         </thead>
         <tbody>
         
           <tr>
-            <th scope="row">Maquette 2018</th>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
+            <th scope="row">2018</th>
+            <% @financeurs.each do |financeur| %>
+            <td><%= (SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2018,1)).sum('montant')/1000000).round%></td>
+            <% end %>
+   
+          </tr>
+          <tr>
+            <th scope="row">2019</th>
+            <% @financeurs.each do |financeur| %>
+            <td><%= (SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant')/1000000).round%>
+            <% if  SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant') > SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2018,1)).sum('montant')%> <i class="fas fa-long-arrow-alt-up"></i> <% elsif SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant') < SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2018,1)).sum('montant') %> <i class="fas fa-long-arrow-alt-down"></i> <% end %>
+            </td>
+            <% end %>
+   
+          </tr>
+          <tr>
+            <th scope="row">2020</th>
+            <% @financeurs.each do |financeur| %>
+            <td><%= (SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2020,1)).sum('montant')/1000000).round%>
+            <% if  SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2020,1)).sum('montant') > SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant')%> <i class="fas fa-long-arrow-alt-up"></i> <% elsif SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2020,1)).sum('montant') < SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant') %> <i class="fas fa-long-arrow-alt-down"></i> <% end %>
+            </td>
+            <% end %>
    
           </tr>
         
         </tbody>
       </table>
     </div>
-  </div>
- 
-
-  </div>
-
- 
+   </section>
 </div>
 
 <div  class="table-box">
 
  <div class="SF-topo-financeurs-title"><span>Suivi des financements de la solideo</span></div><br><br>
+  <div>
+    Données manquantes 
+  </div>
     <div class="row">
       <div class="col-md-12">
          <div id='container-column'>
@@ -307,14 +314,14 @@ Highcharts.chart('container-pie', {
         colorByPoint: true,
         data: [{
             name: 'Etat',
-            y:  <%= @solideo_financements_etat_prevu%>,
+            y:  <%= @solideo_financements_etat%>,
            
         }, {
             name: 'Privés',
-            y: <%= @solideo_financements_prive_prevu%>,
+            y: <%= @solideo_financements_prive%>,
         }, {
             name: 'Collectivités',
-            y: <%= @solideo_financements_collectivites_prevu%>,
+            y: <%= @solideo_financements_collectivites %>,
         }]
     }]
 });
@@ -611,7 +618,7 @@ Highcharts.chart('container-bar', {
     },
     series: [{
         name: 'Budget',
-        data: [{y: 933, color: "#C68D7B"}, {y: 182, color: "#2E5D63"}, 135, 135, 67, 35,22,20,17, 5,3,3,2,2],
+        data: [{y: <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", SolideoFinancement.last.date).sum('montant')/1000000).round %>, color: "#C68D7B"}, {y: <%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", SolideoFinancement.last.date).sum('montant')/1000000).round %>, color: "#2E5D63"}, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "RIF", SolideoFinancement.last.date).sum('montant')/1000000).round %>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Ville de Paris", SolideoFinancement.last.date).sum('montant')/1000000).round %>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "CD93", SolideoFinancement.last.date).sum('montant')/1000000).round %>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "EPT Plaine Commune", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Ville de Marseille", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "EPT Terres d'envol", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Métropole Grand Paris", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "CD92", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Ville de Dugny", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Ville du Bourget", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "CASQY", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "CD78", SolideoFinancement.last.date).sum('montant')/1000000).round %>],
      }]
 });
   </script>
@@ -682,17 +689,17 @@ Highcharts.chart('container-cylinder', {
 
     series: [{
         name: 'Etat',
-        data: [933, 933, 934, 947],
+        data: [<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", Date.new(2018,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", Date.new(2019,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", Date.new(2020,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", Date.new(2021,1)).sum('montant')/1000000).round%>],
         stack: 'budget',
        color: "#C68D7B",
     }, {
         name: 'Collectivités',
-        data: [340, 340, 340, 329],
+        data: [<%= (SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", Date.new(2018,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat","privé", Date.new(2019,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", Date.new(2020,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat","privé", Date.new(2021,1)).sum('montant')/1000000).round%>],
         stack: 'budget',
       color: '#20E37B',
     }, {
         name: 'Privé',
-        data: [182, 182, 182, 197],
+        data: [<%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", Date.new(2018,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", Date.new(2019,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", Date.new(2020,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", Date.new(2021,1)).sum('montant')/1000000).round%>],
         stack: 'budget', 
       color: "#2E5D63",
     }]

@@ -6,44 +6,50 @@ class SolideoFinancement < ApplicationRecord
 
     CSV.foreach(file.path) do |row|
       #Ouvrage.create! row.to_hash
-       if row[0] == "RESERVE"
+       if row[0] == "RESERVE "
          1.upto(14).each do |i|
             if !row[i].nil? 
               @solideo_financement = SolideoFinancement.new
-              @solideo_financement.montant_prevu = row[i]
+              @solideo_financement.montant = row[i]
+              @solideo_financement.montant = @solideo_financement.montant * 1000
+              @solideo_financement.montant_prevu = row[15]
               @solideo_financement.montant_prevu = @solideo_financement.montant_prevu * 1000
               @solideo_financement.financeur = @financeurs[i]
               @solideo_financement.categorie = "reserve"
-              @solideo_financement.date = DateTime.new(date_year, date_month)
-              if @solideo_financement.montant_prevu.to_i != 0
+              @solideo_financement.date = Date.new(date_year, date_month)
+              if @solideo_financement.montant.to_i != 0
               @solideo_financement.save
               end 
             end
           end  
-       elsif row[0] == "FONDS INNOVATION ET DD"
+       elsif row[0] == "INNOVATION"
           1.upto(14).each do |i|
             if !row[i].nil? 
               @solideo_financement = SolideoFinancement.new
-              @solideo_financement.montant_prevu = row[i]
+              @solideo_financement.montant = row[i]
+              @solideo_financement.montant = @solideo_financement.montant * 1000
+              @solideo_financement.montant_prevu = row[15]
               @solideo_financement.montant_prevu = @solideo_financement.montant_prevu * 1000
               @solideo_financement.financeur = @financeurs[i]
               @solideo_financement.categorie = "innovation"
-              @solideo_financement.date = DateTime.new(date_year, date_month)
-              if @solideo_financement.montant_prevu.to_i != 0
+              @solideo_financement.date = Date.new(date_year, date_month)
+              if @solideo_financement.montant.to_i != 0
               @solideo_financement.save
               end 
             end
           end  
-       elsif row[0] == "frais SOLIDEO"
+       elsif row[0] == "Frais de Structure SOLIDEO"
           1.upto(14).each do |i|
             if !row[i].nil? 
               @solideo_financement = SolideoFinancement.new
-              @solideo_financement.montant_prevu = row[i]
+              @solideo_financement.montant = row[i]
+              @solideo_financement.montant = @solideo_financement.montant * 1000
+              @solideo_financement.montant_prevu = row[15]
               @solideo_financement.montant_prevu = @solideo_financement.montant_prevu * 1000
               @solideo_financement.financeur = @financeurs[i]
               @solideo_financement.categorie = "fonctionnement"
-              @solideo_financement.date = DateTime.new(date_year, date_month)
-              if @solideo_financement.montant_prevu.to_i != 0
+              @solideo_financement.date = Date.new(date_year, date_month)
+              if @solideo_financement.montant.to_i != 0
               @solideo_financement.save
               end
             end
@@ -52,12 +58,14 @@ class SolideoFinancement < ApplicationRecord
         1.upto(14).each do |i|
             if !row[i].nil? 
               @solideo_financement = SolideoFinancement.new
-              @solideo_financement.montant_prevu = row[i]
+              @solideo_financement.montant = row[i]
+              @solideo_financement.montant = @solideo_financement.montant * 1000
+              @solideo_financement.montant_prevu = row[15]
               @solideo_financement.montant_prevu = @solideo_financement.montant_prevu * 1000
               @solideo_financement.financeur = @financeurs[i]
               @solideo_financement.categorie = "ouvrages"
-              @solideo_financement.date = DateTime.new(date_year, date_month)
-              if @solideo_financement.montant_prevu.to_i != 0
+              @solideo_financement.date = Date.new(date_year, date_month)
+              if @solideo_financement.montant.to_i != 0
               @solideo_financement.save
               end 
             end

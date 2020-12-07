@@ -1,0 +1,15 @@
+<div class="SD_page">
+ 
+    <h1 class="SD_title">Rapport de supervisions </h1>
+  
+  <div  class="SD-table-box">
+  <div class="SF-topo-financeurs-title"><span>Ajouter une revue aux ouvrages </span></div><br><br>
+    
+    <% @ouvrages.each do |ouvrage| %>
+    <div>
+    <%= link_to new_ouvrages_revue_path(ouvrage_id: ouvrage.id) do %> <%= ouvrage.name %> <% end %>  
+    </div>
+    <% end %>
+  </div>
+</div>
+  

@@ -1,0 +1,56 @@
+<div class="EB_page">
+
+ <h1 class="EB_title">Ajouter une revue  </h1>
+<% if !@ouvrage.nil?%>
+<div class="ED_new_form_box">
+<%= form_with(model: @ouvrages_revue, local: true) do |form| %>
+<%= form.hidden_field :ouvrage_id, value: @ouvrage.id %>
+   <div class="ED_new_form_field">
+    <%= form.label :date, "Date Revue"%>
+  </div>
+  <div class="ED_new_form_field2">
+    <%= form.date_select :date,discard_day: true,  class: "ED_new_form_input_date"  %>
+  </div>
+  <div class="ED_new_form_field ED_new_form_field_titre">
+    <%= form.label :delai_time, "Délai envisagé" %>
+    <%= form.select :delai_time, [["Pas de délai",0],["1 mois",1],["2 mois",2],["3 mois",3],["4 mois",4],["5 mois",5],["6 mois",6],["7 mois",7], ["+ 8 mois",8]], {}, class: "ED_new_form_input_titre",  required: true  %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :delai_commentaire, "Commentaire Délai" %>
+      </div>
+  <div class="ED_new_form_field2">
+    <%= form.text_field :delai_commentaire, required: true  %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :delai_action, "Actions envisagées" %>
+      </div>
+  <div class="ED_new_form_field2">
+    <%= form.text_field :delai_action, required: true  %>
+  </div>
+  
+  <div class="ED_new_form_field ED_new_form_field_titre">
+    <%= form.label :budget_indicateur, "Risque budget" %>
+    <%= form.select :budget_indicateur, [[" 1 - pas de risque",1],["2",2],["3",3],["4",4],["5 - critique ",5]], {}, class: "ED_new_form_input_titre",  required: true  %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :budget_commentaire, "Commentaire Budget" %>
+      </div>
+  <div class="ED_new_form_field2">
+    <%= form.text_field :budget_commentaire, required: true  %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :budget_action%>
+    </div>
+  <div class="ED_new_form_field2">
+    <%= form.text_field :budget_action, required: true %>
+  </div>
+ 
+
+  <div class="ED_new_form_field_submit">
+    <%= form.submit 'Valider '%>
+  </div>
+<% end %>
+</div>
+
+<% end %>
+</div>

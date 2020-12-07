@@ -6,16 +6,11 @@ before_action :authenticate_user!
   def index
      @nav=true
     @solideo_financements = SolideoFinancement.all
- 
-    @solideo_financements_etat_prevu = SolideoFinancement.where("financeur = ? ", "Etat").sum('montant_prevu')
-    @solideo_financements_etat_prevu_date = SolideoFinancement.where("financeur = ? AND date <= ? ", "Etat", Date.today).sum('montant_prevu')
-    @solideo_financements_etat = SolideoFinancement.where("financeur = ? ", "Etat").sum('montant')
-    @solideo_financements_prive_prevu = SolideoFinancement.where("financeur = ? ", "privé").sum('montant_prevu')   
-    @solideo_financements_prive_prevu_date = SolideoFinancement.where("financeur = ? AND date <= ?", "privé", Date.today).sum('montant_prevu')
-    @solideo_financements_prive = SolideoFinancement.where("financeur = ? ", "privé").sum('montant')
-    @solideo_financements_collectivites_prevu = SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").sum('montant_prevu')
-    @solideo_financements_collectivites_prevu_date = SolideoFinancement.where("financeur != ? AND financeur != ? AND date <= ?", "Etat", "privé", Date.today).sum('montant_prevu')
-    @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").sum('montant')
+    @financeurs = ["privé", "Etat", "RIF", "Ville de Paris", "Métropole Grand Paris", "CD92", "CD93", "CD78", "EPT Plaine Commune","EPT Terres d'envol", "Ville de Dugny", "Ville du Bourget", "CASQY", "Ville de Marseille"]
+
+    @solideo_financements_etat = SolideoFinancement.where("financeur = ? AND date = ?", "Etat", SolideoFinancement.last.date).sum('montant')
+    @solideo_financements_prive = SolideoFinancement.where("financeur = ? AND date = ?", "privé", SolideoFinancement.last.date).sum('montant')
+    @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", SolideoFinancement.last.date).sum('montant')
     
     @solideo_financements_hash = SolideoFinancement.where('date <= ?', Date.today).order('date DESC').unscope(:order).group_by_year(:date).sum('montant')
     @solideo_financements_array = []

@@ -3,6 +3,7 @@ class Ouvrage < ApplicationRecord
  has_many :ouvrages_financements, dependent: :destroy
   has_many :ouvrages_depenses, dependent: :destroy
   has_many :chantiers, dependent: :destroy 
+  has_many :ouvrages_revues, dependent: :destroy 
   geocoded_by :adresse
   after_validation :geocode
   require 'csv'
