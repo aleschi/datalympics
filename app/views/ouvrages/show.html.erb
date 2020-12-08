@@ -1,15 +1,20 @@
-<div class="O_page">
- 
-  
-    <h1 class="SD_title"><%= @ouvrage.name %></h1>
+<script>
+$(window).load(function() {
+  $('#flexslider').flexslider({ 
+    animation: "slide",
+    animationLoop: false,
+    slideshow: false, 
+  });
+ })
+</script>
+<div class="O_page"> 
+  <h1 class="SD_title"><%= @ouvrage.name %></h1>
   <h1 class="SD_subtitle">Dernière mise à jour : 22 novembre 2020</h1>
   <%= render 'topo_ouvrage'%>
-    <%= render 'jalons' %><br><br>
+  <%= render 'jalons' %><br><br>
   <%= render 'ouvrage_depenses' %>
-
-
-
-    <div class="SD-topo-box">
+  
+  <div class="SD-topo-box">
         <div class="SD-topo-box-title">
           <span>Informations complémentaires</span>
         </div><br><br>
@@ -45,8 +50,6 @@
        </div>
     
       </div>
-  
-  
 
 </div>
 <script>
@@ -57,7 +60,6 @@
   $('#ouvrages').addClass('in'); 
 
 </script>
-
 
 <script>
   <% if @ouvrage.ouvrages_revues.count > 0%>
@@ -86,3 +88,5 @@
   <% end %>
   <% end %>
 </script>
+
+

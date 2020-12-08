@@ -38,7 +38,7 @@
             <div class="ouvrages-budget-infos-texte">Dépenses réalisées </div>
         </div>
           <div class="ouvrages-budget-infos">
-            <div class="ouvrages-budget-infos-number"><% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.last.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €</div>
+            <div class="ouvrages-budget-infos-number"><% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €</div>
             <div class="ouvrages-budget-infos-texte">Budget recalculé </div>
         </div>
         </div>

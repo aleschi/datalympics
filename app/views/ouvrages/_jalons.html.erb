@@ -74,7 +74,7 @@
     
 </div>
 
-
+<% if !@ouvrage.start.nil? && !@ouvrage.end.nil? %>
 <script>
 Highcharts.chart('container-steps', {
     chart: {
@@ -120,10 +120,18 @@ Highcharts.chart('container-steps', {
   legend: {
     enabled: true,
   },
-  tooltip: {    
-    headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
-    pointFormat: '<span style="color:{point.color}">●</span> {series.name}, deadline : <b>{point.x}</b><br/>',
-    xDateFormat: '%B %Y',
+  tooltip: { 
+        formatter: function() {
+      var point = this,
+        series = point.series,
+        color = point.color || series.chart.options.colors[point.colorIndex],
+        firstDate = Highcharts.dateFormat('%b %Y', point.x),
+        secondDate = Highcharts.dateFormat('%b %Y', point.x2),
+        header = '<span style="font-size: 10px">' + series.name + '</span><br/>',
+        content = '<span style="color:' + color + '">\u25CF</span> ' + point.key + ': <b>' + firstDate + ' - ' + secondDate + '</b><br/>';
+
+      return header + content;
+    },
   },
   plotOptions: {
     xrange: {
@@ -222,15 +230,7 @@ Highcharts.chart('container-steps', {
 
 });
 </script>
-<script>
-$(window).load(function() {
-  $('#flexslider').flexslider({ 
-    animation: "slide",
-    animationLoop: false,
-    slideshow: false, 
-  });
-});
-</script>
+<% end %>
 
 <script>
 
@@ -305,3 +305,4 @@ Highcharts.ganttChart('container-gantt', {
    
 });
 </script>
+
