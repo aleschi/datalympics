@@ -25,7 +25,10 @@
         <ul class="slides">
           <% if @ouvrage.ouvrages_revues.count > 0 %>
           <% @ouvrage.ouvrages_revues.order('date DESC').each do |revue| %>
-          <li>  
+          <li> 
+            <% if user_signed_in? && (current_user.email == "lou.vettier@finances.gouv.fr" || current_user.email == "alexandra.leschi@finances.gouv.fr") %>
+            <div class="edit-revues-btn"><%= link_to edit_ouvrages_revue_path(revue) do %> Modifier <i class="fas fa-pencil-alt"></i><% end %></div>
+            <% end %>
             <div class="row">
               <div class="col-md-6">               
                 <div class="ouvrages-flexslider-text">

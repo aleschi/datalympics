@@ -21,6 +21,25 @@ class OuvragesRevuesController < ApplicationController
      @nav= true 
     @ouvrages = Ouvrage.all 
   end 
+  
+  def edit 
+    @ouvrages_revue = OuvragesRevue.find(params[:id])
+    @ouvrage = @ouvrages_revue.ouvrage 
+  end 
+  
+  def update 
+    @ouvrages_revue = OuvragesRevue.find(params[:id])
+    @ouvrage = @ouvrages_revue.ouvrage 
+    params[:delai_time] = params[:delai_time].to_f
+    respond_to do |format|
+      if @ouvrages_revue.update(ouvrages_revue_params)
+        format.html { redirect_to @ouvrage, notice: 'Ouvrage revue was successfully updated.' }
+      else
+        format.html { render :edit }
+      end
+    end
+  end 
+  
    private
  
     # Only allow a list of trusted parameters through.

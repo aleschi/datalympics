@@ -1841,3 +1841,17 @@ html[xmlns] .slides {display: block;}
   text-transform:uppercase;
   margin-bottom:20px;
 }
+
+.edit-revues-btn{
+   text-align:right;
+  margin: 10px 0px;
+  a{
+    color:#fff;
+    background-color: #FD9C04;
+    font-size:12px;
+    font-weight:700;
+    padding:5px 10px;
+    border-radius:50px;
+    text-transform:uppercase;
+  }
+}
