@@ -1525,31 +1525,31 @@ bottom:0px;
   margin-bottom:20px;
   max-width:350px;
 }
-.risque1{
+.risque1, .risque1-d, .risque1-b{
   width:20%;
   height:15px;
   background-color: #A2C744;
   opacity: 0.3;
 }
-.risque2{
+.risque2, .risque2-d, .risque2-b{
   width:20%;
   height:15px;
   background-color: #A4D7FC;
   opacity: 0.3;
 }
-.risque3{
+.risque3, .risque3-d, .risque3-b{
   width:20%;
   height:15px;
   background-color: #DDE10F;
   opacity: 0.3;
 }
-.risque4{
+.risque4, .risque4-d, .risque4-b{
   width:20%;
   height:15px;
   background-color: #FD9C04;
   opacity: 0.3;
 }
-.risque5{
+.risque5, .risque5-d, .risque5-b{
   width:20%;
   height:15px;
   background-color: #F1013B;
@@ -1854,4 +1854,11 @@ html[xmlns] .slides {display: block;}
     border-radius:50px;
     text-transform:uppercase;
   }
+}
+
+.highcharts-legend-item.highcharts-series-0 .highcharts-point {
+  fill: #bfbfbf !important;
+}
+.highcharts-legend-item.highcharts-series-1 .highcharts-point {
+  fill: #2E5D63 !important;
 }

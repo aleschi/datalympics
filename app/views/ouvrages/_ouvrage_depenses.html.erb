@@ -3,18 +3,17 @@
   <div class="SD-topo-box-title">
     <span>Suivi du Budget</span>
   </div><br><br>
-   
-        <div class="ouvrages-risques-infos">
-        <% if @ouvrage.ouvrages_financements.count > 0 %>
-          <% if (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i > 0 %>
-          <i class="fas fa-exclamation-triangle"></i> Surcoûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> €<br>
-          <% elsif (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i < 0 %>
-          Baisse des coûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> € <br>
+   <% if @ouvrage.ouvrages_financements.count > 0 %>
+        <div class="ouvrages-risques-infos">          
+          <% if (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i > 0 %>
+          <i class="fas fa-exclamation-triangle"></i> Surcoûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%> €<br>
+          <% elsif (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i < 0 %>
+          Baisse des coûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%> € <br>
           <% else %>
           Pas de surcoûts envisagés
-          <% end %>
-          <% else %><i class="fas fa-exclamation-triangle"></i> Surcoûts :  +300 000 € <br><% end %> 
-   </div><br><br>
+          <% end %>         
+   </div>
+    <% end %> <br><br>
    <div class="row">
      <div class="col-md-6">
         <div id="container-bar0"></div>
@@ -40,23 +39,16 @@
                    <em><%= l(revue.date, :format => '%B %Y')%>: </em>
                 </div><br>
                 <div class="jauge-risques">
-                  <div class="risque1"></div>
-                  <div class="risque2"></div>
-                  <div class="risque3 "></div>
-                  <div class="risque4 risque-active"></div>
-                  <div class="risque5"></div>
+                  <% if revue.budget_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
+                  <% if revue.budget_indicateur == 2 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
+                  <% if revue.budget_indicateur == 3%><div class="risque3 risque-active"></div><% else %><div class="risque3"></div><% end %>
+                  <% if revue.budget_indicateur == 4%><div class="risque4 risque-active"></div><% else %><div class="risque4"></div><% end %>
+                  <% if revue.budget_indicateur == 5%><div class="risque5 risque-active"></div><% else %><div class="risque5"></div><% end %>
+                  
                 </div>
                   <div class="ouvrages-flexslider-text">
                     <span>
-                    <% if @ouvrage.ouvrages_financements.count > 0 %>
-                      <% if (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i > 0 %>
-                      Surcoûts envisagés : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> €<br>
-                      <% elsif (@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i < 0 %>
-                      Baisse des coûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.last.montant_prevu-@ouvrage.ouvrages_financements.first.montant_prevu).to_i, :delimiter => ' ')%> € <br>
-                      <% else %>
-                      Pas de surcoûts envisagés
-                      <% end %>
-                    <% else %>Surcoûts envisagés :  +300 000 € <br><% end %> 
+                    Surcoûts envisagés :  mensuel? € <br>
                     </span> <br><br>
                     <%= revue.budget_commentaire %>
                 </div>

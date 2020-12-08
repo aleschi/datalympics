@@ -57,3 +57,32 @@
   $('#ouvrages').addClass('in'); 
 
 </script>
+
+
+<script>
+  <% if @ouvrage.ouvrages_revues.count > 0%>
+  <% @revue = @ouvrage.ouvrages_revues.order('date DESC').first %>
+  <% if @revue.delai_time.to_i == 0 %>
+  $(".risque1-d").addClass('risque-active');
+  <% elsif @revue.delai_time.to_i > 0 && @revue.delai_time.to_i < 3 %>
+  $(".risque2-d").addClass('risque-active');
+  <% elsif @revue.delai_time.to_i >= 3 && @revue.delai_time.to_i < 6 %>
+  $(".risque3-d").addClass('risque-active');
+  <% elsif @revue.delai_time.to_i >= 6 && @revue.delai_time.to_i < 8 %>
+  $(".risque4-d").addClass('risque-active');
+  <% elsif @revue.delai_time.to_i >= 8 %>
+  $(".risque5-d").addClass('risque-active');
+  <% end %>
+  <% if @revue.budget_indicateur == 1 %>
+  $(".risque1-b").addClass('risque-active');
+  <% elsif @revue.budget_indicateur == 2 %>
+  $(".risque2-b").addClass('risque-active');
+  <% elsif @revue.budget_indicateur == 3 %>
+  $(".risque3-b").addClass('risque-active');
+  <% elsif @revue.budget_indicateur == 4 %>
+  $(".risque4-b").addClass('risque-active');
+  <% elsif @revue.budget_indicateur == 5 %>
+  $(".risque5-b").addClass('risque-active');
+  <% end %>
+  <% end %>
+</script>
