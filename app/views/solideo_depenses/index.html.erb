@@ -28,7 +28,7 @@
           <i class="fas fa-coins"></i>
         </div>
         <div>
-          <%= number_with_delimiter(SolideoFinancement.where('date = ?',SolideoFinancement.last.date).sum('montant').to_i, :delimiter => ' ') %> €<br>
+          <%= number_with_delimiter(SolideoFinancement.where('date = ?',SolideoFinancement.order('date DESC').first.date).sum('montant').to_i, :delimiter => ' ') %> €<br>
           <span>Budget actuel</span>
         </div>
       </div>
@@ -50,7 +50,7 @@
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          XXXX € <br>
+          <%= number_with_delimiter((SolideoDepense.all.sum("fonctionnement")+SolideoDepense.all.sum("ouvrages")).to_i, :delimiter => ' ')%> € <br>
           <span>Dépenses actuelles</span>
         </div>
       </div>
@@ -61,7 +61,7 @@
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          XX%<br>
+          <%= ((SolideoDepense.all.sum("fonctionnement")+SolideoDepense.all.sum("ouvrages"))/SolideoFinancement.where('date = ?',SolideoFinancement.order('date DESC').first.date).sum('montant')*100).round%>%<br>
           <span>Budget dépensé</span>
         </div>
       </div>
@@ -296,7 +296,7 @@ Highcharts.chart('container-bar1', {
     },
     series: [{
         name: 'Budget',
-        data: [{y:37, color:"#bfbfbf" },{y:37, color:"#C68D7B" }, {y:160, color:"#bfbfbf" },{y:111, color:"#C68D7B" }, {y:228, color: "#2E5D63"}, {y:211, color: "#20E37B"}, {y:258, color: "#5770BE"}]
+        data: [{y:37, color:"#bfbfbf" },{y:<%=((SolideoDepense.where('date = ?', Date.new(2018,1)).sum('ouvrages')+SolideoDepense.where('date = ?', Date.new(2018,1)).sum('fonctionnement'))/1000000).round%>, color:"#C68D7B" }, {y:160, color:"#bfbfbf" },{y:<%=((SolideoDepense.where('date = ?', Date.new(2019,1)).sum('ouvrages')+SolideoDepense.where('date = ?', Date.new(2019,1)).sum('fonctionnement'))/1000000).round%>, color:"#C68D7B" }, {y:228, color: "#2E5D63"}, {y:<%= ((SolideoDepense.where('date = ?', Date.new(2020,1)).sum('ouvrages')+SolideoDepense.where('date = ?', Date.new(2020,1)).sum('fonctionnement'))/1000000).round%>, color: "#20E37B"}, {y:0, color: "#5770BE"}]
 
     }]
 });
