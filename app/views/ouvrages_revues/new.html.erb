@@ -11,6 +11,12 @@
   <div class="ED_new_form_field2">
     <%= form.date_select :date,discard_day: true,  class: "ED_new_form_input_date"  %>
   </div>
+   <div class="ED_new_form_field">
+    <%= form.label :date_maj, "Date dernière MAJ"%>
+  </div>
+  <div class="ED_new_form_field2">
+    <%= form.date_select :date_maj,discard_day: true,  class: "ED_new_form_input_date"  %>
+  </div>
   <div class="ED_new_form_field ED_new_form_field_titre">
     <%= form.label :delai_time, "Risque Délai" %>
     <%= form.select :delai_indicateur, [["Pas de retard",1],["Léger retard",2],["Important",3],["Risqué",4],["Critique pour les JOP",5]], {}, class: "ED_new_form_input_titre",  required: true  %>
