@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_135729) do
+ActiveRecord::Schema.define(version: 2020_12_09_095746) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 2020_12_03_135729) do
     t.string "budget_action"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "delai_indicateur", default: 1
     t.index ["ouvrage_id"], name: "index_ouvrages_revues_on_ouvrage_id"
   end
 

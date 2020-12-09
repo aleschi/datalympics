@@ -101,13 +101,12 @@ class OuvragesController < ApplicationController
     @nav=true
     @ouvrage_financements = OuvragesFinancement.all.where('ouvrage_id = ?', @ouvrage.id)
     @ouvrage_depenses = OuvragesDepense.all.where('ouvrage_id = ?', @ouvrage.id)
-    @ouvrage_financeurs_hash = @ouvrage_financements.group(:name).sum('montant')
+ 
     @ouvrage_financeurs = []
-    @ouvrage_financeurs_hash.each do |h|
-      if !h[0].nil?
-      @ouvrage_financeurs << h[0]
-      end
+    @ouvrage_financements.each do |financement|
+      @ouvrage_financeurs << financement.name 
     end
+    @ouvrage_financeurs = @ouvrage_financeurs.uniq!
     
     
   end

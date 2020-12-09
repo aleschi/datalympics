@@ -13,7 +13,11 @@
   </div>
   <div class="ED_new_form_field ED_new_form_field_titre">
     <%= form.label :delai_time, "Délai envisagé" %>
-    <%= form.select :delai_time, [["Pas de délai",0],["1 mois",1.0],["2 mois",2.0],["3 mois",3.0],["4 mois",4.0],["5 mois",5.0],["6 mois",6.0],["7 mois",7.0], ["+ 8 mois",8.0]], {}, class: "ED_new_form_input_titre",  required: true  %>
+    <%= form.select :delai_indicateur, [["Pas de retard",1],["Léger retard",2],["Important",3],["Risqué",4],["Critique pour les JOP",5]], {}, class: "ED_new_form_input_titre",  required: true  %>
+  </div>
+  <div class="ED_new_form_field">
+    <%= form.label :delai_time, "Délai envisagé (mois de retard)" %>
+    <%= form.number_field :delai_time, min:0, step:1, required: true  %>
   </div>
   <div class="ED_new_form_field">
     <%= form.label :delai_commentaire, "Commentaire Délai" %>

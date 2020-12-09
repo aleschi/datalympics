@@ -36,11 +36,11 @@
                    <em><%= l(revue.date, :format => '%B %Y')%>:</em>
                 </div><br>
                 <div class="jauge-risques">
-                  <% if revue.delai_time.to_i == 0%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
-                  <% if revue.delai_time.to_i > 0 && revue.delai_time.to_i < 3 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
-                  <% if revue.delai_time.to_i >= 3 && revue.delai_time.to_i < 6 %><div class="risque3 risque-active"></div><% else %><div class="risque3"></div><% end %>
-                  <% if revue.delai_time.to_i >= 6 && revue.delai_time.to_i < 8 %><div class="risque4 risque-active"></div><% else %><div class="risque4"></div><% end %>
-                  <% if revue.delai_time.to_i >= 8%><div class="risque5 risque-active"></div><% else %><div class="risque5"></div><% end %>
+                  <% if revue.delai_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
+                  <% if revue.delai_indicateur == 2 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
+                  <% if revue.delai_indicateur == 3 %><div class="risque3 risque-active"></div><% else %><div class="risque3"></div><% end %>
+                  <% if revue.delai_indicateur == 4%><div class="risque4 risque-active"></div><% else %><div class="risque4"></div><% end %>
+                  <% if revue.delai_indicateur == 5%><div class="risque5 risque-active"></div><% else %><div class="risque5"></div><% end %>
                   
                 </div>
                   <div class="ouvrages-flexslider-text">
@@ -221,6 +221,26 @@ Highcharts.chart('container-steps', {
             y: 0,
           borderColor: '#fff',
           color: 'rgba(46,93,99,0.6)',
+        }],
+      
+        dataLabels: {
+            enabled: true
+        }
+    }, {
+        name: 'JOP2024',
+        color: 'red',
+        pointWidth: 3,
+        data: [{
+            name: "JOP2024",
+            x: Date.UTC(2024,7,26),
+            x2: Date.UTC(2024,8,11),
+            y: 0,
+             partialFill: {
+               amount: 1,
+               fill: 'red',
+             },
+          borderColor:'#fff',
+          color: 'red',
         }],
       
         dataLabels: {

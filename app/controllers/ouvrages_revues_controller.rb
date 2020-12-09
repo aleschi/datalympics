@@ -44,6 +44,6 @@ class OuvragesRevuesController < ApplicationController
  
     # Only allow a list of trusted parameters through.
     def ouvrages_revue_params
-      params.require(:ouvrages_revue).permit(:date, :delai_commentaire, :delai_action, :delai_time, :budget_indicateur, :budget_commentaire, :budget_action, :ouvrage_id)
+      params.require(:ouvrages_revue).permit(:date, :delai_commentaire, :delai_action, :delai_time,:delai_indicateur, :budget_indicateur, :budget_commentaire, :budget_action, :ouvrage_id)
     end
 end

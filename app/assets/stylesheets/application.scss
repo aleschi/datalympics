@@ -1856,9 +1856,12 @@ html[xmlns] .slides {display: block;}
   }
 }
 
-.highcharts-legend-item.highcharts-series-0 .highcharts-point {
+#container-steps .highcharts-legend-item.highcharts-series-0 .highcharts-point {
   fill: #bfbfbf !important;
 }
-.highcharts-legend-item.highcharts-series-1 .highcharts-point {
+#container-steps .highcharts-legend-item.highcharts-series-1 .highcharts-point {
   fill: #2E5D63 !important;
+}
+#container-steps .highcharts-legend-item.highcharts-series-2 .highcharts-point {
+  fill: red !important;
 }

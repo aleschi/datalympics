@@ -6,12 +6,12 @@
    
 <div class="SD_page">
  
-    <h1 class="SD_title">Les ouvrages des JOP2024 </h1>
+  <h1 class="SD_title">Les ouvrages des JOP2024 </h1>
   <h1 class="SD_subtitle">Dernière mise à jour : 22 novembre 2020</h1>
   
   <div  class="SD-table-box">
-  <div class="SF-topo-financeurs-title"><span>Les ouvrages en chiffres </span></div><br><br>
-  <div class="calendar-infos">
+    <div class="SF-topo-financeurs-title"><span>Les ouvrages en chiffres </span></div><br><br>
+    <div class="calendar-infos">
     <div class="calendar-infos-box">
       <div>
         <i class="fas fa-coins"></i>
@@ -39,7 +39,6 @@
         <span>Ouvrages finalisés</span>
       </div>
     </div>
-
   </div><br><br>
   <div class="calendar-infos">
     <div class="calendar-infos-box">
@@ -69,7 +68,6 @@
         <span>Employés</span>
       </div>
     </div>
-
   </div>
   <div class="text-center">
   
@@ -85,7 +83,7 @@
       </div>
     </div>
         
-    </div>
+  </div>
   </div><br><br>
 
   <div  class="SD-table-box" id="carte-ouvrages">
@@ -135,36 +133,32 @@
       </div><br>
       <section id="MonCollapse-o" class="collapse">
     <div class="table-legend">
-      <div class="table-title">
-        Légende du graphique
-      </div>
+     
        <table >
         <tbody>   
           <tr>
-            <th class="border-bottom">Inflation</td>
-            <td class="border-bottom">augmentation du budget liée à l’inflation et à l’indexation (2%)</td>
+            <th class="border-bottom">Augmentation : Ajout d'ouvrages</td>
+            <td class="border-bottom"></td>
          </tr>
           <tr>
-            <th class="border-bottom">ajout ouvrages</td>
-            <td class="border-bottom">ajout de l’ouvrage XXX en décidé en CA mars 2019 et de l’ouvrage YYYY décidé en CA septembre 2020</td>
+            <th class="border-bottom">Augmentation : Besoins complémentaires </td>
+            <td class="border-bottom"></td>
          </tr>
           <tr>
-            <th class="border-bottom">ajout programme </td>
-            <td class="border-bottom">ajout du programme XXX sur l’ouvrage XXX pris en charge par la Metropole Grand Paris<br>
-              ajout du programme YYY sur l’ouvrage YYY pris en charge par la Ville de Paris<br>
-              ajout du programme ZZZ sur l’ouvrage ZZZ </td>
+            <th class="border-bottom">Augmentation : Inflation ? </td>
+            <td class="border-bottom"></td>
+         </tr>
+        <tr>
+            <th class="border-bottom">Diminution </td>
+            <td class="border-bottom"></td>
          </tr>
           <tr>
-            <th class="border-bottom">surcoûts construction</td>
-            <td class="border-bottom">anticipation de l’inflation au-delà de 2020</td>
-         </tr>
-          <tr>
-            <th class="border-bottom">suppresion ouvrages  </td>
-            <td class="border-bottom">supression de l’ouvrage XXX en décidé en CA mars 2019 et de l’ouvrage YYYY décidé en CA septembre 2020</td>
+            <th class="border-bottom">Ponction sur la Réserve  </td>
+            <td class="border-bottom"></td>
          </tr>
           <tr>
             <th>suppresion programme  </td>
-            <td>suppression du programme XXX sur l’ouvrage XXX </td>
+            <td></td>
          </tr>
         </tbody>
       </table>
@@ -173,58 +167,6 @@
 
     </section>
   </div><br><br>
-  <div  class="SD-table-box">
-    <div class="SD-topo-box-title">
-      <span>Suivi trimestriel des dépenses des ouvrages </span>
-    </div>
-    <div id="container">
-      
-    </div><br><br>
-  <div class="EB-details">
-       <a href="#MonCollapse2-o" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse2-o">Détails des dépenses </a>      
-    </div><br>
-    <section id="MonCollapse2-o" class="collapse">
-    <% if !@ouvrages_depenses.nil? %>
-        
-    <div class="ED_table_filtres">
-      <a type="button" data-toggle="modal" data-target="#filtres" ><i class="fas fa-sliders-h"></i> Filtrer </a>
-    </div>
-    <div class="download">
-      <a><i class="fas fa-cloud-download-alt"></i></a>
-    </div>
-      <div class="ED_table">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Ouvrage</th>
-
-              <th scope="col">Dépenses prévues</th>
-              <th scope="col" class="border-none">Décaissements</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <% @ouvrages_depenses.where('date <= ?', Date.today).each do |ouvrages_depense| %>
-            <tr>
-              <th scope="row"><%= ouvrages_depense.date.strftime("%b %Y") %></th>
-              <th scope="row"><%= link_to ouvrage_path(ouvrages_depense.ouvrage_id) do %><%= Ouvrage.find(ouvrages_depense.ouvrage_id).name %><% end %></th>
-              <td><%= number_with_delimiter(ouvrages_depense.montant_prevu.to_i, :delimiter => ' ') %> €</td>
-              <td class="border-none"><%= number_with_delimiter(ouvrages_depense.montant.to_i, :delimiter => ' ') %>€ <% if ouvrages_depense.montant.to_i > ouvrages_depense.montant_prevu.to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
-             </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% else %>
-      <div>
-        Aucune dépense renseignée
-      </div>
-    <%end%>
-    </section>
-  <br>
-  </div>
-    <br><br>
 
   </div>
 </div>
@@ -469,86 +411,6 @@ $('#carte-ouvrages-btn').click(function() {
 });
 </script>
 
-<script>
-Highcharts.chart('container', {
-
-   chart:{
-            backgroundColor: '#fff',
-           type: 'spline',
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          },
-        scrollablePlotArea: {
-            minWidth: 700,
-            scrollPositionX: 1
-        }
-          },
-
-      title: {
-        text: null,
-       
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-      },
-  colors: ['#487f7f',"#8f8f8f"],
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
-        title: {
-            text: 'Total €'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
-        xDateFormat: '%b %Y',
-    },
-  xAxis:{
-     type: 'datetime'
-   // max: 2025,
-  },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: Date.UTC(2018,0, 1),
-          pointInterval: 24*3600*1000*30*3,
-        }
-    },
-
-  
-
-    series: [{
-        name: 'Décaissements',
-        data: <%= @depenses %>,
-    }, {
-        name: 'Décaissements prévus 2018',
-        data: <%= @depenses_prevu %>,
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-</script>
 <script>
 
   $('.menu-solideo-ouvrages').addClass('menu-active2'); 
