@@ -12,11 +12,11 @@
     <%= form.date_select :date,discard_day: true,  class: "ED_new_form_input_date"  %>
   </div>
   <div class="ED_new_form_field ED_new_form_field_titre">
-    <%= form.label :delai_time, "Délai envisagé" %>
+    <%= form.label :delai_time, "Risque Délai" %>
     <%= form.select :delai_indicateur, [["Pas de retard",1],["Léger retard",2],["Important",3],["Risqué",4],["Critique pour les JOP",5]], {}, class: "ED_new_form_input_titre",  required: true  %>
   </div>
   <div class="ED_new_form_field">
-    <%= form.label :delai_time, "Délai envisagé (mois de retard)" %>
+    <%= form.label :delai_time, "Nb mois de retard" %>
     <%= form.number_field :delai_time, min:0, step:1, required: true  %>
   </div>
   <div class="ED_new_form_field">

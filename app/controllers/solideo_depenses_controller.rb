@@ -76,7 +76,7 @@ before_action :authenticate_user!
     end
     
     #fonctionnement
-    @fonctionnement_a =  @solideo_financements.where('categorie = ? AND date <= ?', "fonctionnement", Date.today).unscope(:order).group_by_year(:date).sum('montant')    
+    @fonctionnement_a =  @solideo_depenses.unscope(:order).group_by_year(:date).sum('fonctionnement')    
     @depenses_annee_fonctionnement = []
     (2018..2020).each do |annee|    
       @is_present = false 
