@@ -4,29 +4,30 @@
   <div class="col-md-8">
     <div class="SD-table-box ouvrage-topo-box">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
            <div class="O-topo-image">
             <% if @ouvrage.photo.attached? %>
             <%= image_tag @ouvrage.photo%>
             <% end %>
           </div>
-          <div class="O-topo-infos-text">
-            Lieu : <%= @ouvrage.adresse %><br>
-            MOA : <%= @ouvrage.maitre_oeuvre %><br>
-          </div>
+         
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div id="container-jauge">
             
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div id="container-jauge2">
             
           </div>
         </div>
         </div>
-      <br><br>
+       <div class="O-topo-infos-text">
+            Lieu : <%= @ouvrage.adresse %><br>
+            MOA : <%= @ouvrage.maitre_oeuvre %><br>
+          </div>
+      <br>
       <div class="row">
         <div class="ouvrages-budget-infos-box">
           <div class="ouvrages-budget-infos">
@@ -50,41 +51,33 @@
         <div class="SD-topo-box-title">
             <span>Maîtrise des coûts</span>
          </div><br><br>
-        <div class="jauge-risques">
-          <div class="risque1-b"></div>
-          <div class="risque2-b "></div>
-          <div class="risque3-b "></div>
-          <div class="risque4-b "></div>
-          <div class="risque5-b"></div>
+        <div class="jauge-box">
+        <div class="jauge-flag">
+          <i class="fas fa-flag"></i>
         </div>
-        <div class="ouvrages-risques-infos">
+       <div class="jauge-infos">
+      
           <% if @ouvrage.ouvrages_financements.count > 0 %>
-          <% if (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i > 0 %>
-          <i class="fas fa-exclamation-triangle"></i> Surcoûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%> €<br>
-          <% elsif (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i < 0 %>
-          Baisse des coûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%> € <br>
-          <% else %>
-          Pas de surcoûts envisagés
-          <% end %>
-          <% else %>Pas de données <br><% end %> 
-        </div><br><br>
+          <% if (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i > 0 %>+<% end %>
+          <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%> €    
+          <% else %>X? <% end %> <br>
+         <span>Surcoûts envisagés</span>
+         
+          </div></div><br><br><br>
         
         <div class="SD-topo-box-title">
             <span>Maîtrise des délais</span>
          </div><br><br>
-        <div class="jauge-risques">
-          <div class="risque1-d"></div>
-          <div class="risque2-d"></div>
-          <div class="risque3-d "></div>
-          <div class="risque4-d"></div>
-          <div class="risque5-d"></div>
+        <div class="jauge-box">
+        <div class="jauge-clock">
+          <i class="fas fa-stopwatch"></i>
         </div>
-        <div class="ouvrages-risques-infos">
+        <div class="jauge-infos">
           <% if @ouvrage.ouvrages_revues.count > 0 %>
-          <% if @ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i > 0 %>
-          <i class="fas fa-exclamation-triangle"></i> Retard : <%= @ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %> mois 
-          <% else %> Aucun retard envisagé <% end %><br>
+             <%= @ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %> mois 
           <% else %> Pas de données <% end %><br>
+          <span>Retard envisagé</span>
+        </div>
         </div>
       </div>
     </div>

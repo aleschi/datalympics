@@ -1,19 +1,9 @@
 
- <div class="SD-topo-box">
+ <section class="SD-topo-box" id="budget_section">
   <div class="SD-topo-box-title">
     <span>Suivi du Budget</span>
   </div><br><br>
-  <% if @ouvrage.ouvrages_financements.count > 0 %>
-    <div class="ouvrages-risques-infos">          
-          <% if (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i > 0 %>
-          <i class="fas fa-exclamation-triangle"></i> Surcoûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%> €<br>
-          <% elsif (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i < 0 %>
-          Baisse des coûts : <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%> € <br>
-          <% else %>
-          Pas de surcoûts envisagés
-          <% end %>         
-   </div>
-  <% end %> <br><br>
+
   <div class="row">
      <div class="col-md-6">
         <div id="container-bar0"></div>
@@ -36,11 +26,13 @@
           <% if @ouvrage.ouvrages_revues.count > 0 %>
           <% @ouvrage.ouvrages_revues.order('date DESC').each do |revue| %>
           <li>  
+            <div class="flexslider-slide">
             <div class="row">
               <div class="col-md-6">               
-                <div class="ouvrages-flexslider-text">
-                   <em><%= l(revue.date, :format => '%B %Y')%>: </em>
+                <div class="ouvrages-flexslider-title">
+                   Rapport de supervision <%= l(revue.date, :format => '%B %Y')%>: 
                 </div><br>
+                 <div class="jauge-box">
                 <div class="jauge-risques">
                   <% if revue.budget_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
                   <% if revue.budget_indicateur == 2 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
@@ -49,19 +41,26 @@
                   <% if revue.budget_indicateur == 5%><div class="risque5 risque-active"></div><% else %><div class="risque5"></div><% end %>
                   
                 </div>
+                     <div class="jauge-infos">
+                    <% if @ouvrage.ouvrages_financements.count > 0 %>
+                      <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%><% else %> X? <br><% end %>  € <br>
+                    <span>Surcoûts envisagés </span>
+                  </div>
+                </div>
                   <div class="ouvrages-flexslider-text">
                     <span>
-                    Surcoûts envisagés :  mensuel? € <br>
+                    <em>Revue MOA</em> <br>
                     </span> <br><br>
                     <%= revue.budget_commentaire %>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="ouvrages-flexslider-text">
-                  <span><em>Actions envisagées </em></span><br><br>
+                  <span><em>Actions prises par la Solideo </em></span><br><br>
                   <%= revue.budget_action %>
                 </div><br>
               </div>
+            </div>
             </div>
           </li>
           <% end %>
@@ -71,7 +70,7 @@
    
    <br><br>
 
-</div>
+</section>
 
 <% if !@ouvrage.ouvrages_financements.nil? && @ouvrage.ouvrages_financements.count > 0 %>
 <div class="SD-topo-box">
@@ -96,7 +95,7 @@ Highcharts.chart('container-bar0', {
         type: 'bar',
       style:{
           fontFamily: "Spectral",
-         maxWidth: '500px',
+         maxWidth: '400px',
           },
       height: "300px",
     },
@@ -120,7 +119,7 @@ Highcharts.chart('container-bar0', {
         min: 0,
       gridLineColor: '#fff', 
         title: {
-            text: 'Montant (€)',
+            text: 'Montant (M€)',
             align: 'high'
         },
         labels: {
@@ -128,7 +127,7 @@ Highcharts.chart('container-bar0', {
         }
     },
     tooltip: {
-        valueSuffix: ' €'
+        valueSuffix: ' M€'
     },
   legend: {
     enabled: false,
@@ -147,7 +146,7 @@ Highcharts.chart('container-bar0', {
     series: [ {
         name: 'Suivi',
        color: "#2E5D63",
-        data: [ <%= @ouvrage.budget.to_i%> ,  <%= (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu).to_i%> , 0,  <%= @ouvrage.ouvrages_depenses.sum('montant').to_i%>],
+        data: [ <%= (@ouvrage.budget/1000000).to_i %> ,  <%= (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu/1000000).to_i%> , {y:0, color: '#C68D7B'}, {y:<%= (@ouvrage.ouvrages_depenses.sum('montant')/1000000).to_i%>, color: '#C68D7B'} ],
      }]
 });
   </script>
@@ -159,7 +158,7 @@ Highcharts.chart('container-bar1', {
       backgroundColor: '#fff',
           style:{
           fontFamily: "Spectral",
-          maxWidth: '500px',
+          maxWidth: '400px',
           },
       height: "300px",
     },
@@ -223,6 +222,8 @@ $(window).load(function() {
     animation: "slide",
     animationLoop: false,
     slideshow: false, 
+    prevText: "Précédent",    
+    nextText:'Suivant',
   });
 });
 </script>

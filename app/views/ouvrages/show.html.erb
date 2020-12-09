@@ -3,7 +3,9 @@ $(window).load(function() {
   $('#flexslider').flexslider({ 
     animation: "slide",
     animationLoop: false,
-    slideshow: false, 
+    slideshow: false,
+    prevText: "Précédent",    
+    nextText:'Suivant',
   });
  })
 </script>
@@ -65,26 +67,26 @@ $(window).load(function() {
   <% if @ouvrage.ouvrages_revues.count > 0%>
   <% @revue = @ouvrage.ouvrages_revues.order('date DESC').first %>
   <% if @revue.delai_indicateur == 1 %>
-  $(".risque1-d").addClass('risque-active');
+  $(".jauge-clock").addClass('flag1');
   <% elsif @revue.delai_indicateur == 2 %>
-  $(".risque2-d").addClass('risque-active');
+  $(".jauge-clock").addClass('flag2');
   <% elsif @revue.delai_indicateur == 3 %>
-  $(".risque3-d").addClass('risque-active');
+  $(".jauge-clock").addClass('flag3');
   <% elsif @revue.delai_indicateur == 4 %>
-  $(".risque4-d").addClass('risque-active');
+  $(".jauge-clock").addClass('flag4');
   <% elsif @revue.delai_indicateur == 5%>
-  $(".risque5-d").addClass('risque-active');
+  $(".jauge-clock").addClass('flag5');
   <% end %>
   <% if @revue.budget_indicateur == 1 %>
-  $(".risque1-b").addClass('risque-active');
+  $(".jauge-flag").addClass('flag1');
   <% elsif @revue.budget_indicateur == 2 %>
-  $(".risque2-b").addClass('risque-active');
+  $(".jauge-flag").addClass('flag2');
   <% elsif @revue.budget_indicateur == 3 %>
-  $(".risque3-b").addClass('risque-active');
+  $(".jauge-flag").addClass('flag3');
   <% elsif @revue.budget_indicateur == 4 %>
-  $(".risque4-b").addClass('risque-active');
+  $(".jauge-flag").addClass('flag4');
   <% elsif @revue.budget_indicateur == 5 %>
-  $(".risque5-b").addClass('risque-active');
+  $(".jauge-flag").addClass('flag5');
   <% end %>
   <% end %>
 </script>

@@ -3,13 +3,6 @@
    <div class="SD-topo-box-title">
     <span>Calendrier des travaux</span>
   </div><br><br>
-  <% if @ouvrage.ouvrages_revues.count > 0 %>
-    <div class="ouvrages-risques-infos">     
-          <% if @ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i > 0 %>
-          <i class="fas fa-exclamation-triangle"></i> Retard : <%= @ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %> mois 
-          <% else %> Aucun retard envisagé <% end %>         
-    </div>
-   <% end %><br>
   
   <div>
      <div id="container-steps">
@@ -21,56 +14,69 @@
   <div class="SD-topo-box-title">
     <span>Suivi des délais</span>
   </div><br><br>
- 
+ <div class="supervision-box">
+
     <div class="flexslider" id="flexslider">
         <ul class="slides">
           <% if @ouvrage.ouvrages_revues.count > 0 %>
           <% @ouvrage.ouvrages_revues.order('date DESC').each do |revue| %>
           <li> 
+            <div class="flexslider-slide">
+              
             <% if user_signed_in? && (current_user.email == "lou.vettier@finances.gouv.fr" || current_user.email == "alexandra.leschi@finances.gouv.fr") %>
             <div class="edit-revues-btn"><%= link_to edit_ouvrages_revue_path(revue) do %> Modifier <i class="fas fa-pencil-alt"></i><% end %></div>
             <% end %>
             <div class="row">
               <div class="col-md-6">               
-                <div class="ouvrages-flexslider-text">
-                   <em><%= l(revue.date, :format => '%B %Y')%>:</em>
+                <div class="ouvrages-flexslider-title">
+                   Rapport de supervision <%= l(revue.date, :format => '%B %Y')%>:
                 </div><br>
-                <div class="jauge-risques">
-                  <% if revue.delai_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
-                  <% if revue.delai_indicateur == 2 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
-                  <% if revue.delai_indicateur == 3 %><div class="risque3 risque-active"></div><% else %><div class="risque3"></div><% end %>
-                  <% if revue.delai_indicateur == 4%><div class="risque4 risque-active"></div><% else %><div class="risque4"></div><% end %>
-                  <% if revue.delai_indicateur == 5%><div class="risque5 risque-active"></div><% else %><div class="risque5"></div><% end %>
-                  
+                <div class="jauge-box">
+
+                  <div class="jauge-risques">
+                    <% if revue.delai_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
+                    <% if revue.delai_indicateur == 2 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
+                    <% if revue.delai_indicateur == 3 %><div class="risque3 risque-active"></div><% else %><div class="risque3"></div><% end %>
+                    <% if revue.delai_indicateur == 4%><div class="risque4 risque-active"></div><% else %><div class="risque4"></div><% end %>
+                    <% if revue.delai_indicateur == 5%><div class="risque5 risque-active"></div><% else %><div class="risque5"></div><% end %>
+
+                  </div>
+                  <div class="jauge-infos">
+                    <%= revue.delai_time.to_i %> mois <br>
+                    <span>Retard envisagé </span>
+                  </div>
                 </div>
                   <div class="ouvrages-flexslider-text">
-                    <span> Retard envisagé : <%= revue.delai_time.to_i %> mois</span> <br><br>
+                    <span><em>Revue MOA </em></span> <br><br>
                    <%= revue.delai_commentaire %>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="ouvrages-flexslider-text">
-                   <span><em>Actions envisagées </em></span><br><br>
+                   <span><em>Actions prises par la SOLIDEO </em></span><br><br>
                   <%= revue.delai_action %>
                 </div><br>
               </div>
+            </div>
+              
             </div>
           </li>
           <% end %>
           <% end %>
         </ul>
       </div>
+     
+  </div>
+  
   <br><br>
    
       <div class="SD-topo-box-title">
         <span>Chemin critique</span>
       </div><br><br>
       <div class="ouvrages-flexslider-text">
-       Dépendance à définir
+       Diagramme de PERT 
       </div><br><br>
-      <div id="container-gantt">
-        
-      </div>
+   
     
 </div>
 
@@ -79,7 +85,7 @@
 Highcharts.chart('container-steps', {
     chart: {
         type: 'xrange',
-        height: "200px",
+        height: "250px",
         style:{
           fontFamily: "Spectral",
           },    
@@ -232,8 +238,8 @@ Highcharts.chart('container-steps', {
         pointWidth: 3,
         data: [{
             name: "JOP2024",
-            x: Date.UTC(2024,7,26),
-            x2: Date.UTC(2024,8,11),
+            x: Date.UTC(2024,6,26),
+            x2: Date.UTC(2024,7,11),
             y: 0,
              partialFill: {
                amount: 1,
@@ -252,77 +258,4 @@ Highcharts.chart('container-steps', {
 </script>
 <% end %>
 
-<script>
-
-Highcharts.ganttChart('container-gantt', {
-  xAxis: {
-    lineColor: "#fff",
-    lineWidth: 0,
-    gridLineColor: "#fff",
-        currentDateIndicator: {
-           width: 1,
-            dashStyle: 'dot',
-            color: 'red',
-            label: {
-                format: '%d %b %Y'
-            }
-        },
-        min: Date.UTC(2019, 1, 1),
-        max: Date.UTC(2025, 1, 1),
-    visible: true,
-    tickWidth: 0,
-    tickColor: "#fff",
-   
-    },
-
-   yAxis: {
-     lineColor: "#fff",
-      gridLineColor: 'rgb(204, 214, 235)',
-   },
-    series: [{
-        name: 'Chemin critique',
-        data: [{
-            name: 'Village des athlètes',
-            id: 'new_offices',
-            owner: 'Peter',
-            color: '#20E37B'
-        }, {
-            name: 'Aménagement/Foncier',
-            id: 'prepare_building',
-            parent: 'new_offices',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2023, 1, 1),
-            completed: {
-                amount: 0.2
-            },
-            color: '#2E5D63',
-       
-        }, {
-            name: 'Equipements publics',
-            id: 'inspect_building',
-            dependency: 'prepare_building',
-            parent: 'new_offices',
-            start: Date.UTC(2021, 1, 1),
-            end: Date.UTC(2023, 1, 1),
-            color: "#C68D7B",
-        }, {
-            name: 'Espaces publics',
-            id: 'passed_inspection',
-            dependency: 'inspect_building',
-            parent: 'new_offices',
-            start: Date.UTC(2022, 1, 1),
-            end: Date.UTC(2024, 1, 1),
-            color: "#C68D7B",
-            
-        }],
-      dataLabels:{
-        enabled: false,
-      },
-    }],
-    title: {
-        text: null,
-    },
-   
-});
-</script>
 
