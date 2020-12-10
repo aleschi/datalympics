@@ -35,7 +35,7 @@
           <div class="ouvrages-budget-infos-texte">Budget Initial</div>
           </div>
           <div class="ouvrages-budget-infos">
-            <div class="ouvrages-budget-infos-number"><% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>XXX<%end%> €</div>
+            <div class="ouvrages-budget-infos-number"><% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>0<%end%> €</div>
             <div class="ouvrages-budget-infos-texte">Dépenses réalisées </div>
         </div>
           <div class="ouvrages-budget-infos">

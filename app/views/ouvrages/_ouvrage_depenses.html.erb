@@ -295,7 +295,7 @@ Highcharts.chart('container-bar1', {
 });
  </script> 
 <script>
-$(window).load(function() {
+ $(document).on("turbolinks:load", function() {
   $('#flexslider2').flexslider({ 
     animation: "slide",
     animationLoop: false,
@@ -305,4 +305,3 @@ $(window).load(function() {
   });
 });
 </script>
-

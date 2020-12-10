@@ -18,8 +18,9 @@
 //= require jquery_ujs
 //= require activestorage
 //= require toastr
-//= require turbolinks
 //= require jquery.flexslider
+//= require turbolinks
+
 //= require chartkick
 //= require_tree .
 
@@ -42,3 +43,13 @@ $(document).ready(function() {
   "hideMethod": "fadeOut"
    }
 });
+
+ $(document).on("turbolinks:load", function() {
+  $('#flexslider').flexslider({ 
+    animation: "slide",
+    animationLoop: false,
+    slideshow: false,
+    prevText: "Précédent",    
+    nextText:'Suivant',
+  });
+ })

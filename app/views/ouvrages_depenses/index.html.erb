@@ -16,47 +16,47 @@
       <div class="chart-budget-date">Mise à jour suite au CA d'octobre 2020 </div>
     
       <div class="chart-budget-box">
-        <div class="chart-budget-col-title chart-budget-col-title-total">ECART TOTAL  <span><%= number_with_delimiter((@budget_nouveau+@budget_augmentation+@budget_diminution+@ecart_reserve).to_i, :delimiter => ' ') %></span></div>
+        <div class="chart-budget-col-title chart-budget-col-title-total">ECART TOTAL  <span><%= number_with_delimiter((@budget_nouveau+@budget_augmentation+@budget_diminution+@ecart_reserve).to_i, :delimiter => ' ') %> €</span></div>
         
-        <div class="chart-budget-col-title"><a href="#MonCollapse-augmentation" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation" >Augmentation <i class="fas fa-angle-down"></i> <span class="budget-positif"><%= number_with_delimiter((@budget_nouveau+@budget_augmentation).to_i, :delimiter => ' ') %></span></a></div>
+        <div class="chart-budget-col-title"><a href="#MonCollapse-augmentation" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation" >Augmentation <i class="fas fa-angle-down"></i> <span class="budget-positif"><%= number_with_delimiter((@budget_nouveau+@budget_augmentation).to_i, :delimiter => ' ') %> €</span></a></div>
         <section id="MonCollapse-augmentation" class="collapse">
-          <div class="chart-budget-col-subtitle chart-budget-col-title-total"><a href="#MonCollapse-augmentation-ouvrages" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-ouvrages" >Nouveaux ouvrages <i class="fas fa-angle-down"></i>  <span class="budget-positif"><%= number_with_delimiter(@budget_nouveau.to_i, :delimiter => ' ') %></span></a></div>
+          <div class="chart-budget-col-subtitle chart-budget-col-title-total"><a href="#MonCollapse-augmentation-ouvrages" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-ouvrages" >Nouveaux ouvrages <i class="fas fa-angle-down"></i>  <span class="budget-positif"><%= number_with_delimiter(@budget_nouveau.to_i, :delimiter => ' ') %> €</span></a></div>
             <section id="MonCollapse-augmentation-ouvrages" class="collapse">
               <% Ouvrage.all.each do |ouvrage| %>
               <% if ouvrage.ouvrages_financements.count > 0 && ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).nil? %>
-              <div class="chart-budget-col-text"><%= ouvrage.name %> <span class="budget-positif"><%= number_with_delimiter(ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu.to_i, :delimiter => ' ')  %></span></div> 
+              <div class="chart-budget-col-text"><%= ouvrage.name %> <span class="budget-positif"><%= number_with_delimiter(ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu.to_i, :delimiter => ' ')  %> €</span></div> 
               <% end %>
               <% end %>
             </section>
           
           
-          <div class="chart-budget-col-subtitle chart-budget-col-title-total"><a href="#MonCollapse-augmentation-compl" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-compl" >Besoins complémentaires<i class="fas fa-angle-down"></i>  <span class="budget-positif"><%= number_with_delimiter(@budget_augmentation.to_i, :delimiter => ' ') %></span></a></div>
+          <div class="chart-budget-col-subtitle chart-budget-col-title-total"><a href="#MonCollapse-augmentation-compl" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-compl" >Besoins complémentaires<i class="fas fa-angle-down"></i>  <span class="budget-positif"><%= number_with_delimiter(@budget_augmentation.to_i, :delimiter => ' ') %> €</span></a></div>
           <section id="MonCollapse-augmentation-compl" class="collapse">
             <% Ouvrage.all.each do |ouvrage| %>
           <% if ouvrage.ouvrages_financements.count > 0 && !ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).nil?%>
           <% if ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu > 0 %> 
-              <div class="chart-budget-col-text"><%= ouvrage.name %> <span class="budget-positif"><%= number_with_delimiter((ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu).to_i, :delimiter => ' ') %>  </span></div>   
+              <div class="chart-budget-col-text"><%= ouvrage.name %> <span class="budget-positif"><%= number_with_delimiter((ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu).to_i, :delimiter => ' ') %> €</span></div>   
             <% end %>
             <% end %>
             <% end %>
             </section>
         </section>
         
-        <div class="chart-budget-col-title"><a href="#MonCollapse-augmentation-diminution" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-diminution" >Diminution <i class="fas fa-angle-down"></i> <span class="budget-negatif"><%= number_with_delimiter(@budget_diminution.to_i, :delimiter => ' ') %></span> </a></div>
+        <div class="chart-budget-col-title"><a href="#MonCollapse-augmentation-diminution" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-diminution" >Diminution <i class="fas fa-angle-down"></i> <span class="budget-negatif"><%= number_with_delimiter(@budget_diminution.to_i, :delimiter => ' ') %> €</span> </a></div>
         <section id="MonCollapse-augmentation-diminution" class="collapse">
           <% Ouvrage.all.each do |ouvrage| %>
           <% if ouvrage.ouvrages_financements.count > 0 %>
           <% if ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu < 0 %> 
-              <div class="chart-budget-col-text"><%= ouvrage.name %> <span class="budget-negatif"><%= number_with_delimiter((ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu).to_i, :delimiter => ' ') %> </span></div> 
+              <div class="chart-budget-col-text"><%= ouvrage.name %> <span class="budget-negatif"><%= number_with_delimiter((ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu).to_i, :delimiter => ' ') %> €</span></div> 
           <% end %>
           <% end %>
           <% end %>
         </section>
         
-        <div class="chart-budget-col-title"><a href="#MonCollapse-augmentation-reserve" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-reserve" >Ponction sur la réserve <i class="fas fa-angle-down"></i> <span class="budget-negatif"><%= number_with_delimiter(@ecart_reserve.to_i, :delimiter => ' ')%></span> </div>
+        <div class="chart-budget-col-title"><a href="#MonCollapse-augmentation-reserve" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-reserve" >Ponction sur la réserve <i class="fas fa-angle-down"></i> <span class="budget-negatif"><%= number_with_delimiter(@ecart_reserve.to_i, :delimiter => ' ')%> €</span> </div>
         <section id="MonCollapse-augmentation-reserve" class="collapse">
-              <div class="chart-budget-col-text">Réserve compléments de programmes <span class="budget-negatif"><%= number_with_delimiter((SolideoFinancement.where("categorie = ? AND date = ?","reserve", SolideoFinancement.order('date DESC').first.date).sum('montant')-SolideoFinancement.where("categorie = ? AND date = ?","reserve", Date.new(2018,1)).sum('montant')).to_i, :delimiter => ' ')%></span></div>   
-              <div class="chart-budget-col-text">Fonds innovations <span class="budget-negatif"><%= number_with_delimiter((SolideoFinancement.where("categorie = ? AND date = ?","innovation", SolideoFinancement.order('date DESC').first.date).sum('montant')-SolideoFinancement.where("categorie = ? AND date = ?","innovation", Date.new(2018,1)).sum('montant')).to_i, :delimiter => ' ')%></span></div>  
+              <div class="chart-budget-col-text">Réserve compléments de programmes <span class="budget-negatif"><%= number_with_delimiter((SolideoFinancement.where("categorie = ? AND date = ?","reserve", SolideoFinancement.order('date DESC').first.date).sum('montant')-SolideoFinancement.where("categorie = ? AND date = ?","reserve", Date.new(2018,1)).sum('montant')).to_i, :delimiter => ' ')%> €</span></div>   
+              <div class="chart-budget-col-text">Fonds innovations <span class="budget-negatif"><%= number_with_delimiter((SolideoFinancement.where("categorie = ? AND date = ?","innovation", SolideoFinancement.order('date DESC').first.date).sum('montant')-SolideoFinancement.where("categorie = ? AND date = ?","innovation", Date.new(2018,1)).sum('montant')).to_i, :delimiter => ' ')%> €</span></div>  
             </section>
       </div>
 <br><br>
