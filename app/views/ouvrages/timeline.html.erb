@@ -71,7 +71,7 @@ Highcharts.chart('container-steps', {
   plotOptions: {
     xrange: {
        dataLabels: {
-                enabled: true,
+                enabled: false,
                 format: '<b>{point.name}</b>',
                 verticalAlign: "bottom",
                 padding: 10,
@@ -84,51 +84,11 @@ Highcharts.chart('container-steps', {
             },
     }
   },
-    series: [
-      <% Ouvrage.all.each do |ouvrage| %>
-      <% if !ouvrage.start.nil? && !ouvrage.end.nil?%>
-      {
-        name: '<%= ouvrage.name %>',
-        pointWidth: 8,
-        color: "#bfbfbf",
-        data: [{
-            name: "Jalon 1",
-            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month %>),
-            x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
-            y: 0,
-            borderColor:'#fff',
-            color: '#bfbfbf',
-        }, {
-           name: "Jalon 2",
-            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
-            x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
-            y: 0,
-          borderColor: '#fff',
-          color: '#bfbfbf',
-        }, {
-           name: "Jalon 3",
-            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
-            x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 8%>),
-            y: 0,
-          borderColor: '#fff',
-          color: '#bfbfbf',
-        }, {
-           name: "Jalon 4",
-            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
-            x2: Date.UTC(<%= ouvrage.end.year %>, <% if ouvrage.ouvrages_revues.count > 0 %> <%= ouvrage.end.month + ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %><% else%><%= ouvrage.end.month %> <% end %>),
-            y: 0,
-          borderColor: '#fff',
-          color: '#bfbfbf',
-        }],
-        dataLabels: {
-            enabled: true
-        }
-    },
-      <% end %>
-    <%end %> {
+    series: [ {
         name: 'JOP2024',
         color: 'red',
         pointWidth: 3,
+      groupPadding: 1,
         data: [{
             name: "JOP2024",
             x: Date.UTC(2024,6,26),
@@ -145,7 +105,50 @@ Highcharts.chart('container-steps', {
         dataLabels: {
             enabled: true
         }
-    }],
+    },
+      <% Ouvrage.all.each do |ouvrage| %>
+      <% if !ouvrage.start.nil? && !ouvrage.end.nil?%>
+      {
+        name: '<%= ouvrage.name %>',
+        pointWidth: 8,
+        groupPadding: 1,
+        data: [{
+            name: "Jalon 1",
+            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month %>),
+            x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
+            y: 0,
+        <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
+           color: "red",
+          <% end %>
+        }, {
+           name: "Jalon 2",
+            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
+            x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
+            y: 0,
+          <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
+           color: "red",
+          <% end %>
+        }, {
+           name: "Jalon 3",
+            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
+            x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 8%>),
+            y: 0,
+          <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
+           color: "red",
+          <% end %>
+        }, {
+           name: "Jalon 4",
+            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
+            x2: Date.UTC(<%= ouvrage.end.year %>, <% if ouvrage.ouvrages_revues.count > 0 %> <%= ouvrage.end.month + ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %><% else%><%= ouvrage.end.month %> <% end %>),
+            y: 0,
+          <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
+           color: "red",
+          <% end %>
+        }],
+     
+    },
+      <% end %>
+    <%end %>],
 
 });
 </script>
