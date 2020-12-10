@@ -14,7 +14,7 @@
 Highcharts.chart('container-steps', {
     chart: {
         type: 'xrange',
-        
+        height:'800px',
         style:{
           fontFamily: "Spectral",
           },    
@@ -115,7 +115,7 @@ Highcharts.chart('container-steps', {
         }, {
            name: "Jalon 4",
             x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
-            x2: Date.UTC(<%= ouvrage.end.year %>, <%= ouvrage.end.month %>),
+            x2: Date.UTC(<%= ouvrage.end.year %>, <% if ouvrage.ouvrages_revues.count > 0 %> <%= ouvrage.end.month + ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %><% else%><%= ouvrage.end.month %> <% end %>),
             y: 0,
           borderColor: '#fff',
           color: '#bfbfbf',
