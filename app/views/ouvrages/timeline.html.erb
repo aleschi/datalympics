@@ -14,7 +14,7 @@
 Highcharts.chart('container-steps', {
     chart: {
         type: 'xrange',
-        height:'800px',
+        height:'1000px',
         style:{
           fontFamily: "Spectral",
           },    
@@ -145,7 +145,14 @@ Highcharts.chart('container-steps', {
            color: "red",
           <% end %>
         }],
-     
+        cursor: 'pointer',
+        point: {
+                events: {
+                    click: function () {
+                        location.href = '/ouvrages/<%= ouvrage.id%>' ;
+                    }
+                }
+            }
     },
       <% end %>
     <%end %>],
