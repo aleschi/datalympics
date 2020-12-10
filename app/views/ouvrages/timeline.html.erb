@@ -3,7 +3,7 @@
     <h1 class="SD_subtitle">Dernière mise à jour : 22 novembre 2020</h1> 
 <div class="SD-table-box">
 
-      <div id="container-gantt">
+      <div id="container-steps">
         
       </div>
     </div>
@@ -11,115 +11,145 @@
 
 
 <script>
-
-Highcharts.ganttChart('container-gantt', {
-    series: [{
-        name: 'Site ',
-        data: [{
-            name: 'Site A',
-            id: 'new_offices',
-          
-        }, {
-            name: 'Ouvrage X',
-            id: 'prepare_building',
-            parent: 'new_offices',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-            completed: {
-                amount: 0.2
-            },
+Highcharts.chart('container-steps', {
+    chart: {
+        type: 'xrange',
         
-        }, {
-            name: 'Ouvrage X',
-            id: 'inspect_building',
-            dependency: 'prepare_building',
-            parent: 'new_offices',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-     
-        }, {
-            name: 'Ouvrage X',
-            id: 'passed_inspection',
-            dependency: 'inspect_building',
-            parent: 'new_offices',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-      
-        }, {
-            name: 'Ouvrage X',
-            id: 'relocate',
-            dependency: 'passed_inspection',
-            parent: 'new_offices',
-
-        }, {
-            name: 'Ouvrage X',
-            id: 'relocate_staff',
-            parent: 'relocate',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-        }, {
-            name: 'Ouvrage X',
-            dependency: 'relocate_staff',
-            parent: 'relocate',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-         
-        }, {
-            name: 'Ouvrage X',
-            dependency: 'relocate_staff',
-            parent: 'relocate',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-        }]
-    }, {
-        name: 'site',
-        data: [{
-            name: 'Site A',
-            id: 'new_product',
-        }, {
-            name: 'Ouvrage X',
-            id: 'development',
-            parent: 'new_product',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-            completed: {
-                amount: 0.6,
-                fill: '#e80'
-            },
-        }, {
-            name: 'Ouvrage X',
-            id: 'beta',
-            dependency: 'development',
-            parent: 'new_product',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-        
-        }, {
-            name: 'Ouvrage X',
-            id: 'finalize',
-            dependency: 'beta',
-            parent: 'new_product',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-        }, {
-            name: 'Ouvrage X',
-            dependency: 'finalize',
-            parent: 'new_product',
-            start: Date.UTC(2019, 1, 1),
-            end: Date.UTC(2022, 1, 1),
-           
-        }]
-    }],
+        style:{
+          fontFamily: "Spectral",
+          },    
+    },
     title: {
         text: null,
+        style: {
+          color: "#8F8F8F",
+          fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '16px',
+                  },
     },
-    xAxis: {
-        currentDateIndicator: true,
-        min: Date.UTC(2019, 1, 1),
-        max: Date.UTC(2025, 1, 1)
+    colors: ["#bfbfbf",'rgba(46,93,99,0.6)'],
+    xAxis: [{
+        currentDateIndicator: {
+            width: 1,
+            dashStyle: 'dot',
+            color: 'red',
+            label: {
+                format: '%d %b %Y'
+            }
+        },
+        lineColor: "#8F8F8F",
+        type: 'datetime',
+    }],
+    yAxis: {
+        title: {
+            text: null,
+        },
+        gridLineColor: "#fff",
+     
+        reversed: true,
+        labels: {
+          enabled: false,
+        }
+    },    
+  legend: {
+    enabled: false,
+  },
+  tooltip: { 
+        formatter: function() {
+      var point = this,
+        series = point.series,
+        color = point.color || series.chart.options.colors[point.colorIndex],
+        firstDate = Highcharts.dateFormat('%b %Y', point.x),
+        secondDate = Highcharts.dateFormat('%b %Y', point.x2),
+        header = '<span style="font-size: 10px">' + series.name + '</span><br/>',
+        content = '<span style="color:' + color + '">\u25CF</span> ' + point.key + ': <b>' + firstDate + ' - ' + secondDate + '</b><br/>';
+
+      return header + content;
+    },
+  },
+  plotOptions: {
+    xrange: {
+       dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>',
+                verticalAlign: "bottom",
+                padding: 10,
+                style: {
+                      fontSize: "12px",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                
+                      },
+            },
     }
+  },
+    series: [
+      <% Ouvrage.all.each do |ouvrage| %>
+      <% if !ouvrage.start.nil? && !ouvrage.end.nil?%>
+      {
+        name: '<%= ouvrage.name %>',
+        pointWidth: 8,
+        color: "#bfbfbf",
+        data: [{
+            name: "Jalon 1",
+            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month %>),
+            x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
+            y: 0,
+            borderColor:'#fff',
+            color: '#bfbfbf',
+        }, {
+           name: "Jalon 2",
+            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
+            x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
+            y: 0,
+          borderColor: '#fff',
+          color: '#bfbfbf',
+        }, {
+           name: "Jalon 3",
+            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
+            x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 8%>),
+            y: 0,
+          borderColor: '#fff',
+          color: '#bfbfbf',
+        }, {
+           name: "Jalon 4",
+            x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
+            x2: Date.UTC(<%= ouvrage.end.year %>, <%= ouvrage.end.month %>),
+            y: 0,
+          borderColor: '#fff',
+          color: '#bfbfbf',
+        }],
+        dataLabels: {
+            enabled: true
+        }
+    },
+      <% end %>
+    <%end %> {
+        name: 'JOP2024',
+        color: 'red',
+        pointWidth: 3,
+        data: [{
+            name: "JOP2024",
+            x: Date.UTC(2024,6,26),
+            x2: Date.UTC(2024,7,11),
+            y: 0,
+             partialFill: {
+               amount: 1,
+               fill: 'red',
+             },
+          borderColor:'#fff',
+          color: 'red',
+        }],
+      
+        dataLabels: {
+            enabled: true
+        }
+    }],
+
 });
 </script>
+
 
 
 <script>
