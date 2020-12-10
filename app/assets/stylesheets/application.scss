@@ -1919,7 +1919,61 @@ html[xmlns] .slides {display: block;}
     text-transform:uppercase;
   }
 }
-
+.chart-budget-box{
+  position:relative;
+  padding: 20px;
+}
+.chart-budget-date{
+  color: #000091;
+  font-size: 15px;
+  font-style: italic;
+  margin-bottom:20px;
+}
+.chart-budget-col-title {
+  color: #000091;
+  font-size: 15px;
+  text-transform:uppercase;
+  height:45px;
+ padding:8px 15px;
+  a{
+    color: #000091;
+  }
+  span{
+    position:absolute;
+    right:30px;
+  }
+}
+.chart-budget-col-title-total {
+ background-color:#F0F0F0;
+}
+.chart-budget-col-subtitle{
+    color: #000091;
+   padding:8px 15px;
+  font-size:13px;
+  text-decoration:underline;
+    a{
+    color: #000091;
+  }
+  span{
+    position:absolute;
+    right:30px;
+  }
+}
+.budget-positif{
+  color: #F1013B;
+}
+.budget-negatif{
+  color:  #48AF5C;
+}
+.chart-budget-col-text{
+  color: #000000;
+  padding:8px 15px;
+  font-size:13px;
+    span{
+    position:absolute;
+    right:30px;
+  }
+}
 #container-steps .highcharts-legend-item.highcharts-series-0 .highcharts-point {
   fill: #bfbfbf !important;
 }

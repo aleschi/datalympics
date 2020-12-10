@@ -150,6 +150,83 @@ Highcharts.chart('container-bar0', {
      }]
 });
   </script>
+
+<script>
+Highcharts.chart('container-cylinder', {
+    chart: {
+      style:{
+          fontFamily: "Spectral",
+     
+          },
+        type: 'cylinder',
+        options3d: {
+            enabled: true,
+            alpha: 15,
+            beta: 15,
+            depth: 50,
+            viewDistance: 25,
+        }
+    },
+
+    title: {
+        text: "Evolution des financements de l'ouvrage",
+      margin:40,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+            fontStyle: 'italic',
+            fontSize: '16px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['2018', '2019', '2020', '2021'],
+      gridLineColor: '#E6F0FF', 
+        labels: {
+        //   skew3d: true,
+            style: {
+             //   fontSize: '16px'
+            }
+        }
+    },
+
+    yAxis: {
+      gridLineColor: '#E6F0FF', 
+        allowDecimals: false,
+        min: 0,
+        title: {
+            text: 'Montant (M€)',
+            skew3d: true
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<b>{point.key}</b><br>',
+        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal} M€'
+    },
+
+    plotOptions: {
+        cylinder: {
+            stacking: 'normal',
+            depth: 40,
+           dataLabels: {
+                enabled: true
+            }
+        }
+    },
+  colors: ["#2E5D63","#C68D7B","#20E37B","#5770BE", "#76505B","#FF678F","#3B3B3F", "#FDEB6B", "#37A09E","#F54E53","#89C7FD"],
+     
+    series: [
+      <% @ouvrage_financeurs.each do |financeur| %>
+      {
+        name: "<%= financeur.to_s %>",
+        data: [<%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur , Date.new(2018,1)).sum('montant')/1000000).round%>, <%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur , Date.new(2019,1)).sum('montant')/1000000).round%>, <%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur, Date.new(2020,1)).sum('montant')/1000000).round%>, <%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur , Date.new(2021,1)).sum('montant')/1000000).round%>],
+        stack: 'budget',
+   
+    },
+    <% end %>]
+});
+</script>
 <% end %>
 <script>
 Highcharts.chart('container-bar1', {
@@ -228,80 +305,3 @@ $(window).load(function() {
 });
 </script>
 
-
-<script>
-Highcharts.chart('container-cylinder', {
-    chart: {
-      style:{
-          fontFamily: "Spectral",
-     
-          },
-        type: 'cylinder',
-        options3d: {
-            enabled: true,
-            alpha: 15,
-            beta: 15,
-            depth: 50,
-            viewDistance: 25,
-        }
-    },
-
-    title: {
-        text: "Evolution des financements de l'ouvrage",
-      margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-            fontStyle: 'italic',
-            fontSize: '16px',
-                  },
-    },
-
-    xAxis: {
-        categories: ['2018', '2019', '2020', '2021'],
-      gridLineColor: '#E6F0FF', 
-        labels: {
-        //   skew3d: true,
-            style: {
-             //   fontSize: '16px'
-            }
-        }
-    },
-
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
-        allowDecimals: false,
-        min: 0,
-        title: {
-            text: 'Montant (M€)',
-            skew3d: true
-        }
-    },
-
-    tooltip: {
-        headerFormat: '<b>{point.key}</b><br>',
-        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal} M€'
-    },
-
-    plotOptions: {
-        cylinder: {
-            stacking: 'normal',
-            depth: 40,
-           dataLabels: {
-                enabled: true
-            }
-        }
-    },
-  colors: ["#2E5D63","#C68D7B","#20E37B","#5770BE", "#76505B","#FF678F","#3B3B3F", "#FDEB6B", "#37A09E","#F54E53","#89C7FD"],
-     
-    series: [
-      <% @ouvrage_financeurs.each do |financeur| %>
-      {
-        name: "<%= financeur.to_s %>",
-        data: [<%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur , Date.new(2018,1)).sum('montant')/1000000).round%>, <%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur , Date.new(2019,1)).sum('montant')/1000000).round%>, <%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur, Date.new(2020,1)).sum('montant')/1000000).round%>, <%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur , Date.new(2021,1)).sum('montant')/1000000).round%>],
-        stack: 'budget',
-   
-    },
-    <% end %>]
-});
-</script>

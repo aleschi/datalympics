@@ -7,75 +7,28 @@ before_action :authenticate_user!
      @nav=true
     @ouvrages = Ouvrage.all
     @ouvrages_depenses = OuvragesDepense.all
+    @ouvrages_financements = OuvragesFinancement.all 
+    @budget_diminution = 0
+    @budget_augmentation = 0
+    @budget_nouveau = 0
     
-     @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
-    @solideo_depenses_ouvrages_reel = OuvragesDepense.where('date <= ?', Date.today).unscope(:order).group(:date).sum('montant')
-    @financeurs = ["privé", "Etat", "RIF", "Ville de Paris", "Métropole Grand Paris", "CD92", "CD93", "CD78", "EPT Plaine Commune","EPT Terres d'envol", "Ville de Dugny", "Ville du Bourget", "CASQY", "Ville de Marseille"]
-
-    
-    @solideo_depenses_ouvrages = OuvragesDepense.all.sum('montant')
-    @solideo_depenses_ouvrages_prevu_date = OuvragesDepense.where('date <= ?', Date.today).sum('montant_prevu')
-    
-    @h_depenses = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')
-    @h_depenses_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
-    @depenses = []
-    @depenses_prevu = []
-    (1..32).each do |n|    
-      @is_present = false 
-      @h_depenses.each do |h|
-        if h[0] == Date.new(2018) + (n*3 - 1).months
-          @depenses << h[1]
-          @is_present = true 
+    Ouvrage.all.each do |ouvrage|
+      if ouvrage.ouvrages_financements.count > 0
+        if ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu < 0 
+          @budget_diminution += ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu
+        else
+          if !ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).nil?
+            @budget_augmentation += ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu
+          else 
+            @budget_nouveau += ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu
+          end 
+          
         end 
-      end
-      if @is_present == false 
-         @depenses << 0
-      end
-    end
-    (1..32).each do |n|    
-      @is_present = false 
-      @h_depenses_prevu.each do |h|
-        if h[0] == Date.new(2018)+ (n*3 - 1).months
-          @depenses_prevu << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_prevu << 0
-      end
+      end 
     end
     
-    @h_depenses_annee = OuvragesDepense.all.unscope(:order).group_by_year(:date).sum('montant')
-    @h_depenses_prevu_annee = OuvragesDepense.all.unscope(:order).group_by_year(:date).sum('montant_prevu')
-    @depenses_annee = []
-    @depenses_prevu_annee = []
-    @depenses_prevu_annee_maj = []
-    (2018..2025).each do |annee|    
-      @is_present = false 
-      @h_depenses_annee.each do |h|
-        if h[0].year == annee
-          @depenses_annee << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_annee << 0
-      end
-    end
-    @depenses_prevu_annee_maj_value = [0,0,0,224300000,254300000,210000000,94000000,0]
-
-    (2018..2025).each do |annee|    
-      @is_present = false 
-      @h_depenses_prevu_annee.each do |h|
-        if h[0].year == annee
-          @depenses_prevu_annee << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_prevu_annee << 0
-      end
-    end
+    @ecart_reserve = SolideoFinancement.where("categorie = ? AND date = ?","reserve", SolideoFinancement.order('date DESC').first.date).sum('montant')-SolideoFinancement.where("categorie = ? AND date = ?","reserve", Date.new(2018,1)).sum('montant') + SolideoFinancement.where("categorie = ? AND date = ?","innovation", SolideoFinancement.order('date DESC').first.date).sum('montant') -SolideoFinancement.where("categorie = ? AND date = ?","innovation", Date.new(2018,1)).sum('montant')
+  
   end
 
   # GET /ouvrages_depenses/1
