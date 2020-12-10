@@ -150,7 +150,7 @@ Highcharts.chart('container-bar0', {
      }]
 });
   </script>
-
+<% if !@ouvrage_financeurs.nil?%>
 <script>
 Highcharts.chart('container-cylinder', {
     chart: {
@@ -227,6 +227,7 @@ Highcharts.chart('container-cylinder', {
     <% end %>]
 });
 </script>
+<% end %> 
 <% end %>
 <script>
 Highcharts.chart('container-bar1', {
