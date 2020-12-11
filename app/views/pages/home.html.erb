@@ -20,7 +20,7 @@
           </div><br>
           
           <div>
-            <div class="home-box-infos1">+ <%= ((EtatDepense.all.sum('cp_conso')-EtatDepense.all.sum('cp_prevu'))/EtatDepense.all.sum('cp_prevu')).round %>%</div>
+            <div class="home-box-infos1">+ <%= ((EtatDepense.where('date <= ?', Date.new(2019,12)).sum('cp_conso')-EtatDepense.where('date <= ?', Date.new(2019,12)).sum('cp_prevu'))/EtatDepense.where('date <= ?', Date.new(2019,12)).sum('cp_prevu')).round %>%</div>
             <div class="home-box-infos2">Dépassement budgétaire</div>
           </div><br>
          
