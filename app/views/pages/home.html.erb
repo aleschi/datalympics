@@ -20,7 +20,7 @@
           </div><br>
           
           <div>
-            <div class="home-box-infos1">+ XX %</div>
+            <div class="home-box-infos1">+ <%= ((EtatDepense.all.sum('cp_conso')-EtatDepense.all.sum('cp_prevu'))/EtatDepense.all.sum('cp_prevu')).round %>%</div>
             <div class="home-box-infos2">Dépassement budgétaire</div>
           </div><br>
          
@@ -50,7 +50,7 @@
           </div><br>
           
           <div>
-            <div class="home-box-infos1"> + XX %</div>
+            <div class="home-box-infos1"> + <%= ((SolideoFinancement.where('categorie= ?', "ouvrages").order('date DESC').first.montant_prevu-SolideoFinancement.where('categorie= ?', "ouvrages").order('date DESC').last.montant_prevu)/SolideoFinancement.where('categorie= ?', "ouvrages").order('date DESC').last.montant_prevu*100).round %> %</div>
             <div class="home-box-infos2">Surcoûts budgétaires</div>
           </div><br>
           
@@ -302,7 +302,7 @@ Highcharts.chart('container-jauge2', {
             color: "#F29D53",
             radius: '100%',
             innerRadius: '88%',
-            y: 13
+            y: <%= (OuvragesDepense.all.sum('montant')/SolideoFinancement.where("categorie = ?", "ouvrages").order('date DESC').first.montant_prevu*100).round%>
         }]
     }]
 });
