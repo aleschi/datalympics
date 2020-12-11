@@ -48,7 +48,7 @@
               </div>
               <div>
                 <% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>0<%end%> €<br>
-                <span><%=link_to ouvrages_depenses_path do %>Dépenses réalisées<% end %></span>
+                <span>Dépenses réalisées</span>
               </div>
             </div>
            
