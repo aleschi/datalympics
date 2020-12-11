@@ -27,7 +27,7 @@
             <div class="edit-revues-btn"><%= link_to edit_ouvrages_revue_path(revue) do %> Modifier <i class="fas fa-pencil-alt"></i><% end %></div>
             <% end %>
               <div class="ouvrages-flexslider-title">
-                   Rapport de supervision <%= l(revue.date, :format => '%B %Y')%>:
+                   Rapport de supervision <%= l(revue.date, :format => '%B %Y')%> :
                 </div><br>
             <div class="row">
               <div class="col-md-6">               
@@ -47,6 +47,7 @@
                     <span>Retard envisagé </span>
                   </div>
                 </div>
+                <br><br>
                   <div class="ouvrages-flexslider-text">
                     <span><em>Revue MOA </em></span> <br><br>
                    <%= revue.delai_commentaire %>

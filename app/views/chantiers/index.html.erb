@@ -122,7 +122,7 @@
     </div>
     <% else %>
     <div class="risque-infos-line" >
-      <div class="risque-infos-name"><span class='faible'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %><% end %></div>
+      <div class="risque-infos-name"><span class='modere'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %><% end %></div>
       <div class="risque-infos-date">Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%> </div>
       <div class="risque-infos-text">Retard : <%= revue.delai_time.to_i %> mois </div>
       <div class="risque-infos-moa">MOA : <%= revue.ouvrage.maitre_oeuvre %></div>

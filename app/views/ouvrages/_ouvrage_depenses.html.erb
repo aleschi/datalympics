@@ -28,7 +28,7 @@
           <li>  
             <div class="flexslider-slide">
               <div class="ouvrages-flexslider-title">
-                   Rapport de supervision <%= l(revue.date, :format => '%B %Y')%>: 
+                   Rapport de supervision <%= l(revue.date, :format => '%B %Y')%> : 
                 </div><br>
             <div class="row">
               <div class="col-md-6">               
@@ -44,13 +44,14 @@
                 </div>
                      <div class="jauge-infos">
                     <% if @ouvrage.ouvrages_financements.count > 0 %>
-                      <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%><% else %> X? <br><% end %>  € <br>
+                      <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%><% else %> 0<% end %>  € <br>
                     <span>Surcoûts envisagés </span>
                   </div>
                 </div>
+                <br><br>
                   <div class="ouvrages-flexslider-text">
                     <span>
-                    <em>Revue MOA</em> <br>
+                    <em>Revue MOA</em> 
                     </span> <br><br>
                     <%= revue.budget_commentaire %>
                 </div>
