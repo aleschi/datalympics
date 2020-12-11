@@ -31,16 +31,38 @@
       <div class="row">
         <div class="ouvrages-budget-infos-box">
           <div class="ouvrages-budget-infos">
-            <div class="ouvrages-budget-infos-number"><%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €</div>
-          <div class="ouvrages-budget-infos-texte">Budget Initial</div>
+              <div class="calendar-infos-box">
+                <div>
+                  <i class="fas fa-coins"></i>
+                </div>
+                <div>
+                  <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €<br>
+                  <span>Budget Initial</span>
+                </div>
+              </div>
           </div>
           <div class="ouvrages-budget-infos">
-            <div class="ouvrages-budget-infos-number"><% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>0<%end%> €</div>
-            <div class="ouvrages-budget-infos-texte">Dépenses réalisées </div>
+            <div class="calendar-infos-box">
+              <div>
+                 <i class="fas fa-euro-sign"></i>
+              </div>
+              <div>
+                <% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>0<%end%> €<br>
+                <span><%=link_to ouvrages_depenses_path do %>Dépenses réalisées<% end %></span>
+              </div>
+            </div>
+           
         </div>
           <div class="ouvrages-budget-infos">
-            <div class="ouvrages-budget-infos-number"><% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €</div>
-            <div class="ouvrages-budget-infos-texte">Budget recalculé </div>
+            <div class="calendar-infos-box">
+                <div>
+                  <i class="fas fa-coins"></i>
+                </div>
+                <div>
+                  <% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €<br>
+                  <span>Budget recalculé</span>
+                </div>
+              </div>
         </div>
         </div>
       </div>

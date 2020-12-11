@@ -27,11 +27,12 @@
           <% @ouvrage.ouvrages_revues.order('date DESC').each do |revue| %>
           <li>  
             <div class="flexslider-slide">
-            <div class="row">
-              <div class="col-md-6">               
-                <div class="ouvrages-flexslider-title">
+              <div class="ouvrages-flexslider-title">
                    Rapport de supervision <%= l(revue.date, :format => '%B %Y')%>: 
                 </div><br>
+            <div class="row">
+              <div class="col-md-6">               
+                
                  <div class="jauge-box">
                 <div class="jauge-risques">
                   <% if revue.budget_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>

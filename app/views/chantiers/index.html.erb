@@ -6,13 +6,31 @@
             <span>Chiffres</span>
     </div><br><br>
     <div class="risques-actu-text">Aujourd'hui il existe : </div>
-    <div class="risques-actu-box">
-      <div class="risques-actu-infos"><span><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).count %></span> risques critiques</div>
-      <div class="risques-actu-infos"><span><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).count %></span> risques importants</div>
-      <div class="risques-actu-infos"><span><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).count %></span> risques modérés</div>
-      <div class="risques-actu-infos"><span><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).count %></span> risques faibles</div>
+    <div class="ouvrages-budget-infos-box">
+      <div class="ouvrages-budget-infos">
+      <div class="calendar-infos-box">     
+        <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).count %></div>               <div><span>risques <br>critiques</span></div>
+      </div>
+      </div>
+      <div class="ouvrages-budget-infos">
+      <div class="calendar-infos-box">  
+        <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).count %></div>               <div><span>risques <br>importants</span></div>
+        </div>
+      </div>
+      <div class="ouvrages-budget-infos">
+     <div class="calendar-infos-box"> 
+       <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).count %></div>
+       <div><span>risques<br>modérés</span></div>
+          </div>
+      </div>
+      <div class="ouvrages-budget-infos">
+      <div class="calendar-infos-box">  
+        <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).count %></div>
+        <div><span>risques <br>faibles</span></div>
     </div>
-    <br><br>
+          </div>
+    </div>
+    <br><br><br><br>
     <div class="SD-topo-box-title">
             <span>Risques actuels</span>
     </div><br><br>
@@ -28,14 +46,25 @@
          </div>
       </div>
     <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).count > 0 %>
-    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).each do |revue| %>
-    <div class="risque-infos-line" >
+    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).each_with_index do |revue, i| %>
+  
+    <% if i == 0 %> 
+    <div class="risque-infos-line line-1" >
+      <div class="risque-infos-name"><span class='critique'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %> <% end %></div>
+      <div class="risque-infos-date">Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%> </div>
+      <div class="risque-infos-text">Retard : <%= revue.delai_time.to_i %> mois </div>
+      <div class="risque-infos-moa">MOA : <%= revue.ouvrage.maitre_oeuvre %></div>
+  
+    </div>
+    <% else %>
+     <div class="risque-infos-line" >
       <div class="risque-infos-name"><span class='critique'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %><% end %></div>
       <div class="risque-infos-date">Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%> </div>
       <div class="risque-infos-text">Retard : <%= revue.delai_time.to_i %> mois </div>
       <div class="risque-infos-moa">MOA : <%= revue.ouvrage.maitre_oeuvre %></div>
   
     </div>
+    <% end %>
     <% end %>
     <% end %>
     <br>
@@ -51,13 +80,22 @@
          </div>
       </div>
      <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).count > 0 %>
-    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).each do |revue| %>
-     <div class="risque-infos-line" >
+    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).each_with_index do |revue, i| %>
+     <% if i == 0 %> 
+     <div class="risque-infos-line line-1" >
       <div class="risque-infos-name"><span class='important'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %><% end %></div>
       <div class="risque-infos-date">Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%> </div>
       <div class="risque-infos-text">Retard : <%= revue.delai_time.to_i %> mois </div>
       <div class="risque-infos-moa">MOA : <%= revue.ouvrage.maitre_oeuvre %></div>
     </div>
+    <% else %>
+       <div class="risque-infos-line" >
+      <div class="risque-infos-name"><span class='important'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %><% end %></div>
+      <div class="risque-infos-date">Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%> </div>
+      <div class="risque-infos-text">Retard : <%= revue.delai_time.to_i %> mois </div>
+      <div class="risque-infos-moa">MOA : <%= revue.ouvrage.maitre_oeuvre %></div>
+    </div>
+    <% end %>
    <% end %>
     <% end %>
     <br>
@@ -74,13 +112,22 @@
          </div>
       </div>
        <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).count > 0 %>
-    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).each do |revue| %>
-     <div class="risque-infos-line" >
+    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).each_with_index do |revue, i| %>
+    <% if i == 0 %> 
+     <div class="risque-infos-line line-1" >
       <div class="risque-infos-name"><span class='modere'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %><% end %></div>
       <div class="risque-infos-date">Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%> </div>
       <div class="risque-infos-text">Retard : <%= revue.delai_time.to_i %> mois </div>
       <div class="risque-infos-moa">MOA : <%= revue.ouvrage.maitre_oeuvre %></div>
     </div>
+    <% else %>
+    <div class="risque-infos-line" >
+      <div class="risque-infos-name"><span class='faible'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %><% end %></div>
+      <div class="risque-infos-date">Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%> </div>
+      <div class="risque-infos-text">Retard : <%= revue.delai_time.to_i %> mois </div>
+      <div class="risque-infos-moa">MOA : <%= revue.ouvrage.maitre_oeuvre %></div>
+    </div>
+    <% end %>
     <% end %>
     <% end %>
     <br>
@@ -96,13 +143,22 @@
          </div>
       </div>
       <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).count > 0 %>
-    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).each do |revue| %>
-     <div class="risque-infos-line" >
+    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).each_with_index do |revue, i| %>
+      <% if i == 0 %> 
+     <div class="risque-infos-line line-1" >
       <div class="risque-infos-name"><span class='faible'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %><% end %></div>
       <div class="risque-infos-date">Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%> </div>
       <div class="risque-infos-text">Retard : <%= revue.delai_time.to_i %> mois </div>
       <div class="risque-infos-moa">MOA : <%= revue.ouvrage.maitre_oeuvre %></div>
     </div>
+      <% else %>
+      <div class="risque-infos-line" >
+      <div class="risque-infos-name"><span class='faible'><i class="fas fa-exclamation-circle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %><% end %></div>
+      <div class="risque-infos-date">Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%> </div>
+      <div class="risque-infos-text">Retard : <%= revue.delai_time.to_i %> mois </div>
+      <div class="risque-infos-moa">MOA : <%= revue.ouvrage.maitre_oeuvre %></div>
+    </div>
+      <% end %>
       <% end %>
       <% end %>
   </div>

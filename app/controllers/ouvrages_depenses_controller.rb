@@ -17,7 +17,7 @@ before_action :authenticate_user!
         if ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu < 0 
           @budget_diminution += ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu
         else
-          if !ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).nil?
+          if ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).count > 0
             @budget_augmentation += ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu
           else 
             @budget_nouveau += ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu

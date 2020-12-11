@@ -1655,7 +1655,7 @@ bottom:0px;
 }
 
 .risques-actu-text{
-  color: #0000AA;
+  color: #8F8F8F;
   font-size:16px;
   font-weight:700;
   margin-bottom:20px;
@@ -1678,6 +1678,11 @@ bottom:0px;
     color: #FD9C04;
     font-size: 24px;
   }
+}
+.risques-actu-number{
+  color: #000091;
+  margin-right:10px;
+  font-size:30px;
 }
 .risques-infos-title-box{
   display: inline-flex;
@@ -1721,8 +1726,11 @@ width:100%;
   div{
     width:25%;
     padding: 15px 10px;
-    border-bottom: 1px solid #C4C4C4;
+    border-top: 1px solid #C4C4C4;
   }
+}
+.line-1 div {
+  border-top: none!important;
 }
 .risque-infos-name a{
   text-decoration:none;

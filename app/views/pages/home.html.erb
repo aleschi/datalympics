@@ -55,7 +55,7 @@
           </div><br>
           
           <div>
-            <div class="home-box-infos3"><%= link_to chantiers_path do %><i class="fas fa-exclamation-triangle"></i> 8 risques remontés<% end %></div>
+            <div class="home-box-infos3"><%= link_to chantiers_path do %><i class="fas fa-exclamation-triangle"></i> <%= OuvragesRevue.where('date = ? AND delai_indicateur != ?', OuvragesRevue.order('date DESC').first.date, 1).count %> risques remontés<% end %></div>
            
           </div>
           

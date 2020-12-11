@@ -23,7 +23,7 @@
           <div class="chart-budget-col-subtitle chart-budget-col-title-total"><a href="#MonCollapse-augmentation-ouvrages" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-ouvrages" >Nouveaux ouvrages <i class="fas fa-angle-down"></i>  <span class="budget-positif"><%= number_with_delimiter(@budget_nouveau.to_i, :delimiter => ' ') %> €</span></a></div>
             <section id="MonCollapse-augmentation-ouvrages" class="collapse">
               <% Ouvrage.all.each do |ouvrage| %>
-              <% if ouvrage.ouvrages_financements.count > 0 && ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).nil? %>
+              <% if ouvrage.ouvrages_financements.count > 0 && ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).count == 0 %>
               <div class="chart-budget-col-text"><%= ouvrage.name %> <span class="budget-positif"><%= number_with_delimiter(ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu.to_i, :delimiter => ' ')  %> €</span></div> 
               <% end %>
               <% end %>
@@ -33,7 +33,7 @@
           <div class="chart-budget-col-subtitle chart-budget-col-title-total"><a href="#MonCollapse-augmentation-compl" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-compl" >Besoins complémentaires<i class="fas fa-angle-down"></i>  <span class="budget-positif"><%= number_with_delimiter(@budget_augmentation.to_i, :delimiter => ' ') %> €</span></a></div>
           <section id="MonCollapse-augmentation-compl" class="collapse">
             <% Ouvrage.all.each do |ouvrage| %>
-          <% if ouvrage.ouvrages_financements.count > 0 && !ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).nil?%>
+          <% if ouvrage.ouvrages_financements.count > 0 && ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).count > 0 %>
           <% if ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu > 0 %> 
               <div class="chart-budget-col-text"><%= ouvrage.name %> <span class="budget-positif"><%= number_with_delimiter((ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu).to_i, :delimiter => ' ') %> €</span></div>   
             <% end %>
@@ -113,27 +113,27 @@ Highcharts.chart('container-chart', {
       data: [{
             name: 'Prévisionnel 2018',
             y: 1378000000,
-            color: "#8F8F8F",
+            color: "#bfbfbf",
         }, {
             name: 'Nouveaux Ouvrages',
             y: <%= @budget_nouveau %>,
-            color: "#F1013B",
+            color: "#E1000F",
         },{
             name: 'Surcoûts construction',
             y: <%= @budget_augmentation %>,
-            color: "#F1013B",
+            color: "#E1000F",
         }, {
             name: "Réduction de périmètre",
             y: <%= @budget_diminution %>,
-          color: "#48AF5C",
+          color: "#20E37B",
         }, {
             name: "Réserve",
             y: <%= @ecart_reserve %>,
-          color: "#48AF5C",
+          color: "#20E37B",
         }, {
             name: 'Prévisionnel 2020',
             isSum: true,
-            color: Highcharts.getOptions().colors[1]
+            color: "#2E5D63"
         }],
         dataLabels: {
             enabled: true,
