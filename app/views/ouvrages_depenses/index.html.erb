@@ -112,7 +112,7 @@ Highcharts.chart('container-chart', {
       borderColor: '#fff',
       data: [{
             name: 'Prévisionnel 2018',
-            y: 1378000000,
+            y: <%= SolideoFinancement.where('date = ?', Date.new(2018,1)).sum('montant')%>,
             color: "#bfbfbf",
         }, {
             name: 'Nouveaux Ouvrages',
