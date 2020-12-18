@@ -16,6 +16,12 @@ class DocumentsController < ApplicationController
     end
   end 
   
+  def edit
+    @document= Document.find(params[:id])
+    
+    respond_to :js 
+  end 
+  
   def update
     respond_to do |format|
       if @document.update(document_params)

@@ -8,26 +8,8 @@
         <p class="modal-title modal-title-document" >Transmettre un document </p>
     
       </div>
-      
-      <div class="modal-body">
-        <div class="modal-document-name"><%= @document.name %> </div>
-        
-      <%= form_for(@document) do |form| %>
-        <div class="document-file-input">
-          <label><%= form.file_field :file %>
-            <div class="document-type"><i class="far fa-file-pdf"></i> </div>
-            <div class="input-text"><i class="fas fa-plus-circle"></i><br>Ajouter un document</div>
-            <div class="document-check">
-            <i class="fas fa-check-circle"></i>
-          </div>
-          </label>
-          
-        <div class="modal-search-filters-form-btn">
-          <%= submit_tag "Transmettre", id: "submit_btn" %>  
-        </div>
-                    
-        </div>
-        <% end %>
+      <div id="results">
+      <%= render 'documents/form_results'%>
       </div>
     </div>
   </div>
@@ -35,24 +17,3 @@
 
 
 
-<script>
-  $('.document-check').hide();
-  $('.document-type').hide();
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
-         
-              
-          }
-          reader.readAsDataURL(input.files[0]);
-      }
-  }
-  $("input").change(function() {
-      readURL(this);
-      $('.document-check').show();
-      $('.input-text').html($(this).val().replace(/C:\\fakepath\\/i, ''));
-      $('.document-type').show();
-  });
-
-</script>

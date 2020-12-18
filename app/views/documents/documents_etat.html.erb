@@ -30,7 +30,7 @@
           <% else%>
             <div class="documents-mois-doc">
              <i class="far fa-file-pdf"></i> <%= document.name%>
-             <div class="documents-etat-btn"><a type="button" data-toggle="modal" data-target="#file" >Transmettre</a></div>
+             <div class="documents-etat-btn"><%= link_to edit_document_path(document), remote: true do%>Transmettre<% end%></div>
            </div>
           <% end %>
           <% end %>
@@ -54,3 +54,4 @@
   $('#MonCollapse2').addClass('in'); 
 
 </script>
+
