@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   end 
   resources :ouvrages_revues
   resources :etat_budgets
-  resources :etat_depenses
+  resources :etat_depenses do 
+    collection do 
+      post 'import' => 'etat_depenses#import'
+    end 
+  end
   resources :ouvrages do 
     collection {post :import}
   end 

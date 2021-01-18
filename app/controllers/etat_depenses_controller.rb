@@ -107,6 +107,11 @@ before_action :authenticate_user!
       format.json { head :no_content }
     end
   end
+  
+  def import
+    EtatDepense.import(params[:file])
+    redirect_to etat_budget_solideo_path  
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

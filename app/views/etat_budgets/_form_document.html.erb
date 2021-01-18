@@ -1,0 +1,54 @@
+<div class="modal fade" id="file" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content modal-content-search-filtres" >
+      <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <p class="modal-title modal-title-document" >Ajouter des données </p>
+    
+      </div>
+       <%=form_tag import_solideo_financements_path, multipart: true do %>
+           
+      <div class="document-file-input">
+          <label><%= file_field_tag :file, accept: '.csv' %>
+            <div class="document-type"><i class="far fa-file-pdf"></i> </div>
+            <div class="input-text"><i class="fas fa-plus-circle"></i><br>Ajouter un document</div>
+            <div class="document-check">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          </label>
+          
+        <div class="modal-search-filters-form-btn">
+          <%= submit_tag "Ajouter", id: "submit_btn" %>  
+        </div>
+                    
+        </div>
+           <%end%> 
+    </div>
+  </div>
+</div>
+
+    
+<script>
+  $('.document-check').hide();
+  $('.document-type').hide();
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+         
+              
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $("input").change(function() {
+      readURL(this);
+      $('.document-check').show();
+      $('.input-text').html($(this).val().replace(/C:\\fakepath\\/i, ''));
+      $('.document-type').show();
+  });
+
+</script>
+

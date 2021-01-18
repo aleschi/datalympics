@@ -212,17 +212,20 @@ body {
    
     thead{
       tr{
-        border-bottom:1px solid #000091;
+       // border-bottom:1px solid #000091;
         margin-bottom: 40px;
         th{
-          padding:15px 10px;
+          padding:20px 10px;
           text-align:center;
-          color:#000091;
-          text-transform:uppercase;
-          font-size:15px;
-          border-right:1px solid #000091;
+          color:#000;//091;
+         // text-transform:uppercase;
+          font-size:14px;
+         // border-right:1px solid #000091;
           a{
             color:#000091;
+          }
+          span{
+            text-align:right;
           }
         } 
         .border-none{
@@ -232,27 +235,31 @@ body {
     }
     tbody{
       tr{
-        border-bottom:1px solid #000091;
+      //  border-bottom:1px solid #000091;
         th{
-          padding:8px 10px;
+         // padding:8px 10px;
+          line-height:24px;
+          height:32px;
           text-align:center;
-          color:#444444;
-          text-transform:uppercase;
+          color:#000;
+          //text-transform:uppercase;
           font-size:15px;
-          border-right:1px solid #000091;
+         // border-right:1px solid #000091;
            a{
-            color:#444444;
+            color:#000;
             margin:0 5px;
              text-decoration:underline;
           }
         } 
         td{
-          padding:15px 10px;
+         // padding:15px 10px;
+           line-height:24px;
+          height:32px;
           text-align:center;
-          color:#8f8f8f;
+          color:#000;
           text-transform:uppercase;
           font-size:15px;
-          border-right:1px solid #000091;
+        //  border-right:1px solid #000091;
           a{
             color: rgba(0,74,112,0.4);
             text-decoration:none;
@@ -1991,4 +1998,52 @@ html[xmlns] .slides {display: block;}
 }
 #container-steps .highcharts-legend-item.highcharts-series-2 .highcharts-point {
   fill: red !important;
+}
+
+.tr-row-year{
+  background-color:#F5F9FF !important;
+  
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -o-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  
+  &:hover{
+    cursor:pointer;
+  }
+
+  td{
+    padding: 20px 0px;
+  }
+}
+.tr-row-month, .tr-row-month{
+  &:hover {
+    cursor:pointer;
+  }
+
+}
+.suivi-budget-title{
+  color:#000;
+  font-size:20px;
+  line-height:28px;
+  font-weight:bold
+}
+.suivi-budget-subtitle{
+  color:#000;
+  font-size:18px;
+  line-height:30px;
+  font-weight:normal;
+  margin-bottom:20px;
+}
+.add-file_budget{
+  margin-bottom:10px;
+  a{
+    color:#fff;
+    background-color:#000091;
+    font-size:16px;
+    padding: 12px 20px;
+    i{
+      padding-right:5px;
+    }
+  }
 }
