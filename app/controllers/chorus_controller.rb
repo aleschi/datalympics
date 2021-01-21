@@ -22,16 +22,39 @@ class ChorusController < ApplicationController
     @programme = Choru.where('centre_financier = ?', @search ).order('date ASC')
     @programme_ht2 = @programme.where("compte_budgetaire = ?", "HT2")
     @programme_t2 = @programme.where("compte_budgetaire = ?", "T2")
-    @bop = @chorus.select { |choru| choru.centre_financier.count("-") == 1 }
+    @bops = @chorus.select { |choru| choru.centre_financier.count("-") == 1 }
+    
     #compter le nombre de bop differents 
     @bop_arr = []
-    @bop.each do |bop|
+    @bops.each do |bop|
       @bop_arr << bop.centre_financier
     end 
     @bop_arr.uniq!
+    @bop = Choru.where('centre_financier = ?', @bop_arr[0] ).order('date ASC')
+    @bop_ht2 = @bop.where("compte_budgetaire = ?", "HT2")
+    @bop_t2 = @bop.where("compte_budgetaire = ?", "T2")
     
-    @uo = @chorus.select { |choru| choru.centre_financier.count("-") == 2 }
+    @uos = @chorus.select { |choru| choru.centre_financier.count("-") == 2 }
+    #compter le nombre de bop differents 
+    @uo_arr = []
+    @uos.each do |uo|
+      @uo_arr << uo.centre_financier
+    end 
+    @uo_arr.uniq!
+    @uo = Choru.where('centre_financier = ?', @uo_arr[0] ).order('date ASC')
+    @uo_ht2 = @uo.where("compte_budgetaire = ?", "HT2")
+    @uo_t2 = @uo.where("compte_budgetaire = ?", "T2")
+  end 
   
+  def select_bop
+    @bop = Choru.where('centre_financier = ?', params[:id]).order('date ASC')
+    @bop_ht2 = @bop.where("compte_budgetaire = ?", "HT2")
+    @bop_t2 = @bop.where("compte_budgetaire = ?", "T2")
+  end 
+  def select_uo
+    @uo = Choru.where('centre_financier = ?', params[:id])
+    @uo_ht2 = @uo.where("compte_budgetaire = ?", "HT2")
+    @uo_t2 = @uo.where("compte_budgetaire = ?", "T2")
   end 
   
   def edit

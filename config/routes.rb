@@ -52,5 +52,7 @@ Rails.application.routes.draw do
   post 'delete-document' => 'documents#delete_file'
   
   get 'timeline' => 'ouvrages#timeline'
+  post 'select_bop' => 'chorus#select_bop'
+  post 'select_uo' => 'chorus#select_uo'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

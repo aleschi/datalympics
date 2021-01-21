@@ -1,0 +1,96 @@
+<% if !@bop.nil?%>
+         <div id="bop_chart">
+
+         </div>
+
+
+<script>
+
+Highcharts.chart('bop_chart', {
+   chart:{
+       backgroundColor: '#fff',
+                 borderRadius:10,
+       type: 'area',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          // maxWidth: '500px'
+          }, 
+                   scrollablePlotArea: {
+       minWidth: 2000,
+       scrollPositionX:1,
+     },
+          },
+title: {
+        text:"",
+},
+    colors: ['#2E5D63', '#C68D7B'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: 'k€',
+      
+    },
+  xAxis:{
+    type: 'datetime'
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },       
+        }
+    },
+
+  
+
+    series: [{
+        name: 'HT2',
+        data: [
+          <% @montant = 0 %>
+          <% @bop_ht2.each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= @montant + programme.montant/1000%>],
+           <% @montant = @montant + programme.montant/1000 %>
+    <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    },{
+        name: 'T2',
+        data: [
+          <% @montant = 0 %>
+          <% @bop_t2.each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= @montant + programme.montant/1000%>],
+           <% @montant = @montant + programme.montant/1000 %>
+    <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
+</script>
+<% end %>
