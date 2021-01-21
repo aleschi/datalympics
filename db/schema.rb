@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_160424) do
+ActiveRecord::Schema.define(version: 2021_01_21_081726) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -53,6 +53,18 @@ ActiveRecord::Schema.define(version: 2020_12_09_160424) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ouvrage_id"], name: "index_chantiers_on_ouvrage_id"
+  end
+
+  create_table "chorus", force: :cascade do |t|
+    t.date "date"
+    t.string "type_piece"
+    t.string "type_budget"
+    t.string "operation"
+    t.string "centre_financier"
+    t.string "compte_budgetaire"
+    t.integer "montant"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "documents", force: :cascade do |t|

@@ -1,0 +1,42 @@
+<%= form_for(@choru) do |form| %>
+
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type_piece %>
+    <%= form.text_field :type_piece %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type_budget %>
+    <%= form.text_field :type_budget %>
+  </div>
+
+  <div class="field">
+    <%= form.label :operation %>
+    <%= form.text_field :operation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :centre_financier %>
+    <%= form.text_field :centre_financier %>
+  </div>
+
+  <div class="field">
+    <%= form.label :compte_budgetaire %>
+    <%= form.text_field :compte_budgetaire %>
+  </div>
+
+  <div class="field">
+    <%= form.label :montant %>
+    <%= form.number_field :montant %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

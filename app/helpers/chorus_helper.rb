@@ -1,0 +1,2 @@
+module ChorusHelper
+end

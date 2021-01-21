@@ -1,0 +1,378 @@
+<div class="EB_page">
+
+  <h1 class="EB_title">Programme <%= params[:id]%></h1>
+   <div class="SD-topo-box">
+    <div class="SD-topo-box-title">
+      <span>Programme</span>
+    </div><br><br>
+     <div id="programme">
+       
+     </div>
+     <div class="SD-topo-box-title">
+      <span>BOP</span>
+    </div><br><br>
+     
+     <% (1..@bop_arr.length).each do |i|%>
+     <div id="bop#{i}">
+       
+     </div>
+     <% end %>
+      <div class="SD-topo-box-title">
+      <span>UO</span>
+    </div><br><br>
+     <div id="uo">
+       
+     </div>
+  </div>
+  <div class="SD-topo-box">
+    <div class="SD-topo-box-title">
+      <span>Programme</span>
+    </div><br><br>
+    <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Type budget</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Montant</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @programme.each do |choru| %>
+          <tr>
+            <td><%= choru.date %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.type_budget %></td>
+            <td><%= choru.operation %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+            <td><%= choru.montant %></td>
+           
+            <td><%= link_to 'Edit', edit_choru_path(choru) %></td>
+            <td><%= link_to 'Destroy', choru, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+    <br>
+    <div class="SD-topo-box-title">
+      <span>BOP</span>
+    </div><br><br>
+    <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Type budget</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Montant</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @bop.each do |choru| %>
+          <tr>
+            <td><%= choru.date %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.type_budget %></td>
+            <td><%= choru.operation %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+            <td><%= choru.montant %></td>
+         
+            <td><%= link_to 'Edit', edit_choru_path(choru) %></td>
+            <td><%= link_to 'Destroy', choru, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+    <br>
+    <div class="SD-topo-box-title">
+      <span>UO</span>
+    </div><br><br>
+    <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Type budget</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Montant</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @uo.each do |choru| %>
+          <tr>
+            <td><%= choru.date %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.type_budget %></td>
+            <td><%= choru.operation %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+            <td><%= choru.montant %></td>
+          
+            <td><%= link_to 'Edit', edit_choru_path(choru) %></td>
+            <td><%= link_to 'Destroy', choru, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+    <br>
+  </div>
+</div>
+
+<script>
+Highcharts.chart('programme', {
+   chart:{
+       backgroundColor: '#fff',
+       type: 'area',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          // maxWidth: '500px'
+          },      
+          },
+title: {
+        text:"",
+},
+    colors: ['#2E5D63'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: 'k€',
+      
+    },
+  xAxis:{
+    type: 'datetime'
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },       
+        }
+    },
+
+  
+
+    series: [{
+        name: 'HT2',
+        data: [
+          <% @montant = 0 %>
+          <% @programme_ht2.each do |programme| %>
+            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
+           <% @montant =  programme.montant/1000 %>
+           [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= programme.montant/1000%>], 
+          <% else %>
+              
+              [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%=  @montant + programme.montant/1000%>],
+          <% @montant = @montant + programme.montant/1000 %>
+          <% end %> 
+          <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    }, {
+        name: 'T2',
+        data: [
+          <% @montant = 0 %>
+          <% @programme_t2.each do |programme| %>
+            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
+           <% @montant =  programme.montant/1000 %>
+           [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= programme.montant/1000%>], 
+          <% else %>
+              
+              [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%=  @montant + programme.montant/1000%>],
+          <% @montant = @montant + programme.montant/1000 %>
+          <% end %> 
+          <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+
+<script>
+    <% (1..@bop_arr.length).each do |i|%>
+Highcharts.chart('bop#{i}', {
+   chart:{
+       backgroundColor: '#fff',
+       type: 'area',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          // maxWidth: '500px'
+          },      
+          },
+title: {
+        text:"",
+},
+    colors: ['#2E5D63'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: 'k€',
+      
+    },
+  xAxis:{
+    type: 'datetime'
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },       
+        }
+    },
+
+  
+
+    series: [{
+        name: 'Mouvements au niveau du bop',
+        data: [
+          <% @montant = 0 %>
+          <% @bop.each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= @montant + programme.montant/1000%>],
+           <% @montant = @montant + programme.montant/1000 %>
+    <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+  <% end %>
+</script>
+<script>
+Highcharts.chart('uo', {
+   chart:{
+       backgroundColor: '#fff',
+       type: 'area',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          // maxWidth: '500px'
+          },      
+          },
+title: {
+        text:"",
+},
+    colors: ['#2E5D63'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: 'k€',
+      
+    },
+  xAxis:{
+    type: 'datetime'
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },       
+        }
+    },
+
+  
+
+    series: [{
+        name: 'Mouvements au niveau de l uo',
+        data: [
+          <% @montant = 0 %>
+          <% @uo.each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= @montant + programme.montant/1000%>],
+           <% @montant = @montant + programme.montant/1000 %>
+    <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>

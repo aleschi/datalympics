@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :chorus do 
+    collection do 
+      post 'import' => 'chorus#import'
+    end
+  end 
   resources :chantiers
   devise_for :users, :path => "",
     :path_names =>  {:sign_in => "connexion", :sign_out => "deconnexion"}
