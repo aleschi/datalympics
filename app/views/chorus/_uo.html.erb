@@ -1,8 +1,23 @@
 <% if !@uo.nil?%>
-         <div id="uo_chart">
-
+  <div class="SD-topo-box-title">
+    <span>UO DE CE BOP (<%= @uo_arr.length %>)</span>       
+  </div><br><br>
+     
+     <div class="row">
+       <div class="col-md-9">
+         <div id="uo_chart"> </div>
+       </div>
+       <div class="col-md-3">
+           <div class="chorus-select-box">
+             <div class="chorus-select-box-title" id="uo_name"> <%= @uo.first.centre_financier%> </div>
+              <%= form_with url: select_uo_path, id: "uo_form" do |f|%>
+        <% (0..@uo_arr.length-1).each do |i|%>
+          <label><%= f.radio_button :id, @uo_arr[i] %>  <%= @uo_arr[i]%></label>
+        <% end %>
+       <% end %>
          </div>
-
+       </div> 
+     </div>
 
 <script>
 

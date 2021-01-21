@@ -34,14 +34,15 @@ class ChorusController < ApplicationController
     @bop_ht2 = @bop.where("compte_budgetaire = ?", "HT2")
     @bop_t2 = @bop.where("compte_budgetaire = ?", "T2")
     
-    @uos = @chorus.select { |choru| choru.centre_financier.count("-") == 2 }
+    #@uos = @chorus.select { |choru| choru.centre_financier.count("-") == 2 }
     #compter le nombre de bop differents 
+    @uo_search = @bop.first.centre_financier + '-'
+    @uo = Choru.where('centre_financier like ?', '%'+@uo_search+'%' ).order('date ASC')
     @uo_arr = []
-    @uos.each do |uo|
+    @uo.each do |uo|
       @uo_arr << uo.centre_financier
     end 
-    @uo_arr.uniq!
-    @uo = Choru.where('centre_financier = ?', @uo_arr[0] ).order('date ASC')
+    @uo_arr.uniq! 
     @uo_ht2 = @uo.where("compte_budgetaire = ?", "HT2")
     @uo_t2 = @uo.where("compte_budgetaire = ?", "T2")
   end 
@@ -50,9 +51,27 @@ class ChorusController < ApplicationController
     @bop = Choru.where('centre_financier = ?', params[:id]).order('date ASC')
     @bop_ht2 = @bop.where("compte_budgetaire = ?", "HT2")
     @bop_t2 = @bop.where("compte_budgetaire = ?", "T2")
+     @uo_search = @bop.first.centre_financier + '-'
+    @uo = Choru.where('centre_financier like ?', '%'+@uo_search+'%' ).order('date ASC')
+    @uo_arr = []
+    @uo.each do |uo|
+      @uo_arr << uo.centre_financier
+    end 
+    @uo_arr.uniq! 
+    @uo_ht2 = @uo.where("compte_budgetaire = ?", "HT2")
+    @uo_t2 = @uo.where("compte_budgetaire = ?", "T2")
   end 
   def select_uo
     @uo = Choru.where('centre_financier = ?', params[:id])
+    @uo_ht2 = @uo.where("compte_budgetaire = ?", "HT2")
+    @uo_t2 = @uo.where("compte_budgetaire = ?", "T2")
+     @uo_search = @bop.first.centre_financier + '-'
+    @uo = Choru.where('centre_financier like ?', '%'+@uo_search+'%' ).order('date ASC')
+    @uo_arr = []
+    @uo.each do |uo|
+      @uo_arr << uo.centre_financier
+    end 
+    @uo_arr.uniq! 
     @uo_ht2 = @uo.where("compte_budgetaire = ?", "HT2")
     @uo_t2 = @uo.where("compte_budgetaire = ?", "T2")
   end 
