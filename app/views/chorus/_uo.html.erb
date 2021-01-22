@@ -1,6 +1,5 @@
 <% if !@uo.nil?%>
-  <div class="SD-topo-box-title">
-    <span>UO DE CE BOP (<%= @uo_arr.length %>)</span>       
+  <div class="SD-topo-box-title2">Visualisation au niveau des UO de ce BOP (<%= @uo_arr.length %>)     
   </div><br><br>
      
      <div class="row">
@@ -69,8 +68,8 @@ title: {
         data: [
           <% @montant = 0 %>
           <% @uo_ht2.each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= @montant + programme.montant/1000%>],
-           <% @montant = @montant + programme.montant/1000 %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= (@montant + programme.montant)/1000%>],
+           <% @montant = @montant + programme.montant %>
     <% end %>
         ],
        dataLabels: {
@@ -81,8 +80,8 @@ title: {
         data: [
           <% @montant = 0 %>
           <% @uo_t2.each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= @montant + programme.montant/1000%>],
-           <% @montant = @montant + programme.montant/1000 %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= (@montant + programme.montant)/1000%>],
+           <% @montant = @montant + programme.montant %>
     <% end %>
         ],
        dataLabels: {

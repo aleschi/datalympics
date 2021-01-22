@@ -2,16 +2,16 @@
 
   <h1 class="EB_title">Programme <%= params[:id]%></h1>
    <div class="SD-topo-box">
-    <div class="SD-topo-box-title">
-      <span>Programme</span>
+    <div class="SD-topo-box-title2">
+      Visualisation du Programme <%= params[:id]%>
     </div><br><br>
      <div id="programme">
        
      </div>
      <br><br>
      
-     <div class="SD-topo-box-title">
-      <span>BOP (<%= @bop_arr.length%>)</span>
+     <div class="SD-topo-box-title2">
+     Visualisation des mouvements de crédits au niveau des BOP (<%= @bop_arr.length%>)
     </div><br><br>
 
      <div class="row">
@@ -39,8 +39,7 @@
        
   </div>
   <div class="SD-topo-box">
-    <div class="SD-topo-box-title">
-      <span>Programme</span>
+    <div class="SD-topo-box-title2"> Tableau des mouvements de crédits au niveau du Programme
     </div><br><br>
     <div class="ED_table">
     <table class="table-striped">
@@ -76,8 +75,7 @@
     </table>
     </div>
     <br>
-    <div class="SD-topo-box-title">
-      <span>BOP</span>
+    <div class="SD-topo-box-title2"> Tableau des mouvements de crédits au niveau du BOP
     </div><br><br>
     <div class="ED_table">
     <table class="table-striped">
@@ -113,8 +111,7 @@
     </table>
     </div>
     <br>
-    <div class="SD-topo-box-title">
-      <span>UO</span>
+    <div class="SD-topo-box-title2"> Tableau des mouvements de crédits au niveau des UO
     </div><br><br>
     <div class="ED_table">
     <table class="table-striped">
@@ -158,13 +155,14 @@ Highcharts.chart('programme', {
    chart:{
        backgroundColor: '#fff',
        type: 'area',
+    // width: '2000px',
        spacing: [40,40,40,40],
         style:{
           fontFamily: "Spectral",
           // maxWidth: '500px'
           },
      scrollablePlotArea: {
-       minWidth: 2000,
+       minWidth: 20000,
        scrollPositionX:1,
      },
           },
@@ -184,17 +182,20 @@ title: {
       
     },
   xAxis:{
-    type: 'datetime'
+    type: 'datetime',
+    tickInterval: 30 * 24 * 3600 * 1000,
+  // tickPixelInterval:200,
   },
     plotOptions: {
         series: {
             label: {
                 connectorAllowed: false
-            },       
+            }, 
+            marker: {
+                enabled: true
+            }
         }
     },
-
-  
 
     series: [{
         name: 'HT2',
@@ -202,13 +203,12 @@ title: {
           <% @montant = 0 %>
           <% @programme_ht2.each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
-           <% @montant =  programme.montant/1000 %>
-           [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= programme.montant/1000%>], 
-          <% else %>
-              
-              [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%=  @montant + programme.montant/1000%>],
-          <% @montant = @montant + programme.montant/1000 %>
-          <% end %> 
+            <% @montant =  programme.montant %>
+            {name:  '<%= programme.type_budget.to_s %> - <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
+            <% else %>              
+            {name:  '<%= programme.type_budget.to_s%> - <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,  },
+            <% @montant = @montant + programme.montant %>
+            <% end %> 
           <% end %>
         ],
        dataLabels: {
@@ -220,12 +220,11 @@ title: {
           <% @montant = 0 %>
           <% @programme_t2.each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
-           <% @montant =  programme.montant/1000 %>
-           [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= programme.montant/1000%>], 
+           <% @montant =  programme.montant %>
+           {name: '<%= programme.type_budget.to_s %> - <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
           <% else %>
-              
-              [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%=  @montant + programme.montant/1000%>],
-          <% @montant = @montant + programme.montant/1000 %>
+               { name: '<%= programme.type_budget.to_s %> - <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,},
+          <% @montant = @montant + programme.montant %>
           <% end %> 
           <% end %>
         ],
