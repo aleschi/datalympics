@@ -1,0 +1,239 @@
+   <div class="row">
+       <div class="col-md-9">
+        <div id="programme"></div>
+       </div>
+       <div class="col-md-3">
+         <div class="chorus-select-box">
+             <div class="chorus-select-box-title">Années</div>
+             <%= form_with url: select_date_programme_path(:id => @programme.first.centre_financier), id: "programme_form" do |f|%>
+              <% (@begin..2021).each do |i|%>
+                <label><%= f.check_box :date,{:multiple => true}, i, nil%>  <%= i%></label>
+              <% end %>
+             <% end %>
+           </div>
+       </div>
+     </div>
+     <br><br>
+     <div class="SD-topo-box-title2"><a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details"> Tableau des mouvements de crédits au niveau du Programme <i class="fas fa-chevron-down"></i></a>
+    </div><br>
+    <section id="details" class="collapse">
+    <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Type budget</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Montant</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @programme.each do |choru| %>
+          <tr>
+            <td><%= choru.date %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.type_budget %></td>
+            <td><%= choru.operation %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+            <td><%= choru.montant %></td>
+           
+            <td><%= link_to 'Edit', edit_choru_path(choru) %></td>
+            <td><%= link_to 'Destroy', choru, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+     </section>
+    <br>
+     
+     <div class="SD-topo-box-title2">
+     Visualisation des mouvements de crédits au niveau des BOP (<%= @bop_arr.length%>) 
+    </div><br><br>
+
+     <div class="row">
+       <div class="col-md-9">
+          <div id="bop">
+           <%= render 'chorus/bop'%>
+          </div>  
+       </div>
+       <div class="col-md-3">
+           <div class="chorus-select-box">
+             <div class="chorus-select-box-title" id="bop_name"> <%= @bop.first.centre_financier%> </div>
+             <%= form_with url: select_bop_path, id: "bop_form" do |f|%>
+              <% (0..@bop_arr.length-1).each do |i|%>
+                <label><%= f.radio_button :id, @bop_arr[i] %>  <%= @bop_arr[i]%></label>
+              <% end %>
+             <% end %>
+           </div>
+       </div>
+     </div>
+     
+     <br><br>
+     <div id='tableau_bop'>
+       <%= render 'chorus/tableau_bop'%>
+     </div>
+     
+       <br><br>
+     <div id="uo">
+        <%= render 'chorus/uo'%>
+     </div>
+
+
+<script>
+Highcharts.chart('programme', {
+   chart:{
+       backgroundColor: '#fff',
+     borderColor: '#fff',
+       type: 'area',
+    // width: '2000px',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          // maxWidth: '500px'
+          },
+       zoomType: 'x',
+        borderWidth: 1,
+        resetZoomButton: {
+            position: {
+                // align: 'right', // by default
+                // verticalAlign: 'top', // by default
+                x: -10,
+                y: 10
+            },
+            relativeTo: 'chart'
+        },
+     scrollablePlotArea: {
+       minWidth: 2000,
+       scrollPositionX:1,
+     },
+          },
+title: {
+        text:"",
+},
+    colors: ['#2E5D63', '#C68D7B'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: 'k€',
+      
+    },
+  xAxis:{
+    type: 'datetime',
+    tickInterval: 30 * 24 * 3600 * 1000,
+  // tickPixelInterval:200,
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            }, 
+            marker: {
+                enabled: true
+            },
+          step: 'left',
+        }
+    },
+ tooltip: {
+     formatter: function() {
+      var point = this,
+        series = point.series,
+       
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        header = '<span style="font-size: 10px">' + firstDate + ' - '+  point.key  + '</span><br/>',
+        content = series.name + ' disponible : <b>' + point.y  + 'k€</b><br/>';
+
+      return header + content;
+    },
+
+    },
+    series: [{
+        name: 'HT2',
+        data: [
+          <% @montant = 0 %>
+          <% @programme_ht2.each do |programme| %>
+            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
+            <% @montant =  programme.montant %>
+            {name:  '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
+            <% else %>              
+            {name:  '<%= programme.type_budget.to_s%> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,  },
+            <% @montant = @montant + programme.montant %>
+            <% end %> 
+          <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    }, {
+        name: 'T2',
+        data: [
+          <% @montant = 0 %>
+          <% @programme_t2.each do |programme| %>
+            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
+           <% @montant =  programme.montant %>
+           {name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
+          <% else %>
+               { name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,},
+          <% @montant = @montant + programme.montant %>
+          <% end %> 
+          <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+<script>
+  $('#programme_form input').click(function(){
+$('#programme_form').submit();
+});
+</script>
+<script>
+$('#bop_form input').click(function(){
+$('#bop_form').submit();
+});
+  
+</script>
+
+<script>
+  var elementid = '#id_'+'<%= @bop.first.centre_financier.downcase%>';
+  $(elementid).prop('checked', true);
+
+ 
+  <% if !@dates.nil?%>
+    <%@dates.each do |date|%>      
+      $('#date_'+'<%= date.to_i%>').prop('checked', true);
+    <% end %>
+  <% else %>
+     var elementprogid = '#date_'+'<%= @date.year%>';
+     $(elementprogid).prop('checked', true);
+  <% end %>
+</script>

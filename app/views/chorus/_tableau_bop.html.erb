@@ -1,0 +1,38 @@
+     <div class="SD-topo-box-title2"><a href="#details-bop" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-bop"> Tableau des mouvements de crédits au niveau du BOP <i class="fas fa-chevron-down"></i></a>
+    </div>
+     <section id="details-bop" class="collapse">
+    <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Type budget</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Montant</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @bop.each do |choru| %>
+          <tr>
+            <td><%= choru.date %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.type_budget %></td>
+            <td><%= choru.operation %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+            <td><%= choru.montant %></td>
+         
+            <td><%= link_to 'Edit', edit_choru_path(choru) %></td>
+            <td><%= link_to 'Destroy', choru, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+     </section>
+    <br>

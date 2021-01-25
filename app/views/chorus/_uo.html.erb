@@ -1,4 +1,4 @@
-<% if !@uo.nil?%>
+<% if !@uo.nil? &&  !@uo.first.nil?%>
   <div class="SD-topo-box-title2">Visualisation au niveau des UO de ce BOP (<%= @uo_arr.length %>)     
   </div><br><br>
      
@@ -9,20 +9,113 @@
        <div class="col-md-3">
            <div class="chorus-select-box">
              <div class="chorus-select-box-title" id="uo_name"> <%= @uo.first.centre_financier%> </div>
-              <%= form_with url: select_uo_path, id: "uo_form" do |f|%>
-        <% (0..@uo_arr.length-1).each do |i|%>
-          <label><%= f.radio_button :id, @uo_arr[i] %>  <%= @uo_arr[i]%></label>
-        <% end %>
-       <% end %>
+              <%= form_with url: select_uo_path(:bop_id => @bop.first.centre_financier), id: "uo_form" do |f|%>
+              <% (0..@uo_arr.length-1).each do |i|%>
+                <label><%= f.radio_button :id, @uo_arr[i] %>  <%= @uo_arr[i]%></label>
+              <% end %>
+             <% end %>
          </div>
        </div> 
      </div>
 
+   <br><br>
+    <div class="SD-topo-box-title2"><a href="#details-uo" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-uo">  Tableau des mouvements de crédits au niveau de l'UO <i class="fas fa-chevron-down"></i></a>
+    </div>
+    <section id="details-uo" class="collapse">
+  
+    <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Type budget</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Montant</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @uo.where('operation = ?', 'Réception' ).each do |choru| %>
+          <tr>
+            <td><%= choru.date %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.type_budget %></td>
+            <td><%= choru.operation %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+            <td><%= choru.montant %></td>
+          
+            <td><%= link_to 'Edit', edit_choru_path(choru) %></td>
+            <td><%= link_to 'Destroy', choru, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div> <br>
+    
+    <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Type budget</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Action</th>
+          <th scope="col">Montant</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @uo.where('operation != ?', 'Réception' ).each do |choru| %>
+          <tr>
+            <td><%= choru.date %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.type_budget %></td>
+            <td><%= choru.operation %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+             <td><%= choru.domaine_fonctionnel %></td>
+            <td><%= choru.montant %></td>
+          
+            <td><%= link_to 'Edit', edit_choru_path(choru) %></td>
+            <td><%= link_to 'Destroy', choru, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+    </section>
+    <br>
+  <div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO    
+  </div><br><br>
+     
+     <div class="row">
+       <div class="col-md-9">
+         <div id="actions_chart"> </div>
+       </div>
+       <div class="col-md-3">
+         <div class="chorus-select-box">
+           <div class="chorus-select-box-title" id="uo_name"> Actions présentes </div>
+          <% @uo_actions.each do |action| %>
+           <div><label><%= action %></label></div>
+          <% end %>
+         </div>
+       </div> 
+     </div>
 <script>
 
 Highcharts.chart('uo_chart', {
    chart:{
        backgroundColor: '#fff',
+     borderColor: '#fff',
                  borderRadius:10,
        type: 'area',
        spacing: [40,40,40,40],
@@ -30,6 +123,18 @@ Highcharts.chart('uo_chart', {
           fontFamily: "Spectral",
           // maxWidth: '500px'
           }, 
+      zoomType: 'x',
+        borderWidth: 1,
+        resetZoomButton: {
+            position: {
+                // align: 'right', // by default
+                // verticalAlign: 'top', // by default
+                x: -10,
+                y: 10
+            },
+            relativeTo: 'chart'
+        },
+     
                    scrollablePlotArea: {
        minWidth: 2000,
        scrollPositionX:1,
@@ -57,7 +162,11 @@ title: {
         series: {
             label: {
                 connectorAllowed: false
-            },       
+            }, 
+          marker: {
+                enabled: true
+            },
+          step: 'left',
         }
     },
 
@@ -105,6 +214,116 @@ title: {
     }
 
 });
+
+</script>
+
+<script>
+
+Highcharts.chart('actions_chart', {
+   chart:{
+       backgroundColor: '#fff',
+     borderColor: '#fff',
+                 borderRadius:10,
+       type: 'area',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Spectral",
+          // maxWidth: '500px'
+          }, 
+        zoomType: 'x',
+        borderWidth: 1,
+        resetZoomButton: {
+            position: {
+                // align: 'right', // by default
+                // verticalAlign: 'top', // by default
+                x: -10,
+                y: 10
+            },
+            relativeTo: 'chart'
+        },
+       scrollablePlotArea: {
+       minWidth: 2000,
+       scrollPositionX:1,
+     },
+          },
+title: {
+        text:"",
+},
+    colors: ['#2E5D63', '#C68D7B'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  tooltip: {
+      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+        valueSuffix: 'k€',
+      
+    },
+  xAxis:{
+    type: 'datetime'
+  },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            }, 
+          marker: {
+                enabled: true
+            },
+          step: 'left',
+        }
+    },
+
+  
+
+    series: [
+       <% @uo_actions.each do |action| %>
+      {
+        name: '<%= action%>',
+        data: [
+           <% @montant = 0 %>
+         <% @uo.where(domaine_fonctionnel: action).each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%=  (@montant - programme.montant)/1000%>],
+          <% @montant = @montant - programme.montant %>
+          <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+      },
+         <% end %>
+    ],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
+</script>
+
+
+<script>
+  $('#uo_form input').click(function(){
+$('#uo_form').submit();
+});
+</script>
+<script>
+  var elementuoid = '#id_'+'<%= @uo.first.centre_financier.downcase%>'
+  $(elementuoid).prop('checked', true);
 
 </script>
 <% end %>

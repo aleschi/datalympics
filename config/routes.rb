@@ -54,5 +54,6 @@ Rails.application.routes.draw do
   get 'timeline' => 'ouvrages#timeline'
   post 'select_bop' => 'chorus#select_bop'
   post 'select_uo' => 'chorus#select_uo'
+   post 'select_date_programme' => 'chorus#select_date_programme'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -10,6 +10,7 @@
 Highcharts.chart('bop_chart', {
    chart:{
        backgroundColor: '#fff',
+     borderColor: '#fff',
                  borderRadius:10,
        type: 'area',
        spacing: [40,40,40,40],
@@ -17,6 +18,17 @@ Highcharts.chart('bop_chart', {
           fontFamily: "Spectral",
           // maxWidth: '500px'
           }, 
+       zoomType: 'x',
+        borderWidth: 1,
+        resetZoomButton: {
+            position: {
+                // align: 'right', // by default
+                // verticalAlign: 'top', // by default
+                x: -10,
+                y: 10
+            },
+            relativeTo: 'chart'
+        },
                    scrollablePlotArea: {
        minWidth: 2000,
        scrollPositionX:1,
@@ -44,7 +56,11 @@ title: {
         series: {
             label: {
                 connectorAllowed: false
-            },       
+            },  
+           marker: {
+                enabled: true
+            },
+          step: 'left',
         }
     },
 
@@ -94,4 +110,7 @@ title: {
 });
 
 </script>
+
+
 <% end %>
+
