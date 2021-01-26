@@ -13,9 +13,15 @@ class Choru < ApplicationRecord
       @chorus.compte_budgetaire = row[5]
       @chorus.montant = row[6]
       @chorus.domaine_fonctionnel = row[7]
-        if !@chorus.date.nil?
-          @chorus.save 
+      @chorus.save 
+        if @chorus.date.nil?
+          @chorus.destroy 
         end
+      if @chorus.type_budget.nil?
+        @chorus.montant = -@chorus.montant
+        @chorus.type_budget = "BUDGET GÉN. MIS À DISPOSITION"
+        @chorus.save 
+      end
       end
     end
   end

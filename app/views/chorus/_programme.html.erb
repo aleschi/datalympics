@@ -27,7 +27,7 @@
           <th scope="col">Operation</th>
           <th scope="col">Centre financier</th>
           <th scope="col">Compte budgetaire</th>
-          <th scope="col">Montant</th>
+          <th scope="col">Montant (€)</th>
 
         </tr>
       </thead>
@@ -43,8 +43,6 @@
             <td><%= choru.compte_budgetaire %></td>
             <td><%= choru.montant %></td>
            
-            <td><%= link_to 'Edit', edit_choru_path(choru) %></td>
-            <td><%= link_to 'Destroy', choru, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
@@ -233,7 +231,7 @@ $('#bop_form').submit();
       $('#date_'+'<%= date.to_i%>').prop('checked', true);
     <% end %>
   <% else %>
-     var elementprogid = '#date_'+'<%= @date.year%>';
+     var elementprogid = '#date_'+'<%= @date.year+1%>';
      $(elementprogid).prop('checked', true);
   <% end %>
 </script>

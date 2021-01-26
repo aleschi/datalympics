@@ -45,9 +45,17 @@ title: {
         }
     },
   tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: 'k€',
-      
+     formatter: function() {
+      var point = this,
+        series = point.series,
+       
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        header = '<span style="font-size: 10px">' + firstDate  + '</span><br/>',
+        content = series.name + ' disponible : <b>' + point.y  + 'k€</b><br/>';
+
+      return header + content;
+    },
+
     },
   xAxis:{
     type: 'datetime'
