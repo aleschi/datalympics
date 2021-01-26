@@ -25,7 +25,7 @@
             <td><%= choru.operation %></td>
             <td><%= choru.centre_financier %></td>
             <td><%= choru.compte_budgetaire %></td>
-            <td><%= choru.montant %></td>
+            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
          
           </tr>
         <% end %>
