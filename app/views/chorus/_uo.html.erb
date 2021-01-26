@@ -109,6 +109,9 @@
 <script>
 
 Highcharts.chart('uo_chart', {
+  mapNavigation: {
+            enableMouseWheelZoom: true
+        },
    chart:{
        backgroundColor: '#fff',
      borderColor: '#fff',
@@ -119,17 +122,16 @@ Highcharts.chart('uo_chart', {
           fontFamily: "Spectral",
           // maxWidth: '500px'
           }, 
-      zoomType: 'x',
-        borderWidth: 1,
-        resetZoomButton: {
-            position: {
-                // align: 'right', // by default
-                // verticalAlign: 'top', // by default
-                x: -10,
-                y: 10
-            },
-            relativeTo: 'chart'
-        },
+      // zoomType: 'x',
+      //  borderWidth: 1,
+      //  resetZoomButton: {
+      //      position: {
+           
+       //         x: -10,
+        //        y: 10
+       //     },
+       //     relativeTo: 'chart'
+      //  },
      
                    scrollablePlotArea: {
        minWidth: 2000,
