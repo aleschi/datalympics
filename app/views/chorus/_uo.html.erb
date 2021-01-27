@@ -119,7 +119,7 @@ Highcharts.chart('uo_chart', {
        type: 'area',
        spacing: [40,40,40,40],
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
           // maxWidth: '500px'
           }, 
       // zoomType: 'x',
@@ -149,8 +149,19 @@ title: {
         }
     },
   tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: 'k€',
+      formatter: function() {
+      var point = this,
+        series = point.series,
+       
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+        content = '<b>'+series.name + ' disponible : ' + point.y  + 'k€</b><br/>';
+
+      return header + content;
+    },
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
       
     },
   xAxis:{
@@ -225,7 +236,7 @@ Highcharts.chart('actions_chart', {
        type: 'area',
        spacing: [40,40,40,40],
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
           // maxWidth: '500px'
           }, 
         zoomType: 'x',
@@ -257,7 +268,9 @@ title: {
   tooltip: {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
         valueSuffix: 'k€',
-      
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
   xAxis:{
     type: 'datetime'

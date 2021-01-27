@@ -18,7 +18,7 @@ Highcharts.chart('bop_chart', {
        type: 'area',
        spacing: [40,40,40,40],
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
           // maxWidth: '500px'
           }, 
       // zoomType: 'x',
@@ -52,12 +52,14 @@ title: {
         series = point.series,
        
         firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-        header = '<span style="font-size: 10px">' + firstDate  + '</span><br/>',
-        content = series.name + ' disponible : <b>' + point.y  + 'k€</b><br/>';
+        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+        content = '<b>'+series.name + ' disponible : ' + point.y  + 'k€</b><br/>';
 
       return header + content;
     },
-
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
   xAxis:{
     type: 'datetime'

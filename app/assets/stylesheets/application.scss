@@ -7,7 +7,15 @@
 @font-face {
   font-family: 'Marianne Regular';
   src: font-url('Marianne-Regular.woff');
+  font-weight:normal;
 }
+
+@font-face {
+  font-family: 'Marianne Regular';
+  src: font-url('Marianne-Bold.woff');
+  font-weight:bold;
+}
+
 html{
   height: 100%;
 }
@@ -2085,4 +2093,7 @@ html[xmlns] .slides {display: block;}
   font-size:20px;
   font-weight:700;
   margin-bottom:20px;
+}
+.highcharts-scrolling {
+   visibility: visible;
 }
