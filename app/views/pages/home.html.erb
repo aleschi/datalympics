@@ -6,35 +6,34 @@
   
   <div class="row">
     <div class="col-md-6">
-        <div class="home-box">
-    <div class="home-box-title">
-      <%= link_to etat_budgets_path do %>Mon budget <% end %>
-    </div>
-    <div class="home-box-infos-box">
-      <div class="row">
-        <div class="col-md-6">
+      <div class="home-box">
+        <div class="home-box-title">
+          <%= link_to solideo_depenses_path do %>Solideo<% end %>
+        </div>
+        <div class="home-box-infos-box">
+          <div class="row">
+            <div class="col-md-12">
 
-          <div>
-            <div class="home-box-infos1">+ <%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €</div>
-            <div class="home-box-infos2">Dépenses cumulées </div>
-          </div><br>
-          
-          <div>
-            <div class="home-box-infos1">+ <%= ((EtatDepense.where('date <= ?', Date.new(2019,12)).sum('cp_conso')-EtatDepense.where('date <= ?', Date.new(2019,12)).sum('cp_prevu'))/EtatDepense.where('date <= ?', Date.new(2019,12)).sum('cp_prevu')).round %>%</div>
-            <div class="home-box-infos2">Dépassement budgétaire</div>
-          </div><br>
-         
+              <div>
+                <div class="home-box-infos1"><i class="fas fa-calendar-day"></i> 8 février 2021</div>
+                <div class="home-box-infos2">Prochain CA</div>
+              </div><br>
 
-          </div>
+              <div>
+                <div class="home-box-infos1"><%= link_to documents_solideo_path do %>Dernier document transmis<% end %></div>
+                <% if @document.file.attached?%>
+                <div class="home-box-infos2"><%= link_to rails_blob_path(@document.file, disposition: 'preview'), target: "_blank" do %>Maquette_2020.csv<% end %></div>
+                <% end %>
+              </div><br>
+              
+              <div>
+              <div class="home-box-infos3"><a><i class="fas fa-exclamation-triangle"></i> Retard transmission document MOA </a></div>
+            </div>
+              </div>
 
-        <div class="col-md-6">
-          <div id="container-jauge">
-            
           </div>
         </div>
       </div>
-    </div>
-  </div>
     </div>
       <div class="col-md-6"> 
         <div class="home-box">
@@ -58,9 +57,6 @@
             <div class="home-box-infos3"><%= link_to chantiers_path do %><i class="fas fa-exclamation-triangle"></i> <%= OuvragesRevue.where('date = ? AND delai_indicateur != ?', OuvragesRevue.order('date DESC').first.date, 1).count %> risques remontés<% end %></div>
            
           </div>
-          
-        
-
           </div>
 
         <div class="col-md-6">
@@ -74,61 +70,27 @@
       </div>
   </div>
   
+  <div  class="SD-table-box" id="carte-ouvrages">
+  <div class="SF-topo-financeurs-title"><span>Carte des ouvrages</span></div><br><br>
   <div class="row">
-    <div class="col-md-6">
-      <div class="home-box">
-        <div class="home-box-title">
-          <%= link_to solideo_depenses_path do %>Solideo<% end %>
+     <div class="col-md-6">
+           <%= search_form_for @q, url: recherche_ouvrages_path , method: :get, remote: true, id: "search-form" do |f| %>
+        <div class="ouvrages-search">
+           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un ouvrage", data: {autocomplete_source: ouvrages_path} %> 
+          <%= f.submit 'Rechercher', id:"submit_button", class:"hidden" %>
         </div>
-        <div class="home-box-infos-box">
-          <div class="row">
-            <div class="col-md-12">
-
-              <div>
-                <div class="home-box-infos1"><i class="fas fa-calendar-day"></i> 8 décembre 2020</div>
-                <div class="home-box-infos2">Prochain CA</div>
-              </div><br>
-
-              <div>
-                <div class="home-box-infos1"><%= link_to documents_solideo_path do %>Dernier document transmis<% end %></div>
-                <% if @document.file.attached?%>
-                <div class="home-box-infos2"><%= link_to rails_blob_path(@document.file, disposition: 'preview'), target: "_blank" do %>Maquette_2020.csv<% end %></div>
-                <% end %>
-              </div>
-
-              </div>
-
-          </div>
-        </div>
-      </div>
+          <% end %>          
     </div>
-    <div class="col-md-6">
-      <div class="home-box">
-        <div class="home-box-title">
-          Cojo
+   </div>
+      
+      <div id="ouvrages-results">
+
+        <%= render 'ouvrages/liste'%>
+                
         </div>
-        <div class="home-box-infos-box">
-          <div class="row">
-            <div class="col-md-12">
-
-              <div>
-                <div class="home-box-infos1"><i class="fas fa-calendar-day"></i> 1 Janvier 2022</div>
-                <div class="home-box-infos2">Début des dépenses</div>
-              </div><br>
-
-              <div>
-                <div class="home-box-infos1"><i class="fas fa-bell"></i> 1 nouveau document</div>
-                <div class="home-box-infos2">Impacts_2020.csv</div>
-              </div>
-
-              </div>
-
-           
-          </div>
-        </div>
-      </div>
+                
+     
     </div>
-  </div>
 </div>
 
 <script>
