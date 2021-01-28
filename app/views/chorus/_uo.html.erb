@@ -116,7 +116,7 @@ Highcharts.chart('uo_chart', {
        backgroundColor: '#fff',
      borderColor: '#fff',
                  borderRadius:10,
-       type: 'area',
+       type: 'scatter',
        spacing: [40,40,40,40],
         style:{
           fontFamily: "Marianne Regular",
@@ -169,6 +169,7 @@ title: {
   },
     plotOptions: {
         series: {
+          lineWidth: 2,
             label: {
                 connectorAllowed: false
             }, 
@@ -233,7 +234,7 @@ Highcharts.chart('actions_chart', {
        backgroundColor: '#fff',
      borderColor: '#fff',
                  borderRadius:10,
-       type: 'area',
+       type: 'scatter',
        spacing: [40,40,40,40],
         style:{
           fontFamily: "Marianne Regular",
@@ -266,8 +267,16 @@ title: {
         }
     },
   tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: 'k€',
+      formatter: function() {
+      var point = this,
+        series = point.series,
+       
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+        content = '<b> Action '+series.name + ' : ' + point.y  + 'k€</b><br/>';
+
+      return header + content;
+    },
       borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
@@ -277,6 +286,7 @@ title: {
   },
     plotOptions: {
         series: {
+          lineWidth: 2,
             label: {
                 connectorAllowed: false
             }, 

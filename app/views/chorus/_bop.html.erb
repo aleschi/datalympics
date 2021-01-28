@@ -15,7 +15,7 @@ Highcharts.chart('bop_chart', {
        backgroundColor: '#fff',
      borderColor: '#fff',
                  borderRadius:10,
-       type: 'area',
+       type: 'scatter',
        spacing: [40,40,40,40],
         style:{
           fontFamily: "Marianne Regular",
@@ -66,6 +66,7 @@ title: {
   },
     plotOptions: {
         series: {
+          lineWidth: 2,
             label: {
                 connectorAllowed: false
             },  
