@@ -133,7 +133,7 @@ Highcharts.chart('container-steps', {
         type: 'xrange',
    height: "120px",
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
           },
     
     },
@@ -180,6 +180,9 @@ Highcharts.chart('container-steps', {
     headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',
     pointFormat: '<span style="color:{point.color}">●</span> {series.name}, deadline : <b>{point.x}</b><br/>',
     xDateFormat: '%Y',
+     borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
   },
   plotOptions: {
     xrange: {
@@ -258,7 +261,7 @@ Highcharts.chart('container-bar0', {
     chart: {
         type: 'bar',
       style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
          maxWidth: '500px',
           },
       height:"250px",
@@ -291,7 +294,10 @@ Highcharts.chart('container-bar0', {
         }
     },
     tooltip: {
-        valueSuffix: ' €'
+        valueSuffix: ' €',
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
   legend: {
     enabled: false,
@@ -321,7 +327,7 @@ Highcharts.chart('container-bar1', {
         type: 'column',
       backgroundColor: '#fff',
           style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
          
           },
       height:"250px",
@@ -356,7 +362,10 @@ Highcharts.chart('container-bar1', {
             '<td style="padding:0"><b>{point.y:.1f} €</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
-        useHTML: true
+        useHTML: true,
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
     plotOptions: {
         column: {

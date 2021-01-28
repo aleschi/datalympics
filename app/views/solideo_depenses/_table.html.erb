@@ -60,7 +60,7 @@
     <section id="details" class="collapse">
     <% if !@solideo_depenses_array.nil? %>     
         <div class="ED_table">
-          <table>
+          <table class="table-striped">
             <thead>
               <tr>
                 <th scope="col">Dates</th>
@@ -102,7 +102,7 @@ Highcharts.chart('container-1', {
            type: 'spline',
             spacing: [40,40,40,40],
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
         // maxWidth: '500px'
           },
        
@@ -128,6 +128,9 @@ Highcharts.chart('container-1', {
   tooltip: {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
         valueSuffix: ' M€',
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
       
     },
   xAxis:{
@@ -182,7 +185,7 @@ Highcharts.chart('container-2', {
          zoomType: 'xy',
          spacing: [40,40,40,40],
          style:{
-         fontFamily: "Spectral",
+         fontFamily: "Marianne Regular",
          //maxWidth: '500px'
           },       
           },
@@ -229,6 +232,9 @@ Highcharts.chart('container-2', {
   tooltip: {
       shared: true,
        // valueSuffix: '€',
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
       
     },
   xAxis:{
@@ -281,7 +287,7 @@ Highcharts.chart('container-3', {
            type: 'areaspline',
             spacing: [40,40,40,40],
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
         // maxWidth: '500px'
           },
        
@@ -307,6 +313,9 @@ Highcharts.chart('container-3', {
   tooltip: {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
         valueSuffix: 'k€',
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
       
     },
   xAxis:{
@@ -357,7 +366,7 @@ Highcharts.chart('container-4', {
            type: 'areaspline',
             spacing: [40,40,40,40],
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
         // maxWidth: '500px'
           },
        
@@ -383,6 +392,9 @@ Highcharts.chart('container-4', {
   tooltip: {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
         valueSuffix: 'k€',
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
       
     },
   xAxis:{

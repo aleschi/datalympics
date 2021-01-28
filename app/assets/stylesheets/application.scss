@@ -1327,7 +1327,7 @@ bottom:0px;
 }
 .navigation-avatar{
   text-align:center;
-  margin-bottom:60px;
+  margin-bottom:30px;
 }
 .navigation-avatar-img{
   margin-bottom:5px;
@@ -2096,4 +2096,23 @@ html[xmlns] .slides {display: block;}
 }
 .highcharts-scrolling {
    visibility: visible;
+}
+.home-solideo-logo{
+  text-align:center;
+  margin-bottom:20px;
+  img{
+    max-width:50px;
+  }
+}
+.highcharts-scrolling::-webkit-scrollbar {
+  width: 5px;
+}
+.highcharts-scrolling::-webkit-scrollbar-track {
+  background: #F8F8F8;
+}
+
+.highcharts-scrolling::-webkit-scrollbar-thumb {
+  background-color: #CECECE;
+  border-radius: 6px;
+  border: 3px solid #F8F8F8;
 }

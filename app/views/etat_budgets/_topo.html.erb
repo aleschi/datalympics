@@ -105,7 +105,7 @@ Highcharts.chart('container-pie', {
       spacing: [0,0,0,0],
         backgroundColor: '#fff',
           style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
       
           },
       height: '350px',
@@ -121,7 +121,10 @@ Highcharts.chart('container-pie', {
     },
   colors: ['#2E5D63','#C68D7B', '#20E37B','#5770BE'],
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>'
+        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>',
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
     accessibility: {
         point: {

@@ -117,7 +117,7 @@ Highcharts.chart('container-pie', {
         type: 'pie',
         backgroundColor: '#fff',
           style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
          
           },
       height: '350px',
@@ -133,7 +133,10 @@ Highcharts.chart('container-pie', {
     },
   colors: ['#2E5D63','#C68D7B', '#20E37B','#5770BE'],
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>'
+        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>',
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
     accessibility: {
         point: {
@@ -183,7 +186,7 @@ Highcharts.chart('container-bar0', {
     chart: {
         type: 'bar',
       style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
          maxWidth: '400px',
      
           },
@@ -219,7 +222,10 @@ Highcharts.chart('container-bar0', {
         }
     },
     tooltip: {
-        valueSuffix: ' €'
+        valueSuffix: ' €',
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
   legend: {
     enabled: false,
@@ -249,7 +255,7 @@ Highcharts.chart('container-bar1', {
     
       backgroundColor: '#fff',
           style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
      
           },
     },
@@ -279,11 +285,14 @@ Highcharts.chart('container-bar1', {
   },
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M€</b></td></tr>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
-        useHTML: true
+        useHTML: true,
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
     plotOptions: {
         column: {

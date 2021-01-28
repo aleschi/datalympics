@@ -67,7 +67,7 @@ Highcharts.chart('container-chart', {
         type: 'waterfall',
       spacing: [40,40,40,40],
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
           },
     },
 
@@ -107,7 +107,10 @@ Highcharts.chart('container-chart', {
     },
 
     tooltip: {
-        pointFormat: '<b>${point.y:,.2f}</b> €'
+        pointFormat: '<b>${point.y:,.2f}</b> €',
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
 
     series: [{

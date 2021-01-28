@@ -93,13 +93,6 @@
     </div>
       </div>
     </div>
-  <div class="row">
-    <div class="col-md-12">
-  <div id="container">
-   
-  </div>
-    </div>
-  </div>
 
   
   <div class="row">
@@ -125,7 +118,7 @@
       <% if !@solideo_financements_array.nil? && !@solideo_financements_array.empty? %>
 
     <div class="ED_table">
-      <table>
+      <table class="table-striped">
         <thead>
           <tr>
             <th scope="col">Date</th>
@@ -178,7 +171,7 @@ Highcharts.chart('container-column', {
             type: 'column',
             backgroundColor: '#fff',  
             style:{
-            fontFamily: "Spectral",  
+            fontFamily: "Marianne Regular",
             //  maxWidth: "500px",
             },
        
@@ -206,6 +199,9 @@ Highcharts.chart('container-column', {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
         valueSuffix: '€',
         xDateFormat: '%Y',
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
   xAxis:{
    //  type: 'datetime',
@@ -267,7 +263,7 @@ Highcharts.chart('container-pie', {
         type: 'pie',
         backgroundColor: '#fff',
           style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
           maxWidth: "500px",
           },
    
@@ -282,8 +278,11 @@ Highcharts.chart('container-pie', {
                   },
     },
   colors: ['#C68D7B',"#2E5D63",'#20E37B'],
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>'
+  tooltip: {
+        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>',
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
     accessibility: {
         point: {
@@ -328,89 +327,6 @@ Highcharts.chart('container-pie', {
 </script>
 
 <script>
-Highcharts.chart('container', {
-
-   chart:{
-            backgroundColor: '#fff',
-           type: 'spline',
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Spectral",
-         
-          },
-        scrollablePlotArea: {
-            minWidth: 700,
-            scrollPositionX: 1
-        }
-          },
-
-      title: {
-        text:"Suivi annuel des financements de la Solideo par financeur",
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-      },
-colors: ['#C68D7B','#20E37B',"#2E5D63"],
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
-        title: {
-            text: 'Total €'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
-        xDateFormat: '%Y',
-    },
-  xAxis:{
-      max: 2025,
-  },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2018,
-
-        }
-    },
-
-  
-
-    series: [{
-        name: 'Financements Etat',
-        data: <%= @financements_annee_etat %>,
-    }, {
-        name: 'Financements Collectivités',
-        data: <%= @financements_annee_co %>,
-    }, {
-        name: 'Financements privés',
-        data: <%= @financements_annee_prive %>,
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-</script>
-
-<script>
 Highcharts.chart('container-s1', {
 
    chart:{
@@ -418,7 +334,7 @@ Highcharts.chart('container-s1', {
            type: 'spline',
             spacing: [40,40,40,40],
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
          maxWidth: '500px',
           },
   
@@ -445,6 +361,9 @@ colors: ['#C68D7B','#BFBFBF'],
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
         valueSuffix: '€',
         xDateFormat: '%Y',
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
   xAxis:{
       max: 2025,
@@ -494,7 +413,7 @@ Highcharts.chart('container-s2', {
            type: 'spline',
             spacing: [40,40,40,40],
         style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
          maxWidth: '500px',
           },
   
@@ -521,6 +440,9 @@ colors: ['#20E37B','#BFBFBF'],
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
         valueSuffix: '€',
         xDateFormat: '%Y',
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
   xAxis:{
       max: 2025,
@@ -567,7 +489,7 @@ Highcharts.chart('container-bar', {
     chart: {
         type: 'bar',
       style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
          maxWidth: '500px',
           },
     },
@@ -600,7 +522,10 @@ Highcharts.chart('container-bar', {
         }
     },
     tooltip: {
-        valueSuffix: ' millions'
+        valueSuffix: ' millions',
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
   legend: {
     enabled: false,
@@ -627,7 +552,7 @@ Highcharts.chart('container-bar', {
 Highcharts.chart('container-cylinder', {
     chart: {
       style:{
-          fontFamily: "Spectral",
+          fontFamily: "Marianne Regular",
      
           },
         type: 'cylinder',
@@ -673,8 +598,11 @@ Highcharts.chart('container-cylinder', {
     },
 
     tooltip: {
-        headerFormat: '<b>{point.key}</b><br>',
-        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
+        headerFormat: '{point.key}<br>',
+        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: <b>{point.y}/ {point.stackTotal} M€</b>',
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
 
     plotOptions: {

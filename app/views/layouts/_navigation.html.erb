@@ -1,44 +1,52 @@
 <div class="navigation-left">  
-  <div class="navigation-logo">
-  Datalympics
-  </div>
+  <div class="navigation-logo">Datalympics</div>
   <div class="navigation-avatar">
     <div class="navigation-avatar-img">
       <i class="fas fa-user-circle"></i>
     </div>
     <div class="navigation-avatar-name">
-      <% if user_signed_in? %>
-      <%= current_user.email%> 
-      <% end %>
+      <% if user_signed_in? %><%= current_user.email%> <% end %>
     </div>
     <div class="navigation-avatar-name">
       connecté en tant que : AGENT DB 
     </div>
   </div>
-  <div class=" navigation-menu TB-menu-prof menu-accueil"><%= link_to root_path, class: "menu" do%><i class="fas fa-home"></i> Accueil<% end %></div>
+  
+  <div class="home-solideo-logo">
+    <%= image_tag 'solideo.svg'%>
+  </div>
+  
+  <!-- Accueil -->
+  <div class=" navigation-menu TB-menu-prof menu-accueil">
+    <%= link_to root_path, class: "menu" do%><i class="fas fa-home"></i> Accueil<% end %>
+  </div>
 
+  <!-- nav ouvrage page -->
   <% if !@navshow.nil? && !@ouvrage.nil?%>
-  <% if !@chantier.nil?%>
-   <div class="navigation-menu"><%= link_to ouvrage_path(@ouvrage), class:"menu" do%><i class="fas fa-arrow-left"></i> Retour à l'ouvrage<%end%></div>
-  <% else %>
-  <div class="navigation-menu"><%= link_to ouvrages_path, class:"menu" do%><i class="fas fa-arrow-left"></i> Retour aux ouvrages<%end%></div>
-  <% end %>
-  <div class="dropdown navigation-menu ">
+    <% if !@chantier.nil?%>
+      <div class="navigation-menu">
+        <%= link_to ouvrage_path(@ouvrage), class:"menu" do%><i class="fas fa-arrow-left"></i> Retour à   l'ouvrage<%end%>
+      </div>
+    <% else %>
+      <div class="navigation-menu"><%= link_to ouvrages_path, class:"menu" do%><i class="fas fa-arrow-left"></i> Retour aux ouvrages<%end%></div>
+    <% end %>
+  
+    <div class="dropdown navigation-menu ">
       <a class="menu menu-ouvrages" href="#ouvrages" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="ouvrages" id="btn-collapse-ouvrages"><i class="fas fa-building"></i> Ouvrages <span class="collapse-icon"></span></a>
     </div>
-
     <section id="ouvrages" class="collapse">
-      <div class="navigation-menu navigation-menu2"><a class="menu2  menu-ouvrages-ouvrage" do %><%= @ouvrage.name %></a></div>
+      <div class="navigation-menu navigation-menu2"><a class="menu2  menu-ouvrages-ouvrage"><%= @ouvrage.name %></a></div>
       <% if !@chantier.nil?%>
-      <div class="navigation-menu navigation-menu3"><a class="menu2  menu-ouvrages-ouvrage" do %><%= @chantier.name %></a></div>
-      
+        <div class="navigation-menu navigation-menu3"><a class="menu2  menu-ouvrages-ouvrage"><%= @chantier.name %></a></div>     
       <% end %>
    </section>
+  
+  <!-- nav menu princial -->
   <% else%>
+    <!-- Budget Etat-->
     <div class="dropdown navigation-menu hidden">
       <a class="menu menu-budget-etat" href="#MonCollapse2" id="btn-budget-collapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse2" id="btn-collapse"><i class="fas fa-coins"></i> Mon Budget<span class="collapse-icon"></span></a>
     </div>
-
     <section id="MonCollapse2" class="collapse">
       <div class="navigation-menu navigation-menu2"><%= link_to etat_budgets_path, class:"menu2  menu-budget-global" do %>Mon Budget global<%end%></div>
 
@@ -49,34 +57,29 @@
        <div class="navigation-menu navigation-menu2"><%= link_to documents_etat_path, class:"menu2 menu-budget-docs" do %>Mes Documents Budgétaires <%end%></div>
     </section>
   
+    <!-- Ouvrages -->
     <div class="dropdown navigation-menu ">
       <a class="menu menu-ouvrages" href="#MonCollapse3" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse3" id="btn-collapse"><i class="fas fa-building"></i> Ouvrages <span class="collapse-icon"></span></a>
-    </div>
-  <section id="MonCollapse3" class="collapse">
-     
-
-      <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_path, class:"menu2 menu-solideo-ouvrages" do%>Infos & Carte <%end%></div>
-     
-     
+    </div>  
+    <section id="MonCollapse3" class="collapse">
+      <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_path, class:"menu2 menu-solideo-ouvrages" do%>Infos & Carte <%end%></div> 
       <div class="navigation-menu navigation-menu2"><%= link_to chantiers_path, class:"menu2 menu-solideo-chantiers" do%>Suivi des risques<%end%></div>
       <div class="navigation-menu navigation-menu2"><%= link_to timeline_path, class:"menu2 menu-ouvrages-timeline" do%>Timeline des ouvrages<%end%></div>
       
     </section>
-
+  
+    <!-- Budget Solideo -->
     <div class="dropdown navigation-menu ">
       <a class="menu menu-solideo" href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse2" id="btn-collapse"><i class="fas fa-funnel-dollar"></i> Budget & Dépenses <span class="collapse-icon"></span></a>
     </div>
-
     <section id="MonCollapse" class="collapse">
       <div class="navigation-menu navigation-menu2"><%= link_to solideo_depenses_path, class:"menu2  menu-solideo-depenses" do %>Budget global<%end%></div>
       <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_depenses_path, class:"menu2 menu-solideo-maquette" do%>Maquette financière <%end%></div>
       <div class="navigation-menu navigation-menu2"><%= link_to solideo_financements_path, class:"menu2 menu-solideo-finances" do %>Financements & Recettes <%end%></div>
-
     </section>
   
-  <div class="navigation-menu"><%= link_to documents_solideo_path, class: "menu" do %><i class="fas fa-medal"></i> Documents <%end%></div>
+    <div class="navigation-menu"><%= link_to documents_solideo_path, class: "menu" do %><i class="fas fa-file-upload"></i> Documents <%end%></div>
   
-  <div class="TB-menu-prof"><%= link_to destroy_user_session_path, method: :delete, class: "menu" do%><i class="fas fa-sign-out-alt"></i>Se déconnecter<% end %></div>
-
+    <div class="TB-menu-prof"><%= link_to destroy_user_session_path, method: :delete, class: "menu" do%><i class="fas fa-sign-out-alt"></i>Se déconnecter<% end %></div>
+  <% end %>
 </div>
-<% end %>

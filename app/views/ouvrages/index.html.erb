@@ -166,7 +166,7 @@ Highcharts.chart('bubble', {
        marginTop: 20,
       
        style:{
-            fontFamily: "Spectral",
+            fontFamily: "Marianne Regular",
             },
     },
     title: {
@@ -179,7 +179,10 @@ Highcharts.chart('bubble', {
     },
     tooltip: {
         useHTML: true,
-        pointFormat: '<b>{point.name}:</b> {point.value} €</sub>'
+        pointFormat: '<b>{point.name}:</b> {point.value} €</sub>',
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
     },
     plotOptions: {
         packedbubble: {
