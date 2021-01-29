@@ -2081,7 +2081,7 @@ html[xmlns] .slides {display: block;}
 #bop_form label, #programme_form label {
   display:block;
   input{
-    border-radius:4px !important;
+    border-radius:2px !important;
     margin-right:10px;
   }
    input:checked{
@@ -2115,4 +2115,34 @@ html[xmlns] .slides {display: block;}
   background-color: #CECECE;
   border-radius: 6px;
   border: 3px solid #F8F8F8;
+}
+
+input[type="checkbox"], input[type="radio"]  {
+ height: 1em; 
+ width: 1em; 
+ margin-bottom: -0.25em; 
+ margin-right: 5px; 
+ vertical-align: top;
+ border: 1px solid #000;
+ border-radius: 2px;
+ outline: none;
+ appearance: none;
+ -ms-appearance: none;
+ -moz-appearance: none; /* Firefox */
+ -webkit-appearance: none; /* Safari and Chrome */
+ }
+  
+input[type="checkbox"]:checked:before, input[type="radio"]:checked:before {
+  content: "\2713";
+
+ position: absolute;
+ font-size: 0.7em;
+ text-align: center;
+ width: 1.25em;
+ color: #fff;
+ }
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+  background-color: #000091;
+  border: 1px solid #000091;
+  color: transparent;
 }
