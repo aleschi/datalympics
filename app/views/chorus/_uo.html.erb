@@ -28,8 +28,8 @@
       <thead>
         <tr>
           <th scope="col">Date</th>
-          <th scope="col">Type piece</th>
           <th scope="col">Type budget</th>
+          <th scope="col">Type piece</th>
           <th scope="col">Operation</th>
           <th scope="col">Centre financier</th>
           <th scope="col">Compte budgetaire</th>
@@ -42,8 +42,8 @@
         <% @uo.where('operation = ?', 'Réception' ).each do |choru| %>
           <tr>
             <td><%= choru.date %></td>
-            <td><%= choru.type_piece %></td>
             <td><%= choru.type_budget %></td>
+            <td><%= choru.type_piece %></td>
             <td><%= choru.operation %></td>
             <td><%= choru.centre_financier %></td>
             <td><%= choru.compte_budgetaire %></td>
@@ -61,12 +61,10 @@
         <tr>
           <th scope="col">Date</th>
           <th scope="col">Type piece</th>
-          <th scope="col">Type budget</th>
-          <th scope="col">Operation</th>
           <th scope="col">Centre financier</th>
           <th scope="col">Compte budgetaire</th>
           <th scope="col">Action</th>
-          <th scope="col">Montant (€)</th>
+          <th scope="col">Montant consommé (€)</th>
 
         </tr>
       </thead>
@@ -76,8 +74,6 @@
           <tr>
             <td><%= choru.date %></td>
             <td><%= choru.type_piece %></td>
-            <td><%= choru.type_budget %></td>
-            <td><%= choru.operation %></td>
             <td><%= choru.centre_financier %></td>
             <td><%= choru.compte_budgetaire %></td>
              <td><%= choru.domaine_fonctionnel %></td>
@@ -307,7 +303,7 @@ title: {
            <% @montant = 0 %>
          <% @uo.where(domaine_fonctionnel: action).each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%=  (@montant - programme.montant)/1000%>],
-          <% @montant = @montant - programme.montant %>
+          <% @montant = @montant + programme.montant %>
           <% end %>
         ],
        dataLabels: {

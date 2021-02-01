@@ -6,8 +6,8 @@
       <thead>
         <tr>
           <th scope="col">Date</th>
-          <th scope="col">Type piece</th>
           <th scope="col">Type budget</th>
+          <th scope="col">Type piece</th> 
           <th scope="col">Operation</th>
           <th scope="col">Centre financier</th>
           <th scope="col">Compte budgetaire</th>
@@ -20,8 +20,8 @@
         <% @bop.each do |choru| %>
           <tr>
             <td><%= choru.date %></td>
-            <td><%= choru.type_piece %></td>
             <td><%= choru.type_budget %></td>
+            <td><%= choru.type_piece %></td>
             <td><%= choru.operation %></td>
             <td><%= choru.centre_financier %></td>
             <td><%= choru.compte_budgetaire %></td>
