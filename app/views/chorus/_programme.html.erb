@@ -6,7 +6,7 @@
          <div class="chorus-select-box">
              <div class="chorus-select-box-title">Années</div>
              <%= form_with url: select_date_programme_path(:id => @programme.first.centre_financier), id: "programme_form" do |f|%>
-              <% (@begin..2021).each do |i|%>
+              <% (@begin..@end).each do |i|%>
                 <label><%= f.check_box :date,{:multiple => true}, i, nil%>  <%= i%></label>
               <% end %>
              <% end %>
@@ -169,9 +169,9 @@ title: {
           <% @programme_ht2.each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
             <% @montant =  programme.montant %>
-            {name:  '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
+            {name:  '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
             <% else %>              
-            {name:  '<%= programme.type_budget.to_s%> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,  },
+            {name:  '<%= programme.type_budget.to_s%> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,  },
             <% @montant = @montant + programme.montant %>
             <% end %> 
           <% end %>
@@ -186,9 +186,9 @@ title: {
           <% @programme_t2.each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
            <% @montant =  programme.montant %>
-           {name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
+           {name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
           <% else %>
-               { name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,},
+               { name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,},
           <% @montant = @montant + programme.montant %>
           <% end %> 
           <% end %>

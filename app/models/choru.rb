@@ -17,11 +17,7 @@ class Choru < ApplicationRecord
         if @chorus.date.nil?
           @chorus.destroy 
         end
-      if @chorus.type_budget.nil?
-        @chorus.montant = -@chorus.montant
-        @chorus.type_budget = "BUDGET GÉN. MIS À DISPOSITION"
-        @chorus.save 
-      end
+ 
       end
     end
   end

@@ -183,7 +183,7 @@ title: {
         data: [
           <% @montant = 0 %>
           <% @uo_ht2.each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= (@montant + programme.montant)/1000%>],
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= (@montant + programme.montant)/1000%>],
            <% @montant = @montant + programme.montant %>
     <% end %>
         ],
@@ -195,7 +195,7 @@ title: {
         data: [
           <% @montant = 0 %>
           <% @uo_t2.each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%= (@montant + programme.montant)/1000%>],
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= (@montant + programme.montant)/1000%>],
            <% @montant = @montant + programme.montant %>
     <% end %>
         ],
@@ -302,7 +302,7 @@ title: {
         data: [
            <% @montant = 0 %>
          <% @uo.where(domaine_fonctionnel: action).each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), <%=  (@montant + programme.montant)/1000%>],
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  (@montant + programme.montant)/1000%>],
           <% @montant = @montant + programme.montant %>
           <% end %>
         ],
