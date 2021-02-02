@@ -11,7 +11,7 @@ class Choru < ApplicationRecord
       @chorus.type_budget = row[3]
       @chorus.centre_financier = row[4]
       @chorus.compte_budgetaire = row[5]
-      @chorus.montant = row[6]/100
+      @chorus.montant = row[6].to_i/100
       @chorus.domaine_fonctionnel = row[7]
       @chorus.save 
         if @chorus.date.nil?
