@@ -1,4 +1,4 @@
-   <div class="row">
+<div class="row">
        <div class="col-md-9">
         <div id="programme"></div>
        </div>
@@ -17,37 +17,70 @@
      <div class="SD-topo-box-title2"><a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details"> Tableau des mouvements de crédits au niveau du Programme <i class="fas fa-chevron-down"></i></a>
     </div><br>
     <section id="details" class="collapse">
-    <div class="ED_table">
-    <table class="table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Type budget</th>
-          <th scope="col">Type piece</th>
-          <th scope="col">Operation</th>
-          <th scope="col">Centre financier</th>
-          <th scope="col">Compte budgetaire</th>
-          <th scope="col">Montant (€)</th>
-
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @programme.each do |choru| %>
+      <!-- HT2 --> 
+      <div class="ED_table">
+      <table class="table-striped">
+        <thead>
           <tr>
-            <td><%= choru.date %></td>
-            <td><%= choru.type_budget %></td>
-            <td><%= choru.type_piece %></td>
-            <td><%= choru.operation %></td>
-            <td><%= choru.centre_financier %></td>
-            <td><%= choru.compte_budgetaire %></td>
-            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
-           
+            <th scope="col">Date</th>
+            <th scope="col">Type piece</th>
+            <th scope="col">Type budget</th>
+            <th scope="col">Operation</th>
+            <th scope="col">Centre financier</th>
+            <th scope="col">Compte budgetaire</th>
+            <th scope="col">Montant (€)</th>
+
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-    </div>
+        </thead>
+
+        <tbody>
+          <% @programme_ht2.each do |choru| %>
+            <tr>
+              <td><%= l(choru.date, format: "%e %b %Y") %></td>
+              <td><%= choru.type_piece %></td>
+              <td><%= choru.type_budget %></td>
+              <td><%= choru.operation %></td>
+              <td><%= choru.centre_financier %></td>
+              <td><%= choru.compte_budgetaire %></td>
+              <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+      <!-- T2 --> 
+      <div class="ED_table">
+        <table class="table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Type piece</th>
+              <th scope="col">Type budget</th>
+              <th scope="col">Operation</th>
+              <th scope="col">Centre financier</th>
+              <th scope="col">Compte budgetaire</th>
+              <th scope="col">Montant (€)</th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @programme_t2.each do |choru| %>
+              <tr>
+                <td><%= l(choru.date, format: "%e %b %Y") %></td>
+                <td><%= choru.type_piece %></td>
+                <td><%= choru.type_budget %></td>
+                <td><%= choru.operation %></td>
+                <td><%= choru.centre_financier %></td>
+                <td><%= choru.compte_budgetaire %></td>
+                <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
      </section>
     <br>
      
@@ -147,20 +180,21 @@ title: {
           step: 'left',
         }
     },
- tooltip: {
+ 
+  tooltip: {
      formatter: function() {
       var point = this,
-        series = point.series,     
+        series = point.series,
+       
         firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-        header = '<span style="font-size: 12px;>' + firstDate + ' <br/> '+  point.key  + '</span><br/>',
-        content = '<b>' + series.name + ' disponible : ' + point.y  + 'k€</b><br/>';
+        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+        content =  point.key + '<br>' + '<b>'+series.name + ' disponible : ' + point.y  + 'k€</b><br/>';
 
       return header + content;
     },
-   borderColor: 'transparent',
+    borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
-
     },
     series: [{
         name: 'HT2',
@@ -169,9 +203,9 @@ title: {
           <% @programme_ht2.each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
             <% @montant =  programme.montant %>
-            {name:  '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
+            {name:  '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
             <% else %>              
-            {name:  '<%= programme.type_budget.to_s%> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,  },
+            {name:  '<%= programme.type_budget.to_s%> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
             <% @montant = @montant + programme.montant %>
             <% end %> 
           <% end %>
@@ -186,9 +220,9 @@ title: {
           <% @programme_t2.each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
            <% @montant =  programme.montant %>
-           {name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= programme.montant/1000%>,}, 
+           {name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
           <% else %>
-               { name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  (@montant + programme.montant)/1000%>,},
+               { name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,},
           <% @montant = @montant + programme.montant %>
           <% end %> 
           <% end %>

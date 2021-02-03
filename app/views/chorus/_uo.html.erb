@@ -21,39 +21,91 @@
    <br><br>
     <div class="SD-topo-box-title2"><a href="#details-uo" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-uo">  Tableau des mouvements de crédits au niveau de l'UO <i class="fas fa-chevron-down"></i></a>
     </div>
-    <section id="details-uo" class="collapse">
+    <section id="details-uo" class="collapse"> 
+      <div class="ED_table">
+        <table class="table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Type budget</th>
+              <th scope="col">Type piece</th>
+              <th scope="col">Operation</th>
+              <th scope="col">Centre financier</th>
+              <th scope="col">Compte budgetaire</th>
+              <th scope="col">Montant (€)</th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @uo_ht2.where('operation = ?', 'Réception' ).each do |choru| %>
+              <tr>
+                <td><%= l(choru.date, format: "%e %b %Y") %></td>
+                <td><%= choru.type_budget %></td>
+                <td><%= choru.type_piece %></td>
+                <td><%= choru.operation %></td>
+                <td><%= choru.centre_financier %></td>
+                <td><%= choru.compte_budgetaire %></td>
+                <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div> 
+      <div class="ED_table">
+        <table class="table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Type budget</th>
+              <th scope="col">Type piece</th>
+              <th scope="col">Operation</th>
+              <th scope="col">Centre financier</th>
+              <th scope="col">Compte budgetaire</th>
+              <th scope="col">Montant (€)</th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @uo_t2.where('operation = ?', 'Réception' ).each do |choru| %>
+              <tr>
+                <td><%= l(choru.date, format: "%e %b %Y") %></td>
+                <td><%= choru.type_budget %></td>
+                <td><%= choru.type_piece %></td>
+                <td><%= choru.operation %></td>
+                <td><%= choru.centre_financier %></td>
+                <td><%= choru.compte_budgetaire %></td>
+                <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>     
+    </section>
+    <br>
+    <div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br><br>
+     
+     <div class="row">
+       <div class="col-md-9">
+         <div id="actions_chart"> </div>
+       </div>
+       <div class="col-md-3">
+         <div class="chorus-select-box">
+           <div class="chorus-select-box-title" id="uo_name"> Actions présentes </div>
+          <% @uo_actions.each do |action| %>
+           <div><label><%= action %></label></div>
+          <% end %>
+         </div>
+       </div> 
+     </div>
+    <br><br>
+     <div class="SD-topo-box-title2"><a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau des actions de l'UO <i class="fas fa-chevron-down"></i></a>
+    </div>
+    <section id="details-actions" class="collapse">
   
-    <div class="ED_table">
-    <table class="table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Type budget</th>
-          <th scope="col">Type piece</th>
-          <th scope="col">Operation</th>
-          <th scope="col">Centre financier</th>
-          <th scope="col">Compte budgetaire</th>
-          <th scope="col">Montant (€)</th>
-
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @uo.where('operation = ?', 'Réception' ).each do |choru| %>
-          <tr>
-            <td><%= choru.date %></td>
-            <td><%= choru.type_budget %></td>
-            <td><%= choru.type_piece %></td>
-            <td><%= choru.operation %></td>
-            <td><%= choru.centre_financier %></td>
-            <td><%= choru.compte_budgetaire %></td>
-            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
-          
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    </div> <br>
     
     <div class="ED_table">
     <table class="table-striped">
@@ -72,7 +124,7 @@
       <tbody>
         <% @uo.where('operation != ?', 'Réception' ).each do |choru| %>
           <tr>
-            <td><%= choru.date %></td>
+            <td><%= l(choru.date, format: "%e %b %Y") %></td>
             <td><%= choru.type_piece %></td>
             <td><%= choru.centre_financier %></td>
             <td><%= choru.compte_budgetaire %></td>
@@ -85,23 +137,6 @@
     </table>
     </div>
     </section>
-    <br>
-  <div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO    
-  </div><br><br>
-     
-     <div class="row">
-       <div class="col-md-9">
-         <div id="actions_chart"> </div>
-       </div>
-       <div class="col-md-3">
-         <div class="chorus-select-box">
-           <div class="chorus-select-box-title" id="uo_name"> Actions présentes </div>
-          <% @uo_actions.each do |action| %>
-           <div><label><%= action %></label></div>
-          <% end %>
-         </div>
-       </div> 
-     </div>
 <script>
 
 Highcharts.chart('uo_chart', {
@@ -183,7 +218,7 @@ title: {
         data: [
           <% @montant = 0 %>
           <% @uo_ht2.each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= (@montant + programme.montant)/1000%>],
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
            <% @montant = @montant + programme.montant %>
     <% end %>
         ],
@@ -195,7 +230,7 @@ title: {
         data: [
           <% @montant = 0 %>
           <% @uo_t2.each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= (@montant + programme.montant)/1000%>],
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
            <% @montant = @montant + programme.montant %>
     <% end %>
         ],
@@ -302,7 +337,7 @@ title: {
         data: [
            <% @montant = 0 %>
          <% @uo.where(domaine_fonctionnel: action).each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  (@montant + programme.montant)/1000%>],
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
           <% @montant = @montant + programme.montant %>
           <% end %>
         ],
