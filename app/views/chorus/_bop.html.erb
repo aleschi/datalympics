@@ -52,8 +52,9 @@ title: {
         series = point.series,
        
         firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+          number = Highcharts.numberFormat(point.y, -1, ',',' '),
         header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-        content = '<b>'+series.name + ' disponible : ' + point.y  + 'k€</b><br/>';
+        content = '<b>'+series.name + ' disponible : ' + number  + ' k€</b><br/>';
 
       return header + content;
     },

@@ -20,7 +20,7 @@ class ChorusController < ApplicationController
     @search = params[:id]
     @date = Date.new(2019,12,1)
     if !Choru.where('centre_financier = ? ', @search).first.nil?
-      @begin =  Choru.where('centre_financier = ? ', @search).order('date ASC').first.date.year
+      @begin =  Choru.where('centre_financier = ? ', @search).order('date ASC').first.date.year+1
       @end =  Choru.where('centre_financier = ? ', @search).order('date ASC').last.date.year
       @chorus = Choru.where('centre_financier like ? ', '%'+@search+'%').order('date ASC')
       @programme = Choru.where('centre_financier = ? AND date >= ? AND date < ? ', @search, @date, @date + 1.year).order('date ASC')
@@ -108,7 +108,7 @@ class ChorusController < ApplicationController
   def select_date_programme
     @search = params[:id]
     @chorus =  Choru.where('centre_financier like ? ', '%'+@search+'%').order('date ASC')
-    @begin = Choru.where('centre_financier = ? ', @search).order('date ASC').first.date.year
+    @begin = Choru.where('centre_financier = ? ', @search).order('date ASC').first.date.year+1
     @end =  Choru.where('centre_financier = ? ', @search).order('date ASC').last.date.year
     @programme =  Choru.where('date = ?', Date.new(1000))
     @bop = Choru.where('date = ?', Date.new(1000))
