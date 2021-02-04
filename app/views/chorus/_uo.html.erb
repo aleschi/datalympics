@@ -9,7 +9,7 @@
        <div class="col-md-3">
            <div class="chorus-select-box">
              <div class="chorus-select-box-title" id="uo_name"> <%= @uo.first.centre_financier%> </div>
-              <%= form_with url: select_uo_path(:bop_id => @bop.first.centre_financier), id: "uo_form" do |f|%>
+              <%= form_with url: select_uo_path(:bop_id => @bop.first.centre_financier, :date => @dates), id: "uo_form" do |f|%>
               <% (0..@uo_arr.length-1).each do |i|%>
                 <label><%= f.radio_button :id, @uo_arr[i] %>  <%= @uo_arr[i]%></label>
               <% end %>
@@ -19,6 +19,47 @@
      </div>
 
    <br><br>
+ <div class="ED_table">
+      <table class="table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+              <th scope="col">MADI Réception</th>
+              <th scope="col">MADI Envoie</th>
+              <th scope="col">REAP Réception</th>
+              <th scope="col">REAP Envoie</th>         
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if !@dates.nil?%>
+            <% @dates.each do |date| %>
+              <tr>
+                <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+               
+                  <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+              
+
+              </tr>
+            <% end %>
+          <%elsif !@date.nil? %> 
+          <tr>
+              <td><%= l(@date+1.year, format: "%Y") %></td>
+      
+                  <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
+                  <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+            
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+     
     <div class="SD-topo-box-title2"><a href="#details-uo" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-uo">  Tableau des mouvements de crédits au niveau de l'UO <i class="fas fa-chevron-down"></i></a>
     </div>
     <section id="details-uo" class="collapse"> 
@@ -86,57 +127,10 @@
       </div>     
     </section>
     <br>
-    <div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br><br>
-     
-     <div class="row">
-       <div class="col-md-9">
-         <div id="actions_chart"> </div>
-       </div>
-       <div class="col-md-3">
-         <div class="chorus-select-box">
-           <div class="chorus-select-box-title" id="uo_name"> Actions présentes </div>
-          <% @uo_actions.each do |action| %>
-           <div><label><%= action %></label></div>
-          <% end %>
-         </div>
-       </div> 
-     </div>
-    <br><br>
-     <div class="SD-topo-box-title2"><a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau des actions de l'UO <i class="fas fa-chevron-down"></i></a>
-    </div>
-    <section id="details-actions" class="collapse">
-  
+<div id="actions">
+  <%= render 'chorus/actions'%>
+</div>
     
-    <div class="ED_table">
-    <table class="table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Type piece</th>
-          <th scope="col">Centre financier</th>
-          <th scope="col">Compte budgetaire</th>
-          <th scope="col">Action</th>
-          <th scope="col">Montant consommé (€)</th>
-
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @uo.where('operation != ?', 'Réception' ).each do |choru| %>
-          <tr>
-            <td><%= l(choru.date, format: "%e %b %Y") %></td>
-            <td><%= choru.type_piece %></td>
-            <td><%= choru.centre_financier %></td>
-            <td><%= choru.compte_budgetaire %></td>
-             <td><%= choru.domaine_fonctionnel %></td>
-            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
-
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    </div>
-    </section>
 <script>
 
 Highcharts.chart('uo_chart', {
@@ -239,116 +233,6 @@ title: {
                 enabled: true,
             },
     }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-
-</script>
-
-<script>
-
-Highcharts.chart('actions_chart', {
-   chart:{
-       backgroundColor: '#fff',
-     borderColor: '#fff',
-                 borderRadius:10,
-       type: 'scatter',
-       spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Marianne Regular",
-          // maxWidth: '500px'
-          }, 
-        zoomType: 'x',
-        borderWidth: 1,
-        resetZoomButton: {
-            position: {
-                // align: 'right', // by default
-                // verticalAlign: 'top', // by default
-                x: -10,
-                y: 10
-            },
-            relativeTo: 'chart'
-        },
-       scrollablePlotArea: {
-       minWidth: 2000,
-       scrollPositionX:1,
-     },
-          },
-title: {
-        text:"",
-},
-    colors: ['#2E5D63', '#C68D7B'],
-    yAxis: {
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Total k€'
-        }
-    },
-  tooltip: {
-      formatter: function() {
-      var point = this,
-        series = point.series,
-       
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-          number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-        content = '<b> Action '+series.name + ' : ' + number + 'k€</b><br/>';
-
-      return header + content;
-    },
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-  xAxis:{
-    type: 'datetime'
-  },
-    plotOptions: {
-        series: {
-          lineWidth: 2,
-            label: {
-                connectorAllowed: false
-            }, 
-          marker: {
-                enabled: true
-            },
-          step: 'left',
-        }
-    },
-
-  
-
-    series: [
-       <% @uo_actions.each do |action| %>
-      {
-        name: '<%= action%>',
-        data: [
-           <% @montant = 0 %>
-         <% @uo.where(domaine_fonctionnel: action).each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
-          <% @montant = @montant + programme.montant %>
-          <% end %>
-        ],
-       dataLabels: {
-                enabled: true,
-            },
-      },
-         <% end %>
-    ],
 
     responsive: {
         rules: [{

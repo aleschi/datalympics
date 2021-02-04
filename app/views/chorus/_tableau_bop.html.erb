@@ -1,4 +1,45 @@
-     <div class="SD-topo-box-title2"><a href="#details-bop" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-bop"> Tableau des mouvements de crédits au niveau du BOP <i class="fas fa-chevron-down"></i></a>
+ <div class="ED_table">
+      <table class="table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+              <th scope="col">MADI Réception</th>
+              <th scope="col">MADI Envoie</th>
+              <th scope="col">REAP Réception</th>
+              <th scope="col">REAP Envoie</th>         
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if !@dates.nil?%>
+            <% @dates.each do |date| %>
+              <tr>
+                <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+               
+                  <td><%= number_with_delimiter(@bop.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(@bop.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(@bop.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(@bop.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+              
+
+              </tr>
+            <% end %>
+          <%elsif !@date.nil? %> 
+          <tr>
+              <td><%= l(@date+1.year, format: "%Y") %></td>
+      
+                  <td><%= number_with_delimiter(@bop.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
+                  <td><%= number_with_delimiter(@bop.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@bop.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@bop.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+            
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+     
+<div class="SD-topo-box-title2"><a href="#details-bop" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-bop"> Tableau des mouvements de crédits au niveau du BOP <i class="fas fa-chevron-down"></i></a>
     </div>
      <section id="details-bop" class="collapse">
       <!-- HT2-->

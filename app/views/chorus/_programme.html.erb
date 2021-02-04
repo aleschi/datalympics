@@ -1,120 +1,157 @@
 <div class="row">
-       <div class="col-md-9">
+  <div class="col-md-9">
         <div id="programme"></div>
-       </div>
-       <div class="col-md-3">
-         <div class="chorus-select-box">
-             <div class="chorus-select-box-title">Années</div>
-             <%= form_with url: select_date_programme_path(:id => @programme.first.centre_financier), id: "programme_form" do |f|%>
-              <% (@begin..@end).each do |i|%>
-                <label><%= f.check_box :date,{:multiple => true}, i, nil%>  <%= i%></label>
-              <% end %>
-             <% end %>
-           </div>
-       </div>
-     </div>
-     <br><br>
-     <div class="SD-topo-box-title2"><a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details"> Tableau des mouvements de crédits au niveau du Programme <i class="fas fa-chevron-down"></i></a>
-    </div><br>
-    <section id="details" class="collapse">
-      <!-- HT2 --> 
-      <div class="ED_table">
-      <table class="table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Type piece</th>
-            <th scope="col">Type budget</th>
-            <th scope="col">Operation</th>
-            <th scope="col">Centre financier</th>
-            <th scope="col">Compte budgetaire</th>
-            <th scope="col">Montant (€)</th>
-
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @programme_ht2.each do |choru| %>
-            <tr>
-              <td><%= l(choru.date, format: "%e %b %Y") %></td>
-              <td><%= choru.type_piece %></td>
-              <td><%= choru.type_budget %></td>
-              <td><%= choru.operation %></td>
-              <td><%= choru.centre_financier %></td>
-              <td><%= choru.compte_budgetaire %></td>
-              <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
-
-            </tr>
+  </div>
+  <div class="col-md-3">
+    <div class="chorus-select-box">
+      <div class="chorus-select-box-title">Années</div>
+        <%= form_with url: select_date_programme_path(:id => @programme.first.centre_financier), id: "programme_form" do |f|%>
+          <% (@begin..@end).each do |i|%>
+             <label><%= f.check_box :date,{:multiple => true}, i, nil%>  <%= i%></label>
           <% end %>
-        </tbody>
-      </table>
-      </div>
-      <!-- T2 --> 
-      <div class="ED_table">
-        <table class="table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Type piece</th>
-              <th scope="col">Type budget</th>
-              <th scope="col">Operation</th>
-              <th scope="col">Centre financier</th>
-              <th scope="col">Compte budgetaire</th>
-              <th scope="col">Montant (€)</th>
-
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @programme_t2.each do |choru| %>
-              <tr>
-                <td><%= l(choru.date, format: "%e %b %Y") %></td>
-                <td><%= choru.type_piece %></td>
-                <td><%= choru.type_budget %></td>
-                <td><%= choru.operation %></td>
-                <td><%= choru.centre_financier %></td>
-                <td><%= choru.compte_budgetaire %></td>
-                <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
-
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-     </section>
-    <br>
-     
-     <div class="SD-topo-box-title2">
-     Visualisation des mouvements de crédits au niveau des BOP (<%= @bop_arr.length%>) 
-    </div><br><br>
-
-     <div class="row">
-       <div class="col-md-9">
-          <div id="bop">
-           <%= render 'chorus/bop'%>
-          </div>  
-       </div>
-       <div class="col-md-3">
-           <div class="chorus-select-box">
-             <div class="chorus-select-box-title" id="bop_name"> <%= @bop.first.centre_financier%> </div>
-             <%= form_with url: select_bop_path, id: "bop_form" do |f|%>
-              <% (0..@bop_arr.length-1).each do |i|%>
-                <label><%= f.radio_button :id, @bop_arr[i] %>  <%= @bop_arr[i]%></label>
-              <% end %>
-             <% end %>
-           </div>
-       </div>
+         <% end %>
      </div>
+  </div>
+ </div>
+ <br><br>
+<div class="ED_table">
+<table class="table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <% @type_pieces.each do |piece|%>
+        <th scope="col"><%= piece%></th>
+      <% end %>
+      <th scope="col">REPORT FIN D'ANNEE</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@dates.nil?%>
+      <% @dates.each do |date| %>
+        <tr>
+          <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+          <% @type_pieces.each do |piece|%>
+            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece).sum('montant'), :delimiter => ' ') %></td>
+        <% end %>
+          <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? ',Date.new(date.to_i-1,12,31),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+
+        </tr>
+      <% end %>
+    <%elsif !@date.nil? %> 
+    <tr>
+        <td><%= l(@date+1.year, format: "%Y") %></td>
+        <% @type_pieces.each do |piece|%>
+            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),piece).sum('montant'), :delimiter => ' ') %></td>
+        <% end %>
+        <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? ',Date.new(@date.year,12,31),Date.new(@date.year+1,12,31)).sum('montant'), :delimiter => ' ') %></td>
+
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<div class="SD-topo-box-title2"><a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details"> Tableau des mouvements de crédits au niveau du Programme <i class="fas fa-chevron-down"></i></a>
+</div><br>
+<section id="details" class="collapse">
+<!-- HT2 --> 
+<div class="ED_table">
+<table class="table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Type piece</th>
+      <th scope="col">Type budget</th>
+      <th scope="col">Operation</th>
+      <th scope="col">Centre financier</th>
+      <th scope="col">Compte budgetaire</th>
+      <th scope="col">Montant (€)</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @programme_ht2.each do |choru| %>
+      <tr>
+        <td><%= l(choru.date, format: "%e %b %Y") %></td>
+        <td><%= choru.type_piece %></td>
+        <td><%= choru.type_budget %></td>
+        <td><%= choru.operation %></td>
+        <td><%= choru.centre_financier %></td>
+        <td><%= choru.compte_budgetaire %></td>
+        <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<!-- T2 --> 
+<div class="ED_table">
+  <table class="table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Type piece</th>
+        <th scope="col">Type budget</th>
+        <th scope="col">Operation</th>
+        <th scope="col">Centre financier</th>
+        <th scope="col">Compte budgetaire</th>
+        <th scope="col">Montant (€)</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @programme_t2.each do |choru| %>
+        <tr>
+          <td><%= l(choru.date, format: "%e %b %Y") %></td>
+          <td><%= choru.type_piece %></td>
+          <td><%= choru.type_budget %></td>
+          <td><%= choru.operation %></td>
+          <td><%= choru.centre_financier %></td>
+          <td><%= choru.compte_budgetaire %></td>
+          <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</section>
+<br>
      
-     <br><br>
-     <div id='tableau_bop'>
-       <%= render 'chorus/tableau_bop'%>
+<div class="SD-topo-box-title2">Visualisation des mouvements de crédits au niveau des BOP (<%= @bop_arr.length%>)</div><br><br>
+
+<div class="row">
+ <div class="col-md-9">
+    <div id="bop">
+     <%= render 'chorus/bop'%>
+    </div>  
+ </div>
+ <div class="col-md-3">
+     <div class="chorus-select-box">
+       <div class="chorus-select-box-title" id="bop_name"> <%= @bop.first.centre_financier%> </div>
+       <%= form_with url: select_bop_path(:date => @dates), id: "bop_form" do |f|%>
+        <% (0..@bop_arr.length-1).each do |i|%>
+          <label><%= f.radio_button :id, @bop_arr[i] %>  <%= @bop_arr[i]%></label>
+        <% end %>
+       <% end %>
      </div>
+ </div>
+</div>
      
-       <br><br>
-     <div id="uo">
-        <%= render 'chorus/uo'%>
-     </div>
+<br><br>
+<div id='tableau_bop'>
+ <%= render 'chorus/tableau_bop'%>
+</div>
+
+ <br><br>
+<div id="uo">
+  <%= render 'chorus/uo'%>
+</div>
 
 
 <script>
@@ -224,9 +261,9 @@ title: {
           <% @programme_ht2.each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
             <% @montant =  programme.montant %>
-            {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
+            {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
             <% else %>              
-            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
+            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
             <% @montant = @montant + programme.montant %>
             <% end %> 
           <% end %>
@@ -241,9 +278,9 @@ title: {
           <% @programme_t2.each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
            <% @montant =  programme.montant %>
-           {name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
+           {name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
           <% else %>
-               { name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,},
+               { name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,},
           <% @montant = @montant + programme.montant %>
           <% end %> 
           <% end %>

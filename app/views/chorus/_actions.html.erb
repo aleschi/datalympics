@@ -1,0 +1,164 @@
+<div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br><br>
+     
+     <div class="row">
+       <div class="col-md-9">
+         <div id="actions_chart"> </div>
+       </div>
+       <div class="col-md-3">
+         <div class="chorus-select-box">
+          
+           <div class="chorus-select-box-title" id="action_name"> Action <%= @uo_action %> </div>
+              <%= form_with url: select_actions_path(:uo_id => @uo.first.centre_financier, :date => @dates), id: "action_form" do |f|%>
+              <% (0..@uo_actions.length-1).each do |i|%>
+                <label><%= f.radio_button :id, @uo_actions[i] %>  <%= @uo_actions[i]%></label>
+              <% end %>
+             <% end %>
+         </div>
+       </div> 
+     </div>
+    <br><br>
+    <div class="SD-topo-box-title2">
+       <a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau des actions de l'UO <i class="fas fa-chevron-down"></i></a>
+    </div>
+    <section id="details-actions" class="collapse"> 
+      <div class="ED_table">
+        <table class="table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Type piece</th>
+              <th scope="col">Centre financier</th>
+              <th scope="col">Compte budgetaire</th>
+              <th scope="col">Action</th>
+              <th scope="col">Montant consommé (€)</th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @uo.where('operation != ?', 'Réception' ).each do |choru| %>
+              <tr>
+                <td><%= l(choru.date, format: "%e %b %Y") %></td>
+                <td><%= choru.type_piece %></td>
+                <td><%= choru.centre_financier %></td>
+                <td><%= choru.compte_budgetaire %></td>
+                 <td><%= choru.domaine_fonctionnel %></td>
+                <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+<script>
+
+Highcharts.chart('actions_chart', {
+   chart:{
+       backgroundColor: '#fff',
+     borderColor: '#fff',
+                 borderRadius:10,
+       type: 'scatter',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Marianne Regular",
+          // maxWidth: '500px'
+          }, 
+        zoomType: 'x',
+        borderWidth: 1,
+        resetZoomButton: {
+            position: {
+                // align: 'right', // by default
+                // verticalAlign: 'top', // by default
+                x: -10,
+                y: 10
+            },
+            relativeTo: 'chart'
+        },
+       scrollablePlotArea: {
+       minWidth: 2000,
+       scrollPositionX:1,
+     },
+          },
+title: {
+        text:"",
+},
+    colors: ['#2E5D63', '#C68D7B'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  tooltip: {
+      formatter: function() {
+      var point = this,
+        series = point.series,
+       
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+          number = Highcharts.numberFormat(point.y, -1, ',',' '),
+        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+        content = '<b> Action '+series.name + ' : ' + number + 'k€</b><br/>';
+
+      return header + content;
+    },
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+  xAxis:{
+    type: 'datetime'
+  },
+    plotOptions: {
+        series: {
+          lineWidth: 2,
+            label: {
+                connectorAllowed: false
+            }, 
+          marker: {
+                enabled: true
+            },
+          step: 'left',
+        }
+    },
+
+  
+
+    series: [
+    
+      {
+        name: '<%= @uo_action %>',
+        data: [
+           <% @montant = 0 %>
+         <% @uo.where(domaine_fonctionnel: @uo_action).each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
+          <% @montant = @montant + programme.montant %>
+          <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+      },
+ 
+    ],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
+</script>
+
