@@ -243,7 +243,19 @@ title: {
       
     },
   xAxis:{
-    type: 'datetime'
+    type: 'datetime',
+    plotBands: [    
+      <% if !@dates.nil? %>
+        <% @dates.each do |date|%>
+          {
+            color: 'red',
+            from:Date.UTC(<%= date%>-1,11,31),
+            to:Date.UTC(<%= date%>,0,1),
+        
+          },
+      
+      <% end %>
+    ]
   },
     plotOptions: {
         series: {

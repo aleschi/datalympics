@@ -267,14 +267,7 @@ title: {
             to:Date.UTC(<%= date%>,0,1),
         
           },
-        <% end %>
-      <% elsif !@date.nil?%>
-        {
-            color: 'red',
-            from:Date.UTC(<%= @date.year%>,11,31),
-            to:Date.UTC(<%= @date.year%>+1,0,1),
-          
-        },
+      
       <% end %>
     ]
   },
