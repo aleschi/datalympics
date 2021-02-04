@@ -304,8 +304,10 @@ title: {
     series: [{
         name: 'HT2',
         data: [
+          <% @dates.each do |date| %>
           <% @montant = 0 %>
-          <% @programme_ht2.each do |programme| %>
+          [Date.UTC(<%=date%>,0,1),0 %>],
+          <% @programme_ht2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
             <% @montant =  programme.montant %>
             {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
@@ -314,6 +316,7 @@ title: {
             <% @montant = @montant + programme.montant %>
             <% end %> 
           <% end %>
+          <% end %>
         ],
        dataLabels: {
                 enabled: true,
@@ -321,15 +324,18 @@ title: {
     }, {
         name: 'T2',
         data: [
+          <% @dates.each do |date| %>
           <% @montant = 0 %>
-          <% @programme_t2.each do |programme| %>
+          [Date.UTC(<%=date%>,0,1),0 %>],
+          <% @programme_t2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
            <% @montant =  programme.montant %>
            {name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
-          <% else %>
-               { name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,},
-          <% @montant = @montant + programme.montant %>
-          <% end %> 
+            <% else %>
+                 { name: '<%= programme.type_budget.to_s %> : <%= (programme.montant/1000).to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,},
+            <% @montant = @montant + programme.montant %>
+            <% end %> 
+          <% end %>
           <% end %>
         ],
        dataLabels: {

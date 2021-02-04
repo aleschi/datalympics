@@ -2170,9 +2170,12 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
   text-align:center;
   margin-bottom:80px;
 }
-.chorus-index-programme{
+.chorus-index-programme {
   font-size:22px;
   font-weight:700;
   line-height:28px;
   margin-bottom:10px;
+  a{
+    color:#000;
+  }
 }

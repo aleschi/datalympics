@@ -75,6 +75,8 @@ class ChorusController < ApplicationController
       end 
       @uo_actions.uniq!
       @uo_action = @uo_actions[0]
+    else
+      redirect_to chorus_path 
     end
   end 
   
