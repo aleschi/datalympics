@@ -141,6 +141,7 @@ class ChorusController < ApplicationController
       @date = Date.new(date.to_i-1,12,1) 
       @bop = @bop.or(Choru.where('centre_financier = ? AND date >= ? AND date < ? ', params[:id],@date, @date + 1.year ))
     end
+    @bop = @bop.order('date ASC')
     @bop_ht2 = @bop.where("compte_budgetaire = ?", "HT2")
     @bop_t2 = @bop.where("compte_budgetaire = ?", "T2")
     @uo_search = @bop.first.centre_financier + '-'
@@ -155,6 +156,7 @@ class ChorusController < ApplicationController
       @date = Date.new(date.to_i-1,12,1)
       @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', @uo_arr[0],@date, @date + 1.year ))
     end
+    @uo = @uo.order('date ASC')
     @uo_ht2 = @uo.where("compte_budgetaire = ? OR (compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?)  ", "HT2", "21","22","23","24","25","26").order('date ASC')
     @uo_t2 = @uo.where("compte_budgetaire = ? OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ? ", "T2", "21","22","23","24","25","26").order('date ASC')
     #nombre d'actions 
@@ -174,6 +176,7 @@ class ChorusController < ApplicationController
       @date = Date.new(date.to_i-1,12,1)
       @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', params[:id],@date, @date + 1.year ))
     end
+    @uo = @uo.order('date ASC')
     
     @bop = Choru.where('centre_financier = ?', params[:bop_id]).order('date ASC')
     @uo_search = @bop.first.centre_financier + '-'
@@ -204,6 +207,7 @@ class ChorusController < ApplicationController
       @date = Date.new(date.to_i-1,12,1)
       @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', params[:uo_id],@date, @date + 1.year ))
     end
+    @uo = @uo.order('date ASC')
     #nombre d'actions 
     @uo_actions = []
     @uo.where.not(domaine_fonctionnel: nil).each do |uo|
