@@ -27,11 +27,21 @@ class ChorusController < ApplicationController
       @programme = Choru.where('centre_financier = ? AND date >= ? AND date < ? ', @search, @date, @date + 1.year).order('date ASC')
       @programme_ht2 = @programme.where("compte_budgetaire = ?", "HT2")
       @programme_t2 = @programme.where("compte_budgetaire = ?", "T2")
-      @type_pieces=[]
-      @programme.each do |choru|
-        @type_pieces << choru.type_piece
-      end 
-      @type_pieces.uniq! 
+      
+      @type_pieces_ht2=[]
+      if @programme_ht2.nil?
+        @programme_ht2.each do |choru|
+          @type_pieces_ht2 << choru.type_piece
+        end 
+        @type_pieces_ht2.uniq! 
+      end
+      @type_pieces_t2=[]
+      if @programme_t2.nil?
+        @programme_t2.each do |choru|
+          @type_pieces_t2 << choru.type_piece
+        end 
+        @type_pieces_t2.uniq! 
+      end
       
       @bops = @chorus.select { |choru| choru.centre_financier.count("-") == 1 }
 
@@ -84,11 +94,20 @@ class ChorusController < ApplicationController
     @programme = @programme.order('date ASC')
     @programme_ht2 = @programme.where("compte_budgetaire = ?", "HT2")
     @programme_t2 = @programme.where("compte_budgetaire = ?", "T2")
-    @type_pieces=[]
-      @programme.each do |choru|
-        @type_pieces << choru.type_piece
-      end 
-      @type_pieces.uniq! 
+    @type_pieces_ht2=[]
+      if @programme_ht2.nil?
+        @programme_ht2.each do |choru|
+          @type_pieces_ht2 << choru.type_piece
+        end 
+        @type_pieces_ht2.uniq! 
+      end
+      @type_pieces_t2=[]
+      if @programme_t2.nil?
+        @programme_t2.each do |choru|
+          @type_pieces_t2 << choru.type_piece
+        end 
+        @type_pieces_t2.uniq! 
+      end
     @bops = @chorus.select { |choru| choru.centre_financier.count("-") == 1 }
     
     #compter le nombre de bop differents 

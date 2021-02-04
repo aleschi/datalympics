@@ -2147,5 +2147,11 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
   color: transparent;
 }
 .total-annuel{
-  background-color:#F5F9FF;
+  background-color:#F5F9FF !important;
+}
+.chorus-table-subtitle{
+  color:#CECECE;
+  font-size:14px;
+  font-style:italic;
+  margin-bottom:10px;
 }
