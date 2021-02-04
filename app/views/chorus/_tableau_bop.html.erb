@@ -1,5 +1,5 @@
-<div class="chorus-table-subtitle">Bilan compte budgétaire HT2</div> 
-<div class="ED_table">
+<div class="chorus-table-subtitle"><a id="bop-total-ht2-btn">Bilan compte budgétaire HT2</a> <a id="bop-total-t2-btn">Bilan compte budgétaire T2</a> </div> 
+<div class="ED_table" id="bop-total-ht2">
       <table class="table-striped">
         <thead>
           <tr>
@@ -31,8 +31,8 @@
       </table>
       </div>
 <% if !@bop_t2.nil? && @bop_t2.length > 0 %>
-<div class="chorus-table-subtitle">Bilan compte budgétaire T2</div> 
-<div class="ED_table">
+
+<div class="ED_table" id="bop-total-t2">
       <table class="table-striped">
         <thead>
           <tr>
@@ -68,9 +68,10 @@
 <div class="SD-topo-box-title2"><a href="#details-bop" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-bop"> Tableau des mouvements de crédits au niveau du BOP <i class="fas fa-chevron-down"></i></a>
     </div><br>
      <section id="details-bop" class="collapse">
+       <div class="chorus-table-subtitle"><a id="details-bop-total-ht2-btn">Détails Mouvements HT2</a> <a id="details-bop-total-t2-btn">Détails Mouvements T2</a> </div> 
       <!-- HT2-->
-       <div class="chorus-table-subtitle">Détails compte budgétaire HT2</div>
-      <div class="ED_table">
+      
+      <div class="ED_table" id="details-bop-total-ht2">
         <table class="table-striped">
           <thead>
             <tr>
@@ -115,8 +116,8 @@
       </div>
        <!-- T2-->
        <% if !@bop_t2.nil? && @bop_t2.length > 0 %>
-       <div class="chorus-table-subtitle">Détails compte budgétaire T2</div>
-      <div class="ED_table">
+      
+      <div class="ED_table" id="details-bop-total-t2">
         <table class="table-striped">
           <thead>
             <tr>
@@ -162,3 +163,44 @@
        <% end %>
      </section>
     <br>
+
+<script>
+$('#bop-total-t2').hide();
+$('#bop-total-ht2-btn').addClass('chorus-table-subtitle-active');
+$('#bop-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+$('#bop-total-t2-btn').click(function () {
+  $('#bop-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#bop-total-t2-btn').addClass('chorus-table-subtitle-active');
+  $('#bop-total-ht2-btn').removeClass('chorus-table-subtitle-active');
+  $('#bop-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#bop-total-t2').hide();
+  $('#bop-total-ht2').show();
+  });
+$('#bop-total-ht2-btn').click(function () {
+  $('#bop-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#bop-total-ht2-btn').addClass('chorus-table-subtitle-active');
+  $('#bop-total-t2-btn').removeClass('chorus-table-subtitle-active');
+  $('#bop-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#bop-total-ht2').hide();
+  $('#bop-total-t2').show();
+  });
+  $('#details-bop-total-t2').hide();
+$('#details-bop-total-ht2-btn').addClass('chorus-table-subtitle-active');
+$('#details-bop-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+$('#details-bop-total-t2-btn').click(function () {
+  $('#details-bop-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#details-bop-total-t2-btn').addClass('chorus-table-subtitle-active');
+  $('#details-bop-total-ht2-btn').removeClass('chorus-table-subtitle-active');
+  $('#details-bop-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#details-bop-total-t2').hide();
+  $('#details-bop-total-ht2').show();
+  });
+$('#details-bop-total-ht2-btn').click(function () {
+  $('#details-bop-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#details-bop-total-ht2-btn').addClass('chorus-table-subtitle-active');
+  $('#details-bop-total-t2-btn').removeClass('chorus-table-subtitle-active');
+  $('#details-bop-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#details-bop-total-ht2').hide();
+  $('#details-bop-total-t2').show();
+  });
+</script>

@@ -19,8 +19,8 @@
   </div>
 
   <br><br>
-  <div class="chorus-table-subtitle">Bilan compte budgétaire HT2</div> 
-  <div class="ED_table">
+  <div class="chorus-table-subtitle"><a id="uo-total-ht2-btn">Bilan compte budgétaire HT2</a> <a id="uo-total-t2-btn">Bilan compte budgétaire T2</a> </div> 
+  <div class="ED_table" id="uo-total-ht2">
   <table class="table-striped">
     <thead>
       <tr>
@@ -50,8 +50,7 @@
   </table>
   </div>
 <% if !@uo_t2.nil? && @uo_t2.length > 0 %>
-  <div class="chorus-table-subtitle">Bilan compte budgétaire T2</div> 
-  <div class="ED_table">
+  <div class="ED_table" id="uo-total-t2">
   <table class="table-striped">
     <thead>
       <tr>
@@ -85,9 +84,9 @@
   <div class="SD-topo-box-title2"><a href="#details-uo" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-uo">  Tableau des mouvements de crédits au niveau de l'UO <i class="fas fa-chevron-down"></i></a>
   </div><br>
   <section id="details-uo" class="collapse"> 
-    <% if !@uo_ht2.nil? && @uo_ht2.length > 0 %>
-    <div class="chorus-table-subtitle">Détails compte budgétaire HT2</div>
-    <div class="ED_table">
+  <div class="chorus-table-subtitle"><a id="details-uo-total-ht2-btn">Détails Mouvements HT2</a> <a id="details-uo-total-t2-btn">Détails Mouvements T2</a> </div> 
+  
+    <div class="ED_table" id="details-uo-total-ht2">
       <table class="table-striped">
         <thead>
           <tr>
@@ -130,10 +129,10 @@
         </tbody>
       </table>
     </div> 
-    <% end %>
+  
     <% if !@uo_t2.nil? && @uo_t2.length > 0 %>
-    <div class="chorus-table-subtitle">Détails compte budgétaire T2</div>
-    <div class="ED_table">
+   
+    <div class="ED_table" id="details-uo-total-t2">
       <table class="table-striped">
         <thead>
           <tr>
@@ -182,7 +181,48 @@
   <div id="actions">
     <%= render 'chorus/actions'%>
   </div>
-    
+
+
+<script>
+$('#uo-total-t2').hide();
+$('#uo-total-ht2-btn').addClass('chorus-table-subtitle-active');
+$('#uo-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+$('#uo-total-t2-btn').click(function () {
+  $('#uo-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#uo-total-t2-btn').addClass('chorus-table-subtitle-active');
+  $('#uo-total-ht2-btn').removeClass('chorus-table-subtitle-active');
+  $('#uo-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#uo-total-t2').hide();
+  $('#uo-total-ht2').show();
+  });
+$('#uo-total-ht2-btn').click(function () {
+  $('#uo-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#uo-total-ht2-btn').addClass('chorus-table-subtitle-active');
+  $('#uo-total-t2-btn').removeClass('chorus-table-subtitle-active');
+  $('#uo-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#uo-total-ht2').hide();
+  $('#uo-total-t2').show();
+  });
+  $('#details-uo-total-t2').hide();
+$('#details-uo-total-ht2-btn').addClass('chorus-table-subtitle-active');
+$('#details-uo-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+$('#details-uo-total-t2-btn').click(function () {
+  $('#details-uo-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#details-uo-total-t2-btn').addClass('chorus-table-subtitle-active');
+  $('#details-uo-total-ht2-btn').removeClass('chorus-table-subtitle-active');
+  $('#details-uo-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#details-uo-total-t2').hide();
+  $('#details-uo-total-ht2').show();
+  });
+$('#details-uo-total-ht2-btn').click(function () {
+  $('#details-uo-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#details-uo-total-ht2-btn').addClass('chorus-table-subtitle-active');
+  $('#details-uo-total-t2-btn').removeClass('chorus-table-subtitle-active');
+  $('#details-uo-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#details-uo-total-ht2').hide();
+  $('#details-uo-total-t2').show();
+  });
+</script>
 <script>
 
 Highcharts.chart('uo_chart', {

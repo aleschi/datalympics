@@ -2150,12 +2150,21 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
   background-color:#F5F9FF !important;
 }
 .chorus-table-subtitle{
-  color:#CECECE;
-  font-size:14px;
-  font-style:italic;
   margin-bottom:10px;
 }
-
+.chorus-table-subtitle-active{
+  background-color:#000091;
+  padding:15px 10px;
+  color:#fff;
+  font-size:16px;
+  border-radius:20px;
+}
+.chorus-table-subtitle-inactive{
+  background-color:#fff;
+  padding:15px 10px;
+  color:#1E1E1E;
+  font-size:16px;
+}
 .chorus-index-title{
   font-size:48px;
   font-weight:700;

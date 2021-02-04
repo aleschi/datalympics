@@ -15,8 +15,8 @@
  </div>
 <br><br>
 
-<div class="chorus-table-subtitle">Bilan compte budgétaire HT2 (€)</div>
-<div class="ED_table">
+<div class="chorus-table-subtitle"><a id="programme-total-ht2-btn">Bilan compte budgétaire HT2</a> <a id="programme-total-t2-btn">Bilan compte budgétaire T2</a> </div> 
+<div class="ED_table" id="programme-total-ht2">
   <table class="table-striped">
     <thead>
       <tr>
@@ -47,8 +47,7 @@
 </div>
 
 <% if !@programme_t2.nil? && @programme_t2.length > 0 %>
-<div class="chorus-table-subtitle">Bilan compte budgétaire T2 (€)</div>
-<div class="ED_table">
+<div class="ED_table" id="programme-total-t2">
   <table class="table-striped">
     <thead>
       <tr>
@@ -82,9 +81,10 @@
 <div class="SD-topo-box-title2"><a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details"> Tableau des mouvements de crédits au niveau du Programme <i class="fas fa-chevron-down"></i></a>
 </div><br>
 <section id="details" class="collapse">
+  <div class="chorus-table-subtitle"><a id="details-programme-total-ht2-btn">Détails Mouvements HT2</a> <a id="details-programme-total-t2-btn">Détails Mouvements T2</a> </div> 
   <!-- HT2 --> 
-  <div class="chorus-table-subtitle">Détails compte budgétaire HT2</div>
-  <div class="ED_table">
+
+  <div class="ED_table" id="details-programme-total-ht2">
   <table class="table-striped">
     <thead>
       <tr>
@@ -129,8 +129,8 @@
   </div>
   <!-- T2 --> 
   <% if !@programme_t2.nil? && @programme_t2.length > 0 %>
-  <div class="chorus-table-subtitle">Détails compte budgétaire T2</div>
-  <div class="ED_table">
+ 
+  <div class="ED_table" id="details-programme-total-t2">
     <table class="table-striped">
       <thead>
         <tr>
@@ -207,7 +207,46 @@
   <%= render 'chorus/uo'%>
 </div>
 
-
+<script>
+$('#programme-total-t2').hide();
+$('#programme-total-ht2-btn').addClass('chorus-table-subtitle-active');
+$('#programme-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+$('#programme-total-t2-btn').click(function () {
+  $('#programme-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#programme-total-t2-btn').addClass('chorus-table-subtitle-active');
+  $('#programme-total-ht2-btn').removeClass('chorus-table-subtitle-active');
+  $('#programme-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#programme-total-t2').hide();
+  $('#programme-total-ht2').show();
+  });
+$('#programme-total-ht2-btn').click(function () {
+  $('#programme-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#programme-total-ht2-btn').addClass('chorus-table-subtitle-active');
+  $('#programme-total-t2-btn').removeClass('chorus-table-subtitle-active');
+  $('#programme-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#programme-total-ht2').hide();
+  $('#programme-total-t2').show();
+  });
+$('#details-programme-total-t2').hide();
+$('#details-programme-total-ht2-btn').addClass('chorus-table-subtitle-active');
+$('#details-programme-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+$('#details-programme-total-t2-btn').click(function () {
+  $('#details-programme-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#details-programme-total-t2-btn').addClass('chorus-table-subtitle-active');
+  $('#details-programme-total-ht2-btn').removeClass('chorus-table-subtitle-active');
+  $('#details-programme-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#details-programme-total-t2').hide();
+  $('#details-programme-total-ht2').show();
+  });
+$('#details-programme-total-ht2-btn').click(function () {
+  $('#details-programme-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
+  $('#details-programme-total-ht2-btn').addClass('chorus-table-subtitle-active');
+  $('#details-programme-total-t2-btn').removeClass('chorus-table-subtitle-active');
+  $('#details-programme-total-t2-btn').addClass('chorus-table-subtitle-inactive');
+  $('#details-programme-total-ht2').hide();
+  $('#details-programme-total-t2').show();
+  });
+</script>
 <script>
 Highcharts.chart('programme', {
   mapNavigation: {
