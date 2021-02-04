@@ -8,7 +8,7 @@
          <div class="chorus-select-box">
           
            <div class="chorus-select-box-title" id="action_name"> Action <%= @uo_action %> </div>
-              <%= form_with url: select_actions_path(:uo_id => @uo.first.centre_financier, :date => @dates), id: "action_form" do |f|%>
+              <%= form_with url: select_action_path(:uo_id => @uo.first.centre_financier, :date => @dates), id: "action_form" do |f|%>
               <% (0..@uo_actions.length-1).each do |i|%>
                 <label><%= f.radio_button :id, @uo_actions[i] %>  <%= @uo_actions[i]%></label>
               <% end %>
@@ -18,7 +18,7 @@
      </div>
     <br><br>
     <div class="SD-topo-box-title2">
-       <a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau des actions de l'UO <i class="fas fa-chevron-down"></i></a>
+       <a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau de l'action <i class="fas fa-chevron-down"></i></a>
     </div>
     <section id="details-actions" class="collapse"> 
       <div class="ED_table">
@@ -36,7 +36,7 @@
           </thead>
 
           <tbody>
-            <% @uo.where('operation != ?', 'Réception' ).each do |choru| %>
+            <% @uo.where(domaine_fonctionnel: @uo_action).each do |choru| %>
               <tr>
                 <td><%= l(choru.date, format: "%e %b %Y") %></td>
                 <td><%= choru.type_piece %></td>
@@ -52,6 +52,11 @@
       </div>
     </section>
 
+<script>
+  var elementactionid = '#id_'+'<%= @action %>'
+  $(elementactionid).prop('checked', true);
+
+</script>
 <script>
 
 Highcharts.chart('actions_chart', {
