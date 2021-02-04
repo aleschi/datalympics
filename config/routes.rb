@@ -55,6 +55,6 @@ Rails.application.routes.draw do
   post 'select_bop' => 'chorus#select_bop'
   post 'select_uo' => 'chorus#select_uo'
    post 'select_date_programme' => 'chorus#select_date_programme'
-  post 'select_actions' => 'chorus#select_actions'
+  post 'select_action' => 'chorus#select_action'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
