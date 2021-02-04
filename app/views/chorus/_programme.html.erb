@@ -30,70 +30,23 @@
 
     <tbody>
       <% if !@dates.nil?%>
+      
         <% @dates.each do |date| %>
           <tr>
             <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
             <% @type_pieces_ht2.each do |piece|%>
               <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece).sum('montant'), :delimiter => ' ') %></td>
-          <% end %>
+            <% end %>
             <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? ',Date.new(date.to_i-1,12,31),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
-
           </tr>
         <% end %>
-      <%elsif !@date.nil? %> 
-      <tr>
-          <td><%= l(@date+1.year, format: "%Y") %></td>
-          <% @type_pieces_ht2.each do |piece|%>
-              <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),piece).sum('montant'), :delimiter => ' ') %></td>
-          <% end %>
-          <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? ',Date.new(@date.year,12,31),Date.new(@date.year+1,12,31)).sum('montant'), :delimiter => ' ') %></td>
-
-          </tr>
+    
       <% end %>
     </tbody>
   </table>
 </div>
 <% end %>
-<% if @type_pieces_t2.length > 0 %>
-<div class="chorus-table-subtitle">Compte budgétaire T2</div>
-<div class="ED_table">
-  <table class="table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Date</th>
-        <% @type_pieces_t2.each do |piece|%>
-          <th scope="col"><%= piece%></th>
-        <% end %>
-        <th scope="col">REPORT FIN D'ANNEE</th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% if !@dates.nil?%>
-        <% @dates.each do |date| %>
-          <tr>
-            <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
-            <% @type_pieces_t2.each do |piece|%>
-              <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece).sum('montant'), :delimiter => ' ') %></td>
-          <% end %>
-            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? ',Date.new(date.to_i-1,12,31),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
-
-          </tr>
-        <% end %>
-      <%elsif !@date.nil? %> 
-      <tr>
-          <td><%= l(@date+1.year, format: "%Y") %></td>
-          <% @type_pieces_t2.each do |piece|%>
-              <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),piece).sum('montant'), :delimiter => ' ') %></td>
-          <% end %>
-          <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? ',Date.new(@date.year,12,31),Date.new(@date.year+1,12,31)).sum('montant'), :delimiter => ' ') %></td>
-
-          </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<% end %>
 
 <div class="SD-topo-box-title2"><a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details"> Tableau des mouvements de crédits au niveau du Programme <i class="fas fa-chevron-down"></i></a>
 </div><br>
