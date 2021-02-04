@@ -2150,20 +2150,28 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
   background-color:#F5F9FF !important;
 }
 .chorus-table-subtitle{
-  margin-bottom:10px;
+  margin-bottom:30px;
 }
 .chorus-table-subtitle-active{
   background-color:#000091;
-  padding:15px 10px;
+  padding:15px 15px;
   color:#fff;
   font-size:16px;
-  border-radius:20px;
+  border-radius:10px;
+  &:hover{
+    color:#fff;
+    cursor:pointer
+  }
 }
 .chorus-table-subtitle-inactive{
   background-color:#fff;
-  padding:15px 10px;
+  padding:15px 15px;
   color:#1E1E1E;
   font-size:16px;
+  &:hover{
+    color:#1E1E1E;
+    cursor:pointer;
+  }
 }
 .chorus-index-title{
   font-size:48px;
