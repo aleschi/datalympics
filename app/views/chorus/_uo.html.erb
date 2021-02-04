@@ -26,9 +26,9 @@
       <tr>
         <th scope="col">Date</th>
           <th scope="col">MADI Réception</th>
-          <th scope="col">MADI Envoie</th>
+     
           <th scope="col">REAP Réception</th>
-          <th scope="col">REAP Envoie</th>         
+          <th scope="col">Consommation par actions </th>         
       </tr>
     </thead>
 
@@ -39,10 +39,8 @@
             <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
 
               <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
-            <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
             <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
-            <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
-
+            <td><%= number_with_delimiter(@uo_ht2.where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
 
           </tr>
         <% end %>
@@ -59,9 +57,8 @@
       <tr>
         <th scope="col">Date</th>
           <th scope="col">MADI Réception</th>
-          <th scope="col">MADI Envoie</th>
           <th scope="col">REAP Réception</th>
-          <th scope="col">REAP Envoie</th>         
+          <th scope="col">Consommation par actions</th>         
       </tr>
     </thead>
 
@@ -72,9 +69,8 @@
             <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
 
               <td><%= number_with_delimiter(@uo_t2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
-            <td><%= number_with_delimiter(@uo_t2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
             <td><%= number_with_delimiter(@uo_t2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
-            <td><%= number_with_delimiter(@uo_t2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@uo_t2.where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
 
 
           </tr>
