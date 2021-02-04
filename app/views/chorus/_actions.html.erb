@@ -53,6 +53,11 @@
     </section>
 
 <script>
+  $('#action_form input').click(function(){
+$('#action_form').submit();
+});
+</script>
+<script>
   var elementactionid = '#id_'+'<%= @uo_action %>'
   $(elementactionid).prop('checked', true);
 
