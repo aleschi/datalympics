@@ -1,56 +1,56 @@
 <div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br><br>
      
-     <div class="row">
-       <div class="col-md-9">
-         <div id="actions_chart"> </div>
-       </div>
-       <div class="col-md-3">
-         <div class="chorus-select-box">
-          
-           <div class="chorus-select-box-title" id="action_name"> Action <%= @uo_action %> </div>
-              <%= form_with url: select_action_path(:uo_id => @uo.first.centre_financier, :date => @dates), id: "action_form" do |f|%>
-              <% (0..@uo_actions.length-1).each do |i|%>
-                <label><%= f.radio_button :id, @uo_actions[i] %>  <%= @uo_actions[i]%></label>
-              <% end %>
-             <% end %>
-         </div>
-       </div> 
-     </div>
-    <br><br>
-    <div class="SD-topo-box-title2">
-       <a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau de l'action <i class="fas fa-chevron-down"></i></a>
-    </div>
-    <section id="details-actions" class="collapse"> 
-      <div class="ED_table">
-        <table class="table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Type piece</th>
-              <th scope="col">Centre financier</th>
-              <th scope="col">Compte budgetaire</th>
-              <th scope="col">Action</th>
-              <th scope="col">Montant consommé (€)</th>
+<div class="row">
+ <div class="col-md-9">
+   <div id="actions_chart"> </div>
+ </div>
+ <div class="col-md-3">
+   <div class="chorus-select-box">
 
-            </tr>
-          </thead>
+     <div class="chorus-select-box-title" id="action_name"> Action <%= @uo_action %> </div>
+        <%= form_with url: select_action_path(:uo_id => @uo.first.centre_financier, :date => @dates), id: "action_form" do |f|%>
+        <% (0..@uo_actions.length-1).each do |i|%>
+          <label><%= f.radio_button :id, @uo_actions[i] %>  <%= @uo_actions[i]%></label>
+        <% end %>
+       <% end %>
+   </div>
+ </div> 
+</div>
+<br><br>
+<div class="SD-topo-box-title2">
+   <a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau de l'action <i class="fas fa-chevron-down"></i></a>
+</div>
+<section id="details-actions" class="collapse"> 
+  <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Action</th>
+          <th scope="col">Montant consommé (€)</th>
 
-          <tbody>
-            <% @uo.where(domaine_fonctionnel: @uo_action).each do |choru| %>
-              <tr>
-                <td><%= l(choru.date, format: "%e %b %Y") %></td>
-                <td><%= choru.type_piece %></td>
-                <td><%= choru.centre_financier %></td>
-                <td><%= choru.compte_budgetaire %></td>
-                 <td><%= choru.domaine_fonctionnel %></td>
-                <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+        </tr>
+      </thead>
 
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </section>
+      <tbody>
+        <% @uo.where(domaine_fonctionnel: @uo_action).each do |choru| %>
+          <tr>
+            <td><%= l(choru.date, format: "%e %b %Y") %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+             <td><%= choru.domaine_fonctionnel %></td>
+            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
 
 <script>
   $('#action_form input').click(function(){

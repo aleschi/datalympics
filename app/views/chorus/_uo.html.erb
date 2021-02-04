@@ -2,134 +2,138 @@
   <div class="SD-topo-box-title2">Visualisation au niveau des UO de ce BOP (<%= @uo_arr.length %>)     
   </div><br><br>
      
-     <div class="row">
-       <div class="col-md-9">
-         <div id="uo_chart"> </div>
-       </div>
-       <div class="col-md-3">
-           <div class="chorus-select-box">
-             <div class="chorus-select-box-title" id="uo_name"> <%= @uo.first.centre_financier%> </div>
-              <%= form_with url: select_uo_path(:bop_id => @bop.first.centre_financier, :date => @dates), id: "uo_form" do |f|%>
-              <% (0..@uo_arr.length-1).each do |i|%>
-                <label><%= f.radio_button :id, @uo_arr[i] %>  <%= @uo_arr[i]%></label>
-              <% end %>
-             <% end %>
-         </div>
-       </div> 
+  <div class="row">
+   <div class="col-md-9">
+     <div id="uo_chart"> </div>
+   </div>
+   <div class="col-md-3">
+       <div class="chorus-select-box">
+         <div class="chorus-select-box-title" id="uo_name"> <%= @uo.first.centre_financier%> </div>
+          <%= form_with url: select_uo_path(:bop_id => @bop.first.centre_financier, :date => @dates), id: "uo_form" do |f|%>
+          <% (0..@uo_arr.length-1).each do |i|%>
+            <label><%= f.radio_button :id, @uo_arr[i] %>  <%= @uo_arr[i]%></label>
+          <% end %>
+         <% end %>
      </div>
+   </div> 
+  </div>
 
-   <br><br>
- <div class="ED_table">
+  <br><br>
+  <div class="ED_table">
+  <table class="table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+          <th scope="col">MADI Réception</th>
+          <th scope="col">MADI Envoie</th>
+          <th scope="col">REAP Réception</th>
+          <th scope="col">REAP Envoie</th>         
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if !@dates.nil?%>
+        <% @dates.each do |date| %>
+          <tr>
+            <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+
+              <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+
+
+          </tr>
+        <% end %>
+      <%elsif !@date.nil? %> 
+      <tr>
+          <td><%= l(@date+1.year, format: "%Y") %></td>
+
+              <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
+              <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+        <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
+        <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
+
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="SD-topo-box-title2"><a href="#details-uo" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-uo">  Tableau des mouvements de crédits au niveau de l'UO <i class="fas fa-chevron-down"></i></a>
+  </div>
+  <section id="details-uo" class="collapse"> 
+    <% if !@uo_ht2.nil? && @uo_ht2.length > 0 %>
+    <div class="ED_table">
       <table class="table-striped">
         <thead>
           <tr>
             <th scope="col">Date</th>
-              <th scope="col">MADI Réception</th>
-              <th scope="col">MADI Envoie</th>
-              <th scope="col">REAP Réception</th>
-              <th scope="col">REAP Envoie</th>         
+            <th scope="col">Type budget</th>
+            <th scope="col">Type piece</th>
+            <th scope="col">Operation</th>
+            <th scope="col">Centre financier</th>
+            <th scope="col">Compte budgetaire</th>
+            <th scope="col">Montant (€)</th>
+
           </tr>
         </thead>
 
         <tbody>
-          <% if !@dates.nil?%>
-            <% @dates.each do |date| %>
-              <tr>
-                <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
-               
-                  <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
-                <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
-                <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
-                <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
-              
+          <% @uo_ht2.where('operation = ?', 'Réception' ).each do |choru| %>
+            <tr>
+              <td><%= l(choru.date, format: "%e %b %Y") %></td>
+              <td><%= choru.type_budget %></td>
+              <td><%= choru.type_piece %></td>
+              <td><%= choru.operation %></td>
+              <td><%= choru.centre_financier %></td>
+              <td><%= choru.compte_budgetaire %></td>
+              <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
 
-              </tr>
-            <% end %>
-          <%elsif !@date.nil? %> 
-          <tr>
-              <td><%= l(@date+1.year, format: "%Y") %></td>
-      
-                  <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
-                  <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
-            <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
-            <td><%= number_with_delimiter(@uo.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ?',Date.new(@date.year+1,1,1),Date.new(@date.year+1,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %></td>
-            
-              </tr>
+            </tr>
           <% end %>
         </tbody>
       </table>
-      </div>
-     
-    <div class="SD-topo-box-title2"><a href="#details-uo" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-uo">  Tableau des mouvements de crédits au niveau de l'UO <i class="fas fa-chevron-down"></i></a>
-    </div>
-    <section id="details-uo" class="collapse"> 
-      <div class="ED_table">
-        <table class="table-striped">
-          <thead>
+    </div> 
+    <% end %>
+    <% if !@uo_t2.nil? && @uo_t2.length > 0 %>
+    <div class="ED_table">
+      <table class="table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Type budget</th>
+            <th scope="col">Type piece</th>
+            <th scope="col">Operation</th>
+            <th scope="col">Centre financier</th>
+            <th scope="col">Compte budgetaire</th>
+            <th scope="col">Montant (€)</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @uo_t2.where('operation = ?', 'Réception' ).each do |choru| %>
             <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Type budget</th>
-              <th scope="col">Type piece</th>
-              <th scope="col">Operation</th>
-              <th scope="col">Centre financier</th>
-              <th scope="col">Compte budgetaire</th>
-              <th scope="col">Montant (€)</th>
+              <td><%= l(choru.date, format: "%e %b %Y") %></td>
+              <td><%= choru.type_budget %></td>
+              <td><%= choru.type_piece %></td>
+              <td><%= choru.operation %></td>
+              <td><%= choru.centre_financier %></td>
+              <td><%= choru.compte_budgetaire %></td>
+              <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
 
             </tr>
-          </thead>
-
-          <tbody>
-            <% @uo_ht2.where('operation = ?', 'Réception' ).each do |choru| %>
-              <tr>
-                <td><%= l(choru.date, format: "%e %b %Y") %></td>
-                <td><%= choru.type_budget %></td>
-                <td><%= choru.type_piece %></td>
-                <td><%= choru.operation %></td>
-                <td><%= choru.centre_financier %></td>
-                <td><%= choru.compte_budgetaire %></td>
-                <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
-
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div> 
-      <div class="ED_table">
-        <table class="table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Type budget</th>
-              <th scope="col">Type piece</th>
-              <th scope="col">Operation</th>
-              <th scope="col">Centre financier</th>
-              <th scope="col">Compte budgetaire</th>
-              <th scope="col">Montant (€)</th>
-
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @uo_t2.where('operation = ?', 'Réception' ).each do |choru| %>
-              <tr>
-                <td><%= l(choru.date, format: "%e %b %Y") %></td>
-                <td><%= choru.type_budget %></td>
-                <td><%= choru.type_piece %></td>
-                <td><%= choru.operation %></td>
-                <td><%= choru.centre_financier %></td>
-                <td><%= choru.compte_budgetaire %></td>
-                <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
-
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>     
-    </section>
-    <br>
-<div id="actions">
-  <%= render 'chorus/actions'%>
-</div>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+    <% end %>
+  </section>
+  <br>
+  <div id="actions">
+    <%= render 'chorus/actions'%>
+  </div>
     
 <script>
 

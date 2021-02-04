@@ -120,7 +120,7 @@ class ChorusController < ApplicationController
       @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', @uo_arr[0],@date, @date + 1.year ))
     end
     @uo = @uo.order('date ASC')
-    @uo_ht2 = @uo.where("compte_budgetaire = ? OR (compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?)  ", "HT2", "21","22","23","24","25","26").order('date ASC')
+    @uo_ht2 = @uo.where("compte_budgetaire = ? OR (compte_budgetaire != ? AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?)  ", "HT2", "T2","21","22","23","24","25","26").order('date ASC')
     @uo_t2 = @uo.where("compte_budgetaire = ? OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ? ", "T2", "21","22","23","24","25","26").order('date ASC')
     #nombre d'actions 
    #nombre d'actions 
@@ -157,7 +157,7 @@ class ChorusController < ApplicationController
       @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', @uo_arr[0],@date, @date + 1.year ))
     end
     @uo = @uo.order('date ASC')
-    @uo_ht2 = @uo.where("compte_budgetaire = ? OR (compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?)  ", "HT2", "21","22","23","24","25","26").order('date ASC')
+    @uo_ht2 = @uo.where("compte_budgetaire = ? OR (compte_budgetaire != ? AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?)  ", "HT2", 'T2',"21","22","23","24","25","26").order('date ASC')
     @uo_t2 = @uo.where("compte_budgetaire = ? OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ? ", "T2", "21","22","23","24","25","26").order('date ASC')
     #nombre d'actions 
     @uo_actions = []
@@ -186,7 +186,7 @@ class ChorusController < ApplicationController
       @uo_arr << uo.centre_financier
     end 
     @uo_arr.uniq! 
-    @uo_ht2 = @uo.where("compte_budgetaire = ? OR (compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?)  ", "HT2", "21","22","23","24","25","26").order('date ASC')
+    @uo_ht2 = @uo.where("compte_budgetaire = ? OR (compte_budgetaire != ? AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?)  ", "HT2", "T2", "21","22","23","24","25","26").order('date ASC')
     @uo_t2 = @uo.where("compte_budgetaire = ? OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ? ", "T2", "21","22","23","24","25","26").order('date ASC')
     
     #nombre d'actions 
