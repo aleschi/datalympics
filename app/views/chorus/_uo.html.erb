@@ -83,9 +83,10 @@
 <% end %>
 
   <div class="SD-topo-box-title2"><a href="#details-uo" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-uo">  Tableau des mouvements de crédits au niveau de l'UO <i class="fas fa-chevron-down"></i></a>
-  </div>
+  </div><br>
   <section id="details-uo" class="collapse"> 
     <% if !@uo_ht2.nil? && @uo_ht2.length > 0 %>
+    <div class="chorus-table-subtitle">Détails compte budgétaire HT2</div>
     <div class="ED_table">
       <table class="table-striped">
         <thead>
@@ -131,6 +132,7 @@
     </div> 
     <% end %>
     <% if !@uo_t2.nil? && @uo_t2.length > 0 %>
+    <div class="chorus-table-subtitle">Détails compte budgétaire T2</div>
     <div class="ED_table">
       <table class="table-striped">
         <thead>
