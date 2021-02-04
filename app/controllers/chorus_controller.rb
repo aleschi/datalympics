@@ -134,7 +134,13 @@ class ChorusController < ApplicationController
   
   def select_bop
     @dates = params[:date]
-    @bop = Choru.where('centre_financier = ?', params[:id]).order('date ASC')
+    #@bop = Choru.where('centre_financier = ?', params[:id]).order('date ASC')
+    @bop = Choru.where('date = ?', Date.new(1000))
+    @uo = Choru.where('date = ?', Date.new(1000))
+    params[:date].each do |date|
+      @date = Date.new(date.to_i-1,12,1) 
+      @bop = @bop.or(Choru.where('centre_financier = ? AND date >= ? AND date < ? ', params[:id],@date, @date + 1.year ))
+    end
     @bop_ht2 = @bop.where("compte_budgetaire = ?", "HT2")
     @bop_t2 = @bop.where("compte_budgetaire = ?", "T2")
     @uo_search = @bop.first.centre_financier + '-'
@@ -144,7 +150,11 @@ class ChorusController < ApplicationController
       @uo_arr << uo.centre_financier
     end 
     @uo_arr.uniq! 
-    @uo = Choru.where('centre_financier = ?', @uo_arr[0] ).order('date ASC')
+   
+    params[:date].each do |date|
+      @date = Date.new(date.to_i-1,12,1)
+      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', @uo_arr[0],@date, @date + 1.year ))
+    end
     @uo_ht2 = @uo.where("compte_budgetaire = ? OR (compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?  AND compte_budgetaire != ?)  ", "HT2", "21","22","23","24","25","26").order('date ASC')
     @uo_t2 = @uo.where("compte_budgetaire = ? OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ?  OR compte_budgetaire = ? ", "T2", "21","22","23","24","25","26").order('date ASC')
     #nombre d'actions 
@@ -158,7 +168,12 @@ class ChorusController < ApplicationController
   
   def select_uo
     @dates = params[:date]
-    @uo = Choru.where('centre_financier = ?', params[:id]).order('date ASC')
+    #@uo = Choru.where('centre_financier = ?', params[:id]).order('date ASC')
+    @uo = Choru.where('date = ?', Date.new(1000))
+    params[:date].each do |date|
+      @date = Date.new(date.to_i-1,12,1)
+      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', params[:id]),@date, @date + 1.year ))
+    end
     
     @bop = Choru.where('centre_financier = ?', params[:bop_id]).order('date ASC')
     @uo_search = @bop.first.centre_financier + '-'
@@ -183,8 +198,12 @@ class ChorusController < ApplicationController
 
   def select_action
     @dates = params[:date]
-    @uo = Choru.where('centre_financier = ?', params[:uo_id]).order('date ASC')
-
+    #@uo = Choru.where('centre_financier = ?', params[:uo_id]).order('date ASC')
+    @uo = Choru.where('date = ?', Date.new(1000))
+    params[:date].each do |date|
+      @date = Date.new(date.to_i-1,12,1)
+      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', params[:uo_id],@date, @date + 1.year ))
+    end
     #nombre d'actions 
     @uo_actions = []
     @uo.where.not(domaine_fonctionnel: nil).each do |uo|
