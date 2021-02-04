@@ -172,7 +172,7 @@ class ChorusController < ApplicationController
     @uo = Choru.where('date = ?', Date.new(1000))
     params[:date].each do |date|
       @date = Date.new(date.to_i-1,12,1)
-      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', params[:id]),@date, @date + 1.year ))
+      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ?', params[:id],@date, @date + 1.year ))
     end
     
     @bop = Choru.where('centre_financier = ?', params[:bop_id]).order('date ASC')
