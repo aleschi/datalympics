@@ -79,11 +79,13 @@ title: {
     series: [{
         name: 'HT2',
         data: [
+          <% @dates.each do |date| %>
           <% @montant = 0 %>
-          <% @bop_ht2.each do |programme| %>
+          <% @bop_ht2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round %>],
            <% @montant = @montant + programme.montant %>
     <% end %>
+          <% end %>
         ],
        dataLabels: {
                 enabled: true,
@@ -91,11 +93,13 @@ title: {
     },{
         name: 'T2',
         data: [
-          <% @montant = 0 %>
-          <% @bop_t2.each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
-           <% @montant = @montant + programme.montant %>
-    <% end %>
+          <% @dates.each do |date| %>
+            <% @montant = 0 %>
+            <% @bop_t2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
+              [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
+             <% @montant = @montant + programme.montant %>
+            <% end %>
+          <% end %>
         ],
        dataLabels: {
                 enabled: true,
