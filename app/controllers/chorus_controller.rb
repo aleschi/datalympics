@@ -29,14 +29,14 @@ class ChorusController < ApplicationController
       @programme_t2 = @programme.where("compte_budgetaire = ?", "T2")
       
       @type_pieces_ht2=[]
-      if @programme_ht2.nil?
+      if !@programme_ht2.nil?
         @programme_ht2.each do |choru|
           @type_pieces_ht2 << choru.type_piece
         end 
         @type_pieces_ht2.uniq! 
       end
       @type_pieces_t2=[]
-      if @programme_t2.nil?
+      if !@programme_t2.nil?
         @programme_t2.each do |choru|
           @type_pieces_t2 << choru.type_piece
         end 
@@ -95,14 +95,14 @@ class ChorusController < ApplicationController
     @programme_ht2 = @programme.where("compte_budgetaire = ?", "HT2")
     @programme_t2 = @programme.where("compte_budgetaire = ?", "T2")
     @type_pieces_ht2=[]
-      if @programme_ht2.nil?
+      if !@programme_ht2.nil?
         @programme_ht2.each do |choru|
           @type_pieces_ht2 << choru.type_piece
         end 
         @type_pieces_ht2.uniq! 
       end
       @type_pieces_t2=[]
-      if @programme_t2.nil?
+      if !@programme_t2.nil?
         @programme_t2.each do |choru|
           @type_pieces_t2 << choru.type_piece
         end 
