@@ -264,7 +264,7 @@ title: {
         name: 'HT2',
         data: [
           <% @montant = 0 %>
-          <% @uo_ht2.each do |programme| %>
+          <% @uo_ht2.where('operation = ?', 'Réception').each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
            <% @montant = @montant + programme.montant %>
     <% end %>
@@ -276,7 +276,7 @@ title: {
         name: 'T2',
         data: [
           <% @montant = 0 %>
-          <% @uo_t2.each do |programme| %>
+          <% @uo_t2.where('operation = ?', 'Réception').each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
            <% @montant = @montant + programme.montant %>
     <% end %>
