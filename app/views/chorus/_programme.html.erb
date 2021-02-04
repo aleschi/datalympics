@@ -14,7 +14,7 @@
   </div>
  </div>
 <br><br>
-<% if @type_pieces_ht2.length > 0 %>
+
 <div class="chorus-table-subtitle">Compte budgétaire HT2</div>
 <div class="ED_table">
   <table class="table-striped">
@@ -35,9 +35,41 @@
           <tr>
             <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
             <% @type_pieces_ht2.each do |piece|%>
-              <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece).sum('montant'), :delimiter => ' ') %></td>
+              <td><%= number_with_delimiter(@programme_ht2.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece).sum('montant'), :delimiter => ' ') %></td>
             <% end %>
-            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? ',Date.new(date.to_i-1,12,31),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@programme_ht2.where('date >= ? AND date <= ? ',Date.new(date.to_i-1,12,31),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+          </tr>
+        <% end %>
+    
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% if !@programme_t2.nil? && @programme_t2.length > 0 %>
+<div class="chorus-table-subtitle">Compte budgétaire T2</div>
+<div class="ED_table">
+  <table class="table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <% @type_pieces_t2.each do |piece|%>
+          <th scope="col"><%= piece%></th>
+        <% end %>
+        <th scope="col">REPORT FIN D'ANNEE</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if !@dates.nil?%>
+      
+        <% @dates.each do |date| %>
+          <tr>
+            <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+            <% @type_pieces_t2.each do |piece|%>
+              <td><%= number_with_delimiter(@programme_t2.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece).sum('montant'), :delimiter => ' ') %></td>
+            <% end %>
+            <td><%= number_with_delimiter(@programme_t2.where('date >= ? AND date <= ? ',Date.new(date.to_i-1,12,31),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
           </tr>
         <% end %>
     
@@ -46,7 +78,6 @@
   </table>
 </div>
 <% end %>
-
 
 <div class="SD-topo-box-title2"><a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details"> Tableau des mouvements de crédits au niveau du Programme <i class="fas fa-chevron-down"></i></a>
 </div><br>
@@ -95,7 +126,51 @@
     </tbody>
   </table>
   </div>
- 
+  <!-- T2 --> 
+  <% if !@programme_t2.nil? && @programme_t2.length > 0 %>
+  <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Type budget</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Montant (€)</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @dates.each do |date| %>
+        <% @programme_t2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
+        <tr>
+          <td><%= l(choru.date, format: "%e %b %Y") %></td>
+          <td><%= choru.type_piece %></td>
+          <td><%= choru.type_budget %></td>
+          <td><%= choru.operation %></td>
+          <td><%= choru.centre_financier %></td>
+          <td><%= choru.compte_budgetaire %></td>
+          <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+        </tr>
+        <% end %>
+        <!-- total annuel -->
+        <tr class="total-annuel">
+            <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%= number_with_delimiter(@programme_t2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+        </tr><br>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% end %>
 </section>
 <br>
      
