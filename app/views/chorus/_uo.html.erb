@@ -20,7 +20,7 @@
   </div>
 
   <br><br>
-  <div class="chorus-table-subtitle"><a id="uo-total-ht2-btn">Bilan compte budgétaire HT2</a> <a id="uo-total-t2-btn">Bilan compte budgétaire T2</a> </div> 
+  <div class="chorus-table-subtitle"><a id="uo-total-ht2-btn">Bilan compte budgétaire HT2</a>  <% if !@uo_t2.nil? && @uo_t2.length > 0 %><a id="uo-total-t2-btn">Bilan compte budgétaire T2</a><% end %> </div> 
   <div class="ED_table" id="uo-total-ht2">
   <table class="table-striped">
     <thead>
@@ -39,9 +39,9 @@
           <tr>
             <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
 
-              <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %></td>
-            <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %></td>
-            <td><%= number_with_delimiter(@uo_ht2.where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+              <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %> €</td>
+            <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %> €</td>
+            <td><%= number_with_delimiter(@uo_ht2.where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %> €</td>
 
           </tr>
         <% end %>
@@ -85,7 +85,7 @@
   <div class="SD-topo-box-title2"><a href="#details-uo" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-uo">  Tableau des mouvements de crédits au niveau de l'UO <i class="fas fa-chevron-down"></i></a>
   </div><br>
   <section id="details-uo" class="collapse"> 
-  <div class="chorus-table-subtitle"><a id="details-uo-total-ht2-btn">Détails Mouvements HT2</a> <a id="details-uo-total-t2-btn">Détails Mouvements T2</a> </div> 
+  <div class="chorus-table-subtitle"><a id="details-uo-total-ht2-btn">Détails Mouvements HT2</a>  <% if !@uo_t2.nil? && @uo_t2.length > 0 %><a id="details-uo-total-t2-btn">Détails Mouvements T2</a> <% end %></div> 
   
     <div class="ED_table" id="details-uo-total-ht2">
       <table class="table-striped">
