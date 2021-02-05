@@ -1,4 +1,5 @@
-<div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br><br>
+<div class="SD-topo-box">
+<div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br>
      
 <div class="row">
  <div class="col-md-9">
@@ -62,7 +63,7 @@
     </table>
   </div>
 </section>
-
+</div>
 <script>
   $('#action_form input').click(function(){
 $('#action_form').submit();
@@ -75,7 +76,7 @@ $('#action_form').submit();
 </script>
 <script>
 
-Highcharts.chart('actions_chart', {
+Highcharts.stockChart('actions_chart', {
    chart:{
        backgroundColor: '#fff',
      borderColor: '#fff',
@@ -87,21 +88,89 @@ Highcharts.chart('actions_chart', {
           // maxWidth: '500px'
           }, 
         zoomType: 'x',
-        borderWidth: 1,
-        resetZoomButton: {
-            position: {
+      //  borderWidth: 1,
+      //  resetZoomButton: {
+      //      position: {
                 // align: 'right', // by default
                 // verticalAlign: 'top', // by default
-                x: -10,
-                y: 10
-            },
-            relativeTo: 'chart'
-        },
-       scrollablePlotArea: {
-       minWidth: 2000,
-       scrollPositionX:1,
-     },
+      //          x: -10,
+      //          y: 10
+      //      },
+     //       relativeTo: 'chart'
+     //   },
+    //   scrollablePlotArea: {
+    //   minWidth: 2000,
+    //   scrollPositionX:1,
+    // },
           },
+  rangeSelector: {
+
+            buttons: [{
+                type: 'month',
+                count: 1,
+                text: '1m'
+            },{
+                type: 'month',
+                count: 3,
+                text: '3m'
+            }, {
+                type: 'month',
+                count: 6,
+                text: '6m'
+            }, {
+                type: 'year',
+                count: 1,
+                text: '1an'
+            }, {
+                type: 'all',
+                text: 'Tout'
+            }],
+            selected: 3,
+            buttonTheme: { // styles for the buttons
+            fill: '#F8F8F8',
+            stroke: 'none',
+            'stroke-width': 0,
+            r: 4,
+            style: {
+                color: '#000',
+                fontWeight: 'bold'
+            },
+            states: {
+                hover: {
+                },
+                select: {
+                    fill: '#000091',
+                    style: {
+                        color: 'white'
+                    }
+                }
+                // disabled: { ... }
+            }
+        },
+        inputStyle: {
+                color: '#000',
+              
+            },
+        labelStyle: {
+            color: '#000', 
+        },
+        },
+  scrollbar: {
+    barBackgroundColor: '#CECECE',
+    barBorderColor: "#F8F8F8",
+    barBorderRadius: 6,
+    buttonBackgroundColor: "#F8F8F8",
+    buttonArrowColor:'#CECECE',
+    buttonBackgroundColor:"#F8F8F8",
+    buttonBorderColor:"#F8F8F8",
+    buttonBorderRadius: 6,
+    rifleColor:"#F8F8F8",
+  },
+  legend: {
+    enabled: true,
+    verticalAlign: 'top',
+  
+  },
 title: {
         text:"",
 },

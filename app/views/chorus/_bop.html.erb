@@ -3,13 +3,13 @@
 <div id="bop_chart"></div>
 <script>
 
-Highcharts.chart('bop_chart', {
-  mapNavigation: {
-            enableMouseWheelZoom: true
-        },
+Highcharts.stockChart('bop_chart', {
+ // mapNavigation: {
+ //           enableMouseWheelZoom: true
+ //       },
    chart:{
        backgroundColor: '#fff',
-     borderColor: '#fff',
+        borderColor: '#fff',
                  borderRadius:10,
        type: 'scatter',
        spacing: [40,40,40,40],
@@ -17,7 +17,7 @@ Highcharts.chart('bop_chart', {
           fontFamily: "Marianne Regular",
           // maxWidth: '500px'
           }, 
-      // zoomType: 'x',
+       zoomType: 'x',
       //  borderWidth: 1,
       //  resetZoomButton: {
       //      position: {
@@ -27,11 +27,79 @@ Highcharts.chart('bop_chart', {
        //     },
        //     relativeTo: 'chart'
       //  },
-                   scrollablePlotArea: {
-       minWidth: 2000,
-       scrollPositionX:1,
-     },
+     //              scrollablePlotArea: {
+     //  minWidth: 2000,
+     //  scrollPositionX:1,
+    // },
           },
+  rangeSelector: {
+
+            buttons: [  {
+                type: 'month',
+                count: 1,
+                text: '1m'
+            }, {
+                type: 'month',
+                count: 3,
+                text: '3m'
+            },{
+                type: 'month',
+                count: 6,
+                text: '6m'
+            }, {
+                type: 'year',
+                count: 1,
+                text: '1an'
+            }, {
+                type: 'all',
+                text: 'Tout'
+            }],
+            selected: 3,
+            buttonTheme: { // styles for the buttons
+            fill: '#F8F8F8',
+            stroke: 'none',
+            'stroke-width': 0,
+            r: 4,
+            style: {
+                color: '#000',
+                fontWeight: 'bold'
+            },
+            states: {
+                hover: {
+                },
+                select: {
+                    fill: '#000091',
+                    style: {
+                        color: 'white'
+                    }
+                }
+                // disabled: { ... }
+            }
+        },
+        inputStyle: {
+                color: '#000',
+              
+            },
+        labelStyle: {
+            color: '#000', 
+        },
+        },
+  scrollbar: {
+    barBackgroundColor: '#CECECE',
+    barBorderColor: "#F8F8F8",
+    barBorderRadius: 6,
+    buttonBackgroundColor: "#F8F8F8",
+    buttonArrowColor:'#CECECE',
+    buttonBackgroundColor:"#F8F8F8",
+    buttonBorderColor:"#F8F8F8",
+    buttonBorderRadius: 6,
+    rifleColor:"#F8F8F8",
+  },
+  legend: {
+    enabled: true,
+    verticalAlign: 'top',
+  
+  },
 title: {
         text:"",
 },
@@ -103,7 +171,9 @@ title: {
        dataLabels: {
                 enabled: true,
             },
-    },{
+    },
+             <% if !@bop_t2.nil? && @bop_t2.length > 0 %>
+             {
         name: 'T2',
         data: [
           <% @dates.each do |date| %>
@@ -118,7 +188,9 @@ title: {
        dataLabels: {
                 enabled: true,
             },
-    }],
+    },
+            <% end %>
+            ],
 
     responsive: {
         rules: [{
