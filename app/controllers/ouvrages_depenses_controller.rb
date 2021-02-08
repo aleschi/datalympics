@@ -22,7 +22,7 @@ before_action :authenticate_user!
     
     @maquette_ouvrages.each do |name|
       if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public == 0
-        @maquette_budget_nouveau = @maquette_budget_nouveau + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).total_public 
+        @maquette_budget_nouveau = @maquette_budget_nouveau + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public 
       end
     end 
       

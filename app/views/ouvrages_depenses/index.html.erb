@@ -1,4 +1,4 @@
-<% if !Maquette.where('date = ?', Date.new(2018,6,18)).nil?%>
+<% if !Maquette.where('date = ?', Date.new(2018,6,18)).first.nil?%>
 <div class="SD_page">
  
   <h1 class="SD_title">Maquette financière </h1>
