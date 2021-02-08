@@ -34,7 +34,7 @@
           <% end %>
           </div>
          <% end %>
-         <br>
+         
        
          <% @ouvrages.where('maitre_oeuvre = ?', mo).where('name like ?',"%SITE d'ENTRAINEMENT%").each do |ouvrage| %>
           <div class="O-name">
@@ -43,6 +43,7 @@
           <% end %>
           </div>
          <% end %>
+      
        <br>
        <% end %>
        
