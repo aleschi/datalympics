@@ -35,7 +35,7 @@
           <section id="MonCollapse-augmentation-compl" class="collapse">
           <% @maquette_ouvrages.each do |name|%>
           <% if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public < Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public%>
-              <div class="chart-budget-col-text"><%= name %> <span class="budget-negatif"><%= number_with_delimiter((Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public).to_i, :delimiter => ' ') %> €</span></div> 
+              <div class="chart-budget-col-text"><%= name %> <span class="budget-positif"><%= number_with_delimiter((-Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public).to_i, :delimiter => ' ') %> €</span></div> 
      
           <% end %>
           <% end %>
@@ -52,6 +52,7 @@
           <% end %>
           <div class="chart-budget-col-text">Voies Olympiques [Réserve] <span class="budget-negatif"><%= number_with_delimiter((-Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", Date.new(2021,1,14)).first.total_public).to_i, :delimiter => ' ')%> €</span></div>  
               <div class="chart-budget-col-text">Stade de France [Pertes d'exploitation] <span class="budget-negatif"><%= number_with_delimiter((-Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", Date.new(2021,1,14)).first.total_public).to_i, :delimiter => ' ')%> €</span></div>  
+          <div class="chart-budget-col-text">CPJ <span class="budget-negatif"><%= number_with_delimiter((-Maquette.where('name = ? AND date = ?', "CPJ", Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', "CPJ", Date.new(2021,1,14)).first.total_public).to_i, :delimiter => ' ')%> €</span></div>  
         </section>
         
         <div class="chart-budget-col-title"><a href="#MonCollapse-augmentation-reserve" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-reserve" >Ponction sur la réserve <i class="fas fa-angle-down"></i> <span class="budget-negatif"><%= number_with_delimiter(@maquette_ecart_reserve.to_i, :delimiter => ' ')%> €</span> </div>

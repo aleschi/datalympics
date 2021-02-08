@@ -41,6 +41,7 @@ before_action :authenticate_user!
      end
     @maquette_budget_diminution = @maquette_budget_diminution -Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", Date.new(2021,1,14)).first.total_public
    @maquette_budget_diminution = @maquette_budget_diminution -Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", Date.new(2021,1,14)).first.total_public
+    @maquette_budget_diminution = @maquette_budget_diminution - Maquette.where('name = ? AND date = ?', "CPJ", Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', "CPJ", Date.new(2021,1,14)).first.total_public
             
      @maquette_ecart_reserve = 0
      @reserve_name = []  
