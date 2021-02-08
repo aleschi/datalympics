@@ -34,7 +34,7 @@
           <div class="chart-budget-col-subtitle chart-budget-col-title-total"><a href="#MonCollapse-augmentation-compl" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-compl" >Besoins complémentaires<i class="fas fa-angle-down"></i>  <span class="budget-positif"><%= number_with_delimiter(@maquette_budget_augmentation.to_i, :delimiter => ' ') %> €</span></a></div>
           <section id="MonCollapse-augmentation-compl" class="collapse">
           <% @maquette_ouvrages.each do |name|%>
-          <% if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public < Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public%>
+          <% if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public < Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public%>
               <div class="chart-budget-col-text"><%= name %> <span class="budget-negatif"><%= number_with_delimiter((Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public).to_i, :delimiter => ' ') %> €</span></div> 
      
           <% end %>
@@ -45,7 +45,7 @@
         <div class="chart-budget-col-title"><a href="#MonCollapse-augmentation-diminution" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation-diminution" >Diminution <i class="fas fa-angle-down"></i> <span class="budget-negatif"><%= number_with_delimiter(@maquette_budget_diminution.to_i, :delimiter => ' ') %> €</span> </a></div>
         <section id="MonCollapse-augmentation-diminution" class="collapse">
           <% @maquette_ouvrages.each do |name|%>
-          <% if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public > Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public%>
+          <% if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public > Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public%>
               <div class="chart-budget-col-text"><%= name %> <span class="budget-negatif"><%= number_with_delimiter((-Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public).to_i, :delimiter => ' ') %> €</span></div> 
      
           <% end %>

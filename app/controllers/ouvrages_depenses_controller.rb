@@ -21,21 +21,21 @@ before_action :authenticate_user!
     @maquette_ouvrages.uniq! 
     
     @maquette_ouvrages.each do |name|
-      if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public == 0
+      if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public == 0 && Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public != 0
         @maquette_budget_nouveau = @maquette_budget_nouveau + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public 
       end
     end 
       
     @maquette_budget_augmentation = 0 
     @maquette_ouvrages.each do |name|
-        if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public < Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public
+        if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public < Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public
           @maquette_budget_augmentation = @maquette_budget_augmentation + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public
         end 
       end 
           
      @maquette_budget_diminution = 0
      @maquette_ouvrages.each do |name|
-          if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public > Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public
+          if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public > Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public
           @maquette_budget_diminution = @maquette_budget_diminution + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public
         end 
      end
