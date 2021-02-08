@@ -25,7 +25,7 @@
             <section id="MonCollapse-augmentation-ouvrages" class="collapse">
              <% @maquette_ouvrages.each do |name|%>
               <% if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public == 0 %>
-              <div class="chart-budget-col-text"><%= name %> <span class="budget-positif"><%= number_with_delimiter(Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).total_public, :delimiter => ' ')  %> €</span></div> 
+              <div class="chart-budget-col-text"><%= name %> <span class="budget-positif"><%= number_with_delimiter(Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public, :delimiter => ' ')  %> €</span></div> 
               <% end %>
               <% end %>
             </section>
