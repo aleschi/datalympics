@@ -23,13 +23,9 @@ class DocumentsController < ApplicationController
   end 
   
   def update
-    respond_to do |format|
-      if @document.update(document_params)
-        format.html { redirect_to documents_etat_path }
-      else
-        format.html { render :edit }
-      end
-    end
+     @document.update(document_params)
+     redirect_back(fallback_location: root_path)
+  
   end 
   
   def destroy
@@ -41,7 +37,7 @@ class DocumentsController < ApplicationController
   def delete_file 
     @document = Document.find(params[:id])
     @document.file.purge
-    redirect_to documents_etat_path
+    redirect_back(fallback_location: root_path)
   end 
   
   def documents_etat
@@ -54,7 +50,10 @@ class DocumentsController < ApplicationController
   
   def documents_solideo
      @nav=true
+    @document= Document.where('appartenance = ?', "solideo").first
     @documents= Document.where('appartenance = ?', "solideo")
+    
+    @dates = [2025,2024,2023,2022,2021,2020,2019,2018]
   end
  
   

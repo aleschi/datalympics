@@ -1,3 +1,6 @@
+<% if !@document.nil?%>
+<%= render 'documents/form'%>
+<% end %>
 <div class="SD_page">
  
   <h1 class="SD_title">Documents Solideo </h1>
@@ -5,36 +8,42 @@
   <div class="SD-topo-box">
    <div class="SF-topo-financeurs-title"><span>Liste des Documents </span></div><br>
     <br>
+    
+    
+    
     <div class="row">
      <div class="col-md-12">
+       <% @dates.each do |date| %>
+       <% if date <= Date.today.year %>
         <div class="documents-mois-titre">
-          Décembre 2020
+          <%= date %>
         </div>
-       <div class="documents-mois-doc">
-         <i class="far fa-file-pdf"></i> Rapport de supervision décembre 2020 
-           <div class="documents-etat-btn"><a type="button" data-toggle="modal" data-target="#file" >Transmettre</a></div>
-           
-       </div>
-       <div class="documents-mois-doc">
-         <i class="far fa-file-excel"></i> Maquette financements 2021 
-           <div class="documents-etat-btn"><a type="button" data-toggle="modal" data-target="#file" >Transmettre</a></div>
-           
-       </div>
-         <div class="documents-mois-doc">
-         <i class="far fa-file-excel"></i> Maquette répartition financements 2021 
-           <div class="documents-etat-btn"><a type="button" data-toggle="modal" data-target="#file" >Transmettre</a></div>
-           
-       </div>
-         <div class="documents-mois-doc">
-         <i class="far fa-file-excel"></i> Dépenses 2020 
-           <div class="documents-etat-btn"><a type="button" data-toggle="modal" data-target="#file" >Transmettre</a></div>
-           
-       </div>
-       <div class="documents-mois-doc">
-         <i class="far fa-file-excel"></i> Tableau des engagements 2021 
-           <div class="documents-etat-btn"><a type="button" data-toggle="modal" data-target="#file" >Transmettre</a></div>
-           
-       </div>
+       <% if !@documents.nil?%>
+        <% @documents.each do |document| %>
+         <% if document.date.year == date %>
+          <% if document.file.attached?%>
+           <div class="documents-mois-doc">
+             <% if document.extension == "pdf"%> <i class="far fa-file-pdf"></i>
+             <% elsif document.extension == "csv"%> <i class="far fa-file-excel"></i>
+             <% elsif document.extension == "ppt" %> <i class="far fa-file-powerpoint"></i>
+             <% end %>
+             <%= document.name%>
+             <div class="documents-etat-btn"><%= link_to rails_blob_path(document.file, disposition: 'preview'), target: "_blank" do %>Visualiser <i class="fas fa-eye"></i><% end %><%= link_to delete_document_path(id: document.id), method: :post, class:"documents-etat-delete" do%><i class="fas fa-trash-alt"></i><% end%></div>
+           </div>
+          <% else%>
+            <div class="documents-mois-doc">
+             <i class="far fa-file-pdf"></i> <%= document.name%>
+             <div class="documents-etat-btn"><%= link_to edit_document_path(document), remote: true do%>Transmettre<% end%></div>
+           </div>
+          <% end %>
+          <% end %>
+        <% end %>
+       <br>
+       <% end %> 
+       <% end %>
+     <% end %>
+       
+      
       </div>
     </div>  
   </div>
