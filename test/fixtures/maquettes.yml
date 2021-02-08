@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  ouvrage: one
+  total: 1
+  total_complementaire: 1
+  total_public: 1
+  date: 2021-02-08
+  commentaire: MyString
+
+two:
+  name: MyString
+  ouvrage: two
+  total: 1
+  total_complementaire: 1
+  total_public: 1
+  date: 2021-02-08
+  commentaire: MyString

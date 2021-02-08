@@ -56,5 +56,8 @@ Rails.application.routes.draw do
   post 'select_uo' => 'chorus#select_uo'
    post 'select_date_programme' => 'chorus#select_date_programme'
   post 'select_action' => 'chorus#select_action'
+  
+  post 'import_maquette' => "ouvrages_depenses#import_maquette"
+  get 'maquette' => 'ouvrages_depenses#maquette'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -19,7 +19,11 @@ class Ouvrage < ApplicationRecord
       @ouvrage.name = row[0]
       @ouvrage.maitre_oeuvre = row[1]
       @ouvrage.budget = row[2]
-      @ouvrage.budget = @ouvrage.budget * 1000
+      if !@ouvrage.budget.nil?
+        @ouvrage.budget = @ouvrage.budget * 1000
+      else 
+        @ouvrage.budget = 0
+      end
       @ouvrage.adresse = row[3]
       @ouvrage.save
     end

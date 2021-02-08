@@ -6,29 +6,53 @@ before_action :authenticate_user!
   def index 
      @nav=true
     @ouvrages = Ouvrage.all
-    @ouvrages_depenses = OuvragesDepense.all
-    @ouvrages_financements = OuvragesFinancement.all 
-    @budget_diminution = 0
-    @budget_augmentation = 0
-    @budget_nouveau = 0
+  
+    @maquette_budget_nouveau = 0
+    @maquette_name = []
+    Maquette.all.each do |maquette|
+      @maquette_name << maquette.name
+    end
+    @maquette_name.uniq!
     
-    Ouvrage.all.each do |ouvrage|
-      if ouvrage.ouvrages_financements.count > 0
-        if ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu < 0 
-          @budget_diminution += ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu
-        else
-          if ouvrage.ouvrages_financements.where('date = ?', Date.new(2018,1)).count > 0
-            @budget_augmentation += ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu-ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date ASC').first.date).first.montant_prevu
-          else 
-            @budget_nouveau += ouvrage.ouvrages_financements.where('date = ?', ouvrage.ouvrages_financements.order('date DESC').first.date).first.montant_prevu
-          end 
-          
+    @maquette_ouvrages = []
+    Maquette.where.not(ouvrage_id: nil).each do |maquette|
+      @maquette_ouvrages << maquette.name
+    end 
+    @maquette_ouvrages.uniq! 
+    
+    @maquette_ouvrages.each do |name|
+      if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public == 0
+        @maquette_budget_nouveau = @maquette_budget_nouveau + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).total_public 
+      end
+    end 
+      
+    @maquette_budget_augmentation = 0 
+    @maquette_ouvrages.each do |name|
+        if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public < Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public
+          @maquette_budget_augmentation = @maquette_budget_augmentation + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public
         end 
       end 
-    end
-    
-    @ecart_reserve = SolideoFinancement.where("categorie = ? AND date = ?","reserve", SolideoFinancement.order('date DESC').first.date).sum('montant')-SolideoFinancement.where("categorie = ? AND date = ?","reserve", Date.new(2018,1)).sum('montant') + SolideoFinancement.where("categorie = ? AND date = ?","innovation", SolideoFinancement.order('date DESC').first.date).sum('montant') -SolideoFinancement.where("categorie = ? AND date = ?","innovation", Date.new(2018,1)).sum('montant')
-  
+          
+     @maquette_budget_diminution = 0
+     @maquette_ouvrages.each do |name|
+          if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public > Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public
+          @maquette_budget_diminution = @maquette_budget_diminution + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public
+        end 
+     end 
+            
+     @maquette_ecart_reserve = 0
+     @reserve_name = []  
+     Maquette.where('name = ? OR name = ? OR name = ?', 'Réserve pour compléments de programme', 'Paris Fonds Vert', 'Fonds Innovation et Développement Durable').each do |maquette|
+      @reserve_name << maquette.name
+     end
+     @reserve_name.uniq!
+          
+     @reserve_name.each do |name|
+       if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil?
+       @maquette_ecart_reserve = @maquette_ecart_reserve + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public
+       end
+     end
+            
   end
 
   # GET /ouvrages_depenses/1
@@ -67,6 +91,19 @@ before_action :authenticate_user!
     OuvragesDepense.import(params[:file])
 
     redirect_to ouvrages_depenses_path
+  end 
+  
+  def import_maquette
+    Maquette.import(params[:file])
+    redirect_to ouvrages_depenses_path
+  end 
+  
+  def maquette 
+    @maquette_name = []
+    Maquette.all.each do |maquette|
+      @maquette_name << maquette.name
+    end
+    @maquette_name.uniq!
   end 
 
 

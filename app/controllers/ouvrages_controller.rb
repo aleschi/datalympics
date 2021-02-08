@@ -161,6 +161,7 @@ class OuvragesController < ApplicationController
   # DELETE /ouvrages/1
   # DELETE /ouvrages/1.json
   def destroy
+    @ouvrage = Ouvrage.find(params[:id])
     @ouvrage.destroy
     respond_to do |format|
       format.html { redirect_to ouvrages_url, notice: 'Ouvrage was successfully destroyed.' }

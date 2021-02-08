@@ -2,18 +2,15 @@
   <div class="ED_home_button">
     <%= link_to ouvrages_depenses_path do %><i class="fas fa-chevron-left"></i>Retour<%end %>
   </div>
-  <h1 class="EB_title">Ajouter des dépenses </h1>
+  <h1 class="EB_title">Ajouter une maquette </h1>
   <div class="ED_new_form_box">
-    <div>
-      Année de la nouvelle maquette des dépenses : <%= Date.today.year %>
-    </div>
   
   <div class="row">
     <div class="col-md-12">
        <div class="SF-new-box">
-        <%=form_tag import_ouvrages_depenses_path, multipart: true do %>
+        <%=form_tag import_maquette_path, multipart: true do %>
          <div class="text-center SF-new-input">
-              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter maquette 2018 </span></label>
+              <label><%= file_field_tag :file, accept: '.csv' %> <i class="fas fa-plus-circle"></i><span class="SF-new-input-text"> Ajouter maquette </span></label>
           
             </div>
             <div class="SF_new_form_field_submit">

@@ -5,4 +5,14 @@
   <h1 class="EB_title">Modifier l'ouvrage</h1>
 
 <%= render 'form', ouvrage: @ouvrage %>
+  
+  <div>
+    <%= link_to ouvrage_path, method: :delete do %>supprimer <% end %>
+  </div>
+  <% Ouvrage.all.order('id DESC').each do |ouvrage|%>
+<div><%= ouvrage.name %> <%= link_to edit_ouvrage_path(ouvrage) do%>modifier<% end %></div>
+  <% end %>
 </div>
+
+
+
