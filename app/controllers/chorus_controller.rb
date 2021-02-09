@@ -7,11 +7,18 @@ class ChorusController < ApplicationController
   def new
     @choru = Choru.new
   end 
+  def new_conso
+  
+  end 
   
   def import
    Choru.import(params[:file])
     redirect_to chorus_path 
-  end 
+  end
+  def import_conso
+   Choru.import_conso(params[:file])
+    redirect_to chorus_path 
+  end
   
   def update 
   end 
@@ -75,6 +82,7 @@ class ChorusController < ApplicationController
       end 
       @uo_actions.uniq!
       @uo_action = @uo_actions[0]
+      @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo.first.centre_financier, @uo_action ).order('date ASC')
     else
       redirect_to chorus_path 
     end
@@ -151,6 +159,7 @@ class ChorusController < ApplicationController
     end 
     @uo_actions.uniq!
     @uo_action = @uo_actions[0]
+    @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo.first.centre_financier, @uo_action ).order('date ASC')
   end
   
   def select_bop
@@ -187,6 +196,7 @@ class ChorusController < ApplicationController
     end 
     @uo_actions.uniq!
     @uo_action = @uo_actions[0]
+    @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo.first.centre_financier, @uo_action ).order('date ASC')
   end 
   
   def select_uo
@@ -217,6 +227,7 @@ class ChorusController < ApplicationController
     end 
     @uo_actions.uniq!
     @uo_action = @uo_actions[0]
+    @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo.first.centre_financier, @uo_action ).order('date ASC')
     
   end 
 
@@ -236,6 +247,7 @@ class ChorusController < ApplicationController
     end 
     @uo_actions.uniq!
     @uo_action = params[:id]
+    @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo.first.centre_financier, @uo_action ).order('date ASC')
   end 
   
   def edit

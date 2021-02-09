@@ -1,0 +1,2 @@
+class Chorusconso < ApplicationRecord
+end

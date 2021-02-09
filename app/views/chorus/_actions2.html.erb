@@ -27,25 +27,24 @@
       <thead>
         <tr>
           <th scope="col">Date</th>
-          <th scope="col">Type piece</th>
           <th scope="col">Centre financier</th>
-          <th scope="col">Compte budgetaire</th>
           <th scope="col">Action</th>
-          <th scope="col">Montant consommé (€)</th>
+          <th scope="col">CP consommé (€)</th>
+          <th scope="col">AE consommé (€)</th>
 
         </tr>
       </thead>
 
       <tbody>
         <% @dates.each do |date| %>
-        <% @uo.where(domaine_fonctionnel: @uo_action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
+        <% @chorusconso.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
           <tr>
-            <td><%= l(choru.date, format: "%e %b %Y") %></td>
-            <td><%= choru.type_piece %></td>
+            <td><%= l(choru.date, format: "%b %Y") %></td>
             <td><%= choru.centre_financier %></td>
-            <td><%= choru.compte_budgetaire %></td>
-             <td><%= choru.domaine_fonctionnel %></td>
-            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+            <td><%= choru.action %></td>
+           
+            <td><%= number_with_delimiter(choru.cp_conso, :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(choru.ae_conso, :delimiter => ' ') %></td>
 
           </tr>
         <% end %>
@@ -54,9 +53,8 @@
                 <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td><%= number_with_delimiter(@uo.where(domaine_fonctionnel: @uo_action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(@chorusconso.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('cp_conso'), :delimiter => ' ') %></td>
+              <td><%= number_with_delimiter(@chorusconso.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('ae_conso'), :delimiter => ' ') %></td>
             </tr><br>
         <% end %>
       </tbody>
@@ -178,7 +176,7 @@ title: {
     yAxis: {
       gridLineColor: '#fff', 
         title: {
-            text: 'Total k€'
+            text: 'Total €'
         }
     },
   tooltip: {
@@ -186,10 +184,10 @@ title: {
       var point = this,
         series = point.series,
        
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        firstDate = Highcharts.dateFormat('%b %Y', point.x),
           number = Highcharts.numberFormat(point.y, -1, ',',' '),
         header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-        content = '<b> Action '+series.name + ' : ' + number + ' k€</b><br/>';
+        content = '<b> CP consommés (cumul) : ' + number + ' k€</b><br/>';
 
       return header + content;
     },
@@ -221,7 +219,7 @@ title: {
           marker: {
                 enabled: true
             },
-          step: 'left',
+        //  step: 'left',
         }
     },
 
@@ -235,9 +233,9 @@ title: {
         <% @dates.each do |date| %>
            <% @montant = 0 %>
         [Date.UTC(<%=date%>,0,1),0],
-         <% @uo.where(domaine_fonctionnel: @uo_action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
-          <% @montant = @montant + programme.montant %>
+         <% @chorusconso.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.cp_conso).to_f).round%>],
+          <% @montant = @montant + programme.cp_conso %>
           <% end %>
         <% end %>
         ],
@@ -266,3 +264,4 @@ title: {
 });
 
 </script>
+

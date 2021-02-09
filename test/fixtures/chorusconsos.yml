@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  centre_financier: MyString
+  action: MyString
+  date: 2021-02-09
+  ae_conso: 1
+  cp_conso: 1
+
+two:
+  centre_financier: MyString
+  action: MyString
+  date: 2021-02-09
+  ae_conso: 1
+  cp_conso: 1

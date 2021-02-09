@@ -126,6 +126,10 @@ class OuvragesController < ApplicationController
     redirect_to ouvrages_path
     
   end 
+  def update_file
+    Ouvrage.update_file(params[:file])
+    redirect_to ouvrages_path
+  end 
   
   # POST /ouvrages
   # POST /ouvrages.json

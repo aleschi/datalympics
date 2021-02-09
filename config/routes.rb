@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :chorus do 
     collection do 
       post 'import' => 'chorus#import'
+     
     end
   end 
   resources :chantiers
@@ -56,8 +57,12 @@ Rails.application.routes.draw do
   post 'select_uo' => 'chorus#select_uo'
    post 'select_date_programme' => 'chorus#select_date_programme'
   post 'select_action' => 'chorus#select_action'
+  get 'new_conso' => 'chorus#new_conso'
+   post 'import_conso' => 'chorus#import_conso'
   
   post 'import_maquette' => "ouvrages_depenses#import_maquette"
   get 'maquette' => 'ouvrages_depenses#maquette'
+  
+  post 'update_file' => 'ouvrages#update_file'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

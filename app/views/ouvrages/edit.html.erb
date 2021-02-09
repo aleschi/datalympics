@@ -9,6 +9,21 @@
   <div>
     <%= link_to ouvrage_path, method: :delete do %>supprimer <% end %>
   </div>
+  <br><br>
+  
+    <%=form_tag update_file_path, multipart: true do %>
+    
+  <div class="new-ouvrage-file">
+    <%= file_field_tag :file %>
+  </div>
+
+    <div class="ED_new_form_field_submit">
+      <%= submit_tag 'Importer'%>
+    </div>
+
+  <%end%>
+  
+  <br>
   <% Ouvrage.all.order('id DESC').each do |ouvrage|%>
 <div><%= ouvrage.name %> <%= link_to edit_ouvrage_path(ouvrage) do%>modifier<% end %></div>
   <% end %>

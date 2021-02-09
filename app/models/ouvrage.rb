@@ -29,6 +29,24 @@ class Ouvrage < ApplicationRecord
     end
 
   end
+  def self.update_file(file)
+    CSV.foreach(file.path) do |row|
+      #Ouvrage.create! row.to_hash
+     
+      @ouvrage = Ouvrage.find_by_name(row[0])
+      if !@ouvrage.nil?
+       # @ouvrage.maitre_oeuvre = row[1]
+        @ouvrage.budget = row[2]
+        if !@ouvrage.budget.nil?
+          @ouvrage.budget = @ouvrage.budget * 1000
+        else 
+          @ouvrage.budget = 0
+        end
+       # @ouvrage.adresse = row[3]
+        @ouvrage.save
+      end
+    end
+  end
   
     has_one_attached :photo, dependent: :destroy
 end
