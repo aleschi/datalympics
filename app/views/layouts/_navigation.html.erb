@@ -20,6 +20,7 @@
   <div class=" navigation-menu TB-menu-prof menu-accueil">
     <%= link_to root_path, class: "menu" do%><i class="fas fa-home"></i> Accueil<% end %>
   </div>
+  <div class="navigation-menu menu-jeux"><%= link_to les_jop2024_path, class: "menu" do %><i class="fab fa-free-code-camp"></i> Les Jeux 2024 <%end%></div>
 
   <!-- nav ouvrage page -->
   <% if !@navshow.nil? && !@ouvrage.nil?%>
@@ -80,9 +81,7 @@
     </section>
     <div class="navigation-menu menu-documents-solideo"><%= link_to documents_solideo_path, class: "menu" do %><i class="fas fa-file-upload"></i> Documents <%end%></div>
   
-  
-   
-  
+
     <div class="TB-menu-prof"><%= link_to destroy_user_session_path, method: :delete, class: "menu" do%><i class="fas fa-sign-out-alt"></i>Se déconnecter<% end %></div>
   <% end %>
 </div>

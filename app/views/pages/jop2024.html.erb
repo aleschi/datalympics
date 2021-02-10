@@ -1,0 +1,296 @@
+<div class="SD_page">
+ 
+  <h1 class="SD_title">Les JOP2024 </h1>
+  
+  <div  class="SD-table-box">
+    <div class="SF-topo-financeurs-title"><span>Les jeux en chiffres </span></div><br><br>
+    <div class="calendar-infos">
+    <div class="calendar-infos-box">
+      <div>
+        <i class="fas fa-coins"></i>
+      </div>
+      <div>
+        7,6 Md€<br>
+        <span>Coûts totaux prévus</span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-chart-pie"></i>
+      </div>
+      <div>
+      25%<br>
+      <span>Dépenses publiques</span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-building"></i>
+      </div>
+      <div>
+      377<br>
+        <span>TPE / PME sollicitées</span>
+      </div>
+    </div>
+    </div><br><br>
+    <div class="calendar-infos">
+    <div class="calendar-infos-box">
+      <div>
+        <i class="fas fa-funnel-dollar"></i>
+      </div>
+      <div>
+        1,8 Md€<br>
+        <span>Part publique </span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-table-tennis"></i>
+      </div>
+      <div>
+      12 collectivités<br>
+      <span>Participation au financement </span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-briefcase"></i>
+      </div>
+      <div>
+      XX<br>
+        <span>Emplois créés </span>
+      </div>
+    </div>
+    </div><br><br>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-6">
+      <div  class="SD-table-box">
+    <div class="SF-topo-financeurs-title"><span>La SOLIDEO </span></div><br><br>
+    <div class="jeux-text">La SOLIDEO (Société de livraison des ouvrages olympiques) est un EPIC responsable de la livraison des 62 ouvrages olympiques et paralympiques.</div>
+    <div class="row">
+      <div class="calendar-infos">
+        <div class="calendar-infos-box calendar-infos-box2">
+       
+        <div>
+        97 <br>
+          <span>ETP</span>
+        </div>
+      </div>
+        <div class="calendar-infos-box calendar-infos-box2">
+        
+        <div>
+        3,7 Md€<br>
+          <span>Budget global</span>
+        </div>
+      </div>
+        <div class="calendar-infos-box calendar-infos-box2">  
+          <div>
+            45% <br>
+            <span>Du budget des JOP24</span>
+          </div>
+        </div>
+      
+      </div><br><br>
+    </div>
+     
+   <div class="row">
+      <div id="container-pie">      
+    </div>    
+  </div>
+  </div>
+    </div>
+    <div class="col-md-6">
+      <div  class="SD-table-box">
+        <div class="SF-topo-financeurs-title"><span>Le COJO </span></div><br><br>
+        
+        <div class="jeux-text">Le COJO (Comité Organisation Jeux Olympiques et Paralympiques) est une association à but non lucratif, chargé de l'organisation matérielle des Jeux de 2024, ce qui comprend notamment l'aménagement des sites sportifs, la sécurité, le transport, les ressources humaines, la gestion de la billetterie ou encore la communication.</div>
+        <div class="row">
+      <div class="calendar-infos">
+        <div class="calendar-infos-box calendar-infos-box2">
+       
+        <div>
+        XX <br>
+          <span>ETP</span>
+        </div>
+      </div>
+        <div class="calendar-infos-box calendar-infos-box2">
+        
+        <div>
+        3,9 Md€<br>
+          <span>Budget global</span>
+        </div>
+      </div>
+        <div class="calendar-infos-box calendar-infos-box2">  
+          <div>
+            55% <br>
+            <span>Du budget des JOP24</span>
+          </div>
+        </div>
+      
+      </div><br><br>
+    </div>
+        <div class="row">
+      <div id="container-pie2">      
+    </div>    
+  </div>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  
+</div>
+<script>
+Highcharts.chart('container-pie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+        backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+       
+          },
+    height: '350px',
+    },
+    title: {
+         text:null,   
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: "italic",
+                  fontSize: '16px',
+                  },
+    },
+  colors: ['#C68D7B',"#2E5D63",'#20E37B'],
+  tooltip: {
+        pointFormat: '{series.name}: <b>{point.y:,.0f} M€ </b>',
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+           size: 200,
+            dataLabels: {
+                enabled: true,
+              connectorPadding: 0,
+             // distance: 10,
+                format: '<b>{point.name}</b><br>{point.y:,.0f} M€ <br> {point.percentage:.1f} %',
+              style: {
+                      color: "#8F8F8F",
+                      fontSize: "11px",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                      },
+            }
+        }
+    },
+    series: [{
+        name: 'Total',
+        colorByPoint: true,
+        data: [{
+            name: 'Etat',
+            y:  933,
+           
+        }, {
+            name: 'Privés',
+            y: 2240,
+        }, {
+            name: 'Collectivités',
+            y: 445,
+        }]
+    }]
+});
+</script>
+<script>
+Highcharts.chart('container-pie2', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+        backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+       
+          },
+    height: '350px',
+    },
+    title: {
+         text:null,   
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: "italic",
+                  fontSize: '16px',
+                  },
+    },
+  colors: ['#C68D7B',"#2E5D63",'#20E37B', "#5770BE",'#76505B'],
+  tooltip: {
+        pointFormat: '{series.name}: <b>{point.y} Md€ </b>',
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+           size: 200,
+            dataLabels: {
+                enabled: true,
+              connectorPadding: 0,
+             // distance: 10,
+                format: '<b>{point.name}</b><br>{point.y} Md€ <br> {point.percentage:.1f} %',
+              style: {
+                      color: "#8F8F8F",
+                      fontSize: "11px",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                      },
+            }
+        }
+    },
+    series: [{
+        name: 'Total',
+        colorByPoint: true,
+        data: [{
+            name: 'Partenaires Paris 2024',
+            y:  1.1,
+           
+        }, {
+            name: 'CIO',
+            y: 1.3,
+        }, {
+            name: 'Billeterie',
+            y: 1.2,
+        },{
+            name: 'Concours publics',
+            y: 0.1,
+        },{
+            name: 'Recettes diverses',
+            y: 0.2,
+        }]
+    }]
+});
+</script>
+
+<script>
+  $('.menu-jeux').addClass('menu-active'); 
+</script>

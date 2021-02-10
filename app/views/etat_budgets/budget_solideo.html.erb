@@ -172,9 +172,9 @@
   </div>
     <br>
   
-    <div class="suivi-budget-title">Suivi mensuel des crédits en k€</div>
+    <div class="suivi-budget-title">Suivi mensuel des consommations en k€</div>
     <div class="suivi-budget-subtitle">Programme 350 - Action 1 SOLIDEO </div>
-    <div class="text-right">
+    <div class="text-right hidden">
       <div class="add-file_budget"><a type="button" data-toggle="modal" data-target="#"><i class="fas fa-file-download"></i> Ajouter</a></div>
     </div>
     <div class="ED_table">
@@ -183,13 +183,11 @@
           <tr>
             <th scope="col">Période </th>
             
-            <th scope="col">Catégorie <span class="pull-right"><i class="fas fa-chevron-down"></i></span></th>
+            <th scope="col">Catégorie </th>
             <th scope="col">AE prévus </th>
             <th scope="col">AE consommés </th>
             <th scope="col">CP prévus </th>
             <th scope="col">CP consommés </th>
-            <th scope="col">CP disponibles </th>
-            <th scope="col">Modification de CP </th>
             <th scope="col" class="border-none hidden"> </th>
           </tr>
         </thead>
@@ -202,8 +200,7 @@
             <td><%= number_with_delimiter((@etat_depenses.where(' date >= ? AND date <= ?', Date.new(year, 01, 01), Date.new(year, 12, 31)).sum('ae_conso')/1000).to_i, :delimiter => ' ') %> k€ </td>
             <td><%= number_with_delimiter((@etat_depenses.where(' date >= ? AND date <= ?', Date.new(year, 01, 01), Date.new(year, 12, 31)).sum('cp_prevu')/1000).to_i, :delimiter => ' ') %> k€</td>
             <td><%= number_with_delimiter((@etat_depenses.where(' date >= ? AND date <= ?', Date.new(year, 01, 01), Date.new(year, 12, 31)).sum('cp_prevu')/1000).to_i, :delimiter => ' ') %> k€ </td>
-            <td>XXX k€ </td>
-              <td>XXX k€ </td>
+           
             <td class="border-none hidden"></td>           
           </tr>
         <% (01..12).each_with_index do |month, j|%>
@@ -214,8 +211,7 @@
             <td><%= number_with_delimiter((@etat_depenses.where(' date >= ? AND date <= ?', Date.new(year, month, 01), Date.new(year, month, 28)).sum('ae_conso')/1000).to_i, :delimiter => ' ') %> k€ </td>
             <td><%= number_with_delimiter((@etat_depenses.where(' date >= ? AND date <= ?', Date.new(year, month, 01), Date.new(year, month, 28)).sum('cp_prevu')/1000).to_i, :delimiter => ' ') %> k€</td>
             <td><%= number_with_delimiter((@etat_depenses.where(' date >= ? AND date <= ?', Date.new(year, month, 01), Date.new(year, month, 28)).sum('cp_prevu')/1000).to_i, :delimiter => ' ') %> k€ </td>
-            <td>XXX k€ </td>
-               <td>XXX k€ </td>
+          
             <td class="border-none hidden"></td>
             </tr> 
            
@@ -229,8 +225,7 @@
             <td><%= number_with_delimiter((etat_depense.ae_conso/1000).to_i, :delimiter => ' ') %> k€ <% if etat_depense.ae_conso.to_i > etat_depense.ae_prevu.to_i %><i class="fas fa-exclamation-circle"></i><% end %></td>
             <td><%= number_with_delimiter((etat_depense.cp_prevu/1000).to_i, :delimiter => ' ') %> k€</td>
             <td><%= number_with_delimiter((etat_depense.cp_conso/1000).to_i, :delimiter => ' ') %> k€ <% if etat_depense.cp_conso.to_i > etat_depense.cp_prevu.to_i %><i class="fas fa-exclamation-circle"></i><% end %></td>
-              <td>XXX k</td>
-               <td>XXX k€ </td>
+           
             <td class="border-none hidden"> <%= link_to edit_etat_depense_path(etat_depense) do %> <i class="fas fa-pen"></i><% end %>
             <%= link_to etat_depense, method: :delete, data: {confirm: "confirmer la suppression?"} do %> <i class="fas fa-trash-alt"></i><% end %></td>
          </tr>

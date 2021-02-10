@@ -19,6 +19,13 @@ class PagesController < ApplicationController
     @maitre_oeuvre_all.uniq!
   end
   
+  def jop2024
+    @nav=true
+    @solideo_financements_etat = SolideoFinancement.where("financeur = ? AND date = ?", "Etat", SolideoFinancement.last.date).sum('montant')
+    @solideo_financements_prive = SolideoFinancement.where("financeur = ? AND date = ?", "privé", SolideoFinancement.last.date).sum('montant')
+    @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", SolideoFinancement.last.date).sum('montant')
+  end 
+  
 
 
 end
