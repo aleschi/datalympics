@@ -43,20 +43,7 @@
   
   <!-- nav menu princial -->
   <% else%>
-    <!-- Budget Etat-->
-    <div class="dropdown navigation-menu hidden">
-      <a class="menu menu-budget-etat" href="#MonCollapse2" id="btn-budget-collapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse2" id="btn-collapse"><i class="fas fa-coins"></i> Mon Budget<span class="collapse-icon"></span></a>
-    </div>
-    <section id="MonCollapse2" class="collapse">
-      <div class="navigation-menu navigation-menu2"><%= link_to etat_budgets_path, class:"menu2  menu-budget-global" do %>Mon Budget global<%end%></div>
-
-      <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_solideo_path, class:"menu2 menu-budget-solideo" do %>Mon Budget SOLIDEO <%end%></div>
-
-      <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_cojo_path, class:"menu2 menu-budget-cojo" do%>Mon Budget COJO<% end %></div>
-      
-       <div class="navigation-menu navigation-menu2"><%= link_to documents_etat_path, class:"menu2 menu-budget-docs" do %>Mes Documents Budgétaires <%end%></div>
-    </section>
-  
+   
     <!-- Ouvrages -->
     <div class="dropdown navigation-menu ">
       <a class="menu menu-ouvrages" href="#MonCollapse3" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse3" id="btn-collapse"><i class="fas fa-building"></i> Ouvrages <span class="collapse-icon"></span></a>
@@ -70,7 +57,7 @@
   
     <!-- Budget Solideo -->
     <div class="dropdown navigation-menu ">
-      <a class="menu menu-solideo" href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse" id="btn-collapse"><i class="fas fa-funnel-dollar"></i> Budget & Dépenses <span class="collapse-icon"></span></a>
+      <a class="menu menu-solideo" href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse" id="btn-collapse"><i class="fas fa-funnel-dollar"></i> Budget Solideo <span class="collapse-icon"></span></a>
     </div>
     <section id="MonCollapse" class="collapse">
       <div class="navigation-menu navigation-menu2"><%= link_to solideo_depenses_path, class:"menu2  menu-solideo-depenses" do %>Budget global<%end%></div>
@@ -78,7 +65,23 @@
       <div class="navigation-menu navigation-menu2"><%= link_to solideo_financements_path, class:"menu2 menu-solideo-finances" do %>Financements & Recettes <%end%></div>
     </section>
   
+    <!-- Budget Etat-->
+    <div class="dropdown navigation-menu">
+      <a class="menu menu-budget-etat" href="#MonCollapse2" id="btn-budget-collapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse2" id="btn-collapse"><i class="fas fa-coins"></i> Budget Etat<span class="collapse-icon"></span></a>
+    </div>
+    <section id="MonCollapse2" class="collapse">
+      <div class="navigation-menu navigation-menu2"><%= link_to etat_budgets_path, class:"menu2  menu-budget-global" do %>Budget global<%end%></div>
+
+      <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_solideo_path, class:"menu2 menu-budget-solideo" do %>Part SOLIDEO <%end%></div>
+
+      <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_cojo_path, class:"menu2 menu-budget-cojo" do%>Part COJO<% end %></div>
+      
+       <div class="navigation-menu navigation-menu2"><%= link_to documents_etat_path, class:"menu2 menu-budget-docs" do %>Documents Budgétaires <%end%></div>
+    </section>
     <div class="navigation-menu menu-documents-solideo"><%= link_to documents_solideo_path, class: "menu" do %><i class="fas fa-file-upload"></i> Documents <%end%></div>
+  
+  
+   
   
     <div class="TB-menu-prof"><%= link_to destroy_user_session_path, method: :delete, class: "menu" do%><i class="fas fa-sign-out-alt"></i>Se déconnecter<% end %></div>
   <% end %>
