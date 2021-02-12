@@ -16,7 +16,7 @@
         <i class="fas fa-coins"></i>
         </div>
         <div>
-        <%= number_with_delimiter(SolideoFinancement.where('date = ?', Date.new(2018,1)).sum('montant').to_i, :delimiter => ' ') %> €<br>
+        <%= number_with_delimiter(Maquette.where('date = ?',Date.new(2018,06,18)).sum('total').to_i, :delimiter => ' ') %> €<br>
           <span>Budget initial</span>
         </div>
       </div>
@@ -28,7 +28,7 @@
           <i class="fas fa-coins"></i>
         </div>
         <div>
-          <%= number_with_delimiter(SolideoFinancement.where('date = ?',SolideoFinancement.order('date DESC').first.date).sum('montant').to_i, :delimiter => ' ') %> €<br>
+          <%= number_with_delimiter(Maquette.where('date = ?',Date.new(2021,01,14)).sum('total').to_i, :delimiter => ' ') %> €<br>
           <span>Budget actuel</span>
         </div>
       </div>
@@ -40,7 +40,7 @@
         </div>
         <div>
         XXXX €<br>
-          <span>Dépenses prévues à date</span>
+          <span>Dépenses prévues pour 2021</span>
         </div>
       </div>
       </div><br><br>
@@ -165,18 +165,18 @@ Highcharts.chart('container-pie', {
         colorByPoint: true,
         data: [{
             name: 'Ouvrages',
-            y: <%= SolideoFinancement.where("categorie = ? AND date = ?","ouvrages", SolideoFinancement.last.date).sum('montant')%>,
+            y: <%= @budget_ouvrages%>,
             sliced: true,
             selected: true
         }, {
             name: 'Réserve',
-            y: <%= SolideoFinancement.where("categorie = ? AND date = ?","reserve", SolideoFinancement.last.date).sum('montant')%>,
+            y: <%= @budget_reserve%>,
         }, {
             name: 'Innovation',
-            y: <%= SolideoFinancement.where("categorie = ? AND date = ?","innovation", SolideoFinancement.last.date).sum('montant')%>,
+            y: <%= @budget_innovation %>,
         }, {
             name: 'Fonctionnement',
-            y:<%= SolideoFinancement.where("categorie = ? AND date = ?","fonctionnement", SolideoFinancement.last.date).sum('montant')%>,
+            y:<%= @budget_fonctionnement %>,
         }]
     }]
 });

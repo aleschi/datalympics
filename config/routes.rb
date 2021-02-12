@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  
   resources :chorus do 
     collection do 
       post 'import' => 'chorus#import'

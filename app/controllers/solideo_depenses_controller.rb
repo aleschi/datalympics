@@ -5,6 +5,11 @@ before_action :authenticate_user!
   # GET /solideo_depenses.json
   def index
      @nav=true
+    @budget_ouvrages = Maquette.where('date = ?',Date.new(2021,1,14)).where.not(ouvrage_id: nil).sum('total') 
+    @budget_fonctionnement = Maquette.where('date = ? AND name = ?',Date.new(2021,1,14), "Frais de Structure SOLIDEO").sum('total') 
+    @budget_innovation = Maquette.where('date = ? AND (name = ? OR name = ?)',Date.new(2021,1,14), "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total') 
+    @budget_reserve = Maquette.where(ouvrage_id: nil).where('date = ? AND name != ? AND name != ? AND name != ?',Date.new(2021,1,14),"Frais de Structure SOLIDEO", "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total') 
+    
     @solideo_depenses = SolideoDepense.all
     @solideo_financements = SolideoFinancement.all
     @solideo_depenses_total = OuvragesDepense.all.sum('montant') + @solideo_financements.where('categorie = ?', "reserve").sum('montant') + @solideo_financements.where('categorie = ?', "innovation").sum('montant') + @solideo_financements.where('categorie = ?', "fonctionnement").sum('montant')
