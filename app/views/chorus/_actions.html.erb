@@ -1,6 +1,6 @@
 <div class="SD-topo-box">
 <div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br>
-     
+     <% if  !@uo_action.nil?%>
 <div class="row">
  <div class="col-md-9">
    <div id="actions_chart"> </div>
@@ -21,6 +21,7 @@
 <div class="SD-topo-box-title2">
    <a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau de l'action <i class="fas fa-chevron-down"></i></a>
 </div>
+  
 <section id="details-actions" class="collapse"> 
   <div class="ED_table">
     <table class="table-striped">
@@ -63,6 +64,7 @@
     </table>
   </div>
 </section>
+  <% end %>
 </div>
 <script>
   $('#action_form input').click(function(){

@@ -1,4 +1,4 @@
-<div class="SD-topo-box">
+<div class="SD-topo-box" id="dynamique-programme">
     <div class="SD-topo-box-title2">
       Visualisation du Programme <%= @programme.first.centre_financier %>
     </div><br>
@@ -182,7 +182,20 @@
 <br>
 </div>
 
-<div class="SD-topo-box">
+<div class="SD-topo-box" id="statique-programme">
+  <div class="SD-topo-box-title2">Visualisation2 </div>
+  <br>
+  <div class="row">
+  <div class="col-md-12">
+    <div id="programme2"></div>
+  </div>
+
+ </div>
+<br><br>
+</div>
+
+
+<div class="SD-topo-box" id="dynamique-bop">
 <div class="SD-topo-box-title2">Visualisation des mouvements de crédits au niveau des BOP (<%= @bop_arr.length%>)</div>
 <br>
 
@@ -208,6 +221,19 @@
 <div id='tableau_bop'>
  <%= render 'chorus/tableau_bop'%>
 </div>
+</div>
+
+<div class="SD-topo-box"  id="statique-bop">
+<div class="SD-topo-box-title2">Visualisation BOP2</div>
+<br>
+
+<div class="row">
+ <div class="col-md-12">
+    <div id="bop_chart2"></div>  
+ </div>
+
+</div>
+
 </div>
 
 <div id="uo">
@@ -499,4 +525,451 @@ $('#bop_form').submit();
      var elementprogid = '#date_'+'<%= @date.year+1%>';
      $(elementprogid).prop('checked', true);
   <% end %>
+</script>
+
+<script>
+Highcharts.stockChart('programme2', {
+ // mapNavigation: {
+ //           enableMouseWheelZoom: true
+ //       },
+   chart:{
+       backgroundColor: '#fff',
+       borderColor: '#fff',
+       type: 'scatter',
+     height: '1000px',
+    // width: '2000px',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Marianne Regular",
+          // maxWidth: '500px'
+          },
+      
+        zoomType: 'x',
+      //  borderWidth: 1,
+      //  resetZoomButton: {
+      //      position: {
+           
+       //         x: -10,
+        //        y: 10
+       //     },
+       //     relativeTo: 'chart'
+      //  },
+    // scrollablePlotArea: {
+    //   minWidth: 2000,
+   //    scrollPositionX:1,
+   //  },
+          },
+  rangeSelector: {
+
+            buttons: [ {
+                type: 'month',
+                count: 1,
+                text: '1m'
+            }, {
+                type: 'month',
+                count: 3,
+                text: '3m'
+            },{
+                type: 'month',
+                count: 6,
+                text: '6m'
+            }, {
+                type: 'year',
+                count: 1,
+                text: '1an'
+            }, {
+                type: 'all',
+                text: 'Tout'
+            }],
+            selected: 3,
+            buttonTheme: { // styles for the buttons
+            fill: '#F8F8F8',
+            stroke: 'none',
+            'stroke-width': 0,
+            r: 4,
+            style: {
+                color: '#000',
+                fontWeight: 'bold'
+            },
+            states: {
+                hover: {
+                },
+                select: {
+                    fill: '#000091',
+                    style: {
+                        color: 'white'
+                    }
+                }
+                // disabled: { ... }
+            }
+        },
+        inputStyle: {
+                color: '#000',
+              
+            },
+        labelStyle: {
+            color: '#000', 
+        },
+        },
+  legend: {
+    enabled: true,
+    verticalAlign: 'top',
+  
+  },
+    title: {
+            text:"",
+    },
+    colors: ['#2E5D63', '#C68D7B'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  scrollbar: {
+    barBackgroundColor: '#CECECE',
+    barBorderColor: "#F8F8F8",
+    barBorderRadius: 6,
+    buttonBackgroundColor: "#F8F8F8",
+    buttonArrowColor:'#CECECE',
+    buttonBackgroundColor:"#F8F8F8",
+    buttonBorderColor:"#F8F8F8",
+    buttonBorderRadius: 6,
+    rifleColor:"#F8F8F8",
+  },
+  tooltip: {
+   
+     formatter: function() {
+      var point = this,
+        series = point.series,
+       
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+        content =  point.key + '<br>' + '<b>'+ series.name + ' disponible : '+ number + ' k€</b><br/>';
+
+      return header + content;
+    },
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+  xAxis:{
+    type: 'datetime',
+  //  tickInterval: 30 * 24 * 3600 * 1000,
+  // tickPixelInterval:200,
+  },
+  yAxis: {
+    plotLines: [{
+      color: '#FF6F4C',
+      label: {
+        text: "LFI",
+        textAlign: 'left',
+        verticalAlign: 'middle',
+        
+        x: -20,
+        style: {
+          color:'#FF6F4C',
+        },
+      },
+      zIndex: 5,
+      width: 4,
+      value: <%= @programme_ht2.where('date >= ? AND date <= ? AND type_budget = ?', Date.new(@dates[0].to_i,1,1), Date.new(@dates[0].to_i,12,31), "Bud. voté ou en cours de vote").first.montant.to_f/1000 %>,
+    }],
+  },
+    plotOptions: {
+        series: {
+          lineWidth: 2,
+            label: {
+                connectorAllowed: false
+            }, 
+            marker: {
+                enabled: true
+            },
+          step: 'left',
+        }
+    },
+ 
+  
+    series: [{
+        name: 'Dispo HT2',
+      //type: 'area',
+        data: [
+          <% @dates.each do |date| %>
+          <% @montant = 0 %>
+         
+          <% @programme_ht2.where('date >= ? AND date <= ? AND type_piece != ?', Date.new(date.to_i,1,1), Date.new(date.to_i,12,31), 'MADI').each do |programme| %>
+            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
+            <% @montant =  programme.montant %>
+            {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
+            <% elsif programme.type_piece == "RB" %>
+            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant - programme.montant).to_f/1000).round%>,  },
+          <% @montant = @montant - programme.montant %>
+            <% else %>              
+            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
+            <% @montant = @montant + programme.montant %>
+            <% end %> 
+          <% end %>
+          <% end %>
+        ],
+      fillColor: {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, "#2E5D63"],
+                    [1, Highcharts.color("#2E5D63").setOpacity(0).get('rgba')]
+                ]
+            },
+       dataLabels: {
+                enabled: true,
+            },
+    }, {
+        name: 'Réserve',
+        data: [
+          <% @dates.each do |date| %>
+          <% @montant = 0 %>
+         
+          <% @programme_ht2.where('date >= ? AND date <= ? AND type_piece != ? AND type_piece != ?', Date.new(date.to_i,1,1), Date.new(date.to_i,12,31), 'MADI', 'RB').each do |programme| %>
+            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
+            <% @montant =  programme.montant %>
+            {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
+            
+            <% else %>              
+            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
+            <% @montant = @montant + programme.montant %>
+            <% end %> 
+          <% end %>
+          <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    },
+          
+            ],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+
+
+<script>
+
+Highcharts.stockChart('bop_chart2', {
+ // mapNavigation: {
+ //           enableMouseWheelZoom: true
+ //       },
+   chart:{
+       backgroundColor: '#fff',
+        borderColor: '#fff',
+        borderRadius:10,
+     height: '1000px',
+       type: 'scatter',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Marianne Regular",
+          // maxWidth: '500px'
+          }, 
+       zoomType: 'x',
+      //  borderWidth: 1,
+      //  resetZoomButton: {
+      //      position: {
+           
+       //         x: -10,
+        //        y: 10
+       //     },
+       //     relativeTo: 'chart'
+      //  },
+     //              scrollablePlotArea: {
+     //  minWidth: 2000,
+     //  scrollPositionX:1,
+    // },
+          },
+  rangeSelector: {
+
+            buttons: [  {
+                type: 'month',
+                count: 1,
+                text: '1m'
+            }, {
+                type: 'month',
+                count: 3,
+                text: '3m'
+            },{
+                type: 'month',
+                count: 6,
+                text: '6m'
+            }, {
+                type: 'year',
+                count: 1,
+                text: '1an'
+            }, {
+                type: 'all',
+                text: 'Tout'
+            }],
+            selected: 3,
+            buttonTheme: { // styles for the buttons
+            fill: '#F8F8F8',
+            stroke: 'none',
+            'stroke-width': 0,
+            r: 4,
+            style: {
+                color: '#000',
+                fontWeight: 'bold'
+            },
+            states: {
+                hover: {
+                },
+                select: {
+                    fill: '#000091',
+                    style: {
+                        color: 'white'
+                    }
+                }
+                // disabled: { ... }
+            }
+        },
+        inputStyle: {
+                color: '#000',
+              
+            },
+        labelStyle: {
+            color: '#000', 
+        },
+        },
+  scrollbar: {
+    barBackgroundColor: '#CECECE',
+    barBorderColor: "#F8F8F8",
+    barBorderRadius: 6,
+    buttonBackgroundColor: "#F8F8F8",
+    buttonArrowColor:'#CECECE',
+    buttonBackgroundColor:"#F8F8F8",
+    buttonBorderColor:"#F8F8F8",
+    buttonBorderRadius: 6,
+    rifleColor:"#F8F8F8",
+  },
+  legend: {
+    enabled: true,
+    verticalAlign: 'top',
+  
+  },
+title: {
+        text:"",
+},
+    //colors: ['#2E5D63', '#C68D7B'],
+
+  tooltip: {
+     formatter: function() {
+      var point = this,
+        series = point.series,
+       
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+          number = Highcharts.numberFormat(point.y, -1, ',',' '),
+        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+        content = '<b>'+series.name + ' disponible : ' + number  + ' k€</b><br/>';
+
+      return header + content;
+    },
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+  xAxis:{
+    type: 'datetime',
+  },
+  yAxis: {
+     gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        },
+    plotLines: [{
+      color: '#FF6F4C',
+      label: {
+        text: "LFI",
+        textAlign: 'left',
+        verticalAlign: 'middle',
+        
+        x: -20,
+        style: {
+          color:'#FF6F4C',
+        },
+      },
+      zIndex: 5,
+      width: 4,
+      value: <%= @programme_ht2.where('date >= ? AND date <= ? AND type_budget = ?', Date.new(@dates[0].to_i,1,1), Date.new(@dates[0].to_i,12,31), "Bud. voté ou en cours de vote").first.montant.to_f/1000 %>,
+    }],
+  },
+    plotOptions: {
+        series: {
+          lineWidth: 2,
+            label: {
+                connectorAllowed: false
+            },  
+           marker: {
+                enabled: true
+            },
+          step: 'left',
+        }
+    },
+
+    series: [
+      <% @bop_arr.each do |bop| %>
+      {
+        name: '<%= bop %>',
+        data: [
+          <% @dates.each do |date| %>
+          <% @montant = 0 %>
+   
+          <% Choru.where('centre_financier = ? AND compte_budgetaire = ? AND operation !=? AND date >= ? AND date <= ?',bop, "HT2","Envoyer", Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round %>],
+           <% @montant = @montant + programme.montant %>
+          <% end %>
+          <% end %>
+        ],
+        <% if bop != @bop_arr[0]%>
+        visible: false,
+        <% end %>
+       dataLabels: {
+                enabled: true,
+            },
+    },
+      <% end %>
+            
+            ],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
 </script>

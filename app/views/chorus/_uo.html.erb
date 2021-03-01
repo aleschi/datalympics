@@ -1,5 +1,5 @@
 <% if !@uo.nil? &&  !@uo.first.nil?%>
-<div class="SD-topo-box">
+<div class="SD-topo-box" id="dynamique-uo">
   <div class="SD-topo-box-title2">Visualisation au niveau des UO de ce BOP (<%= @uo_arr.length %>)     
   </div><br>
      
@@ -178,6 +178,16 @@
     </div>    
     <% end %>
   </section>
+</div>
+
+<div class="SD-topo-box"  id="statique-uo">
+  <div class="SD-topo-box-title2">Visualisation UO2     
+  </div><br>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="uo_chart2"></div>
+    </div>
+  </div>
 </div>
 
   <div id="actions">
@@ -420,6 +430,199 @@ title: {
             },
     },
             <% end %>
+            ],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
+</script>
+
+<script>
+
+Highcharts.stockChart('uo_chart2', {
+ // mapNavigation: {
+ //           enableMouseWheelZoom: true
+ //       },
+   chart:{
+       backgroundColor: '#fff',
+     borderColor: '#fff',
+                 borderRadius:10,
+       type: 'scatter',
+     height: '1000px',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Marianne Regular",
+          // maxWidth: '500px'
+          }, 
+       zoomType: 'x',
+      //  borderWidth: 1,
+      //  resetZoomButton: {
+      //      position: {
+           
+       //         x: -10,
+        //        y: 10
+       //     },
+       //     relativeTo: 'chart'
+      //  },
+     
+      //             scrollablePlotArea: {
+     //  minWidth: 2000,
+     //  scrollPositionX:1,
+    // },
+          },
+  rangeSelector: {
+
+            buttons: [{
+                type: 'month',
+                count: 1,
+                text: '1m'
+            },{
+                type: 'month',
+                count: 3,
+                text: '3m'
+            }, {
+                type: 'month',
+                count: 6,
+                text: '6m'
+            }, {
+                type: 'year',
+                count: 1,
+                text: '1an'
+            }, {
+                type: 'all',
+                text: 'Tout'
+            }],
+            selected: 3,
+            buttonTheme: { // styles for the buttons
+            fill: '#F8F8F8',
+            stroke: 'none',
+            'stroke-width': 0,
+            r: 4,
+            style: {
+                color: '#000',
+                fontWeight: 'bold'
+            },
+            states: {
+                hover: {
+                },
+                select: {
+                    fill: '#000091',
+                    style: {
+                        color: 'white'
+                    }
+                }
+                // disabled: { ... }
+            }
+        },
+        inputStyle: {
+                color: '#000',
+              
+            },
+        labelStyle: {
+            color: '#000', 
+        },
+        },
+  scrollbar: {
+    barBackgroundColor: '#CECECE',
+    barBorderColor: "#F8F8F8",
+    barBorderRadius: 6,
+    buttonBackgroundColor: "#F8F8F8",
+    buttonArrowColor:'#CECECE',
+    buttonBackgroundColor:"#F8F8F8",
+    buttonBorderColor:"#F8F8F8",
+    buttonBorderRadius: 6,
+    rifleColor:"#F8F8F8",
+  },
+  legend: {
+    enabled: true,
+    verticalAlign: 'top',
+  
+  },
+title: {
+        text:"",
+},
+   // colors: ['#2E5D63', '#C68D7B'],
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  tooltip: {
+      formatter: function() {
+      var point = this,
+        series = point.series,
+       
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+          number = Highcharts.numberFormat(point.y, -1, ',',' '),
+        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+        content = '<b>'+series.name + ' disponible : ' + number  + ' k€</b><br/>';
+
+      return header + content;
+    },
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+      
+    },
+  xAxis:{
+    type: 'datetime',
+  },
+    plotOptions: {
+        series: {
+          lineWidth: 2,
+            label: {
+                connectorAllowed: false
+            }, 
+          marker: {
+                enabled: true
+            },
+          step: 'left',
+        }
+    },
+
+  
+
+    series: [
+      <% @uos_arr.each do |uo| %>
+      {
+        name: '<%= uo%>',
+        data: [
+          <% if !@dates.nil?%>
+            <% @dates.each do |date| %>
+            <% @montant = 0 %>
+         
+            <% Choru.where('centre_financier = ? AND compte_budgetaire = ? AND operation = ? AND date >= ? AND date <= ?',uo, "HT2",'Réception', Date.new(date.to_i,1,1), Date.new(date.to_i,12,31)).each do |programme| %>
+              [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
+             <% @montant = @montant + programme.montant %>
+            <% end %>
+          <% end %>
+        <% end %>
+        ],
+        <% if uo != @uo_arr[0]%>
+        visible: false,
+        <% end %>
+       dataLabels: {
+                enabled: true,
+            },
+    },
+      
+      <% end %>
+           
             ],
 
     responsive: {

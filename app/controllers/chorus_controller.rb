@@ -38,14 +38,18 @@ class ChorusController < ApplicationController
       @type_pieces_ht2=[]
       if !@programme_ht2.nil?
         @programme_ht2.each do |choru|
+          if choru.type_piece != "RB"
           @type_pieces_ht2 << choru.type_piece
+          end
         end 
         @type_pieces_ht2.uniq! 
       end
       @type_pieces_t2=[]
       if !@programme_t2.nil?
         @programme_t2.each do |choru|
+          if choru.type_piece != "RB"
           @type_pieces_t2 << choru.type_piece
+          end
         end 
         @type_pieces_t2.uniq! 
       end
@@ -62,8 +66,13 @@ class ChorusController < ApplicationController
       @bop_ht2 = @bop.where("compte_budgetaire = ?", "HT2")
       @bop_t2 = @bop.where("compte_budgetaire = ?", "T2")
 
-      #@uos = @chorus.select { |choru| choru.centre_financier.count("-") == 2 }
-      #compter le nombre de bop differents 
+      @uos_tot = @chorus.select { |choru| choru.centre_financier.count("-") == 2 }
+      @uos_arr = []
+      @uos_tot.each do |uo|
+        @uos_arr << uo.centre_financier
+      end 
+      @uos_arr.uniq!
+      #compter le nombre de uo differents 
       @uo_search = @bop.first.centre_financier + '-'
       @uos = Choru.where('centre_financier like ? ', '%'+@uo_search+'%').order('date ASC')
       @uo_arr = []

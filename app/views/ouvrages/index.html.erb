@@ -16,7 +16,7 @@
         <i class="fas fa-coins"></i>
       </div>
       <div>
-        <%= number_with_delimiter(SolideoFinancement.where("categorie = ? AND date = ?", "ouvrages", Date.new(2018,1)).sum('montant').to_i, :delimiter => ' ') %> €<br>
+        <%= number_with_delimiter(Maquette.where.not(ouvrage_id: nil).where("date = ?", Date.new(2018,6,18)).sum('total').to_i, :delimiter => ' ') %> €<br>
         <span>Budget Initial</span>
       </div>
     </div>
@@ -45,7 +45,7 @@
          <i class="fas fa-coins"></i>
       </div>
       <div>
-        <%= number_with_delimiter(Ouvrage.sum('budget').to_i, :delimiter => ' ') %> €<br>
+        <%= number_with_delimiter(Maquette.where.not(ouvrage_id: nil).where("date = ?", Date.new(2021,1,14)).sum('total').to_i, :delimiter => ' ') %> €<br>
         <span>Budget réactualisé</span>
       </div>
     </div>

@@ -3,7 +3,10 @@
 
   <h1 class="EB_title">Programme <%= params[:id]%></h1>
    
-  
+      <div class="choice-vision text-center">
+        <a type="button" id="dynamique">Vision dynamique</a>
+        <a type="button" id="statique">Vision statique</a>
+      </div>
       <div id="programme_box">
         <%= render 'chorus/programme'%>
      </div>
@@ -11,5 +14,34 @@
   
 
 </div>
+
+<script>
+$('#statique-programme').hide();
+ $('#statique-bop').hide();
+  $('#statique-uo').hide();
+  $("#dynamique").addClass('vision-active');
+ $(function(){
+   $("#statique").on("click",function(){ 
+     $('#statique-programme').show();
+     $('#statique-bop').show();
+     $('#statique-uo').show();
+     $('#dynamique-programme').hide();
+     $('#dynamique-bop').hide();
+     $('#dynamique-uo').hide();
+     $("#statique").addClass('vision-active');
+     $("#dynamique").removeClass('vision-active');
+   })
+    $("#dynamique").on("click",function(){ 
+     $('#statique-programme').hide();
+    $('#statique-bop').hide();
+    $('#statique-uo').hide();
+     $('#dynamique-programme').show();
+    $('#dynamique-bop').show();
+    $('#dynamique-uo').show();
+      $("#dynamique").addClass('vision-active');
+      $("#statique").removeClass('vision-active');
+   })
+ })
+</script>
 <% end %>
 
