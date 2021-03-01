@@ -68,21 +68,23 @@ body {
 .form {
   width:100%;
   padding:10px;
-  text-align:center;
+  text-align:left;
   margin-bottom:10px;
   label{
     display:block;
-    color:#000091;
-    text-transform: uppercase;
-    font-size: 16px;
+    color:#1E1E1E;
+    font-size: 14px;
+    font-weight:400;
   }
 }
 .form-field{
-  width:80%;
+  width:100%;
   margin:auto;
-  border: 1px solid #000091;
+  border: none;
+  border-bottom: 2px solid #6A6A6A;
   appearance: none;
   outline:none;
+  background-color:#F0F0F0;
   font-size:14px;
   padding:8px;
   border-radius:4px;
@@ -96,9 +98,8 @@ body {
   background-color:#fff;
   color:#000091;
   font-size:16px;
-  text-transform:uppercase;
-  padding: 8px 12px;
-  border-radius:50px;
+  padding: 8px 20px;
+  border-radius:4px;
   border:none;
   border:2px solid #000091;
 }
@@ -438,11 +439,11 @@ display: none;
   margin-bottom:30px;
   a{
     //border: 1px solid #000091;
-    border-radius:50px;
+    border-radius:4px;
     padding: 8px 20px;
     font-size:15px;
     color:#fff;
-    background-color: #FD9C04;
+    background-color: #000091;
     text-decoration:none;
     i{
       color:#fff;
@@ -461,7 +462,7 @@ display: none;
   
 }
 .modal-title-search-filtres{
-  color: #000091;
+  color: #1E1E1E;
   font-weight:700;
   font-size:22px;
   margin-bottom:20px;
@@ -476,26 +477,28 @@ display: none;
 }
 .modal-search-filters-form-title{
   text-align:left;
-  color: #000091;
+  color: #1E1E1E;
   font-size:15px;
-  font-weight:700;
+  font-weight:500;
   padding-bottom:4px;
-  border-bottom:1px solid #000091;
-  text-transform:uppercase;
+
   margin-bottom:14px;
 }
 
 .modal-search-filters-form{
   margin-bottom:26px;
   label{
-    border: 1px solid #BDBDBD;
+
     padding:4px 8px;
     color: #444444;
     font-size:13px;
     margin-right:8px;
-    border-radius:50px;
+    border-top-right-radius:4px;
+    border-top-left-radius:4px;
     font-weight:500;
     text-transform:uppercase;
+    background-color:#F8F8F8;
+    border-bottom:1px solid #000091;
     &:hover{
       cursor:pointer;
     }
@@ -505,22 +508,23 @@ display: none;
   display:none;
 }
 .modal-search-filters-form-active{
-  background-color:#000091;
+  background-color:#000091 !important;
   color:#fff !important;
+  border-radius:4px;
   border: 1px solid #000091;
 }
 
 .modal-search-filters-form-btn{
   text-align:center;
   input{
-    background-color:#FD9C04;
+    background-color:#000091;
     color:#fff;
     font-size:15px;
-    padding:4px 8px;
-    font-weight:700;
-    border-radius:50px;
+    padding:8px 20px;
+    font-weight:500;
+    border-radius:4px;
     border:none;
-    text-transform:uppercase;
+   
   }
 }
 
