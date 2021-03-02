@@ -1,7 +1,14 @@
 class ChorusController < ApplicationController
 
   def index
+    @q = Choru.all.ransack(params[:q])
     @chorus = Choru.all 
+    if params[:term]
+        @chorus = Choru.all.select { |choru| choru.centre_financier.count("-") == 0 }
+        @chorus = @chorus.where('centre_financier like ?', "%#{params[:term]}%")
+        
+        render json: @chorus.map(&:centre_financier)  
+      end
   end 
   
   def new
@@ -23,13 +30,20 @@ class ChorusController < ApplicationController
   def update 
   end 
   
+  def search_choru
+    @id = params[:q][:centre_financier_cont]
+    redirect_to choru_path(:id => @id)
+  end
+  
   def show
+    
+    
     @search = params[:id]
     @date = Date.new(2019,12,31)
     @dates = ['2020']
     if !Choru.where('centre_financier = ? ', @search).first.nil?
       @begin =  Choru.where('centre_financier = ? ', @search).order('date ASC').first.date.year
-      @end =  Choru.where('centre_financier = ? ', @search).order('date ASC').last.date.year
+      @end =  Choru.where('centre_financier = ? ', @search).order('date ASC').last.date.year     
       @chorus = Choru.where('centre_financier like ? ', '%'+@search+'%').order('date ASC')
       @programme = Choru.where('centre_financier = ? AND date >= ? AND date < ? ', @search, @date, @date + 1.year).order('date ASC')
       @programme_ht2 = @programme.where("compte_budgetaire = ?", "HT2")

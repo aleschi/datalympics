@@ -1,0 +1,66 @@
+<div class="modal fade" id="filtres-programme" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content modal-content-search-filtres" >
+      <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <p class="modal-title modal-title-search-filtres" >Filtres <i class="fas fa-sliders-h"></i></p>
+    
+      </div>
+      
+      <div class="modal-body">
+        <%= form_tag etat_depenses_filter_path, method: :get, remote: true do %>
+        <div class="modal-search-filters-form-title">
+          Type 
+        </div>
+        <div  class="modal-search-filters-form">
+          
+          <label> <%= check_box_tag 'beneficiaires[]', "solideo", false%> HT2</label>
+          <label><%= check_box_tag 'beneficiaires[]', "cojo", false%> T2</label>
+          
+        </div>
+        <div class="modal-search-filters-form-title">
+          Dates
+        </div>
+        <div class="modal-search-filters-form">
+          <label><%= check_box_tag 'dates[]', "2018", false%> 2018</label>
+          <label><%= check_box_tag 'dates[]', "2019", false%> 2019</label>
+          <label><%= check_box_tag 'dates[]', "2020", false%> 2020</label>
+          <label><%= check_box_tag 'dates[]', "2021", false%> 2021</label>
+          <label><%= check_box_tag 'dates[]', "2022", false%> 2022</label>
+          <label><%= check_box_tag 'dates[]', "2023", false%> 2023</label>
+          <label><%= check_box_tag 'dates[]', "2024", false%> 2024</label>
+          <label><%= check_box_tag 'dates[]', "2025", false%> 2025</label>
+        </div>
+        
+        
+        <div class="modal-search-filters-form-btn">
+          <%= submit_tag "Filtrer", id: "close-modal" %>  
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$('input').attr('checked', false); 
+
+ $('input').change(function()
+      {
+        if ($(this).is(':checked')) {
+           $(this).parent().addClass('modal-search-filters-form-active');
+        }else{
+           $(this).parent().removeClass('modal-search-filters-form-active');
+        };
+      });
+  
+</script>
+
+<script>
+  
+$('#close-modal').click(function() {
+    $('#filtres').modal('hide');
+});
+</script>

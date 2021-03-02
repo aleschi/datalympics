@@ -2,9 +2,63 @@
   <div class="SD-topo-box">
     <h1 class="chorus-index-title">DataChorus</h1>
     <div class="chorus-index-subtitle">Le logiciel qui déchiffre Chorus</div>
+    
+    <div class="chorus-search-box">
+      <%= search_form_for @q, url: search_choru_path, method: :post do |f| %>
+        <div class="chorus-search-box-form">
+        <%= f.search_field :centre_financier_cont,class: "choru-search-field", id:"name",placeholder: "Cherchez un programme", data: {autocomplete_source: chorus_path} %> 
+        <%= f.button :submit, class: "choru-search-submit" do%> <i class="fas fa-search"></i>Rechercher<% end %>
+        </div>
+      <% end %>
+      
+    </div>
+    
+    <div class="chorus-index-programme-title">Liste des programmes</div>
     <div class="chorus-index-programme"><%= link_to choru_path(:id => '350') do %> Programme 350 <% end %> </div>  
     <div class="chorus-index-programme"><%= link_to choru_path(:id => '0148') do %> Programme 148 <% end %> </div>
     <div class="chorus-index-programme"><%= link_to choru_path(:id => '0354') do %> Programme 354 <% end %> </div>
     <br>
   </div>
 </div>
+<script>
+
+  $(function() {
+ // var matieres = ["Stade de france", "Arena 2", "village"]
+  // Below is the name of the textfield that will be autocomplete    
+    $('#name').autocomplete({
+ // This is the source of the auocomplete suggestions. In this case a list of names from the people controller, in JSON format.
+     
+      source: $('#name').data('autocomplete-source'),
+          //  source:matieres,
+           
+      select: function(event, ui) {
+       // $.ajax({
+       //   type:'GET',
+       //   url: '/ouvrages',
+          
+        //});
+        $("#name").val(ui.item.label);
+          $("#submit_button").click()    
+
+    },
+        })
+     .data("ui-autocomplete")._renderItem = function(ul, item){
+       var expression = new RegExp(this.term, "gi");
+      var result = expression.exec(item.label);
+      var answer; 
+      if (result.index == 0){
+        answer = item.label.replace(expression, "<span style='font-weight:bold;color:#000091'>" + this.term + "</span>");
+        return $("<li></li>")
+      .append("<a>"+answer+"</a>")
+      .prependTo(ul);
+      }   
+      else
+       answer = item.label.replace(expression, "<span style='font-weight:bold;color:#000091'>" + this.term.toLowerCase() + "</span>");
+      return $("<li></li>")
+      .append("<a>"+answer+"</a>")
+      .appendTo(ul);
+     
+    };
+    
+  });
+</script>

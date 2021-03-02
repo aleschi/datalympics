@@ -32,6 +32,9 @@ Highcharts.stockChart('bop_chart', {
      //  scrollPositionX:1,
     // },
           },
+   navigator: {
+        maskFill: 'rgba(248,248,248,0.3)',
+    },
   rangeSelector: {
 
             buttons: [  {
@@ -157,7 +160,7 @@ title: {
   
 
     series: [{
-        name: 'HT2',
+        name: '<%= @bop.first.centre_financier%>',
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
@@ -172,24 +175,6 @@ title: {
                 enabled: true,
             },
     },
-             <% if !@bop_t2.nil? && @bop_t2.length > 0 %>
-             {
-        name: 'T2',
-        data: [
-          <% @dates.each do |date| %>
-            <% @montant = 0 %>
-            [Date.UTC(<%=date%>,0,1),0 ],
-            <% @bop_t2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
-              [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
-             <% @montant = @montant + programme.montant %>
-            <% end %>
-          <% end %>
-        ],
-       dataLabels: {
-                enabled: true,
-            },
-    },
-            <% end %>
             ],
 
     responsive: {
