@@ -17,6 +17,7 @@ Highcharts.stockChart('bop_chart', {
           fontFamily: "Marianne Regular",
           // maxWidth: '500px'
           }, 
+     height: '600px',
        zoomType: 'x',
       //  borderWidth: 1,
       //  resetZoomButton: {
@@ -108,7 +109,7 @@ title: {
 },
     colors: ['#2E5D63', '#C68D7B'],
     yAxis: {
-      gridLineColor: '#fff', 
+      //gridLineColor: '#fff', 
         title: {
             text: 'Total k€'
         }
@@ -159,13 +160,30 @@ title: {
 
   
 
-    series: [{
-        name: '<%= @bop.first.centre_financier%>',
+    series: [
+      <% @bops_show.each do |bop|%>
+      {
+        name: '<%= bop%> dynamique',
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
-          [Date.UTC(<%=date%>,0,1),0 ],
-          <% @bop_ht2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
+        [Date.UTC(<%=date%>,0,1),0 ],
+          <% Choru.where('centre_financier = ? AND compte_budgetaire = ? AND date >= ? AND date <= ?',bop,"HT2", Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round %>],
+           <% @montant = @montant + programme.montant %>
+          <% end %>
+          <% end %>
+        ],
+       dataLabels: {
+                enabled: true,
+            },
+    },{
+        name: '<%= bop %> statique',
+        data: [
+          <% @dates.each do |date| %>
+          <% @montant = 0 %>
+         
+          <% Choru.where('centre_financier = ? AND compte_budgetaire = ? AND operation !=? AND date >= ? AND date <= ?',bop, "HT2","Envoyer", Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round %>],
            <% @montant = @montant + programme.montant %>
           <% end %>
@@ -175,6 +193,7 @@ title: {
                 enabled: true,
             },
     },
+      <% end %>
             ],
 
     responsive: {

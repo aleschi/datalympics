@@ -1,26 +1,35 @@
+<div class="button-chorus">
+  <div class="button-chorus-box">
+    <div class="button-chorus-tables" id="bop-bilan-btn">Afficher les bilans</div>
+    <div class="button-chorus-tables" id="bop-tables-btn">Afficher les tables</div>
+  </div>
+  </div>
 
-<div class="ED_table" id="bop-total-ht2">
+<div class="ED_table" id="bop-bilan">
       <table class="table-striped">
         <thead>
           <tr>
             <th scope="col">Date</th>
-              <th scope="col">MADI Réception</th>
-              <th scope="col">MADI Envoi</th>
-              <th scope="col">REAP Réception</th>
-              <th scope="col">REAP Envoi</th>         
+            <th scope="col">BOP</th>
+            <% @type_pieces_bop.each do |piece|%>
+              <th scope="col"><%=piece%> Réception</th>
+              <th scope="col"><%= piece%> Envoi</th>
+            <% end %>       
           </tr>
         </thead>
 
         <tbody>
+          <% @bops_show.each do |bop|%>
           <% if !@dates.nil?%>
             <% @dates.each do |date| %>
               <tr>
                 <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
-               
-                  <td><%= number_with_delimiter(@bop_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %> €</td>
-                <td><%= number_with_delimiter(@bop_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Envoyer").sum('montant'), :delimiter => ' ') %> €</td>
-                <td><%= number_with_delimiter(@bop_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %> €</td>
-                <td><%= number_with_delimiter(@bop_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Envoyer").sum('montant'), :delimiter => ' ') %> €</td>
+                <td><%= bop%></td>
+                 <% @type_pieces_bop.each do |piece|%>
+                  <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Réception","HT2").sum('montant'), :delimiter => ' ') %> €</td>
+                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Envoyer").sum('montant'), :delimiter => ' ') %> €</td>
+          <% end %>
+          <% end %>
               
 
               </tr>
@@ -31,17 +40,13 @@
       </table>
       </div>
 
-
-<div class="SD-topo-box-title2"><a href="#details-bop" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-bop"> Tableau des mouvements de crédits au niveau du BOP <i class="fas fa-chevron-down"></i></a>
-    </div><br>
-     <section id="details-bop" class="collapse">
-
-      <div class="ED_table" id="details-bop-total-ht2">
+      <div class="ED_table" id="bop-tables">
         <table class="table-striped">
           <thead>
             <tr>
+              <th scope="col">BOP</th>
               <th scope="col">Date</th>
-              <th scope="col">Type budget</th>
+              
               <th scope="col">Type piece</th> 
               <th scope="col">Operation</th>
               <th scope="col">Centre financier</th>
@@ -52,11 +57,13 @@
           </thead>
 
           <tbody>
+            <% @bops_show.each do |bop|%>
             <% @dates.each do |date| %>
-            <% @bop_ht2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
+            <% Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), "HT2").each do |choru| %>
               <tr>
+                <td><%= bop%></td>
                 <td><%= l(choru.date, format: "%e %b %Y") %></td>
-                <td><%= choru.type_budget %></td>
+                
                 <td><%= choru.type_piece %></td>
                 <td><%= choru.operation %></td>
                 <td><%= choru.centre_financier %></td>
@@ -73,53 +80,36 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><%= number_with_delimiter(@bop_ht2.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"HT2").sum('montant'), :delimiter => ' ') %></td>
             </tr><br>
+            <% end %>
+     
             <% end %>
           </tbody>
         </table>
       </div>
 
-     </section>
     <br>
 
 <script>
-$('#bop-total-t2').hide();
-$('#bop-total-ht2-btn').addClass('chorus-table-subtitle-active');
-$('#bop-total-t2-btn').addClass('chorus-table-subtitle-inactive');
-$('#bop-total-t2-btn').click(function () {
-  $('#bop-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
-  $('#bop-total-t2-btn').addClass('chorus-table-subtitle-active');
-  $('#bop-total-ht2-btn').removeClass('chorus-table-subtitle-active');
-  $('#bop-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
-  $('#bop-total-t2').show();
-  $('#bop-total-ht2').hide();
+  $('#bop-bilan').hide();
+  $('#bop-tables').hide();
+  $('#bop-tables-btn').click(function () {
+    if ($('#bop-tables').hasClass('visible')){
+    $('#bop-tables').hide();
+      $('#bop-tables').removeClass('visible');
+    }else {
+     $('#bop-tables').show(); 
+      $('#bop-tables').addClass('visible');
+    }
   });
-$('#bop-total-ht2-btn').click(function () {
-  $('#bop-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
-  $('#bop-total-ht2-btn').addClass('chorus-table-subtitle-active');
-  $('#bop-total-t2-btn').removeClass('chorus-table-subtitle-active');
-  $('#bop-total-t2-btn').addClass('chorus-table-subtitle-inactive');
-  $('#bop-total-t2').hide();
-  $('#bop-total-ht2').show();
-  });
-  $('#details-bop-total-t2').hide();
-$('#details-bop-total-ht2-btn').addClass('chorus-table-subtitle-active');
-$('#details-bop-total-t2-btn').addClass('chorus-table-subtitle-inactive');
-$('#details-bop-total-t2-btn').click(function () {
-  $('#details-bop-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
-  $('#details-bop-total-t2-btn').addClass('chorus-table-subtitle-active');
-  $('#details-bop-total-ht2-btn').removeClass('chorus-table-subtitle-active');
-  $('#details-bop-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
-  $('#details-bop-total-ht2').hide();
-  $('#details-bop-total-t2').show();
-  });
-$('#details-bop-total-ht2-btn').click(function () {
-  $('#details-bop-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
-  $('#details-bop-total-ht2-btn').addClass('chorus-table-subtitle-active');
-  $('#details-bop-total-t2-btn').removeClass('chorus-table-subtitle-active');
-  $('#details-bop-total-t2-btn').addClass('chorus-table-subtitle-inactive');
-  $('#details-bop-total-t2').hide();
-  $('#details-bop-total-ht2').show();
+ $('#bop-bilan-btn').click(function () {
+    if ($('#bop-bilan').hasClass('visible')){
+    $('#bop-bilan').hide();
+      $('#bop-bilan').removeClass('visible');
+    }else {
+     $('#bop-bilan').show(); 
+      $('#bop-bilan').addClass('visible');
+    }
   });
 </script>

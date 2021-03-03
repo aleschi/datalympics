@@ -1,29 +1,36 @@
+
+<% if  !@actions_show.empty?%>
 <div class="SD-topo-box">
 <div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br>
-     <% if  !@uo_action.nil?%>
-<div class="row">
- <div class="col-md-9">
-   <div id="actions_chart"> </div>
- </div>
- <div class="col-md-3">
-   <div class="chorus-select-box">
-
-     <div class="chorus-select-box-title" id="action_name"> Action <%= @uo_action %> </div>
-        <%= form_with url: select_action_path(:uo_id => @uo.first.centre_financier, :date => @dates), id: "action_form" do |f|%>
+   <div class="chorus-dropdown-box">
+   <div class="dropdown dropdown-chorus">
+     <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner une action <i class="fas fa-chevron-down"></i></button>
+      <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButton2">
+          <%= form_with url: select_action_path(:uo_id => @uos_show, :date => @dates), id: "action_form" do |f|%>
         <% (0..@uo_actions.length-1).each do |i|%>
-          <label><%= f.radio_button :id, @uo_actions[i] %>  <%= @uo_actions[i]%></label>
+          <label><%= f.check_box :id,{:multiple => true}, @uo_actions[i],nil %>  <%= @uo_actions[i]%></label>
         <% end %>
        <% end %>
-   </div>
- </div> 
+      </div>
+    </div>
+  </div>   
+  
+<div class="row">
+ <div class="col-md-offset-1 col-md-10">
+   <div id="actions_chart"> </div>
+ </div>
+
 </div>
 <br><br>
-<div class="SD-topo-box-title2">
-   <a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau de l'action <i class="fas fa-chevron-down"></i></a>
-</div>
   
-<section id="details-actions" class="collapse"> 
-  <div class="ED_table">
+   <div class="button-chorus">
+  <div class="button-chorus-box">
+    <div class="button-chorus-tables" id="actions-tables-btn">Afficher les tables</div>
+  </div>
+  </div>
+
+   
+  <div class="ED_table" id="actions-tables">
     <table class="table-striped">
       <thead>
         <tr>
@@ -38,8 +45,9 @@
       </thead>
 
       <tbody>
+        <% @actions_show.each do |action|%>
         <% @dates.each do |date| %>
-        <% @uo.where(domaine_fonctionnel: @uo_action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
+        <% Choru.where(domaine_fonctionnel: action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |choru| %>
           <tr>
             <td><%= l(choru.date, format: "%e %b %Y") %></td>
             <td><%= choru.type_piece %></td>
@@ -57,15 +65,30 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><%= number_with_delimiter(@uo.where(domaine_fonctionnel: @uo_action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(Choru.where(domaine_fonctionnel: action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
             </tr><br>
+        <% end %>
         <% end %>
       </tbody>
     </table>
   </div>
-</section>
-  <% end %>
+
+ 
 </div>
+<script>
+
+  $('#actions-tables').hide();
+  $('#actions-tables-btn').click(function () {
+    if ($('#actions-tables').hasClass('visible')){
+    $('#actions-tables').hide();
+      $('#actions-tables').removeClass('visible');
+    }else {
+     $('#actions-tables').show(); 
+      $('#actions-tables').addClass('visible');
+    }
+  });
+
+</script>
 <script>
   $('#action_form input').click(function(){
 $('#action_form').submit();
@@ -181,7 +204,7 @@ title: {
 },
     colors: ['#2E5D63', '#C68D7B'],
     yAxis: {
-      gridLineColor: '#fff', 
+     // gridLineColor: '#fff', 
         title: {
             text: 'Total k€'
         }
@@ -204,18 +227,6 @@ title: {
     },
   xAxis:{
     type: 'datetime',
-    plotBands: [    
-      <% if !@dates.nil? %>
-        <% @dates.each do |date|%>
-          {
-            color: 'red',
-            from:Date.UTC(<%= date%>-1,11,31),
-            to:Date.UTC(<%= date%>,0,1),
-        
-          },
-      <% end %>
-      <% end %>
-    ]
   },
     plotOptions: {
         series: {
@@ -233,14 +244,14 @@ title: {
   
 
     series: [
-    
+    <% @actions_show.each do |action|%>
       {
-        name: '<%= @uo_action %>',
+        name: '<%= action %>',
         data: [
         <% @dates.each do |date| %>
            <% @montant = 0 %>
         [Date.UTC(<%=date%>,0,1),0],
-         <% @uo.where(domaine_fonctionnel: @uo_action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
+         <% Choru.where(domaine_fonctionnel: action).where('date >= ? AND date <= ?', Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
           <% @montant = @montant + programme.montant %>
           <% end %>
@@ -250,7 +261,7 @@ title: {
                 enabled: true,
             },
       },
- 
+ <% end %>
     ],
 
     responsive: {
@@ -271,3 +282,5 @@ title: {
 });
 
 </script>
+
+ <% end %>

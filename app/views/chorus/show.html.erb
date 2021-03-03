@@ -1,12 +1,22 @@
 <% if !@chorus.nil?%>
-<div class="EB_page">
+<div class="logo-ministere">
+  <%= image_tag 'logo_ministere.png'%>
+</div>
+<div class="navbar-chorus-box">
+<div class="navbar-chorus">
+  <div class="navbar-chorus-onglet"><%= link_to chorus_path do %>Accueil<% end %></div>
+  <div class="navbar-chorus-onglet2"><i class="fas fa-chevron-right"></i> Programme <%= params[:id]%></div>
+  <div class="navbar-chorus-onglet2"><i class="fas fa-chevron-right"></i> 2020</div>
+  <div class="navbar-chorus-onglet2"><i class="fas fa-chevron-right"></i> CP </div>
+  <div class="navbar-chorus-onglet2"><i class="fas fa-chevron-right"></i> HT2</div>
+  <div class="navbar-chorus-onglet2"><i class="fas fa-chevron-right"></i> Vision statique & dynamique</div>
+  
+  
+</div>
+</div>
 
-  <h1 class="EB_title">Programme <%= params[:id]%></h1>
-   
-      <div class="choice-vision text-center">
-        <a type="button" id="dynamique">Vision dynamique</a>
-        <a type="button" id="statique">Vision statique</a>
-      </div>
+
+<div class="EB_page">
       <div id="programme_box">
         <%= render 'chorus/programme'%>
      </div>

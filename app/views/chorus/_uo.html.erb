@@ -6,60 +6,64 @@
    <div class="dropdown dropdown-chorus">
      <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un UO <i class="fas fa-chevron-down"></i></button>
       <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButton2">
-          <%= form_with url: select_uo_path(:bop_id => @bop.first.centre_financier, :date => @dates), id: "uo_form" do |f|%>
+          <%= form_with url: select_uo_path(:bop_id => @bops_show, :date => @dates), id: "uo_form" do |f|%>
           <% (0..@uo_arr.length-1).each do |i|%>
-            <label><%= f.radio_button :id, @uo_arr[i] %>  <%= @uo_arr[i]%></label>
+            <label><%= f.check_box :id,{:multiple => true}, @uo_arr[i], nil %>  <%= @uo_arr[i]%></label>
           <% end %>
          <% end %>
       </div>
     </div>
-  </div>    
+  </div>   
+
   <div class="row">
-   <div class="col-md-12">
+   <div class="col-md-offset-1 col-md-10">
      <div id="uo_chart"> </div>
    </div>
    
   </div>
 
   <br><br>
- 
-  <div class="ED_table" id="uo-total-ht2">
+ <div class="button-chorus">
+  <div class="button-chorus-box">
+    <div class="button-chorus-tables" id="uo-bilan-btn">Afficher les bilans</div>
+    <div class="button-chorus-tables" id="uo-tables-btn">Afficher les tables</div>
+  </div>
+  </div>
+  <div class="ED_table" id="uo-bilan">
   <table class="table-striped">
     <thead>
       <tr>
         <th scope="col">Date</th>
-          <th scope="col">MADI Réception</th>
-     
-          <th scope="col">REAP Réception</th>
+        <th scope="col">UO</th>
+        <% @type_pieces_uo.each do |piece|%>
+          <th scope="col"><%= piece%> Réception</th>
+        <% end %>
           <th scope="col">Consommation par actions </th>         
       </tr>
     </thead>
 
     <tbody>
+      <% @uos_show.each do |uo|%>
       <% if !@dates.nil?%>
         <% @dates.each do |date| %>
           <tr>
             <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
-
-              <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"MADI", "Réception").sum('montant'), :delimiter => ' ') %> €</td>
-            <td><%= number_with_delimiter(@uo_ht2.where('date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"REAP", "Réception").sum('montant'), :delimiter => ' ') %> €</td>
-            <td><%= number_with_delimiter(@uo_ht2.where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %> €</td>
+            <td><%=uo %></td>
+              <% @type_pieces_uo.each do |piece|%>
+            <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? AND compte_budgetaire = ? ',uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Réception", "HT2").sum('montant'), :delimiter => ' ') %> €</td>
+            <%end%>
+            <td><%= number_with_delimiter(Choru.where.not(domaine_fonctionnel: nil).where('centre_financier = ? AND date >= ? AND date <= ?',uo,Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %> €</td>
 
           </tr>
         <% end %>
    
       <% end %>
+      <%end %>
     </tbody>
   </table>
   </div>
 
-
-  <div class="SD-topo-box-title2"><a href="#details-uo" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-uo">  Tableau des mouvements de crédits au niveau de l'UO <i class="fas fa-chevron-down"></i></a>
-  </div><br>
-  <section id="details-uo" class="collapse"> 
-
-  
-    <div class="ED_table" id="details-uo-total-ht2">
+    <div class="ED_table" id="uo-tables">
       <table class="table-striped">
         <thead>
           <tr>
@@ -75,11 +79,13 @@
         </thead>
 
         <tbody>
+          <% @uos_show.each do |uo|%>
           <% @dates.each do |date| %>
-          <% @uo_ht2.where('operation = ? AND date >= ? AND date <= ?', 'Réception', Date.new(date.to_i,1,1) , Date.new(date.to_i,12,31) ).each do |choru| %>
+          <% Choru.where('centre_financier = ? AND operation = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',uo, 'Réception', Date.new(date.to_i,1,1) , Date.new(date.to_i,12,31), "HT2" ).each do |choru| %>
             <tr>
+              <td><%= uo %></td>
               <td><%= l(choru.date, format: "%e %b %Y") %></td>
-              <td><%= choru.type_budget %></td>
+              
               <td><%= choru.type_piece %></td>
               <td><%= choru.operation %></td>
               <td><%= choru.centre_financier %></td>
@@ -96,25 +102,17 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><%= number_with_delimiter(@uo_ht2.where('operation = ? AND date >= ? AND date <= ?','Réception',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND operation = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',uo,'Réception',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), "HT2").sum('montant'), :delimiter => ' ') %></td>
             </tr><br>
+          <% end %>
           <% end %>
         </tbody>
       </table>
     </div> 
   
-  </section>
+
 </div>
 
-<div class="SD-topo-box"  id="statique-uo">
-  <div class="SD-topo-box-title2">Visualisation UO2     
-  </div><br>
-  <div class="row">
-    <div class="col-md-12">
-      <div id="uo_chart2"></div>
-    </div>
-  </div>
-</div>
 
   <div id="actions">
     <%= render 'chorus/actions'%>
@@ -122,43 +120,25 @@
 
 
 <script>
-$('#uo-total-t2').hide();
-$('#uo-total-ht2-btn').addClass('chorus-table-subtitle-active');
-$('#uo-total-t2-btn').addClass('chorus-table-subtitle-inactive');
-$('#uo-total-t2-btn').click(function () {
-  $('#uo-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
-  $('#uo-total-t2-btn').addClass('chorus-table-subtitle-active');
-  $('#uo-total-ht2-btn').removeClass('chorus-table-subtitle-active');
-  $('#uo-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
-  $('#uo-total-ht2').hide();
-  $('#uo-total-t2').show();
+  $('#uo-bilan').hide();
+  $('#uo-tables').hide();
+  $('#uo-tables-btn').click(function () {
+    if ($('#uo-tables').hasClass('visible')){
+    $('#uo-tables').hide();
+      $('#uo-tables').removeClass('visible');
+    }else {
+     $('#uo-tables').show(); 
+      $('#uo-tables').addClass('visible');
+    }
   });
-$('#uo-total-ht2-btn').click(function () {
-  $('#uo-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
-  $('#uo-total-ht2-btn').addClass('chorus-table-subtitle-active');
-  $('#uo-total-t2-btn').removeClass('chorus-table-subtitle-active');
-  $('#uo-total-t2-btn').addClass('chorus-table-subtitle-inactive');
-  $('#uo-total-t2').hide();
-  $('#uo-total-ht2').show();
-  });
-  $('#details-uo-total-t2').hide();
-$('#details-uo-total-ht2-btn').addClass('chorus-table-subtitle-active');
-$('#details-uo-total-t2-btn').addClass('chorus-table-subtitle-inactive');
-$('#details-uo-total-t2-btn').click(function () {
-  $('#details-uo-total-t2-btn').removeClass('chorus-table-subtitle-inactive');
-  $('#details-uo-total-t2-btn').addClass('chorus-table-subtitle-active');
-  $('#details-uo-total-ht2-btn').removeClass('chorus-table-subtitle-active');
-  $('#details-uo-total-ht2-btn').addClass('chorus-table-subtitle-inactive');
-  $('#details-uo-total-ht2').hide();
-  $('#details-uo-total-t2').show();
-  });
-$('#details-uo-total-ht2-btn').click(function () {
-  $('#details-uo-total-ht2-btn').removeClass('chorus-table-subtitle-inactive');
-  $('#details-uo-total-ht2-btn').addClass('chorus-table-subtitle-active');
-  $('#details-uo-total-t2-btn').removeClass('chorus-table-subtitle-active');
-  $('#details-uo-total-t2-btn').addClass('chorus-table-subtitle-inactive');
-  $('#details-uo-total-t2').hide();
-  $('#details-uo-total-ht2').show();
+ $('#uo-bilan-btn').click(function () {
+    if ($('#uo-bilan').hasClass('visible')){
+    $('#uo-bilan').hide();
+      $('#uo-bilan').removeClass('visible');
+    }else {
+     $('#uo-bilan').show(); 
+      $('#uo-bilan').addClass('visible');
+    }
   });
 </script>
 <script>
@@ -269,7 +249,7 @@ title: {
 },
     colors: ['#2E5D63', '#C68D7B'],
     yAxis: {
-      gridLineColor: '#fff', 
+      //gridLineColor: '#fff', 
         title: {
             text: 'Total k€'
         }
@@ -321,14 +301,16 @@ title: {
 
   
 
-    series: [{
-        name: '<%= @uo.first.centre_financier%> ',
+    series: [
+      <% @uos_show.each do |uo|%>
+      {
+        name: '<%= uo %>',
         data: [
           <% if !@dates.nil?%>
             <% @dates.each do |date| %>
             <% @montant = 0 %>
           [Date.UTC(<%=date%>,0,1),0 ],
-            <% @uo_ht2.where('operation = ? AND date >= ? AND date <= ?', 'Réception', Date.new(date.to_i,1,1), Date.new(date.to_i,12,31)).each do |programme| %>
+            <% Choru.where('centre_financier = ? AND compte_budgetaire = ? AND operation = ? AND date >= ? AND date <= ?',uo, "HT2", 'Réception', Date.new(date.to_i,1,1), Date.new(date.to_i,12,31)).each do |programme| %>
               [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
              <% @montant = @montant + programme.montant %>
             <% end %>
@@ -339,202 +321,7 @@ title: {
                 enabled: true,
             },
     },
-            ],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-
-</script>
-
-<script>
-
-Highcharts.stockChart('uo_chart2', {
- // mapNavigation: {
- //           enableMouseWheelZoom: true
- //       },
-   chart:{
-       backgroundColor: '#fff',
-     borderColor: '#fff',
-                 borderRadius:10,
-       type: 'scatter',
-     height: '1000px',
-       spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Marianne Regular",
-          // maxWidth: '500px'
-          }, 
-       zoomType: 'x',
-      //  borderWidth: 1,
-      //  resetZoomButton: {
-      //      position: {
-           
-       //         x: -10,
-        //        y: 10
-       //     },
-       //     relativeTo: 'chart'
-      //  },
-     
-      //             scrollablePlotArea: {
-     //  minWidth: 2000,
-     //  scrollPositionX:1,
-    // },
-          },
-   navigator: {
-        maskFill: 'rgba(248,248,248,0.3)',
-    },
-  rangeSelector: {
-
-            buttons: [{
-                type: 'month',
-                count: 1,
-                text: '1m'
-            },{
-                type: 'month',
-                count: 3,
-                text: '3m'
-            }, {
-                type: 'month',
-                count: 6,
-                text: '6m'
-            }, {
-                type: 'year',
-                count: 1,
-                text: '1an'
-            }, {
-                type: 'all',
-                text: 'Tout'
-            }],
-            selected: 3,
-            buttonTheme: { // styles for the buttons
-            fill: '#F8F8F8',
-            stroke: 'none',
-            'stroke-width': 0,
-            r: 4,
-            style: {
-                color: '#000',
-                fontWeight: 'bold'
-            },
-            states: {
-                hover: {
-                },
-                select: {
-                    fill: '#000091',
-                    style: {
-                        color: 'white'
-                    }
-                }
-                // disabled: { ... }
-            }
-        },
-        inputStyle: {
-                color: '#000',
-              
-            },
-        labelStyle: {
-            color: '#000', 
-        },
-        },
-  scrollbar: {
-    barBackgroundColor: '#CECECE',
-    barBorderColor: "#F8F8F8",
-    barBorderRadius: 6,
-    buttonBackgroundColor: "#F8F8F8",
-    buttonArrowColor:'#CECECE',
-    buttonBackgroundColor:"#F8F8F8",
-    buttonBorderColor:"#F8F8F8",
-    buttonBorderRadius: 6,
-    rifleColor:"#F8F8F8",
-  },
-  legend: {
-    enabled: true,
-    verticalAlign: 'top',
-  
-  },
-title: {
-        text:"",
-},
-   // colors: ['#2E5D63', '#C68D7B'],
-    yAxis: {
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Total k€'
-        }
-    },
-  tooltip: {
-      formatter: function() {
-      var point = this,
-        series = point.series,
-       
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-          number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-        content = '<b>'+series.name + ' disponible : ' + number  + ' k€</b><br/>';
-
-      return header + content;
-    },
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-      
-    },
-  xAxis:{
-    type: 'datetime',
-  },
-    plotOptions: {
-        series: {
-          lineWidth: 2,
-            label: {
-                connectorAllowed: false
-            }, 
-          marker: {
-                enabled: true
-            },
-          step: 'left',
-        }
-    },
-
-  
-
-    series: [
-      <% @uos_arr.each do |uo| %>
-      {
-        name: '<%= uo%>',
-        data: [
-          <% if !@dates.nil?%>
-            <% @dates.each do |date| %>
-            <% @montant = 0 %>
-         
-            <% Choru.where('centre_financier = ? AND compte_budgetaire = ? AND operation = ? AND date >= ? AND date <= ?',uo, "HT2",'Réception', Date.new(date.to_i,1,1), Date.new(date.to_i,12,31)).each do |programme| %>
-              [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
-             <% @montant = @montant + programme.montant %>
-            <% end %>
-          <% end %>
-        <% end %>
-        ],
-        <% if uo != @uo_arr[0]%>
-        visible: false,
-        <% end %>
-       dataLabels: {
-                enabled: true,
-            },
-    },
-      
       <% end %>
-           
             ],
 
     responsive: {
@@ -555,6 +342,7 @@ title: {
 });
 
 </script>
+
 
 
 <script>

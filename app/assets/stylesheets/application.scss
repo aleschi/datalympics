@@ -2311,3 +2311,107 @@ background-color:#000091;
     margin-right:10px;
   }
 }
+.box-chiffres-chorus-box{
+  width:100%;
+  margin:auto;
+  text-align:center;
+  margin-bottom:10px;
+  margin-top:10px;
+}
+.box-chiffres-chorus{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  margin:auto;
+  
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius:20px;
+  padding:10px;
+}
+.box-chiffres-chorus-lfi, .box-chiffres-chorus-dispo, .box-chiffres-chorus-conso, .box-chiffres-chorus-reserve{
+  text-align:left;
+  color:#6A6A6A;
+  padding:10px;
+  font-size:20px;
+  margin:auto 8px;
+  border-right: 1px solid #CECECE;
+  padding:0px 40px;
+  span{
+    color:#FF6F4C;
+  }
+}
+
+.box-chiffres-chorus-dispo span{
+  color:#2E5D63;
+}
+.box-chiffres-chorus-conso span{
+  color:#20E37B;
+}
+.box-chiffres-chorus-reserve {
+   border-right:none;
+  span{
+  color:#C68D7B;
+}
+}
+
+.logo-ministere{
+  width:100%;
+  background-color:#fff;
+  img{
+  max-height:100px;
+    margin-left:50px;
+  }
+}
+.navbar-chorus-box{
+  position:relative;
+  width:100%;
+}
+.navbar-chorus{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  background-color:#fff;
+  padding:20px 50px;
+}
+.navbar-chorus-onglet{
+  
+  margin:auto 10px;
+  a{
+  color:#000;
+  font-size:16px;
+    text-decoration:none;
+  }
+}
+.navbar-chorus-onglet2{
+  margin:auto 10px;
+  color:#000091;
+  font-size:16px;
+  i{
+    margin-right:10px;
+  }
+}
+.button-chorus{
+  text-align:center;
+  margin:auto;
+}
+.button-chorus-box{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  margin:auto;
+  text-align:center;
+}
+.button-chorus-tables{
+  color:#fff;
+  background-color:#000091;
+  padding:10px 15px;
+  font-size:16px;
+  margin:auto 10px;
+  &:hover{
+    cursor:pointer;
+  }
+}
