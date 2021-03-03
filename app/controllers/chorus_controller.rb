@@ -35,16 +35,28 @@ class ChorusController < ApplicationController
     redirect_to choru_path(:id => @id)
   end
   
-  def show
-    
-    
+  def select_date_programme
+   
+  end
+  
+  def show 
     @search = params[:id]
     @date = Date.new(2019,12,31)
     @dates = ['2020']
-    if !Choru.where('centre_financier = ? ', @search).first.nil?    
+    if !Choru.where('centre_financier = ? ', @search).first.nil?
+      if params[:vision]
+      @vision = params[:vision]
+      else
+      @vision = '2'
+      end
+      if params[:budget]
+      @budget = params[:budget]
+      else
+      @budget = 'HT2'
+      end
       @chorus = Choru.where('centre_financier like ? ', '%'+@search+'%').order('date ASC')
       
-      @programme = Choru.where('centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?', @search, @date, @date + 1.year, "HT2").order('date ASC')
+      @programme = Choru.where('centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?', @search, @date, @date + 1.year, @budget).order('date ASC')
       @type_pieces=[]
       if !@programme.nil?
         @programme.each do |choru|
@@ -66,7 +78,7 @@ class ChorusController < ApplicationController
       end 
       @bop_arr.uniq!
       @bops_show = [@bop_arr[0]]
-      @bop = Choru.where('centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?', @bop_arr[0],@date, @date + 1.year, "HT2" ).order('date ASC')
+      @bop = Choru.where('centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?', @bop_arr[0],@date, @date + 1.year, @budget).order('date ASC')
       @type_pieces_bop=[]
       if !@bop.nil?
         @bop.each do |choru|
@@ -86,7 +98,7 @@ class ChorusController < ApplicationController
       end 
       @uo_arr.uniq! 
       @uos_show = [@uo_arr[0]]
-      @uo = Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', @uo_arr[0],@date, @date + 1.year, "HT2" ).order('date ASC') #on choisit dafficher le premier uo      
+      @uo = Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', @uo_arr[0],@date, @date + 1.year, @budget ).order('date ASC') #on choisit dafficher le premier uo      
      @type_pieces_uo=[]
       if !@uo.nil?
         @uo.each do |choru|
@@ -102,19 +114,21 @@ class ChorusController < ApplicationController
       end 
       @uo_actions.uniq!
       @uo_action = @uo_actions[0]
+      if !@uo_actions[0].nil?
       @actions_show = [@uo_actions[0]]
+      else
+        @actions_show = []
+      end
       @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo_arr[0], @uo_action ).order('date ASC')
     else
       redirect_to chorus_path 
     end
   end 
-  
-  def select_date_programme
-   
-  end
-  
+
   def select_bop
     @dates = params[:date]
+    @vision = params[:vision]
+    @budget = params[:budget]
     #@bop = Choru.where('centre_financier = ?', params[:id]).order('date ASC')
     @bop = Choru.where('date = ?', Date.new(1000))
     @uo = Choru.where('date = ?', Date.new(1000))
@@ -125,7 +139,7 @@ class ChorusController < ApplicationController
     params[:id].each do |id|
     params[:date].each do |date|
       @date = Date.new(date.to_i-1,12,1) 
-      @bop = @bop.or(Choru.where('centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?', id,@date, @date + 1.year, "HT2" ))
+      @bop = @bop.or(Choru.where('centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?', id,@date, @date + 1.year, @budget ))
     end
     end
     @type_pieces_bop=[]
@@ -152,7 +166,7 @@ class ChorusController < ApplicationController
   
     params[:date].each do |date|
       @date = Date.new(date.to_i-1,12,1)
-      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', @uo_arr[0],@date, @date + 1.year, "HT2" ))
+      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', @uo_arr[0],@date, @date + 1.year, @budget ))
     end
     @uo = @uo.order('date ASC')
     @type_pieces_uo=[]
@@ -169,12 +183,17 @@ class ChorusController < ApplicationController
     end 
     @uo_actions.uniq!
     @uo_action = @uo_actions[0]
-    @actions_show = [@uo_actions[0]]
+    if !@uo_actions[0].nil?
+      @actions_show = [@uo_actions[0]]
+      else
+        @actions_show = []
+      end
     @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo_arr[0], @uo_action ).order('date ASC')
   end 
   
   def select_uo
     @dates = params[:date]
+    @budget = params[:budget]
     @uo = Choru.where('date = ?', Date.new(1000))
     @uos = Choru.where('date = ?', Date.new(1000))
     @bops_show = params[:bop_id]    
@@ -182,7 +201,7 @@ class ChorusController < ApplicationController
     @uos_show.each do |uo|
     params[:date].each do |date|
       @date = Date.new(date.to_i-1,12,1)
-      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', uo,@date, @date + 1.year, "HT2" ))
+      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', uo,@date, @date + 1.year, @budget ))
     end
     end
     @uo = @uo.order('date ASC')
@@ -214,19 +233,24 @@ class ChorusController < ApplicationController
     end 
     @uo_actions.uniq! #toutes les actions de toutes les uo 
     @uo_action = @uo_actions[0]
-    @actions_show = [@uo_actions[0]]
+    if !@uo_actions[0].nil?
+      @actions_show = [@uo_actions[0]]
+    else
+      @actions_show = []
+    end
     @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo.first.centre_financier, @uo_action ).order('date ASC')
     
   end 
 
   def select_action
     @dates = params[:date]
+    @budget = params[:budget]
     @uos_show = params[:uo_id]
     @uo = Choru.where('date = ?', Date.new(1000))
     @uos_show.each do |uo|
     params[:date].each do |date|
       @date = Date.new(date.to_i-1,12,1)
-      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', uo,@date, @date + 1.year, "HT2" ))
+      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', uo,@date, @date + 1.year, @budget ))
     end
     end
     @uo = @uo.order('date ASC')

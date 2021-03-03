@@ -2390,7 +2390,7 @@ background-color:#000091;
   color:#000091;
   font-size:16px;
   i{
-    margin-right:10px;
+    //margin-right:10px;
   }
 }
 .button-chorus{
@@ -2413,5 +2413,33 @@ background-color:#000091;
   margin:auto 10px;
   &:hover{
     cursor:pointer;
+  }
+}
+.dropwdown-menu-chorus-navbar{
+  background-color:transparent;
+  color:#000091;
+  font-size:16px;
+  padding:0px;
+  &:hover{
+    color:#000091;
+  }
+  &:active, &:focus{
+    color:#000091;
+  }
+  i{
+    margin-left:5px;
+  }
+}
+.dropwdown-menu-chorus-navbar-list{
+  width:100%;
+  padding:15px;
+  border:none;
+  font-size:16px;
+  li {
+    label{
+    color:#1E1E1E;
+    padding: 8px 0px;
+    font-weight:500;
+    }
   }
 }

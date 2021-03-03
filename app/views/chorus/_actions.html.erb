@@ -6,7 +6,7 @@
    <div class="dropdown dropdown-chorus">
      <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner une action <i class="fas fa-chevron-down"></i></button>
       <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButton2">
-          <%= form_with url: select_action_path(:uo_id => @uos_show, :date => @dates), id: "action_form" do |f|%>
+          <%= form_with url: select_action_path(:uo_id => @uos_show, :date => @dates, :budget => @budget), id: "action_form" do |f|%>
         <% (0..@uo_actions.length-1).each do |i|%>
           <label><%= f.check_box :id,{:multiple => true}, @uo_actions[i],nil %>  <%= @uo_actions[i]%></label>
         <% end %>

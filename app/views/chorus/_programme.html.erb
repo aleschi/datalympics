@@ -107,7 +107,7 @@
      <div class="dropdown dropdown-chorus">
        <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un bop <i class="fas fa-chevron-down"></i></button>
         <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButton">
-        <%= form_with url: select_bop_path(:date => @dates), id: "bop_form" do |f|%>
+        <%= form_with url: select_bop_path(:date => @dates, :vision => @vision, :budget => @budget), id: "bop_form" do |f|%>
           <% (0..@bop_arr.length-1).each do |i|%>
             <label><%= f.check_box :id,{:multiple => true}, @bop_arr[i], nil %>  <%= @bop_arr[i]%></label>
           <% end %>
@@ -353,7 +353,9 @@ Highcharts.stockChart('programme', {
     },
  
   
-    series: [{
+    series: [
+      <% if @vision == "0" || @vision == "2"%> 
+      {
         name: 'Statique - réserve',
       //type: 'area',
         data: [
@@ -374,7 +376,7 @@ Highcharts.stockChart('programme', {
           <% end %>
           <% end %>
         ],
-      fillColor: {
+        fillColor: {
                 linearGradient: {
                     x1: 0,
                     y1: 0,
@@ -407,6 +409,8 @@ Highcharts.stockChart('programme', {
         ],
     
     },
+      <% end %>
+      <% if @vision == "1" || @vision == "2"%> 
              {
         name: 'dynamique',
         data: [
@@ -426,7 +430,7 @@ Highcharts.stockChart('programme', {
         ],
     
     },
-          
+      <% end %>  
             ],
 
     responsive: {

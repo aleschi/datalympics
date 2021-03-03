@@ -26,7 +26,7 @@
                 <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
                 <td><%= bop%></td>
                  <% @type_pieces_bop.each do |piece|%>
-                  <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Réception","HT2").sum('montant'), :delimiter => ' ') %> €</td>
+                  <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Réception",@budget).sum('montant'), :delimiter => ' ') %> €</td>
                 <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Envoyer").sum('montant'), :delimiter => ' ') %> €</td>
           <% end %>
           <% end %>
@@ -59,7 +59,7 @@
           <tbody>
             <% @bops_show.each do |bop|%>
             <% @dates.each do |date| %>
-            <% Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), "HT2").each do |choru| %>
+            <% Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), @budget).each do |choru| %>
               <tr>
                 <td><%= bop%></td>
                 <td><%= l(choru.date, format: "%e %b %Y") %></td>
@@ -80,7 +80,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),"HT2").sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),@budget).sum('montant'), :delimiter => ' ') %></td>
             </tr><br>
             <% end %>
      
