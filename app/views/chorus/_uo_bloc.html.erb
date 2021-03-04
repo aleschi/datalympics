@@ -1,0 +1,25 @@
+
+<% if !@uo.nil? &&  !@uo.first.nil?%>
+<div class="SD-topo-box" id="dynamique-uo">
+  <div class="SD-topo-box-title2">Visualisation au niveau des UO (<%= @uo_arr.length %>)     
+  </div><br>
+  <div class="chorus-dropdown-box">
+   <div class="dropdown dropdown-chorus">
+     <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un UO <i class="fas fa-chevron-down"></i></button>
+      <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButton2">
+          <%= form_with url: select_uo_path(:bop_id => @bops_show, :date => @dates, :budget => @budget), id: "uo_form" do |f|%>
+          <% (0..@uo_arr.length-1).each do |i|%>
+            <label><%= f.check_box :id,{:multiple => true}, @uo_arr[i], nil %>  <%= @uo_arr[i]%></label>
+          <% end %>
+         <% end %>
+      </div>
+    </div>
+  </div>  
+  <div id="uo">
+    <%= render 'chorus/uo'%>
+  </div>
+</div>
+<div id="actions">
+    <%= render 'chorus/actions'%>
+</div>  
+<% end %>

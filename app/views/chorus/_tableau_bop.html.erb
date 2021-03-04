@@ -59,6 +59,16 @@
           <tbody>
             <% @bops_show.each do |bop|%>
             <% @dates.each do |date| %>
+            <!-- total annuel -->
+            <tr class="total-annuel">
+                <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+                <td></td>
+                <td></td>
+              
+                <td><%= bop%></td>
+                <td><%= @budget %></td>
+                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),@budget).sum('montant'), :delimiter => ' ') %></td>
+            </tr>
             <% Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), @budget).each do |choru| %>
               <tr>
          
@@ -72,16 +82,7 @@
 
               </tr>
             <% end %>
-            <!-- total annuel -->
-            <tr class="total-annuel">
-                <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),@budget).sum('montant'), :delimiter => ' ') %></td>
-            </tr><br>
+            
             <% end %>
      
             <% end %>

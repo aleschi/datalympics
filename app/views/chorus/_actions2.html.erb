@@ -1,78 +1,66 @@
-<div class="SD-topo-box">
-<div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br>
-     
+<% if  !@actions_show.empty?%>
 <div class="row">
- <div class="col-md-9">
+ <div class="col-md-offset-1 col-md-10">
    <div id="actions_chart"> </div>
  </div>
- <div class="col-md-3">
-   <div class="chorus-select-box">
 
-     <div class="chorus-select-box-title" id="action_name"> Action <%= @uo_action %> </div>
-        <%= form_with url: select_action_path(:uo_id => @uo.first.centre_financier, :date => @dates), id: "action_form" do |f|%>
-        <% (0..@uo_actions.length-1).each do |i|%>
-          <label><%= f.radio_button :id, @uo_actions[i] %>  <%= @uo_actions[i]%></label>
-        <% end %>
-       <% end %>
-   </div>
- </div> 
 </div>
 <br><br>
-<div class="SD-topo-box-title2">
-   <a href="#details-actions" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-actions">  Tableau des consommations au niveau de l'action <i class="fas fa-chevron-down"></i></a>
-</div>
-<section id="details-actions" class="collapse"> 
-  <div class="ED_table">
+  
+   <div class="button-chorus">
+  <div class="button-chorus-box">
+    <div class="button-chorus-tables" id="actions-tables-btn">Afficher les tables</div>
+  </div>
+  </div>
+
+   
+  <div class="ED_table" id="actions-tables">
     <table class="table-striped">
       <thead>
         <tr>
           <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
           <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
           <th scope="col">Action</th>
-          <th scope="col">CP consommé (€)</th>
-          <th scope="col">AE consommé (€)</th>
+          <th scope="col">Montant consommé (€)</th>
 
         </tr>
       </thead>
 
       <tbody>
+        <% @uos_show.each do |uo|%>
+        <% @actions_show.each do |action|%>
         <% @dates.each do |date| %>
-        <% @chorusconso.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
-          <tr>
-            <td><%= l(choru.date, format: "%b %Y") %></td>
-            <td><%= choru.centre_financier %></td>
-            <td><%= choru.action %></td>
-           
-            <td><%= number_with_delimiter(choru.cp_conso, :delimiter => ' ') %></td>
-            <td><%= number_with_delimiter(choru.ae_conso, :delimiter => ' ') %></td>
-
-          </tr>
-        <% end %>
-        <!-- total annuel -->
+         <!-- total annuel -->
             <tr class="total-annuel">
                 <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
                 <td></td>
                 <td></td>
-                <td><%= number_with_delimiter(@chorusconso.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('cp_conso'), :delimiter => ' ') %></td>
-              <td><%= number_with_delimiter(@chorusconso.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('ae_conso'), :delimiter => ' ') %></td>
+                <td></td>
+                <td><%= action %></td>
+                <td><%= number_with_delimiter(Choru.where(domaine_fonctionnel: action).where('centre_financier = ? AND date >= ? AND date <= ?',uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
             </tr><br>
+        
+        <% Choru.where(domaine_fonctionnel: action).where('centre_financier = ? AND date >= ? AND date <= ?',uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |choru| %>
+          <tr>
+            <td><%= l(choru.date, format: "%e %b %Y") %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+             <td><%= choru.domaine_fonctionnel %></td>
+            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+          </tr>
+        <% end %>
+        <% end %>
+        <% end %>
         <% end %>
       </tbody>
     </table>
   </div>
-</section>
-</div>
-<script>
-  $('#action_form input').click(function(){
-$('#action_form').submit();
-});
-</script>
-<script>
-  var elementactionid = '#id_'+'<%= @uo_action %>'
-  $(elementactionid).prop('checked', true);
 
-</script>
-<script>
+ <script>
 
 Highcharts.stockChart('actions_chart', {
    chart:{
@@ -101,6 +89,9 @@ Highcharts.stockChart('actions_chart', {
     //   scrollPositionX:1,
     // },
           },
+   navigator: {
+        maskFill: 'rgba(248,248,248,0.3)',
+    },
   rangeSelector: {
 
             buttons: [{
@@ -172,11 +163,11 @@ Highcharts.stockChart('actions_chart', {
 title: {
         text:"",
 },
-    colors: ['#2E5D63', '#C68D7B'],
+    //colors: ['#2E5D63', '#C68D7B'],
     yAxis: {
-      gridLineColor: '#fff', 
+     // gridLineColor: '#fff', 
         title: {
-            text: 'Total €'
+            text: 'Total k€'
         }
     },
   tooltip: {
@@ -184,10 +175,10 @@ title: {
       var point = this,
         series = point.series,
        
-        firstDate = Highcharts.dateFormat('%b %Y', point.x),
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
           number = Highcharts.numberFormat(point.y, -1, ',',' '),
         header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-        content = '<b> CP consommés (cumul) : ' + number + ' k€</b><br/>';
+        content = '<b> Action '+series.name + ' : ' + number + ' k€</b><br/>';
 
       return header + content;
     },
@@ -197,18 +188,6 @@ title: {
     },
   xAxis:{
     type: 'datetime',
-    plotBands: [    
-      <% if !@dates.nil? %>
-        <% @dates.each do |date|%>
-          {
-            color: 'red',
-            from:Date.UTC(<%= date%>-1,11,31),
-            to:Date.UTC(<%= date%>,0,1),
-        
-          },
-      <% end %>
-      <% end %>
-    ]
   },
     plotOptions: {
         series: {
@@ -219,31 +198,29 @@ title: {
           marker: {
                 enabled: true
             },
-        //  step: 'left',
+          step: 'left',
         }
     },
 
   
 
     series: [
-    
+    <% @actions_show.each do |action|%>
       {
-        name: '<%= @uo_action %>',
+        name: '<%= action %>',
         data: [
         <% @dates.each do |date| %>
            <% @montant = 0 %>
         [Date.UTC(<%=date%>,0,1),0],
-         <% @chorusconso.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.cp_conso).to_f).round%>],
-          <% @montant = @montant + programme.cp_conso %>
+         <% Choru.where(domaine_fonctionnel: action).where('date >= ? AND date <= ?', Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
+            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
+          <% @montant = @montant + programme.montant %>
           <% end %>
         <% end %>
         ],
-       dataLabels: {
-                enabled: true,
-            },
+      
       },
- 
+ <% end %>
     ],
 
     responsive: {
@@ -264,4 +241,18 @@ title: {
 });
 
 </script>
+<script>
 
+  $('#actions-tables').hide();
+  $('#actions-tables-btn').click(function () {
+    if ($('#actions-tables').hasClass('visible')){
+    $('#actions-tables').hide();
+      $('#actions-tables').removeClass('visible');
+    }else {
+     $('#actions-tables').show(); 
+      $('#actions-tables').addClass('visible');
+    }
+  });
+
+</script>
+<% end %>

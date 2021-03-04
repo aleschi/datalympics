@@ -176,14 +176,15 @@ class ChorusController < ApplicationController
         end 
         @type_pieces_uo.uniq! 
       end
+     
     #nombre d'actions 
-    @uo_actions = []
-    @uo.where.not(domaine_fonctionnel: nil).each do |uo|
-      @uo_actions << uo.domaine_fonctionnel
-    end 
-    @uo_actions.uniq!
-    @uo_action = @uo_actions[0]
-    if !@uo_actions[0].nil?
+      @uo_actions = []
+      Choru.where('centre_financier = ? AND date >= ? AND date < ?',@uo_arr[0],@date, @date + 1.year).where.not(domaine_fonctionnel: nil).each do |uo|
+        @uo_actions << uo.domaine_fonctionnel
+      end 
+      @uo_actions.uniq!
+      @uo_action = @uo_actions[0]
+      if !@uo_actions[0].nil?
       @actions_show = [@uo_actions[0]]
       else
         @actions_show = []
@@ -226,18 +227,21 @@ class ChorusController < ApplicationController
         end 
         @type_pieces_uo.uniq! 
       end
+     
     #nombre d'actions 
-    @uo_actions = []
-    @uo.where.not(domaine_fonctionnel: nil).each do |uo|
-      @uo_actions << uo.domaine_fonctionnel
-    end 
-    @uo_actions.uniq! #toutes les actions de toutes les uo 
-    @uo_action = @uo_actions[0]
-    if !@uo_actions[0].nil?
+      @uo_actions = []
+      @uos_show.each do |uo_show|
+      Choru.where('centre_financier = ? AND date >= ? AND date < ?',uo_show,@date, @date + 1.year).where.not(domaine_fonctionnel: nil).each do |uo|
+        @uo_actions << uo.domaine_fonctionnel
+      end 
+      end
+      @uo_actions.uniq!
+      @uo_action = @uo_actions[0]
+      if !@uo_actions[0].nil?
       @actions_show = [@uo_actions[0]]
-    else
-      @actions_show = []
-    end
+      else
+        @actions_show = []
+      end
     @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo.first.centre_financier, @uo_action ).order('date ASC')
     
   end 
@@ -255,11 +259,13 @@ class ChorusController < ApplicationController
     end
     @uo = @uo.order('date ASC')
     #nombre d'actions 
-    @uo_actions = []
-    @uo.where.not(domaine_fonctionnel: nil).each do |uo|
-      @uo_actions << uo.domaine_fonctionnel
-    end 
-    @uo_actions.uniq!
+     @uo_actions = []
+      @uos_show.each do |uo_show|
+      Choru.where('centre_financier = ? AND date >= ? AND date < ?',uo_show,@date, @date + 1.year).where.not(domaine_fonctionnel: nil).each do |uo|
+        @uo_actions << uo.domaine_fonctionnel
+      end 
+      end
+      @uo_actions.uniq!
     @uo_action = @uo_actions[0]
     @actions_show = params[:id]
     @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo.first.centre_financier, @uo_action ).order('date ASC')

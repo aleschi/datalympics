@@ -1,7 +1,7 @@
 
 <% if  !@actions_show.empty?%>
 <div class="SD-topo-box">
-<div class="SD-topo-box-title2">Visualisation au niveau des actions de l'UO</div><br>
+<div class="SD-topo-box-title2">Visualisation au niveau des actions des UO (<%= @uo_actions.length %>)</div><br>
    <div class="chorus-dropdown-box">
    <div class="dropdown dropdown-chorus">
      <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner une action <i class="fas fa-chevron-down"></i></button>
@@ -13,82 +13,14 @@
        <% end %>
       </div>
     </div>
-  </div>   
-  
-<div class="row">
- <div class="col-md-offset-1 col-md-10">
-   <div id="actions_chart"> </div>
- </div>
-
-</div>
-<br><br>
-  
-   <div class="button-chorus">
-  <div class="button-chorus-box">
-    <div class="button-chorus-tables" id="actions-tables-btn">Afficher les tables</div>
+  </div> 
+  <div id="actions2">
+     <%= render 'chorus/actions2'%>
   </div>
-  </div>
-
-   
-  <div class="ED_table" id="actions-tables">
-    <table class="table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Type piece</th>
-          <th scope="col">Centre financier</th>
-          <th scope="col">Compte budgetaire</th>
-          <th scope="col">Action</th>
-          <th scope="col">Montant consommé (€)</th>
-
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @actions_show.each do |action|%>
-        <% @dates.each do |date| %>
-        <% Choru.where(domaine_fonctionnel: action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |choru| %>
-          <tr>
-            <td><%= l(choru.date, format: "%e %b %Y") %></td>
-            <td><%= choru.type_piece %></td>
-            <td><%= choru.centre_financier %></td>
-            <td><%= choru.compte_budgetaire %></td>
-             <td><%= choru.domaine_fonctionnel %></td>
-            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
-
-          </tr>
-        <% end %>
-        <!-- total annuel -->
-            <tr class="total-annuel">
-                <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><%= number_with_delimiter(Choru.where(domaine_fonctionnel: action).where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
-            </tr><br>
-        <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-
  
+
 </div>
-<script>
 
-  $('#actions-tables').hide();
-  $('#actions-tables-btn').click(function () {
-    if ($('#actions-tables').hasClass('visible')){
-    $('#actions-tables').hide();
-      $('#actions-tables').removeClass('visible');
-    }else {
-     $('#actions-tables').show(); 
-      $('#actions-tables').addClass('visible');
-    }
-  });
-
-</script>
 <script>
   $('#action_form input').click(function(){
 $('#action_form').submit();
@@ -97,189 +29,6 @@ $('#action_form').submit();
 <script>
   var elementactionid = '#id_'+'<%= @uo_action %>'
   $(elementactionid).prop('checked', true);
-
-</script>
-<script>
-
-Highcharts.stockChart('actions_chart', {
-   chart:{
-       backgroundColor: '#fff',
-     borderColor: '#fff',
-                 borderRadius:10,
-       type: 'scatter',
-       spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Marianne Regular",
-          // maxWidth: '500px'
-          }, 
-        zoomType: 'x',
-      //  borderWidth: 1,
-      //  resetZoomButton: {
-      //      position: {
-                // align: 'right', // by default
-                // verticalAlign: 'top', // by default
-      //          x: -10,
-      //          y: 10
-      //      },
-     //       relativeTo: 'chart'
-     //   },
-    //   scrollablePlotArea: {
-    //   minWidth: 2000,
-    //   scrollPositionX:1,
-    // },
-          },
-   navigator: {
-        maskFill: 'rgba(248,248,248,0.3)',
-    },
-  rangeSelector: {
-
-            buttons: [{
-                type: 'month',
-                count: 1,
-                text: '1m'
-            },{
-                type: 'month',
-                count: 3,
-                text: '3m'
-            }, {
-                type: 'month',
-                count: 6,
-                text: '6m'
-            }, {
-                type: 'year',
-                count: 1,
-                text: '1an'
-            }, {
-                type: 'all',
-                text: 'Tout'
-            }],
-            selected: 3,
-            buttonTheme: { // styles for the buttons
-            fill: '#F8F8F8',
-            stroke: 'none',
-            'stroke-width': 0,
-            r: 4,
-            style: {
-                color: '#000',
-                fontWeight: 'bold'
-            },
-            states: {
-                hover: {
-                },
-                select: {
-                    fill: '#000091',
-                    style: {
-                        color: 'white'
-                    }
-                }
-                // disabled: { ... }
-            }
-        },
-        inputStyle: {
-                color: '#000',
-              
-            },
-        labelStyle: {
-            color: '#000', 
-        },
-        },
-  scrollbar: {
-    barBackgroundColor: '#CECECE',
-    barBorderColor: "#F8F8F8",
-    barBorderRadius: 6,
-    buttonBackgroundColor: "#F8F8F8",
-    buttonArrowColor:'#CECECE',
-    buttonBackgroundColor:"#F8F8F8",
-    buttonBorderColor:"#F8F8F8",
-    buttonBorderRadius: 6,
-    rifleColor:"#F8F8F8",
-  },
-  legend: {
-    enabled: true,
-    verticalAlign: 'top',
-  
-  },
-title: {
-        text:"",
-},
-    //colors: ['#2E5D63', '#C68D7B'],
-    yAxis: {
-     // gridLineColor: '#fff', 
-        title: {
-            text: 'Total k€'
-        }
-    },
-  tooltip: {
-      formatter: function() {
-      var point = this,
-        series = point.series,
-       
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-          number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-        content = '<b> Action '+series.name + ' : ' + number + ' k€</b><br/>';
-
-      return header + content;
-    },
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-  xAxis:{
-    type: 'datetime',
-  },
-    plotOptions: {
-        series: {
-          lineWidth: 2,
-            label: {
-                connectorAllowed: false
-            }, 
-          marker: {
-                enabled: true
-            },
-          step: 'left',
-        }
-    },
-
-  
-
-    series: [
-    <% @actions_show.each do |action|%>
-      {
-        name: '<%= action %>',
-        data: [
-        <% @dates.each do |date| %>
-           <% @montant = 0 %>
-        [Date.UTC(<%=date%>,0,1),0],
-         <% Choru.where(domaine_fonctionnel: action).where('date >= ? AND date <= ?', Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
-            [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
-          <% @montant = @montant + programme.montant %>
-          <% end %>
-        <% end %>
-        ],
-       dataLabels: {
-                enabled: true,
-            },
-      },
- <% end %>
-    ],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
 
 </script>
 

@@ -1,19 +1,5 @@
 <% if !@uo.nil? &&  !@uo.first.nil?%>
-<div class="SD-topo-box" id="dynamique-uo">
-  <div class="SD-topo-box-title2">Visualisation au niveau des UO de ce BOP (<%= @uo_arr.length %>)     
-  </div><br>
-  <div class="chorus-dropdown-box">
-   <div class="dropdown dropdown-chorus">
-     <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un UO <i class="fas fa-chevron-down"></i></button>
-      <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButton2">
-          <%= form_with url: select_uo_path(:bop_id => @bops_show, :date => @dates, :budget => @budget), id: "uo_form" do |f|%>
-          <% (0..@uo_arr.length-1).each do |i|%>
-            <label><%= f.check_box :id,{:multiple => true}, @uo_arr[i], nil %>  <%= @uo_arr[i]%></label>
-          <% end %>
-         <% end %>
-      </div>
-    </div>
-  </div>   
+
 
   <div class="row">
    <div class="col-md-offset-1 col-md-10">
@@ -63,7 +49,7 @@
   </table>
   </div>
 
-    <div class="ED_table" id="uo-tables">
+  <div class="ED_table" id="uo-tables">
       <table class="table-striped">
         <thead>
           <tr>
@@ -81,6 +67,16 @@
         <tbody>
           <% @uos_show.each do |uo|%>
           <% @dates.each do |date| %>
+          <!-- total annuel -->
+            <tr class="total-annuel">
+                <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+        
+                <td></td>
+                <td></td>
+                <td><%= uo %></td>
+                <td><%= @budget %></td>
+                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND operation = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',uo,'Réception',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), @budget).sum('montant'), :delimiter => ' ') %></td>
+            </tr><br>
           <% Choru.where('centre_financier = ? AND operation = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',uo, 'Réception', Date.new(date.to_i,1,1) , Date.new(date.to_i,12,31), @budget ).each do |choru| %>
             <tr>
               
@@ -94,30 +90,13 @@
 
             </tr>
           <% end %>
-          <!-- total annuel -->
-            <tr class="total-annuel">
-                <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
-        
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND operation = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',uo,'Réception',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), @budget).sum('montant'), :delimiter => ' ') %></td>
-            </tr><br>
+          
           <% end %>
           <% end %>
         </tbody>
       </table>
     </div> 
   
-
-</div>
-
-
-  <div id="actions">
-    <%= render 'chorus/actions'%>
-  </div>
-
 
 <script>
   $('#uo-bilan').hide();
@@ -306,9 +285,7 @@ title: {
           <% end %>
         <% end %>
         ],
-       dataLabels: {
-                enabled: true,
-            },
+     
     },
       <% end %>
             ],

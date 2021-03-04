@@ -71,6 +71,16 @@
 
       <tbody>
         <% @dates.each do |date| %>
+        <!-- total annuel -->
+        <tr class="total-annuel">
+            <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%= @budget %></td>
+            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+        </tr><br>
         <% @programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
           <tr>
             <td><%= l(choru.date, format: "%e %b %Y") %></td>
@@ -83,16 +93,7 @@
 
           </tr>
         <% end %>
-        <!-- total annuel -->
-        <tr class="total-annuel">
-            <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
-        </tr><br>
+        
         <% end %>
       </tbody>
     </table>
@@ -131,9 +132,10 @@
 
 </div>
 
-<div id="uo">
-  <%= render 'chorus/uo'%>
+<div id="uo_bloc">
+  <%= render 'chorus/uo_bloc'%>
 </div>
+
 
 
 
@@ -153,15 +155,7 @@ $('#bop_form').submit();
   var elementid = '#id_'+'<%= @bop.first.centre_financier.downcase%>';
   $(elementid).prop('checked', true);
 
- 
-  <% if !@dates.nil?%>
-    <%@dates.each do |date|%>      
-      $('#date_'+'<%= date.to_i%>').prop('checked', true);
-    <% end %>
-  <% else %>
-     var elementprogid = '#date_'+'<%= @date.year+1%>';
-     $(elementprogid).prop('checked', true);
-  <% end %>
+
 </script>
 <script>
   $('#programme-bilan').hide();
