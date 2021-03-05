@@ -171,10 +171,10 @@ Highcharts.chart('container-jauge', {
               shadow: false,
               style: {
                   fontSize: '10px',
-                color: '#004A70',
+                color: '#8F8F8F',
               },
               valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#5770BE; font-size:10px;font-weight:400">{series.name}</span>',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
             verticalAlign: 'middle',
               align: 'center',
         
@@ -188,7 +188,7 @@ Highcharts.chart('container-jauge', {
     series: [{
         name: 'Budget consommé',
         data: [{
-            color: "#F29D53",
+            color: "#20E37B",
             radius: '100%',
             innerRadius: '88%',
             y: <% if @ouvrage.ouvrages_financements.count > 0 %> <%= (@ouvrage.ouvrages_depenses.sum('montant')/@ouvrage.ouvrages_financements.last.montant_prevu.to_i*100).round %><%else%> <%= (@ouvrage.ouvrages_depenses.sum('montant')/@ouvrage.budget*100).round %><% end %>
@@ -259,10 +259,10 @@ Highcharts.chart('container-jauge2', {
               shadow: false,
               style: {
                   fontSize: '10px',
-                color: '#004A70',
+                color: '#8F8F8F',
               },
               valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#5770BE; font-size:10px;font-weight:400">{series.name}</span>',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
             verticalAlign: 'middle',
               align: 'center',
         
@@ -276,7 +276,7 @@ Highcharts.chart('container-jauge2', {
     series: [{
         name: 'Avancée travaux',
         data: [{
-            color: "#F29D53",
+            color: "#20E37B",
             radius: '100%',
             innerRadius: '88%',
             y: 20

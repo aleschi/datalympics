@@ -47,7 +47,7 @@
       </div>
     <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).count > 0 %>
  
-  <div class="ED_table">
+  <div class="ED_table ED_table-riques">
     <table class="table-striped">
       <tbody> 
            <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).each do |revue| %>
@@ -79,7 +79,7 @@
       </div>
      <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).count > 0 %>
 
-    <div class="ED_table">
+    <div class="ED_table ED_table-riques">
     <table class="table-striped">
       <tbody> 
             <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).each do |revue| %>
@@ -112,7 +112,7 @@
       </div>
        <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).count > 0 %>
 
-    <div class="ED_table">
+    <div class="ED_table ED_table-riques">
     <table class="table-striped">
       <tbody>
             <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).each do |revue| %>
@@ -144,7 +144,7 @@
       </div>
       <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).count > 0 %>
     
-      <div class="ED_table">
+      <div class="ED_table ED_table-riques">
     <table class="table-striped">
       <tbody> 
         <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).each do |revue| %>
