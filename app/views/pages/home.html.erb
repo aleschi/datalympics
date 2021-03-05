@@ -70,16 +70,13 @@
       </div>
   </div>
   
-  <div  class="SD-table-box" id="carte-ouvrages">
-  <div class="SF-topo-financeurs-title"><span>Carte des ouvrages</span></div><br><br>
+  <div  class="home-box" id="carte-ouvrages">
+ <div class="home-box-title">Carte des ouvrages</div>
+    
+    <div class="home-box-infos-box">
   <div class="row">
      <div class="col-md-6">
-           <%= search_form_for @q, url: recherche_ouvrages_path , method: :get, remote: true, id: "search-form" do |f| %>
-        <div class="ouvrages-search">
-           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un ouvrage", data: {autocomplete_source: ouvrages_path} %> 
-          <%= f.submit 'Rechercher', id:"submit_button", class:"hidden" %>
-        </div>
-          <% end %>          
+               
     </div>
    </div>
       
@@ -89,7 +86,7 @@
                 
         </div>
                 
-     
+    </div>
     </div>
 </div>
 
@@ -132,7 +129,7 @@ Highcharts.chart('container-jauge2', {
         background: [{ // Track for Move
             outerRadius: '100%',
             innerRadius: '88%',
-            backgroundColor: "#C4C4C4",
+            backgroundColor: "#F0F0F0",
             borderWidth: 0
         }]
     },
@@ -156,11 +153,11 @@ Highcharts.chart('container-jauge2', {
               shadow: false,
               style: {
                   fontSize: '14px',
-                color: '#004A70',
+                color: '#8F8F8F',
                
               },
               valueSuffix: '%',
-              format: '<span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#5770BE; font-size:12px;font-weight:400">{series.name} </span>',
+              format: '<span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:12px;font-weight:400">{series.name} </span>',
             verticalAlign: 'middle',
               align: 'center',
         
@@ -174,7 +171,7 @@ Highcharts.chart('container-jauge2', {
     series: [{
         name: 'Budget consommé',
         data: [{
-            color: "#F29D53",
+            color: "#20E37B",
             radius: '100%',
             innerRadius: '88%',
             y: <%= (OuvragesDepense.all.sum('montant')/SolideoFinancement.where("categorie = ?", "ouvrages").order('date DESC').first.montant_prevu*100).round%>

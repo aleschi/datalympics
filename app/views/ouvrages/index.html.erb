@@ -5,7 +5,7 @@
    
 <div class="SD_page">
  
-  <h1 class="SD_title">Les ouvrages des JOP2024 </h1>
+  <h1 class="SD_title SD_title2">Les ouvrages des JOP2024 </h1>
   <h1 class="SD_subtitle">Dernière mise à jour : 14 janvier 2020 </h1>
   
   <div  class="SD-table-box">
@@ -84,16 +84,7 @@
 
   <div  class="SD-table-box" id="carte-ouvrages">
   <div class="SF-topo-financeurs-title"><span>Carte des ouvrages</span></div><br><br>
-  <div class="row">
-     <div class="col-md-6">
-           <%= search_form_for @q, url: recherche_ouvrages_path , method: :get, remote: true, id: "search-form" do |f| %>
-        <div class="ouvrages-search">
-           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un ouvrage", data: {autocomplete_source: ouvrages_path} %> 
-          <%= f.submit 'Rechercher', id:"submit_button", class:"hidden" %>
-        </div>
-          <% end %>          
-    </div>
-   </div>
+
       
       <div id="ouvrages-results">
 
@@ -116,48 +107,7 @@
 </div>
  
 </div>
-<script>
 
-  $(function() {
- // var matieres = ["Stade de france", "Arena 2", "village"]
-  // Below is the name of the textfield that will be autocomplete    
-    $('#name').autocomplete({
- // This is the source of the auocomplete suggestions. In this case a list of names from the people controller, in JSON format.
-     
-      source: $('#name').data('autocomplete-source'),
-          //  source:matieres,
-           
-      select: function(event, ui) {
-       // $.ajax({
-       //   type:'GET',
-       //   url: '/ouvrages',
-          
-        //});
-        $("#name").val(ui.item.label);
-          $("#submit_button").click()    
-
-    },
-        })
-     .data("ui-autocomplete")._renderItem = function(ul, item){
-       var expression = new RegExp(this.term, "gi");
-      var result = expression.exec(item.label);
-      var answer; 
-      if (result.index == 0){
-        answer = item.label.replace(expression, "<span style='font-weight:bold;color:#000091'>" + this.term + "</span>");
-        return $("<li></li>")
-      .append("<a>"+answer+"</a>")
-      .prependTo(ul);
-      }   
-      else
-       answer = item.label.replace(expression, "<span style='font-weight:bold;color:#000091'>" + this.term.toLowerCase() + "</span>");
-      return $("<li></li>")
-      .append("<a>"+answer+"</a>")
-      .appendTo(ul);
-     
-    };
-    
-  });
-</script>
 <script>
 Highcharts.chart('bubble', {
     chart: {

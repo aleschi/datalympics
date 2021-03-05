@@ -43,10 +43,13 @@ body {
   font-weight:600;
   margin-bottom:50px;
 }
+.SD_title2{
+  margin-bottom:10px;
+}
 .SD_subtitle{
   text-align:center;
-  font-size:16px;
-  font-weight:600;
+  font-size:20px;
+  font-weight:500;
   margin-bottom:50px;
 }
 .EB_title_connexion{
@@ -945,35 +948,35 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding:10px 0px;
   color:#fff;
   text-transform: uppercase;
-  font-size:20px;
+  font-size:16px;
   font-weight:700,
 }
 .home-box-infos-box{
   padding:30px 20px;
 }
 .home-box-infos1,.home-box-infos1 a {
-  color: #F29D53;
-  font-size:18px;
+  color: #000091;
+  font-size:20px;
   font-weight:700;
   margin-bottom: 10px;
 }
 .home-box-infos2, .home-box-infos2 a{
-  color: #5770BE;
-  font-size:14px;
-  font-weight:700;
+  color: #8F8F8F;
+  font-size:15px;
+  font-weight:500;
   margin-bottom: 10px;
 }
 .home-box-infos3, .home-box-infos3 a{
-    color: #F29D53;
-  font-size:14px;
+    color: #FDCF41;
+  font-size:20px;
   font-weight:700;
   margin-bottom: 10px;
 }
 .home-title{
-  font-size:30px;
+  font-size:32px;
   font-weight:700;
-  color:#000091;
-  margin-bottom:30px;
+  color:#383838;
+  margin-bottom:40px;
 
 }
 .home_subtitle{
@@ -1116,7 +1119,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .ouvrages-box{
-  max-height:500px;
+  max-height:450px;
   overflow:scroll;
 }
 .table-edit-btn{
@@ -1227,9 +1230,24 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .ouvrages-search{
   border:1px solid #000091;
-  padding:5px 10px;
-  border-radius:50px;
+  padding:0px;
+  padding-left:5px;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
   margin-bottom:20px;
+  border-bottom:3px solid #000091;
+   display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+}
+.ouvrages-submit{
+  background-color:#000091;
+  color:#fff;
+  border:none;
+  padding-right: 10px;
+  padding-left:10px;
 }
 .ouvrages-search-field{
   border:none;
@@ -1237,10 +1255,12 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-size:16px;
   outline:none;
   width:100%;
+  padding:5px 15px;
 }
 .ouvrages-search-field::placeholder{
   color:#8f8f8f;
   font-size:16px;
+  font-style: italic;
 }
 #map{
   height:500px;
@@ -1274,34 +1294,35 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: -moz-inline-flex;
  
   text-align:center;
-  margin-top:50px;
+  margin-top:60px;
+  margin-bottom:20px;
 }
 
 .ouvrages-options-link{
   margin-right:20px;
   a{
-    background-color: #A9DCD9;
-    color: #fff;
+    background-color: #fff;
+    color: #000091;
     font-size:16px;
     padding: 8px 15px;
-    border-radius: 50px;
+    
     cursor: pointer;
-    border: 2px solid #A9DCD9;
+    border: 2px solid #000091;
     text-decoration:none;
     i{
       margin-right:10px;
     }
     &:hover{
-      background-color: #fff;
-      color: #A9DCD9;
-      border: 2px solid #A9DCD9;
+      background-color: #000091;
+      color: #fff;
+      border: 2px solid #000091;
     }
   }
 }
 .ouvrages-options-link-active {
-  background-color: #fff !important;
-   color: #A9DCD9 !important;
-      border: 2px solid #A9DCD9 !important;
+  background-color: #000091 !important;
+   color: #fff !important;
+      border: 2px solid #000091 !important;
 }
 
 .table-ouvrages-financeur{
@@ -1798,6 +1819,9 @@ width:100%;
     font-weight:400;
     font-style: italic;
   }
+}
+.risque-infos-name a{
+  color:#000 !important;
 }
 .risque-infos-name .critique {
   color:#E1000F;
