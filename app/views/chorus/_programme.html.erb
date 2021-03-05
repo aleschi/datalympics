@@ -410,7 +410,7 @@ Highcharts.stockChart('programme', {
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
-          {name:'Remise à 0', x: Date.UTC(<%=date%>,0,1),y: 0},
+       
           <% @programme.where('date >= ? AND date <= ?', Date.new(date.to_i,1,1), Date.new(date.to_i,12,31)).each do |programme| %>
             <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
             <% @montant =  programme.montant %>
