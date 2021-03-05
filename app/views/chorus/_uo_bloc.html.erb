@@ -5,7 +5,7 @@
   </div><br>
   <div class="chorus-dropdown-box">
    <div class="dropdown dropdown-chorus">
-     <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonuo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un UO <i class="fas fa-chevron-down"></i></button>
+     <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonuo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner une UO <i class="fas fa-chevron-down"></i></button>
       <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButtonuo">
           <%= form_with url: select_uo_path(:bop_id => @bops_show, :date => @dates, :budget => @budget, :programme => @search), id: "uo_form" do |f|%>
           <label><%= f.check_box :searchuo,{:multiple => true}, @search, nil %> Tout sélectionner </label>

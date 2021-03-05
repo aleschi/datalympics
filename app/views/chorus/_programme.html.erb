@@ -106,7 +106,7 @@
   <br>
   <div class="chorus-dropdown-box">
      <div class="dropdown dropdown-chorus">
-       <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonbop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un bop <i class="fas fa-chevron-down"></i></button>
+       <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonbop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un BOP <i class="fas fa-chevron-down"></i></button>
         <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButtonbop">
         <%= form_with url: select_bop_path(:date => @dates, :vision => @vision, :budget => @budget, :programme => @search), id: "bop_form" do |f|%>
             <label><%= f.check_box :search,{:multiple => true}, @search, nil %> Tout sélectionner </label>
