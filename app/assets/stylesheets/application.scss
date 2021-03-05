@@ -163,12 +163,13 @@ body {
   text-align:center;
   a{
     color:#fff;
-    background-color: #FD9C04;
-    font-size:14px;
-    font-weight:700;
-    padding:6px 10px;
-    border-radius:50px;
-    text-transform:uppercase;
+    background-color: #000091;
+    font-size:16px;
+    font-weight:500;
+    padding:10px 15px;
+    &:hover{
+      text-decoration:none;
+    }
   }
 }
 .ED_home_button, .SD_home_button, .O_home_button{
@@ -1524,7 +1525,7 @@ bottom:0px;
 .documents-mois-doc{
   color: #8F8F8F;
   font-size:18px;
-  margin-bottom:10px;
+  margin-bottom:20px;
   font-weight:600;
   position: relative;
 }
@@ -1534,8 +1535,8 @@ bottom:0px;
   display:inline-flex;
   a{
     color:#fff;
-    text-transform:uppercase;
-    font-size:14px;
+   font-weight:500;
+    font-size:16px;
     padding:8px 15px;
     background-color: #000091;
     &:hover{
@@ -2494,4 +2495,16 @@ background-color:#000091;
   padding:10px 15px;
   font-size:16px;
   border:none;
+}
+.timeline-ouvrages-box{
+  padding-top:50px;
+}
+.timeline-ouvrage{
+  color:#000;
+  font-size:10px;
+  height:30.5px;
+  a{
+    color:#000;
+    text-decoration:none;
+  }
 }

@@ -1,11 +1,22 @@
 <div class="O_page">
-  <h1 class="SD_title">Timeline des ouvrages</h1>
+  <h1 class="SD_title SD_title2">Timeline des ouvrages</h1>
     <h1 class="SD_subtitle">Dernière mise à jour : 22 novembre 2020</h1> 
 <div class="SD-table-box">
-
-      <div id="container-steps">
-        
-      </div>
+<div class="row">
+  <div class="col-md-3">
+    <div class="timeline-ouvrages-box">
+    <% Ouvrage.all.each do |ouvrage|%>
+    <div class="timeline-ouvrage">
+      <%= link_to ouvrage_path(ouvrage) do%><%= ouvrage.name %><% end %>
+    </div>
+    <% end %>      
+    </div>
+  </div>
+  <div class="col-md-9">
+   <div id="container-steps"></div>
+  </div>
+  </div>
+     
     </div>
 </div>
 
@@ -46,11 +57,11 @@ Highcharts.chart('container-steps', {
             text: null,
         },
         gridLineColor: "#fff",
-     
+
         reversed: true,
-        labels: {
-          enabled: false,
-        }
+       labels:{
+         enabled: false,
+       }
     },    
   legend: {
     enabled: false,
