@@ -46,22 +46,24 @@
          </div>
       </div>
     <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).count > 0 %>
-    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).each do |revue| %>
-  <div class="ED_table" id="programme-tables">
+ 
+  <div class="ED_table">
     <table class="table-striped">
       <tbody> 
+           <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).each do |revue| %>
         <tr>
             <td class="risque-infos-name"><span class='critique'><i class="fas fa-exclamation-triangle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %> <% end %></td>
             <td>Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%></td>
             <td>Retard : <%= revue.delai_time.to_i %> mois </td>
             <td>MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
           
-        </tr>   
+        </tr>
+         <% end %>
       </tbody>
     </table>
     </div>
 
-    <% end %>
+   
     <% end %>
     <br>
        <div class="risques-infos-title-box" > 
@@ -76,22 +78,24 @@
          </div>
       </div>
      <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).count > 0 %>
-    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).each do |revue| %>
-    <div class="ED_table" id="programme-tables">
+
+    <div class="ED_table">
     <table class="table-striped">
       <tbody> 
+            <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).each do |revue| %>
         <tr>
             <td class="risque-infos-name"><span class='important'><i class="fas fa-exclamation-triangle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %> <% end %></td>
             <td>Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%></td>
             <td>Retard : <%= revue.delai_time.to_i %> mois </td>
             <td>MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
           
-        </tr>   
+        </tr>  
+          <% end %>
       </tbody>
     </table>
     </div>
     
-   <% end %>
+ 
     <% end %>
     <br>
     
@@ -107,22 +111,24 @@
          </div>
       </div>
        <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).count > 0 %>
-    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).each do |revue| %>
-    <div class="ED_table" id="programme-tables">
+
+    <div class="ED_table">
     <table class="table-striped">
-      <tbody> 
+      <tbody>
+            <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).each do |revue| %>
         <tr>
             <td class="risque-infos-name"><span class='modere'><i class="fas fa-exclamation-triangle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %> <% end %></td>
             <td>Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%></td>
             <td>Retard : <%= revue.delai_time.to_i %> mois </td>
             <td>MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
           
-        </tr>   
+        </tr> 
+         <% end %>
       </tbody>
     </table>
     </div>
     
-    <% end %>
+   
     <% end %>
     <br>
     <div class="risques-infos-title-box" > 
@@ -137,22 +143,24 @@
          </div>
       </div>
       <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).count > 0 %>
-    <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).each do |revue| %>
-      <div class="ED_table" id="programme-tables">
+    
+      <div class="ED_table">
     <table class="table-striped">
       <tbody> 
+        <% OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).each do |revue| %>
         <tr>
             <td class="risque-infos-name"><span class='faible'><i class="fas fa-exclamation-triangle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %> <% end %></td>
             <td>Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%></td>
             <td>Retard : <%= revue.delai_time.to_i %> mois </td>
             <td>MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
           
-        </tr>   
+        </tr> 
+         <% end %>
       </tbody>
     </table>
     </div>
      
-      <% end %>
+     
       <% end %>
   </div>
   <br><br>

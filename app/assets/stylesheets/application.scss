@@ -1520,7 +1520,7 @@ bottom:0px;
   color: #8F8F8F;
   font-size:18px;
   margin-bottom:10px;
-  font-weight:500;
+  font-weight:600;
   position: relative;
 }
 .documents-etat-btn{
@@ -1531,12 +1531,11 @@ bottom:0px;
     color:#fff;
     text-transform:uppercase;
     font-size:14px;
-    padding:4px 10px;
-    border-radius:50px;
-    background-color: #F29D53;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25);
+    padding:8px 15px;
+    background-color: #000091;
     &:hover{
       cursor:pointer;
+      text-decoration:none;
     }
   }
 }
