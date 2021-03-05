@@ -42,10 +42,13 @@ class ChorusController < ApplicationController
   def show 
     @search = params[:id]
     @search2 = "0"+params[:id]
+    @search3 = params[:id][1..3]
     @date = Date.new(2019,12,31)
     @dates = ['2020']
     if !Choru.where('centre_financier = ? ', @search2).first.nil?
       @search = @search2 #si on a avec 0 on prend celui la 
+    elsif !Choru.where('centre_financier = ? ', @search3).first.nil?
+      @search = @search3 #si on a avec 0 on prend celui la 
     end 
     if !Choru.where('centre_financier = ? ', @search).first.nil?
       if params[:vision]
