@@ -4,12 +4,14 @@
 <div class="SD-topo-box-title2">Visualisation au niveau des actions des UO (<%= @uo_actions.length %>)</div><br>
    <div class="chorus-dropdown-box">
    <div class="dropdown dropdown-chorus">
-     <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner une action <i class="fas fa-chevron-down"></i></button>
-      <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButton2">
-          <%= form_with url: select_action_path(:uo_id => @uos_show, :date => @dates, :budget => @budget), id: "action_form" do |f|%>
+     <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner une action <i class="fas fa-chevron-down"></i></button>
+      <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButtonaction">
+          <%= form_with url: select_action_path(:uo_id => @uos_show, :date => @dates, :budget => @budget, :programme => @search), id: "action_form" do |f|%>
+        <label><%= f.check_box :searchaction,{:multiple => true}, @search, nil %> Tout sélectionner </label>
         <% (0..@uo_actions.length-1).each do |i|%>
           <label><%= f.check_box :id,{:multiple => true}, @uo_actions[i],nil %>  <%= @uo_actions[i]%></label>
         <% end %>
+        <div class="chorus-submit-form"><%= f.submit "Afficher", class: "submit-chorus submit-chorus-action"%></div>
        <% end %>
       </div>
     </div>
@@ -21,15 +23,31 @@
 
 </div>
 
-<script>
-  $('#action_form input').click(function(){
-$('#action_form').submit();
-});
-</script>
+
 <script>
   var elementactionid = '#id_'+'<%= @uo_action %>'
   $(elementactionid).prop('checked', true);
 
 </script>
+<script>
+    var searchaction = '#searchaction_' + '<%= @search %>';
 
+$(searchaction).click(function () {
+  if ($(searchaction).is(':checked')){
+   <% @uo_actions.each do |action|%>
+      $('#id_'+'<%= action.downcase%>').prop('checked', true);
+   <% end %> 
+  }
+  else {
+   <% @uo_actions[1..].each do |action|%>
+      $('#id_'+'<%= action.downcase%>').prop('checked', false);
+   <% end %>  
+    
+  }
+  
+});
+$('.submit-chorus-action').on("click",function(){  
+   $("#dropdownMenuButtonaction").dropdown('toggle');
+});
+</script>
  <% end %>

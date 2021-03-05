@@ -106,12 +106,16 @@
   <br>
   <div class="chorus-dropdown-box">
      <div class="dropdown dropdown-chorus">
-       <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un bop <i class="fas fa-chevron-down"></i></button>
-        <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButton">
-        <%= form_with url: select_bop_path(:date => @dates, :vision => @vision, :budget => @budget), id: "bop_form" do |f|%>
+       <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonbop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un bop <i class="fas fa-chevron-down"></i></button>
+        <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButtonbop">
+        <%= form_with url: select_bop_path(:date => @dates, :vision => @vision, :budget => @budget, :programme => @search), id: "bop_form" do |f|%>
+            <label><%= f.check_box :search,{:multiple => true}, @search, nil %> Tout sélectionner </label>
           <% (0..@bop_arr.length-1).each do |i|%>
             <label><%= f.check_box :id,{:multiple => true}, @bop_arr[i], nil %>  <%= @bop_arr[i]%></label>
+          
+            
           <% end %>
+          <div class="chorus-submit-form"><%= f.submit "Afficher", class: "submit-chorus submit-chorus-bop"%></div>
         <% end %>
        </div>
      </div>
@@ -144,12 +148,7 @@
 $('#programme_form').submit();
 });
 </script>
-<script>
-$('#bop_form input').click(function(){
-$('#bop_form').submit();
-});
-  
-</script>
+
 
 <script>
   var elementid = '#id_'+'<%= @bop.first.centre_financier.downcase%>';
@@ -178,6 +177,27 @@ $('#bop_form').submit();
       $('#programme-bilan').addClass('visible');
     }
   });
+</script>
+<script>
+  var searchid = '#search_' + '<%= @search %>';
+
+$(searchid).click(function () {
+  if ($(searchid).is(':checked')){
+   <% @bop_arr.each do |bop|%>
+      $('#id_'+'<%= bop.downcase%>').prop('checked', true);
+   <% end %> 
+  }
+  else {
+   <% @bop_arr[1..].each do |bop|%>
+      $('#id_'+'<%= bop.downcase%>').prop('checked', false);
+   <% end %>  
+ 
+  }
+  
+});
+$('.submit-chorus-bop').on("click",function(){  
+   $("#dropdownMenuButtonbop").dropdown('toggle');
+});
 </script>
 <script>
 Highcharts.stockChart('programme', {

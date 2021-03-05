@@ -140,8 +140,11 @@ class ChorusController < ApplicationController
     @bop = Choru.where('date = ?', Date.new(1000))
     @uo = Choru.where('date = ?', Date.new(1000))
     @uos = Choru.where('date = ?', Date.new(1000))
+    @search = params[:programme]
     
+   
     @bops_show = params[:id]
+   
     #on va rassembler tous les elements des bop pour savoir le nombre de piece
     params[:id].each do |id|
     params[:date].each do |date|
@@ -204,16 +207,8 @@ class ChorusController < ApplicationController
     @budget = params[:budget]
     @uo = Choru.where('date = ?', Date.new(1000))
     @uos = Choru.where('date = ?', Date.new(1000))
-    @bops_show = params[:bop_id]    
-    @uos_show = params[:id]
-    @uos_show.each do |uo|
-    params[:date].each do |date|
-      @date = Date.new(date.to_i-1,12,1)
-      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', uo,@date, @date + 1.year, @budget ))
-    end
-    end
-    @uo = @uo.order('date ASC')
-    
+    @bops_show = params[:bop_id] 
+    @search = params[:programme]
     @uo_search = []
     @bops_show.each do |bop|
       @uo_search << bop + '-'
@@ -226,6 +221,16 @@ class ChorusController < ApplicationController
       @uo_arr << uo.centre_financier
     end 
     @uo_arr.uniq! #toutes les uo des bops
+   
+    @uos_show = params[:id]
+   
+    @uos_show.each do |uo|
+    params[:date].each do |date|
+      @date = Date.new(date.to_i-1,12,1)
+      @uo = @uo.or(Choru.where('centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?', uo,@date, @date + 1.year, @budget ))
+    end
+    end
+    @uo = @uo.order('date ASC')
     
     @type_pieces_uo=[]
       if !@uo.nil?
@@ -257,6 +262,7 @@ class ChorusController < ApplicationController
     @dates = params[:date]
     @budget = params[:budget]
     @uos_show = params[:uo_id]
+    @search = params[:programme]
     @uo = Choru.where('date = ?', Date.new(1000))
     @uos_show.each do |uo|
     params[:date].each do |date|

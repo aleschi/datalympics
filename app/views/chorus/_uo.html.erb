@@ -136,6 +136,7 @@ Highcharts.stockChart('uo_chart', {
           fontFamily: "Marianne Regular",
           // maxWidth: '500px'
           }, 
+     height:'600px',
        zoomType: 'x',
       //  borderWidth: 1,
       //  resetZoomButton: {
@@ -310,15 +311,4 @@ title: {
 </script>
 
 
-
-<script>
-  $('#uo_form input').click(function(){
-$('#uo_form').submit();
-});
-</script>
-<script>
-  var elementuoid = '#id_'+'<%= @uo.first.centre_financier.downcase%>'
-  $(elementuoid).prop('checked', true);
-
-</script>
 <% end %>
