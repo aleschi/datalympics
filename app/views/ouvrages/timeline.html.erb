@@ -3,16 +3,8 @@
     <h1 class="SD_subtitle">Dernière mise à jour : 22 novembre 2020</h1> 
 <div class="SD-table-box">
 <div class="row">
-  <div class="col-md-3">
-    <div class="timeline-ouvrages-box">
-    <% Ouvrage.all.each do |ouvrage|%>
-    <div class="timeline-ouvrage">
-      <%= link_to ouvrage_path(ouvrage) do%><%= ouvrage.name %><% end %>
-    </div>
-    <% end %>      
-    </div>
-  </div>
-  <div class="col-md-9">
+
+  <div class="col-md-12">
    <div id="container-steps"></div>
   </div>
   </div>
@@ -25,7 +17,7 @@
 Highcharts.chart('container-steps', {
     chart: {
         type: 'xrange',
-        height:'1000px',
+        height:'100%',
         style:{
           fontFamily: "Marianne Regular",
           },    
@@ -39,7 +31,7 @@ Highcharts.chart('container-steps', {
           fontSize: '16px',
                   },
     },
-    colors: ["#bfbfbf",'rgba(46,93,99,0.6)'],
+    colors: ["#bfbfbf"],
     xAxis: [{
         currentDateIndicator: {
             width: 1,
@@ -57,11 +49,19 @@ Highcharts.chart('container-steps', {
             text: null,
         },
         gridLineColor: "#fff",
-
+        categories: ["JOP2024",<% Ouvrage.all.each do |ouvrage| %> '<%= ouvrage.name %>', <% end %>],
         reversed: true,
        labels:{
-         enabled: false,
-       }
+         enabled: true,
+         formatter: function () {
+           <% Ouvrage.all.each do |ouvrage| %>
+                  if (this.value == '<%= ouvrage.name %>' ){
+                    return '<a href="/ouvrages/<%= ouvrage.id%>" style="color:#000">' + this.value + '</a>'
+                  } 
+           <% end %>
+                },
+                useHTML: true,
+       },
     },    
   legend: {
     enabled: false,
@@ -73,8 +73,8 @@ Highcharts.chart('container-steps', {
         color = point.color || series.chart.options.colors[point.colorIndex],
         firstDate = Highcharts.dateFormat('%b %Y', point.x),
         secondDate = Highcharts.dateFormat('%b %Y', point.x2),
-        header = '<span style="font-size: 10px">' + series.name + '</span><br/>',
-        content = '<span style="color:' + color + '">\u25CF</span> ' + point.key + ': <b>' + firstDate + ' - ' + secondDate + '</b><br/>';
+        header = '<span style="font-size: 10px">' + point.key + '</span><br/>',
+        content = '<span style="color:' + color + '">\u25CF</span> ' + ' <b>' + firstDate + ' - ' + secondDate + '</b><br/>';
 
       return header + content;
     },
@@ -84,6 +84,7 @@ Highcharts.chart('container-steps', {
   },
   plotOptions: {
     xrange: {
+
        dataLabels: {
                 enabled: false,
                 format: '<b>{point.name}</b>',
@@ -99,11 +100,12 @@ Highcharts.chart('container-steps', {
     }
   },
     series: [ {
-        name: 'JOP2024',
+        name: 'Ouvrages',
         color: 'red',
-        pointWidth: 3,
+        pointWidth: 8,
       groupPadding: 1,
-        data: [{
+        data: [
+          {
             name: "JOP2024",
             x: Date.UTC(2024,6,26),
             x2: Date.UTC(2024,7,11),
@@ -114,31 +116,22 @@ Highcharts.chart('container-steps', {
              },
           borderColor:'#fff',
           color: 'red',
-        }],
-      
-        dataLabels: {
-            enabled: true
-        }
-    },
-      <% Ouvrage.all.each do |ouvrage| %>
-      <% if !ouvrage.start.nil? && !ouvrage.end.nil?%>
-      {
-        name: '<%= ouvrage.name %>',
-        pointWidth: 8,
-        groupPadding: 1,
-        data: [{
+        },
+       <% Ouvrage.all.each_with_index do |ouvrage, index| %>
+          <% if !ouvrage.start.nil? && !ouvrage.end.nil?%>
+          {
             name: "Jalon 1",
             x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month %>),
             x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
-            y: 0,
-        <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
+            y: <%= index +1%>,
+        <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>  
            color: "red",
           <% end %>
         }, {
            name: "Jalon 2",
             x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
             x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
-            y: 0,
+            y: <%= index +1%>,
           <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
            color: "red",
           <% end %>
@@ -146,7 +139,7 @@ Highcharts.chart('container-steps', {
            name: "Jalon 3",
             x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
             x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 8%>),
-            y: 0,
+            y: <%= index +1%>,
           <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
            color: "red",
           <% end %>
@@ -154,22 +147,21 @@ Highcharts.chart('container-steps', {
            name: "Jalon 4",
             x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
             x2: Date.UTC(<%= ouvrage.end.year %>, <% if ouvrage.ouvrages_revues.count > 0 %> <%= ouvrage.end.month + ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %><% else%><%= ouvrage.end.month %> <% end %>),
-            y: 0,
+            y: <%= index +1%>,
           <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
            color: "red",
           <% end %>
-        }],
-        cursor: 'pointer',
-        point: {
-                events: {
-                    click: function () {
-                        location.href = '/ouvrages/<%= ouvrage.id%>' ;
-                    }
-                }
-            }
+        },
+          <% end %>
+       <% end %>
+        
+        ],
+      
+       
     },
-      <% end %>
-    <%end %>],
+
+  
+  ],
 
 });
 </script>
