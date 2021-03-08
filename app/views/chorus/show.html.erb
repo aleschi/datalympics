@@ -22,10 +22,15 @@
   <div class="navbar-chorus-onglet2"> 
   <div class="">
      <div class="dropdown">
-       <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-navbar" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CP<i class="fas fa-chevron-down"></i></button>
-        <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="budget">       
-          <li><label>CP </label></li>
-          <li><label>AE</label></li>
+       <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-navbar" type="button" id="typeae" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><% if @type_ae == "cp" %>CP<%else %>AE<% end %><i class="fas fa-chevron-down"></i></button>
+        <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="typeae">       
+           <%= form_tag choru_path(:date => @dates, :id => params[:id]), method: :get, class: "typeae_form"  do%>
+          <%= hidden_field_tag :vision, @vision %>
+          <%= hidden_field_tag :budget, @budget %>
+          <li><label><%= radio_button_tag :type_ae, "cp" %>  CP </label></li>
+          <li><label><%= radio_button_tag :type_ae, "ae" %>  AE</label></li>
+       
+        <% end %>
        </div>
      </div>
   </div> 
@@ -37,6 +42,7 @@
         <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="budget">
         <%= form_tag choru_path(:date => @dates, :id => params[:id]), method: :get, class: "budget_form"  do%>
           <%= hidden_field_tag :vision, @vision %>
+          <%= hidden_field_tag :type_ae, @type_ae %>
           <li><label><%= radio_button_tag :budget, "HT2" %>  HT2 </label></li>
           <li><label><%= radio_button_tag :budget, "T2" %>  T2</label></li>
        
@@ -53,6 +59,7 @@
         <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="vision">
         <%= form_tag choru_path(:date => @dates, :id => params[:id]), method: :get, class: "vision_form"  do%>
           <%= hidden_field_tag :budget, @budget %>
+          <%= hidden_field_tag :type_ae, @type_ae %>
           <li><label><%= radio_button_tag :vision, "0" %>  Statique </label></li>
           <li><label><%= radio_button_tag :vision, "1" %>  Dynamique</label></li>
           <li><label><%= radio_button_tag :vision, "2"%>  Statique & Dynamique</label></li>     
@@ -92,6 +99,17 @@ $('.budget_form').submit();
 <script>
   var budgetid = '#budget_'+'<%= @budget%>'
   $(budgetid).prop('checked', true);
+
+</script>
+
+<script>
+  $('.typeae_form input').click(function(){
+$('.typeae_form').submit();
+});
+</script>
+<script>
+  var typeaeid = '#type_ae_'+'<%= @type_ae%>'
+  $(typeaeid).prop('checked', true);
 
 </script>
 <% end %>

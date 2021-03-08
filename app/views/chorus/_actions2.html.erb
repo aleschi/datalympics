@@ -40,7 +40,7 @@
                 <td></td>
                 <td><%= action %></td>
                 <td><%= number_with_delimiter(Choru.where(domaine_fonctionnel: action).where('centre_financier = ? AND date >= ? AND date <= ?',uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
-            </tr><br>
+            </tr>
         
         <% Choru.where(domaine_fonctionnel: action).where('centre_financier = ? AND date >= ? AND date <= ?',uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |choru| %>
           <tr>

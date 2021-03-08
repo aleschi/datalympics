@@ -13,6 +13,9 @@ class Choru < ApplicationRecord
       @chorus.compte_budgetaire = row[5]
       @chorus.montant = row[6].to_f/100
       @chorus.domaine_fonctionnel = row[7]
+        if !row[8].nil? && !row[8].empty?
+      @chorus.type_ae = row[8]
+        end
       @chorus.save 
         if @chorus.date.nil?
           @chorus.destroy 

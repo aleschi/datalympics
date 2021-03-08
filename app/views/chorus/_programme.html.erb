@@ -1,15 +1,17 @@
 
 <div class="SD-topo-box" id="dynamique-programme">
-  <div class="SD-topo-box-title2">Visualisation du Programme <%= @programme.first.centre_financier %></div><br>
+  <div class="SD-topo-box-title2">Visualisation du Programme <%= @search %></div><br>
   
   <div class="box-chiffres-chorus-box">
     <div class="box-chiffres-chorus">
-      <div class="box-chiffres-chorus-lfi">LFI <br> <span><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_budget = ?', Date.new(@dates[0].to_i,1,1), Date.new(@dates[0].to_i,12,31), "Bud. voté ou en cours de vote").first.montant, :delimiter => ' ') %> €</span></div>
-      <div class="box-chiffres-chorus-dispo">Disponible <br><span> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €</span></div>
-      <div class="box-chiffres-chorus-conso">Consommé <br><span> <%= number_with_delimiter(Choru.where('centre_financier like ?','%'+@programme.first.centre_financier+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ?',Date.new(@dates[0].to_i,1,1), Date.new(@dates[0].to_i,12,31)).sum('montant'), :delimiter => ' ') %> €</span></div>
-      <div class="box-chiffres-chorus-reserve">Réserve <br><span> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €</span></div>
+      <div class="box-chiffres-chorus-lfi">LFI <br> <span><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
+      <div class="box-chiffres-chorus-dispo">Disponible <br><span><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
+      <div class="box-chiffres-chorus-conso">Consommé <br><span> <%= number_with_delimiter(Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ?',Date.new(@dates[0].to_i,1,1), Date.new(@dates[0].to_i,12,31)).sum('montant'), :delimiter => ' ') %> €</span></div>
+      <div class="box-chiffres-chorus-reserve">Réserve <br><span><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
     </div>
   </div>
+  
+  <% if !@programme.nil? && @programme.count > 0%>
   <div class="row">
     <div class="col-md-offset-1 col-md-10">
       <div id="programme"></div>
@@ -68,7 +70,7 @@
 
         </tr>
       </thead>
-
+      <% if !@programme.nil?%>
       <tbody>
         <% @dates.each do |date| %>
         <!-- total annuel -->
@@ -96,11 +98,14 @@
         
         <% end %>
       </tbody>
+      <% end %>
     </table>
   </div>
-  <br>  
+  <br> 
+  <% end %>
 </div>
 
+<% if !@programme.nil? && @programme.count > 0%>
 <div class="SD-topo-box" id="dynamique-bop">
   <div class="SD-topo-box-title2">Visualisation des mouvements de crédits au niveau des BOP (<%= @bop_arr.length%>)</div>
   <br>
@@ -108,7 +113,7 @@
      <div class="dropdown dropdown-chorus">
        <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonbop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un BOP <i class="fas fa-chevron-down"></i></button>
         <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButtonbop">
-        <%= form_with url: select_bop_path(:date => @dates, :vision => @vision, :budget => @budget, :programme => @search), id: "bop_form" do |f|%>
+        <%= form_with url: select_bop_path(:date => @dates, :vision => @vision, :budget => @budget, :type_ae => @type_ae, :programme => @search), id: "bop_form" do |f|%>
             <label><%= f.check_box :search,{:multiple => true}, @search, nil %> Tout sélectionner </label>
           <% (0..@bop_arr.length-1).each do |i|%>
             <label><%= f.check_box :id,{:multiple => true}, @bop_arr[i], nil %>  <%= @bop_arr[i]%></label>
@@ -200,6 +205,7 @@ $('.submit-chorus-bop').on("click",function(){
 });
 </script>
 <script>
+  
 Highcharts.stockChart('programme', {
  // mapNavigation: {
  //           enableMouseWheelZoom: true
@@ -350,7 +356,7 @@ Highcharts.stockChart('programme', {
       },
       zIndex: 1,
       width: 2,
-      value: <%= @programme.where('date >= ? AND date <= ? AND type_budget = ?', Date.new(@dates[0].to_i,1,1), Date.new(@dates[0].to_i,12,31), "Bud. voté ou en cours de vote").first.montant.to_f/1000 %>,
+      value: <%= @programme.where('type_budget = ? OR type_budget = ?',  "Bud. voté ou en cours de vote","Loi de Finances Initiale").first.montant.to_f/1000 %>,
     }],
   },
     plotOptions: {
@@ -465,3 +471,4 @@ Highcharts.stockChart('programme', {
 });
 </script>
 
+<% end %>
