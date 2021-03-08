@@ -30,7 +30,12 @@ body {
  padding: 0;
  // padding-bottom:60px;
  }
-
+button:focus{
+    outline:none !important;
+  -webkit-appearance: none !important;
+    -moz-appearance: none !important;;
+    appearance: none !important;;
+}
 .EB_page, .ED_page, .SD_page, .O_page, .home_page {
   max-width:1200px;
   margin:0 auto;
@@ -2165,11 +2170,7 @@ border: 0.1px solid rgba(0,0,0,0.2);
   display:block;
   margin-bottom:10px;
   input{
-    border-radius:2px !important;
     margin-right:10px;
-  }
-   input:checked{
-    background-color: #000091;
   }
 }
 .chorus-select-box-title{
@@ -2201,7 +2202,36 @@ border: 0.1px solid rgba(0,0,0,0.2);
   border: 3px solid #F8F8F8;
 }
 
-input[type="checkbox"], input[type="radio"]  {
+input[type="radio"] {
+ height: 1em; 
+ width: 1em; 
+ margin-bottom: -0.25em; 
+ margin-right: 5px; 
+ vertical-align: top;
+ border: 1px solid #000;
+ border-radius: 50%;
+ outline: none;
+ appearance: none;
+ -ms-appearance: none;
+ -moz-appearance: none; /* Firefox */
+ -webkit-appearance: none; /* Safari and Chrome */
+ }
+  
+input[type="radio"]:checked:before {
+  border: 1px solid #000091;
+  background: radial-gradient(#000091 50%, rgba(255, 0, 0, 0) 51%);
+ }
+
+input[type="radio"]:checked {
+  border: 1px solid #000091;
+  background: radial-gradient(#000091 50%, rgba(255, 0, 0, 0) 51%);
+}
+
+input[type="checkbox"]:focus, input[type="radio"]:focus {
+//box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em #000091;
+  outline:none;
+}
+input[type="checkbox"] {
  height: 1em; 
  width: 1em; 
  margin-bottom: -0.25em; 
@@ -2215,8 +2245,7 @@ input[type="checkbox"], input[type="radio"]  {
  -moz-appearance: none; /* Firefox */
  -webkit-appearance: none; /* Safari and Chrome */
  }
-  
-input[type="checkbox"]:checked:before, input[type="radio"]:checked:before {
+input[type="checkbox"]:checked:before {
   content: "\2713";
 
  position: absolute;
@@ -2225,7 +2254,7 @@ input[type="checkbox"]:checked:before, input[type="radio"]:checked:before {
  width: 1.25em;
  color: #fff;
  }
-input[type="checkbox"]:checked, input[type="radio"]:checked {
+input[type="checkbox"]:checked {
   background-color: #000091;
   border: 1px solid #000091;
   color: transparent;
@@ -2461,16 +2490,20 @@ background-color:#000091;
     cursor:pointer;
   }
 }
+
 .dropwdown-menu-chorus-navbar{
   background-color:transparent;
   color:#000091;
   font-size:16px;
   padding:0px;
+  outline:none;
   &:hover{
     color:#000091;
   }
   &:active, &:focus{
     color:#000091;
+    outline:none !important;
+    border:none;
   }
   i{
     margin-left:5px;
