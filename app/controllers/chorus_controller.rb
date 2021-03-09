@@ -31,8 +31,12 @@ class ChorusController < ApplicationController
   end 
   
   def search_choru
-    @id = params[:q][:centre_financier_cont]
-    redirect_to choru_path(:id => @id)
+    if params[:q]
+      @q = Choru.ransack(params[:q])
+      #@results = @q.result
+      @id = params[:q][:centre_financier_cont]
+      redirect_to choru_path(:id => @id, :vision => params[:vision], :budget => params[:budget], :type_ae => params[:type_ae])
+    end   
   end
   
   def select_date_programme
@@ -45,11 +49,7 @@ class ChorusController < ApplicationController
     @search3 = params[:id][1..3]
     @date = Date.new(2019,12,31)
     @dates = ['2020']
-    if params[:q]
-      @q = Choru.ransack(params[:q])
-      @results = @q.result
-      @search = params[:q][:centre_financier_cont]
-    end
+    
     if !Choru.where('centre_financier = ? ', @search2).first.nil?
       @search = @search2 #si on a avec 0 on prend celui la 
     elsif !Choru.where('centre_financier = ? ', @search3).first.nil?

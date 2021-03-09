@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   post 'select_action' => 'chorus#select_action'
   get 'new_conso' => 'chorus#new_conso'
    post 'import_conso' => 'chorus#import_conso'
-  post 'search_choru' => "chorus#search_choru"
+  get 'search_choru' => "chorus#search_choru"
   
   post 'import_maquette' => "ouvrages_depenses#import_maquette"
   get 'maquette' => 'ouvrages_depenses#maquette'

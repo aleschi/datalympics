@@ -3,8 +3,8 @@
     <h1 class="chorus-index-title">DataChorus</h1>
     <div class="chorus-index-subtitle">Le logiciel qui déchiffre Chorus</div>
     
-    <%= form_tag choru_path, method: :get  do%>
-    <%= search_form_for @q, url: search_choru_path, method: :post do |f| %>
+    <%= form_tag search_choru_path, method: :get  do%>
+    <%= search_form_for @q, url: search_choru_path do |f| %>
     <div class="chorus-search-box">
       
         <div class="chorus-search-box-form">
