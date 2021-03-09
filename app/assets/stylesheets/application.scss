@@ -2365,6 +2365,22 @@ input[type="checkbox"]:checked {
   width:620px;
   border-radius:4px;
 }
+.chorus-search-box-form-list{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:620px;
+  border-radius:4px;
+  padding:20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.liste-programme-name{
+  color:#000;
+  font-size: 16px;
+  line-height:24px;
+  font-weight:500;
+}
 .chorus-search-box-form2{
   display: inline-flex;
   display: -webkit-inline-flex;
@@ -2394,6 +2410,11 @@ background-color:#000091;
   border-top-right-radius:4px;
   i{
     margin-right:10px;
+  }
+  &:hover{
+    color:#fff;
+    cursor:pointer;
+    text-decoration:none;
   }
 }
 .box-chiffres-chorus-box{
@@ -2578,6 +2599,7 @@ background-color:#000091;
 }
 .ui-menu{
   border-color: transparent;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius:4px;
   cursor:default;
   background-color: #fff;

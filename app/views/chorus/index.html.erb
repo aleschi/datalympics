@@ -10,9 +10,16 @@
         <div class="chorus-search-box-form">
         <%= f.search_field :centre_financier_cont,class: "choru-search-field", id:"name",required: true, placeholder: "Entrez le numéro d'un programme", data: {autocomplete_source: chorus_path} %> 
         <a type="button" class="choru-search-submit"> <i class="fas fa-search"></i>Liste programme</a>
+        </div> 
+        <div class="chorus-search-box-form-list" id="programme-liste">
+          <div>
+          <% if !@liste_programme.nil?%>
+            <% @liste_programme.each do |programme %>
+            <div class="liste-programme-name"><%= programme %></div>
+            <% end %>
+          <% end %>                   
+          </div>
         </div>
-     
-      
     </div>
     
     <div class="chorus-search-box">
@@ -98,4 +105,11 @@
     };
     
   });
+</script>
+
+<script>
+$('#programme-liste').hide();
+ $('.choru-search-submit').click(function(){
+   $('#programme-liste').show();
+ });
 </script>
