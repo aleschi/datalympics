@@ -4,8 +4,9 @@ class ChorusController < ApplicationController
     @q = Choru.all.ransack(params[:q])
     @chorus = Choru.all 
     if params[:term]
-        @chorus = Choru.all.select { |choru| choru.centre_financier.count("-") == 0 }
-        @chorus = @chorus.where('centre_financier like ?', "%#{params[:term]}%")
+       
+        @chorus = Choru.where('centre_financier like ?', "%#{params[:term]}%")
+        @chorus = @chorus.select { |choru| choru.centre_financier.count("-") == 0 }
         
         render json: @chorus.map(&:centre_financier)  
       end
