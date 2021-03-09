@@ -5,7 +5,7 @@
   <div class="box-chiffres-chorus-box">
     <div class="box-chiffres-chorus">
       <div class="box-chiffres-chorus-lfi">LFI <br> <span><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
-      <div class="box-chiffres-chorus-dispo">Disponible <br><span><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
+      <div class="box-chiffres-chorus-dispo">Crédits ouverts <br><span><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
       <div class="box-chiffres-chorus-conso">Consommé <br><span> <%= number_with_delimiter(Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ?',Date.new(@dates[0].to_i,1,1), Date.new(@dates[0].to_i,12,31)).sum('montant'), :delimiter => ' ') %> €</span></div>
       <div class="box-chiffres-chorus-reserve">Réserve <br><span><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
     </div>
@@ -301,7 +301,7 @@ Highcharts.stockChart('programme', {
     title: {
             text:"",
     },
-    colors: ['#2E5D63','#C68D7B', "#20E37B"],
+ 
     yAxis: {
       gridLineColor: '#fff', 
         title: {
@@ -377,7 +377,7 @@ Highcharts.stockChart('programme', {
       <% if @vision == "0" || @vision == "2"%> 
       {
         name: 'Statique - réserve',
-      //type: 'area',
+        color: '#2E5D63',
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
@@ -411,6 +411,7 @@ Highcharts.stockChart('programme', {
      
     }, {
         name: 'Statique + Réserve',
+      color: '#C68D7B',
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
@@ -433,6 +434,7 @@ Highcharts.stockChart('programme', {
       <% if @vision == "1" || @vision == "2"%> 
              {
         name: 'dynamique',
+        color: '#20E37B',
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
