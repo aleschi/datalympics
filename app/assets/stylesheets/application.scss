@@ -166,7 +166,7 @@ button:focus{
 }
 .EB-details{
   text-align:center;
-  a{
+  a, button{
     color:#fff;
     background-color: #000091;
     font-size:16px;
@@ -2490,7 +2490,17 @@ background-color:#000091;
     cursor:pointer;
   }
 }
-
+.dropwdown-menu-chorus-index{
+  background-color:transparent;
+  color:#000;
+  font-size:20px;
+  padding:12px 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  border-bottom:1px solid #000091;
+  margin-right:5px;
+  margin-left:5px;
+}
 .dropwdown-menu-chorus-navbar{
   background-color:transparent;
   color:#000091;

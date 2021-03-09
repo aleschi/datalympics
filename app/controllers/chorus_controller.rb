@@ -45,6 +45,11 @@ class ChorusController < ApplicationController
     @search3 = params[:id][1..3]
     @date = Date.new(2019,12,31)
     @dates = ['2020']
+    if params[:q]
+      @q = Choru.ransack(params[:q])
+      @results = @q.result
+      @search = params[:q][:centre_financier_cont]
+    end
     if !Choru.where('centre_financier = ? ', @search2).first.nil?
       @search = @search2 #si on a avec 0 on prend celui la 
     elsif !Choru.where('centre_financier = ? ', @search3).first.nil?
@@ -54,7 +59,7 @@ class ChorusController < ApplicationController
       if params[:vision]
       @vision = params[:vision]
       else
-      @vision = '2'
+      @vision = '1'
       end
       if params[:budget]
       @budget = params[:budget]

@@ -3,21 +3,58 @@
     <h1 class="chorus-index-title">DataChorus</h1>
     <div class="chorus-index-subtitle">Le logiciel qui déchiffre Chorus</div>
     
+    <%= form_tag choru_path, method: :get  do%>
+    <%= search_form_for @q, url: search_choru_path, method: :post do |f| %>
     <div class="chorus-search-box">
-      <%= search_form_for @q, url: search_choru_path, method: :post do |f| %>
+      
         <div class="chorus-search-box-form">
-        <%= f.search_field :centre_financier_cont,class: "choru-search-field", id:"name",placeholder: "Cherchez un programme", data: {autocomplete_source: chorus_path} %> 
-        <%= f.button :submit, class: "choru-search-submit" do%> <i class="fas fa-search"></i>Rechercher<% end %>
+        <%= f.search_field :centre_financier_cont,class: "choru-search-field", id:"name",placeholder: "Entrez le numéro d'un programme", data: {autocomplete_source: chorus_path} %> 
+        <a type="button" class="choru-search-submit"> <i class="fas fa-search"></i>Liste programme</a>
         </div>
-      <% end %>
+     
       
     </div>
     
-    <div class="chorus-index-programme-title">Liste des programmes</div>
-    <div class="chorus-index-programme"><%= link_to choru_path(:id => '350') do %> Programme 350 <% end %> </div>  
-    <div class="chorus-index-programme"><%= link_to choru_path(:id => '148') do %> Programme 148 <% end %> </div>
-    <div class="chorus-index-programme"><%= link_to choru_path(:id => '354') do %> Programme 354 <% end %> </div>
-    <br>
+    <div class="chorus-search-box">
+      <div class="chorus-search-box-form">
+        <div class="dropdown">
+         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-index" type="button" id="vision" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Vision<i class="fas fa-chevron-down"></i></button>
+          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="vision">         
+            <li><label><%= radio_button_tag :vision, "0" %>  Statique </label></li>
+            <li><label><%= radio_button_tag :vision, "1" %>  Dynamique</label></li>
+            <li><label><%= radio_button_tag :vision, "2" %>  Statique et dynamique</label></li>
+         </div>
+        </div>
+        <div class="dropdown">
+         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-index" type="button" id="typeae" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">AE/CP<i class="fas fa-chevron-down"></i></button>
+          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="typeae">         
+            <li><label><%= radio_button_tag :type_ae, "cp" %>  CP </label></li>
+            <li><label><%= radio_button_tag :type_ae, "ae" %>  AE</label></li>
+         </div>
+        </div>
+        <div class="dropdown">
+         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-index" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HT2/T2<i class="fas fa-chevron-down"></i></button>
+          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="budget">         
+            <li><label><%= radio_button_tag :budget, "HT2" %>  HT2 </label></li>
+            <li><label><%= radio_button_tag :budget, "T2" %>  T2</label></li>
+         </div>
+        </div>
+        <div class="dropdown">
+         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-index" type="button" id="date" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">2020<i class="fas fa-chevron-down"></i></button>
+          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="date">       
+            <li><label>2020 </label></li>
+            <li><label>2019</label></li>
+         </div>
+       </div>
+      </div>
+    </div>
+    
+    <div class="EB-details">
+        <%= button_tag(type: "submit") do %><i class="fas fa-search"></i> Rechercher <% end %>
+    </div>
+    <% end %>
+    <% end %>
+    
   </div>
 </div>
 <script>
