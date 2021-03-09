@@ -2573,3 +2573,36 @@ background-color:#000091;
     text-decoration:none;
   }
 }
+.ui-widget.ui-widget-content{
+  border-color: transparent;
+}
+.ui-menu{
+  border-color: transparent;
+  border-radius:4px;
+  cursor:default;
+  background-color: #fff;
+  margin:0;
+  padding:8px 5px 8px 5px;
+  .ui-menu-item{
+    background-color: #fff;
+    border:none;
+    &:hover, &:active{
+        background-color:#fff;
+        border:none;
+      }
+    .ui-menu-item-wrapper{
+      font-size:16px;
+      color:#000;
+      letter-spacing:1px;
+      display: block;
+      padding: 12px 4px;
+      &:hover, &:active{
+        background-color:#fff;
+        border:none;
+      }
+    }
+    .ui-menu-item-wrapper::first-letter{
+      text-transform:capitalize;
+    }
+  }
+}

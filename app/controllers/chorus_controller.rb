@@ -7,8 +7,8 @@ class ChorusController < ApplicationController
        
         @chorus = Choru.where('centre_financier like ?', "%#{params[:term]}%")
         @chorus = @chorus.select { |choru| choru.centre_financier.count("-") == 0 }
-        
-        render json: @chorus.map(&:centre_financier)  
+         
+        render json: @chorus.map(&:centre_financier).uniq!  
       end
   end 
   
