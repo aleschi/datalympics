@@ -4,7 +4,7 @@ class ChorusController < ApplicationController
     @q = Choru.all.ransack(params[:q])
     @chorus = Choru.all 
     @liste_programme = @chorus.select { |choru| choru.centre_financier.count("-") == 0 }
-    @liste_programme = @chorus.map(&:centre_financier).uniq! 
+    @liste_programme = @liste_programme.map(&:centre_financier).uniq! 
     if params[:term]
        
         @chorus = Choru.where('centre_financier like ?', "%#{params[:term]}%")

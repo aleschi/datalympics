@@ -110,6 +110,10 @@
 <script>
 $('#programme-liste').hide();
  $('.choru-search-submit').click(function(){
-   $('#programme-liste').show();
+   if ($('#programme-liste').hasClass('visible')){
+     $('#programme-liste').hide();
+   } else {
+     $('#programme-liste').show();
+   }   
  });
 </script>
