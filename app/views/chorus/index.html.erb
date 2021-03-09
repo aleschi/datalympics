@@ -110,7 +110,7 @@
 <script>
 $('#programme-liste').hide();
  $('.choru-search-submit').click(function(){
-   if ($('#programme-liste').hasClass('visible')){
+   if ($('#programme-liste').is(":visible")){
      $('#programme-liste').hide();
    } else {
      $('#programme-liste').show();
