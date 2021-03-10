@@ -15,7 +15,7 @@
           <div>
           <% if !@liste_programme.nil?%>
             <% @liste_programme.each do |programme| %>
-            <div class="liste-programme-name"><%= programme %></div>
+            <div class="liste-programme-name"><a class="programme-name"><%= programme %></a></div>
             <% end %>
           <% end %>                   
           </div>
@@ -50,7 +50,7 @@
          <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-index" type="button" id="date" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">2020<i class="fas fa-chevron-down"></i></button>
           <div class="dropdown-menu dropwdown-menu-chorus-navbar-list dropwdown-menu-chorus-navbar-list2" aria-labelledby="date">       
             <li><label>2020 </label></li>
-            <li><label>2019</label></li>
+           
          </div>
        </div>
       </div>
@@ -115,5 +115,9 @@ $('#programme-liste').hide();
    } else {
      $('#programme-liste').show();
    }   
+ });
+  
+ $('.programme-name').click(function(){
+  $("#name").val($(this).text());
  });
 </script>

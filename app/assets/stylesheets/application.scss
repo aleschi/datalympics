@@ -2380,6 +2380,10 @@ input[type="checkbox"]:checked {
   font-size: 16px;
   line-height:24px;
   font-weight:500;
+  a{
+     color:#000;
+    cursor:pointer;
+  }
 }
 .chorus-search-box-form2{
   display: inline-flex;
