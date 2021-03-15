@@ -26,8 +26,8 @@
                 <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
                 <td><%= bop%></td>
                  <% @type_pieces_bop.each do |piece|%>
-                  <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Réception",@budget).sum('montant'), :delimiter => ' ') %> €</td>
-                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? ',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Envoyer").sum('montant'), :delimiter => ' ') %> €</td>
+                  <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? AND compte_budgetaire = ? AND type_ae = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Réception",@budget, @type_ae).sum('montant'), :delimiter => ' ') %> €</td>
+                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? AND type_ae = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Envoyer",@type_ae).sum('montant'), :delimiter => ' ') %> €</td>
           <% end %>
           <% end %>
               
@@ -67,9 +67,9 @@
               
                 <td><%= bop%></td>
                 <td><%= @budget %></td>
-                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),@budget).sum('montant'), :delimiter => ' ') %></td>
+                <td><%= number_with_delimiter(Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ? AND type_ae = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),@budget, @type_ae).sum('montant'), :delimiter => ' ') %></td>
             </tr>
-            <% Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), @budget).each do |choru| %>
+            <% Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ? AND type_ae = ?',bop, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), @budget,@type_ae).each do |choru| %>
               <tr>
          
                 <td><%= l(choru.date, format: "%e %b %Y") %></td>
