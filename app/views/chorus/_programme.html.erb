@@ -6,7 +6,7 @@
     <div class="box-chiffres-chorus">
       <div class="box-chiffres-chorus-lfi">LFI <br> <span><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
       <div class="box-chiffres-chorus-dispo">Crédits ouverts <br><span><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
-      <div class="box-chiffres-chorus-conso">Consommé <br><span> <%= number_with_delimiter(Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ?',Date.new(@dates[0].to_i,1,1), Date.new(@dates[0].to_i,12,31)).sum('montant'), :delimiter => ' ') %> €</span></div>
+      <div class="box-chiffres-chorus-conso">Consommation <br><span> <%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</span></div>
       <div class="box-chiffres-chorus-reserve">Réserve <br><span><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
     </div>
   </div>
@@ -447,7 +447,7 @@ Highcharts.stockChart('programme', {
       },
     
     },
-      <% if Choru.where('centre_financier like ?','%'+@search+'%').where('date >= ? AND date <= ?', Date.new(2020,1,1), Date.new(2020,12,31)).where.not(domaine_fonctionnel: nil).count > 0%>
+      <% if Choru.where('centre_financier like ?','%'+@search+'%').where('date >= ? AND date <= ? AND type_ae = ?', Date.new(2020,1,1), Date.new(2020,12,31), @type_ae).where.not(domaine_fonctionnel: nil).count > 0%>
       {
         name: 'Consommation',
       color: '#000091',
@@ -456,7 +456,7 @@ Highcharts.stockChart('programme', {
   
           <% @montant = 0 %>
          [Date.UTC(2020,1,1),0],
-          <% Choru.where('centre_financier like ?','%'+@search+'%').where('date >= ? AND date <= ?', Date.new(2020,1,1), Date.new(2020,12,31)).where.not(domaine_fonctionnel: nil).order('date ASC').each do |programme| %>
+          <% Choru.where('centre_financier like ?','%'+@search+'%').where('date >= ? AND date <= ? AND type_ae = ?', Date.new(2020,1,1), Date.new(2020,12,31), @type_ae).where.not(domaine_fonctionnel: nil).order('date ASC').each do |programme| %>
                  
             [ Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
             <% @montant = @montant + programme.montant %>

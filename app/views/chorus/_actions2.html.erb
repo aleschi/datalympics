@@ -38,11 +38,11 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><%= action %></td>
-                <td><%= number_with_delimiter(Choru.where(domaine_fonctionnel: action).where('centre_financier = ? AND date >= ? AND date <= ?',uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+                <td><%= action[1] %></td>
+                <td><%= number_with_delimiter(Choru.where(domaine_fonctionnel: action[1]).where('centre_financier = ? AND date >= ? AND date <= ?',uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
             </tr>
         
-        <% Choru.where(domaine_fonctionnel: action).where('centre_financier = ? AND date >= ? AND date <= ?',uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |choru| %>
+        <% Choru.where(domaine_fonctionnel: action[1]).where('centre_financier = ? AND date >= ? AND date <= ?',uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |choru| %>
           <tr>
             <td><%= l(choru.date, format: "%e %b %Y") %></td>
             <td><%= choru.type_piece %></td>
@@ -207,12 +207,12 @@ title: {
     series: [
     <% @actions_show.each do |action|%>
       {
-        name: '<%= action %>',
+        name: '<%= action[0] %> - <%= action[1] %>',
         data: [
         <% @dates.each do |date| %>
            <% @montant = 0 %>
      
-         <% Choru.where(domaine_fonctionnel: action).where('date >= ? AND date <= ?', Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
+         <% Choru.where(domaine_fonctionnel: action[1]).where('centre_financier = ? AND date >= ? AND date <= ?', action[0], Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
           <% @montant = @montant + programme.montant %>
           <% end %>

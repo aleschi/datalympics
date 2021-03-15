@@ -93,6 +93,7 @@ class ChorusController < ApplicationController
           @montant_lfi = @programme.where('type_budget = ? OR type_budget = ?', "Bud. voté ou en cours de vote", "Loi de Finances Initiale").first.montant
           @montant_dispo = @programme.where('type_piece != ? AND type_piece != ?',"MADI",'RB').sum('montant')
           @montant_reserve = @programme.where('type_piece = ?','RB').sum('montant') 
+          @montant_conso = Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ? AND type_ae = ?', @date, @date + 1.year,@type_ae).sum('montant')
   
           @bops = @chorus.select { |choru| choru.centre_financier.count("-") == 1 } #tous les bops du programme  
           #compter le nombre de bop differents 
@@ -131,8 +132,8 @@ class ChorusController < ApplicationController
 
          #nombre d'actions 
           @uo_actions = []
-          Choru.where('centre_financier = ? AND date >= ? AND date < ?',@uo_arr[0],@date, @date + 1.year).where.not(domaine_fonctionnel: nil).each do |uo|
-            @uo_actions << uo.domaine_fonctionnel
+          Choru.where('centre_financier = ? AND date >= ? AND date < ? AND type_ae = ?',@uo_arr[0],@date, @date + 1.year, @type_ae).where.not(domaine_fonctionnel: nil).each do |uo|
+            @uo_actions << [@uo_arr[0], uo.domaine_fonctionnel]
           end 
           @uo_actions.uniq!
           @uo_action = @uo_actions[0]
@@ -208,7 +209,7 @@ class ChorusController < ApplicationController
     #nombre d'actions 
       @uo_actions = []
       Choru.where('centre_financier = ? AND date >= ? AND date < ?', @uo_arr[0],@date, @date + 1.year).where.not(domaine_fonctionnel: nil).each do |uo|
-        @uo_actions << uo.domaine_fonctionnel
+        @uo_actions << [@uo_arr[0], uo.domaine_fonctionnel]
       end 
       @uo_actions.uniq!
       @uo_action = @uo_actions[0]
@@ -263,7 +264,7 @@ class ChorusController < ApplicationController
       @uo_actions = []
       @uos_show.each do |uo_show|
       Choru.where('centre_financier = ? AND date >= ? AND date < ?',uo_show,@date, @date + 1.year).where.not(domaine_fonctionnel: nil).each do |uo|
-        @uo_actions << uo.domaine_fonctionnel
+        @uo_actions << [uo_show, uo.domaine_fonctionnel]
       end 
       end
       @uo_actions.uniq!
@@ -294,12 +295,15 @@ class ChorusController < ApplicationController
      @uo_actions = []
       @uos_show.each do |uo_show|
       Choru.where('centre_financier = ? AND date >= ? AND date < ?',uo_show,@date, @date + 1.year).where.not(domaine_fonctionnel: nil).each do |uo|
-        @uo_actions << uo.domaine_fonctionnel
+        @uo_actions << [uo_show, uo.domaine_fonctionnel]
       end 
       end
       @uo_actions.uniq!
     @uo_action = @uo_actions[0]
-    @actions_show = params[:id]
+    @actions_show = []
+    params[:id].each do |c|
+        @actions_show << c.split
+    end
     @chorusconso = Chorusconso.where('centre_financier = ? AND action = ?',@uo.first.centre_financier, @uo_action ).order('date ASC')
   end 
   
