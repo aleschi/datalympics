@@ -32,7 +32,7 @@
         <tr>
           <th scope="col">Date</th>
           <% @type_pieces.each do |piece|%>
-            <th scope="col"><%= piece%></th>
+          <th scope="col"><a type="button" class="show-add-cursor" data-toggle="modal" data-target="#infospiece"><%= piece%></a></th>
           <% end %>
 
         </tr>
@@ -321,17 +321,7 @@ Highcharts.stockChart('programme', {
   },
   tooltip: {
    
-     formatter: function() {
-      var point = this,
-        series = point.series,
-       
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
-        content =  point.key + '<br>' + '<b>Crédits disponibles : '+ number + ' k€</b><br/>';
 
-      return header + content;
-    },
     borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
@@ -366,7 +356,8 @@ Highcharts.stockChart('programme', {
                 connectorAllowed: false
             }, 
             marker: {
-                enabled: true
+                enabled: true,
+                radius:2,
             },
           step: 'left',
         }
@@ -376,8 +367,21 @@ Highcharts.stockChart('programme', {
     series: [
       <% if @vision == "0" || @vision == "2"%> 
       {
-        name: 'Statique - réserve',
+        name: 'Crédits ouverts',
         color: '#2E5D63',
+        tooltip: {
+           pointFormatter: function() {
+      var point = this,
+          series = point.series,
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+         
+        content =  point.name + '<br/>'+ '<b>Crédits ouverts : '+ number + ' k€</b><br/>';
+
+      return header + content;
+    },
+        },
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
@@ -410,7 +414,7 @@ Highcharts.stockChart('programme', {
             },
      
     }, {
-        name: 'Statique + Réserve',
+        name: 'Crédits ouverts + Réserve',
       color: '#C68D7B',
         data: [
           <% @dates.each do |date| %>
@@ -428,13 +432,70 @@ Highcharts.stockChart('programme', {
           <% end %>
           <% end %>
         ],
+      tooltip: {
+           pointFormatter: function() {
+      var point = this,
+        series = point.series,
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+         
+        content =   point.name + '<br/>'+ '<b>Crédits ouverts + réserve: '+ number + ' k€</b><br/>';
+
+      return header + content;
+    },
+      },
     
     },
+      <% if Choru.where('centre_financier like ?','%'+@search+'%').where('date >= ? AND date <= ?', Date.new(2020,1,1), Date.new(2020,12,31)).where.not(domaine_fonctionnel: nil).count > 0%>
+      {
+        name: 'Consommation',
+      color: '#000091',
+       
+        data: [
+  
+          <% @montant = 0 %>
+         [Date.UTC(2020,1,1),0],
+          <% Choru.where('centre_financier like ?','%'+@search+'%').where('date >= ? AND date <= ?', Date.new(2020,1,1), Date.new(2020,12,31)).where.not(domaine_fonctionnel: nil).order('date ASC').each do |programme| %>
+                 
+            [ Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
+            <% @montant = @montant + programme.montant %>
+            <% end %> 
+   
+        ],
+        tooltip: {
+   
+     pointFormatter: function() {
+      var point = this,
+       firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        number = Highcharts.numberFormat(point.y, -1, ',',' '),   
+          header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+        content =  '<b>Montant consommé : '+ number + ' k€</b><br/>';
+        return header + content;
+    },
+    },
+      },
+
+      <% end %>
+      
       <% end %>
       <% if @vision == "1" || @vision == "2"%> 
              {
-        name: 'dynamique',
+        name: 'Mouvements',
         color: '#20E37B',
+         tooltip: {
+           pointFormatter: function() {
+      var point = this,
+        series = point.series,
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+         
+        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
+
+      return header + content;
+    },
+      },
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
@@ -450,6 +511,7 @@ Highcharts.stockChart('programme', {
           <% end %>
           <% end %>
         ],
+               
     
     },
       <% end %>  

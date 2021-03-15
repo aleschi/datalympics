@@ -122,7 +122,7 @@ title: {
         firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
           number = Highcharts.numberFormat(point.y, -1, ',',' '),
         header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-        content = '<b>'+series.name + ' disponible : ' + number  + ' k€</b><br/>';
+        content = '<b>' + series.name + ' : ' + number  + ' k€</b><br/>';
 
       return header + content;
     },
@@ -152,7 +152,7 @@ title: {
       <% @bops_show.each do |bop|%>
        <% if @vision == "1" || @vision == "2"%> 
       {
-        name: '<%= bop%> dynamique',
+        name: '<%= bop%>',
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
@@ -168,7 +168,7 @@ title: {
       <% end %>
       <% if @vision == "0" || @vision == "2"%> 
       {
-        name: '<%= bop %> statique',
+        name: '<%= bop %> crédits ouverts',
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>

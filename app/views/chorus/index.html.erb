@@ -24,35 +24,28 @@
     
     <div class="chorus-search-box">
       <div class="chorus-search-box-form2">
-        <div class="dropdown">
-         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-index" type="button" id="vision" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Vision<i class="fas fa-chevron-down"></i></button>
-          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list dropwdown-menu-chorus-navbar-list2" aria-labelledby="vision">         
-            <li><label><%= radio_button_tag :vision, "0", checked: true %>  Statique </label></li>
-            <li><label><%= radio_button_tag :vision, "1" %>  Dynamique</label></li>
-            <li><label><%= radio_button_tag :vision, "2" %>  Statique et dynamique</label></li>
-         </div>
+        <div class="select-box-chorus">
+          <label>Vision</label>
+          <%= select_tag :vision, options_for_select([["Statique","0"],["Dynamique","1"],["Statique et Dynamique","2"]]), {prompt:"Sélectionner"} %>
+   
         </div>
-        <div class="dropdown">
-         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-index" type="button" id="typeae" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">AE/CP<i class="fas fa-chevron-down"></i></button>
-          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list dropwdown-menu-chorus-navbar-list2" aria-labelledby="typeae">         
-            <li><label><%= radio_button_tag :type_ae, "cp",checked: true %>  CP </label></li>
-            <li><label><%= radio_button_tag :type_ae, "ae" %>  AE</label></li>
-         </div>
+        <div class="select-box-chorus">
+          <label>AE/CP</label>
+          <%= select_tag :type_ae, options_for_select([["CP","cp"],["AE","ae"]]), {prompt:"Sélectionner"} %>
+   
         </div>
-        <div class="dropdown">
-         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-index" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HT2/T2<i class="fas fa-chevron-down"></i></button>
-          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list dropwdown-menu-chorus-navbar-list2" aria-labelledby="budget">         
-            <li><label><%= radio_button_tag :budget, "HT2",checked: true %>  HT2 </label></li>
-            <li><label><%= radio_button_tag :budget, "T2" %>  T2</label></li>
-         </div>
+        <div class="select-box-chorus">
+          <label>HT2/T2</label>
+          <%= select_tag :budget, options_for_select([["HT2","HT2"],["T2","T2"]]), {prompt:"Sélectionner"} %>
+   
         </div>
-        <div class="dropdown">
-         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-index" type="button" id="date" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">2020<i class="fas fa-chevron-down"></i></button>
-          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list dropwdown-menu-chorus-navbar-list2" aria-labelledby="date">       
-            <li><label>2020 </label></li>
-           
-         </div>
-       </div>
+        <div class="select-box-chorus">
+          <label>Année</label>
+          <%= select_tag :dates, options_for_select([["2020","2020"]]), {prompt:"Sélectionner"} %>
+   
+        </div>
+ 
+       
       </div>
     </div>
     
