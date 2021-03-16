@@ -5,16 +5,12 @@
   </div><br><br>
 
   <div class="row">
-     <div class="col-md-6">
-        <div id="container-bar0"></div>
+<div class="col-md-12">
+       <div id="programme"></div>
      </div>
-      <div class="col-md-6">
-       <div id="container-bar1"></div>
-     </div>
+
    </div>
-  <div class="ouvrages-risques-infos">
-      Données prévisionnelles manquantes 
-  </div>
+
   <br><br>
  
    <div class="SD-topo-box-title">
@@ -91,70 +87,6 @@
 <% end %>
 
 <% if !@ouvrage.ouvrages_financements.nil? && @ouvrage.ouvrages_financements.count > 0 %>
-<script>
-Highcharts.chart('container-bar0', {
-    chart: {
-        type: 'bar',
-      style:{
-          fontFamily: "Marianne Regular",
-         maxWidth: '400px',
-          },
-      height: "300px",
-    },
-    title: {
-        text: null,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-    },
-  colors: ['#2E5D63'],
-    xAxis: {
-        categories:  ["Budget initial", "Budget recalculé", "Dépenses à 2020 prévues", "Dépenses réalisées" ],
-        title: {
-            text: null
-        }
-    },
-    yAxis: {
-        min: 0,
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Montant (M€)',
-            align: 'high'
-        },
-        labels: {
-            overflow: 'justify'
-        }
-    },
-    tooltip: {
-        valueSuffix: ' M€',
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-  legend: {
-    enabled: false,
-  },
-    plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    
-    credits: {
-        enabled: false
-    },
-    series: [ {
-        name: 'Suivi',
-       color: "#2E5D63",
-        data: [ <%= (@ouvrage.budget/1000000).to_i %> ,  <%= (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu/1000000).to_i%> , {y:0, color: '#C68D7B'}, {y:<%= (@ouvrage.ouvrages_depenses.sum('montant')/1000000).to_i%>, color: '#C68D7B'} ],
-     }]
-});
-  </script>
 <% if !@ouvrage_financeurs.nil?%>
 <script>
 Highcharts.chart('container-cylinder', {
@@ -244,7 +176,7 @@ Highcharts.chart('container-bar1', {
       backgroundColor: '#fff',
           style:{
           fontFamily: "Marianne Regular",
-          maxWidth: '400px',
+          //maxWidth: '400px',
           },
       height: "300px",
     },
@@ -259,7 +191,7 @@ Highcharts.chart('container-bar1', {
     },
 
     xAxis: {
-        categories: ['Prévu 2018','Réalisé 2018','Prévu 2019', 'Réalisé 2019', "Prév 2020 CA 2020", "Prev atterissage 2020", "Prev 2021"],
+        categories: ['Prévu 2018','Réalisé 2018','Prévu 2019', 'Réalisé 2019', "Prévu 2020", "Réalisé 2020", "Prevu 2021", "Réalisé 2021"],
         crosshair: true
     },
     yAxis: {
@@ -273,10 +205,9 @@ Highcharts.chart('container-bar1', {
     enabled: false,
   },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M€</b></td></tr>',
-        footerFormat: '</table>',
+        headerFormat: '<span style="font-size:10px">{point.key}</span>',
+        pointFormat: '<br/> <span style="padding:0"><b>{point.y:.1f} M€</b></span>',
+
         shared: true,
       borderColor: 'transparent',
    borderRadius: 16,
@@ -294,13 +225,13 @@ Highcharts.chart('container-bar1', {
     },
     series: [{
         name: 'Budget',
-        data: [{y:0, color:"#bfbfbf" },
+        data: [{y:30, color:"#bfbfbf" },
                {y: <%= (@ouvrage.ouvrages_depenses.where("date = ?", Date.new(2018,1)).sum('montant')/1000000).round %>, color:"#C68D7B" },
-               {y:0, color:"#bfbfbf" },
+               {y:60, color:"#bfbfbf" },
                {y: <%= (@ouvrage.ouvrages_depenses.where("date = ?", Date.new(2019,1)).sum('montant')/1000000).round %> , color:"#C68D7B" }, 
-               {y:0, color: "#2E5D63"}, 
-               {y:<%= (@ouvrage.ouvrages_depenses.where("date = ?", Date.new(2020,1)).sum('montant')/1000000).round %>, color: "#20E37B"}, 
-               {y:0, color: "#5770BE"}]
+               {y:100, color: "#bfbfbf"}, 
+               {y:<%= (@ouvrage.ouvrages_depenses.where("date = ?", Date.new(2020,1)).sum('montant')/1000000).round %>, color: "#C68D7B"}, 
+               {y:200, color: "#bfbfbf"}, {y:0, color: "#C68D7B"}]
 
     }]
 });
@@ -314,5 +245,207 @@ Highcharts.chart('container-bar1', {
     prevText: "Précédent",    
     nextText:'Suivant',
   });
+});
+</script>
+
+<script>
+  
+Highcharts.stockChart('programme', {
+ // mapNavigation: {
+ //           enableMouseWheelZoom: true
+ //       },
+   chart:{
+       backgroundColor: '#fff',
+       borderColor: '#fff',
+       type: 'scatter',
+     height: '600px',
+    // width: '2000px',
+       spacing: [40,40,40,40],
+        style:{
+          fontFamily: "Marianne Regular",
+          // maxWidth: '500px'
+          },
+      
+        zoomType: 'x',
+
+          },
+  navigator: {
+        maskFill: 'rgba(248,248,248,0.3)',
+    },
+
+  rangeSelector: {
+
+            buttons: [ {
+                type: 'month',
+                count: 1,
+                text: '1m'
+            }, {
+                type: 'month',
+                count: 3,
+                text: '3m'
+            },{
+                type: 'month',
+                count: 6,
+                text: '6m'
+            }, {
+                type: 'year',
+                count: 1,
+                text: '1an'
+            }, {
+                type: 'all',
+                text: 'Tout'
+            }],
+            selected: 3,
+            buttonTheme: { // styles for the buttons
+            fill: '#F8F8F8',
+            stroke: 'none',
+            'stroke-width': 0,
+            r: 4,
+            style: {
+                color: '#000',
+                fontWeight: 'bold'
+            },
+            states: {
+                hover: {
+                },
+                select: {
+                    fill: '#000091',
+                    style: {
+                        color: 'white'
+                    }
+                }
+                // disabled: { ... }
+            }
+        },
+        inputStyle: {
+                color: '#000',
+              
+            },
+        labelStyle: {
+            color: '#000', 
+        },
+        },
+  legend: {
+    enabled: true,
+    verticalAlign: 'top',
+  
+  },
+    title: {
+            text:"",
+    },
+ 
+    yAxis: {
+      gridLineColor: '#fff', 
+        title: {
+            text: 'Total k€'
+        }
+    },
+  scrollbar: {
+    barBackgroundColor: '#CECECE',
+    barBorderColor: "#F8F8F8",
+    barBorderRadius: 6,
+    buttonBackgroundColor: "#F8F8F8",
+    buttonArrowColor:'#CECECE',
+    buttonBackgroundColor:"#F8F8F8",
+    buttonBorderColor:"#F8F8F8",
+    buttonBorderRadius: 6,
+    rifleColor:"#F8F8F8",
+  },
+  tooltip: {
+   
+
+    borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+  xAxis:{
+    type: 'datetime',
+  //  tickInterval: 30 * 24 * 3600 * 1000,
+  // tickPixelInterval:200,
+  },
+  yAxis: {
+    plotLines: [{
+      color: '#FF6F4C',
+      label: {
+        text: "Prev fin d'année",
+        textAlign: 'left',
+        verticalAlign: 'middle',
+        
+        x: -30,
+        style: {
+          color:'#FF6F4C',
+        },
+      },
+      zIndex: 1,
+      width: 2,
+      value: <%= 200000000/1000 %>,
+    }],
+  },
+    plotOptions: {
+        series: {
+          lineWidth: 2,
+            label: {
+                connectorAllowed: false
+            }, 
+            marker: {
+                enabled: true,
+                radius:2,
+            },
+          step: 'left',
+        }
+    },
+ 
+  
+    series: [
+      {
+        name: 'Dépenses exécutées',
+      color: '#2E5D63',
+        data: [
+    
+          <% @montant = 0 %>
+         
+          <% OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).each do |depense| %>
+                       
+            {name:  'Dépenses', x: Date.UTC(<%=depense.date.year%>,<%= depense.date.month-1%>, <%=depense.date.day%>),y: <%=  ((@montant + depense.montant).to_f/1000).round%>,  },
+            <% @montant = @montant + depense.montant %>
+          <% end %> 
+    
+
+        ],
+      tooltip: {
+           pointFormatter: function() {
+      var point = this,
+        series = point.series,
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+         
+        content =   '<b>Dépense: '+ number + ' k€</b><br/>';
+
+      return header + content;
+    },
+      },
+    
+    },
+ 
+  
+      
+            ],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
 });
 </script>

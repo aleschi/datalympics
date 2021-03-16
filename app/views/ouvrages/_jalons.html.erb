@@ -76,7 +76,7 @@
         <span>Chemin critique</span>
       </div><br><br>
       <div class="ouvrages-flexslider-text">
-       Diagramme de PERT 
+       A définir
       </div><br><br>
    
     
@@ -113,6 +113,22 @@ Highcharts.chart('container-steps', {
         },
         lineColor: "#8F8F8F",
         type: 'datetime',
+      plotLines: [{
+      color: 'red',
+      label: {
+        text: "JOP2024",
+        textAlign: 'left',
+        verticalAlign: 'middle',
+        
+        y: -30,
+        style: {
+          color:'red',
+        },
+      },
+      zIndex: 1,
+      width: 5,
+      value: Date.UTC(2024,6,26),
+    }],
     }],
     yAxis: {
         title: {
@@ -242,12 +258,12 @@ Highcharts.chart('container-steps', {
                amount: 1,
                fill: 'red',
              },
-          borderColor:'#fff',
+          borderColor:'red',
           color: 'red',
         }],
       
         dataLabels: {
-            enabled: true
+            enabled: false,
         }
     }],
 

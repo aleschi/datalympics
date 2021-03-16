@@ -457,6 +457,7 @@ button:focus{
   pointer-events: none;
 }
 
+
 /* IE11 hide native button (thanks Matt!) */
 select::-ms-expand {
 display: none;
@@ -2526,15 +2527,20 @@ background-color:#000091;
     cursor:pointer;
   }
 }
+.select-box-chorus{
+  position:relative;
+}
+
 .select-box-chorus label {
   display:block;
 }
 .select-box-chorus select{
+  position:relative;
    background-color:transparent;
   border:none;
   color:#000;
   font-size:16px;
-  padding:12px 20px;
+  padding:12px 25px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   border-bottom:2px solid #000091;
@@ -2542,7 +2548,27 @@ background-color:#000091;
   margin-left:15px;
   font-weight:500;
   appearance:none;
+   -moz-appearance: none; /* Firefox */ 
+ -webkit-appearance: none; /* Safari and Chrome */
+  -ms-appearance: none;
   outline:none;
+}
+.select-box-chorus:after{
+  font-family: FontAwesome;
+    content: '\f078';
+  font-size: 15px ;
+  color: #000;
+  right: 25px;
+  font-size:10px;
+  /*Adjust for position however you want*/
+  
+  top: 42px;
+  padding: 0 0 2px;
+ 
+  /*left line */
+  
+  position: absolute;
+  pointer-events: none;
 }
 .dropwdown-menu-chorus-index{
   background-color:transparent;
