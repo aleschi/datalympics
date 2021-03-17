@@ -63,12 +63,15 @@
 
 <%= render 'shared/message'%>
     <% if !@nav.nil?%>
-    <div class="hidden-xs">
+    <div class="hidden-xs hidden-sm">
        <%= render 'layouts/navigation' %>
+    </div>
+    <div class="visible-sm visible-xs">
+      <%= render 'layouts/navigation_xs' %>
     </div>
    
     <div class="row margin-none">
-      <div class='navigation-margin col-sm-12 col-xs-12 padding-none'>
+      <div class='navigation-margin col-xs-12 padding-none'>
         <%= yield %>
       </div>
     </div>

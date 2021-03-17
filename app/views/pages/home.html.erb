@@ -1,7 +1,10 @@
 <div class="EB_page">
-  <div class="home-title">
+  <div class="home-title hidden-sm hidden-xs">
     Bienvenue sur le Tableau de bord de la<br>
     Direction du Budget
+  </div>
+  <div class="home-title visible-sm visible-xs">
+    Bienvenue sur le Tableau de bord de la Direction du Budget
   </div>
   
   <div class="row">
@@ -42,7 +45,7 @@
     </div>
     <div class="home-box-infos-box">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-6">
           <div>
             <div class="home-box-infos1">+  <%= number_with_delimiter(OuvragesDepense.all.sum('montant').to_i, :delimiter => ' ') %> €</div>
             <div class="home-box-infos2">Dépenses cumulées</div>
@@ -59,7 +62,7 @@
           </div>
           </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-6">
           <div id="container-jauge2">
             
           </div>

@@ -55,7 +55,7 @@
             <td class="risque-infos-name"><span class='critique'><i class="fas fa-exclamation-triangle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %> <% end %></td>
             <td>Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%></td>
             <td>Retard : <%= revue.delai_time.to_i %> mois </td>
-            <td>MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
+            <td class="hidden-sm hidden-xs">MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
           
         </tr>
          <% end %>
@@ -87,7 +87,7 @@
             <td class="risque-infos-name"><span class='important'><i class="fas fa-exclamation-triangle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %> <% end %></td>
             <td>Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%></td>
             <td>Retard : <%= revue.delai_time.to_i %> mois </td>
-            <td>MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
+            <td class="hidden-sm hidden-xs">MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
           
         </tr>  
           <% end %>
@@ -120,7 +120,7 @@
             <td class="risque-infos-name"><span class='modere'><i class="fas fa-exclamation-triangle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %> <% end %></td>
             <td>Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%></td>
             <td>Retard : <%= revue.delai_time.to_i %> mois </td>
-            <td>MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
+            <td class="hidden-sm hidden-xs">MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
           
         </tr> 
          <% end %>
@@ -152,7 +152,7 @@
             <td class="risque-infos-name"><span class='faible'><i class="fas fa-exclamation-triangle"></i></span> <%= link_to ouvrage_path(Ouvrage.find(revue.ouvrage_id)) do %><%= revue.ouvrage.name %> <% end %></td>
             <td>Dernière MAJ : <%= l(revue.date_maj, :format => '%B %Y')%></td>
             <td>Retard : <%= revue.delai_time.to_i %> mois </td>
-            <td>MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
+            <td class="hidden-sm hidden-xs">MOA : <%= revue.ouvrage.maitre_oeuvre %></td>
           
         </tr> 
          <% end %>

@@ -1,10 +1,10 @@
 
   <div class="row">
 
-  <div class="col-md-8">
+  <div class="col-md-8 col-sm-12">
     <div class="SD-table-box ouvrage-topo-box">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6">
            <div class="O-topo-image">
             <% if @ouvrage.photo.attached? %>
             <%= image_tag @ouvrage.photo%>
@@ -12,15 +12,52 @@
           </div>
          
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 hidden-sm hidden-xs">
           <div id="container-jauge">
             
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 hidden-sm hidden-xs">
           <div id="container-jauge2">
             
           </div>
+        </div>
+        <div class="visible-sm col-sm-6">
+          <div class="ouvrages-budget-infos">
+              <div class="calendar-infos-box">
+                <div>
+                  <i class="fas fa-coins"></i>
+                </div>
+                <div>
+                  <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €<br>
+                  <span>Budget Initial</span>
+                </div>
+              </div>
+          </div>
+          <div class="ouvrages-budget-infos">
+            <div class="calendar-infos-box">
+              <div>
+                 <i class="fas fa-euro-sign"></i>
+              </div>
+              <div>
+                <% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>0<%end%> €<br>
+                <span>Dépenses réalisées</span>
+              </div>
+            </div>
+           
+        </div>
+          <div class="ouvrages-budget-infos">
+            <div class="calendar-infos-box">
+                <div>
+                  <i class="fas fa-coins"></i>
+                </div>
+                <div>
+                  <% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €<br>
+                  <span>Budget recalculé</span>
+                </div>
+              </div>
+        </div>
+
         </div>
         </div>
        <div class="O-topo-infos-text">
@@ -28,7 +65,7 @@
             MOA : <%= @ouvrage.maitre_oeuvre %><br>
           </div>
       <br>
-      <div class="row">
+      <div class="row hidden-sm">
         <div class="ouvrages-budget-infos-box">
           <div class="ouvrages-budget-infos">
               <div class="calendar-infos-box">
@@ -68,8 +105,8 @@
       </div>
     </div>
   </div>
-    <div class="col-md-4">
-      <div class="SD-table-box ouvrage-topo-box">
+    <div class="col-md-4 col-sm-6">
+      <div class="SD-table-box ouvrage-topo-box ouvrage-topo-box-xs">
         <div class="SD-topo-box-title">
             <span>Maîtrise des coûts</span>
          </div><br><br>
@@ -103,9 +140,18 @@
         </div>
       </div>
     </div>
+ <div class="visible-sm col-sm-6">
+   <div class="SD-table-box ouvrage-topo-box ouvrage-topo-box-xs">
+     <div id="container-jauge-xs">
+            
+          </div>
+     <div id="container-jauge2-xs">
+            
+          </div>
+   </div>
+    </div>
  
- 
-</div><br><br>
+</div>
 
 
 
@@ -285,4 +331,178 @@ Highcharts.chart('container-jauge2', {
 });
   </script>
 
+<script>
 
+Highcharts.chart('container-jauge-xs', {
+
+    chart: {
+        type: 'solidgauge',
+        height: '150px',
+        spacing: [0,0,0,0],
+    },
+
+    title: {
+        text: null,
+       
+    },
+
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 15
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '100%',
+            innerRadius: '88%',
+            backgroundColor: "#C4C4C4",
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            
+          tooltip: "",
+          
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '10px',
+                color: '#8F8F8F',
+              },
+              valueSuffix: '%',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
+            verticalAlign: 'middle',
+              align: 'center',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Budget consommé',
+        data: [{
+            color: "#20E37B",
+            radius: '100%',
+            innerRadius: '88%',
+            y: <% if @ouvrage.ouvrages_financements.count > 0 %> <%= (@ouvrage.ouvrages_depenses.sum('montant')/@ouvrage.ouvrages_financements.last.montant_prevu.to_i*100).round %><%else%> <%= (@ouvrage.ouvrages_depenses.sum('montant')/@ouvrage.budget*100).round %><% end %>
+        }]
+    }]
+});
+  </script>
+
+<script>
+
+Highcharts.chart('container-jauge2-xs', {
+
+    chart: {
+        type: 'solidgauge',
+        height: '150px',
+        spacing: [0,0,0,0],
+    },
+
+    title: {
+        text: null,
+       
+    },
+
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 15
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '100%',
+            innerRadius: '88%',
+            backgroundColor: "#C4C4C4",
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            
+          tooltip: "",
+          
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '10px',
+                color: '#8F8F8F',
+              },
+              valueSuffix: '%',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
+            verticalAlign: 'middle',
+              align: 'center',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Avancée travaux',
+        data: [{
+            color: "#20E37B",
+            radius: '100%',
+            innerRadius: '88%',
+            y: 20
+        }]
+    }]
+});
+  </script>
