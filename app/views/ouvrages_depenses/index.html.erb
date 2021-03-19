@@ -17,7 +17,9 @@
       <div class="chart-budget-date">Mise à jour 14 janvier 2021 </div>
 
       <div class="chart-budget-box">
-        <div class="chart-budget-col-title chart-budget-col-title-total">ECART TOTAL  <span><%= number_with_delimiter((@maquette_budget_nouveau+@maquette_budget_augmentation+@maquette_budget_diminution+@maquette_ecart_reserve).to_i, :delimiter => ' ') %> €</span></div>
+        <div class="chart-budget-col-title chart-budget-col-title-total">ECART TOTAL  <span><%= number_with_delimiter((@maquette_budget_nouveau+@maquette_budget_augmentation+@maquette_budget_diminution+@maquette_ecart_reserve).to_i, :delimiter => ' ') %> €</span>
+          
+        </div>
         
         <div class="chart-budget-col-title"><a href="#MonCollapse-augmentation" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-augmentation" >Augmentation <i class="fas fa-angle-down"></i> <span class="budget-positif"><%= number_with_delimiter((@maquette_budget_nouveau+@maquette_budget_augmentation).to_i, :delimiter => ' ') %> €</span></a></div>
         <section id="MonCollapse-augmentation" class="collapse">

@@ -2172,14 +2172,18 @@ box-shadow:none;
   text-transform:uppercase;
   height:45px;
  padding:8px 15px;
+  padding-right:120px;
+  position:relative;
   a{
     color: #000091;
   }
   span{
     position:absolute;
     right:30px;
+    top:8px;
   }
 }
+
 .chart-budget-col-title-total {
  background-color:#F0F0F0;
 }
@@ -2188,12 +2192,15 @@ box-shadow:none;
    padding:8px 15px;
   font-size:13px;
   text-decoration:underline;
+   padding-right:120px;
+  position:relative;
     a{
     color: #000091;
   }
   span{
     position:absolute;
     right:30px;
+    top:8px;
   }
 }
 .budget-positif{
@@ -2206,9 +2213,21 @@ box-shadow:none;
   color: #000000;
   padding:8px 15px;
   font-size:13px;
+   padding-right:120px;
+  position:relative;
     span{
     position:absolute;
     right:30px;
+      top:8px;
+  }
+}
+@media(max-width:992px){
+  .chart-budget-col-title{
+    font-size:13px;
+    
+  }
+  .chart-budget-col-text{
+   font-size:11px;
   }
 }
 #container-steps .highcharts-legend-item.highcharts-series-0 .highcharts-point {
