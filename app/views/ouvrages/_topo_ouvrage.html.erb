@@ -10,14 +10,17 @@
             <%= image_tag @ouvrage.photo%>
             <% end %>
           </div>
-         
+         <div class="O-topo-infos-text visible-xs">
+            Lieu : <%= @ouvrage.adresse %><br>
+            MOA : <%= @ouvrage.maitre_oeuvre %><br>
+          </div>
         </div>
-        <div class="col-md-4 hidden-sm hidden-xs">
+        <div class="col-md-4 hidden-sm col-xs-6">
           <div id="container-jauge">
             
           </div>
         </div>
-        <div class="col-md-4 hidden-sm hidden-xs">
+        <div class="col-md-4 hidden-sm col-xs-6">
           <div id="container-jauge2">
             
           </div>
@@ -60,12 +63,12 @@
 
         </div>
         </div>
-       <div class="O-topo-infos-text">
+       <div class="O-topo-infos-text hidden-xs">
             Lieu : <%= @ouvrage.adresse %><br>
             MOA : <%= @ouvrage.maitre_oeuvre %><br>
           </div>
       <br>
-      <div class="row hidden-sm">
+      <div class="row hidden-sm hidden-xs">
         <div class="ouvrages-budget-infos-box">
           <div class="ouvrages-budget-infos">
               <div class="calendar-infos-box">
@@ -101,6 +104,42 @@
                 </div>
               </div>
         </div>
+        </div>
+      </div>
+      <div class="visible-xs">
+        <div class="ouvrages-budget-infos">
+              <div class="calendar-infos-box">
+                <div>
+                  <i class="fas fa-coins"></i>
+                </div>
+                <div>
+                  <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €<br>
+                  <span>Budget Initial</span>
+                </div>
+              </div>
+          </div>
+          <div class="ouvrages-budget-infos">
+            <div class="calendar-infos-box">
+              <div>
+                 <i class="fas fa-euro-sign"></i>
+              </div>
+              <div>
+                <% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>0<%end%> €<br>
+                <span>Dépenses réalisées</span>
+              </div>
+            </div>
+           
+        </div>
+          <div class="ouvrages-budget-infos">
+            <div class="calendar-infos-box">
+                <div>
+                  <i class="fas fa-coins"></i>
+                </div>
+                <div>
+                  <% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €<br>
+                  <span>Budget recalculé</span>
+                </div>
+              </div>
         </div>
       </div>
     </div>

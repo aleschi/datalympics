@@ -10,7 +10,63 @@
   
   <div  class="SD-table-box">
     <div class="SF-topo-financeurs-title"><span>Les ouvrages en chiffres </span></div><br><br>
-    <div class="calendar-infos">
+    <div class="visible-xs">
+      <div class="calendar-infos-box">
+      <div>
+        <i class="fas fa-coins"></i>
+      </div>
+      <div>
+        <%= number_with_delimiter(Maquette.where.not(ouvrage_id: nil).where("date = ?", Date.new(2018,6,18)).sum('total').to_i, :delimiter => ' ') %> €<br>
+        <span>Budget Initial</span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-building"></i>
+      </div>
+      <div>
+      <%= Ouvrage.all.count %> <br>
+      <span>Ouvrages</span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-flag"></i>
+      </div>
+      <div>
+      2%<br>
+        <span>Ouvrages finalisés</span>
+      </div>
+    </div>
+        <div class="calendar-infos-box">
+      <div>
+         <i class="fas fa-coins"></i>
+      </div>
+      <div>
+        <%= number_with_delimiter(Maquette.where.not(ouvrage_id: nil).where("date = ?", Date.new(2021,1,14)).sum('total').to_i, :delimiter => ' ') %> €<br>
+        <span>Budget réactualisé</span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+         <i class="fas fa-euro-sign"></i>
+      </div>
+      <div>
+        <%= number_with_delimiter(OuvragesDepense.all.sum('montant').to_i, :delimiter => ' ') %> €<br>
+        <span><%=link_to ouvrages_depenses_path do %>Dépenses réalisées<% end %></span>
+      </div>
+    </div>
+    <div class="calendar-infos-box">
+      <div>
+      <i class="fas fa-people-carry"></i>
+      </div>
+      <div>
+      97<br>
+        <span>Employés</span>
+      </div>
+    </div>
+    </div>
+    <div class="calendar-infos hidden-xs">
     <div class="calendar-infos-box">
       <div>
         <i class="fas fa-coins"></i>
@@ -39,7 +95,7 @@
       </div>
     </div>
   </div><br><br>
-  <div class="calendar-infos">
+  <div class="calendar-infos hidden-xs">
     <div class="calendar-infos-box">
       <div>
          <i class="fas fa-coins"></i>
@@ -68,7 +124,7 @@
       </div>
     </div>
   </div>
-  <div class="text-center">
+  <div class="text-center hidden-xs">
   
     <div class="ouvrages-options">
       <div class="ouvrages-options-link">
@@ -80,7 +136,7 @@
     </div>
         
   </div>
-  </div><br><br>
+  </div>
 
   <div  class="SD-table-box" id="carte-ouvrages">
   <div class="SF-topo-financeurs-title"><span>Carte des ouvrages</span></div><br><br>

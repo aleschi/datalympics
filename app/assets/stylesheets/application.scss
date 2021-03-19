@@ -41,7 +41,11 @@ button:focus{
   margin:0 auto;
   padding:50px 30px;
 }
-
+@media(max-width:992px){
+  .EB_page, .ED_page, .SD_page, .O_page, .home_page{
+    padding:50px 10px;
+  }
+}
 .EB_title, .ED_title, .SD_title{
   text-align:center;
   font-size:40px;
@@ -343,6 +347,17 @@ button:focus{
   width:25%;
   padding: 0px 5px;
 }
+@media(max-width:992px){
+  .ED_table table tbody tr td{
+    text-align:left;
+  }
+}
+.table-bottom{
+  margin-bottom:10px;
+}
+.table-row-xs{
+  padding:5px 10px;
+}
 .ED_chart{
   margin-bottom:50px;
 }
@@ -571,7 +586,11 @@ display: none;
   padding: 40px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-
+@media(max-width:992px){
+  .table-box{
+    padding: 40px 20px;
+  }
+}
 .SF-topo-box{
    background-color:#fff;
   border-radius:20px;
@@ -667,6 +686,11 @@ display: none;
   margin-bottom:30px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
  
+}
+@media(max-width:992px){
+  .SD-topo-box{
+    padding: 40px 20px;
+  }
 }
 .SD-topo-box-title span{
   font-size:16px;
@@ -803,7 +827,11 @@ display: none;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom:20px;
 }
-
+@media(max-width:992px){
+  .SD-table-box{
+    padding: 40px 20px;
+  }
+}
 .O_title span{
     font-size:16px;
   font-weight:700;
@@ -1170,6 +1198,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: -moz-inline-flex;
   width:100%;
   align-items:center;
+  margin-bottom:20px;
 }
 .calendar-infos-box{
     display: inline-flex;
@@ -1182,6 +1211,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: #000091;
   font-weight:700;
   font-size: 16px;
+  margin-bottom:20px;
   span{
     color: #8F8F8F;
     font-weight:500;
@@ -1606,10 +1636,12 @@ bottom:0px;
   margin-bottom:20px;
   font-weight:600;
   position: relative;
+  padding-right:90px;
 }
 .documents-etat-btn{
   position:absolute;
   right:0;
+  top:0;
   display:inline-flex;
   a{
     color:#fff;
@@ -1625,7 +1657,7 @@ bottom:0px;
 }
 .documents-etat-delete{
   background-color:#fff !important;
-  color:#8F8F8F !important;
+  color:#000091 !important;
   font-size:14px;
   box-shadow:none !important;
 }
@@ -1676,7 +1708,8 @@ bottom:0px;
     color:#169B62 !important;
   }
 }
-.jauge-box{
+@media(min-width:992px){
+  .jauge-box{
     display: inline-flex;
   display: -webkit-inline-flex;
   display: -ms-inline-flex;
@@ -1684,6 +1717,8 @@ bottom:0px;
   width:100%;
   align-items: center;
 }
+}
+
 .jauge-infos{
   color: #000091;
   font-size:18px;
@@ -1867,6 +1902,7 @@ margin:auto;
 width:100%;
   padding: 0 15px;
 }
+@media(min-width:992){
 .risques-infos-title-hr {
 width:100%;
   hr{
@@ -1878,6 +1914,7 @@ width:100%;
 
   }
   
+}
 }
 
 .risque-infos-line{
@@ -1991,6 +2028,12 @@ html[xmlns] .slides {display: block;}
  // -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.2); -moz-box-shadow: 0 1px 4px rgba(0,0,0,.2); -o-box-shadow: 0 1px 4px rgba(0,0,0,.2); box-shadow: 0 1px 4px rgba(0,0,0,.2);  
   zoom: 1; }
 .flex-viewport {max-height: 2000px; -webkit-transition: all 1s ease; -moz-transition: all 1s ease; -o-transition: all 1s ease; transition: all 1s ease; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); background-color: #F0F0F0;border-radius:25px;}
+@media(max-width:992px){
+  .flex-viewport{
+    background-color:#fff;
+box-shadow:none;
+  }
+}
 .loading .flex-viewport { max-height: 300px; }
 .flexslider .slides { zoom: 1; }
 .carousel li { margin-right: 5px; }
@@ -2062,10 +2105,16 @@ html[xmlns] .slides {display: block;}
 .flexslider-slide{
   padding:30px 40px;
 }
+@media(max-width:992px){
+ .flexslider-slide{
+   padding:10px 0px;
+  }
+}
 .ouvrages-flexslider-text{
   color: #8F8F8F;
   font-size:14px;
   text-align:left;
+  margin-bottom:20px;
   span{
     color: #000091;
   }
@@ -2076,6 +2125,12 @@ html[xmlns] .slides {display: block;}
   text-align:left;
  margin-bottom:20px;
 
+}
+@media(max-width:992px){
+  .ouvrages-flexslider-title{
+    font-size:13px;
+    font-weight:600;
+  }
 }
 .ouvrages-infos-title{
   color:#8F8F8F;
@@ -2099,6 +2154,11 @@ html[xmlns] .slides {display: block;}
 .chart-budget-box{
   position:relative;
   padding: 20px;
+}
+@media(max-width:992px){
+  .chart-budget-box{
+    padding:0px;
+  }
 }
 .chart-budget-date{
   color: #000091;
