@@ -32,7 +32,7 @@
            </div>
           <% else%>
             <div class="documents-mois-doc">
-             <i class="far fa-file-pdf"></i> <%= document.name%>
+             <i class="far fa-file-excel"></i> <%= document.name%>
               <div class="documents-etat-btn"><%= link_to edit_document_path(document), remote: true do%><span class="hidden-xs">Transmettre</span><span class="visible-xs"><i class="fas fa-download"></i></span><% end%></div>
            </div>
           <% end %>
