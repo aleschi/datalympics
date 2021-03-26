@@ -378,7 +378,7 @@ Highcharts.stockChart('programme', {
       },
       zIndex: 1,
       width: 2,
-      value: <%= 0.32*OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).order('date ASC').last.montant_engage.to_i/(0.9 *1000)%>,
+      value: <%= OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).order('date ASC').last.montant_engage.to_i/1000%>,
     }],
   },
     plotOptions: {
