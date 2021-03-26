@@ -271,6 +271,7 @@ title: {
   
 
     series: [
+      <% if @vision == "0" || @vision == "2"%> 
       <% @uos_show.each do |uo|%>
       {
         name: '<%= uo %>',
@@ -288,6 +289,42 @@ title: {
         ],
      
     },
+      <% end %>
+      <% else %>
+      <% @uos_show.each do |uo|%>
+      {
+        name: '<%= uo %>',
+        data: [
+          <% if !@dates.nil?%>
+            <% @dates.each do |date| %>
+            <% @montant = 0 %>
+             <% if @budget == "HT2"%>
+                <% Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?',uo, Date.new(date.to_i,1,1), Date.new(date.to_i,12,31), 'T2', '21', '22', '23').order('date ASC').each do |programme| %>
+                  <% if programme.compte_budgetaire == "HT2"%>
+                  [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
+                 <% @montant = @montant + programme.montant %>
+        <% else %>
+        [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant - programme.montant).to_f/1000).round%>],
+                 <% @montant = @montant - programme.montant %>
+        <% end %>
+                <% end %>
+            <% else %>
+                <% Choru.where('centre_financier = ? AND (compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ?) AND date >= ? AND date <= ?',uo,'T2','21','22','23', Date.new(date.to_i,1,1), Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
+        <% if programme.compte_budgetaire == "T2"%>
+                  [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
+                 <% @montant = @montant + programme.montant %>
+         <% else %>
+        [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant - programme.montant).to_f/1000).round%>],
+                 <% @montant = @montant - programme.montant %>
+        <% end %>
+                <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        ],
+     
+    },
+      <% end %>
       <% end %>
             ],
 

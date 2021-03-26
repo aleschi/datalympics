@@ -378,7 +378,7 @@ Highcharts.stockChart('programme', {
       },
       zIndex: 1,
       width: 2,
-      value: <%= 200000000/1000 %>,
+      value: <%= 0.32*OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).order('date ASC').last.montant_engage.to_i/(0.9 *1000)%>,
     }],
   },
     plotOptions: {
@@ -398,16 +398,47 @@ Highcharts.stockChart('programme', {
   
     series: [
       {
-        name: 'Dépenses exécutées',
+        name: 'Demandes de paiements payées',
       color: '#2E5D63',
         data: [
     
           <% @montant = 0 %>
          
-          <% OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).each do |depense| %>
+          <% OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).order('date ASC').each do |depense| %>
                        
-            {name:  'Dépenses', x: Date.UTC(<%=depense.date.year%>,<%= depense.date.month-1%>, <%=depense.date.day%>),y: <%=  ((@montant + depense.montant).to_f/1000).round%>,  },
-            <% @montant = @montant + depense.montant %>
+            {name:  'Dépenses', x: Date.UTC(<%=depense.date.year%>,<%= depense.date.month-1%>, <%=depense.date.day%>),y: <%=  (depense.montant.to_f/1000).round%>,  },
+           
+          <% end %> 
+    
+
+        ],
+      tooltip: {
+           pointFormatter: function() {
+      var point = this,
+        series = point.series,
+        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+         
+        content =   '<b>Dépense: '+ number + ' k€</b><br/>';
+
+      return header + content;
+    },
+      },
+    
+    },
+      
+      {
+        name: 'Dépenses prévues (actées)',
+      color: '#8F8F8F',
+        data: [
+    
+          <% @montant = 0 %>
+         
+          <% OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).order('date ASC').each do |depense| %>
+                       
+            {name:  'Dépenses', x: Date.UTC(<%=depense.date.year%>,<%= depense.date.month-1%>, <%=depense.date.day%>),y: <%=  (depense.montant_prevu.to_f/1000).round%>,  },
+          
           <% end %> 
     
 

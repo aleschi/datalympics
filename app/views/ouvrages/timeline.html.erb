@@ -44,7 +44,7 @@ Highcharts.chart('container-steps', {
         lineColor: "#8F8F8F",
         type: 'datetime',
       plotLines: [{
-      color: 'red',
+      color: '#20E37B',
       label: {
         text: "JOP2024",
         textAlign: 'left',
@@ -52,7 +52,7 @@ Highcharts.chart('container-steps', {
         
         y: -30,
         style: {
-          color:'red',
+          color:'#20E37B',
         },
       },
       zIndex: 1,
@@ -128,10 +128,10 @@ Highcharts.chart('container-steps', {
             y: 0,
              partialFill: {
                amount: 1,
-               fill: 'red',
+               fill: '#20E37B',
              },
-          borderColor:'red',
-          color: 'red',
+          borderColor:'#20E37B',
+          color: '#20E37B',
         },
        <% Ouvrage.all.each_with_index do |ouvrage, index| %>
           <% if !ouvrage.start.nil? && !ouvrage.end.nil?%>

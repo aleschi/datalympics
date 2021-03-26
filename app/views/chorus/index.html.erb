@@ -9,7 +9,7 @@
       
         <div class="chorus-search-box-form">
         <%= f.search_field :centre_financier_cont,class: "choru-search-field", id:"name",required: true, placeholder: "Entrez le numéro d'un programme", data: {autocomplete_source: chorus_path} %> 
-        <a type="button" class="choru-search-submit"> <i class="fas fa-search"></i>Liste programme</a>
+        <a type="button" class="choru-search-submit"> <i class="fas fa-search"></i><span class="hidden-xs hidden-sm">Liste programme</span></a>
         </div> 
         <div class="chorus-search-box-form-list" id="programme-liste">
           <div>
