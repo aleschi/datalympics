@@ -1,38 +1,52 @@
 <div class="EB_page">
   <div class="home-title hidden-sm hidden-xs">
-    Bienvenue sur le Tableau de bord de la<br>
-    Direction du Budget
+    Bienvenue sur le Tableau de bord<br>
+    de la SOLIDEO
   </div>
   <div class="home-title visible-sm visible-xs">
-    Bienvenue sur le Tableau de bord de la Direction du Budget
+    Bienvenue sur le Tableau de bord de la SOLIDEO
   </div>
   
   <div class="row">
     <div class="col-md-6">
       <div class="home-box">
         <div class="home-box-title">
-          <%= link_to solideo_depenses_path do %>Solideo<% end %>
+          SIGNATURES CONVENTIONS
         </div>
         <div class="home-box-infos-box">
           <div class="row">
-            <div class="col-md-12">
-
+            <div class="col-md-6">
               <div>
-                <div class="home-box-infos1"><i class="fas fa-calendar-day"></i> 8 février 2021</div>
-                <div class="home-box-infos2">Prochain CA</div>
+                <div class="home-box-infos1">39</div>
+                <div class="home-box-infos2">Conventions totales signées</div>
               </div><br>
 
               <div>
-                <div class="home-box-infos1"><%= link_to documents_solideo_path do %>Dernier document transmis<% end %></div>
-                <% if @document.file.attached?%>
-                <div class="home-box-infos2"><%= link_to rails_blob_path(@document.file, disposition: 'preview'), target: "_blank" do %>Maquette_2020.csv<% end %></div>
-                <% end %>
+                <div class="home-box-infos1">10</div>         
+                <div class="home-box-infos2">Conventions d'objectifs en cours de signature</div>     
               </div><br>
               
               <div>
-              <div class="home-box-infos3"><a><i class="fas fa-exclamation-triangle"></i> Retard transmission document MOA </a></div>
-            </div>
+                <div class="home-box-infos1">7</div>         
+                <div class="home-box-infos2">Avenants aux Conventions d'objectifs en cours</div>     
               </div>
+            </div>
+            <div class="col-md-6">
+              <div>
+                <div class="home-box-infos1">1</div>
+                <div class="home-box-infos2">Avenants aux conventions travaux en cours</div>
+              </div><br>
+
+              <div>
+                <div class="home-box-infos1">1</div>         
+                <div class="home-box-infos2">Protocole d'études en cours de signature (VDP)</div>     
+              </div><br>
+              
+              <div>
+                <div class="home-box-infos1">2</div>         
+                <div class="home-box-infos2">Conventions d’objectifs en cours d’élaboration</div>     
+              </div>
+            </div>
 
           </div>
         </div>
@@ -40,68 +54,123 @@
     </div>
       <div class="col-md-6"> 
         <div class="home-box">
-    <div class="home-box-title">
-     <%= link_to ouvrages_path do %> Ouvrages <% end %>
-    </div>
-    <div class="home-box-infos-box">
-      <div class="row">
-        <div class="col-md-6 col-sm-6">
-          <div>
-            <div class="home-box-infos1">+  <%= number_with_delimiter(OuvragesDepense.all.sum('montant').to_i, :delimiter => ' ') %> €</div>
-            <div class="home-box-infos2">Dépenses cumulées</div>
-          </div><br>
-          
-          <div>
-            <div class="home-box-infos1"> + <%= ((SolideoFinancement.where('categorie= ?', "ouvrages").order('date DESC').first.montant_prevu-SolideoFinancement.where('categorie= ?', "ouvrages").order('date DESC').last.montant_prevu)/SolideoFinancement.where('categorie= ?', "ouvrages").order('date DESC').last.montant_prevu*100).round %> %</div>
-            <div class="home-box-infos2">Surcoûts budgétaires</div>
-          </div><br>
-          
-          <div>
-            <div class="home-box-infos3"><%= link_to chantiers_path do %><i class="fas fa-exclamation-triangle"></i> <%= OuvragesRevue.where('date = ? AND delai_indicateur != ?', OuvragesRevue.order('date DESC').first.date, 1).count %> risques remontés<% end %></div>
-           
+          <div class="home-box-title">
+           Suivi budget global
           </div>
-          </div>
+          <div class="home-box-infos-box">
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+                <div>
+                  <div class="home-box-infos1">664 M€</div>
+                  <div class="home-box-infos2">Montants engagés<br> (cumul)</div>
+                </div><br>
 
-        <div class="col-md-6 col-sm-6">
-          <div id="container-jauge2">
-            
+                <div>
+                  <div class="home-box-infos1"> 230 M€</div>
+                  <div class="home-box-infos2">Jalons validés en CA (cumul)</div>
+                </div><br>
+
+                <div>
+                  <div class="home-box-infos1"> 88 M€</div>
+                  <div class="home-box-infos2">Montants payés<br> (cumul)</div>
+                </div>
+
+                </div>
+
+              <div class="col-md-6 col-sm-6">
+                <div id="container-jauge2">
+
+                </div>
+                <div id="container-jauge3"></div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
       </div>
   </div>
   
-  <div  class="home-box" id="carte-ouvrages">
- <div class="home-box-title">Carte des ouvrages</div>
-    
-    <div class="home-box-infos-box">
   <div class="row">
-     <div class="col-md-6">
-               
-    </div>
-   </div>
-      
-      <div id="ouvrages-results">
-
-        <%= render 'ouvrages/liste'%>
-                
+    <div class="col-md-6">
+      <div class="home-box">
+        <div class="home-box-title">
+          FOCUS 2021
         </div>
-                
+        <div class="home-box-infos-box">
+          <div class="row index-inline">
+            <div class="col-md-6">
+              <div>
+                <div class="home-box-infos1">177,03 M€</div>
+                <div class="home-box-infos2">Budget 2021</div>
+              </div><br>
+
+              <div>
+                <div class="home-box-infos1">12,21 M€</div>         
+                <div class="home-box-infos2">Paiements 2021</div>     
+              </div><br>
+              
+              <div>
+                <div class="home-box-infos1">7 M€</div>         
+                <div class="home-box-infos2">Demandes de paiements en attente</div>     
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div id="container-jauge6">
+
+                </div>
+           
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
+      <div class="col-md-6"> 
+        <div class="home-box">
+          <div class="home-box-title">
+           Suivi Ouvrages
+          </div>
+          <div class="home-box-infos-box">
+            <div class="row index-inline">
+              <div class="col-md-6 col-sm-6">
+                <div>
+                  <div class="home-box-infos1">2</div>
+                  <div class="home-box-infos2">Risques critiques</div>
+                </div><br>
+
+                <div>
+                  <div class="home-box-infos1"> 4</div>
+                  <div class="home-box-infos2">Risques modérés</div>
+                </div><br>
+
+                <div>
+                  <div class="home-box-infos1"> 39</div>
+                  <div class="home-box-infos2">Ouvrages en cours de travaux</div>
+                </div>
+
+                </div>
+
+              <div class="col-md-6 col-sm-6">
+                <div id="container-jauge4">
+
+                </div>
+             
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+
 </div>
-
-
 <script>
 
 Highcharts.chart('container-jauge2', {
 
     chart: {
         type: 'solidgauge',
-        height: '200px',
-     
+        height: '150px',
+        spacing: [0,0,0,0],
     },
 
     title: {
@@ -132,7 +201,7 @@ Highcharts.chart('container-jauge2', {
         background: [{ // Track for Move
             outerRadius: '100%',
             innerRadius: '88%',
-            backgroundColor: "#F0F0F0",
+            backgroundColor: "#C4C4C4",
             borderWidth: 0
         }]
     },
@@ -155,12 +224,11 @@ Highcharts.chart('container-jauge2', {
               backgroundColor: 'none',
               shadow: false,
               style: {
-                  fontSize: '14px',
+                  fontSize: '10px',
                 color: '#8F8F8F',
-               
               },
               valueSuffix: '%',
-              format: '<span style="font-size:16px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:12px;font-weight:400">{series.name} </span>',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
             verticalAlign: 'middle',
               align: 'center',
         
@@ -172,17 +240,278 @@ Highcharts.chart('container-jauge2', {
     },
 
     series: [{
-        name: 'Budget consommé',
+        name: 'Paiements réalisés',
         data: [{
             color: "#20E37B",
             radius: '100%',
             innerRadius: '88%',
-            y: <%= (OuvragesDepense.all.sum('montant')/SolideoFinancement.where("categorie = ?", "ouvrages").order('date DESC').first.montant_prevu*100).round%>
+            y: 13
+        }]
+    }]
+});
+  </script>
+<script>
+
+Highcharts.chart('container-jauge3', {
+
+    chart: {
+        type: 'solidgauge',
+        height: '150px',
+        spacing: [0,0,0,0],
+    },
+
+    title: {
+        text: null,
+       
+    },
+
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 15
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '100%',
+            innerRadius: '88%',
+            backgroundColor: "#C4C4C4",
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            
+          tooltip: "",
+          
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '10px',
+                color: '#8F8F8F',
+              },
+              valueSuffix: '%',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
+            verticalAlign: 'middle',
+              align: 'center',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Jalons validés CA',
+        data: [{
+            color: "#20E37B",
+            radius: '100%',
+            innerRadius: '88%',
+            y: 35
+        }]
+    }]
+});
+  </script>
+<script>
+
+Highcharts.chart('container-jauge4', {
+
+    chart: {
+        type: 'solidgauge',
+        height: '150px',
+        spacing: [0,0,0,0],
+    },
+
+    title: {
+        text: null,
+       
+    },
+
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 15
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '100%',
+            innerRadius: '88%',
+            backgroundColor: "#C4C4C4",
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            
+          tooltip: "",
+          
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '10px',
+                color: '#8F8F8F',
+              },
+              valueSuffix: '%',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
+            verticalAlign: 'middle',
+              align: 'center',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Avancée des travaux',
+        data: [{
+            color: "#20E37B",
+            radius: '100%',
+            innerRadius: '88%',
+            y: 35
         }]
     }]
 });
   </script>
 
+<script>
+
+Highcharts.chart('container-jauge6', {
+
+    chart: {
+        type: 'solidgauge',
+        height: '150px',
+        spacing: [0,0,0,0],
+    },
+
+    title: {
+        text: null,
+       
+    },
+
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2) + 15
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '100%',
+            innerRadius: '88%',
+            backgroundColor: "#C4C4C4",
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            
+          tooltip: "",
+          
+            dataLabels: {
+              enabled: true,
+              borderWidth: 0,
+              backgroundColor: 'none',
+              shadow: false,
+              style: {
+                  fontSize: '10px',
+                color: '#8F8F8F',
+              },
+              valueSuffix: '%',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
+            verticalAlign: 'middle',
+              align: 'center',
+        
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Paiements effectués',
+        data: [{
+            color: "#20E37B",
+            radius: '100%',
+            innerRadius: '88%',
+            y: 7
+        }]
+    }]
+});
+  </script>
 <script>
 
   $('.menu-accueil').addClass('menu-active'); 
