@@ -52,7 +52,7 @@ gem 'rails-i18n'
 gem 'toastr-rails'
 gem 'flex-slider-rails'
 gem 'bootstrap-slider-rails'
-
+gem 'Dhalang'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

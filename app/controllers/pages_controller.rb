@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:jop2024, :synthese]
   def home
      @nav=true
     @document = Document.first
@@ -26,6 +26,10 @@ class PagesController < ApplicationController
     @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", SolideoFinancement.last.date).sum('montant')
   end 
   
-
+  def synthese 
+    @binary_pdf = Dhalang::PDF.get_from_url("https://datalympics.herokuapp.com/les-jop2024")  
+    send_data(@binary_pdf, filename: 'pdfofgoogle.pdf', type: 'application/pdf')  
+    #redirect_to root_path 
+  end 
 
 end

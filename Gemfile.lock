@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Dhalang (0.6.0)
     actioncable (5.2.4.5)
       actionpack (= 5.2.4.5)
       nio4r (~> 2.0)
@@ -288,6 +289,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  Dhalang
   activeadmin
   bootsnap (>= 1.1.0)
   bootstrap-sass (~> 3.4.1)

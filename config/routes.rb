@@ -66,5 +66,6 @@ Rails.application.routes.draw do
   
   post 'update_file' => 'ouvrages#update_file'
   get 'les-jop2024' => 'pages#jop2024'
+  get 'synthese' => "pages#synthese"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -166,16 +166,6 @@ ActiveRecord::Schema.define(version: 2021_03_08_094929) do
     t.index ["ouvrage_id"], name: "index_ouvrages_financements_on_ouvrage_id"
   end
 
-  create_table "ouvrages_financeurs", force: :cascade do |t|
-    t.integer "ouvrage_id"
-    t.string "name"
-    t.float "financement_prevu"
-    t.float "financement_actuel"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["ouvrage_id"], name: "index_ouvrages_financeurs_on_ouvrage_id"
-  end
-
   create_table "ouvrages_revues", force: :cascade do |t|
     t.date "date"
     t.integer "ouvrage_id"

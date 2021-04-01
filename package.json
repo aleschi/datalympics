@@ -1,5 +1,7 @@
 {
   "name": "datalympics",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "puppeteer": "^8.0.0"
+  }
 }
