@@ -10,7 +10,7 @@
           <%= form_with url: select_uo_path(:bop_id => @bops_show, :date => @dates, :budget => @budget,:type_ae => @type_ae, :programme => @search), id: "uo_form" do |f|%>
           <label><%= f.check_box :searchuo,{:multiple => true}, @search, nil %> Tout sélectionner </label>
           <% (0..@uo_arr.length-1).each do |i|%>
-            <label><%= f.check_box :id,{:multiple => true}, @uo_arr[i], nil %>  <%= @uo_arr[i]%></label>
+            <label><%= f.check_box :id,{:multiple => true}, @uo_arr[i], nil %>  <%= @uo_arr[i]%> <% if ChorusNomenclature.where('nom = ?',@uo_arr[i]).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',@uo_arr[i]).first.designation %><%end%></label>
           <% end %>
         <div class="chorus-submit-form"><%= f.submit "Afficher", class: "submit-chorus submit-chorus-uo"%></div>
          <% end %>

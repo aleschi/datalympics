@@ -25,10 +25,11 @@ class ChorusController < ApplicationController
    Choru.import(params[:file])
     redirect_to chorus_path 
   end
-  def import_conso
-   Choru.import_conso(params[:file])
+ 
+  def import_nom
+    Choru.import_nom(params[:file])
     redirect_to chorus_path 
-  end
+  end 
   
   def update 
   end 

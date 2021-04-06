@@ -9,7 +9,7 @@
           <%= form_with url: select_action_path(:uo_id => @uos_show, :date => @dates, :budget => @budget, :programme => @search), id: "action_form" do |f|%>
         <label><%= f.check_box :searchaction,{:multiple => true}, @search, nil %> Tout sélectionner </label>
         <% (0..@uo_actions.length-1).each do |i|%>
-          <label><%= f.check_box :id,{:multiple => true},[@uo_actions[i][0],@uo_actions[i][1]] ,nil %>  <%= @uo_actions[i][0]%> - <%= @uo_actions[i][1]%></label>
+          <label><%= f.check_box :id,{:multiple => true},[@uo_actions[i][0],@uo_actions[i][1]] ,nil %>  <%= @uo_actions[i][0]%> - <%= @uo_actions[i][1]%> (<% if ChorusNomenclature.where('nom = ?',@uo_actions[i][1]).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',@uo_actions[i][1]).first.designation %><%end%>)</label>
         <% end %>
         <div class="chorus-submit-form"><%= f.submit "Afficher", class: "submit-chorus submit-chorus-action"%></div>
        <% end %>

@@ -57,8 +57,8 @@ Rails.application.routes.draw do
   post 'select_uo' => 'chorus#select_uo'
    post 'select_date_programme' => 'chorus#select_date_programme'
   post 'select_action' => 'chorus#select_action'
-  get 'new_conso' => 'chorus#new_conso'
-   post 'import_conso' => 'chorus#import_conso'
+  get 'new_nom' => 'chorus#new_nom'
+   post 'import_nom' => 'chorus#import_nom'
   get 'search_choru' => "chorus#search_choru"
   
   post 'import_maquette' => "ouvrages_depenses#import_maquette"

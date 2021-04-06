@@ -3,7 +3,7 @@
   <h1 class="EB_title">AJouter un document</h1>
   
    <div class="SD-topo-box">
-      <%= form_tag import_conso_path, multipart: true do%>
+      <%= form_tag import_nom_path, multipart: true do%>
         <div class="document-file-input">
           <label><%= file_field_tag  :file, accept: '.csv' %>
             <div class="document-type"><i class="far fa-file-pdf"></i> </div>
