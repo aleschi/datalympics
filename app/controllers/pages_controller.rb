@@ -34,7 +34,7 @@ class PagesController < ApplicationController
   end 
   
   def synthese 
-    @binary_pdf = Dhalang::PDF.get_from_url("http://localhost:3000/reporting")  
+    @binary_pdf = Dhalang::PDF.get_from_url("https://staging-datalympics.herokuapp.com/reporting")  
     send_data(@binary_pdf, filename: 'reporting.pdf', type: 'application/pdf')  
     #redirect_to root_path 
   end 
