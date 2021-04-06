@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_094929) do
+ActiveRecord::Schema.define(version: 2021_04_06_130751) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 2021_03_08_094929) do
     t.datetime "updated_at", null: false
     t.string "domaine_fonctionnel"
     t.string "type_ae", default: "cp"
+  end
+
+  create_table "chorus_nomenclatures", force: :cascade do |t|
+    t.string "nom"
+    t.string "designation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "chorusconsos", force: :cascade do |t|
