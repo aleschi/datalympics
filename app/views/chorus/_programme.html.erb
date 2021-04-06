@@ -116,7 +116,7 @@
         <%= form_with url: select_bop_path(:date => @dates, :vision => @vision, :budget => @budget, :type_ae => @type_ae, :programme => @search), id: "bop_form" do |f|%>
             <label><%= f.check_box :search,{:multiple => true}, @search, nil %> Tout sélectionner </label>
           <% (0..@bop_arr.length-1).each do |i|%>
-            <label><%= f.check_box :id,{:multiple => true}, @bop_arr[i], nil %>  <%= @bop_arr[i]%> <% if ChorusNomenclature.where('nom = ?',@bop_arr[i]).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',@bop_arr[i]).first.designation %><%end%></label>
+            <label><%= f.check_box :id,{:multiple => true}, @bop_arr[i], nil %>  <%= @bop_arr[i]%> <% if ChorusNomenclature.where('nom = ?',@bop_arr[i]).count > 0 %>(<%= ChorusNomenclature.where('nom = ?',@bop_arr[i]).first.designation %>)<%end%></label>
           
             
           <% end %>

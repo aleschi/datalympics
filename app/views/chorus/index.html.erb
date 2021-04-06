@@ -12,7 +12,7 @@
         <a type="button" class="choru-search-submit"> <i class="fas fa-search"></i><span class="hidden-xs hidden-sm">Liste programme</span></a>
         </div> 
         <div class="chorus-search-box-form-list" id="programme-liste">
-          <div>  
+          <div style="text-align:left;">  
           <% if !@liste_programme.nil?%>
             <% @liste_programme.each do |programme| %>
             <div class="liste-programme-name"><a class="programme-name"><%= programme %> <% if ChorusNomenclature.where('nom = ?',programme).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',programme).first.designation %><%end%></a></div>

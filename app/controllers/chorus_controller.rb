@@ -38,7 +38,7 @@ class ChorusController < ApplicationController
     if params[:q]
       @q = Choru.ransack(params[:q])
       #@results = @q.result
-      @id = params[:q][:centre_financier_cont]
+      @id = params[:q][:centre_financier_cont][0..2]
       redirect_to choru_path(:id => @id, :vision => params[:vision], :budget => params[:budget], :type_ae => params[:type_ae])
     end   
   end
