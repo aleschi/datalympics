@@ -2886,3 +2886,41 @@ background-color:#000091;
   overflow:scroll;
 
 }
+.reporting-page{
+  padding:30px;
+}
+.reporting-title{
+  color:#383838;
+  font-size:32px;
+  line-height:40px;
+  font-weight:700;
+  margin:40px;
+  text-align:center;
+}
+.reporting-box-title{
+  color:#1E1E1E;
+  font-size:14px;
+  margin-bottom:20px;
+  font-weight:700;
+}
+.highcharts-data-labels span {
+  width: 100px; 
+  word-break: break-word !important;
+  white-space: normal !important;
+}
+.reporting-text{
+  color:#1E1E1E;
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+.box-infos{
+  background-color:#000091;
+  color:#fff;
+  font-size:14px;
+  font-weight:400;
+  padding:10px;
+  span{
+  font-weight:600;
+  }
+}

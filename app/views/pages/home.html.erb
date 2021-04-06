@@ -6,7 +6,47 @@
   <div class="home-title visible-sm visible-xs">
     Bienvenue sur le Tableau de bord de la SOLIDEO
   </div>
+    
+  <div class="row">
+    <div class="col-md-6">
+      <div class="home-box">
+        <div class="home-box-title">
+          FOCUS BUDGET 2021
+        </div>
+        <div class="home-box-infos-box">
+          <div class="row index-inline">
+            <div class="col-md-9">
+              <div id="focus"></div>
+            </div>
+            <div class="col-md-3 padding-none">
+              <div class="box-infos"><span>164 M€</span> <br>Reste a payer</div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+      <div class="col-md-6"> 
+        <div class="home-box">
+          <div class="home-box-title">
+           Suivi budget global
+          </div>
+          <div class="home-box-infos-box">
+            <div class="row index-inline">
+            <div class="col-md-9">
+              <div id="budget"></div>
+            </div>
+            <div class="col-md-3 padding-none">
+              <div class="box-infos"><span>577 M€</span> <br>Reste a payer</div>
+            </div>
+          </div>
+            
+          </div>
+        </div>
+      </div>
+  </div>
   
+
   <div class="row">
     <div class="col-md-6">
       <div class="home-box">
@@ -55,97 +95,25 @@
       <div class="col-md-6"> 
         <div class="home-box">
           <div class="home-box-title">
-           Suivi budget global
-          </div>
-          <div class="home-box-infos-box">
-            <div class="row">
-              <div class="col-md-6 col-xs-12">
-                <div>
-                  <div class="home-box-infos1">664 M€</div>
-                  <div class="home-box-infos2">Montants engagés<br> (cumul)</div>
-                </div><br>
-
-                <div>
-                  <div class="home-box-infos1"> 230 M€</div>
-                  <div class="home-box-infos2">Jalons validés en CA (cumul)</div>
-                </div><br>
-
-                <div>
-                  <div class="home-box-infos1"> 88 M€</div>
-                  <div class="home-box-infos2">Montants payés<br> (cumul)</div>
-                </div>
-
-                </div>
-
-              <div class="col-md-6 col-xs-12">
-                <div id="container-jauge2">
-
-                </div>
-                <div id="container-jauge3"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-  
-  <div class="row">
-    <div class="col-md-6">
-      <div class="home-box">
-        <div class="home-box-title">
-          FOCUS 2021
-        </div>
-        <div class="home-box-infos-box">
-          <div class="row index-inline">
-            <div class="col-md-6 col-xs-12">
-              <div>
-                <div class="home-box-infos1">177,03 M€</div>
-                <div class="home-box-infos2">Budget 2021</div>
-              </div><br>
-
-              <div>
-                <div class="home-box-infos1">12,21 M€</div>         
-                <div class="home-box-infos2">Paiements 2021</div>     
-              </div><br>
-              
-              <div>
-                <div class="home-box-infos1">7 M€</div>         
-                <div class="home-box-infos2">Demandes de paiements en attente</div>     
-              </div>
-            </div>
-            <div class="col-md-6 col-xs-12">
-              <div id="container-jauge6">
-
-                </div>
-           
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-      <div class="col-md-6"> 
-        <div class="home-box">
-          <div class="home-box-title">
            Suivi Ouvrages
           </div>
           <div class="home-box-infos-box">
             <div class="row index-inline">
               <div class="col-md-6 col-sm-6">
                 <div>
+                  <div class="home-box-infos1"> 39</div>
+                  <div class="home-box-infos2">Ouvrages en cours de travaux</div>
+                </div>
+
+                <div>
                   <div class="home-box-infos1">2</div>
-                  <div class="home-box-infos2">Risques critiques</div>
+                  <div class="home-box-infos2">Ouvrages avec risques critiques</div>
                 </div><br>
 
                 <div>
                   <div class="home-box-infos1"> 4</div>
-                  <div class="home-box-infos2">Risques modérés</div>
+                  <div class="home-box-infos2">Ouvrages avec risques modérés</div>
                 </div><br>
-
-                <div>
-                  <div class="home-box-infos1"> 39</div>
-                  <div class="home-box-infos2">Ouvrages en cours de travaux</div>
-                </div>
 
                 </div>
 
@@ -158,185 +126,12 @@
             </div>
           </div>
         </div>
+        
       </div>
   </div>
-  
 
 </div>
-<script>
 
-Highcharts.chart('container-jauge2', {
-
-    chart: {
-        type: 'solidgauge',
-        height: '150px',
-        spacing: [0,0,0,0],
-    },
-
-    title: {
-        text: null,
-       
-    },
-
-    tooltip: {
-        borderWidth: 0,
-        backgroundColor: 'none',
-        shadow: false,
-        style: {
-            fontSize: '16px'
-        },
-        valueSuffix: '%',
-        pointFormat: '',
-        positioner: function (labelWidth) {
-            return {
-                x: (this.chart.chartWidth - labelWidth) / 2,
-                y: (this.chart.plotHeight / 2) + 15
-            };
-        }
-    },
-
-    pane: {
-        startAngle: 0,
-        endAngle: 360,
-        background: [{ // Track for Move
-            outerRadius: '100%',
-            innerRadius: '88%',
-            backgroundColor: "#C4C4C4",
-            borderWidth: 0
-        }]
-    },
-
-    yAxis: {
-        min: 0,
-        max: 100,
-        lineWidth: 0,
-        tickPositions: []
-    },
-
-    plotOptions: {
-        solidgauge: {
-            
-          tooltip: "",
-          
-            dataLabels: {
-              enabled: true,
-              borderWidth: 0,
-              backgroundColor: 'none',
-              shadow: false,
-              style: {
-                  fontSize: '10px',
-                color: '#8F8F8F',
-              },
-              valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
-            verticalAlign: 'middle',
-              align: 'center',
-        
-            },
-            linecap: 'round',
-            stickyTracking: false,
-            rounded: true
-        }
-    },
-
-    series: [{
-        name: 'Paiements réalisés',
-        data: [{
-            color: "#20E37B",
-            radius: '100%',
-            innerRadius: '88%',
-            y: 13
-        }]
-    }]
-});
-  </script>
-<script>
-
-Highcharts.chart('container-jauge3', {
-
-    chart: {
-        type: 'solidgauge',
-        height: '150px',
-        spacing: [0,0,0,0],
-    },
-
-    title: {
-        text: null,
-       
-    },
-
-    tooltip: {
-        borderWidth: 0,
-        backgroundColor: 'none',
-        shadow: false,
-        style: {
-            fontSize: '16px'
-        },
-        valueSuffix: '%',
-        pointFormat: '',
-        positioner: function (labelWidth) {
-            return {
-                x: (this.chart.chartWidth - labelWidth) / 2,
-                y: (this.chart.plotHeight / 2) + 15
-            };
-        }
-    },
-
-    pane: {
-        startAngle: 0,
-        endAngle: 360,
-        background: [{ // Track for Move
-            outerRadius: '100%',
-            innerRadius: '88%',
-            backgroundColor: "#C4C4C4",
-            borderWidth: 0
-        }]
-    },
-
-    yAxis: {
-        min: 0,
-        max: 100,
-        lineWidth: 0,
-        tickPositions: []
-    },
-
-    plotOptions: {
-        solidgauge: {
-            
-          tooltip: "",
-          
-            dataLabels: {
-              enabled: true,
-              borderWidth: 0,
-              backgroundColor: 'none',
-              shadow: false,
-              style: {
-                  fontSize: '10px',
-                color: '#8F8F8F',
-              },
-              valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
-            verticalAlign: 'middle',
-              align: 'center',
-        
-            },
-            linecap: 'round',
-            stickyTracking: false,
-            rounded: true
-        }
-    },
-
-    series: [{
-        name: 'Jalons validés CA',
-        data: [{
-            color: "#20E37B",
-            radius: '100%',
-            innerRadius: '88%',
-            y: 35
-        }]
-    }]
-});
-  </script>
 <script>
 
 Highcharts.chart('container-jauge4', {
@@ -366,7 +161,7 @@ Highcharts.chart('container-jauge4', {
                 x: (this.chart.chartWidth - labelWidth) / 2,
                 y: (this.chart.plotHeight / 2) + 15
             };
-        }
+        },
     },
 
     pane: {
@@ -425,91 +220,206 @@ Highcharts.chart('container-jauge4', {
 });
   </script>
 
-<script>
 
-Highcharts.chart('container-jauge6', {
 
+  <script>
+    
+    Highcharts.chart('focus', {
     chart: {
-        type: 'solidgauge',
+        type: 'column',
+        inverted: true,
         height: '150px',
-        spacing: [0,0,0,0],
+        spacingTop: 0,
+        style:{
+          fontFamily: "Marianne Regular",
+        },
     },
-
     title: {
         text: null,
        
     },
-
-    tooltip: {
-        borderWidth: 0,
-        backgroundColor: 'none',
-        shadow: false,
-        style: {
-            fontSize: '16px'
-        },
-        valueSuffix: '%',
-        pointFormat: '',
-        positioner: function (labelWidth) {
-            return {
-                x: (this.chart.chartWidth - labelWidth) / 2,
-                y: (this.chart.plotHeight / 2) + 15
-            };
-        }
+    xAxis: {
+      categories: ['Suivi Budget 2021'],
+        title: {
+        text: null,
+      },
+      lineColor: '#fff',
+      labels: {
+        enabled: false,
+      },
     },
-
-    pane: {
-        startAngle: 0,
-        endAngle: 360,
-        background: [{ // Track for Move
-            outerRadius: '100%',
-            innerRadius: '88%',
-            backgroundColor: "#C4C4C4",
-            borderWidth: 0
-        }]
-    },
-
     yAxis: {
-        min: 0,
-        max: 100,
-        lineWidth: 0,
-        tickPositions: []
+      gridLineColor: '#fff',
+      title: {
+        text: null,
+      },
+      labels: {
+        enabled: false,
+      },
     },
-
+    legend: {
+        shadow: false,
+        enabled:false,
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: 'M€',
+        borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
     plotOptions: {
-        solidgauge: {
-            
-          tooltip: "",
-          
-            dataLabels: {
-              enabled: true,
-              borderWidth: 0,
-              backgroundColor: 'none',
-              shadow: false,
-              style: {
-                  fontSize: '10px',
-                color: '#8F8F8F',
-              },
-              valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
-            verticalAlign: 'middle',
-              align: 'center',
-        
-            },
-            linecap: 'round',
-            stickyTracking: false,
-            rounded: true
+        column: {
+            grouping: false,
+            shadow: false,
+            borderWidth: 0,
+            pointWidth: 25,
         }
     },
-
     series: [{
-        name: 'Paiements effectués',
-        data: [{
-            color: "#20E37B",
-            radius: '100%',
-            innerRadius: '88%',
-            y: 7
-        }]
-    }]
+        name: 'Budget 2021',
+        color: '#C4C4C4',
+        data: [177],
+        pointPadding: 0,
+        pointPlacement: 0,
+        dataLabels: {
+          enabled: true,
+          style: {
+            color: '#C4C4C4',
+            textOutline: '0px',
+            fontSize: '14px',
+          },
+          formatter: function() {
+            var point = this, 
+            number = Highcharts.numberFormat(point.y, -1, ',',' '),
+            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">prévus </span>';
+          return content;
+        },
+        y: 100,
+        },
+
+    }, {
+        name: 'Paiements versés',
+        color: '#C68D7B',
+        data: [12.3],
+        pointPadding: 0,
+        pointPlacement: 0,
+        dataLabels: {
+          enabled: true,
+          style: {
+            color: '#C68D7B',
+            fontSize: '14px',
+          },
+          formatter: function() {
+            var point = this, 
+            number = Highcharts.numberFormat(point.y, -1, ',',' '),
+            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés</span> ';
+          return content;
+        },
+        y: 100,
+        x: -20,
+        },
+    }, ]
+});
+  </script>
+    <script>
+    
+    Highcharts.chart('budget', {
+    chart: {
+        type: 'column',
+        inverted: true,
+        height: '150px',
+        spacingTop: 0,
+        style:{
+          fontFamily: "Marianne Regular",
+        },
+    },
+    title: {
+        text: null,
+       
+    },
+    xAxis: {
+      categories: ['Suivi Budget 2021'],
+        title: {
+        text: null,
+      },
+      lineColor: '#fff',
+      labels: {
+        enabled: false,
+      },
+    },
+    yAxis: {
+      gridLineColor: '#fff',
+      title: {
+        text: null,
+      },
+      labels: {
+        enabled: false,
+      },
+    },
+    legend: {
+        shadow: false,
+        enabled:false,
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: 'M€',
+        borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    plotOptions: {
+        column: {
+            grouping: false,
+            shadow: false,
+            borderWidth: 0,
+            pointWidth: 25,
+        }
+    },
+    series: [{
+        name: 'Montants engagés',
+        color: '#C4C4C4',
+        data: [664],
+        pointPadding: 0,
+        pointPlacement: 0,
+        dataLabels: {
+          enabled: true,
+          style: {
+            color: '#C4C4C4',
+            textOutline: '0px',
+            fontSize: '14px',
+          },
+          formatter: function() {
+            var point = this, 
+            number = Highcharts.numberFormat(point.y, -1, ',',' '),
+            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">engagés </span>';
+          return content;
+        },
+        y: 100,
+        },
+
+    }, {
+        name: 'Paiements versés',
+        color: '#466964',
+        data: [88],
+        pointPadding: 0,
+        pointPlacement: 0,
+        dataLabels: {
+          enabled: true,
+          style: {
+            color: '#466964',
+            fontSize: '14px',
+          },
+          formatter: function() {
+            var point = this, 
+            number = Highcharts.numberFormat(point.y, -1, ',',' '),
+            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés</span> ';
+          return content;
+        },
+        y: 100,
+        x: -20,
+        },
+    }, ]
 });
   </script>
 <script>
