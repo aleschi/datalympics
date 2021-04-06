@@ -69,5 +69,6 @@ Rails.application.routes.draw do
   get 'synthese' => "pages#synthese"
   get 'reporting' => "pages#reporting"
   get 'innovation' => "pages#innovation"
+  get 'mentions-legales' => "pages#mentions"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

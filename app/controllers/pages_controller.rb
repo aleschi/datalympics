@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, except: [:jop2024, :synthese, :reporting]
+  before_action :authenticate_user!, only: [:home]
   def home
      @nav=true
     @document = Document.first
@@ -37,6 +37,10 @@ class PagesController < ApplicationController
     @binary_pdf = Dhalang::PDF.get_from_url("https://staging-datalympics.herokuapp.com/reporting")  
     send_data(@binary_pdf, filename: 'reporting.pdf', type: 'application/pdf')  
     #redirect_to root_path 
+  end 
+
+  def mentions
+  @nav=true 
   end 
 
 end
