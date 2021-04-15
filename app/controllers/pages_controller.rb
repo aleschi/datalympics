@@ -35,15 +35,11 @@ class PagesController < ApplicationController
   
   def synthese 
     #@binary_pdf = Dhalang::PDF.get_from_url("https://staging-datalympics.herokuapp.com/reporting")  
-   # @binary_pdf = Dhalang::PDF.get_from_url("http://localhost:3000/reporting", {navigationTimeout: 200000}) 
-   # send_data(@binary_pdf, filename: 'reporting.pdf', type: 'application/pdf')  
+    @binary_pdf = Dhalang::PDF.get_from_url("http://localhost:3000/reporting", {navigationTimeout: 200000}) 
+    send_data(@binary_pdf, filename: 'reporting.pdf', type: 'application/pdf')  
     #redirect_to root_path 
 
-    @url = request.base_url + reporting_path
-    @pdf = Dhalang::PDF.get_from_url(@url)
-    @file_name = "rapport" 
-        File.open("#{Rails.root}/public/#{@file_name}.pdf", "w+b") << @pdf
-  redirect_to "/#{@file_name}.pdf"
+  
   end 
 
   def mentions
