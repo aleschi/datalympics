@@ -70,5 +70,6 @@ Rails.application.routes.draw do
   get 'reporting' => "pages#reporting"
   get 'innovation' => "pages#innovation"
   get 'mentions-legales' => "pages#mentions"
+  get 'public' => "pages#public"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
