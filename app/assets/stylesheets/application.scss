@@ -2971,3 +2971,48 @@ background-color:#000091;
   color:#2323EA;
   font-size:28px;
 }
+.footer{
+  width:100%;
+  max-width:1400px;
+  margin:auto;
+
+}
+.footer-top{
+  display:inline-flex;
+  width:100%;
+  align-items:center;
+}
+.footer-logo{
+  width:50%;
+  img{
+  height:140px;
+  width:auto;
+  }
+}
+.footer-text{
+  color:#383838;
+  font-size:16px;
+}
+.footer-bottom{
+  width:100%;
+  border-top:1px solid #CECECE;
+  padding: 20px 0px;
+  a{
+  color:#6A6A6A;
+  font-size:12px;
+  }
+  span{
+  margin:0px 20px;
+  color:#CECECE;
+  }
+}
+.footer-links{
+  margin-top:10px;
+  font-size:16px;
+ 
+  a{
+  color:#383838;
+  font-weight:bold;
+   margin-right:15px;
+  }
+}
