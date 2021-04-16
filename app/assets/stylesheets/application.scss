@@ -2658,6 +2658,7 @@ background-color:#000091;
   width:100%;
   background-color:#fff;
   padding:20px 50px;
+  border-bottom:1px solid #e7e7e7
 }
 .navbar-chorus-onglet{
   
@@ -2667,6 +2668,24 @@ background-color:#000091;
   font-size:16px;
     text-decoration:none;
   }
+}
+.navbar-public-right{
+  position:absolute;
+  right:20px;
+  a{
+  color:#000;
+  font-size:16px;
+    text-decoration:none;
+    i{
+    color:#000091;
+    margin-right:5px;
+    }
+  }
+}
+.navbar-public-onglet{
+  margin:auto 10px;
+  color:#000;
+  font-size:16px;
 }
 .navbar-chorus-onglet2{
   margin:auto 10px;
@@ -2778,6 +2797,27 @@ background-color:#000091;
     margin-left: 10px;
   }
 }
+.dropwdown-menu-public-navbar{
+  background-color:transparent;
+  color:#000;
+  font-size:16px;
+  padding:15px 0px;
+  outline:none;
+  &:hover{
+    color:#000;
+  }
+  &:active, &:focus{
+    color:#000;
+    outline:none !important;
+    border:none;
+  }
+  i{
+    margin-left:5px;
+  }
+}
+.dropdown-public-active{
+  border-bottom: 2px solid #000091;
+}
 .dropwdown-menu-chorus-navbar{
   background-color:transparent;
   color:#000091;
@@ -2807,6 +2847,21 @@ background-color:#000091;
     padding: 8px 0px;
     font-weight:500;
     }
+  }
+}
+.dropwdown-menu-public-navbar-list{
+padding:15px;
+  border:none;
+  font-size:16px;
+  li{
+  padding:15px 0px;
+  border-bottom:1px solid #e7e7e7;
+  a{
+  cursor:pointer;
+  &:hover{
+  background-color:none;
+  }
+  }
   }
 }
 .dropwdown-menu-chorus-navbar-list2{
@@ -2944,21 +2999,29 @@ background-color:#000091;
 
 .graphic {
     margin: auto;
-    max-width: 1500px;
-    flex-direction: row;
-    align-items: top;
-    justify-content: space-around;
+    max-width: 1400px;
+    -webkit-box-lines: multiple;
+-webkit-box-pack: start;
+-webkit-box-align: stretch;
+display: flex;
+align-items: stretch;
+justify-content: flex-start;
+flex-wrap: wrap;
+width: 100%;
 }
-
+.graphe-box{
+  width: 40%;
+  display: inline-block;
+  padding:30px;
+  position: relative;
+}
 #graphe {
-    display: inline-block;
-    position: fixed;
-    top: 100px;
+    
+    position: sticky;
+    top: 0px;
     z-index: 1;
-    margin-left: 0;
-    height: 1000px;
-    width: 50%;
-    padding:30px;
+    margin-left: 0; 
+    
 }
 .background{
   width:100%;
@@ -3015,4 +3078,15 @@ background-color:#000091;
   font-weight:bold;
    margin-right:15px;
   }
+}
+.public-title{
+  color:#2323EA;
+  font-size:60px;
+  font-weight:bold;
+
+}
+.page-public{
+  max-width:1500px;
+  padding:20px 40px;
+  position:relative
 }
