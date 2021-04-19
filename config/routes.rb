@@ -71,5 +71,7 @@ Rails.application.routes.draw do
   get 'innovation' => "pages#innovation"
   get 'mentions-legales' => "pages#mentions"
   get 'public' => "pages#public"
+  get 'utilisation-budget' => 'pages#interets'
+  get 'acteurs' => 'pages#acteurs'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

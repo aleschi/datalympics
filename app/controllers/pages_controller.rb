@@ -49,4 +49,11 @@ class PagesController < ApplicationController
   def public
   end
 
+  def interets
+    @ouvrages = Ouvrage.all
+  end 
+  
+  def acteurs
+  end 
+
 end

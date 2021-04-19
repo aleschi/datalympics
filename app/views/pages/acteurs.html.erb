@@ -1,0 +1,645 @@
+<div class='background'>
+<%= render 'layouts/navigation_public'%> 
+</div>
+<div class='background'>
+  <div class="page-public">
+
+<div class="graphic">
+  <div id="sections">
+    <div class="public-title">Combien coûtent les JOP24 ?</div>
+      <div class="step" id="1">         
+          Le budget des Jeux Olympiques et Paralympiques annoncé lors de la candidature de Paris 2024 est de 6,8 milliards d’euros.
+      </div>
+      <div class="step" id="2">
+          25% de ce budget est financé par de l’argent public, soit 1,7 milliards d’euros. L’argent public provient de différents contributeurs : l’Etat (XX%), la Ville de Paris (XX%) et d'autres collectivités locales. <br>
+      </div>
+    
+      <div class="step" id="3">
+          Il est réparti à travers différents poles. Une partie sert à construire et rénover les ouvrages accueillants les sportifs pour la compétition. Une partie sert aux frais de fonctionnement à savoir la rémunérations de toutes les personnes impliquées dans les jeux olympiques.
+      </div>
+      <div class="step" id="4">
+          2 organismes sont en charge de ce budget. La Solideo est la structure rattachée à l'Etat qui s'occupe de la construction et rénovation de la majorité des ouvrages. Le Cojo est quant à lui responsable de la billeterie, communication autour des jeux et de quelques sites de la compétition
+      </div>
+      <div class="step" id="5">
+          Comparaison avec les autres jeux olympiques
+      </div>
+      <div class="step" id="6">
+          Réalité
+      </div>
+  
+
+  </div>
+  <div class="graphe-box">
+  <div id="graphe">
+
+  </div>
+  </div>
+</div>
+</div>
+
+</div>
+<div class='background'>
+<%= render 'layouts/footer'%> 
+</div>
+<script>
+
+var chart = Highcharts.chart('graphe', {
+        chart: {
+            type: 'column',
+          
+            height: '600px',
+            spacingTop: 0,
+            style:{
+              fontFamily: "Marianne Regular",
+            },
+             options3d: {
+                enabled: true,
+                alpha: 15,
+                beta: 15,
+                depth: 80,
+                viewDistance: 55
+            }
+        },
+        title: {
+            text: null,
+           
+        },
+        xAxis: {
+          categories: ['Suivi Budget 2021'],
+            title: {
+            text: null,
+          },
+          lineColor: '#fff',
+          gridLineColor: '#fff',
+          labels: {
+            enabled: false,
+          },
+        },
+        yAxis: {
+          gridLineColor: '#fff',
+      
+          title: {
+            text: null,
+          },
+          labels: {
+            enabled: false,
+          },
+        },
+        zAxis:{
+          gridLineColor: '#fff',
+         
+        },
+        legend: {
+            shadow: false,
+            enabled:false,
+        },
+        tooltip: {
+            shared: true,
+            valueSuffix: 'M€',
+            borderColor: 'transparent',
+            borderRadius: 16,
+            backgroundColor: '#fff',
+        },
+        plotOptions: {
+            column: {
+                grouping: false,
+                stacking: 'normal',
+                shadow: false,
+                borderWidth: 0,
+                pointWidth: 65,
+            }
+        },
+        series: [{
+            name: 'Budget Jeux',
+            color: '#2323EA',
+            data: [6.8],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">prévus </span>';
+              return content;
+            },
+            y: 100,
+            x: 0,
+            },
+
+        } ]
+      });
+$('#1').addClass('vue');
+$('#2').addClass('inactive');
+$('#2').addClass('nonvue');
+$('#3').addClass('inactive');
+$('#3').addClass('nonvue');
+$('#4').addClass('inactive');
+$('#4').addClass('nonvue');
+$('#5').addClass('inactive');
+$('#5').addClass('nonvue');
+$('#6').addClass('inactive');
+
+function isElementInViewport (el) {
+
+    // Special bonus for those using jQuery
+    if (typeof jQuery === "function" && el instanceof jQuery) {
+        el = el[0];
+    }
+
+    var rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+    );
+}
+
+document.addEventListener('scroll', function () {
+
+    if(isElementInViewport($('#1')) && $('#1').hasClass('inactive') && $('#1').hasClass('vue')){
+      chart.series[0].update({
+        name: "Budget Jeux",
+        data: [6.8],
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">prévus</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+     
+      if (chart.series.length > 1){chart.series[1].remove()};
+      $('#1').removeClass('inactive');
+      $('#2').addClass('inactive');
+      $('#2').removeClass('vue');
+      $('#2').addClass('nonvue');
+      $('#3').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#5').addClass('inactive');
+    };
+  
+    if(isElementInViewport($('#2')) && $('#2').hasClass('inactive') && $('#2').hasClass('nonvue')){
+      
+      chart.series[0].update({
+        name: "Part privée",
+        data: [5.1],
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">privés</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      chart.addSeries({
+         name: 'Part Publique',
+            color: '#E7684C',
+        data: [1.7],
+        stack: "budget",
+         pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">publics</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      $('#2').removeClass('inactive');
+      $('#2').removeClass('nonvue');
+      $('#2').addClass('vue');
+      $('#1').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#5').addClass('inactive');
+    }; 
+    if(isElementInViewport($('#2')) && $('#2').hasClass('inactive') && $('#2').hasClass('vue')){
+      
+      chart.series[0].update({
+        name: "Part privée",
+        data: [5.1],
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">privés</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      
+      if (chart.series.length > 2){chart.series[2].remove()};
+      chart.series[1].update({
+        name: 'Part Publique',
+        color: '#E7684C',
+        data: [1.7],
+        stack: "budget",
+         pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">publics</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      $('#2').removeClass('inactive');
+      $('#2').addClass('nonvue');
+      $('#2').removeClass('vue');
+      $('#1').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#5').addClass('inactive');
+    };   
+
+    if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('nonvue')){
+      chart.series[0].update({
+        name: "Ouvrages",
+        data: [4.8],
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">ouvrages</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      chart.series[1].update({
+        name: "Fonctionnement",
+        color: '#F29D53',
+        data: [0.6],
+        stack: "budget",
+        pointPadding: 0,
+        pointPlacement: 0,
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Fonctionnement</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      chart.addSeries({
+        name: 'Autres',
+        color: '#FFE800',
+        data: [1.4],
+        stack: "budget",
+        pointPadding: 0,
+        pointPlacement: 0,
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Autres</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      $('#3').removeClass('inactive');
+      $('#3').removeClass('nonvue');
+      $('#3').addClass('vue');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#5').addClass('inactive');
+    }; 
+    if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('vue')){
+      chart.series[0].update({
+        name: "Ouvrages",
+        data: [4.8],
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">ouvrages</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      chart.series[1].update({
+        name: "Fonctionnement",
+        color: '#F29D53',
+        data: [0.6],
+        stack: "budget",
+        pointPadding: 0,
+        pointPlacement: 0,
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Fonctionnement</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      chart.addSeries({
+        name: 'Autres',
+        color: '#FFE800',
+        data: [1.4],
+        stack: "budget",
+        pointPadding: 0,
+        pointPlacement: 0,
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Autres</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      $('#3').removeClass('inactive');
+      $('#3').removeClass('vue');
+      $('#3').addClass('nonvue');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#5').addClass('inactive');
+    };
+
+    if(isElementInViewport($('#4')) && $('#4').hasClass('inactive') && $('#4').hasClass('nonvue')){
+      chart.series[0].update({
+        name: "Part Cojo",
+        data: [3.8],
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">COJO</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      chart.series[1].update({
+        name: "Part Solideo",
+         color: '#4FC5CE',
+        data: [3],
+         dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">SOLIDEO</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      chart.series[2].remove();
+      $('#4').removeClass('inactive');
+      $('#4').removeClass('nonvue');
+      $('#4').addClass('vue');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#5').addClass('inactive');
+    }; 
+    if(isElementInViewport($('#4')) && $('#4').hasClass('inactive') && $('#4').hasClass('vue')){
+      chart.addSeries({
+        name: "Part Solideo",
+        color: '#4FC5CE',
+        data: [3],
+        stack: "budget",
+         dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">SOLIDEO</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      chart.series[0].update({
+        name: "Part Cojo",
+        data: [3.8],
+        stack: "budget",
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">COJO</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
+      $('#4').removeClass('inactive');
+      $('#4').removeClass('vue');
+      $('#4').addClass('nonvue');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#5').addClass('inactive');
+    };  
+    if(isElementInViewport($('#5')) && $('#5').hasClass('inactive') && $('#5').hasClass('nonvue')){
+      chart.series[0].update({
+        name: "Budget prévu",
+        data: [{name: "Vancouver", y: 1.3, color:"#958B62"},{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 6.8,color:"#2323EA"},{name: "Sotchi",y: 8.8,color:"#5770BE"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return content;
+            },
+            y: 0,
+         
+            },
+      });
+      chart.series[1].remove();
+
+      $('#5').removeClass('inactive');
+      $('#5').removeClass('nonvue');
+      $('#5').addClass('vue');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#6').addClass('inactive');
+    }; 
+
+    if(isElementInViewport($('#5')) && $('#5').hasClass('inactive') && $('#5').hasClass('vue')){
+      chart.series[0].update({
+        name: "Budget prévu",
+        data: [{name: "Vancouver", y: 1.3, color:"#958B62"},{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 6.8,color:"#2323EA"},{name: "Sotchi",y: 8.8,color:"#5770BE"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return content;
+            },
+            y: 0,
+         
+            },
+      });
+      $('#5').removeClass('inactive');
+      $('#5').removeClass('vue');
+      $('#5').addClass('nonvue');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#6').addClass('inactive');
+    }; 
+
+    if(isElementInViewport($('#6')) && $('#6').hasClass('inactive')){
+      chart.series[0].update({
+        name: "Budget réel",
+        data: [{name: "Vancouver", y: 4.8, color:"#958B62"},{name: "Pekin",y: 31,color:"#20E37B"},{name: "Londres",y: 11,color:"#466964"},{name: "Paris",y: 6.8,color:"#2323EA"},{name: "Sotchi",y: 36,color:"#5770BE"},{name: "Rio",y: 16.5,color:"#00AC8C"},{name: "Tokyo",y: 15.4,color:"#4FC5CE"}],
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return content;
+            },
+            y: 0,
+         
+            },
+      });
+
+      $('#6').removeClass('inactive');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#5').addClass('inactive');
+    }; 
+});
+</script>
