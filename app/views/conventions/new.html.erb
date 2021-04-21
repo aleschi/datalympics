@@ -1,0 +1,55 @@
+
+<div class="EB_page">
+  <h1 class="EB_title">Ajouter un nouveau document</h1>
+<div class="ED_new_form_box">
+  
+<%= form_for(@convention) do |form| %>
+
+<div>Date</div>
+<div class="ED_new_form_field ED_new_form_field_date">
+  
+    <%= form.date_select :date, class: "ED_new_form_input_date" %>
+</div>
+
+  <div class="form-text">Conventions travaux signées</div>
+  <div class="ED_new_form_field">      
+    <%= form.number_field :travaux_signature, required: true  %>
+  </div>
+  <div class="form-text">Conventions d'objectifs signées</div>
+  <div class="ED_new_form_field">  
+    <%= form.number_field :objectifs_signature, required: true %>
+  </div>
+  <div class="form-text">Conventions d'études signées</div>
+  <div class="ED_new_form_field">  
+    <%= form.number_field :etudes_signature, required: true %>
+  </div>
+  <div class="form-text">Conventions d'objectifs en cours</div>
+  <div class="ED_new_form_field">  
+    <%= form.number_field :objectifs_encours, required: true %>
+  </div>
+  <div class="form-text">Avenants Conventions d'objectifs en cours</div>
+  <div class="ED_new_form_field">  
+    <%= form.number_field :avenants_objectifs_encours, required: true %>
+  </div>
+  <div class="form-text">Avenants Conventions travaux en cours</div>
+  <div class="ED_new_form_field">  
+    <%= form.number_field :avenants_travaux_encours, required: true %>
+  </div>
+  <div class="form-text">Protocoles d'études en cours</div>
+  <div class="ED_new_form_field">  
+    <%= form.number_field :protocole_etudes_encours, required: true %>
+  </div>
+  <div class="form-text">Conventions d'objectifs en cours de réalisation </div>
+  <div class="ED_new_form_field">  
+    <%= form.number_field :objectifs_elaboration, required: true %>
+  </div>
+
+
+ 
+
+  <div class="ED_new_form_field_submit">
+    <%= form.submit "Ajouter" %>
+  </div>
+<% end %>
+  </div>
+</div>

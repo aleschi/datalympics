@@ -387,6 +387,11 @@ button:focus{
     max-width:500px;
   }
 }
+.form-text{
+  color:#1E1E1E;
+  font-size:14px;
+  margin-bottom:12px;
+}
 .ED_new_form_field, .SD_new_form_field{
   margin-bottom:14px;
   position:relative;
@@ -397,14 +402,21 @@ button:focus{
     line-height:33px;
   }
   select, input{
-    float:right;
-    width:35%;
-    color:#444444;
+    //float:right;
+    width:100%;
+    background-color:#F8F8F8;
+    border-radius:4px;
+    border:none;
+    color:#1E1E1E;
     font-size:15px;
     padding:5px 8px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    outline:none;
+    &:focus{
+    border-bottom:1px solid #000091;
+    }
   }
 }
 .ED_new_form_field2{
@@ -449,7 +461,7 @@ button:focus{
     color:#fff;
     font-size:15px;
     text-transform:uppercase;  
-    background-color:#FD9C04;
+    background-color:#000091;
     border-radius:4px;
     padding:10px 15px;
     border:none;
@@ -3133,4 +3145,29 @@ margin-bottom:10px;
 }
 .choice-para a i {
   color:#DDE10F;
+}
+.conventions{
+display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  overflow-x:scroll;
+}
+.box-convention{
+  max-width:800px;
+}
+.box-convention-date{
+  color:#1E1E1E;
+  font-weight:bold;
+  text-align:center;
+  margin-bottom:12px;
+}
+.inline-flex{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  width:100%;
+  align-items:center;
 }

@@ -1,0 +1,2 @@
+class Convention < ApplicationRecord
+end

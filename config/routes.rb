@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     collection {post :import}
   end 
   resources :documents
+  resources :conventions
   root 'pages#home'
   get 'documents-etat' => 'documents#documents_etat'
   
