@@ -186,7 +186,9 @@ document.addEventListener('scroll', function () {
             },
       });
      
-      if (chart.series.length > 1){chart.series[1].remove()};
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
       $('#1').removeClass('inactive');
       $('#2').addClass('inactive');
       $('#2').removeClass('vue');
@@ -197,7 +199,9 @@ document.addEventListener('scroll', function () {
     };
   
     if(isElementInViewport($('#2')) && $('#2').hasClass('inactive') && $('#2').hasClass('nonvue')){
-      
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
       chart.series[0].update({
         name: "Part privée",
         data: [5.1],
@@ -240,6 +244,7 @@ document.addEventListener('scroll', function () {
             x: 0,
             },
       });
+
       $('#2').removeClass('inactive');
       $('#2').removeClass('nonvue');
       $('#2').addClass('vue');
@@ -270,7 +275,9 @@ document.addEventListener('scroll', function () {
             },
       });
       
-      if (chart.series.length > 2){chart.series[2].remove()};
+      if (chart.series.length == 3){chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
+
       chart.series[1].update({
         name: 'Part Publique',
         color: '#E7684C',
@@ -304,6 +311,8 @@ document.addEventListener('scroll', function () {
     };   
 
     if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('nonvue')){
+      if (chart.series.length == 3){chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
       chart.series[0].update({
         name: "Ouvrages",
         data: [4.8],
@@ -378,6 +387,8 @@ document.addEventListener('scroll', function () {
       $('#5').addClass('inactive');
     }; 
     if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('vue')){
+      if (chart.series.length == 3){chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
       chart.series[0].update({
         name: "Ouvrages",
         data: [4.8],
@@ -492,7 +503,8 @@ document.addEventListener('scroll', function () {
             x: 0,
             },
       });
-      chart.series[2].remove();
+      if (chart.series.length == 3){chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
       $('#4').removeClass('inactive');
       $('#4').removeClass('nonvue');
       $('#4').addClass('vue');
@@ -502,6 +514,9 @@ document.addEventListener('scroll', function () {
       $('#5').addClass('inactive');
     }; 
     if(isElementInViewport($('#4')) && $('#4').hasClass('inactive') && $('#4').hasClass('vue')){
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
       chart.addSeries({
         name: "Part Solideo",
         color: '#4FC5CE',
@@ -571,7 +586,9 @@ document.addEventListener('scroll', function () {
          
             },
       });
-      chart.series[1].remove();
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
 
       $('#5').removeClass('inactive');
       $('#5').removeClass('nonvue');
@@ -603,6 +620,9 @@ document.addEventListener('scroll', function () {
          
             },
       });
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
       $('#5').removeClass('inactive');
       $('#5').removeClass('vue');
       $('#5').addClass('nonvue');
@@ -614,6 +634,9 @@ document.addEventListener('scroll', function () {
     }; 
 
     if(isElementInViewport($('#6')) && $('#6').hasClass('inactive')){
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
       chart.series[0].update({
         name: "Budget réel",
         data: [{name: "Vancouver", y: 4.8, color:"#958B62"},{name: "Pekin",y: 31,color:"#20E37B"},{name: "Londres",y: 11,color:"#466964"},{name: "Paris",y: 6.8,color:"#2323EA"},{name: "Sotchi",y: 36,color:"#5770BE"},{name: "Rio",y: 16.5,color:"#00AC8C"},{name: "Tokyo",y: 15.4,color:"#4FC5CE"}],
