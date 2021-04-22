@@ -1,12 +1,12 @@
 
 <div class="SD_page">
 
-  <h1 class="SD_title SD_title2">Le budget de la Solideo</h1>
-   <h1 class="SD_subtitle">Dernière mise à jour : 22 novembre 2020</h1>
+  <h1 class="SD_title SD_title2">Suivi du budget</h1>
+   <h1 class="SD_subtitle">Dernière mise à jour : <%= l(@dates_ouvrages_reporting[0], format: "%e %B %Y") %></h1>
   
 <div class="SD-table-box">
   <div class="SD-topo-box-title">
-        <span>Budget de la Solideo</span>
+        <span>Budget global de la Solideo</span>
   </div><br><br>
  
   <div class="row">
@@ -17,7 +17,7 @@
         <i class="fas fa-coins"></i>
         </div>
         <div>
-        <%= number_with_delimiter(Maquette.where('date = ?',Date.new(2018,06,18)).sum('total').to_i, :delimiter => ' ') %> €<br>
+        <%= number_with_delimiter(Maquette.where('date = ?',@dates_maquettes[@dates_maquettes.length-1]).sum('total').to_i, :delimiter => ' ') %> €<br>
           <span>Budget initial</span>
         </div>
       </div>
@@ -29,7 +29,7 @@
           <i class="fas fa-coins"></i>
         </div>
         <div>
-          <%= number_with_delimiter(Maquette.where('date = ?',Date.new(2021,01,14)).sum('total').to_i, :delimiter => ' ') %> €<br>
+          <%= number_with_delimiter(Maquette.where('date = ?',@dates_maquettes[0]).sum('total').to_i, :delimiter => ' ') %> €<br>
           <span>Budget actuel</span>
         </div>
       </div>
@@ -114,12 +114,13 @@
           },
     },
     title: {
-        text: null,
+        text: 'Répartition et suivi du budget par pole',
+        verticalAlign: "bottom",
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
           fontStyle: 'italic',
-          fontSize: '16px',
+          fontSize: '12px',
                   },
     },
 
@@ -183,12 +184,13 @@
           },
     },
     title: {
-        text: null,
+       text: 'Suivi annuel des dépenses',
+       verticalAlign: "bottom",
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
           fontStyle: 'italic',
-          fontSize: '16px',
+          fontSize: '12px',
                   },
     },
 
@@ -229,7 +231,7 @@
     },
     series: [{
         name: 'Budget',
-        data: [{y:37, color:"#2E5D63" },{y:160, color:"#2E5D63" },{y:228, color: "#2E5D63"},{y:277, color: "#bfbfbf"},{y:702, color: "#bfbfbf"}],
+        data: [{y:37, color:"#2E5D63" },{y:160, color:"#2E5D63" },{y:228, color: "#2E5D63"},{y:311, color: "#bfbfbf"},{y:702, color: "#bfbfbf"}],
         pointPlacement: 0,
     },{
         name: 'Réalisé',

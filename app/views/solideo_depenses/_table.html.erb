@@ -15,9 +15,9 @@
         <div class="convention-infos">
                 <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('cumul_jalons')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>% jalons validés</div>
                 <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('cumul_paiements')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>% paiements réalisés</div>
-                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).round %>M€ subventions restants à venir</div>
+                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).to_i %>M€ subventions restants à venir</div>
                 <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('paiements_annee')/Chantier.where('date = ?',date).sum('budget_annee'))*100).round(1)%>% execution budgétaire au titre de l'année 2021</div>
-                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date).sum('paiements_annee'))/1000000).round %>M€ subventions restant à verser au titre de l'année 2021</div>
+                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date).sum('paiements_annee'))/1000000).to_i %>M€ subventions restant à verser au titre de l'année 2021</div>
                 
               </div>
       </div> 

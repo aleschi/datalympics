@@ -51,7 +51,7 @@
     <div class="col-md-6">
       <div class="home-box">
         <div class="home-box-title">
-          <%= link_to conventions_path do %><% if Convention.last.nil?%><%= Convention.last.travaux_signature + Convention.last.objectifs_signature + Convention.last.etudes_signature%><% end %> CONVENTIONS SIGNÉES<% end %>
+          <%= link_to conventions_path do %><% if !Convention.last.nil?%><%= Convention.last.travaux_signature + Convention.last.objectifs_signature + Convention.last.etudes_signature%><% end %> CONVENTIONS SIGNÉES<% end %>
         </div>
         <div class="home-box-infos-box" style="height:340px !important;">
           <div class="row">

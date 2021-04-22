@@ -1,8 +1,28 @@
 <div  class="table-box">
+   <div class="SD-topo-box-title">
+    <span>Répartition annuelle des dépenses de l'état par action</span>
+  </div><br><br>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="bar-solideo"></div>
+    </div>
+    <div class="col-md-6">
+      <div id="bar-cojo"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="bar-heritage"></div>
+    </div>
+    <div class="col-md-6">
+      <div id="bar-hp"></div>
+    </div>
+  </div>
+<br><br>
   <div class="SD-topo-box-title">
     <span>Répartition annuelle des dépenses de l'état en K€ (CP consommés / CP prévus)</span>
   </div><br><br>
-<% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
+  <% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
 
     <div class="ED_table hidden-xs">
       <table class="table-striped">
@@ -58,9 +78,9 @@
     </div>
   
   
-     <div class="EB-details">
+    <div class="EB-details">
     <%= link_to "détails des dépenses" , etat_depenses_path %>
-  </div>
+    </div>
   <% else %>
     <div>
       Aucune dépense renseignée
@@ -85,7 +105,278 @@
     </div><br>
 </div><br><br>
 
+<script>
+  Highcharts.chart('bar-solideo', {
+    chart: {
+        type: 'column',
+    height:'250px',
+      backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+     
+          },
+    },
+    title: {
+       text: 'Suivi annuel des dépenses pour la Solideo',
+       verticalAlign: "bottom",
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '12px',
+                  },
+    },
 
+    xAxis: {
+        categories: ['Budget 2018', 'Budget 2019',  "Budget 2020", "Budget 2021", "Cumul"],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget Consommé (M€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            grouping: false,
+          dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"solideo").sum('cp_prevu')/1000000).to_i %>, color: "#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"solideo").sum('cp_prevu')/1000000).to_i%>, color:"#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"solideo").sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"solideo").sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('beneficiaire = ?',"solideo").sum('cp_prevu')/1000000).to_i%>, color: "#76505B"}],
+        pointPlacement: 0,
+    },]
+});
+ </script> 
+<script>
+  Highcharts.chart('bar-cojo', {
+    chart: {
+        type: 'column',
+    height:'250px',
+      backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+     
+          },
+    },
+    title: {
+       text: 'Suivi annuel des dépenses pour le Cojo',
+       verticalAlign: "bottom",
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '12px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['Budget 2018', 'Budget 2019',  "Budget 2020", "Budget 2021", "Cumul"],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget Consommé (M€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            grouping: false,
+          dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"cojo").sum('cp_prevu')/1000000).to_i %>, color: "#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"cojo").sum('cp_prevu')/1000000).to_i%>, color:"#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"cojo").sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"cojo").sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('beneficiaire = ?',"cojo").sum('cp_prevu')/1000000).to_i%>, color: "#76505B"}],
+        pointPlacement: 0,
+    },]
+  });
+</script> 
+<script>
+  Highcharts.chart('bar-heritage', {
+    chart: {
+        type: 'column',
+    height:'250px',
+      backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+     
+          },
+    },
+    title: {
+       text: 'Suivi annuel des dépenses pour Héritage',
+       verticalAlign: "bottom",
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '12px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['Budget 2018', 'Budget 2019',  "Budget 2020", "Budget 2021", "Cumul"],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget Consommé (M€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            grouping: false,
+          dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"heritage").sum('cp_prevu')/1000000).to_i %>, color: "#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"heritage").sum('cp_prevu')/1000000).to_i%>, color:"#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"heritage").sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"heritage").sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('beneficiaire = ?',"heritage").sum('cp_prevu')/1000000).to_i%>, color: "#76505B"}],
+        pointPlacement: 0,
+    },]
+  });
+</script> 
+<script>
+  Highcharts.chart('bar-heritage', {
+    chart: {
+        type: 'column',
+    height:'250px',
+      backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+     
+          },
+    },
+    title: {
+       text: 'Suivi annuel des dépenses pour Haute Performance',
+       verticalAlign: "bottom",
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '12px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['Budget 2018', 'Budget 2019',  "Budget 2020", "Budget 2021", "Cumul"],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget Consommé (M€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            grouping: false,
+          dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"hauteperformance").sum('cp_prevu')/1000000).to_i %>, color: "#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"hauteperformance").sum('cp_prevu')/1000000).to_i%>, color:"#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"hauteperformance").sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"hauteperformance").sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('beneficiaire = ?',"hauteperformance").sum('cp_prevu')/1000000).to_i%>, color: "#76505B"}],
+        pointPlacement: 0,
+    },]
+  });
+</script> 
 <script>
 Highcharts.chart('container-chart', {
     chart: {

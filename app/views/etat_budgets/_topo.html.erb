@@ -31,7 +31,19 @@
         </div>
       </div>
 
-    </div><div class="hidden-xs"><br></div>
+    </div>
+    <div class="calendar-infos">
+        <div class="calendar-infos-box">
+        <div>
+           <i class="fas fa-euro-sign"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter(EtatDepense.sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
+          <span>Dépenses cumulées depuis le début</span>
+        </div>
+      </div>
+      </div>
+    <div class="hidden-xs"><br></div>
       
       <div class="calendar-infos">
       <div class="calendar-infos-box">
@@ -39,8 +51,8 @@
         <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-        <%= number_with_delimiter(EtatDepense.where('date <= ?', Date.today).sum('cp_prevu').to_i, :delimiter => ' ') %> €<br>
-          <span>Dépenses prévues à date</span>
+        <%= number_with_delimiter(EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu').to_i, :delimiter => ' ') %> €<br>
+          <span>Budget 2021</span>
         </div>
       </div>
 
@@ -51,31 +63,18 @@
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          <%= number_with_delimiter(EtatDepense.all.sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
-          <span>Dépenses actuelles</span>
+          <%= number_with_delimiter(EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu').to_i, :delimiter => ' ') %> €<br>
+          <span>Dépenses 2021</span>
         </div>
       </div>
 
 
     </div>
-      <div class="calendar-infos">
 
-      <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-euro-sign"></i>
-        </div>
-        <div>
-        <%= ((EtatDepense.all.sum('cp_conso')/EtatBudget.last.budget_total)*100).round %>%<br>
-          <span>Budget consommé</span>
-        </div>
-      </div>
-
-    </div>
     </div>
       <div class="col-md-8 col-sm-7 col-xs-12">
-        <div id="container-pie">
-       
-      </div>
+        <div id="container-bar1"></div><br>
+        <div id="container-bar-all"></div> 
       </div>
   </div>
   <br><br>
@@ -93,77 +92,143 @@
 
 </script>
 
-<script>
-Highcharts.chart('container-pie', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
 
-        backgroundColor: '#fff',
+<script>
+
+  Highcharts.chart('container-bar-all', {
+    chart: {
+        type: 'column',
+    height:'200px',
+      backgroundColor: '#fff',
           style:{
           fontFamily: "Marianne Regular",
-      
+     
           },
-      height: '350px',
     },
     title: {
-         text:null,   
-          style: {
+        text: 'Répartition et suivi du budget par action',
+        verticalAlign: "bottom",
+        style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-                  fontStyle: "italic",
-                  fontSize: '16px',
+          fontStyle: 'italic',
+          fontSize: '12px',
                   },
     },
-  colors: ['#2E5D63','#C68D7B', '#20E37B','#5770BE'],
+
+    xAxis: {
+        categories: ['Solideo', 'Cojo',  "Héritage", "Haute Performance" ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget (M€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>',
-      borderColor: 'transparent',
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+       borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
     },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
     plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-           size: 250,
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b><br>{point.y:,.0f}€ - {point.percentage:.1f} %',
-              style: {
-                      color: "#8F8F8F",
-                      fontSize: "11px",
-                      fontWeight: "400",
-                      fontStyle: "italic",
-                      },
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            grouping: false,
+          dataLabels: {
+                enabled: true
             }
         }
     },
     series: [{
-        name: 'Total',
-        colorByPoint: true,
-        data: [{
-            name: 'Solideo',
-            y: <%= @etat_budget_actuel.budget_solideo.to_i%>,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'COJO',
-            y: <%= @etat_budget_actuel.budget_cojo.to_i%>,
-        }, {
-            name: 'Heritage',
-            y: <%= @etat_budget_actuel.budget_heritage.to_i%>,
-        }, {
-            name: 'Haute Performance',
-            y: <%= @etat_budget_actuel.budget_hauteperformance.to_i%>,
-        }]
+        name: 'Budget Total prévu',
+        data: [{y:<%=(@etat_budget_actuel.budget_solideo/1000000).to_i%>, color:"#bfbfbf" },{y:<%=(@etat_budget_actuel.budget_cojo/1000000).to_i%>, color:"#bfbfbf" },{y:<%= (@etat_budget_actuel.budget_heritage/1000000).to_i%>, color: "#bfbfbf"},{y:<%=(@etat_budget_actuel.budget_hauteperformance/1000000).to_i%>, color: "#bfbfbf"}],
+        pointPlacement: 0,
+    },{
+        name: 'Payés',
+        data: [{y:<%= (EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/1000000).to_i%> , color:"#5770BE" },{y:<%= (EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')/1000000).to_i%> , color:"#76505B" },{y:<%= (EtatDepense.where('beneficiaire = ?', "hauteperformance",).sum('cp_conso')/1000000).to_i%> , color: "#FFE800"},{y:<%= (EtatDepense.where('beneficiaire = ?', "heritage",).sum('cp_conso')/1000000).to_i%> , color: "#D08A77"}],
+        pointPlacement: 0,
+
     }]
 });
 </script>
+
+<script>
+  Highcharts.chart('container-bar1', {
+    chart: {
+        type: 'column',
+    height:'200px',
+      backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+     
+          },
+    },
+    title: {
+       text: 'Suivi annuel des dépenses',
+       verticalAlign: "bottom",
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '12px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['Budget 2018', 'Budget 2019',  "Budget 2020", "Budget 2021", "Cumul"],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget Consommé (M€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            grouping: false,
+          dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ?', Date.new(2018,1,1), Date.new(2018,12,31)).sum('cp_prevu')/1000000).to_i %>, color: "#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2019,1,1), Date.new(2019,12,31)).sum('cp_prevu')/1000000).to_i%>, color:"#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2020,1,1), Date.new(2020,12,31)).sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2021,1,1), Date.new(2021,12,31)).sum('cp_prevu')/1000000).to_i%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.all.sum('cp_prevu')/1000000).to_i%>, color: "#76505B"}],
+        pointPlacement: 0,
+    },]
+});
+ </script> 
