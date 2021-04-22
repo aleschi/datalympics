@@ -1,189 +1,133 @@
 
 <div  class="SD-table-box">
   <div class="SD-topo-box-title">
-    <span>Suivi du budget par pole de la solideo</span>
+    <span>Suivi du budget des ouvrages</span>
   </div><br><br>
-    <div class="row">
-      <div class="col-md-12">
-       <div class="SD-topo-box-title">
-        <span><%= link_to ouvrages_path do %>Ouvrages<%end%></span>
-      </div><br><br>
-        <div id="container-1">
-   
-          
-        </div>
-   
+
+
+  <div class="budget-ouvrages">
+    <div class="budget-ouvrages-mois">
+      <div class="box-convention-date"><%= l(Chantier.last.date, format: "%e %B %Y") %> </div>
+     
+      <div class="row inline-flex">
+        <div id="ouvrages"></div>
+        <div class="convention-infos">
+                <div class="reporting-text">X% jalons validés</div>
+                <div class="reporting-text">X% paiements réalisés</div>
+                <div class="reporting-text">XM€ subventions restants à venir</div>
+                <div class="reporting-text">XM€ execution budgétaire au titre de l'année 2021</div>
+                <div class="reporting-text">XM€ subventions restant à verser au titre de l'année 2021</div>
                 
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-12">
-          <div class="SD-topo-box-title">
-        <span>Fonctionnement</span>
-      </div><br><br>
-        <div id="container-2">
-
-          
-        </div>
-       
-           
-      </div>
-  </div><br>
-  <div class="row">   
-      <div class="col-md-12">
-          <div class="SD-topo-box-title">
-        <span>Fonds Innovation</span>
-      </div><br><br>
-        <div id="container-3">
- 
-          
-        </div>
-           
-      </div>
-  </div>
-     <div class="row"> 
-      <div class="col-md-12">
-          <div class="SD-topo-box-title">
-        <span>Fonds Réserve</span>
-      </div><br><br>
-        <div id="container-4">
-
-          
-        </div>
-           
-      </div>
-  </div><br><br>
-  <div class="SD-table-box-left">
-    <div class="EB-details">
-       <a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details">Détails des dépenses </a>      
-    </div><br>
-    <section id="details" class="collapse">
-    <% if !@solideo_depenses_array.nil? %>     
-        <div class="ED_table">
-          <table class="table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Dates</th>
-                <th scope="col"><%= link_to ouvrages_path do %>Ouvrages<%end%></th>
-                <th scope="col">Fonctionnement</th>
-                <th scope="col">Innovation</th>
-                <th scope="col">Réserve</th>
-                <th scope="col" class="border-none">Total (k€)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @solideo_depenses_array.each do |date| %>
-              <tr>
-                <th scope="row"><%= date.strftime("%b %Y") %></th>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((OuvragesDepense.where(' date = ?',date).sum('montant')/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter((OuvragesDepense.where('date = ?',date).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> <% if OuvragesDepense.where('date = ?', date).sum('montant').to_i > OuvragesDepense.where('date = ?', date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
-                 <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant')/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'fonctionnement',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant')/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'innovation',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
-                <td><div class="table-row"><div class="table-row-left"><%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant')/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter((SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant').to_i > SolideoFinancement.where('categorie = ? AND date = ?', 'reserve',date).sum('montant_prevu').to_i%><i class="fas fa-exclamation-circle"></i><%end%></div></div></td>
-                <td class="border-none"><div class="table-row"><div class="table-row-left"><%= number_with_delimiter(((OuvragesDepense.where(' date = ?',date).sum('montant')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant'))/1000).to_i, :delimiter => ' ') %></div> <div class="table-row-right"> / <%= number_with_delimiter(((OuvragesDepense.where(' date = ?',date).sum('montant_prevu')+SolideoFinancement.where('categorie != ? AND date = ?',"ouvrages",date).sum('montant_prevu'))/1000).to_i, :delimiter => ' ') %> <%if OuvragesDepense.where(' date = ?',date).sum('montant')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant') > OuvragesDepense.where(' date = ?',date).sum('montant_prevu')+SolideoFinancement.where('categorie != ? AND date = ?','ouvrages',date).sum('montant_prevu') %><i class="fas fa-exclamation-circle"></i><%end %></div></div></td>
-               
-             </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-    <% else %>
-      <div>Aucune dépense renseignée</div>
-    <%end%>
-    </section>
-
-  </div>
-</div><br><br>
-
-<script>
-Highcharts.chart('container-1', {
-
-   chart:{
-            backgroundColor: '#fff',
-           type: 'spline',
-            spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Marianne Regular",
-        // maxWidth: '500px'
-          },
-       
-          },
-
-      title: {
-        text:"Suivi des dépenses des ouvrages de la Solideo",
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-      },
-  colors: ["#bfbfbf",'#2E5D63'],
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
+              </div>
+      </div> 
+    </div>
+        
+    <script>
+      Highcharts.chart('ouvrages', {
+        chart: {
+            type: 'column',
+        height:'250px',
+          backgroundColor: '#fff',
+              style:{
+              fontFamily: "Marianne Regular",
+         
+              },
+        },
         title: {
-            text: 'Total M€'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: ' M€',
-    borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-      
-    },
-  xAxis:{
-      max: 2021,
-     tickInterval: 1,
-  },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
+            text: null,
+            style: {
+                      color: "#8F8F8F",
+                      fontWeight: "400",
+              fontStyle: 'italic',
+              fontSize: '16px',
+                      },
+        },
+
+        xAxis: {
+            categories: ['Dépenses 2018', 'Dépenses 2019',  "Dépenses 2020", "Dépenses 2021", "Budget 2021", "Total dépenses", "Total engagés", "Jalons validés"],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Budget Consommé (M€)'
             },
-            pointStart: 2018,
-           dataLabels: {
-                enabled: true,
-             verticalAlign: 'top',
-            }
-        }
-    },
-
-  
-
-    series: [ {
-        name: 'Dépenses prévues',
-        data: <%= @depenses_prevu_annee_ouvrages %>,
-    },{
-        name: 'Dépenses',
-        data: <%= @depenses_annee_ouvrages %>,
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
+          gridLineColor: "#fff",
+        },
+      legend: {
+        enabled: false,
+      },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+                '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true,
+           borderColor: 'transparent',
+       borderRadius: 16,
+       backgroundColor: '#fff',
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0,
+                grouping: false,
+              dataLabels: {
+                    enabled: true
                 }
             }
+        },
+        series: [{
+            name: 'Budget année',
+            data: [{y:17, color:"#2E5D63" },{y:16, color:"#2E5D63" },{y:33, color: "#2E5D63"},{y:37, color: "#2E5D63"},{y:107, color: "#bfbfbf"},{y:88, color: "#2E5D63"},{y:602, color: "#7D4E5B"},{y:302, color: "#FFE800"}],
+            pointPlacement: 0,
         }]
-    }
+    });
+     </script> 
+   
+  </div>
+</div>
+<div  class="SD-table-box">
+  <div class="SD-topo-box-title">
+    <span>Suivi du budget fonctionnement </span>
+  </div><br><br>
+  <div class="row">
+      <div class="col-md-12">
+        <div id="container-2"></div>
+      </div>
+  </div><br>
+</div>
+<div  class="SD-table-box">
+  <div class="SD-topo-box-title">
+    <span>Suivi des fonds innovation </span>
+  </div><br><br>
+  <div class="row">   
+      <div class="col-md-12">
+        <div id="container-3"></div>
+      </div>
+  </div>
+</div>
+<div  class="SD-table-box">
+  <div class="SD-topo-box-title">
+    <span>Suivi des fonds réserve </span>
+  </div><br><br>
+  <div class="row"> 
+      <div class="col-md-12">
+        <div id="container-4"></div>     
+      </div>
+  </div><br><br>
+  
+</div><br><br>
 
-});
-</script>
+
 <script>
 Highcharts.chart('container-2', {
 
    chart:{
          backgroundColor: '#fff',
          zoomType: 'xy',
-         spacing: [40,40,40,40],
+         height:'250px',
          style:{
          fontFamily: "Marianne Regular",
          //maxWidth: '500px'
@@ -191,8 +135,8 @@ Highcharts.chart('container-2', {
           },
 
       title: {
-        text:"Suivi des dépenses de fonctionnement de la Solideo",
-        margin:40,
+        text:null,
+
         style: {
                 color: "#8F8F8F",
                 fontWeight: "400",
@@ -285,7 +229,7 @@ Highcharts.chart('container-3', {
    chart:{
             backgroundColor: '#fff',
            type: 'areaspline',
-            spacing: [40,40,40,40],
+          height:'250px',
         style:{
           fontFamily: "Marianne Regular",
         // maxWidth: '500px'
@@ -294,8 +238,8 @@ Highcharts.chart('container-3', {
           },
 
       title: {
-        text:"Evolution des fonds innovation de la Solideo",
-        margin:40,
+        text:null,
+  
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
@@ -364,7 +308,7 @@ Highcharts.chart('container-4', {
    chart:{
             backgroundColor: '#fff',
            type: 'areaspline',
-            spacing: [40,40,40,40],
+         height:'250px',
         style:{
           fontFamily: "Marianne Regular",
         // maxWidth: '500px'
@@ -373,8 +317,8 @@ Highcharts.chart('container-4', {
           },
 
       title: {
-        text:"Evolution des fonds de réserve de la Solideo",
-        margin:40,
+        text:null,
+  
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",

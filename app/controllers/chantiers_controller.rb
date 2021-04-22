@@ -23,7 +23,10 @@ class ChantiersController < ApplicationController
   
   def destroy
   end 
-  
+  def import
+    Chantier.import(params[:file], params[:date])
+    redirect_to solideo_depenses_path 
+  end 
   private
   
   def set_chantier
@@ -31,7 +34,7 @@ class ChantiersController < ApplicationController
     end
 
     def chantier_params
-      params.require(:chantier).permit(:name, :ouvrage_id)
+      params.require(:chantier).permit(:name, :ouvrage_id, :code, :site, :libelle, :typecontrat, :datesignature, :total_depenses_actees, :depenses_actees_annee, :jalons_annee, :paiements_annee, :paiements_attente_annee, :budget_annee, :cumul_depenses_actees, :cumul_jalons, :cumul_paiements, :date)
     end
 
 end

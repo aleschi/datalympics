@@ -1,5 +1,6 @@
 <div class="SD_page">
   <h1 class="SD_title SD_title2">Suivi des conventions </h1>
+    <h1 class="SD_subtitle">Dernière mise à jour : <% if !Convention.last.nil?%><%= l(Convention.last.updated_at, format: "%e %B %Y") %> <% end %> </h1>
 
   <div  class="SD-table-box">
     <div class="SF-topo-financeurs-title"><span>Suivi des conventions </span></div><br><br>
@@ -12,6 +13,7 @@
             <div class="inline-flex">
               <div id="container<%=i%>"></div>
               <div class="convention-infos">
+                <div class="reporting-text"><%= convention.objectifs_signature + convention.travaux_signature + convention.etudes_signature%> Conventions signées </div>
                 <div class="reporting-text"><%= convention.objectifs_encours%> CDO en cours de signature</div>
                 <div class="reporting-text"><%= convention.avenants_objectifs_encours%> Avenants aux CDO en cours</div>
                 <div class="reporting-text"><%= convention.avenants_travaux_encours%> Avenants aux CTRAV en cours</div>
@@ -90,4 +92,11 @@
   </div>
 </div>
 
-  
+  <script>
+
+  $('.menu-ouvrages-conventions').addClass('menu-active2'); 
+  $('.menu-ouvrages').addClass('menu-active'); 
+
+  $('#MonCollapse3').addClass('in'); 
+
+</script>

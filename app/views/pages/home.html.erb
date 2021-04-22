@@ -51,10 +51,11 @@
     <div class="col-md-6">
       <div class="home-box">
         <div class="home-box-title">
-          SIGNATURES CONVENTIONS
+          <%= link_to conventions_path do %>CONVENTIONS SIGNÉES<% end %>
         </div>
-        <div class="home-box-infos-box">
+        <div class="home-box-infos-box" style="height:340px !important;">
           <div class="row">
+            <% if Convention.last.nil?%>
             <div class="col-md-6">
               <div>
                 <div class="home-box-infos1">39</div>
@@ -87,7 +88,74 @@
                 <div class="home-box-infos2">Conventions d’objectifs en cours d’élaboration</div>     
               </div>
             </div>
+            <% else %>
 
+            <div id="container-conv"></div>
+            <script>
+              Highcharts.chart('container-conv', {
+                  chart: {
+                      plotBackgroundColor: null,
+                      plotBorderWidth: null,
+                      plotShadow: false,
+                      type: 'pie',
+                      backgroundColor: '#fff',
+                        style:{
+                        fontFamily: "Marianne Regular",
+                  
+                        },
+                    height: '280px',
+                  },
+                  title: {
+                       text:null,   
+                        style: {
+                                color: "#8F8F8F",
+                                fontWeight: "400",
+                                fontStyle: "italic",
+                                fontSize: '16px',
+                                },
+                  },
+                  colors: ['#2E5D63','#C68D7B', '#20E37B'],
+                  tooltip: {
+                      pointFormat: '{series.name}: <b>{point.y} </b>',
+                    borderColor: 'transparent',
+                    borderRadius: 16,
+                    backgroundColor: '#fff',
+                    },
+              
+                  plotOptions: {
+                      pie: {
+                          allowPointSelect: true,
+                          cursor: 'pointer',
+                         size: 200,
+                          dataLabels: {
+                              enabled: true,
+                              format: '<b>{point.name}</b><br>{point.y}',
+                            style: {
+                                    color: "#8F8F8F",
+                                    fontSize: "11px",
+                                    fontWeight: "400",
+                                    fontStyle: "italic",
+                                    },
+                          }
+                      }
+                  },
+                  series: [{
+                      name: 'Conventions signées',
+                      colorByPoint: true,
+                      data: [{
+                          name: 'Conventions travaux',
+                          y: <%= Convention.last.travaux_signature%>,
+                      }, {
+                          name: 'Conventions objectifs',
+                          y: <%= Convention.last.objectifs_signature%>,
+                      }, {
+                          name: 'Convention études',
+                          y: <%= Convention.last.etudes_signature%>,
+                      }]
+                  }]
+              });
+            </script>
+            <% end %>
           </div>
         </div>
       </div>
@@ -97,7 +165,7 @@
           <div class="home-box-title">
            Suivi Ouvrages
           </div>
-          <div class="home-box-infos-box">
+          <div class="home-box-infos-box" style="height:340px !important;">
             <div class="row index-inline">
               <div class="col-md-6 col-sm-6">
                 <div>
@@ -322,105 +390,105 @@ Highcharts.chart('container-jauge4', {
     }, ]
 });
   </script>
-    <script>
+   <script>
     
-    Highcharts.chart('budget', {
-    chart: {
-        type: 'column',
-        inverted: true,
-        height: '150px',
-        spacingTop: 0,
-        style:{
-          fontFamily: "Marianne Regular",
-        },
-    },
-    title: {
-        text: null,
-       
-    },
-    xAxis: {
-      categories: ['Suivi Budget 2021'],
-        title: {
-        text: null,
+      Highcharts.chart('budget', {
+      chart: {
+          type: 'column',
+          inverted: true,
+          height: '150px',
+          spacingTop: 0,
+          style:{
+            fontFamily: "Marianne Regular",
+          },
       },
-      lineColor: '#fff',
-      labels: {
-        enabled: false,
-      },
-    },
-    yAxis: {
-      gridLineColor: '#fff',
       title: {
-        text: null,
+          text: null,
+         
       },
-      labels: {
-        enabled: false,
+      xAxis: {
+        categories: ['Suivi Budget 2021'],
+          title: {
+          text: null,
+        },
+        lineColor: '#fff',
+        labels: {
+          enabled: false,
+        },
       },
-    },
-    legend: {
-        shadow: false,
-        enabled:false,
-    },
-    tooltip: {
-        shared: true,
-        valueSuffix: 'M€',
-        borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-    plotOptions: {
-        column: {
-            grouping: false,
-            shadow: false,
-            borderWidth: 0,
-            pointWidth: 25,
-        }
-    },
-    series: [{
-        name: 'Montants engagés',
-        color: '#C4C4C4',
-        data: [664],
-        pointPadding: 0,
-        pointPlacement: 0,
-        dataLabels: {
-          enabled: true,
-          style: {
-            color: '#C4C4C4',
-            textOutline: '0px',
-            fontSize: '14px',
+      yAxis: {
+        gridLineColor: '#fff',
+        title: {
+          text: null,
+        },
+        labels: {
+          enabled: false,
+        },
+      },
+      legend: {
+          shadow: false,
+          enabled:false,
+      },
+      tooltip: {
+          shared: true,
+          valueSuffix: 'M€',
+          borderColor: 'transparent',
+     borderRadius: 16,
+     backgroundColor: '#fff',
+      },
+      plotOptions: {
+          column: {
+              grouping: false,
+              shadow: false,
+              borderWidth: 0,
+              pointWidth: 25,
+          }
+      },
+      series: [{
+          name: 'Montants engagés',
+          color: '#C4C4C4',
+          data: [664],
+          pointPadding: 0,
+          pointPlacement: 0,
+          dataLabels: {
+            enabled: true,
+            style: {
+              color: '#C4C4C4',
+              textOutline: '0px',
+              fontSize: '14px',
+            },
+            formatter: function() {
+              var point = this, 
+              number = Highcharts.numberFormat(point.y, -1, ',',' '),
+              content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">engagés </span>';
+            return content;
           },
-          formatter: function() {
-            var point = this, 
-            number = Highcharts.numberFormat(point.y, -1, ',',' '),
-            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">engagés </span>';
-          return content;
-        },
-        y: 100,
-        },
+          y: 100,
+          },
 
-    }, {
-        name: 'Paiements versés',
-        color: '#466964',
-        data: [88],
-        pointPadding: 0,
-        pointPlacement: 0,
-        dataLabels: {
-          enabled: true,
-          style: {
-            color: '#466964',
-            fontSize: '14px',
+      }, {
+          name: 'Paiements versés',
+          color: '#466964',
+          data: [88],
+          pointPadding: 0,
+          pointPlacement: 0,
+          dataLabels: {
+            enabled: true,
+            style: {
+              color: '#466964',
+              fontSize: '14px',
+            },
+            formatter: function() {
+              var point = this, 
+              number = Highcharts.numberFormat(point.y, -1, ',',' '),
+              content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés</span> ';
+            return content;
           },
-          formatter: function() {
-            var point = this, 
-            number = Highcharts.numberFormat(point.y, -1, ',',' '),
-            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés</span> ';
-          return content;
-        },
-        y: 100,
-        x: -20,
-        },
-    }, ]
-});
+          y: 100,
+          x: -20,
+          },
+      }, ]
+  });
   </script>
 <script>
 

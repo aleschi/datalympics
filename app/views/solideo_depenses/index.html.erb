@@ -6,7 +6,7 @@
   
 <div class="SD-table-box">
   <div class="SD-topo-box-title">
-        <span>La Solideo en chiffres</span>
+        <span>Budget de la Solideo</span>
   </div><br><br>
  
   <div class="row">
@@ -33,7 +33,20 @@
           <span>Budget actuel</span>
         </div>
       </div>
-      </div><div class="hidden-xs"><br></div>
+      </div>
+      <div class="calendar-infos">
+        <div class="calendar-infos-box">
+        <div>
+           <i class="fas fa-euro-sign"></i>
+        </div>
+        <div>
+          XXX<br>
+          <span>Dépenses cumulées depuis le début</span>
+        </div>
+      </div>
+      </div>
+
+      <div class="hidden-xs"><br></div>
       <div class="calendar-infos">
         <div class="calendar-infos-box">
         <div>
@@ -41,7 +54,7 @@
         </div>
         <div>
         277 256 765 €<br>
-          <span>Dépenses prévues pour 2021</span>
+          <span>Budget 2021</span>
         </div>
       </div>
       </div>
@@ -52,46 +65,24 @@
         </div>
         <div>
           <%= number_with_delimiter((SolideoDepense.all.sum("fonctionnement")+SolideoDepense.all.sum("ouvrages")).to_i, :delimiter => ' ')%> € <br>
-          <span>Dépenses actuelles</span>
+          <span>Dépenses 2021</span>
         </div>
       </div>
       </div> 
-      <div class="calendar-infos">
-        <div class="calendar-infos-box">
-        <div>
-           <i class="fas fa-euro-sign"></i>
-        </div>
-        <div>
-          <%= ((SolideoDepense.all.sum("fonctionnement")+SolideoDepense.all.sum("ouvrages"))/SolideoFinancement.where('date = ?',SolideoFinancement.order('date DESC').first.date).sum('montant')*100).round%>%<br>
-          <span>Budget dépensé</span>
-        </div>
-      </div>
-      </div> 
+       
        
    
     </div>
    
     <div class="col-md-8 col-sm-7 col-xs-12">
-      <div id="container-pie">      
-      </div> 
+      <div id="container-bar1"></div><br>
+      <div id="container-bar-all"></div> 
     </div>    
   </div>
   <br><br>
 </div>
-  <br><br>
-  <div  class="SD-table-box">
-    <div class="SD-topo-box-title">
-      <span>Dépenses de la solideo</span>
-    </div><br><br>
 
-        <div id="container-bar1">
-          
-        </div>
-    
-    
-    </div>
 
-  <br><br>
 
   <div id="table_filtres">
     <%= render 'table'%> 
@@ -111,150 +102,11 @@
 
 </script>
 <script>
-Highcharts.chart('container-pie', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        backgroundColor: '#fff',
-          style:{
-          fontFamily: "Marianne Regular",
-         
-          },
-      height: '350px',
-    },
-    title: {
-         text:null,   
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  fontStyle: "italic",
-                  fontSize: '16px',
-                  },
-    },
-  colors: ['#2E5D63','#C68D7B', '#20E37B','#5770BE'],
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>',
-       borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-           size: 250,
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b><br>{point.y:,.0f}€ - {point.percentage:.1f} %',
-              style: {
-                      color: "#8F8F8F",
-                      fontSize: "11px",
-                      fontWeight: "400",
-                      fontStyle: "italic",
-                      },
-            }
-        }
-    },
-    series: [{
-        name: 'Total',
-        colorByPoint: true,
-        data: [{
-            name: 'Ouvrages',
-            y: <%= @budget_ouvrages%>,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Réserve',
-            y: <%= @budget_reserve%>,
-        }, {
-            name: 'Innovation',
-            y: <%= @budget_innovation %>,
-        }, {
-            name: 'Fonctionnement',
-            y:<%= @budget_fonctionnement %>,
-        }]
-    }]
-});
-</script>
-<script>
-Highcharts.chart('container-bar0', {
-    chart: {
-        type: 'bar',
-      style:{
-          fontFamily: "Marianne Regular",
-         maxWidth: '400px',
-     
-          },
-  
-      height: "450px",
-    },
-    title: {
-        text: null,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-    },
-  colors: ['#4FC5CE'],
-    xAxis: {
-        categories:  ["Budget total","Part publique","Dépenses à date prévues", "Dépenses actuelles"],
-        title: {
-            text: null
-        },
-      
-    },
-    yAxis: {
-        min: 0,
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Montant (M€)',
-            align: 'high'
-        },
-        labels: {
-            overflow: 'justify'
-        }
-    },
-    tooltip: {
-        valueSuffix: ' €',
-       borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-  legend: {
-    enabled: false,
-  },
-    plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    
-    credits: {
-        enabled: false
-    },
-    series: [{
-        name: 'Budget',
-        data: [{y: <%= (SolideoFinancement.where('date = ?',SolideoFinancement.last.date).sum('montant')/1000000).round%> , color: "#C68D7B"},{y: <%= (SolideoFinancement.where('financeur != ? AND date = ?', "privé",SolideoFinancement.last.date).sum('montant')/1000000).round%> , color: "#2E5D63"}, {y: 0, color: "#bfbfbf"}, {y: 0, color: "#20E37B"}],
-     }]
-});
-  </script>
 
-<script>
-Highcharts.chart('container-bar1', {
+  Highcharts.chart('container-bar-all', {
     chart: {
         type: 'column',
-    
+    height:'200px',
       backgroundColor: '#fff',
           style:{
           fontFamily: "Marianne Regular",
@@ -272,7 +124,7 @@ Highcharts.chart('container-bar1', {
     },
 
     xAxis: {
-        categories: ['Prévu 2018','Réalisé 2018','Prévu 2019', 'Réalisé 2019', "Prévu 2020", "Réalisé 2020", "Prev 2021", "Réalisé 2021"],
+        categories: ['Ouvrages', 'Fonctionnement',  "Innovation", "Réserve" ],
         crosshair: true
     },
     yAxis: {
@@ -300,14 +152,89 @@ Highcharts.chart('container-bar1', {
         column: {
             pointPadding: 0.2,
             borderWidth: 0,
+            grouping: false,
           dataLabels: {
                 enabled: true
             }
         }
     },
     series: [{
-        name: 'Budget',
-        data: [{y:37, color:"#bfbfbf" },{y:<%=((SolideoDepense.where('date = ?', Date.new(2018,1)).sum('ouvrages')+SolideoDepense.where('date = ?', Date.new(2018,1)).sum('fonctionnement'))/1000000).round%>, color:"#C68D7B" }, {y:160, color:"#bfbfbf" },{y:<%=((SolideoDepense.where('date = ?', Date.new(2019,1)).sum('ouvrages')+SolideoDepense.where('date = ?', Date.new(2019,1)).sum('fonctionnement'))/1000000).round%>, color:"#C68D7B" }, {y:228, color: "#bfbfbf"}, {y:<%= ((SolideoDepense.where('date = ?', Date.new(2020,1)).sum('ouvrages')+SolideoDepense.where('date = ?', Date.new(2020,1)).sum('fonctionnement'))/1000000).round%>, color: "#C68D7B"}, {y:277, color: "#bfbfbf"}, {y:57, color: "#C68D7B"}]
+        name: 'Total',
+        data: [{y:2770, color:"#bfbfbf" },{y:460, color:"#bfbfbf" },{y:428, color: "#bfbfbf"},{y:277, color: "#bfbfbf"}],
+        pointPlacement: 0,
+    },{
+        name: 'Consommé',
+        data: [{y:87, color:"#5770BE" },{y:160, color:"#76505B" },{y:228, color: "#FFE800"},{y:57, color: "#D08A77"}],
+        pointPlacement: 0,
+
+    }]
+});
+</script>
+
+<script>
+  Highcharts.chart('container-bar1', {
+    chart: {
+        type: 'column',
+    height:'200px',
+      backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+     
+          },
+    },
+    title: {
+        text: null,
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '16px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['Réalisé 2018', 'Réalisé 2019',  "Réalisé 2020", "Réalisé 2021", "Cumul"],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget Consommé (M€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            grouping: false,
+          dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'Prévu',
+        data: [{y:37, color:"#2E5D63" },{y:160, color:"#2E5D63" },{y:228, color: "#2E5D63"},{y:277, color: "#bfbfbf"},{y:702, color: "#bfbfbf"}],
+        pointPlacement: 0,
+    },{
+        name: 'Réalisé',
+        data: [{y:37, color:"#2E5D63" },{y:160, color:"#2E5D63" },{y:228, color: "#2E5D63"},{y:57, color: "#2E5D63"}, {y:482, color: "#C68D7B"}],
+        pointPlacement: 0,
 
     }]
 });

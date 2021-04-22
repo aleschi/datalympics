@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_21_123357) do
+ActiveRecord::Schema.define(version: 2021_04_22_075920) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -52,6 +52,21 @@ ActiveRecord::Schema.define(version: 2021_04_21_123357) do
     t.integer "ouvrage_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code"
+    t.string "site"
+    t.string "libelle"
+    t.string "typecontrat"
+    t.date "datesignature"
+    t.float "total_depenses_actees"
+    t.float "depenses_actees_annee"
+    t.float "jalons_annee"
+    t.float "paiements_annee"
+    t.float "paiements_attente_annee"
+    t.float "budget_annee"
+    t.float "cumul_depenses_actees"
+    t.float "cumul_jalons"
+    t.float "cumul_paiements"
+    t.date "date"
     t.index ["ouvrage_id"], name: "index_chantiers_on_ouvrage_id"
   end
 

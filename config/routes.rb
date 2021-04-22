@@ -6,7 +6,11 @@ Rails.application.routes.draw do
      
     end
   end 
-  resources :chantiers
+  resources :chantiers do 
+    collection do 
+      post 'import' => 'chantiers#import'
+    end 
+  end 
   devise_for :users, :path => "",
     :path_names =>  {:sign_in => "connexion", :sign_out => "deconnexion"}
   ActiveAdmin.routes(self)
