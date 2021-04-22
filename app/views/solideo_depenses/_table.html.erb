@@ -13,11 +13,11 @@
       <div class="row inline-flex">
         <div id="ouvrages<%=i%>"></div>
         <div class="convention-infos">
-                <div class="reporting-text"><%=(Chantier.where('date = ?',date).sum('cumul_jalons')/Chantier.where('date = ?',date).sum('total_depenses_actees')).round(1)%>% jalons validés</div>
-                <div class="reporting-text"><%=(Chantier.where('date = ?',date).sum('cumul_paiements')/Chantier.where('date = ?',date).sum('total_depenses_actees')).round(1)%>% paiements réalisés</div>
-                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).round(1)%>M€ subventions restants à venir</div>
-                <div class="reporting-text"><%=(Chantier.where('date = ?',date).sum('paiements_annee')/Chantier.where('date = ?',date).sum('budget_annee')).round(1)%>% execution budgétaire au titre de l'année 2021</div>
-                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date).sum('paiements_annee'))/1000000).round(1)%>M€ subventions restant à verser au titre de l'année 2021</div>
+                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('cumul_jalons')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>% jalons validés</div>
+                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('cumul_paiements')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>% paiements réalisés</div>
+                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).round %>M€ subventions restants à venir</div>
+                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('paiements_annee')/Chantier.where('date = ?',date).sum('budget_annee'))*100).round(1)%>% execution budgétaire au titre de l'année 2021</div>
+                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date).sum('paiements_annee'))/1000000).round %>M€ subventions restant à verser au titre de l'année 2021</div>
                 
               </div>
       </div> 
@@ -29,6 +29,7 @@
         chart: {
             type: 'column',
         height:'250px',
+
           backgroundColor: '#fff',
               style:{
               fontFamily: "Marianne Regular",
@@ -230,10 +231,11 @@ Highcharts.chart('container-2', {
 
 });
 </script>
+<% if !@dates_maquettes.nil?%>
 <script>
 Highcharts.chart('container-3', {
 
-   chart:{
+  chart:{
             backgroundColor: '#fff',
            type: 'areaspline',
           height:'250px',
@@ -270,8 +272,14 @@ Highcharts.chart('container-3', {
       
     },
   xAxis:{
-      max: 2021,
-    tickInterval: 1,
+    type: 'datetime',
+        dateTimeLabelFormats: { // don't display the dummy year
+            month: '%e. %b',
+            year: '%b'
+        },
+        title: {
+            text: 'Date'
+        }
   },
     plotOptions: {
         series: {
@@ -286,7 +294,7 @@ Highcharts.chart('container-3', {
 
     series: [{
         name: 'Evolution des fonds innovation',
-        data: <%= @depenses_annee_innovation %>,
+        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month%>,<%= date.day%>),<%=Maquette.where('date = ? AND (name = ? OR name = ?)',date, "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')%>], <% end%>],
        dataLabels: {
                 enabled: true,
             },
@@ -312,7 +320,7 @@ Highcharts.chart('container-3', {
 <script>
 Highcharts.chart('container-4', {
 
-   chart:{
+  chart:{
             backgroundColor: '#fff',
            type: 'areaspline',
          height:'250px',
@@ -349,8 +357,14 @@ Highcharts.chart('container-4', {
       
     },
   xAxis:{
-      max: 2021,
-    tickInterval: 1,
+    type: 'datetime',
+        dateTimeLabelFormats: { // don't display the dummy year
+            month: '%e. %b',
+            year: '%b'
+        },
+        title: {
+            text: 'Date'
+        }
   },
     plotOptions: {
         series: {
@@ -365,7 +379,7 @@ Highcharts.chart('container-4', {
 
     series: [{
         name: 'Evolution de la réserve ',
-        data: <%= @depenses_annee_reserve%>,
+         data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month%>,<%= date.day%>),<%=Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',date, "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')%>], <% end%>],
        dataLabels: {
                 enabled: true,
             },
@@ -388,3 +402,4 @@ Highcharts.chart('container-4', {
 
 });
 </script>
+<% end %>

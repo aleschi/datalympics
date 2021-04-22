@@ -7,7 +7,7 @@ before_action :authenticate_user!
      @nav=true
 
     @dates_ouvrages_reporting = Chantier.pluck(:date).uniq!
-    
+
     @budget_ouvrages = Maquette.where('date = ?',Date.new(2021,1,14)).where.not(ouvrage_id: nil).sum('total') 
     @budget_fonctionnement = Maquette.where('date = ? AND name = ?',Date.new(2021,1,14), "Frais de Structure SOLIDEO").sum('total') 
     @budget_innovation = Maquette.where('date = ? AND (name = ? OR name = ?)',Date.new(2021,1,14), "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total') 
@@ -31,28 +31,9 @@ before_action :authenticate_user!
       end
     end
     
-    #innovation  
-    @innovation_a =  @solideo_financements.where('categorie = ?', "innovation").unscope(:order).group_by_year(:date).sum('montant')    
-    @depenses_annee_innovation = []
-    (2018..2020).each do |annee|      
-       @innovation_a.each do |h|
-        if h[0].year == annee
-          @depenses_annee_innovation << (h[1]/1000).round          
-        end 
-      end     
-    end
-    
-    #reserve
-    @reserve_a =  @solideo_financements.where('categorie = ? AND date <= ?', "reserve", Date.today).unscope(:order).group_by_year(:date).sum('montant')    
-    @depenses_annee_reserve = []
-    (2018..2020).each do |annee|    
-       @reserve_a.each do |h|
-        if h[0].year == annee
-          @depenses_annee_reserve << (h[1]/1000).round  
-        end 
-      end
-    end
-    
+ 
+    @dates_maquettes= Maquette.pluck(:date).uniq! 
+  
 
   end
 
