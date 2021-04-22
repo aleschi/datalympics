@@ -7,12 +7,20 @@ before_action :authenticate_user!
      @nav=true
 
     @dates_ouvrages_reporting = Chantier.pluck(:date).uniq!
-
-    @budget_ouvrages = Maquette.where('date = ?',Date.new(2021,1,14)).where.not(ouvrage_id: nil).sum('total') 
-    @budget_fonctionnement = Maquette.where('date = ? AND name = ?',Date.new(2021,1,14), "Frais de Structure SOLIDEO").sum('total') 
-    @budget_innovation = Maquette.where('date = ? AND (name = ? OR name = ?)',Date.new(2021,1,14), "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total') 
-    @budget_reserve = Maquette.where(ouvrage_id: nil).where('date = ? AND name != ? AND name != ? AND name != ?',Date.new(2021,1,14),"Frais de Structure SOLIDEO", "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total') 
     
+    @dates_maquettes= Maquette.order('date DESC').pluck(:date).uniq! 
+
+    @budget_ouvrages = Maquette.where('date = ?',@dates_maquettes[@dates_maquettes.length-1]).where.not(ouvrage_id: nil).sum('total') 
+    @budget_ouvrages_depenses = Chantier.where('date = ?',@dates_ouvrages_reporting[@dates_ouvrages_reporting.length-1]).sum('cumul_paiements')
+
+    @budget_fonctionnement = Maquette.where('date = ? AND name = ?',@dates_maquettes[@dates_maquettes.length-1], "Frais de Structure SOLIDEO").sum('total') 
+    
+    @budget_innovation_initial = Maquette.where('date = ? AND (name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')
+    @budget_innovation_consomme = Maquette.where('date = ? AND (name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')-Maquette.where('date = ? AND (name = ? OR name = ?)',@dates_maquettes[0], "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')
+    
+    @budget_reserve_initial = Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total') 
+    @budget_reserve_consomme = Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total') - Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[0], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total') 
+
     @solideo_depenses = SolideoDepense.all
     @solideo_financements = SolideoFinancement.all
     #fonctionnement
@@ -32,7 +40,7 @@ before_action :authenticate_user!
     end
     
  
-    @dates_maquettes= Maquette.pluck(:date).uniq! 
+    
   
 
   end
