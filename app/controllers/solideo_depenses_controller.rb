@@ -22,7 +22,7 @@ before_action :authenticate_user!
       @is_present = false 
        @fonctionnement_a.each do |h|
         if h[0].year == annee
-          @depenses_annee_fonctionnement << h[1]
+          @depenses_annee_fonctionnement << h[1]/1000
           @is_present = true 
         end 
       end

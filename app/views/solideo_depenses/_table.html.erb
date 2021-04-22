@@ -155,13 +155,13 @@ Highcharts.chart('container-2', {
 
     yAxis: [{ // Primary yAxis
         labels: {
-            format: '{value} €',
+            format: '{value} k€',
             style: {
                 color: '#5770BE'
             }
         },
         title: {
-            text: 'Montant en €',
+            text: 'Montant en k€',
             style: {
                 color: '#5770BE'
             }
@@ -222,7 +222,7 @@ Highcharts.chart('container-2', {
       type: 'spline',
       color: '#5770BE',
         tooltip: {
-            valueSuffix: '€',
+            valueSuffix: ' k€',
         },
         data: <%= @depenses_annee_fonctionnement %>,
     }],
@@ -273,20 +273,12 @@ Highcharts.chart('container-3', {
     },
   xAxis:{
     type: 'datetime',
-        dateTimeLabelFormats: { // don't display the dummy year
-            month: '%e. %b',
-            year: '%b'
-        },
-        title: {
-            text: 'Date'
-        }
   },
     plotOptions: {
         series: {
             label: {
                 connectorAllowed: false
             },
-            pointStart: 2018,
         }
     },
 
@@ -294,7 +286,21 @@ Highcharts.chart('container-3', {
 
     series: [{
         name: 'Evolution des fonds innovation',
-        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month%>,<%= date.day%>),<%=Maquette.where('date = ? AND (name = ? OR name = ?)',date, "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')%>], <% end%>],
+        tooltip: {
+          headerFormat: null,
+           pointFormatter: function() {
+              var point = this,
+              series = point.series,
+              firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+              number = Highcharts.numberFormat(point.y, -1, ',',' '),
+              header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+               
+              content =  '<b>Fonds restants : '+ number + ' k€</b><br/>';
+
+            return header + content;
+          },
+        },
+        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month%>,<%= date.day%>),<%=(Maquette.where('date = ? AND (name = ? OR name = ?)',date, "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')/1000).round%>], <% end%>],
        dataLabels: {
                 enabled: true,
             },
@@ -321,28 +327,20 @@ Highcharts.chart('container-3', {
 Highcharts.chart('container-4', {
 
   chart:{
-            backgroundColor: '#fff',
-           type: 'areaspline',
-         height:'250px',
+        backgroundColor: '#fff',
+        type: 'areaspline',
+        height:'250px',
         style:{
           fontFamily: "Marianne Regular",
-        // maxWidth: '500px'
           },
        
-          },
+        },
 
-      title: {
-        text:null,
-  
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-      },
+        title: {
+          text:null,
+        },
   colors: ['#C68D7B'],
-    yAxis: {
+  yAxis: {
       gridLineColor: '#fff', 
         title: {
             text: 'Total k€'
@@ -350,28 +348,20 @@ Highcharts.chart('container-4', {
     },
   tooltip: {
       //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: 'k€',
-    borderColor: 'transparent',
+      
+   borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
       
     },
-  xAxis:{
-    type: 'datetime',
-        dateTimeLabelFormats: { // don't display the dummy year
-            month: '%e. %b',
-            year: '%b'
-        },
-        title: {
-            text: 'Date'
-        }
-  },
+    xAxis:{
+      type: 'datetime',
+    },
     plotOptions: {
         series: {
             label: {
                 connectorAllowed: false
             },
-            pointStart: 2018,
         }
     },
 
@@ -379,10 +369,25 @@ Highcharts.chart('container-4', {
 
     series: [{
         name: 'Evolution de la réserve ',
-         data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month%>,<%= date.day%>),<%=Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',date, "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')%>], <% end%>],
+        tooltip: {
+          headerFormat: null,
+           pointFormatter: function() {
+              var point = this,
+              series = point.series,
+              firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+              number = Highcharts.numberFormat(point.y, -1, ',',' '),
+              header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+               
+              content =  '<b>Réserve restante : '+ number + ' k€</b><br/>';
+
+            return header + content;
+          },
+        },
+        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month%>,<%= date.day%>),<%=(Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',date, "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')/1000).round%>], <% end%>],
        dataLabels: {
                 enabled: true,
             },
+             
     }],
 
     responsive: {
