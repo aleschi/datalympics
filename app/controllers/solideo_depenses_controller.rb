@@ -5,6 +5,9 @@ before_action :authenticate_user!
   # GET /solideo_depenses.json
   def index
      @nav=true
+
+    @dates_ouvrages_reporting = Chantier.pluck(:date).uniq!
+    
     @budget_ouvrages = Maquette.where('date = ?',Date.new(2021,1,14)).where.not(ouvrage_id: nil).sum('total') 
     @budget_fonctionnement = Maquette.where('date = ? AND name = ?',Date.new(2021,1,14), "Frais de Structure SOLIDEO").sum('total') 
     @budget_innovation = Maquette.where('date = ? AND (name = ? OR name = ?)',Date.new(2021,1,14), "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total') 
@@ -12,74 +15,6 @@ before_action :authenticate_user!
     
     @solideo_depenses = SolideoDepense.all
     @solideo_financements = SolideoFinancement.all
-    @solideo_depenses_total = OuvragesDepense.all.sum('montant') + @solideo_financements.where('categorie = ?', "reserve").sum('montant') + @solideo_financements.where('categorie = ?', "innovation").sum('montant') + @solideo_financements.where('categorie = ?', "fonctionnement").sum('montant')
-  @solideo_depenses_total_prevu = OuvragesDepense.where('date <= ?', Date.today).sum('montant_prevu') + @solideo_financements.where('categorie = ? AND date <= ?', "reserve", Date.today).sum('montant_prevu') + @solideo_financements.where('categorie = ? AND date <= ?', "innovation", Date.today).sum('montant_prevu') + @solideo_financements.where('categorie = ? AND date <= ?', "fonctionnement", Date.today).sum('montant_prevu')
-
-
-    @solideo_depenses_ouvrages = OuvragesDepense.all.sum('montant')
-    @solideo_depenses_ouvrages_prevu_date = OuvragesDepense.where('date <= ?', Date.today).sum('montant_prevu')
-
-    @h1 = OuvragesDepense.all.unscope(:order).group_by_year(:date).sum('montant')
-    @h2 =  @solideo_financements.where('categorie != ? ', "ouvrages").unscope(:order).group_by_year(:date).sum('montant')
-    @h_depenses_annee = @h1.merge(@h2){|k,a,b| a+b}
-    @h3 = OuvragesDepense.all.unscope(:order).group_by_year(:date).sum('montant_prevu')
-    @h4 =  @solideo_financements.where('categorie != ?', "ouvrages").unscope(:order).group_by_year(:date).sum('montant_prevu')
-    @h_depenses_prevu_annee = @h3.merge(@h4){|k,a,b| a+b}
-    @depenses_annee = []
-    @depenses_prevu_annee = []
-    (2018..2025).each do |annee|    
-      @is_present = false 
-      @h_depenses_annee.each do |h|
-        if h[0].year == annee
-          @depenses_annee << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_annee << 0
-      end
-    end
-    (2018..2025).each do |annee|    
-      @is_present = false 
-      @h_depenses_prevu_annee.each do |h|
-        if h[0].year == annee
-          @depenses_prevu_annee << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_prevu_annee << 0
-      end
-    end
-    
-    #ouvrages 
-    @depenses_annee_ouvrages = []
-    @depenses_prevu_annee_ouvrages = []
-    (2018..2020).each do |annee|    
-      @is_present = false 
-      @h1.each do |h|
-        if h[0].year == annee
-          @depenses_annee_ouvrages << (h[1]/1000000).round
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_annee_ouvrages << 0
-      end
-    end
-    (2018..2021).each do |annee|    
-      @is_present = false 
-      @h3.each do |h|
-        if h[0].year == annee
-          @depenses_prevu_annee_ouvrages << (h[1]/1000000).round
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_prevu_annee_ouvrages << 0
-      end
-    end
-    
     #fonctionnement
     @fonctionnement_a =  @solideo_depenses.unscope(:order).group_by_year(:date).sum('fonctionnement')    
     @depenses_annee_fonctionnement = []
@@ -96,8 +31,7 @@ before_action :authenticate_user!
       end
     end
     
-    #innovation
-  
+    #innovation  
     @innovation_a =  @solideo_financements.where('categorie = ?', "innovation").unscope(:order).group_by_year(:date).sum('montant')    
     @depenses_annee_innovation = []
     (2018..2020).each do |annee|      
@@ -105,11 +39,10 @@ before_action :authenticate_user!
         if h[0].year == annee
           @depenses_annee_innovation << (h[1]/1000).round          
         end 
-      end
-      
+      end     
     end
     
-     #reserve
+    #reserve
     @reserve_a =  @solideo_financements.where('categorie = ? AND date <= ?', "reserve", Date.today).unscope(:order).group_by_year(:date).sum('montant')    
     @depenses_annee_reserve = []
     (2018..2020).each do |annee|    
@@ -120,42 +53,7 @@ before_action :authenticate_user!
       end
     end
     
-  @solideo_financements_dates_ouvrages = OuvragesDepense.all.order('date DESC').unscope(:order).group(:date).sum('montant')
-  @solideo_financements_dates_ouvrages_keys = @solideo_financements_dates_ouvrages.keys
-  @solideo_financements_dates_ouvrages_values = @solideo_financements_dates_ouvrages.values
-  @sum = 0
-  @solideo_financements_dates_ouvrages_values.map!{|x| @sum += x}
-  @solideo_financements_dates_ouvrages_tuple = @solideo_financements_dates_ouvrages_keys.zip(@solideo_financements_dates_ouvrages_values)
-   
-  @solideo_financements_dates_reserve = @solideo_financements.where('categorie = ?', "reserve").order('date DESC').unscope(:order).group(:date).sum('montant')
-  @solideo_financements_dates_innovation = @solideo_financements.where('categorie = ?', "innovation").order('date DESC').unscope(:order).group(:date).sum('montant')   
-  @solideo_financements_dates_fonctionnement = @solideo_financements.where('categorie = ?', "fonctionnement").order('date DESC').unscope(:order).group(:date).sum('montant')
- 
-  @solideo_depenses_ouvrages_total =  OuvragesDepense.all.sum('montant')
 
-    @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
-    @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')
-    
-    @financeurs_hash = @solideo_financements.group(:financeur).sum('montant')
-    @financeurs = []
-    @financeurs_hash.each do |h|
-      @financeurs << h[0]
-    end
-    
-    @solideo_depenses_hash = SolideoFinancement.where('date <= ?', Date.today).order('date DESC').group(:date).sum('montant')
-    @solideo_depenses_array = []
-    
-      @solideo_depenses_hash.each do |h|
-        if !h[0].nil?
-        @solideo_depenses_array << h[0]
-        end
-      end
-    
-     @solideo_financements_etat_prevu = SolideoFinancement.where("financeur = ? ", "Etat").sum('montant_prevu')
-   @solideo_financements_prive_prevu = SolideoFinancement.where("financeur = ? ", "privé").sum('montant_prevu')   
-   @solideo_financements_collectivites_prevu = SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").sum('montant_prevu')
-    
-    
   end
 
   # GET /solideo_depenses/1

@@ -6,24 +6,26 @@
 
 
   <div class="budget-ouvrages">
+    <% @dates_ouvrages_reporting.each_with_index do |date,i|%>
     <div class="budget-ouvrages-mois">
-      <div class="box-convention-date"><%= l(Chantier.last.date, format: "%e %B %Y") %> </div>
+      <div class="box-convention-date"><%= l(date, format: "%e %B %Y") %> </div>
      
       <div class="row inline-flex">
-        <div id="ouvrages"></div>
+        <div id="ouvrages<%=i%>"></div>
         <div class="convention-infos">
-                <div class="reporting-text">X% jalons validés</div>
-                <div class="reporting-text">X% paiements réalisés</div>
-                <div class="reporting-text">XM€ subventions restants à venir</div>
-                <div class="reporting-text">XM€ execution budgétaire au titre de l'année 2021</div>
-                <div class="reporting-text">XM€ subventions restant à verser au titre de l'année 2021</div>
+                <div class="reporting-text"><%=(Chantier.where('date = ?',date).sum('cumul_jalons')/Chantier.where('date = ?',date).sum('total_depenses_actees')).round(1)%>% jalons validés</div>
+                <div class="reporting-text"><%=(Chantier.where('date = ?',date).sum('cumul_paiements')/Chantier.where('date = ?',date).sum('total_depenses_actees')).round(1)%>% paiements réalisés</div>
+                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).round(1)%>M€ subventions restants à venir</div>
+                <div class="reporting-text"><%=(Chantier.where('date = ?',date).sum('paiements_annee')/Chantier.where('date = ?',date).sum('budget_annee')).round(1)%>% execution budgétaire au titre de l'année 2021</div>
+                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date).sum('paiements_annee'))/1000000).round(1)%>M€ subventions restant à verser au titre de l'année 2021</div>
                 
               </div>
       </div> 
+      
     </div>
         
     <script>
-      Highcharts.chart('ouvrages', {
+      Highcharts.chart('ouvrages<%=i%>', {
         chart: {
             type: 'column',
         height:'250px',
@@ -80,12 +82,17 @@
         },
         series: [{
             name: 'Budget année',
-            data: [{y:17, color:"#2E5D63" },{y:16, color:"#2E5D63" },{y:33, color: "#2E5D63"},{y:37, color: "#2E5D63"},{y:107, color: "#bfbfbf"},{y:88, color: "#2E5D63"},{y:602, color: "#7D4E5B"},{y:302, color: "#FFE800"}],
+            data: [{y:17, color:"#2E5D63" },{y:16, color:"#2E5D63" },{y:33, color: "#2E5D63"},
+            {y:<%=(Chantier.where('date = ?',date).sum('paiements_annee')/1000000).round(1)%>, color: "#2E5D63"},
+            {y:<%=(Chantier.where('date = ?',date).sum('budget_annee')/1000000).round(1)%>, color: "#bfbfbf"},
+            {y:<%=(Chantier.where('date = ?',date).sum('cumul_paiements')/1000000).round(1)%>, color: "#2E5D63"},
+            {y:<%=(Chantier.where('date = ?',date).sum('total_depenses_actees')/1000000).round(1)%>, color: "#7D4E5B"},
+            {y:<%=(Chantier.where('date = ?',date).sum('cumul_jalons')/1000000).round(1)%>, color: "#FFE800"}],
             pointPlacement: 0,
         }]
     });
      </script> 
-   
+   <% end %>
   </div>
 </div>
 <div  class="SD-table-box">
