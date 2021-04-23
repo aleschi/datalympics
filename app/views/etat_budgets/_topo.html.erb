@@ -63,7 +63,7 @@
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          <%= number_with_delimiter(EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu').to_i, :delimiter => ' ') %> €<br>
+          <%= number_with_delimiter(EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
           <span>Dépenses 2021</span>
         </div>
       </div>

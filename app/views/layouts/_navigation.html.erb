@@ -59,10 +59,11 @@
   
     <!-- Budget Solideo -->
     <div class="dropdown navigation-menu ">
-      <a class="menu menu-solideo" href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse" id="btn-collapse"><i class="fas fa-funnel-dollar"></i> Budget Solideo <span class="collapse-icon"></span></a>
+      <a class="menu menu-solideo" href="#MonCollapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse" id="btn-collapse"><i class="fas fa-funnel-dollar"></i> Suivi Budget<span class="collapse-icon"></span></a>
     </div>
     <section id="MonCollapse" class="collapse">
-      <div class="navigation-menu navigation-menu2"><%= link_to solideo_depenses_path, class:"menu2  menu-solideo-depenses" do %>Suivi du Budget<%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to solideo_depenses_path, class:"menu2  menu-solideo-depenses" do %>Suivi Budget Solideo<%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to etat_budgets_path, class:"menu2  menu-budget-global" do %>Suivi Budget Etat<%end%></div>
       <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_depenses_path, class:"menu2 menu-solideo-maquette" do%>Maquette financière <%end%></div>
       <div class="navigation-menu navigation-menu2"><%= link_to solideo_financements_path, class:"menu2 menu-solideo-finances" do %>Financements & Recettes <%end%></div>
     </section>
@@ -72,7 +73,7 @@
       <a class="menu menu-budget-etat" href="#MonCollapse2" id="btn-budget-collapse" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse2" id="btn-collapse"><i class="fas fa-coins"></i> Budget Etat<span class="collapse-icon"></span></a>
     </div>
     <section id="MonCollapse2" class="collapse">
-      <div class="navigation-menu navigation-menu2"><%= link_to etat_budgets_path, class:"menu2  menu-budget-global" do %>Budget global<%end%></div>
+      
 
       <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_solideo_path, class:"menu2 menu-budget-solideo" do %>Part SOLIDEO <%end%></div>
 

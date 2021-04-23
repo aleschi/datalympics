@@ -3179,3 +3179,16 @@ display: inline-flex;
   width:100%;
   align-items:center;
 }
+.button-cp{
+  color:#1E1E1E;
+  padding:8px;
+  margin-right:5px;
+  cursor:pointer
+}
+.button-cp-active{
+color:#fff;
+font-weight:800px;
+background-color:#000091;
+background-opacity:0.1;
+border-radius:4px;
+}
