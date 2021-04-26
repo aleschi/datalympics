@@ -132,15 +132,83 @@
                 },},
             {y:<%=(Chantier.where('date = ?',date).sum('budget_annee')/1000000).round(1)%>, color: "#bfbfbf",dataLabels: {
                     enabled: true,
+                    formatter: function() {
+
+                      var point = this;                      
+                      ecart = <%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date-1.month).sum('budget_annee'))/1000000).round(1)%>;
+                      
+                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                      
+                       if (ecart >= 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                        }
+                        
+                        content = '<b>' + number  + ' </b>';
+
+                      return header + content;
+                    },
                 },},
             {y:<%=(Chantier.where('date = ?',date).sum('cumul_paiements')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                     enabled: true,
+                    formatter: function() {
+
+                      var point = this;                      
+                      ecart = <%=((Chantier.where('date = ?',date).sum('cumul_paiements')-Chantier.where('date = ?',date-1.month).sum('cumul_paiements'))/1000000).round(1)%>;
+                      
+                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                      
+                       if (ecart >= 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                        }
+                        
+                        content = '<b>' + number  + ' </b>';
+
+                      return header + content;
+                    },
                 },},
             {y:<%=(Chantier.where('date = ?',date).sum('total_depenses_actees')/1000000).round(1)%>, color: "#7D4E5B",dataLabels: {
                     enabled: true,
+                    formatter: function() {
+
+                      var point = this;                      
+                      ecart = <%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date-1.month).sum('total_depenses_actees'))/1000000).round(1)%>;
+                      
+                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                      
+                       if (ecart >= 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                        }
+                        
+                        content = '<b>' + number  + ' </b>';
+
+                      return header + content;
+                    },
                 },},
             {y:<%=(Chantier.where('date = ?',date).sum('cumul_jalons')/1000000).round(1)%>, color: "#FFE800",dataLabels: {
                     enabled: true,
+                    formatter: function() {
+
+                      var point = this;                      
+                      ecart = <%=((Chantier.where('date = ?',date).sum('cumul_jalons')-Chantier.where('date = ?',date-1.month).sum('cumul_jalons'))/1000000).round(1)%>;
+                      
+                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                      
+                       if (ecart >= 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                        }
+                        
+                        content = '<b>' + number  + ' </b>';
+
+                      return header + content;
+                    },
                 },}],
             pointPlacement: 0,
         }]
