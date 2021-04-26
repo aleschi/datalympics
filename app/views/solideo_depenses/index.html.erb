@@ -40,7 +40,7 @@
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          <%=(36.6+92.1+228.6+57).round(1)%> M€<br>
+          <%=(36.6+92.1+228.6+8.1 + @ouvrages_depenses_2021).round(1)%> M€<br>
           <span>Dépenses cumulées depuis le début</span>
         </div>
       </div>
@@ -165,7 +165,7 @@
         pointPlacement: 0,
     },{
         name: 'Consommé',
-        data: [{y:<%= @budget_ouvrages_depenses%>, color:"#5770BE" },{y:<%= (4.8+11.5+17.6+8.1).round(1)%>, color:"#76505B" },{y:<%=@budget_innovation_consomme%>, color: "#FFE800"},{y:<%=@budget_reserve_consomme%>, color: "#D08A77"}],
+        data: [{y:<%= @budget_ouvrages_depenses%>, color:"#5770BE" },{y:<%= (4.8+11.5+17.8+8.1).round(1)%>, color:"#76505B" },{y:<%=@budget_innovation_consomme%>, color: "#FFE800"},{y:<%=@budget_reserve_consomme%>, color: "#D08A77"}],
         pointPlacement: 0,
 
     }]

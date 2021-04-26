@@ -4,44 +4,80 @@ before_action :authenticate_user!
   # GET /ouvrages_depenses
   # GET /ouvrages_depenses.json
   def index 
-     @nav=true
+    @nav=true
     @ouvrages = Ouvrage.all
-  
+    @dates_maquettes= Maquette.order('date DESC').pluck(:date).uniq! 
+    @dates_maquettes_o= Maquette.order('date DESC').pluck(:date).uniq! 
+
+    @maquette_ouvrages = Maquette.where('name != ? AND name != ? AND name != ? AND name != ? AND name != ? AND name != ? AND name != ? AND name != ?','CPJ','Réserve pour compléments de programme','Paris Fonds Vert','Fonds Innovation et Développement Durable','Frais de Structure SOLIDEO','Voies Olympiques [Réserve]',"Stade de France [Pertes d'exploitation]","Sites d'entrainement (non affectés)").where.not('name like ?', "%SITE d'ENTRAINEMENT%").pluck(:name).uniq!
+
     @maquette_budget_nouveau = 0
-    @maquette_name = []
-    Maquette.all.each do |maquette|
-      @maquette_name << maquette.name
-    end
-    @maquette_name.uniq!
-    
-    @maquette_ouvrages = []
-    Maquette.where.not(ouvrage_id: nil).where.not('name like ?', "%SITE d'ENTRAINEMENT%").each do |maquette|
-      @maquette_ouvrages << maquette.name
-    end 
-    @maquette_ouvrages.uniq! 
-    
     @maquette_ouvrages.each do |name|
-      if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public == 0 && Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public != 0
-        @maquette_budget_nouveau = @maquette_budget_nouveau + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public 
+      if Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public.to_i == 0 && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public.to_i != 0
+        @maquette_budget_nouveau = @maquette_budget_nouveau + Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public 
       end
     end 
       
     @maquette_budget_augmentation = 0 
     @maquette_ouvrages.each do |name|
-        if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public < Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public
-          @maquette_budget_augmentation = @maquette_budget_augmentation + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public
+        if Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public < Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public
+          @maquette_budget_augmentation = @maquette_budget_augmentation + Maquette.where('name = ? AND date = ?', name,@dates_maquettes[0]).first.total_public - Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public
         end 
       end 
           
      @maquette_budget_diminution = 0
      @maquette_ouvrages.each do |name|
-          if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil? && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public > Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public
-          @maquette_budget_diminution = @maquette_budget_diminution + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public
+          if  Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public > Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public
+          @maquette_budget_diminution = @maquette_budget_diminution + Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public - Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public
         end 
      end
-    @maquette_budget_diminution = @maquette_budget_diminution -Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", Date.new(2021,1,14)).first.total_public
-   @maquette_budget_diminution = @maquette_budget_diminution -Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", Date.new(2021,1,14)).first.total_public
-    @maquette_budget_diminution = @maquette_budget_diminution - Maquette.where('name = ? AND date = ?', "CPJ", Date.new(2018,6,18)).first.total_public + Maquette.where('name = ? AND date = ?', "CPJ", Date.new(2021,1,14)).first.total_public
+    @maquette_budget_diminution = @maquette_budget_diminution -Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", @dates_maquettes[0]).first.total_public
+    @maquette_budget_diminution = @maquette_budget_diminution -Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", @dates_maquettes[0]).first.total_public
+    @maquette_budget_diminution = @maquette_budget_diminution - Maquette.where('name = ? AND date = ?', "CPJ", @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', "CPJ",@dates_maquettes[0]).first.total_public
+            
+    @maquette_ecart_reserve = 0
+    @reserve_name = Maquette.where('name = ? OR name = ? OR name = ?', 'Réserve pour compléments de programme', 'Paris Fonds Vert', 'Fonds Innovation et Développement Durable').pluck(:name).uniq!
+  
+          
+     @reserve_name.each do |name|
+       if !Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.nil?
+       @maquette_ecart_reserve = @maquette_ecart_reserve + Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public - Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public
+       end
+     end
+            
+  end
+
+  def maquette_date
+    @dates_maquettes= Maquette.order('date DESC').pluck(:date).uniq! 
+    @dates_maquettes_o= Maquette.order('date DESC').pluck(:date).uniq! 
+  
+
+    @maquette_ouvrages = Maquette.where('name != ? AND name != ? AND name != ? AND name != ? AND name != ? AND name != ? AND name != ? AND name != ?','CPJ','Réserve pour compléments de programme','Paris Fonds Vert','Fonds Innovation et Développement Durable','Frais de Structure SOLIDEO','Voies Olympiques [Réserve]',"Stade de France [Pertes d'exploitation]","Sites d'entrainement (non affectés)").where.not('name like ?', "%SITE d'ENTRAINEMENT%").pluck(:name).uniq!
+
+    @dates_maquettes[0]= params[:date].to_date
+    @maquette_budget_nouveau = 0
+    @maquette_ouvrages.each do |name|
+      if Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public.to_i == 0 && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public.to_i != 0
+        @maquette_budget_nouveau = @maquette_budget_nouveau + Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public 
+      end
+    end 
+      
+    @maquette_budget_augmentation = 0 
+    @maquette_ouvrages.each do |name|
+        if Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public < Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public
+          @maquette_budget_augmentation = @maquette_budget_augmentation + Maquette.where('name = ? AND date = ?', name,@dates_maquettes[0]).first.total_public - Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public
+        end 
+      end 
+          
+     @maquette_budget_diminution = 0
+     @maquette_ouvrages.each do |name|
+          if  Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public > Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public
+          @maquette_budget_diminution = @maquette_budget_diminution + Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public - Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public
+        end 
+     end
+    @maquette_budget_diminution = @maquette_budget_diminution -Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", @dates_maquettes[0]).first.total_public
+    @maquette_budget_diminution = @maquette_budget_diminution -Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", @dates_maquettes[0]).first.total_public
+    @maquette_budget_diminution = @maquette_budget_diminution - Maquette.where('name = ? AND date = ?', "CPJ", @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', "CPJ",@dates_maquettes[0]).first.total_public
             
      @maquette_ecart_reserve = 0
      @reserve_name = []  
@@ -51,12 +87,13 @@ before_action :authenticate_user!
      @reserve_name.uniq!
           
      @reserve_name.each do |name|
-       if !Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.nil?
-       @maquette_ecart_reserve = @maquette_ecart_reserve + Maquette.where('name = ? AND date = ?', name, Date.new(2021,1,14)).first.total_public - Maquette.where('name = ? AND date = ?', name, Date.new(2018,6,18)).first.total_public
+       if !Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.nil?
+       @maquette_ecart_reserve = @maquette_ecart_reserve + Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public - Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public
        end
      end
-            
-  end
+
+    respond_to :js
+  end 
 
   # GET /ouvrages_depenses/1
   # GET /ouvrages_depenses/1.json

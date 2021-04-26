@@ -78,5 +78,6 @@ Rails.application.routes.draw do
   get 'public' => "pages#public"
   get 'utilisation-budget' => 'pages#interets'
   get 'acteurs' => 'pages#acteurs'
+  post 'maquette-date' => 'ouvrages_depenses#maquette_date'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

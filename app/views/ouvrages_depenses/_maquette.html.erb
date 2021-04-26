@@ -1,0 +1,261 @@
+
+<div class="budget-ouvrages-mois w100">
+          <div>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle fs14" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Maquette <%= l(@dates_maquettes[0], format: "%e %B %Y") %><i class="fas fa-chevron-down"></i></button>
+              <div class="dropdown-menu bn bs pd12" aria-labelledby="budget">       
+                <% @dates_maquettes_o[0..@dates_maquettes.length-2].each do |date|%>
+                  <div><%= link_to maquette_date_path(date: date),remote: true, method: :post, class: 'c2 fs14' do %>Maquette <%= l(date, format: "%e %B %Y") %><% end %></div>
+                  <div class="i12"></div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class='i24'></div>
+      
+            <div class="w100"><div class="w100" id="container-chart"></div><br></div>
+            <script>
+              Highcharts.chart('container-chart', {
+                  chart: {
+                      type: 'waterfall',
+                 
+                      style:{
+                        fontFamily: "Marianne Regular",
+                        },
+                  },
+
+                  title: {
+                      text: null,
+                   
+                      style: {
+                                color: "#8F8F8F",
+                                fontWeight: "400",
+                                fontStyle: 'italic',
+                                fontSize: '16px',
+                                },
+                  },
+
+                  xAxis: {
+                      type: 'category'
+                  },
+
+                  yAxis: {
+                    gridLineColor: '#E6F0FF', 
+                      title: {
+                          text: 'Montant €'
+                      }
+                  },
+
+                  legend: {
+                      enabled: false
+                  },
+
+                  tooltip: {
+                      pointFormat: '<b>{point.y:,.0f} €</b> ',
+                     borderColor: 'transparent',
+                 borderRadius: 16,
+                 backgroundColor: '#fff',
+                  },
+
+                  series: [{
+                    borderColor: '#fff',
+                    data: [{
+                          name: 'Prévisionnel 2018',
+                          y: <%= Maquette.where('date = ?', @dates_maquettes[@dates_maquettes.length-1]).sum('total_public')%>,
+                          color: "#bfbfbf",
+                      }, {
+                          name: 'Nouveaux Ouvrages',
+                          y: <%= @maquette_budget_nouveau %>,
+                          color: "#E1000F",
+                      },{
+                          name: 'Besoins complémentaires',
+                          y: <%= @maquette_budget_augmentation %>,
+                          color: "#E1000F",
+                      }, {
+                          name: "Réduction de périmètre",
+                          y: <%= @maquette_budget_diminution %>,
+                        color: "#20E37B",
+                      }, {
+                          name: "Réserve",
+                          y: <%= @maquette_ecart_reserve %>,
+                        color: "#FF8D7E",
+                      }, {
+                          name: 'Prévisionnel <%= l(@dates_maquettes[0], format: "%e %B %Y")%>',
+                          isSum: true,
+                          color: "#2E5D63"
+                      }],
+                      dataLabels: {
+                          enabled: true,
+                          formatter: function () {
+                              return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
+                          },
+                        
+                          style: {
+                              fontWeight: 'bold',
+                              color: '#000',
+                          
+                            fontFamily: 'Karla',
+                          }
+                      },
+                      pointPadding: 0
+                  }]
+              });
+            </script>
+         
+            <div>
+               <div class="inline-flex">
+                  <div class="box_i1 tc">
+                    <div class="c2 fw4 fs14 tupp">Augmentation</div>
+                    <div class="i12"></div>
+                    <div class="c3 fw8 fs20"><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation)/1000).to_i, :delimiter => ' ') %> k€</div>
+                    <div class="i12"></div>
+                    <div class="c3 tu fw4 fs12" id="augmentation-btn">Afficher détails</div>
+                  </div>
+                  <div class="box_i1 tc">
+                    <div class="c2 fw4 fs14 tupp">Diminution</div>
+                    <div class="i12"></div>
+                    <div class="c4 fw8 fs20"><%= number_with_delimiter((@maquette_budget_diminution/1000).to_i, :delimiter => ' ') %> k€</div>
+                    <div class="i12"></div>
+                    <div class="c4 tu fw4 fs12" id="diminution-btn">Afficher détails</div>
+                  </div>
+                  <div class="box_i1 tc">
+                    <div class="c2 fw4 fs14 tupp">Ponction Réserve</div>
+                    <div class="i12"></div>
+                    <div class="c5 fw8 fs20"><%= number_with_delimiter((@maquette_ecart_reserve/1000).to_i, :delimiter => ' ')%> k€</div>
+                    <div class="i12"></div>
+                    <div class="c5 tu fw4 fs12" id="reserve-btn">Afficher détails</div>
+                  </div>
+                  <div class="box_i1 tc">
+                    <div class="c2 fw4 fs14 tupp">Ecart total</div>
+                    <div class="i12"></div>
+                    <div class='c1 fw8 fs20'><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation+@maquette_budget_diminution+@maquette_ecart_reserve)/1000).to_i, :delimiter => ' ') %> k€</div>
+                    <div class="i12"></div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="chart-budget-box" id="augmentation">      
+              <div class="chart-budget-col-title c3 fw8 fs16 tupp">Augmentation <span class="c3"><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation)/1000).to_i, :delimiter => ' ') %> k€</span></div>
+            
+                <div class="chart-budget-col-subtitle c2 fw7 tupp fs14">Nouveaux ouvrages   <span class="c3"><%= number_with_delimiter((@maquette_budget_nouveau/1000).to_i, :delimiter => ' ') %> k€</span></div>
+                  <div class="w100" >
+                    <table class="table-striped w100">
+                    <tbody>
+                      <% @maquette_ouvrages.each do |name|%>
+                        <% if !Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.nil? && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public == 0 && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public != 0%>
+                          <tr>
+                          <td>
+                            <div class="chart-budget-col-text"><%= name %> <span class="c3"><%= number_with_delimiter((Maquette.where('name = ? AND date = ?', name,@dates_maquettes[0]).first.total_public/1000).to_i, :delimiter => ' ')  %> k€</span></div>
+                          </td>
+                          </tr> 
+                        <% end %>
+                      <% end %>
+                  
+                    </tbody>
+                    </table>
+                  </div>
+              
+                
+                <div class="i12"></div>
+                <div class="chart-budget-col-subtitle fw7 c2 tupp fs14">Besoins complémentaires<span class="c3"><%= number_with_delimiter((@maquette_budget_augmentation/1000).to_i, :delimiter => ' ') %> k€</span></div>
+                <div class="w100" >
+                    <table class="table-striped w100">
+                    <tbody>
+                        <% @maquette_ouvrages.each do |name|%>
+                          <% if !Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.nil? && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public < Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public%>
+                            <tr><td>
+                              <div class="chart-budget-col-text"><%= name %> <span class="c3"><%= number_with_delimiter(((-Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public)/1000).to_i, :delimiter => ' ') %> k€</span></div> 
+                            </td></tr>
+                          <% end %>
+                        <% end %>
+
+                    </tbody>
+                    </table>
+                  </div>
+            </div>
+            <div class="chart-budget-box" id="diminution"> 
+
+              <div class="chart-budget-col-title c4 fw8 fs16 tupp">Diminution <span class="c4"><%= number_with_delimiter((@maquette_budget_diminution/1000).to_i, :delimiter => ' ') %> k€</span> </div>
+              <div class="w100" >
+                <table class="table-striped w100">
+                <tbody>
+                
+                <% @maquette_ouvrages.each do |name|%>
+                <% if Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public != 0 && Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public > Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public%>
+                  <tr>
+                    <td>
+                      <div class="chart-budget-col-text"><%= name %> <span class="c4"><%= number_with_delimiter(((-Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', name, @dates_maquettes[0]).first.total_public)/1000).to_i, :delimiter => ' ') %> k€</span></div> 
+                    </td>
+                  </tr>
+                <% end %>
+                <% end %>
+                <tr>
+                  <td>
+                    <div class="chart-budget-col-text">Voies Olympiques [Réserve] <span class="c4"><%= number_with_delimiter(((-Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', "Voies Olympiques [Réserve]", @dates_maquettes[0]).first.total_public)/1000).to_i, :delimiter => ' ')%> k€</span></div>  
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="chart-budget-col-text">Stade de France [Pertes d'exploitation] <span class="c4"><%= number_with_delimiter(((-Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', "Stade de France [Pertes d'exploitation]", @dates_maquettes[0]).first.total_public)/1000).to_i, :delimiter => ' ')%> k€</span></div> 
+                  </td>
+                </tr> 
+                <tr>
+                  <td>
+                    <div class="chart-budget-col-text">CPJ <span class="c4"><%= number_with_delimiter(((-Maquette.where('name = ? AND date = ?', "CPJ", @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', "CPJ", @dates_maquettes[0]).first.total_public)/1000).to_i, :delimiter => ' ')%> k€</span></div>  
+                  </td>
+                </tr>
+                </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="chart-budget-box" id="reserve"> 
+
+              <div class="chart-budget-col-title c5 fw8 fs16 tupp">Ponction sur la réserve  <span class="c5"><%= number_with_delimiter((@maquette_ecart_reserve/1000).to_i, :delimiter => ' ')%> k€</span> </div>
+
+               <div class="w100" >
+                  <table class="table-striped w100">
+                    <tbody>
+                      <% @reserve_name.each do |name| %>
+                      <% if ((-Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', name , @dates_maquettes[0]).first.total_public)/1000).to_i != 0 %>
+                      <tr>
+                        <td>
+                          <div class="chart-budget-col-text"><%= name %> <span class="c5"><%= number_with_delimiter(((-Maquette.where('name = ? AND date = ?', name, @dates_maquettes[@dates_maquettes.length-1]).first.total_public + Maquette.where('name = ? AND date = ?', name , @dates_maquettes[0]).first.total_public)/1000).to_i, :delimiter => ' ')%> k€</span></div>   
+                        </td>
+                      </tr>
+                      <% end %>
+                      <% end %>
+
+                     
+                    </tbody>
+                  </table>
+                </div>
+
+            </div> <br><br>
+</div>
+            <script>
+              $('#augmentation').hide();
+              $('#diminution').hide();
+              $('#reserve').hide();
+              $('#augmentation-btn').click(function () {
+                $('#augmentation').show();
+                $('#diminution').hide();
+                $('#reserve').hide();
+              });
+                $('#diminution-btn').click(function () {
+                $('#augmentation').hide();
+                $('#diminution').show();
+                $('#reserve').hide();
+              });
+              $('#reserve-btn').click(function () {
+                $('#augmentation').hide();
+                $('#diminution').hide();
+                $('#reserve').show();
+              });
+            </script>
+           
+
+     
+
+  
+

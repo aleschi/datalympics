@@ -53,3 +53,4 @@ $(document).ready(function() {
     nextText:'Mois précédent',
   });
  })
+ 
