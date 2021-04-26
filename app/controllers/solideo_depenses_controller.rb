@@ -21,23 +21,7 @@ before_action :authenticate_user!
     @budget_reserve_initial = (Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')/1000000).to_i 
     @budget_reserve_consomme = ((Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total') - Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[0], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total'))/1000000).to_i 
 
-    @solideo_depenses = SolideoDepense.all
-    @solideo_financements = SolideoFinancement.all
-    #fonctionnement
-    @fonctionnement_a =  @solideo_depenses.unscope(:order).group_by_year(:date).sum('fonctionnement')    
-    @depenses_annee_fonctionnement = []
-    (2018..2020).each do |annee|    
-      @is_present = false 
-       @fonctionnement_a.each do |h|
-        if h[0].year == annee
-          @depenses_annee_fonctionnement << h[1]/1000
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_annee_fonctionnement << 0
-      end
-    end
+    @ouvrages_depenses_2021 = (Chantier.where('date = ?',@dates_ouvrages_reporting[@dates_ouvrages_reporting.length-1]).sum('paiements_annee')/1000000).to_i
     
   end
 

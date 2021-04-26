@@ -49,7 +49,7 @@ $(document).ready(function() {
     animation: "slide",
     animationLoop: false,
     slideshow: false,
-    prevText: "Précédent",    
-    nextText:'Suivant',
+    prevText: "Mois suivant",    
+    nextText:'Mois précédent',
   });
  })

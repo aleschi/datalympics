@@ -5,21 +5,40 @@
   </div><br><br>
 
 
-  <div class="budget-ouvrages">
+
+  <div class="flexslider2" id="flexslider">
+    <ul class="slides">
     <% @dates_ouvrages_reporting.each_with_index do |date,i|%>
+
+    <li> 
     <div class="budget-ouvrages-mois">
       <div class="box-convention-date"><%= l(date, format: "%e %B %Y") %> </div>
-     
-      <div class="row inline-flex">
-        <div id="ouvrages<%=i%>"></div>
-        <div class="convention-infos">
-                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('cumul_jalons')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>% jalons validés</div>
-                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('cumul_paiements')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>% paiements réalisés</div>
-                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).to_i %>M€ subventions restants à venir</div>
-                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('paiements_annee')/Chantier.where('date = ?',date).sum('budget_annee'))*100).round(1)%>% execution budgétaire au titre de l'année 2021</div>
-                <div class="reporting-text"><%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date).sum('paiements_annee'))/1000000).to_i %>M€ subventions restant à verser au titre de l'année 2021</div>
-                
-              </div>
+      
+     <div id="ouvrages<%=i%>"></div>
+      <div>
+        
+          <div class="inline-flex">
+            <div class="box_i1">
+                <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('cumul_jalons')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>%</div>
+                <div class="box_i1_t2"> jalons validés</div>
+            </div>
+            <div class="box_i1">
+                <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('cumul_paiements')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>% </div>
+                <div class="box_i1_t2">paiements réalisés</div>
+            </div>
+            <div class="box_i1">
+                <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).to_i %>M€ </div>
+              <div class="box_i1_t2">subventions restants</div>
+            </div>
+            <div class="box_i1">
+                <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('paiements_annee')/Chantier.where('date = ?',date).sum('budget_annee'))*100).round(1)%>% </div>
+              <div class="box_i1_t2">execution budgétaire 2021</div>
+            </div>
+            <div class="box_i1">
+                <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date).sum('paiements_annee'))/1000000).to_i %>M€ </div>
+              <div class="box_i1_t2">subventions restants 2021</div>
+            </div>   
+          </div>
       </div> 
       
     </div>
@@ -28,7 +47,7 @@
       Highcharts.chart('ouvrages<%=i%>', {
         chart: {
             type: 'column',
-        height:'250px',
+     
 
           backgroundColor: '#fff',
               style:{
@@ -61,10 +80,9 @@
         enabled: false,
       },
         tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
-                '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
-            footerFormat: '</table>',
+            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+            pointFormat: '<span style="padding:0"><b> {point.y:.1f} M€</b></span>',
+  
             shared: true,
             useHTML: true,
            borderColor: 'transparent',
@@ -93,7 +111,9 @@
         }]
     });
      </script> 
-   <% end %>
+    </li>
+    <% end %>
+    </ul>
   </div>
 </div>
 <div  class="SD-table-box">
@@ -155,28 +175,28 @@ Highcharts.chart('container-2', {
 
     yAxis: [{ // Primary yAxis
         labels: {
-            format: '{value} k€',
+            format: '{value} M€',
             style: {
-                color: '#5770BE'
+                color: '#76505B'
             }
         },
         title: {
-            text: 'Montant en k€',
+            text: 'Montant en M€',
             style: {
-                color: '#5770BE'
+                color: '#76505B'
             }
         }
     }, { // Secondary yAxis
         title: {
             text: 'ETP',
             style: {
-                color: '#76505B'
+                color: '#5770BE'
             }
         },
         labels: {
             format: '{value} ETP',
             style: {
-                color: '#76505B'
+                color: '#5770BE'
             }
         },
         opposite: true
@@ -206,25 +226,33 @@ Highcharts.chart('container-2', {
   
 
     series: [ {
-        name: 'ETP',
-        type: 'column',
-        yAxis: 1,
-      color: '#76505B',
-     
-        data: [40,56,82],
-       dataLabels: {
+        name: 'Dépenses',
+      type: 'column',
+      
+        tooltip: {
+            valueSuffix: ' M€',
+        },
+        data: [{y:4.8,color: '#76505B'},{y:11.5,color: '#76505B'},{y:17.6,color: '#76505B'},{y:24.5, color: '#bfbfbf'}],
+        dataLabels: {
                 enabled: true,
                 verticalAlign: "center",
-            }
-      
+                y: 30,
+
+            },
     },{
-        name: 'Dépenses',
-      type: 'spline',
+        name: 'ETP',
+        type: 'spline',
+        yAxis: 1,
       color: '#5770BE',
-        tooltip: {
-            valueSuffix: ' k€',
-        },
-        data: <%= @depenses_annee_fonctionnement %>,
+     
+        data: [40,56,82,104],
+       dataLabels: {
+                enabled: true,
+                verticalAlign: "top",
+                y: -25,
+                color:'#5770BE',
+            },
+      
     }],
 
 
@@ -408,3 +436,10 @@ Highcharts.chart('container-4', {
 });
 </script>
 <% end %>
+$('.flexslider2').flexslider({
+  animation: "slide", 
+  controlNav: true,
+  prevText: "Mois suivant", //String: Set the text for the "previous" directionNav item
+  nextText: "Mois précédent",  // String: Set the text for the "next" directionNav item
+
+});
