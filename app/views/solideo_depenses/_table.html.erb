@@ -329,7 +329,7 @@ Highcharts.chart('container-3', {
             return header + content;
           },
         },
-        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month%>,<%= date.day%>),<%=(Maquette.where('date = ? AND (name = ? OR name = ?)',date, "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')/1000).round%>], <% end%>],
+        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month-1%>,<%= date.day%>),<%=(Maquette.where('date = ? AND (name = ? OR name = ?)',date, "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')/1000).round%>], <% end%>],
        dataLabels: {
                 enabled: true,
             },
@@ -412,7 +412,7 @@ Highcharts.chart('container-4', {
             return header + content;
           },
         },
-        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month%>,<%= date.day%>),<%=(Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',date, "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')/1000).round%>], <% end%>],
+        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month-1%>,<%= date.day%>),<%=(Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',date, "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')/1000).round%>], <% end%>],
        dataLabels: {
                 enabled: true,
             },
