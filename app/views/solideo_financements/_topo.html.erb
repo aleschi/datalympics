@@ -4,486 +4,515 @@
 <div class="SD-topo-box">  
   <div class="SF-topo-financeurs-title"><span>Financeurs de la solideo</span></div><br>
   <div class="row">
-   <div class="col-md-6 col-sm-6 col-xs-12">
-      <div id="container-pie"></div>
+   <div class="col-md-4 col-xs-12">
+     <div id="container-bar"></div>
     </div> 
-    <div class="col-md-6 col-sm-6 col-xs-12">  
-      <div id="container-bar"></div>
+    <div class="col-md-8 col-xs-12">  
+      <div id="container-bar1"></div><br>
+      <div id="container-bar2"></div><br>
     </div>
   </div>  
 </div>
 <% end %>
 
-<div class="SD-topo-box">
-  
- <div class="SF-topo-financeurs-title"><span>Maquette des financements de la solideo</span></div><br>
+<div class="SD-topo-box">  
+  <div class="SF-topo-financeurs-title"><span>Suivi des financements et recette de la solideo</span></div><br>
+  <div class="flexslider2" id="flexslider-fin">
+    <ul class="slides">
+    <% @dates_reporting.each_with_index do |date,i|%>
 
-   <div id="container-cylinder"></div>
-   <br>
- 
-   <div class="EB-details">
-       <a href="#details-financements" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details-financements">Détails des financements </a>      
-   </div><br><br>
-   <section id="details-financements" class="collapse">
-   <div class="ED_table">
-      <table class="table-striped">
-        <thead>
-          <tr>
-            <th scope="col"> </th>
-            <th scope="col">Privé</th>
-            <th scope="col">ETAT</th>
-            <th scope="col">RIF</th>
-            <th scope="col">Paris</th>
-            <th scope="col">MGP</th>
-            <th scope="col">CD92</th>
-            <th scope="col">CD93</th>
-            <th scope="col">CD78</th>
-            <th scope="col">ETP PC</th>
-            <th scope="col">ETP TE</th>
-            <th scope="col">Dugny</th>
-            <th scope="col">Bourget</th>
-            <th scope="col">CASQY</th>
-            <th scope="col" class="border-none">Marseille </th>
-          </tr>
-        </thead>
-        <tbody>
+    <li> 
+      <div class="budget-ouvrages-mois">
+        <div class="box-convention-date">Financements cumulés <%= l(date, format: "%Y") %> </div>
         
-          <tr>
-            <th scope="row">2018</th>
-            <% @financeurs.each do |financeur| %>
-            <td><%= (SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2018,1)).sum('montant')/1000000).round%></td>
-            <% end %>
-   
-          </tr>
-          <tr>
-            <th scope="row">2019</th>
-            <% @financeurs.each do |financeur| %>
-            <td><%= (SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant')/1000000).round%>
-            <% if  SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant') > SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2018,1)).sum('montant')%> <i class="fas fa-long-arrow-alt-up"></i> <% elsif SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant') < SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2018,1)).sum('montant') %> <i class="fas fa-long-arrow-alt-down"></i> <% end %>
-            </td>
-            <% end %>
-   
-          </tr>
-          <tr>
-            <th scope="row">2020</th>
-            <% @financeurs.each do |financeur| %>
-            <td><%= (SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2020,1)).sum('montant')/1000000).round%>
-            <% if  SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2020,1)).sum('montant') > SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant')%> <i class="fas fa-long-arrow-alt-up"></i> <% elsif SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2020,1)).sum('montant') < SolideoFinancement.where("financeur = ? AND date = ?", financeur, Date.new(2019,1)).sum('montant') %> <i class="fas fa-long-arrow-alt-down"></i> <% end %>
-            </td>
-            <% end %>
-   
-          </tr>
+       <div id="financements<%=i%>"></div>
+       <div class="i8"></div>
+        <div>
+          
+            <div class="inline-flex">
+              <div class="box_i1">
+                  <div class="box_i1_t1">X%</div>
+                  <div class="box_i1_t2"> Etat</div>
+              </div>
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t2">IDF</div>
+              </div>
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">MGP</div>
+              </div> 
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">Ville de Paris</div>
+              </div>   
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">CD 93</div>
+              </div> 
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">Plaine Co</div>
+              </div>
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">Recettes</div>
+              </div>
+            </div>
+        </div> 
+        <div class="i12"></div>
+        <div>
+          
+            <div class="inline-flex">
+              <div class="box_i1">
+                  <div class="box_i1_t1">X%</div>
+                  <div class="box_i1_t2"> Marseille</div>
+              </div>
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t2">Terre d'envol</div>
+              </div>
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">CD92</div>
+              </div> 
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">Dugny</div>
+              </div>   
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">La bourget</div>
+              </div> 
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">Casqy</div>
+              </div>
+              <div class="box_i1">
+                  <div class="box_i1_t1">X% </div>
+                <div class="box_i1_t2">CD78</div>
+              </div>
+            </div>
+        </div> 
+        <div class="i12"></div>
+      </div>
         
-        </tbody>
-      </table>
-    </div>
-   </section>
-</div>
-
-<div  class="table-box">
-
- <div class="SF-topo-financeurs-title"><span>Suivi des financements de la solideo</span></div><br><br>
-  <div>
-    Données manquantes 
-  </div>
-    <div class="row">
-      <div class="col-md-12 col-xs-12">
-         <div id='container-column'>
-      
-    </div>
-      </div>
-    </div>
-
-  
-  <div class="row">
-    <div class="col-md-6 col-xs-12">
-     <div id="container-s1">
-       
-      </div>
-    </div>
-     <div class="col-md-6 col-xs-12">
-       <div id="container-s2">
-       
-      </div>
-      
-    </div>
-  </div>
-  
-  <br><br>
-  <div class="SD-table-box-left">
-    <div class="EB-details">
-       <a href="#details" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="details">Détails des dépenses </a>      
-    </div><br><br>
-    <section id="details" class="collapse">
-      <% if !@solideo_financements_array.nil? && !@solideo_financements_array.empty? %>
-
-    <div class="ED_table">
-      <table class="table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Financeur</th>
-            
-       
-            <th scope="col" class="border-none">Financement (K€)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @solideo_financements_array.each do |date| %>
-          <tr>
-            <th scope="row"><%= date.strftime("%Y") %></th>
-            <th scope="row"><%= link_to etat_budgets_path do %> Etat<% end %></th>
-            <td class="border-none"><%= number_with_delimiter((SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> / <%= number_with_delimiter((SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date + 1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'Etat',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
-          </tr> 
-          <% end %>
-          <% @solideo_financements_array.each do |date| %>
-           <tr>
-            <th scope="row"><%= date.strftime("%Y") %></th>
-            <th scope="row"><%= link_to collectivites_path do %> Collectivités<% end %></th>
-            <td class="border-none"><%= number_with_delimiter((SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> /<%= number_with_delimiter((SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat', "privé",date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur != ? AND financeur != ? AND date >= ? AND date <= ?', 'Etat',"privé",date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
-          </tr>
-          <% end %>
-
-          <% @solideo_financements_array.each do |date| %>   
-          <tr>
-            <th scope="row"><%= date.strftime("%Y") %></th>
-            <th scope="row"> Privés</th>
-            <td class="border-none"><%= number_with_delimiter((SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu')/1000).to_i, :delimiter => ' ') %> /<%= number_with_delimiter((SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant')/1000).to_i, :delimiter => ' ') %> <% if SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant').to_i < SolideoFinancement.where('financeur = ? AND date >= ? AND date <= ?', 'privé',date, date+1.year).sum('montant_prevu').to_i%> <i class="fas fa-exclamation-circle"></i><% end %></ù></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% else %>
-    <div>
-      Aucune dépense renseignée
-    </div>
-  <%end%>
-    </section>
-  </div>
-</div>
-<br><br>
-
-
-<script>
-Highcharts.chart('container-column', {
-  chart:{
+      <script>
+      Highcharts.chart('financements<%=i%>', {
+        chart: {
             type: 'column',
-            backgroundColor: '#fff',  
-            style:{
-            fontFamily: "Marianne Regular",
-            //  maxWidth: "500px",
-            },
-       
-       
-          },
-
-     title: {
-          text:'Suivi annuel des financements de la Solideo',
-          margin:40,
-          style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-                  fontStyle: 'italic',
-                  fontSize: '16px',
-                  },
-        },
-  colors: ["#BFBFBF",'#2E5D63'],
-    yAxis: {
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Total €'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
-        xDateFormat: '%Y',
-    borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-  xAxis:{
-   //  type: 'datetime',
-    max: 2025,
-  },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2018,
-        },
-      column: {
-           pointWidth: 15,
-           tooltip: {        
-              backgroundColor: "#fff",        
-              style: {
-                  fontSize: '12px',     
-              },    
-             },
-           },
+     
+            width: 750,
+          backgroundColor: '#fff',
+              style:{
+              fontFamily: "Marianne Regular",
          
-    },
+              },
+        },
+        title: {
+            text: null,
+            style: {
+                      color: "#8F8F8F",
+                      fontWeight: "400",
+              fontStyle: 'italic',
+              fontSize: '16px',
+                      },
+        },
 
-  
-
-    series: [ {
-        name: 'Financements prévus',
-        data: <%= @financements_prevu_annee %>,
-    },{
-        name: 'Financements reçus ',
-        data: <%= @financements_annee %>,
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
+        xAxis: {
+            categories: ["privé + recettes", "Etat", "RIF", "Ville de Paris", "Métropole Grand Paris", "CD92", "CD93", "CD78", "EPT Plaine Commune","EPT Terres d'envol", "Ville de Dugny", "Ville du Bourget", "CASQY", "Ville de Marseille"],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Budget Consommé (M€)'
             },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
+          gridLineColor: "#fff",
+        },
+        legend: {
+          enabled: false,
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+            pointFormat: '<span style="padding:0"><b> {point.y:.1f} M€</b></span>',
+  
+            shared: true,
+            useHTML: true,
+            borderColor: 'transparent',
+            borderRadius: 16,
+            backgroundColor: '#fff',
+          },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0,
+                grouping: false,
+              
             }
-        }]
-    }
+        },
+        series: [{
+            name: 'Financements cumulés',
+            data: [
+              {name: 'privé + recettes', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date).sum('montant')/1000000).round%>, color:"#2E5D63", dataLabels: {
+                      enabled: true,
+                      formatter: function() {
 
-});
-</script>
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: 'Etat', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')/1000000).round%>, color:"#2E5D63", dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','État',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  }, },
+              {name: 'RIF', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','RIF',date).sum('montant')/1000000).round%>, color:"#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','RIF',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','RIF',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  }, },
+              {name: 'Ville de paris', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de paris',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Ville de paris',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Ville de paris',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: 'Métropole Grand Paris', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: 'CD92', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CD92',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','CD92',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','CD92',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: 'CD93', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CD93',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','CD93',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','CD93',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: 'CD78', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CD78',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','CD78',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','CD978',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: 'EPT Plaine Commune', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: "EPT Terres d'envol", y:<%= (SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: 'Ville de Dugny', y: <%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+
+                            header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name:'Ville du Bourget', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')/1000000).round%>, color: "#bfbfbf",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: "CASQY", y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CASQY',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?',"CASQY",date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?',"CASQY",date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: "Ville de Marseille", y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Marseille',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?',"Ville de Marseille",date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?',"Ville de Marseille",date-1.year).sum('montant'))/1000000).round%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+            
+            
+              ],
+            pointPlacement: 0,
+        }]
+      });
+      </script> 
+    </li>
+    <% end %>
+    </ul>
+  </div>
+</div>
 
 <script>
-Highcharts.chart('container-pie', {
+  Highcharts.chart('container-bar1', {
     chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        backgroundColor: '#fff',
+        type: 'column',
+    height:'200px',
+      backgroundColor: '#fff',
           style:{
           fontFamily: "Marianne Regular",
-          maxWidth: "500px",
+     
           },
-   
     },
     title: {
-         text:null,   
-          style: {
+       text: 'Suivi annuel des financements',
+       verticalAlign: "bottom",
+        style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-                  fontStyle: "italic",
-                  fontSize: '16px',
+          fontStyle: 'italic',
+          fontSize: '12px',
                   },
     },
-  colors: ['#C68D7B',"#2E5D63",'#20E37B'],
-  tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:,.0f}€ </b>',
-      borderColor: 'transparent',
+
+    xAxis: {
+        categories: ['Recu 2018', 'Recu 2019',  "Recu 2020", "Prev 2021", "Cumul"],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget financé (M€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+       borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
     },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
     plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-           size: 200,
-            dataLabels: {
-                enabled: true,
-              connectorPadding: 0,
-              distance: 10,
-                format: '<b>{point.name}</b><br>{point.y:,.0f}€ <br> {point.percentage:.1f} %',
-              style: {
-                      color: "#8F8F8F",
-                      fontSize: "11px",
-                      fontWeight: "400",
-                      fontStyle: "italic",
-                      },
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            grouping: false,
+          dataLabels: {
+                enabled: true
             }
         }
     },
     series: [{
-        name: 'Total',
-        colorByPoint: true,
-        data: [{
-            name: 'Etat',
-            y:  <%= @solideo_financements_etat%>,
-           
-        }, {
-            name: 'Privés',
-            y: <%= @solideo_financements_prive%>,
-        }, {
-            name: 'Collectivités',
-            y: <%= @solideo_financements_collectivites %>,
-        }]
+        name: 'Budget',
+        data: [{y:<%= (SolideoFinancement.where('date = ?',Date.new(2018,1,1)).sum('montant')/1000000).round%>, color:"#2E5D63" },{y:<%= (SolideoFinancement.where('date = ?',Date.new(2019,1,1)).sum('montant')/1000000).round%>, color:"#2E5D63" },{y:<%= (SolideoFinancement.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000000).round%>, color: "#2E5D63"},{y:<%= (SolideoFinancement.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000000).round%>, color: "#bfbfbf"},{y:<%= (SolideoFinancement.where('date <= ?',Date.new(2021,1,1)).sum('montant')/1000000).round(1)%>, color: "#bfbfbf"}],
+        pointPlacement: 0,
+    },{
+        name: 'Reçu',
+        data: [{y:<%= (SolideoFinancement.where('date = ?',Date.new(2018,1,1)).sum('montant')/1000000).round%>, color:"#2E5D63" },{y:<%= (SolideoFinancement.where('date = ?',Date.new(2019,1,1)).sum('montant')/1000000).round%>, color:"#2E5D63" },{y:<%= (SolideoFinancement.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000000).round%>, color: "#2E5D63"},{y:0, color: "#2E5D63"}, {y: <%= (SolideoFinancement.where('date <= ?',Date.new(2020,1,1)).sum('montant')/1000000).round(1)%>, color: "#C68D7B"}],
+        pointPlacement: 0,
+
+    }]
+});
+ </script>
+
+
+<script>
+
+  Highcharts.chart('container-bar2', {
+    chart: {
+        type: 'column',
+    height:'200px',
+      backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+     
+          },
+    },
+    title: {
+        text: 'Répartition des financements',
+        verticalAlign: "bottom",
+        style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+          fontStyle: 'italic',
+          fontSize: '12px',
+                  },
+    },
+
+    xAxis: {
+        categories: ['Etat', 'Collectivités',  "Privés (compléments)?", "Recettes" ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Budget (M€)'
+        },
+      gridLineColor: "#fff",
+    },
+  legend: {
+    enabled: false,
+  },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
+            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            grouping: false,
+          dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'Budget Total Maquette',
+        data: [{y:<%= (SolideoFinancement.where('financeur = ?','État').sum('montant')/1000000).round%>, color:"#bfbfbf" },
+        {y:<%=(SolideoFinancement.where('financeur != ? AND financeur != ?','État','Privés + recettes').sum('montant')/1000000).round%>, color:"#bfbfbf" },
+        {y:<%=((Maquette.where('date = ?',@dates_maquettes[0]).sum('total') - SolideoFinancement.sum('montant'))/1000000).round%>, color: "#bfbfbf"},
+        {y:<%=(SolideoFinancement.where('financeur = ?','Privés + recettes').sum('montant')/1000).round%>, color: "#bfbfbf"}],
+        pointPlacement: 0,
+    },{
+        name: 'Reçu',
+        data: [{y:<%= (SolideoFinancement.where('financeur = ? AND date <= ?','État', Date.new(2020,1,1)).sum('montant')/1000000).round%>, color:"#5770BE" },
+        {y:<%=(SolideoFinancement.where('financeur != ? AND financeur != ? AND date <= ?','État','Privés + recettes',Date.new(2020,1,1)).sum('montant')/1000000).round%>, color:"#76505B" },
+        {y:0, color: "#FFE800"},
+        {y:<%=(SolideoFinancement.where('financeur = ? AND date <= ?','Privés + recettes',Date.new(2020,1,1)).sum('montant')/1000000).round%>, color: "#D08A77"}],
+        pointPlacement: 0,
+
     }]
 });
 </script>
 
-<script>
-Highcharts.chart('container-s1', {
-
-   chart:{
-            backgroundColor: '#fff',
-           type: 'spline',
-      
-        style:{
-          fontFamily: "Marianne Regular",
-         maxWidth: '500px',
-          },
-  
-          },
-
-      title: {
-        text:"Suivi annuel des financements de l'Etat",
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-      },
-colors: ['#C68D7B','#BFBFBF'],
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
-        title: {
-            text: 'Total €'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
-        xDateFormat: '%Y',
-    borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-  xAxis:{
-      max: 2025,
-  },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2018,
-
-        }
-    },
-
-  
-
-    series: [{
-        name: "Financements de l'Etat",
-        data: <%= @financements_annee_etat %>,
-    }, {
-        name: "Financements de l'Etat prévus",
-        data: <%= @financements_annee_etat_prevu %>,
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-</script>
-<script>
-Highcharts.chart('container-s2', {
-
-   chart:{
-            backgroundColor: '#fff',
-           type: 'spline',
-      
-        style:{
-          fontFamily: "Marianne Regular",
-         maxWidth: '500px',
-          },
-  
-          },
-
-      title: {
-        text:"Suivi annuel des financements des collectivités",
-        margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-      },
-colors: ['#20E37B','#BFBFBF'],
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
-        title: {
-            text: 'Total €'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: '€',
-        xDateFormat: '%Y',
-    borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-  xAxis:{
-      max: 2025,
-  },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2018,
-
-        }
-    },
-
-  
-
-    series: [{
-        name: 'Financements des collectivités',
-        data: <%= @financements_annee_co %>,
-    }, {
-        name: 'Financements des collectivités prévus',
-        data: <%= @financements_annee_co_prevu %>,
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-</script>
 <script>
 Highcharts.chart('container-bar', {
     chart: {
@@ -543,93 +572,20 @@ Highcharts.chart('container-bar', {
     },
     series: [{
         name: 'Budget',
-        data: [{y: <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", SolideoFinancement.last.date).sum('montant')/1000000).round %>, color: "#C68D7B"}, {y: <%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", SolideoFinancement.last.date).sum('montant')/1000000).round %>, color: "#2E5D63"}, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "RIF", SolideoFinancement.last.date).sum('montant')/1000000).round %>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Ville de Paris", SolideoFinancement.last.date).sum('montant')/1000000).round %>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "CD93", SolideoFinancement.last.date).sum('montant')/1000000).round %>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "EPT Plaine Commune", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Ville de Marseille", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "EPT Terres d'envol", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Métropole Grand Paris", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "CD92", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Ville de Dugny", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Ville du Bourget", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "CASQY", SolideoFinancement.last.date).sum('montant')/1000000).round %>,<%= (SolideoFinancement.where("financeur = ? AND date = ?", "CD78", SolideoFinancement.last.date).sum('montant')/1000000).round %>],
+        data: [{y: <%= (SolideoFinancement.where("financeur = ?", "État").sum('montant')/1000000).round %>, color: "#C68D7B"}, 
+        {y: <%= (SolideoFinancement.where("financeur = ?", "Privés + recettes").sum('montant')/1000000).round %>, color: "#2E5D63"}, 
+        <%= (SolideoFinancement.where("financeur = ?", "RIF").sum('montant')/1000000).round %>, 
+        <%= (SolideoFinancement.where("financeur = ?", "Ville de Paris").sum('montant')/1000000).round %>, 
+        <%= (SolideoFinancement.where("financeur = ?", "CD93").sum('montant')/1000000).round %>, 
+        <%= (SolideoFinancement.where("financeur = ?", "EPT Plaine Commune").sum('montant')/1000000).round %>,
+        <%= (SolideoFinancement.where("financeur = ?", "Ville de Marseille").sum('montant')/1000000).round %>,
+        <%= (SolideoFinancement.where("financeur = ?", "EPT Terres d'envol").sum('montant')/1000000).round %>,
+        <%= (SolideoFinancement.where("financeur = ?", "Métropole Grand Paris").sum('montant')/1000000).round %>,
+        <%= (SolideoFinancement.where("financeur = ?", "CD92").sum('montant')/1000000).round %>,
+        <%= (SolideoFinancement.where("financeur = ?", "Ville de Dugny").sum('montant')/1000000).round %>,
+        <%= (SolideoFinancement.where("financeur = ?", "Ville du Bourget").sum('montant')/1000000).round %>,
+        <%= (SolideoFinancement.where("financeur = ?", "CASQY").sum('montant')/1000000).round %>,
+        <%= (SolideoFinancement.where("financeur = ?", "CD78").sum('montant')/1000000).round %>],
      }]
 });
   </script>
-
-<script>
-Highcharts.chart('container-cylinder', {
-    chart: {
-      style:{
-          fontFamily: "Marianne Regular",
-     
-          },
-        type: 'cylinder',
-        options3d: {
-            enabled: true,
-            alpha: 15,
-            beta: 15,
-            depth: 50,
-            viewDistance: 25,
-        }
-    },
-
-    title: {
-        text: 'Evolution des maquettes de financements',
-      margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-            fontStyle: 'italic',
-            fontSize: '16px',
-                  },
-    },
-
-    xAxis: {
-        categories: ['2018', '2019', '2020', '2021'],
-      gridLineColor: '#E6F0FF', 
-        labels: {
-        //   skew3d: true,
-            style: {
-             //   fontSize: '16px'
-            }
-        }
-    },
-
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
-        allowDecimals: false,
-        min: 0,
-        title: {
-            text: 'Montant (M€)',
-            skew3d: true
-        }
-    },
-
-    tooltip: {
-        headerFormat: '{point.key}<br>',
-        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: <b>{point.y}/ {point.stackTotal} M€</b>',
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-
-    plotOptions: {
-        cylinder: {
-            stacking: 'normal',
-            depth: 40,
-           dataLabels: {
-                enabled: true
-            }
-        }
-    },
-
-    series: [{
-        name: 'Etat',
-        data: [<%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", Date.new(2018,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", Date.new(2019,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", Date.new(2020,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "Etat", Date.new(2021,1)).sum('montant')/1000000).round%>],
-        stack: 'budget',
-       color: "#C68D7B",
-    }, {
-        name: 'Collectivités',
-        data: [<%= (SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", Date.new(2018,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat","privé", Date.new(2019,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", Date.new(2020,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat","privé", Date.new(2021,1)).sum('montant')/1000000).round%>],
-        stack: 'budget',
-      color: '#20E37B',
-    }, {
-        name: 'Privé',
-        data: [<%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", Date.new(2018,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", Date.new(2019,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", Date.new(2020,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where("financeur = ? AND date = ?", "privé", Date.new(2021,1)).sum('montant')/1000000).round%>],
-        stack: 'budget', 
-      color: "#2E5D63",
-    }]
-});
-</script>

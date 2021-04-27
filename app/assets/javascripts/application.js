@@ -53,4 +53,13 @@ $(document).ready(function() {
     nextText:'Mois précédent',
   });
  })
+  $(document).on("turbolinks:load", function() {
+  $('#flexslider-fin').flexslider({ 
+    animation: "slide",
+    animationLoop: false,
+    slideshow: false,
+    prevText: "Année suivante",    
+    nextText:'Année précédente',
+  });
+ })
  

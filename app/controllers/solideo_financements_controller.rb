@@ -5,6 +5,7 @@ before_action :authenticate_user!
   # GET /solideo_financements.json
   def index
      @nav=true
+     @dates_maquettes= Maquette.order('date DESC').pluck(:date).uniq! 
     @solideo_financements = SolideoFinancement.all
     @financeurs = ["privé", "Etat", "RIF", "Ville de Paris", "Métropole Grand Paris", "CD92", "CD93", "CD78", "EPT Plaine Commune","EPT Terres d'envol", "Ville de Dugny", "Ville du Bourget", "CASQY", "Ville de Marseille"]
 
@@ -12,115 +13,8 @@ before_action :authenticate_user!
     @solideo_financements_prive = SolideoFinancement.where("financeur = ? AND date = ?", "privé", SolideoFinancement.last.date).sum('montant')
     @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", SolideoFinancement.last.date).sum('montant')
     
-    @solideo_financements_hash = SolideoFinancement.where('date <= ?', Date.today).order('date DESC').unscope(:order).group_by_year(:date).sum('montant')
-    @solideo_financements_array = []
-    
-      @solideo_financements_hash.each do |h|
-        if !h[0].nil?
-        @solideo_financements_array << h[0]
-        end
-      end
-    
-    
-    @financements_a =  @solideo_financements.unscope(:order).group_by_year(:date).sum('montant')    
-    @financements_p =  @solideo_financements.unscope(:order).group_by_year(:date).sum('montant_prevu')
-     @financements_annee = []
-    @financements_prevu_annee= []
-    (2018..2025).each do |annee|    
-      @is_present = false 
-       @financements_a.each do |h|
-        if h[0].year == annee
-          @financements_annee << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @financements_annee << 0
-      end
-    end
-    (2018..2025).each do |annee|    
-      @is_present = false 
-       @financements_p.each do |h|
-        if h[0].year == annee
-          @financements_prevu_annee << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @financements_prevu_annee << 0
-      end
-    end
-     #financements 
-    @financements_etat = SolideoFinancement.where("financeur = ? ", "Etat").unscope(:order).group_by_year(:date).sum('montant')    
-    @financements_etat_p = SolideoFinancement.where("financeur = ? ", "Etat").unscope(:order).group_by_year(:date).sum('montant_prevu')    
-    @financements_collectivites =  SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant') 
-    @financements_collectivites_p =  SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant_prevu')
-     @financements_prives = SolideoFinancement.where("financeur = ? ", "privé").unscope(:order).group_by_year(:date).sum('montant') 
-     @financements_annee_etat = []
-    @financements_annee_etat_prevu = []
-    @financements_annee_co= []
-    @financements_annee_co_prevu= []
-    @financements_annee_prive = []
-    (2018..2025).each do |annee|    
-      @is_present = false 
-       @financements_etat.each do |h|
-        if h[0].year == annee
-          @financements_annee_etat << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @financements_annee_etat << 0
-      end
-    end
-     (2018..2025).each do |annee|    
-      @is_present = false 
-       @financements_etat_p.each do |h|
-        if h[0].year == annee
-          @financements_annee_etat_prevu << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @financements_annee_etat_prevu << 0
-      end
-    end
-    (2018..2025).each do |annee|    
-      @is_present = false 
-       @financements_collectivites.each do |h|
-        if h[0].year == annee
-          @financements_annee_co << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @financements_annee_co << 0
-      end
-    end
-    (2018..2025).each do |annee|    
-      @is_present = false 
-       @financements_collectivites_p.each do |h|
-        if h[0].year == annee
-          @financements_annee_co_prevu << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @financements_annee_co_prevu << 0
-      end
-    end
-    (2018..2025).each do |annee|    
-      @is_present = false 
-       @financements_prives.each do |h|
-        if h[0].year == annee
-          @financements_annee_prive << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @financements_annee_prive << 0
-      end
-    end
+    @dates_reporting = [Date.new(2021,1,1),Date.new(2020,1,1),Date.new(2019,1,1),Date.new(2018,1,1)]
+   
   end
   
   def index_filter
@@ -163,8 +57,7 @@ before_action :authenticate_user!
   end
   
   def import
-    SolideoFinancement.import(params[:file], params[:date_year].to_i, params[:date_month].to_i)
-    OuvragesFinancement.import_ouvrage(params[:file], params[:date_year].to_i, params[:date_month].to_i)
+    SolideoFinancement.import(params[:file])
     redirect_to solideo_financements_path  
   end
   def import2
