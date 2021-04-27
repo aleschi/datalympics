@@ -108,6 +108,7 @@ class OuvragesController < ApplicationController
     else 
       @lastdate = Date.yesterday
     end
+    @dates_ouvrages_reporting = Chantier.pluck(:date).uniq!
   end
 
   # GET /ouvrages/new

@@ -2,7 +2,7 @@
 <% if !@solideo_financements.nil?%>
 
 <div class="SD-topo-box">  
-  <div class="SF-topo-financeurs-title"><span>Financeurs de la solideo</span></div><br>
+  <div class="SF-topo-financeurs-title"><span>Financements de la solideo</span></div><br>
   <div class="row">
    <div class="col-md-4 col-xs-12">
      <div id="container-bar"></div>
@@ -16,14 +16,14 @@
 <% end %>
 
 <div class="SD-topo-box">  
-  <div class="SF-topo-financeurs-title"><span>Suivi des financements et recette de la solideo</span></div><br>
+  <div class="SF-topo-financeurs-title"><span>Suivi annuel des financements et recettes de la solideo</span></div><br>
   <div class="flexslider2" id="flexslider-fin">
     <ul class="slides">
     <% @dates_reporting.each_with_index do |date,i|%>
 
     <li> 
       <div class="budget-ouvrages-mois">
-        <div class="box-convention-date">Financements cumulés <%= l(date, format: "%Y") %> </div>
+        <div class="box-convention-date">Financements reçus cumulés <%= l(date, format: "%Y") %> </div>
         
        <div id="financements<%=i%>"></div>
        <div class="i8"></div>
@@ -31,31 +31,31 @@
           
             <div class="inline-flex">
               <div class="box_i1">
-                  <div class="box_i1_t1">X%</div>
-                  <div class="box_i1_t2"> Etat</div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')/SolideoFinancement.where('financeur=?','État').sum('montant')*100).round %>% </div>
+                  <div class="box_i1_t2">Etat</div>
               </div>
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','RIF',date).sum('montant')/SolideoFinancement.where('financeur=?','RIF').sum('montant')*100).round %>% </div>
                   <div class="box_i1_t2">IDF</div>
               </div>
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
-                <div class="box_i1_t2">MGP</div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date).sum('montant')/SolideoFinancement.where('financeur=?','Métropole Grand Paris').sum('montant')*100).round %>%</div>
+                <div class="box_i1_t2"> MGP</div>
               </div> 
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Paris',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville de Paris').sum('montant')*100).round %>% </div>
                 <div class="box_i1_t2">Ville de Paris</div>
               </div>   
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CD93',date).sum('montant')/SolideoFinancement.where('financeur=?','CD93').sum('montant')*100).round(0) %>% </div>
                 <div class="box_i1_t2">CD 93</div>
               </div> 
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date).sum('montant')/SolideoFinancement.where('financeur=?','EPT Plaine Commune').sum('montant')*100).round %>% </div>
                 <div class="box_i1_t2">Plaine Co</div>
               </div>
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date).sum('montant')/SolideoFinancement.where('financeur=?','Privés + recettes').sum('montant')*100).round %>% </div>
                 <div class="box_i1_t2">Recettes</div>
               </div>
             </div>
@@ -65,31 +65,31 @@
           
             <div class="inline-flex">
               <div class="box_i1">
-                  <div class="box_i1_t1">X%</div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Marseille',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville de Marseille').sum('montant')*100).round(1)%>% </div>
                   <div class="box_i1_t2"> Marseille</div>
               </div>
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date).sum('montant')/SolideoFinancement.where('financeur=?',"EPT Terres d'envol").sum('montant')*100).round(1)%>% </div>
                   <div class="box_i1_t2">Terre d'envol</div>
               </div>
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CD92',date).sum('montant')/SolideoFinancement.where('financeur=?','CD92').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">CD92</div>
               </div> 
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville de Dugny').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">Dugny</div>
               </div>   
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville du Bourget').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">La bourget</div>
               </div> 
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CASQY',date).sum('montant')/SolideoFinancement.where('financeur=?','CASQY').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">Casqy</div>
               </div>
               <div class="box_i1">
-                  <div class="box_i1_t1">X% </div>
+                  <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CD78',date).sum('montant')/SolideoFinancement.where('financeur=?','CD78').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">CD78</div>
               </div>
             </div>

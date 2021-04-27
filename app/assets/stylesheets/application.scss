@@ -3283,8 +3283,13 @@ display: inline-flex;
   margin-bottom:12px;
 }
 .convention-infos{
-  padding-left:10px;
-  padding-right:10px;
+  padding:10px;
+  margin:10px;
+  background-color:#F8F8F8;
+  border-radius:8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .inline-flex{
   display: inline-flex;
