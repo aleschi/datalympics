@@ -5,8 +5,229 @@
   </div><br><br>
 
   <div class="row">
-<div class="col-md-12">
-       <div id="programme"></div>
+    <div class="col-md-12">
+      <% if @ouvrage.chantiers.where('date = ?',@lastdate).count > 0%>
+        <% @ouvrage.chantiers.where('date = ?',@lastdate).each_with_index do |chantier,i| %>
+          <div><%= chantier.typecontrat %> - dépenses actées totales = <%= (chantier.total_depenses_actees/1000).to_i%> k€ - dépenses payées : <%= (chantier.cumul_paiements/1000).to_i%> k€</div>
+          <div>Dépenses effectuées en 2021 : <%= (chantier.paiements_annee/1000).to_i%> k€ - budget 2021 : <%= (chantier.budget_annee/1000).to_i%> k€</div>
+          <div id="programme<%=i%>"></div>
+          <script>
+  
+            Highcharts.stockChart('programme<%=i%>', {
+            // mapNavigation: {
+            //           enableMouseWheelZoom: true
+            //       },
+              chart:{
+                  backgroundColor: '#fff',
+                  borderColor: '#fff',
+                  type: 'scatter',
+                  height: '300px',
+                  style:{
+                    fontFamily: "Marianne Regular",
+                    // maxWidth: '500px'
+                    },
+                
+                  zoomType: 'x',
+
+                    },
+              navigator: {
+                  maskFill: 'rgba(248,248,248,0.3)',
+              },
+
+              rangeSelector: {
+
+                      buttons: [ {
+                          type: 'month',
+                          count: 1,
+                          text: '1m'
+                      }, {
+                          type: 'month',
+                          count: 3,
+                          text: '3m'
+                      },{
+                          type: 'month',
+                          count: 6,
+                          text: '6m'
+                      }, {
+                          type: 'year',
+                          count: 1,
+                          text: '1an'
+                      }, {
+                          type: 'all',
+                          text: 'Tout'
+                      }],
+                      selected: 3,
+                      buttonTheme: { // styles for the buttons
+                      fill: '#F8F8F8',
+                      stroke: 'none',
+                      'stroke-width': 0,
+                      r: 4,
+                      style: {
+                          color: '#000',
+                          fontWeight: 'bold'
+                      },
+                      states: {
+                          hover: {
+                          },
+                          select: {
+                              fill: '#000091',
+                              style: {
+                                  color: 'white'
+                              }
+                          }
+                          // disabled: { ... }
+                      }
+                  },
+                  inputStyle: {
+                          color: '#000',
+                        
+                      },
+                  labelStyle: {
+                      color: '#000', 
+                  },
+                  },
+              legend: {
+                enabled: true,
+                verticalAlign: 'top',
+              
+              },
+            title: {
+                    text:"",
+            },
+         
+            yAxis: {
+              gridLineColor: '#fff', 
+                title: {
+                    text: 'Total k€'
+                }
+            },
+            scrollbar: {
+              barBackgroundColor: '#CECECE',
+              barBorderColor: "#F8F8F8",
+              barBorderRadius: 6,
+              buttonBackgroundColor: "#F8F8F8",
+              buttonArrowColor:'#CECECE',
+              buttonBackgroundColor:"#F8F8F8",
+              buttonBorderColor:"#F8F8F8",
+              buttonBorderRadius: 6,
+              rifleColor:"#F8F8F8",
+            },
+            tooltip: {
+              borderColor: 'transparent',
+              borderRadius: 16,
+              backgroundColor: '#fff',
+              },
+            xAxis:{
+              type: 'datetime',
+            //  tickInterval: 30 * 24 * 3600 * 1000,
+            // tickPixelInterval:200,
+            },
+            yAxis: {
+              plotLines: [{
+                color: '#FF6F4C',
+                label: {
+                  text: "Prev fin d'année",
+                  textAlign: 'left',
+                  verticalAlign: 'middle',
+                  
+                  x: -30,
+                  style: {
+                    color:'#FF6F4C',
+                  },
+                },
+                zIndex: 1,
+                width: 2,
+                value: <%= chantier.total_depenses_actees.to_i/1000%>,
+              }],
+            },
+            plotOptions: {
+                series: {
+                  lineWidth: 2,
+                    label: {
+                        connectorAllowed: false
+                    }, 
+                    marker: {
+                        enabled: true,
+                        radius:2,
+                    },
+                  step: 'left',
+                }
+            },
+ 
+  
+            series: [
+              {
+                name: 'Demandes de paiements payées',
+                color: '#2E5D63',
+                data: [   
+                  <% @ouvrage.chantiers.where('typecontrat = ?',chantier.typecontrat).each do |depense|%>     
+                    {name:  'Dépenses payées', x: Date.UTC(<%=depense.date.year%>,<%= depense.date.month-1%>, <%=depense.date.day%>),y: <%=  (depense.cumul_paiements.to_f/1000).round%>,  },
+                  <% end %>
+                ],
+                tooltip: {
+                   pointFormatter: function() {
+                var point = this,
+                series = point.series,
+                firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+                 
+                content =   '<b>Dépense payées: '+ number + ' k€</b><br/>';
+
+                return header + content;
+                },
+                },
+            
+              },
+              
+              {
+                name: 'Dépenses actées à date',
+                color: '#8F8F8F',
+                data: [
+                  <% @ouvrage.chantiers.where('typecontrat = ?',chantier.typecontrat).each do |depense|%>  
+                    {name:  'Dépenses actées à date', x: Date.UTC(<%=depense.date.year%>,<%= depense.date.month-1%>, <%=depense.date.day%>),y: <%=  (depense.cumul_depenses_actees.to_f/1000).round%>,  },
+                  <% end %>
+                ],
+              tooltip: {
+                   pointFormatter: function() {
+                var point = this,
+                series = point.series,
+                firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+                 
+                content =   '<b>Dépenses actées à date: '+ number + ' k€</b><br/>';
+
+                return header + content;
+              },
+              },
+            
+            },
+ 
+  
+      
+            ],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+            });
+          </script>
+        <% end %>
+      <%end %>
+    
      </div>
 
    </div>
@@ -70,172 +291,20 @@
 
 </section>
 
-<% if !@ouvrage.ouvrages_financements.nil? && @ouvrage.ouvrages_financements.count > 0 %>
+
 <div class="SD-topo-box">
   <div class="SD-topo-box-title">
     <span>Financements</span>
   </div><br><br>
-    <div class="row">
+  <div class="row">
     <div class="col-md-12"> 
-      <div id='container-cylinder'>
-
-      </div>
-     
+      Données ?
     </div>
   </div>
 </div>
-<% end %>
 
-<% if !@ouvrage.ouvrages_financements.nil? && @ouvrage.ouvrages_financements.count > 0 %>
-<% if !@ouvrage_financeurs.nil?%>
-<script>
-Highcharts.chart('container-cylinder', {
-    chart: {
-      style:{
-          fontFamily: "Marianne Regular",
-     
-          },
-        type: 'cylinder',
-        options3d: {
-            enabled: true,
-            alpha: 15,
-            beta: 15,
-            depth: 50,
-            viewDistance: 25,
-        }
-    },
 
-    title: {
-        text: "Evolution des financements de l'ouvrage",
-      margin:40,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-            fontStyle: 'italic',
-            fontSize: '16px',
-                  },
-    },
 
-    xAxis: {
-        categories: ['2018', '2019', '2020', '2021'],
-      gridLineColor: '#E6F0FF', 
-        labels: {
-        //   skew3d: true,
-            style: {
-             //   fontSize: '16px'
-            }
-        }
-    },
-
-    yAxis: {
-      gridLineColor: '#E6F0FF', 
-        allowDecimals: false,
-        min: 0,
-        title: {
-            text: 'Montant (M€)',
-            skew3d: true
-        }
-    },
-
-    tooltip: {
-        headerFormat: '<b>{point.key}</b><br>',
-        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal} M€',
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-
-    plotOptions: {
-        cylinder: {
-            stacking: 'normal',
-            depth: 40,
-           dataLabels: {
-                enabled: true
-            }
-        }
-    },
-  colors: ["#2E5D63","#C68D7B","#20E37B","#5770BE", "#76505B","#FF678F","#3B3B3F", "#FDEB6B", "#37A09E","#F54E53","#89C7FD"],
-     
-    series: [
-      <% @ouvrage_financeurs.each do |financeur| %>
-      {
-        name: "<%= financeur.to_s %>",
-        data: [<%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur , Date.new(2018,1)).sum('montant')/1000000).round%>, <%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur , Date.new(2019,1)).sum('montant')/1000000).round%>, <%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur, Date.new(2020,1)).sum('montant')/1000000).round%>, <%= (@ouvrage.ouvrages_financements.where("name = ? AND date = ?", financeur , Date.new(2021,1)).sum('montant')/1000000).round%>],
-        stack: 'budget',
-   
-    },
-    <% end %>]
-});
-</script>
-<% end %> 
-<% end %>
-<script>
-Highcharts.chart('container-bar1', {
-    chart: {
-        type: 'column',
-      backgroundColor: '#fff',
-          style:{
-          fontFamily: "Marianne Regular",
-          //maxWidth: '400px',
-          },
-      height: "300px",
-    },
-    title: {
-        text: null,
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-          fontSize: '16px',
-                  },
-    },
-
-    xAxis: {
-        categories: ['Prévu 2018','Réalisé 2018','Prévu 2019', 'Réalisé 2019', "Prévu 2020", "Réalisé 2020", "Prevu 2021", "Réalisé 2021"],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Budget (M€)'
-        },
-      gridLineColor: "#fff",
-    },
-  legend: {
-    enabled: false,
-  },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span>',
-        pointFormat: '<br/> <span style="padding:0"><b>{point.y:.1f} M€</b></span>',
-
-        shared: true,
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-        
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-          dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    series: [{
-        name: 'Budget',
-        data: [{y:30, color:"#bfbfbf" },
-               {y: <%= (@ouvrage.ouvrages_depenses.where("date = ?", Date.new(2018,1)).sum('montant')/1000000).round %>, color:"#C68D7B" },
-               {y:60, color:"#bfbfbf" },
-               {y: <%= (@ouvrage.ouvrages_depenses.where("date = ?", Date.new(2019,1)).sum('montant')/1000000).round %> , color:"#C68D7B" }, 
-               {y:100, color: "#bfbfbf"}, 
-               {y:<%= (@ouvrage.ouvrages_depenses.where("date = ?", Date.new(2020,1)).sum('montant')/1000000).round %>, color: "#C68D7B"}, 
-               {y:200, color: "#bfbfbf"}, {y:0, color: "#C68D7B"}]
-
-    }]
-});
- </script> 
 <script>
  $(document).on("turbolinks:load", function() {
   $('#flexslider2').flexslider({ 
@@ -245,238 +314,5 @@ Highcharts.chart('container-bar1', {
     prevText: "Précédent",    
     nextText:'Suivant',
   });
-});
-</script>
-
-<script>
-  
-Highcharts.stockChart('programme', {
- // mapNavigation: {
- //           enableMouseWheelZoom: true
- //       },
-   chart:{
-       backgroundColor: '#fff',
-       borderColor: '#fff',
-       type: 'scatter',
-     height: '600px',
-    // width: '2000px',
-       spacing: [40,40,40,40],
-        style:{
-          fontFamily: "Marianne Regular",
-          // maxWidth: '500px'
-          },
-      
-        zoomType: 'x',
-
-          },
-  navigator: {
-        maskFill: 'rgba(248,248,248,0.3)',
-    },
-
-  rangeSelector: {
-
-            buttons: [ {
-                type: 'month',
-                count: 1,
-                text: '1m'
-            }, {
-                type: 'month',
-                count: 3,
-                text: '3m'
-            },{
-                type: 'month',
-                count: 6,
-                text: '6m'
-            }, {
-                type: 'year',
-                count: 1,
-                text: '1an'
-            }, {
-                type: 'all',
-                text: 'Tout'
-            }],
-            selected: 3,
-            buttonTheme: { // styles for the buttons
-            fill: '#F8F8F8',
-            stroke: 'none',
-            'stroke-width': 0,
-            r: 4,
-            style: {
-                color: '#000',
-                fontWeight: 'bold'
-            },
-            states: {
-                hover: {
-                },
-                select: {
-                    fill: '#000091',
-                    style: {
-                        color: 'white'
-                    }
-                }
-                // disabled: { ... }
-            }
-        },
-        inputStyle: {
-                color: '#000',
-              
-            },
-        labelStyle: {
-            color: '#000', 
-        },
-        },
-  legend: {
-    enabled: true,
-    verticalAlign: 'top',
-  
-  },
-    title: {
-            text:"",
-    },
- 
-    yAxis: {
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Total k€'
-        }
-    },
-  scrollbar: {
-    barBackgroundColor: '#CECECE',
-    barBorderColor: "#F8F8F8",
-    barBorderRadius: 6,
-    buttonBackgroundColor: "#F8F8F8",
-    buttonArrowColor:'#CECECE',
-    buttonBackgroundColor:"#F8F8F8",
-    buttonBorderColor:"#F8F8F8",
-    buttonBorderRadius: 6,
-    rifleColor:"#F8F8F8",
-  },
-  tooltip: {
-   
-
-    borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-  xAxis:{
-    type: 'datetime',
-  //  tickInterval: 30 * 24 * 3600 * 1000,
-  // tickPixelInterval:200,
-  },
-  yAxis: {
-    plotLines: [{
-      color: '#FF6F4C',
-      label: {
-        text: "Prev fin d'année",
-        textAlign: 'left',
-        verticalAlign: 'middle',
-        
-        x: -30,
-        style: {
-          color:'#FF6F4C',
-        },
-      },
-      zIndex: 1,
-      width: 2,
-      value: <%= OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).order('date ASC').last.montant_engage.to_i/1000%>,
-    }],
-  },
-    plotOptions: {
-        series: {
-          lineWidth: 2,
-            label: {
-                connectorAllowed: false
-            }, 
-            marker: {
-                enabled: true,
-                radius:2,
-            },
-          step: 'left',
-        }
-    },
- 
-  
-    series: [
-      {
-        name: 'Demandes de paiements payées',
-      color: '#2E5D63',
-        data: [
-    
-          <% @montant = 0 %>
-         
-          <% OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).order('date ASC').each do |depense| %>
-                       
-            {name:  'Dépenses', x: Date.UTC(<%=depense.date.year%>,<%= depense.date.month-1%>, <%=depense.date.day%>),y: <%=  (depense.montant.to_f/1000).round%>,  },
-           
-          <% end %> 
-    
-
-        ],
-      tooltip: {
-           pointFormatter: function() {
-      var point = this,
-        series = point.series,
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
-         
-        content =   '<b>Dépense: '+ number + ' k€</b><br/>';
-
-      return header + content;
-    },
-      },
-    
-    },
-      
-      {
-        name: 'Dépenses prévues (actées)',
-      color: '#8F8F8F',
-        data: [
-    
-          <% @montant = 0 %>
-         
-          <% OuvragesDepense.where('ouvrage_id = ?', @ouvrage.id).order('date ASC').each do |depense| %>
-                       
-            {name:  'Dépenses', x: Date.UTC(<%=depense.date.year%>,<%= depense.date.month-1%>, <%=depense.date.day%>),y: <%=  (depense.montant_prevu.to_f/1000).round%>,  },
-          
-          <% end %> 
-    
-
-        ],
-      tooltip: {
-           pointFormatter: function() {
-      var point = this,
-        series = point.series,
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
-         
-        content =   '<b>Dépense: '+ number + ' k€</b><br/>';
-
-      return header + content;
-    },
-      },
-    
-    },
- 
-  
-      
-            ],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
 });
 </script>

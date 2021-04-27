@@ -3,6 +3,13 @@
    <div class="SD-topo-box-title">
     <span>Calendrier des travaux</span>
   </div><br><br>
+ 
+    <% if @ouvrage.chantiers.where('date = ?',@lastdate).count > 0 %>
+      <% @ouvrage.chantiers.where('date = ?',@lastdate).each do |chantier|%>
+        <div><i class="far fa-check-circle"></i> <%= chantier.typecontrat %> <% if chantier.datesignature.nil?%>En attente de signature <%else%> signé le <%= l(chantier.datesignature, format: "%e %B %Y") %><%end%>. Dépenses actées : <%= (chantier.total_depenses_actees/1000).to_i %> k€</div>
+      <% end %>
+    <% end %>
+
   
   <div>
      <div id="container-steps">

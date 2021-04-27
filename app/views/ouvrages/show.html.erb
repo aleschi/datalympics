@@ -1,7 +1,7 @@
 
 <div class="O_page"> 
   <h1 class="SD_title SD_title2"><%= @ouvrage.name %></h1>
-  <h1 class="SD_subtitle">Dernière mise à jour : 22 janvier 2020</h1>
+  <h1 class="SD_subtitle">Dernière mise à jour : <% if !@lastdate.nil?%><%= l(@lastdate, format: "%e %B %Y") %><%else%>22 avril 2021<%end%></h1>
   <%= render 'topo_ouvrage'%>
   <%= render 'jalons' %>
   <%= render 'ouvrage_depenses' %>

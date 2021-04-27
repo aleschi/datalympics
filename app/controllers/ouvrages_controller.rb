@@ -67,6 +67,8 @@ class OuvragesController < ApplicationController
          @depenses_prevu << 0
       end
     end
+
+
   end
   
   def search 
@@ -99,16 +101,13 @@ class OuvragesController < ApplicationController
   def show
     @navshow = true 
     @nav=true
-    @ouvrage_financements = OuvragesFinancement.all.where('ouvrage_id = ?', @ouvrage.id)
     @ouvrage_depenses = OuvragesDepense.all.where('ouvrage_id = ?', @ouvrage.id)
  
-    @ouvrage_financeurs = []
-    @ouvrage_financements.each do |financement|
-      @ouvrage_financeurs << financement.name 
+    if @ouvrage.chantiers.count > 0
+      @lastdate = @ouvrage.chantiers.order('date DESC').first.date #derniere date du reporting
+    else 
+      @lastdate = Date.yesterday
     end
-    @ouvrage_financeurs = @ouvrage_financeurs.uniq!
-    
-    
   end
 
   # GET /ouvrages/new

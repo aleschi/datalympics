@@ -4,71 +4,31 @@
   <div class="col-md-8 col-sm-12">
     <div class="SD-table-box ouvrage-topo-box">
       <div class="row">
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-4">
            <div class="O-topo-image">
             <% if @ouvrage.photo.attached? %>
             <%= image_tag @ouvrage.photo%>
             <% end %>
           </div>
-         <div class="O-topo-infos-text visible-xs">
+          <div class="O-topo-infos-text visible-xs">
             Lieu : <%= @ouvrage.adresse %><br>
             MOA : <%= @ouvrage.maitre_oeuvre %><br>
           </div>
         </div>
-        <div class="col-md-4 hidden-sm col-xs-6">
+        <div class="col-md-4 col-xs-6">
           <div id="container-jauge">
             
           </div>
         </div>
-        <div class="col-md-4 hidden-sm col-xs-6">
+        <div class="col-md-4 col-xs-6">
           <div id="container-jauge2">
             
           </div>
         </div>
-        <div class="visible-sm col-sm-6">
-          <div class="ouvrages-budget-infos">
-              <div class="calendar-infos-box">
-                <div>
-                  <i class="fas fa-coins"></i>
-                </div>
-                <div>
-                  <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €<br>
-                  <span>Budget Initial</span>
-                </div>
-              </div>
-          </div>
-          <div class="ouvrages-budget-infos">
-            <div class="calendar-infos-box">
-              <div>
-                 <i class="fas fa-euro-sign"></i>
-              </div>
-              <div>
-                <% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>0<%end%> €<br>
-                <span>Dépenses réalisées</span>
-              </div>
-            </div>
-           
-        </div>
-          <div class="ouvrages-budget-infos">
-            <div class="calendar-infos-box">
-                <div>
-                  <i class="fas fa-coins"></i>
-                </div>
-                <div>
-                  <% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €<br>
-                  <span>Budget recalculé</span>
-                </div>
-              </div>
-        </div>
+      </div>
 
-        </div>
-        </div>
-       <div class="O-topo-infos-text hidden-xs">
-            Lieu : <%= @ouvrage.adresse %><br>
-            MOA : <%= @ouvrage.maitre_oeuvre %><br>
-          </div>
       <br>
-      <div class="row hidden-sm hidden-xs">
+      <div class="row">
         <div class="ouvrages-budget-infos-box">
           <div class="ouvrages-budget-infos">
               <div class="calendar-infos-box">
@@ -76,7 +36,7 @@
                   <i class="fas fa-coins"></i>
                 </div>
                 <div>
-                  <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €<br>
+                  <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').last.total/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€<br>
                   <span>Budget Initial</span>
                 </div>
               </div>
@@ -87,7 +47,7 @@
                  <i class="fas fa-euro-sign"></i>
               </div>
               <div>
-                <% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>0<%end%> €<br>
+                <% if @ouvrage.chantiers.count > 0 %><%= number_with_delimiter((@ouvrage.chantiers.where('date = ?',@lastdate).sum('cumul_paiements')/1000).to_i, :delimiter => ' ')%><% else %>0<%end%> k€<br>
                 <span>Dépenses réalisées</span>
               </div>
             </div>
@@ -99,49 +59,14 @@
                   <i class="fas fa-coins"></i>
                 </div>
                 <div>
-                  <% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €<br>
+                  <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€<br>
                   <span>Budget recalculé</span>
                 </div>
               </div>
         </div>
         </div>
       </div>
-      <div class="visible-xs">
-        <div class="ouvrages-budget-infos">
-              <div class="calendar-infos-box">
-                <div>
-                  <i class="fas fa-coins"></i>
-                </div>
-                <div>
-                  <%= number_with_delimiter(@ouvrage.budget.to_i, :delimiter => ' ')%> €<br>
-                  <span>Budget Initial</span>
-                </div>
-              </div>
-          </div>
-          <div class="ouvrages-budget-infos">
-            <div class="calendar-infos-box">
-              <div>
-                 <i class="fas fa-euro-sign"></i>
-              </div>
-              <div>
-                <% if @ouvrage.ouvrages_depenses.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_depenses.sum('montant').to_i, :delimiter => ' ')%><% else %>0<%end%> €<br>
-                <span>Dépenses réalisées</span>
-              </div>
-            </div>
-           
-        </div>
-          <div class="ouvrages-budget-infos">
-            <div class="calendar-infos-box">
-                <div>
-                  <i class="fas fa-coins"></i>
-                </div>
-                <div>
-                  <% if @ouvrage.ouvrages_financements.count > 0 %><%= number_with_delimiter(@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu.to_i, :delimiter => ' ')%><% else %> XXX<% end %> €<br>
-                  <span>Budget recalculé</span>
-                </div>
-              </div>
-        </div>
-      </div>
+
     </div>
   </div>
     <div class="col-md-4 col-sm-6">
@@ -155,11 +80,8 @@
         </div>
        <div class="jauge-infos">
       
-          <% if @ouvrage.ouvrages_financements.count > 0 %>
-          <% if (@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i > 0 %>+<% end %>
-          <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%> €    
-          <% else %>X? <% end %> <br>
-         <span>Surcoûts envisagés</span>
+          <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter(((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total-Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').last.total)/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€<br>
+         <span>Surcoûts maquette</span>
          
           </div></div><br><br><br>
         
