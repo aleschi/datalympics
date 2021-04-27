@@ -79,5 +79,8 @@ Rails.application.routes.draw do
   get 'utilisation-budget' => 'pages#interets'
   get 'acteurs' => 'pages#acteurs'
   post 'maquette-date' => 'ouvrages_depenses#maquette_date'
+
+  get 'association' => "chantiers#association"
+  post 'import_association' => "chantiers#import_association"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

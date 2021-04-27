@@ -27,6 +27,14 @@ class ChantiersController < ApplicationController
     Chantier.import(params[:file], params[:date])
     redirect_to solideo_depenses_path 
   end 
+
+  def association
+  end 
+
+  def import_association
+    Chantier.import_association(params[:file])
+    redirect_to solideo_depenses_path 
+  end 
   private
   
   def set_chantier
