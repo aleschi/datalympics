@@ -10,156 +10,160 @@
         <li> 
           <div class="budget-ouvrages-mois">
             <div class="box-convention-date"><%= l(date, format: "%e %B %Y") %> </div>
-            <div class="inline-flex"> 
-            <% @ouvrage.chantiers.where('date = ?',date).each_with_index do |chantier,j| %>
-            <% if !chantier.nil?%>
-              <div>
-                <div class="box-convention-date"><%= chantier.typecontrat %> </div>
-                <div id="ouvrages<%=i%><%=j%>"></div>
-                  <script>
-                  Highcharts.chart('ouvrages<%=i%><%=j%>', {
-                    chart: {
-                        type: 'column',
-                        <% if @ouvrage.chantiers.where('date = ?',date).count == 1%>
-                        width: 750,
-                        <%elsif @ouvrage.chantiers.where('date = ?',date).count == 2%>
-                        width: 350,
-                        <% end %>
-                      backgroundColor: '#fff',
-                          style:{
-                          fontFamily: "Marianne Regular",
-                     
-                          },
-                    },
-                    title: {
-                        text: null,
-                        style: {
-                                  color: "#8F8F8F",
-                                  fontWeight: "400",
-                          fontStyle: 'italic',
-                          fontSize: '16px',
-                                  },
-                    },
-
-                    xAxis: {
-                        categories: ["Dépenses 2021", "Budget 2021", "Dépenses totales", "Dépenses actées totales"],
-                        crosshair: true
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Budget dépensé (k€)'
-                        },
-                      gridLineColor: "#fff",
-                    },
-                    legend: {
-                      enabled: false,
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-                        pointFormat: '<span style="padding:0"><b> {point.y:.1f} k€</b></span>',
-              
-                        shared: true,
-                        useHTML: true,
-                        borderColor: 'transparent',
-                        borderRadius: 16,
+            <div>
+              <div class="inline-flex"> 
+              <% @ouvrage.chantiers.where('date = ?',date).each_with_index do |chantier,j| %>
+              <% if !chantier.nil?%>
+                <div>
+                  <div class="box-convention-date"><%= chantier.typecontrat %> </div>
+                  <div id="ouvrages<%=i%><%=j%>"></div>
+                    <script>
+                    Highcharts.chart('ouvrages<%=i%><%=j%>', {
+                      chart: {
+                          type: 'column',
+                          <% if @ouvrage.chantiers.where('date = ?',date).count == 1%>
+                          width: 750,
+                          <%elsif @ouvrage.chantiers.where('date = ?',date).count == 2%>
+                          width: 350,
+                          <% else %>
+                          width: 350,
+                          <% end %>
                         backgroundColor: '#fff',
+                            style:{
+                            fontFamily: "Marianne Regular",
+                       
+                            },
                       },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0,
-                            grouping: false,
+                      title: {
+                          text: null,
+                          style: {
+                                    color: "#8F8F8F",
+                                    fontWeight: "400",
+                            fontStyle: 'italic',
+                            fontSize: '16px',
+                                    },
+                      },
+
+                      xAxis: {
+                          categories: ["Dépenses 2021", "Budget 2021", "Dépenses totales", "Dépenses actées totales"],
+                          crosshair: true
+                      },
+                      yAxis: {
+                          min: 0,
+                          title: {
+                              text: 'Budget dépensé (k€)'
+                          },
+                        gridLineColor: "#fff",
+                      },
+                      legend: {
+                        enabled: false,
+                      },
+                      tooltip: {
+                          headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                          pointFormat: '<span style="padding:0"><b> {point.y:.1f} k€</b></span>',
+                
+                          shared: true,
+                          useHTML: true,
+                          borderColor: 'transparent',
+                          borderRadius: 16,
+                          backgroundColor: '#fff',
+                        },
+                      plotOptions: {
+                          column: {
+                              pointPadding: 0.2,
+                              borderWidth: 0,
+                              grouping: false,
+                            
+                          }
+                      },
+                      series: [{
+                          name: 'Dépenses',
+                          data: [
+                            {y:<%= (chantier.paiements_annee/1000).round(1)%>, color:"#2E5D63", dataLabels: {
+                                    enabled: true,
+                                    formatter: function() {
+
+                                      var point = this;                      
+                                      ecart = <%= ((chantier.paiements_annee-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('paiements_annee'))/1000).round(1)%>;
+                                      
+                                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                      if (ecart > 0){
+                                        header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                      }else{
+                                        header = '';
+                                      }
+                                        content = '<b>' + number  + ' </b>';
+
+                                      return header + content;
+                                    },
+                                },},
+                            
+                            {y:<%= (chantier.budget_annee/1000).round(1)%>, color:"#bfbfbf", dataLabels: {
+                                    enabled: true,
+                                    formatter: function() {
+
+                                      var point = this;                      
+                                      ecart = <%= ((chantier.budget_annee-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('budget_annee'))/1000).round(1)%>;
+                                      
+                                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                      if (ecart > 0){
+                                        header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                      }else{
+                                        header = '';
+                                      }
+                                        content = '<b>' + number  + ' </b>';
+
+                                      return header + content;
+                                    },
+                                },},
+
+                              {y:<%= (chantier.cumul_paiements/1000).round(1)%>, color:"#2E5D63", dataLabels: {
+                                    enabled: true,
+                                    formatter: function() {
+
+                                      var point = this;                      
+                                      ecart = <%= ((chantier.cumul_paiements-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('cumul_paiements'))/1000).round(1)%>;
+                                      
+                                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                      if (ecart > 0){
+                                        header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                      }else{
+                                        header = '';
+                                      }
+                                        content = '<b>' + number  + ' </b>';
+
+                                      return header + content;
+                                    },
+                                },},
+
+                                {y:<%= (chantier.total_depenses_actees/1000).round(1)%>, color:"#7D4E5B", dataLabels: {
+                                    enabled: true,
+                                    formatter: function() {
+
+                                      var point = this;                      
+                                      ecart = <%= ((chantier.total_depenses_actees-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('total_depenses_actees'))/1000).round(1)%>;
+                                      
+                                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                      if (ecart > 0){
+                                        header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                      }else{
+                                        header = '';
+                                      }
+                                        content = '<b>' + number  + ' </b>';
+
+                                      return header + content;
+                                    },
+                                },},
                           
-                        }
-                    },
-                    series: [{
-                        name: 'Dépenses',
-                        data: [
-                          {y:<%= (chantier.paiements_annee/1000).round(1)%>, color:"#2E5D63", dataLabels: {
-                                  enabled: true,
-                                  formatter: function() {
-
-                                    var point = this;                      
-                                    ecart = <%= ((chantier.paiements_annee-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('paiements_annee'))/1000).round(1)%>;
-                                    
-                                    number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                                    if (ecart > 0){
-                                      header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
-                                    }else{
-                                      header = '';
-                                    }
-                                      content = '<b>' + number  + ' </b>';
-
-                                    return header + content;
-                                  },
-                              },},
-                          
-                          {y:<%= (chantier.budget_annee/1000).round(1)%>, color:"#bfbfbf", dataLabels: {
-                                  enabled: true,
-                                  formatter: function() {
-
-                                    var point = this;                      
-                                    ecart = <%= ((chantier.budget_annee-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('budget_annee'))/1000).round(1)%>;
-                                    
-                                    number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                                    if (ecart > 0){
-                                      header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
-                                    }else{
-                                      header = '';
-                                    }
-                                      content = '<b>' + number  + ' </b>';
-
-                                    return header + content;
-                                  },
-                              },},
-
-                            {y:<%= (chantier.cumul_paiements/1000).round(1)%>, color:"#2E5D63", dataLabels: {
-                                  enabled: true,
-                                  formatter: function() {
-
-                                    var point = this;                      
-                                    ecart = <%= ((chantier.cumul_paiements-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('cumul_paiements'))/1000).round(1)%>;
-                                    
-                                    number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                                    if (ecart > 0){
-                                      header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
-                                    }else{
-                                      header = '';
-                                    }
-                                      content = '<b>' + number  + ' </b>';
-
-                                    return header + content;
-                                  },
-                              },},
-
-                              {y:<%= (chantier.total_depenses_actees/1000).round(1)%>, color:"#7D4E5B", dataLabels: {
-                                  enabled: true,
-                                  formatter: function() {
-
-                                    var point = this;                      
-                                    ecart = <%= ((chantier.total_depenses_actees-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('total_depenses_actees'))/1000).round(1)%>;
-                                    
-                                    number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                                    if (ecart > 0){
-                                      header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
-                                    }else{
-                                      header = '';
-                                    }
-                                      content = '<b>' + number  + ' </b>';
-
-                                    return header + content;
-                                  },
-                              },},
-                        
-                          ],
-                        pointPlacement: 0,
-                    }]
-                  });
-                  </script> 
+                            ],
+                          pointPlacement: 0,
+                      }]
+                    });
+                    </script> 
+                </div>
+              <% end %>
+              <% end %>
               </div>
-            <% end %>
-            <% end %>
             </div>
           </div>
         </li>
