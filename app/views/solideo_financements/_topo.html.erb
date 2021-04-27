@@ -154,199 +154,255 @@
         series: [{
             name: 'Financements cumulés',
             data: [
-              {name: 'privé + recettes', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date).sum('montant')/1000000).round%>, color:"#2E5D63", dataLabels: {
+              {name: 'privé + recettes', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date).sum('montant')/1000000).round(1)%>, color:"#2E5D63", dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: 'Etat', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')/1000000).round%>, color:"#2E5D63", dataLabels: {
+              {name: 'Etat', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')/1000000).round(1)%>, color:"#2E5D63", dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','État',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','État',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   }, },
-              {name: 'RIF', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','RIF',date).sum('montant')/1000000).round%>, color:"#2E5D63",dataLabels: {
+              {name: 'RIF', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','RIF',date).sum('montant')/1000000).round(1)%>, color:"#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','RIF',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','RIF',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','RIF',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','RIF',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   }, },
-              {name: 'Ville de paris', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de paris',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: 'Ville de paris', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de paris',date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Ville de paris',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Ville de paris',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Ville de paris',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Ville de paris',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: 'Métropole Grand Paris', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: 'Métropole Grand Paris', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: 'CD92', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CD92',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: 'CD92', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CD92',date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','CD92',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','CD92',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','CD92',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','CD92',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: 'CD93', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CD93',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: 'CD93', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CD93',date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','CD93',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','CD93',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','CD93',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','CD93',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: 'CD78', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CD78',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: 'CD78', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CD78',date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','CD78',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','CD978',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','CD78',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','CD978',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: 'EPT Plaine Commune', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: 'EPT Plaine Commune', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: "EPT Terres d'envol", y:<%= (SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: "EPT Terres d'envol", y:<%= (SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: 'Ville de Dugny', y: <%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: 'Ville de Dugny', y: <%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
 
-                            header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        if (ecart > 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
 
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name:'Ville du Bourget', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')/1000000).round%>, color: "#bfbfbf",dataLabels: {
+              {name:'Ville du Bourget', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')/1000000).round(1)%>, color: "#bfbfbf",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: "CASQY", y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CASQY',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: "CASQY", y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','CASQY',date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?',"CASQY",date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?',"CASQY",date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?',"CASQY",date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?',"CASQY",date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
                       },
                   },},
-              {name: "Ville de Marseille", y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Marseille',date).sum('montant')/1000000).round%>, color: "#2E5D63",dataLabels: {
+              {name: "Ville de Marseille", y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Marseille',date).sum('montant')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?',"Ville de Marseille",date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?',"Ville de Marseille",date-1.year).sum('montant'))/1000000).round%>;
+                        ecart = <%= ((SolideoFinancement.where('financeur=? AND date <= ?',"Ville de Marseille",date).sum('montant')-SolideoFinancement.where('financeur=? AND date <= ?',"Ville de Marseille",date-1.year).sum('montant'))/1000000).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
                           header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
                           content = '<b>' + number  + ' </b>';
 
                         return header + content;
@@ -499,7 +555,7 @@
         data: [{y:<%= (SolideoFinancement.where('financeur = ?','État').sum('montant')/1000000).round%>, color:"#bfbfbf" },
         {y:<%=(SolideoFinancement.where('financeur != ? AND financeur != ?','État','Privés + recettes').sum('montant')/1000000).round%>, color:"#bfbfbf" },
         {y:<%=((Maquette.where('date = ?',@dates_maquettes[0]).sum('total') - SolideoFinancement.sum('montant'))/1000000).round%>, color: "#bfbfbf"},
-        {y:<%=(SolideoFinancement.where('financeur = ?','Privés + recettes').sum('montant')/1000).round%>, color: "#bfbfbf"}],
+        {y:<%=(SolideoFinancement.where('financeur = ?','Privés + recettes').sum('montant')/1000000).round%>, color: "#bfbfbf"}],
         pointPlacement: 0,
     },{
         name: 'Reçu',
