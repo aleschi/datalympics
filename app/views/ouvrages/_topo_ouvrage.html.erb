@@ -81,7 +81,7 @@
        <div class="jauge-infos">
       
           <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter(((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total-Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').last.total)/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€<br>
-         <span>Surcoûts maquette</span>
+         <span>Ecarts maquette</span>
          
           </div></div><br><br><br>
         
@@ -198,7 +198,7 @@ Highcharts.chart('container-jauge', {
             color: "#20E37B",
             radius: '100%',
             innerRadius: '88%',
-            y: <% if @ouvrage.ouvrages_financements.count > 0 %> <%= (@ouvrage.ouvrages_depenses.sum('montant')/@ouvrage.ouvrages_financements.last.montant_prevu.to_i*100).round %><%else%> <%= (@ouvrage.ouvrages_depenses.sum('montant')/@ouvrage.budget*100).round %><% end %>
+            y: <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %> <%= (@ouvrage.chantiers.where('date = ?',@lastdate).sum('cumul_paiements')/Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total*100).round(1) %> <%end %>,
         }]
     }]
 });
@@ -374,7 +374,7 @@ Highcharts.chart('container-jauge-xs', {
             color: "#20E37B",
             radius: '100%',
             innerRadius: '88%',
-            y: <% if @ouvrage.ouvrages_financements.count > 0 %> <%= (@ouvrage.ouvrages_depenses.sum('montant')/@ouvrage.ouvrages_financements.last.montant_prevu.to_i*100).round %><%else%> <%= (@ouvrage.ouvrages_depenses.sum('montant')/@ouvrage.budget*100).round %><% end %>
+            y: <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %> <%= (@ouvrage.chantiers.where('date = ?',@lastdate).sum('cumul_paiements')/Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total).round(1) %> <%end %>
         }]
     }]
 });

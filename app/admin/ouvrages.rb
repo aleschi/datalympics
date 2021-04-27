@@ -5,7 +5,7 @@ ActiveAdmin.register Ouvrage do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-   permit_params :name, :maitre_oeuvre, :budget, :adresse
+   permit_params :name, :adresse, :maitre_oeuvre, :budget ,:photo, :description, :phase_jo, :heritage, :start, :end, :date
   #
   # or
   #

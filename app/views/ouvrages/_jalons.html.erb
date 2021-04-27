@@ -111,6 +111,7 @@ Highcharts.chart('container-steps', {
                 format: '%d %b %Y'
             }
         },
+        softMax:Date.UTC(2024,8,26),
         lineColor: "#8F8F8F",
         type: 'datetime',
       plotLines: [{
@@ -135,11 +136,12 @@ Highcharts.chart('container-steps', {
             text: null,
         },
         gridLineColor: "#fff",
-        categories: ["Timeline Initiale","Timeline actuelle"],
+        categories: ["Timeline Initiale","Timeline actuelle", "JOP2024"],
         reversed: true,
         labels: {
           enabled: false,
         }
+
     },    
   legend: {
     enabled: true,
@@ -244,26 +246,6 @@ Highcharts.chart('container-steps', {
       
         dataLabels: {
             enabled: true
-        }
-    }, {
-        name: 'JOP2024',
-        color: '#20E37B',
-        pointWidth: 3,
-        data: [{
-            name: "JOP2024",
-            x: Date.UTC(2024,6,26),
-            x2: Date.UTC(2024,6,27),
-            y: 0,
-             partialFill: {
-               amount: 1,
-               fill: '#20E37B',
-             },
-          borderColor:'#20E37B',
-          color: '#20E37B',
-        }],
-      
-        dataLabels: {
-            enabled: false,
         }
     }],
 
