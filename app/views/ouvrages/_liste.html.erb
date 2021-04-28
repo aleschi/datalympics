@@ -19,7 +19,7 @@
           <div class="O-name">
             <%= link_to ouvrage do %>
               <%= ouvrage.name %>  
-              <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %><span>- <%= number_with_delimiter(Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total.to_i, :delimiter => ' ')%> €</span> <% end %>    
+              <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %><span>- <%= number_with_delimiter((Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total/1000).to_i, :delimiter => ' ')%> k€</span> <% end %>    
             <% end %>
           </div>
           <% end %>
@@ -28,7 +28,7 @@
             <%= link_to ouvrage do %>
               <%= ouvrage.name %>  
               <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %>
-              <span>- <%= number_with_delimiter(Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total.to_i, :delimiter => ' ')%> €</span>  
+              <span>- <%= number_with_delimiter((Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total/1000).to_i, :delimiter => ' ')%> k€</span>  
               <% end %>      
             <% end %>
           </div>
@@ -43,7 +43,7 @@
           <div class="O-name">
           <%= link_to ouvrage do %>
             <%= ouvrage.name %>  
-            <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %><span>- <%= number_with_delimiter(Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total.to_i, :delimiter => ' ')%> €</span>   
+            <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %><span>- <%= number_with_delimiter((Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total/1000).to_i, :delimiter => ' ')%> k€</span>   
             <% end %>     
           <% end %>
           </div>
@@ -55,7 +55,7 @@
           <%= link_to ouvrage do %>
             <%= ouvrage.name %>  
             <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %>
-            <span>- <%= number_with_delimiter(Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total.to_i, :delimiter => ' ')%> €</span>  
+            <span>- <%= number_with_delimiter((Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total/1000).to_i, :delimiter => ' ')%> k€</span>  
             <% end %>      
           <% end %>
           </div>
