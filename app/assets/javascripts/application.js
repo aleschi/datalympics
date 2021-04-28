@@ -58,8 +58,8 @@ $(document).ready(function() {
     animation: "slide",
     animationLoop: false,
     slideshow: false,
-    prevText: "Année suivante",    
-    nextText:'Année précédente',
+    prevText: "Année suiv",    
+    nextText:'Année préc',
   });
  })
  

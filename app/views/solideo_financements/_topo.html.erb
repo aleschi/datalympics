@@ -29,7 +29,7 @@
        <div class="i8"></div>
         <div>
           
-            <div class="inline-flex">
+            <div class="inline-flex w100">
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')/SolideoFinancement.where('financeur=?','État').sum('montant')*100).round %>% </div>
                   <div class="box_i1_t2">Etat</div>
@@ -63,7 +63,7 @@
         <div class="i12"></div>
         <div>
           
-            <div class="inline-flex">
+            <div class="inline-flex w100">
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Marseille',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville de Marseille').sum('montant')*100).round(1)%>% </div>
                   <div class="box_i1_t2"> Marseille</div>

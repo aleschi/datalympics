@@ -153,11 +153,11 @@
     },
     series: [{
         name: 'Budget Total prévu',
-        data: [{y:<%=(@etat_budget_actuel.budget_solideo/1000000).to_i%>, color:"#bfbfbf" },{y:<%=(@etat_budget_actuel.budget_cojo/1000000).to_i%>, color:"#bfbfbf" },{y:<%= (@etat_budget_actuel.budget_heritage/1000000).to_i%>, color: "#bfbfbf"},{y:<%=(@etat_budget_actuel.budget_hauteperformance/1000000).to_i%>, color: "#bfbfbf"}],
+        data: [{y:<%=(@etat_budget_actuel.budget_solideo/1000000).round%>, color:"#bfbfbf" },{y:<%=(@etat_budget_actuel.budget_cojo/1000000).round%>, color:"#bfbfbf" },{y:<%= (@etat_budget_actuel.budget_heritage/1000000).round%>, color: "#bfbfbf"},{y:<%=(@etat_budget_actuel.budget_hauteperformance/1000000).round%>, color: "#bfbfbf"}],
         pointPlacement: 0,
     },{
         name: 'Payés',
-        data: [{y:<%= (EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/1000000).to_i%> , color:"#5770BE" },{y:<%= (EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')/1000000).to_i%> , color:"#76505B" },{y:<%= (EtatDepense.where('beneficiaire = ?', "hauteperformance",).sum('cp_conso')/1000000).to_i%> , color: "#FFE800"},{y:<%= (EtatDepense.where('beneficiaire = ?', "heritage",).sum('cp_conso')/1000000).to_i%> , color: "#D08A77"}],
+        data: [{y:<%= (EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/1000000).round%> , color:"#5770BE" },{y:<%= (EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')/1000000).round%> , color:"#76505B" },{y:<%= (EtatDepense.where('beneficiaire = ?', "hauteperformance",).sum('cp_conso')/1000000).round%> , color: "#FFE800"},{y:<%= (EtatDepense.where('beneficiaire = ?', "heritage",).sum('cp_conso')/1000000).round%> , color: "#D08A77"}],
         pointPlacement: 0,
 
     }]
@@ -223,12 +223,12 @@
     },
     series: [{
         name: 'Budget',
-        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ?', Date.new(2018,1,1), Date.new(2018,12,31)).sum('cp_conso')/1000000).to_i %>, color: "#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2019,1,1), Date.new(2019,12,31)).sum('cp_conso')/1000000).to_i%>, color:"#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2020,1,1), Date.new(2020,12,31)).sum('cp_conso')/1000000).to_i%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2021,1,1), Date.new(2021,12,31)).sum('cp_conso')/1000000).to_i%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2021,1,1), Date.new(2021,12,31)).sum('cp_prevu')/1000000).to_i%>, color: "#bfbfbf"},
-          {y:<%=(EtatDepense.all.sum('cp_conso')/1000000).to_i%>, color: "#76505B"}],
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ?', Date.new(2018,1,1), Date.new(2018,12,31)).sum('cp_conso')/1000000).round %>, color: "#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2019,1,1), Date.new(2019,12,31)).sum('cp_conso')/1000000).round%>, color:"#2E5D63" },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2020,1,1), Date.new(2020,12,31)).sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2021,1,1), Date.new(2021,12,31)).sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2021,1,1), Date.new(2021,12,31)).sum('cp_prevu')/1000000).round%>, color: "#bfbfbf"},
+          {y:<%=(EtatDepense.all.sum('cp_conso')/1000000).round%>, color: "#76505B"}],
         pointPlacement: 0,
     },]
 });

@@ -86,13 +86,13 @@
         <span>Ouvrages</span>
         </div>
       </div>
-      <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-flag"></i>
+      <div class="inline-flex w100 ma">
+        <div class="c1">
+        <i class="fas fa-flag fs20 mr10 w25"></i>
         </div>
         <div>
-        35%<br>
-          <span>Ouvrages finalisés</span>
+          <span class="c3 fs16 fw7">35%</span><br>
+          <span class="c6 fs16 fw5">Ouvrages finalisés</span>
         </div>
       </div>
     </div>
@@ -107,13 +107,13 @@
           <span>Budget réactualisé</span>
         </div>
       </div>
-      <div class="calendar-infos-box">
-        <div>
-           <i class="fas fa-euro-sign"></i>
+      <div class="inline-flex w100 ma">
+        <div class="c1">
+           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
         </div>
         <div>
-          <%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> M€<br>
-          <span>Dépenses réalisées</span>
+          <span class="c3 fs16 fw7"><%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> M€</span><br>
+          <span class="c6 fs16 fw5">Dépenses réalisées</span>
         </div>
       </div>
       <div class="calendar-infos-box">
@@ -121,7 +121,7 @@
         <i class="fas fa-people-carry"></i>
         </div>
         <div>
-        104<br>
+        <span class="c3">104</span><br>
           <span>Employés</span>
         </div>
       </div>

@@ -18,7 +18,7 @@
      <div class="i8"></div>
       <div>
         
-          <div class="inline-flex">
+          <div class="inline-flex w100">
             <div class="box_i1">
                 <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('cumul_jalons')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>%</div>
                 <div class="box_i1_t2"> jalons validés</div>

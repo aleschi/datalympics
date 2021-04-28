@@ -13,7 +13,7 @@ before_action :authenticate_user!
     @solideo_financements_prive = SolideoFinancement.where("financeur = ? AND date = ?", "privé", SolideoFinancement.last.date).sum('montant')
     @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", SolideoFinancement.last.date).sum('montant')
     
-    @dates_reporting = [Date.new(2021,1,1),Date.new(2020,1,1),Date.new(2019,1,1),Date.new(2018,1,1)]
+    @dates_reporting = [Date.new(2020,1,1),Date.new(2019,1,1),Date.new(2018,1,1)]
    
   end
   
