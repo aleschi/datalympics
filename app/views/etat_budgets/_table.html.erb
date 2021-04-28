@@ -2,7 +2,7 @@
    <div class="SD-topo-box-title">
     <span>Répartition annuelle des dépenses de l'état par action</span>
   </div><br><br>
-  <div class="inline-flex"><div id="cp_button" class="button-cp">Visualisation des CP</div><div id="ae_button" class="button-cp">Visualisation des AE</div></div><br>
+  <div class="inline-flex"><div id="cp_button" class="button-cp">Visualisation des CP</div><div id="ae_button" class="button-cp">Visualisation des AE</div></div><br><br>
 <!-- suivi des cp -->
   <div id="cp">
     <div class="row">
@@ -812,7 +812,7 @@ Highcharts.chart('container-chart', {
     },
 
     tooltip: {
-        pointFormat: '<b>${point.y:,.2f}</b> €',
+        pointFormat: '<b>{point.y:,.0f}</b> k€',
       borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
