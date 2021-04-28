@@ -1,15 +1,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.6/proj4.js"></script>
-
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
    
-<div class="SD_page">
- 
-  <h1 class="SD_title SD_title2">Les ouvrages des JOP2024 </h1>
-  <h1 class="SD_subtitle">Dernière mise à jour : 14 janvier 2020 </h1>
+<div class="mxw1 pd32 ma">
+  <div class="i24"></div>
+  <h1 class="c2 fw6 fs40 tc">Les ouvrages des JOP2024 </h1>
+  <div class="i40"></div>
   
-  <div  class="SD-table-box">
-    <div class="SF-topo-financeurs-title"><span>Les ouvrages en chiffres </span></div><br><br>
+  <div  class="pd32 br20 bs bckc1">
+    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Les ouvrages en chiffres </span></div>
+    <div class="i24"></div>
+
     <div class="visible-xs">
       <div class="calendar-infos-box">
       <div>
@@ -19,140 +19,141 @@
         <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
         <span>Budget Initial</span>
       </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-building"></i>
       </div>
-      <div>
-      <%= Ouvrage.all.count %> <br>
-      <span>Ouvrages</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-flag"></i>
-      </div>
-      <div>
-      35%<br>
-        <span>Ouvrages finalisés</span>
-      </div>
-    </div>
-        <div class="calendar-infos-box">
-      <div>
-         <i class="fas fa-coins"></i>
-      </div>
-      <div>
-        <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
-        <span>Budget réactualisé</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-         <i class="fas fa-euro-sign"></i>
-      </div>
-      <div>
-        <%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> €<br>
-        <span>Dépenses réalisées</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-people-carry"></i>
-      </div>
-      <div>
-      104<br>
-        <span>Employés</span>
-      </div>
-    </div>
-    </div>
-    <div class="calendar-infos hidden-xs">
-    <div class="calendar-infos-box">
-      <div>
-        <i class="fas fa-coins"></i>
-      </div>
-      <div>
-        <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
-        <span>Budget Initial</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-building"></i>
-      </div>
-      <div>
-      <%= Ouvrage.all.count %> <br>
-      <span>Ouvrages</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-flag"></i>
-      </div>
-      <div>
-      35%<br>
-        <span>Ouvrages finalisés</span>
-      </div>
-    </div>
-  </div>
-  <div class="calendar-infos hidden-xs">
-    <div class="calendar-infos-box">
-      <div>
-         <i class="fas fa-coins"></i>
-      </div>
-      <div>
-        <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
-        <span>Budget réactualisé</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-         <i class="fas fa-euro-sign"></i>
-      </div>
-      <div>
-        <%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> M€<br>
-        <span>Dépenses réalisées</span>
-      </div>
-    </div>
-    <div class="calendar-infos-box">
-      <div>
-      <i class="fas fa-people-carry"></i>
-      </div>
-      <div>
-      104<br>
-        <span>Employés</span>
-      </div>
-    </div>
-  </div>
-  <div class="text-center hidden-xs">
-  
-    <div class="ouvrages-options">
-      <div class="ouvrages-options-link">
-        <a id="carte-ouvrages-btn"><i class="fas fa-map-marked-alt"></i> Carte des ouvrages</a>
-      </div>
-      <div class="ouvrages-options-link" >
-        <a id="moa-ouvrages-btn"><i class="fas fa-hard-hat"></i> MOA des ouvrages</a>
-      </div>
-    </div>
-        
-  </div>
-  </div>
-
-  <div  class="SD-table-box" id="carte-ouvrages">
-  <div class="SF-topo-financeurs-title"><span>Carte des ouvrages</span></div><br><br>
-
-      
-      <div id="ouvrages-results">
-
-        <%= render 'ouvrages/liste'%>
-                
+      <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-building"></i>
         </div>
-                
-     
+        <div>
+        <%= Ouvrage.all.count %> <br>
+        <span>Ouvrages</span>
+        </div>
+      </div>
+      <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-flag"></i>
+        </div>
+        <div>
+        35%<br>
+          <span>Ouvrages finalisés</span>
+        </div>
+      </div>
+          <div class="calendar-infos-box">
+        <div>
+           <i class="fas fa-coins"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
+          <span>Budget réactualisé</span>
+        </div>
+      </div>
+      <div class="calendar-infos-box">
+        <div>
+           <i class="fas fa-euro-sign"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> €<br>
+          <span>Dépenses réalisées</span>
+        </div>
+      </div>
+      <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-people-carry"></i>
+        </div>
+        <div>
+        104<br>
+          <span>Employés</span>
+        </div>
+      </div>
     </div>
 
-  <div  class="SD-table-box" id="moa-ouvrages">
-  <div class="SF-topo-financeurs-title"><span>Les ouvrages par MOA </span></div><br><br>
+    <div class='inline-flex w100 hidden-xs'>
+      <div class="calendar-infos-box">
+        <div>
+          <i class="fas fa-coins"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
+          <span>Budget Initial</span>
+        </div>
+      </div>
+      <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-building"></i>
+        </div>
+        <div>
+        <%= Ouvrage.all.count %> <br>
+        <span>Ouvrages</span>
+        </div>
+      </div>
+      <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-flag"></i>
+        </div>
+        <div>
+        35%<br>
+          <span>Ouvrages finalisés</span>
+        </div>
+      </div>
+    </div>
+    <div class="i24"></div>
+    <div class="inline-flex w100 hidden-xs">
+      <div class="calendar-infos-box">
+        <div>
+           <i class="fas fa-coins"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
+          <span>Budget réactualisé</span>
+        </div>
+      </div>
+      <div class="calendar-infos-box">
+        <div>
+           <i class="fas fa-euro-sign"></i>
+        </div>
+        <div>
+          <%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> M€<br>
+          <span>Dépenses réalisées</span>
+        </div>
+      </div>
+      <div class="calendar-infos-box">
+        <div>
+        <i class="fas fa-people-carry"></i>
+        </div>
+        <div>
+        104<br>
+          <span>Employés</span>
+        </div>
+      </div>
+    </div>
+    <div class="i32"></div>
+    <div class="tc hidden-xs">
+    
+      <div class="inline-flex tc">
+        <div>
+          <a id="carte-ouvrages-btn" class="c1 fs16 pd8 tun bd2 cp m10 c1h"><i class="fas fa-map-marked-alt"></i> Carte des ouvrages</a>
+        </div>
+        <div>
+          <a id="moa-ouvrages-btn" class="c1 fs16 pd8 tun bd2 cp m10 c1h"><i class="fas fa-hard-hat"></i> MOA des ouvrages</a>
+        </div>
+      </div>
+          
+    </div>
+    <div class="i24"></div>
+  </div>
+
+  <div class="i24"></div>
+
+  <div  class="pd32 br20 bs bckc1" id="carte-ouvrages">
+  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Carte des ouvrages</span></div>
+  <div class="i24"></div>
+    <div id="ouvrages-results"><%= render 'ouvrages/liste'%></div> 
+  </div>
+
+  <div class="pd32 br20 bs bckc1" id="moa-ouvrages">
+  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Les ouvrages par MOA </span></div>
+  <div class="i24"></div>
+
   <div class="row">
      <div class="col-md-12">
        <div id="bubble">
@@ -251,18 +252,18 @@ Highcharts.chart('bubble', {
 <script>
   $('#carte-ouvrages').show();
     $('#moa-ouvrages').hide();
-  $('#carte-ouvrages-btn').addClass('ouvrages-options-link-active');
+  $('#carte-ouvrages-btn').addClass('btn-link-active ');
 $('#carte-ouvrages-btn').click(function() {
     $('#carte-ouvrages').show();
-  $('#carte-ouvrages-btn').addClass('ouvrages-options-link-active');
+  $('#carte-ouvrages-btn').addClass('btn-link-active ');
     $('#moa-ouvrages').hide();
-  $('#moa-ouvrages-btn').removeClass('ouvrages-options-link-active');
+  $('#moa-ouvrages-btn').removeClass('btn-link-active ');
 });
   $('#moa-ouvrages-btn').click(function() {
     $('#carte-ouvrages').hide();
-    $('#carte-ouvrages-btn').removeClass('ouvrages-options-link-active');
+    $('#carte-ouvrages-btn').removeClass('btn-link-active ');
     $('#moa-ouvrages').show();
-    $('#moa-ouvrages-btn').addClass('ouvrages-options-link-active');
+    $('#moa-ouvrages-btn').addClass('btn-link-active ');
 });
 
 </script>

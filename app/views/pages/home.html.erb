@@ -1,59 +1,62 @@
 <div class="EB_page">
-  <div class="home-title hidden-sm hidden-xs">
+  <div class="fs32 fw7 c2 hidden-sm hidden-xs">
     Bienvenue sur le Tableau de bord<br>
     de DATALYMPICS
   </div>
-  <div class="home-title visible-sm visible-xs">
+  <div class="fs32 fw7 c2 visible-sm visible-xs">
     Bienvenue sur le Tableau de bord de DATALYMPICS
   </div>
+  <div class="i40"></div>
     
   <div class="row">
     <div class="col-md-6">
-      <div class="home-box">
-        <div class="home-box-title">
+      <div class="w100 bckc1 br20 bs">
+        <div class="bckc2 w100 br4 tc pd12 tupp c0 fs16 fw7">
           FOCUS BUDGET 2021
         </div>
-        <div class="home-box-infos-box">
-          <div class="row index-inline">
+        <div class="pd24">
+          <div class="row inline-flex w100">
             <div class="col-md-9">
               <div id="focus"></div>
             </div>
             <div class="col-md-3 padding-none">
-              <div class="box-infos"><span><%= (@ouvrages_budget_2021-@ouvrages_depenses_2021).round(1)%> M€</span> <br>Reste à payer</div>
+              <div class="bckc2 c0 fs14 fw4 pd8"><span class="fw8"><%= (@ouvrages_budget_2021-@ouvrages_depenses_2021).round(1)%> M€</span> <br>Reste à payer</div>
             </div>
           </div>
           
         </div>
       </div>
+      <div class="i32"></div>
     </div>
       <div class="col-md-6"> 
-        <div class="home-box">
-          <div class="home-box-title">
+        <div class="w100 bckc1 br20 bs">
+          <div class="bckc2 w100 br4 tc pd12 tupp c0 fs16 fw7">
            Suivi budget global
           </div>
-          <div class="home-box-infos-box">
-            <div class="row index-inline">
+          <div class="pd24">
+            <div class="row inline-flex w100">
             <div class="col-md-9">
               <div id="budget"></div>
             </div>
             <div class="col-md-3 padding-none">
-              <div class="box-infos"><span><%= (@ouvrages_budget_global-@ouvrages_depenses_global).round(1)%> M€</span> <br>Reste à payer</div>
+              <div class="bckc2 c0 fs14 fw4 pd8"><span class="fw8"><%= (@ouvrages_budget_global-@ouvrages_depenses_global).round(1)%> M€</span> <br>Reste à payer</div>
             </div>
           </div>
             
           </div>
         </div>
+        <div class="i32"></div>
       </div>
   </div>
   
 
   <div class="row">
     <div class="col-md-6">
-      <div class="home-box">
-        <div class="home-box-title">
-          <%= link_to conventions_path do %><% if !Convention.last.nil?%><%= Convention.last.travaux_signature + Convention.last.objectifs_signature + Convention.last.etudes_signature%><% end %> CONVENTIONS SIGNÉES<% end %>
+      <div class="w100 bckc1 br20 bs">
+        <div class="bckc2 w100 br4 tc pd12 tupp c0 fs16 fw7">
+          <%= link_to conventions_path, class: "c0 c0h" do %><% if !Convention.last.nil?%><%= Convention.last.travaux_signature + Convention.last.objectifs_signature + Convention.last.etudes_signature%><% end %> CONVENTIONS SIGNÉES<% end %>
         </div>
-        <div class="home-box-infos-box" style="height:340px !important;">
+        <div class="pd24" style="height:340px !important;">
           <div class="row">
             <% if !Convention.last.nil?%>            
 
@@ -128,27 +131,31 @@
       </div>
     </div>
       <div class="col-md-6"> 
-        <div class="home-box">
-          <div class="home-box-title">
+        <div class="w100 bckc1 br20 bs">
+          <div class="bckc2 w100 br4 tc pd12 tupp c0 fs16 fw7">
            Suivi Ouvrages
           </div>
-          <div class="home-box-infos-box" style="height:340px !important;">
-            <div class="row index-inline">
+          <div class="pd24" style="height:340px !important;">
+            <div class="row inline-flex w100">
               <div class="col-md-6 col-sm-6">
                 <div>
-                  <div class="home-box-infos1"> <% if !Convention.last.nil?%>  <%= Convention.last.etudes_signature+Convention.last.objectifs_signature+Convention.last.travaux_signature%><%end%></div>
-                  <div class="home-box-infos2">Ouvrages en cours de travaux</div>
+                  <div class="c1 fs20 fw7"> <% if !Convention.last.nil?%>  <%= Convention.last.etudes_signature+Convention.last.objectifs_signature+Convention.last.travaux_signature%><%end%></div>
+                  <div class="i8"></div>
+                  <div class="fw5 fs14 c6">Ouvrages en cours de travaux</div>
+
                 </div>
-
+                <div class="i16"></div>
                 <div>
-                  <div class="home-box-infos1">2</div>
-                  <div class="home-box-infos2">Ouvrages avec risques critiques</div>
-                </div><br>
-
+                  <div class="c1 fs20 fw7">2</div>
+                  <div class="i8"></div>
+                  <div class="fw5 fs14 c6">Ouvrages avec risques critiques</div>
+                </div>
+                <div class="i16"></div>
                 <div>
-                  <div class="home-box-infos1"> 4</div>
-                  <div class="home-box-infos2">Ouvrages avec risques modérés</div>
-                </div><br>
+                  <div class="c1 fs20 fw7"> 4</div>
+                  <div class="i8"></div>
+                  <div class="fw5 fs14 c6">Ouvrages avec risques modérés</div>
+                </div>
 
                 </div>
 

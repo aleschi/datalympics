@@ -30,9 +30,24 @@ body {
  padding: 0;
  // padding-bottom:60px;
  }
-
+.mxw1{
+max-width:1200px;
+ }
+.c0{
+  color:#fff;
+}
+.c0h{
+  &:hover{
+  color:#fff;
+  }
+}
 .c1{
   color:#000091;
+}
+.c1h{
+  &:hover{
+  color:#000091;
+  }
 }
 .c2{
   color:#1E1E1E;
@@ -45,6 +60,9 @@ body {
 }
 .c5{
   color:#FF8D7E;
+}
+.c6{
+  color:#8F8F8F; //gris 
 }
 .fw4{
   font-weight:400;
@@ -76,6 +94,9 @@ body {
 .fs20{
   font-size:20px;
 }
+.fs32{
+  font-size:32px;
+}
 .tc{
   text-align:center;
 }
@@ -97,11 +118,20 @@ body {
 .i32{
   height:32px;
 }
+.i40{
+  height:40px;
+}
 .tu{
   text-decoration:underline;
 }
+.tun{
+  text-decoration:none;
+}
 .tupp{
   text-transform: uppercase;
+}
+.cp{
+  cursor:pointer;
 }
 .w100{
   width:100%;
@@ -112,10 +142,15 @@ body {
 .bn{
   border:none;
 }
+.bd2{
+  border:2px solid #000091;
+}
 .bs{
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -o-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
 }
 .pd8{
   padding:8px;
@@ -126,12 +161,55 @@ body {
 .pd16{
   padding:16px;
 }
+.pd24{
+  padding:24px;
+}
+.pd32{
+  padding:32px;
+}
+.pdt{
+  padding:4px 8px;
+}
+.bckc1{
+  background-color:#fff;
+}
+.bckc2{
+  background-color:#000091;
+}
+.br20{
+  border-radius:20px;
+}
+.br4{
+  border-radius:4px;
+}
+.br8{
+  border-radius:8px;
+}
+.ma{
+  margin:auto;
+}
+.m10{
+  margin:10px;
+}
 button:focus{
     outline:none !important;
   -webkit-appearance: none !important;
     -moz-appearance: none !important;;
     appearance: none !important;;
 }
+.inline-flex{
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+  align-items:center;
+}
+.btn-link-active {
+  background-color: #000091 !important;
+   color: #fff !important;
+      border: 2px solid #000091 !important;
+}
+
 .EB_page, .ED_page, .SD_page, .O_page, .home_page {
   max-width:1200px;
   margin:0 auto;
@@ -1499,11 +1577,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
   }
 }
-.ouvrages-options-link-active {
-  background-color: #000091 !important;
-   color: #fff !important;
-      border: 2px solid #000091 !important;
-}
+
 
 .table-ouvrages-financeur{
   font-size:10px;
@@ -3294,14 +3368,7 @@ display: inline-flex;
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.inline-flex{
-  display: inline-flex;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flex;
-  display: -moz-inline-flex;
-  width:100%;
-  align-items:center;
-}
+
 .button-cp{
   color:#1E1E1E;
   padding:8px;
