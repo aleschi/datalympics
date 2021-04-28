@@ -9,9 +9,6 @@ class OuvragesController < ApplicationController
     @q = Ouvrage.all.ransack(params[:q])
    
     @ouvrages = Ouvrage.all
-    @ouvrages_financements = OuvragesFinancement.all
-    @ouvrages_depenses = OuvragesDepense.all
-    @financeurs = ["privé", "Etat", "RIF", "Ville de Paris", "Métropole Grand Paris", "CD92", "CD93", "CD78", "EPT Plaine Commune","EPT Terres d'envol", "Ville de Dugny", "Ville du Bourget", "CASQY", "Ville de Marseille"]
 
     @maitre_oeuvre = []
     @maitre_oeuvre_all = []
@@ -25,49 +22,18 @@ class OuvragesController < ApplicationController
     end
     @maitre_oeuvre.uniq!
     @maitre_oeuvre_all.uniq!
-    
-    
-    @solideo_depenses_ouvrages_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
-    @solideo_depenses_ouvrages_reel = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')    
-    
-    @solideo_depenses_ouvrages = OuvragesDepense.all.sum('montant')
-    @solideo_depenses_ouvrages_prevu_date = OuvragesDepense.where('date <= ?', Date.today).sum('montant_prevu')
-    
+
     if params[:term]
         @ouvrages = Ouvrage.where('name like ?', "%#{params[:term]}%")
         
         render json: @ouvrages.map(&:name)  
       end
     
-    @h_depenses = OuvragesDepense.all.unscope(:order).group(:date).sum('montant')
-    @h_depenses_prevu = OuvragesDepense.all.unscope(:order).group(:date).sum('montant_prevu')
-    @depenses = []
-    @depenses_prevu = []
-    (1..32).each do |n|    
-      @is_present = false 
-      @h_depenses.each do |h|
-        if h[0] == Date.new(2018) + (n*3 - 1).months
-          @depenses << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses << 0
-      end
-    end
-    (1..32).each do |n|    
-      @is_present = false 
-      @h_depenses_prevu.each do |h|
-        if h[0] == Date.new(2018)+ (n*3 - 1).months
-          @depenses_prevu << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_prevu << 0
-      end
-    end
+    
 
+    @dates_maquettes= Maquette.order('date DESC').pluck(:date).uniq! 
+    @dates_ouvrages_reporting = Chantier.order('date DESC').pluck(:date).uniq!
+    @ouvrages_depenses_global = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('cumul_paiements')/1000000).round(1)
 
   end
   

@@ -1,10 +1,10 @@
 <div class="EB_page">
   <div class="home-title hidden-sm hidden-xs">
     Bienvenue sur le Tableau de bord<br>
-    de la SOLIDEO
+    de DATALYMPICS
   </div>
   <div class="home-title visible-sm visible-xs">
-    Bienvenue sur le Tableau de bord de la SOLIDEO
+    Bienvenue sur le Tableau de bord de DATALYMPICS
   </div>
     
   <div class="row">
@@ -19,7 +19,7 @@
               <div id="focus"></div>
             </div>
             <div class="col-md-3 padding-none">
-              <div class="box-infos"><span>164 M€</span> <br>Reste à payer</div>
+              <div class="box-infos"><span><%= (@ouvrages_budget_2021-@ouvrages_depenses_2021).round(1)%> M€</span> <br>Reste à payer</div>
             </div>
           </div>
           
@@ -37,7 +37,7 @@
               <div id="budget"></div>
             </div>
             <div class="col-md-3 padding-none">
-              <div class="box-infos"><span>577 M€</span> <br>Reste à payer</div>
+              <div class="box-infos"><span><%= (@ouvrages_budget_global-@ouvrages_depenses_global).round(1)%> M€</span> <br>Reste à payer</div>
             </div>
           </div>
             
@@ -55,40 +55,7 @@
         </div>
         <div class="home-box-infos-box" style="height:340px !important;">
           <div class="row">
-            <% if Convention.last.nil?%>
-            <div class="col-md-6">
-              <div>
-                <div class="home-box-infos1">39</div>
-                <div class="home-box-infos2">Conventions totales signées</div>
-              </div><br>
-
-              <div>
-                <div class="home-box-infos1">10</div>         
-                <div class="home-box-infos2">Conventions d'objectifs en cours de signature</div>     
-              </div><br>
-              
-              <div>
-                <div class="home-box-infos1">7</div>         
-                <div class="home-box-infos2">Avenants aux Conventions d'objectifs en cours</div>     
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div>
-                <div class="home-box-infos1">1</div>
-                <div class="home-box-infos2">Avenants aux conventions travaux en cours</div>
-              </div><br>
-
-              <div>
-                <div class="home-box-infos1">1</div>         
-                <div class="home-box-infos2">Protocole d'études en cours de signature (VDP)</div>     
-              </div><br>
-              
-              <div>
-                <div class="home-box-infos1">2</div>         
-                <div class="home-box-infos2">Conventions d’objectifs en cours d’élaboration</div>     
-              </div>
-            </div>
-            <% else %>
+            <% if !Convention.last.nil?%>            
 
             <div id="container-conv"></div>
             <script>
@@ -169,7 +136,7 @@
             <div class="row index-inline">
               <div class="col-md-6 col-sm-6">
                 <div>
-                  <div class="home-box-infos1"> 39</div>
+                  <div class="home-box-infos1"> <% if !Convention.last.nil?%>  <%= Convention.last.etudes_signature+Convention.last.objectifs_signature+Convention.last.travaux_signature%><%end%></div>
                   <div class="home-box-infos2">Ouvrages en cours de travaux</div>
                 </div>
 
@@ -347,7 +314,7 @@ Highcharts.chart('container-jauge4', {
     series: [{
         name: 'Budget 2021',
         color: '#C4C4C4',
-        data: [177],
+        data: [<%= @ouvrages_budget_2021%>],
         pointPadding: 0,
         pointPlacement: 0,
         dataLabels: {
@@ -369,7 +336,7 @@ Highcharts.chart('container-jauge4', {
     }, {
         name: 'Paiements versés',
         color: '#C68D7B',
-        data: [12.3],
+        data: [<%= @ouvrages_depenses_2021%>],
         pointPadding: 0,
         pointPlacement: 0,
         dataLabels: {
@@ -447,7 +414,7 @@ Highcharts.chart('container-jauge4', {
       series: [{
           name: 'Montants engagés',
           color: '#C4C4C4',
-          data: [664],
+          data: [<%= @ouvrages_budget_global%>],
           pointPadding: 0,
           pointPlacement: 0,
           dataLabels: {
@@ -469,7 +436,7 @@ Highcharts.chart('container-jauge4', {
       }, {
           name: 'Paiements versés',
           color: '#466964',
-          data: [88],
+          data: [<%= @ouvrages_depenses_global%>],
           pointPadding: 0,
           pointPlacement: 0,
           dataLabels: {

@@ -6,7 +6,7 @@ before_action :authenticate_user!
   def index
      @nav=true
 
-    @dates_ouvrages_reporting = Chantier.pluck(:date).uniq!
+    @dates_ouvrages_reporting = Chantier.order('date DESC').pluck(:date).uniq!
     
     @dates_maquettes= Maquette.order('date DESC').pluck(:date).uniq! 
 
@@ -21,7 +21,7 @@ before_action :authenticate_user!
     @budget_reserve_initial = (Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')/1000000).to_i 
     @budget_reserve_consomme = ((Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total') - Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[0], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total'))/1000000).to_i 
 
-    @ouvrages_depenses_2021 = (Chantier.where('date = ?',@dates_ouvrages_reporting[@dates_ouvrages_reporting.length-1]).sum('paiements_annee')/1000000).to_i
+    @ouvrages_depenses_2021 = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('paiements_annee')/1000000).to_i
     
   end
 

@@ -3,20 +3,12 @@ class PagesController < ApplicationController
   def home
      @nav=true
     @document = Document.first
-    @q = Ouvrage.all.ransack(params[:q])
-    @ouvrages = Ouvrage.all
-    @maitre_oeuvre = []
-    @maitre_oeuvre_all = []
-    @array= []
-    @ouvrages.all.each do |ouvrage|
-      if ouvrage.maitre_oeuvre != "SOLIDEO"
-      @maitre_oeuvre << ouvrage.maitre_oeuvre
-      end
-      @maitre_oeuvre_all << ouvrage.maitre_oeuvre
-      @array << ouvrage.name
-    end
-    @maitre_oeuvre.uniq!
-    @maitre_oeuvre_all.uniq!
+
+    @dates_ouvrages_reporting = Chantier.order('date DESC').pluck(:date).uniq!
+    @ouvrages_depenses_2021 = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('paiements_annee')/1000000).round(1)
+    @ouvrages_budget_2021 = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('budget_annee')/1000000).round(1)
+    @ouvrages_budget_global = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('total_depenses_actees')/1000000).round(1)
+    @ouvrages_depenses_global = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('cumul_paiements')/1000000).round(1)
   end
   
   def jop2024

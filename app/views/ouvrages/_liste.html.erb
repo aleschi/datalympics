@@ -18,14 +18,18 @@
          <% @ouvrages.where('maitre_oeuvre = ?', "SOLIDEO").where.not('name like ?',"%SITE d'ENTRAINEMENT%").each do |ouvrage| %>
           <div class="O-name">
             <%= link_to ouvrage do %>
-              <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>       
+              <%= ouvrage.name %>  
+              <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %><span>- <%= number_with_delimiter(Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total.to_i, :delimiter => ' ')%> €</span> <% end %>    
             <% end %>
           </div>
           <% end %>
           <% @ouvrages.where('maitre_oeuvre = ?', "SOLIDEO").where('name like ?',"%SITE d'ENTRAINEMENT%").each do |ouvrage| %>
           <div class="O-name">
             <%= link_to ouvrage do %>
-              <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>        
+              <%= ouvrage.name %>  
+              <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %>
+              <span>- <%= number_with_delimiter(Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total.to_i, :delimiter => ' ')%> €</span>  
+              <% end %>      
             <% end %>
           </div>
           <% end %>
@@ -38,7 +42,9 @@
          <% @ouvrages.where('maitre_oeuvre = ?', mo).where.not('name like ?',"%SITE d'ENTRAINEMENT%").each do |ouvrage| %>
           <div class="O-name">
           <%= link_to ouvrage do %>
-            <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>        
+            <%= ouvrage.name %>  
+            <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %><span>- <%= number_with_delimiter(Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total.to_i, :delimiter => ' ')%> €</span>   
+            <% end %>     
           <% end %>
           </div>
          <% end %>
@@ -47,7 +53,10 @@
          <% @ouvrages.where('maitre_oeuvre = ?', mo).where('name like ?',"%SITE d'ENTRAINEMENT%").each do |ouvrage| %>
           <div class="O-name">
           <%= link_to ouvrage do %>
-            <%= ouvrage.name %>  <span>- <%= number_with_delimiter(ouvrage.budget.to_i, :delimiter => ' ')%> €</span>        
+            <%= ouvrage.name %>  
+            <% if Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').count > 0 %>
+            <span>- <%= number_with_delimiter(Maquette.where('ouvrage_id =?',ouvrage.id).order('date DESC').first.total.to_i, :delimiter => ' ')%> €</span>  
+            <% end %>      
           <% end %>
           </div>
          <% end %>
