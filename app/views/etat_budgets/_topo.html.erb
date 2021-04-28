@@ -14,7 +14,7 @@
           <i class="fas fa-coins"></i>
         </div>
         <div>
-          <%= number_with_delimiter(EtatBudget.first.budget_total.to_i, :delimiter => ' ') %> €<br>
+          <%= number_with_delimiter((EtatBudget.first.budget_total/1000000).round, :delimiter => ' ') %> M€<br>
           <span>Budget initial</span>
         </div>
       </div>
@@ -26,7 +26,7 @@
         <i class="fas fa-coins"></i>
         </div>
         <div>
-        <%= number_with_delimiter(EtatBudget.last.budget_total.to_i, :delimiter => ' ') %> €<br>
+        <%= number_with_delimiter((EtatBudget.last.budget_total/1000000).round, :delimiter => ' ') %> M€<br>
           <span>Budget actuel</span>
         </div>
       </div>
@@ -38,7 +38,7 @@
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          <%= number_with_delimiter(EtatDepense.sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
+          <%= number_with_delimiter((EtatDepense.sum('cp_conso')/1000000).round, :delimiter => ' ') %> M€<br>
           <span>Dépenses cumulées depuis le début</span>
         </div>
       </div>
@@ -51,7 +51,7 @@
         <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-        <%= number_with_delimiter(EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu').to_i, :delimiter => ' ') %> €<br>
+        <%= number_with_delimiter((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')/1000000).round, :delimiter => ' ') %> M€<br>
           <span>Budget 2021</span>
         </div>
       </div>
@@ -63,7 +63,7 @@
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          <%= number_with_delimiter(EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso').to_i, :delimiter => ' ') %> €<br>
+          <%= number_with_delimiter((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/1000000).round, :delimiter => ' ') %> M€<br>
           <span>Dépenses 2021</span>
         </div>
       </div>

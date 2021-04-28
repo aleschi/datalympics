@@ -803,7 +803,7 @@ Highcharts.chart('container-chart', {
     yAxis: {
       gridLineColor: '#E6F0FF', 
         title: {
-            text: 'Montant €'
+            text: 'Montant k€'
         }
     },
 
@@ -822,24 +822,24 @@ Highcharts.chart('container-chart', {
       borderColor: '#fff',
       data: [{
             name: 'Prévisionnel 2018',
-            y: <%= EtatBudget.first.budget_total.to_i%>,
+            y: <%= (EtatBudget.first.budget_total/1000).to_i%>,
             color: "#bfbfbf",
         }, {
             name: 'ΔSolideo',
-            y: <%= (EtatBudget.last.budget_solideo-EtatBudget.first.budget_solideo).to_i%>,
+            y: <%= ((EtatBudget.last.budget_solideo-EtatBudget.first.budget_solideo)/1000).to_i%>,
             color: "#C68D7B",
            
         }, {
             name: 'ΔCOJO',
-            y: <%= (EtatBudget.last.budget_cojo-EtatBudget.first.budget_cojo).to_i%>,
+            y: <%= ((EtatBudget.last.budget_cojo-EtatBudget.first.budget_cojo)/1000).to_i%>,
             color: "#C68D7B",
         }, {
             name: 'Δhéritage',
-            y: <%= (EtatBudget.last.budget_heritage-EtatBudget.first.budget_heritage).to_i%>,
+            y: <%= ((EtatBudget.last.budget_heritage-EtatBudget.first.budget_heritage)/1000).to_i%>,
             color: "#C68D7B",
         },{
             name: 'ΔHaute Performance',
-            y: <%= (EtatBudget.last.budget_hauteperformance-EtatBudget.first.budget_hauteperformance).to_i%>,
+            y: <%= ((EtatBudget.last.budget_hauteperformance-EtatBudget.first.budget_hauteperformance)/1000).to_i%>,
             color: "#C68D7B",
         },  {
             name: 'Prévisionnel 2020',
