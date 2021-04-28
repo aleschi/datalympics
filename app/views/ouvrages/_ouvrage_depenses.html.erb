@@ -14,7 +14,11 @@
               <div class="inline-flex">
               <% @ouvrage.chantiers.where('date = ?',date).each_with_index do |chantier,j| %>
                 <% if !chantier.nil?%>
-                  <div>
+                  <% if @ouvrage.chantiers.where('date = ?',date).count == 1%>
+                    <div class="w100">
+                  <% elsif @ouvrage.chantiers.where('date = ?',date).count == 2%>
+                    <div class="w50">
+                  <% end%>
                     <div class="box-convention-date"><%= chantier.typecontrat %> </div>
                     <div id="ouvrages<%=i%><%=j%>"></div>
                     <script>
