@@ -12,7 +12,7 @@
     <div class="col-md-6">
       <div class="w100 bckc1 br20 bs">
         <div class="bckc2 w100 br4 tc pd12 tupp c0 fs16 fw7">
-          FOCUS BUDGET 2021
+          BUDGET OUVRAGES 2021 (HORS ZAC)
         </div>
         <div class="pd24">
           <div class="row inline-flex w100">
@@ -31,7 +31,7 @@
       <div class="col-md-6"> 
         <div class="w100 bckc1 br20 bs">
           <div class="bckc2 w100 br4 tc pd12 tupp c0 fs16 fw7">
-           Suivi budget global
+           budget global ouvrages (HORS ZAC)
           </div>
           <div class="pd24">
             <div class="row inline-flex w100">
@@ -139,22 +139,22 @@
             <div class="row inline-flex w100">
               <div class="col-md-6 col-sm-6">
                 <div>
-                  <div class="c1 fs20 fw7"> <% if !Convention.last.nil?%>  <%= Convention.last.etudes_signature+Convention.last.objectifs_signature+Convention.last.travaux_signature%><%end%></div>
+                  <div class="c1 fs20 fw7"> <%= Ouvrage.where('start < ?',Date.today).count %></div>
                   <div class="i8"></div>
                   <div class="fw5 fs14 c6">Ouvrages en cours de travaux</div>
 
                 </div>
                 <div class="i16"></div>
                 <div>
-                  <div class="c1 fs20 fw7">2</div>
+                  <div class="c3 fs20 fw7">2</div>
                   <div class="i8"></div>
                   <div class="fw5 fs14 c6">Ouvrages avec risques critiques</div>
                 </div>
                 <div class="i16"></div>
                 <div>
-                  <div class="c1 fs20 fw7"> 4</div>
+                  <div class="c3 fs20 fw7"> 1</div>
                   <div class="i8"></div>
-                  <div class="fw5 fs14 c6">Ouvrages avec risques modérés</div>
+                  <div class="fw5 fs14 c6">Ouvrage avec risques importants</div>
                 </div>
 
                 </div>
@@ -239,7 +239,7 @@ Highcharts.chart('container-jauge4', {
                 color: '#8F8F8F',
               },
               valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
+              format: '<span style="font-size:10px; color: #E1000F; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
             verticalAlign: 'middle',
               align: 'center',
         
