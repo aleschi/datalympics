@@ -1,18 +1,21 @@
 
-<div class="budget-ouvrages-mois w100">
-          <div>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle fs14" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Maquette <%= l(@dates_maquettes[0], format: "%e %B %Y") %><i class="fas fa-chevron-down"></i></button>
-              <div class="dropdown-menu bn bs pd12" aria-labelledby="budget">       
-                <% @dates_maquettes_o[0..@dates_maquettes.length-2].each do |date|%>
-                  <div><%= link_to maquette_date_path(date: date),remote: true, method: :post, class: 'c2 fs14' do %>Maquette <%= l(date, format: "%e %B %Y") %><% end %></div>
-                  <div class="i12"></div>
-                <% end %>
+<div class="ma w100">
+  <div class="i12"></div>
+          <div class="row">
+            <div class="col-md-12 tc">
+              <div class="dropdown tc inline-block">
+                <button class="btn btn-secondary dropdown-toggle bckc1 fs14 bs" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Maquette <%= l(@dates_maquettes[0], format: "%e %B %Y") %><i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-menu bn bs pd12 w100" aria-labelledby="budget">       
+                  <% @dates_maquettes_o[0..@dates_maquettes.length-2].each do |date|%>
+                    <div><%= link_to maquette_date_path(date: date),remote: true, method: :post, class: 'c2 fs14 c2h' do %>Maquette <%= l(date, format: "%e %B %Y") %><% end %></div>
+                    <div class="i12"></div>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class='i24'></div>
+          <div class='i40'></div>
       
             <div class="w100"><div class="w100" id="container-chart"></div><br></div>
             <script>
@@ -110,24 +113,24 @@
                     <div class="i12"></div>
                     <div class="c3 fw8 fs20"><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation)/1000).to_i, :delimiter => ' ') %> k€</div>
                     <div class="i12"></div>
-                    <div class="c3 tu fw4 fs12" id="augmentation-btn">Afficher détails</div>
+                    <div class="c3 tu fw4 fs12 cp" id="augmentation-btn">Afficher détails</div>
                   </div>
                   <div class="box_i1 tc">
                     <div class="c2 fw4 fs14 tupp">Diminution</div>
                     <div class="i12"></div>
                     <div class="c4 fw8 fs20"><%= number_with_delimiter((@maquette_budget_diminution/1000).to_i, :delimiter => ' ') %> k€</div>
                     <div class="i12"></div>
-                    <div class="c4 tu fw4 fs12" id="diminution-btn">Afficher détails</div>
+                    <div class="c4 tu fw4 fs12 cp" id="diminution-btn">Afficher détails</div>
                   </div>
                   <div class="box_i1 tc">
                     <div class="c2 fw4 fs14 tupp">Ponction Réserve</div>
                     <div class="i12"></div>
                     <div class="c5 fw8 fs20"><%= number_with_delimiter((@maquette_ecart_reserve/1000).to_i, :delimiter => ' ')%> k€</div>
                     <div class="i12"></div>
-                    <div class="c5 tu fw4 fs12" id="reserve-btn">Afficher détails</div>
+                    <div class="c5 tu fw4 fs12 cp" id="reserve-btn">Afficher détails</div>
                   </div>
                   <div class="box_i1 tc">
-                    <div class="c2 fw4 fs14 tupp">Ecart total</div>
+                    <div class="c2 fw4 fs14 tupp">Ecart total à maquette 2018</div>
                     <div class="i12"></div>
                     <div class='c1 fw8 fs20'><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation+@maquette_budget_diminution+@maquette_ecart_reserve)/1000).to_i, :delimiter => ' ') %> k€</div>
                     <div class="i12"></div>

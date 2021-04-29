@@ -1,19 +1,18 @@
 
-<div  class="SD-table-box">
-  <div class="SD-topo-box-title">
-    <span>Suivi du budget des ouvrages (Hors ZAC)</span>
-  </div><br><br>
-
-
+<div class="pd32 br20 bs bckc1">
+  <div>
+    <span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi du budget des ouvrages (Hors ZAC)</span>
+  </div>
+  <div class="i24"></div>
 
   <div class="flexslider2" id="flexslider">
     <ul class="slides">
     <% @dates_ouvrages_reporting.each_with_index do |date,i|%>
 
     <li> 
-    <div class="budget-ouvrages-mois">
+    <div class="ga ma pr">
       <div class="c2 tc fw8 fs22"><%= l(date, format: "%e %B %Y") %> </div>
-      <div class='i12'></div>
+      <div class='i24'></div>
       
      <div id="ouvrages<%=i%>"></div>
      <div class="i8"></div>
@@ -49,7 +48,7 @@
       Highcharts.chart('ouvrages<%=i%>', {
         chart: {
             type: 'column',
-     
+            marginTop:30,
             width: 700,
           backgroundColor: '#fff',
               style:{
@@ -233,37 +232,49 @@
     </ul>
   </div>
 </div>
-<div  class="SD-table-box">
-  <div class="SD-topo-box-title">
-    <span>Suivi du budget fonctionnement </span>
-  </div><br><br>
+<div class="i24"></div>
+
+<div  class="pd32 br20 bs bckc1">
+  <div>
+    <span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi du budget fonctionnement </span>
+  </div>
+  <div class="i24"></div>
+
   <div class="row">
       <div class="col-md-12">
         <div id="container-2"></div>
       </div>
   </div><br>
 </div>
-<div  class="SD-table-box">
-  <div class="SD-topo-box-title">
-    <span>Suivi des fonds innovation </span>
-  </div><br><br>
+<div class="i24"></div>
+
+<div  class="pd32 br20 bs bckc1">
+  <div>
+    <span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi des fonds innovation </span>
+  </div>
+  <div class="i24"></div>
+
   <div class="row">   
       <div class="col-md-12">
         <div id="container-3"></div>
       </div>
   </div>
 </div>
-<div  class="SD-table-box">
-  <div class="SD-topo-box-title">
-    <span>Suivi des fonds réserve </span>
-  </div><br><br>
+<div class="i24"></div>
+
+<div class="pd32 br20 bs bckc1">
+  <div>
+    <span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi des fonds réserve </span>
+  </div>
+  <div class="i24"></div>
   <div class="row"> 
       <div class="col-md-12">
         <div id="container-4"></div>     
       </div>
   </div><br><br>
   
-</div><br><br>
+</div>
+<div class="i24"></div>
 
 
 <script>

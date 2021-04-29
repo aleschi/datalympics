@@ -52,6 +52,11 @@ max-width:1200px;
 .c2{
   color:#1E1E1E;
 }
+.c2h{
+  &:hover{
+  color:#1E1E1E;
+  }
+}
 .c3{
   color:#E1000F;
 }
@@ -99,6 +104,9 @@ max-width:1200px;
 }
 .fs32{
   font-size:32px;
+}
+.fs40{
+  font-size:40px;
 }
 .tc{
   text-align:center;
@@ -216,6 +224,16 @@ button:focus{
   display: -ms-inline-flex;
   display: -moz-inline-flex;
   align-items:center;
+}
+.inline-block{
+  display:inline-block;
+}
+.pr{
+  position:relative;
+}
+.ga .highcharts-container {
+  margin:auto;
+
 }
 .btn-link-active {
   background-color: #000091 !important;
@@ -2253,9 +2271,13 @@ box-shadow:none;
   top:0px;
   width:100%;
 }
-.flex-nav-prev, .flex-nav-next{
+.flex-nav-prev{
   width:50%;
-  text-align:center;
+  text-align:left;
+}
+.flex-nav-next{
+ width:50%;
+  text-align:right;
 }
 .flexslider2 .flex-direction-nav .flex-disabled{
   opacity:0 !important;

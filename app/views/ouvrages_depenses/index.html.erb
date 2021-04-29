@@ -1,30 +1,25 @@
 <% if !Maquette.where('date = ?', @dates_maquettes[@dates_maquettes.length-1]).first.nil?%>
-<div class="SD_page">
- 
-  <h1 class="SD_title SD_title2">Maquette financière </h1>
-  <h1 class="SD_subtitle">Dernière mise à jour : <%= l(@dates_maquettes[0], format: "%e %B %Y") %></h1>
+<div class="mxw1 pd32 ma">
+  <div class="i24"></div>
+  <div class="c2 fw6 fs40 tc">Maquette financière </div>
+  <div class="i12"></div>
+  <div class="c2 fw4 fs20 tc">Dernière mise à jour : <%= l(@dates_maquettes[0], format: "%e %B %Y") %></div>
+  <div class="i40"></div>
   
 
+  <div class="pd32 br20 bs bckc1" >
+    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Évolution de la maquette budgétaire (fonds publics)</span></div>
+    <div class="i24"></div>
 
-    <div class="SD-table-box" >
-      <div class="SD-topo-box-title">
-        <span>Évolution de la maquette budgétaire (fonds publics)</span>
-      </div><br><br>
-      
-
-          
-
-          <div id="maquette">
-            <%= render 'maquette'%>
-          </div>
+    <div id="maquette">
+      <%= render 'maquette'%>
     </div>
-  
+  </div>
+  <div class="i24"></div>
 </div> 
   
 
-
-  
-  <script>
+<script>
 
   $('.menu-solideo-maquette').addClass('menu-active2'); 
   $('.menu-solideo').addClass('menu-active'); 
@@ -33,4 +28,4 @@
 
 </script>
   
-  <% end %>
+<% end %>

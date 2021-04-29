@@ -1,32 +1,39 @@
 
-<% if !@solideo_financements.nil?%>
+<div class="pd32 br20 bs bckc1">  
+  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Financements de la solideo</span></div>
+  <div class="i24"></div>
 
-<div class="SD-topo-box">  
-  <div class="SF-topo-financeurs-title"><span>Financements de la solideo</span></div><br>
   <div class="row">
-   <div class="col-md-4 col-xs-12">
-     <div id="container-bar"></div>
+   <div class="col-md-5 col-xs-12">
+     <div class="mr10" id="container-bar"></div>
     </div> 
-    <div class="col-md-8 col-xs-12">  
-      <div id="container-bar1"></div><br>
-      <div id="container-bar2"></div><br>
+    <div class="col-md-7 col-xs-12">  
+      <div id="container-bar1"></div>
+      <div class="i60"></div>
+      <div id="container-bar2"></div>
     </div>
   </div>  
 </div>
-<% end %>
 
-<div class="SD-topo-box">  
-  <div class="SF-topo-financeurs-title"><span>Suivi annuel des financements et recettes de la solideo</span></div><br>
+<div class="i24"></div>
+
+<div class="pd32 br20 bs bckc1">  
+  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi annuel des financements et recettes de la solideo</span></div>
+  <div class="i24"></div>
+
   <div class="flexslider2" id="flexslider-fin">
     <ul class="slides">
     <% @dates_reporting.each_with_index do |date,i|%>
 
     <li> 
-      <div class="budget-ouvrages-mois">
-        <div class="box-convention-date">Financements reçus cumulés <%= l(date, format: "%Y") %> </div>
-        
-       <div id="financements<%=i%>"></div>
-       <div class="i8"></div>
+      <div class="ga ma pr">
+        <div class="c2 tc fw8 fs22">Financements reçus cumul <%= l(date, format: "%Y") %> </div>
+        <div class='i24'></div>
+        <div id="financements<%=i%>"></div>
+
+        <div class="i24"></div>
+        <div class="c2 fs14 tc">Pourcentage des versements reçus par rapport au financement total prévu</div>
+        <div class="i24"></div>
         <div>
           
             <div class="inline-flex w100">
@@ -101,7 +108,7 @@
       Highcharts.chart('financements<%=i%>', {
         chart: {
             type: 'column',
-     
+         marginTop:30,
             width: 750,
           backgroundColor: '#fff',
               style:{
@@ -145,7 +152,7 @@
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-            pointFormat: '<span style="padding:0"><b> {point.y:.1f} M€</b></span>',
+            pointFormat: '<span style="padding:0">Financements reçus : <b> {point.y:.1f} M€</b></span>',
   
             shared: true,
             useHTML: true,
@@ -184,6 +191,9 @@
                   },},
               {name: 'Etat', y:<%= (SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')/1000000).round(1)%>, color:"#2E5D63", dataLabels: {
                       enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',
                       formatter: function() {
 
                         var point = this;                      
@@ -444,11 +454,11 @@
     },
     title: {
        text: 'Suivi annuel des financements',
-       verticalAlign: "bottom",
+       verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-          fontStyle: 'italic',
+    
           fontSize: '12px',
                   },
     },
@@ -516,11 +526,11 @@
     },
     title: {
         text: 'Répartition des financements',
-        verticalAlign: "bottom",
+        verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-          fontStyle: 'italic',
+    
           fontSize: '12px',
                   },
     },
@@ -590,22 +600,22 @@
 </script>
 
 <script>
-Highcharts.chart('container-bar', {
+ Highcharts.chart('container-bar', {
     chart: {
         type: 'bar',
+
       style:{
           fontFamily: "Marianne Regular",
          maxWidth: '500px',
           },
     },
     title: {
-        text: null,
-      
+        text: "Répartition des financements",
+        verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
+      fontSize: '12px',
                   },
     },
   colors: ['#20E37B'],
