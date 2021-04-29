@@ -147,7 +147,7 @@
                                     header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
                                   }
                                   
-                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDT <br/>';
+                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDTRAV <br/>';
 
                                 return content + header ;
                               },
@@ -387,8 +387,8 @@ Highcharts.chart('container-jauge4', {
           },
           formatter: function() {
             var point = this, 
-            number = Highcharts.numberFormat(point.y, -1, ',',' '),
-            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">prévus </span>';
+            number = Highcharts.numberFormat(point.y, -1, ',',' '), 
+            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">prévus </span> ';
           return content;
         },
         y: 100,
@@ -409,7 +409,8 @@ Highcharts.chart('container-jauge4', {
           formatter: function() {
             var point = this, 
             number = Highcharts.numberFormat(point.y, -1, ',',' '),
-            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés</span> ';
+            percentage =  <%= (@ouvrages_depenses_2021/@ouvrages_budget_2021*100).round%>
+            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés - '+ percentage + '%</span>';
           return content;
         },
         y: 100,
@@ -509,7 +510,8 @@ Highcharts.chart('container-jauge4', {
             formatter: function() {
               var point = this, 
               number = Highcharts.numberFormat(point.y, -1, ',',' '),
-              content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés</span> ';
+              percentage =  <%= (@ouvrages_depenses_global/@ouvrages_budget_global*100).round%>
+              content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés - '+percentage+'%</span> ';
             return content;
           },
           y: 100,
