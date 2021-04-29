@@ -111,6 +111,9 @@ max-width:1200px;
 .tc{
   text-align:center;
 }
+.tl{
+  text-align:left;
+}
 .i4{
   height:4px;
 }
@@ -156,6 +159,12 @@ max-width:1200px;
 .w25{
   width:25px;
 }
+.mw250{
+  max-width:250px;
+}
+.mw350{
+  max-width:350px;
+}
 .bn{
   border:none;
 }
@@ -192,6 +201,9 @@ max-width:1200px;
 }
 .bckc2{
   background-color:#000091;
+}
+.bckc3{
+  background-color:#f8f8f8;
 }
 .br20{
   border-radius:20px;

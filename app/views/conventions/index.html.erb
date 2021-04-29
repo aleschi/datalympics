@@ -1,30 +1,36 @@
-<div class="SD_page">
-  <h1 class="SD_title SD_title2">Suivi des conventions </h1>
-    <h1 class="SD_subtitle">Dernière mise à jour : <% if !Convention.last.nil?%><%= l(Convention.last.updated_at, format: "%e %B %Y") %> <% end %> </h1>
+<div class="mxw1 pd32 ma">
+  <div class="i24"></div>
+  <div class="c2 fw6 fs40 tc">Suivi des conventions </div>
+  <div class="i12"></div>
+  <div class="c2 fw4 fs20 tc">Dernière mise à jour : <% if !Convention.last.nil?%><%= l(Convention.last.updated_at, format: "%e %B %Y") %> <% end %> </div>
+  <div class="i40"></div>
 
-  <div  class="SD-table-box">
-    <div class="SF-topo-financeurs-title"><span>Suivi des conventions </span></div><br><br>
+  <div  class="pd32 br20 bs bckc1">
+    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi des conventions </span></div>
+    <div class="i24"></div>
 
     <% if !@conventions.nil?%>
       <div class="flexslider2" id="flexslider">
         <ul class="slides">
         <% @conventions.order('date DESC').each_with_index do |convention,i| %>
         <li> 
-          <div class="budget-ouvrages-mois">
-            <div class="box-convention-date"><%= l(convention.date, format: "%e %B %Y") %> </div>
+          <div class="ga ma pr">
+            <div class="c2 tc fw8 fs22"><%= l(convention.date, format: "%e %B %Y") %> </div>
+            <div class='i24'></div>
+
               <div class="inline-flex">
                 <div id="container<%=i%>"></div>
-                <div class="convention-infos">
+                <div class="mw250 pd12 bs br8 bckc3">
                   <div class="c2 fs14"><span class="c1 fs20"><%= convention.objectifs_signature + convention.travaux_signature + convention.etudes_signature%></span> Conventions signées </div>
-                  <div class="i4"></div>
+                  <div class="i12"></div>
                   <div class="c2 fs14"><span class="c1 fs20"><%= convention.objectifs_encours%></span> CDO en cours de signature</div>
-                  <div class="i4"></div>
+                  <div class="i12"></div>
                   <div class="c2 fs14"><span class="c1 fs20"><%= convention.avenants_objectifs_encours%></span> Avenants aux CDO en cours</div>
-                  <div class="i4"></div>
+                  <div class="i12"></div>
                   <div class="c2 fs14"><span class="c1 fs20"><%= convention.avenants_travaux_encours%> </span> Avenants aux CTRAV en cours</div>
-                  <div class="i4"></div>
+                  <div class="i12"></div>
                   <div class="c2 fs14"><span class="c1 fs20"><%= convention.protocole_etudes_encours%> </span>Protocoles d'études en cours de signature (VDP)</div>
-                  <div class="i4"></div>
+                  <div class="i12"></div>
                   <div class="c2 fs14"><span class="c1 fs20"><%= convention.objectifs_elaboration%></span> CDO en cours d’élaboration</div>
                 </div>
               </div>
@@ -64,19 +70,7 @@
                             allowPointSelect: true,
                             cursor: 'pointer',
                            size: 200,
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b><br>{point.y}',
-                                useHTML: true,
-                                distance:10,
-                                padding:0,
-                              style: {
-                                      color: "#8F8F8F",
-                                      fontSize: "11px",
-                                      fontWeight: "400",
-                                      fontStyle: "italic",
-                                      },
-                            }
+                            
                         }
                     },
                     series: [{
@@ -86,12 +80,72 @@
                         data: [ {
                             name: 'Convention études',
                             y: <%= convention.etudes_signature%>,
+                            dataLabels: {
+                              enabled: true,
+                              formatter: function() {
+
+                                var point = this;                      
+                                ecart = <%= convention.etudes_signature - Convention.where('date = ?',convention.date-1.month).sum('etudes_signature') %>;
+                                
+                                number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                
+                                 if (ecart >= 0){
+                                    header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                  }else{
+                                    header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                                  }
+                                  
+                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDE <br/>';
+
+                                return content + header ;
+                              },
+                          },
                         },{
                             name: 'Conventions travaux',
                             y: <%= convention.travaux_signature%>,
+                            dataLabels: {
+                              enabled: true,
+                              formatter: function() {
+
+                                var point = this;                      
+                                ecart = <%= convention.etudes_signature - Convention.where('date = ?',convention.date-1.month).sum('etudes_signature') %>;
+                                
+                                number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                
+                                 if (ecart >= 0){
+                                    header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                  }else{
+                                    header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                                  }
+                                  
+                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDT <br/>';
+
+                                return content + header ;
+                              },
+                          },
                         }, {
                             name: 'Conventions objectifs',
                             y: <%= convention.objectifs_signature%>,
+                            dataLabels: {
+                              enabled: true,
+                              formatter: function() {
+
+                                var point = this;                      
+                                ecart = <%= convention.etudes_signature - Convention.where('date = ?',convention.date-1.month).sum('etudes_signature') %>;
+                                
+                                number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                
+                                 if (ecart >= 0){
+                                    header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                  }else{
+                                    header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                                  }
+                                  
+                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDO <br/>';
+
+                                return content + header ;
+                              },
+                          },
                         }]
                     }]
                 });

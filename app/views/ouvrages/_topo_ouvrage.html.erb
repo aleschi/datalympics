@@ -1,8 +1,9 @@
 
+<div class="pd32 br20 bs bckc1">
   <div class="row">
-
-  <div class="col-md-8 col-sm-12">
-    <div class="SD-table-box ouvrage-topo-box">
+    <div class="col-md-8">
+      <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Infos ouvrage</span></div>
+      <div class="i24"></div>
       <div class="row">
         <div class="col-md-4">
            <div class="O-topo-image">
@@ -66,55 +67,44 @@
         </div>
         </div>
       </div>
-
     </div>
-  </div>
-    <div class="col-md-4 col-sm-6">
-      <div class="SD-table-box ouvrage-topo-box ouvrage-topo-box-xs">
-        <div class="SD-topo-box-title">
-            <span>Maîtrise des coûts</span>
-         </div><br><br>
-        <div class="jauge-box">
+    <div class="col-md-4" style="padding-left:30px;">
+      <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Maîtrise des coûts</span></div>
+      <div class="i24"></div>
+
+      <div class="inline-flex w100">
         <div class="jauge-flag">
           <i class="fas fa-flag"></i>
         </div>
-       <div class="jauge-infos">
+        <div class="pdt w100 tl">
       
-          <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter(((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total-Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').last.total)/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€<br>
-         <span>Ecarts maquette</span>
+          <span class="fs18 c1"><% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter(((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total-Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').last.total)/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€</span><br>
+         <span class="fs14 c2">Ecarts maquette</span>
          
-          </div></div><br><br><br>
+          </div>
+      </div>
+
+      <div class="i60"></div>
         
-        <div class="SD-topo-box-title">
-            <span>Maîtrise des délais</span>
-         </div><br><br>
-        <div class="jauge-box">
+      <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Maîtrise des délais</span></div>
+      <div class="i24"></div>
+      <div class="inline-flex w100">
         <div class="jauge-clock">
           <i class="fas fa-stopwatch"></i>
         </div>
-        <div class="jauge-infos">
-          <% if @ouvrage.ouvrages_revues.count > 0 %>
+        <div class="pdt w100 tl">
+          <span class="fs18 c1"><% if @ouvrage.ouvrages_revues.count > 0 %>
              <%= @ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %> mois 
-          <% else %> Pas de données <% end %><br>
-          <span>Retard envisagé</span>
-        </div>
+          <% else %> Pas de données <% end %></span><br>
+          <span class="fs14 c2">Retard envisagé</span>
         </div>
       </div>
     </div>
- <div class="visible-sm col-sm-6">
-   <div class="SD-table-box ouvrage-topo-box ouvrage-topo-box-xs">
-     <div id="container-jauge-xs">
-            
-          </div>
-     <div id="container-jauge2-xs">
-            
-          </div>
-   </div>
-    </div>
- 
+  </div>
+
 </div>
 
-
+<div class="i24"></div>
 
 <script>
 
@@ -269,7 +259,7 @@ Highcharts.chart('container-jauge2', {
                 color: '#8F8F8F',
               },
               valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#E1000F; font-size:10px;font-weight:400">{series.name}</span>',
             verticalAlign: 'middle',
               align: 'center',
         
@@ -292,178 +282,4 @@ Highcharts.chart('container-jauge2', {
 });
   </script>
 
-<script>
 
-Highcharts.chart('container-jauge-xs', {
-
-    chart: {
-        type: 'solidgauge',
-        height: '150px',
-        spacing: [0,0,0,0],
-    },
-
-    title: {
-        text: null,
-       
-    },
-
-    tooltip: {
-        borderWidth: 0,
-        backgroundColor: 'none',
-        shadow: false,
-        style: {
-            fontSize: '16px'
-        },
-        valueSuffix: '%',
-        pointFormat: '',
-        positioner: function (labelWidth) {
-            return {
-                x: (this.chart.chartWidth - labelWidth) / 2,
-                y: (this.chart.plotHeight / 2) + 15
-            };
-        }
-    },
-
-    pane: {
-        startAngle: 0,
-        endAngle: 360,
-        background: [{ // Track for Move
-            outerRadius: '100%',
-            innerRadius: '88%',
-            backgroundColor: "#C4C4C4",
-            borderWidth: 0
-        }]
-    },
-
-    yAxis: {
-        min: 0,
-        max: 100,
-        lineWidth: 0,
-        tickPositions: []
-    },
-
-    plotOptions: {
-        solidgauge: {
-            
-          tooltip: "",
-          
-            dataLabels: {
-              enabled: true,
-              borderWidth: 0,
-              backgroundColor: 'none',
-              shadow: false,
-              style: {
-                  fontSize: '10px',
-                color: '#8F8F8F',
-              },
-              valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
-            verticalAlign: 'middle',
-              align: 'center',
-        
-            },
-            linecap: 'round',
-            stickyTracking: false,
-            rounded: true
-        }
-    },
-
-    series: [{
-        name: 'Budget consommé',
-        data: [{
-            color: "#20E37B",
-            radius: '100%',
-            innerRadius: '88%',
-            y: <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %> <%= (@ouvrage.chantiers.where('date = ?',@lastdate).sum('cumul_paiements')/Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total).round(1) %> <%end %>
-        }]
-    }]
-});
-  </script>
-
-<script>
-
-Highcharts.chart('container-jauge2-xs', {
-
-    chart: {
-        type: 'solidgauge',
-        height: '150px',
-        spacing: [0,0,0,0],
-    },
-
-    title: {
-        text: null,
-       
-    },
-
-    tooltip: {
-        borderWidth: 0,
-        backgroundColor: 'none',
-        shadow: false,
-        style: {
-            fontSize: '16px'
-        },
-        valueSuffix: '%',
-        pointFormat: '',
-        positioner: function (labelWidth) {
-            return {
-                x: (this.chart.chartWidth - labelWidth) / 2,
-                y: (this.chart.plotHeight / 2) + 15
-            };
-        }
-    },
-
-    pane: {
-        startAngle: 0,
-        endAngle: 360,
-        background: [{ // Track for Move
-            outerRadius: '100%',
-            innerRadius: '88%',
-            backgroundColor: "#C4C4C4",
-            borderWidth: 0
-        }]
-    },
-
-    yAxis: {
-        min: 0,
-        max: 100,
-        lineWidth: 0,
-        tickPositions: []
-    },
-
-    plotOptions: {
-        solidgauge: {
-            
-          tooltip: "",
-          
-            dataLabels: {
-              enabled: true,
-              borderWidth: 0,
-              backgroundColor: 'none',
-              shadow: false,
-              style: {
-                  fontSize: '10px',
-                color: '#8F8F8F',
-              },
-              valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#8F8F8F; font-size:10px;font-weight:400">{series.name}</span>',
-            verticalAlign: 'middle',
-              align: 'center',
-        
-            },
-            linecap: 'round',
-            stickyTracking: false,
-            rounded: true
-        }
-    },
-
-    series: [{
-        name: 'Avancée travaux',
-        data: [{
-            color: "#20E37B",
-            radius: '100%',
-            innerRadius: '88%',
-            y: 20
-        }]
-    }]
-});
-  </script>

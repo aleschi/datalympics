@@ -1,15 +1,19 @@
 
- <section class="SD-topo-box" id="budget_section">
-  <div class="SD-topo-box-title">
-    <span>Suivi du Budget</span>
-  </div><br><br>
+ <section class="pd32 br20 bs bckc1" id="budget_section">
+  <div>
+    <span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi du Budget</span>
+  </div>
+  <div class="i24"></div>
+
   <div class="flexslider2" id="flexslider3">
     <ul class="slides">
       <% @dates_ouvrages_reporting.each_with_index do |date,i|%>
       <% if @ouvrage.chantiers.where('date = ?',date).count > 0 %>
         <li> 
-          <div class="budget-ouvrages-mois">
-            <div class="box-convention-date"><%= l(date, format: "%e %B %Y") %> </div>
+          <div class="ga ma pr">
+            <div class="c2 tc fw8 fs22"><%= l(date, format: "%e %B %Y") %> </div>
+            <div class='i24'></div>
+
             <div>
               <div class="inline-flex">
               <% @ouvrage.chantiers.where('date = ?',date).each_with_index do |chantier,j| %>
@@ -19,7 +23,8 @@
                   <% elsif @ouvrage.chantiers.where('date = ?',date).count == 2%>
                     <div class="w50">
                   <% end%>
-                    <div class="box-convention-date"><%= chantier.typecontrat %> </div>
+                    <div class="c2 tc fw4 fs14"><%= chantier.typecontrat %> </div>
+                    <div class='i24'></div>
                     <div id="ouvrages<%=i%><%=j%>"></div>
                     <script>
                       Highcharts.chart('ouvrages<%=i%><%=j%>', {
@@ -32,6 +37,7 @@
                             <% else %>
                             width: 350,
                             <% end %>
+                            marginTop:30,
                           backgroundColor: '#fff',
                               style:{
                               fontFamily: "Marianne Regular",
@@ -142,6 +148,9 @@
 
                                   {y:<%= (chantier.total_depenses_actees/1000).round(1)%>, color:"#7D4E5B", dataLabels: {
                                       enabled: true,
+                                      inside: false,
+                                      crop:false,
+                                      overflow:'allow',
                                       formatter: function() {
 
                                         var point = this;                      
@@ -175,11 +184,12 @@
       <% end %>
     </ul>
   </div>
-<br><br>
+  <div class="i40"></div>
  
-   <div class="SD-topo-box-title">
-        <span>Infos sur le suivi budgétaire</span>
-   </div><br><br>
+   <div>
+        <span class="fs16 fw7 pdt c0 bckc2 tupp">Infos sur le suivi budgétaire</span>
+   </div>
+  <div class="i24"></div>
    
    <div class="flexslider" id="flexslider2">
         <ul class="slides">
@@ -187,14 +197,14 @@
           <% @ouvrage.ouvrages_revues.order('date DESC').each do |revue| %>
           <li>  
             <div class="flexslider-slide">
-              <div class="ouvrages-flexslider-title">
-                   Rapport de supervision <%= l(revue.date, :format => '%B %Y')%> : 
-                </div><br>
+              <div class="c1 fs18 tl">Rapport de supervision <%= l(revue.date, :format => '%B %Y')%> : 
+              </div>
+              <div class="i32"></div>
             <div class="row">
               <div class="col-md-6">               
                 
-                 <div class="jauge-box">
-                <div class="jauge-risques">
+                 <div class="inline-flex w100">
+                <div class="inline-flex mw350">
                   <% if revue.budget_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
                   <% if revue.budget_indicateur == 2 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
                   <% if revue.budget_indicateur == 3%><div class="risque3 risque-active"></div><% else %><div class="risque3"></div><% end %>
@@ -202,25 +212,26 @@
                   <% if revue.budget_indicateur == 5%><div class="risque5 risque-active"></div><% else %><div class="risque5"></div><% end %>
                   
                 </div>
-                     <div class="jauge-infos">
-                    <% if @ouvrage.ouvrages_financements.count > 0 %>
-                      <%= number_with_delimiter((@ouvrage.ouvrages_financements.order("date DESC").first.montant_prevu-@ouvrage.budget).to_i, :delimiter => ' ')%><% else %> 0<% end %>  € <br>
-                    <span>Surcoûts envisagés </span>
+                <div class="i24"></div>
+                     <div class="pdt tl w100">
+                      <span class="c3 fs18 ">XX  k€ </span><br>
+                    <span class="c2 fs14 ">Surcoûts envisagés </span>
                   </div>
                 </div>
-                <br><br>
-                  <div class="ouvrages-flexslider-text">
-                    <span>
-                    <em>Revue MOA</em> 
-                    </span> <br><br>
+                <div class="i24"></div>
+                <div class="c6 fs14 tl">
+                    <span class="c1"><em>Revue MOA</em> </span> 
+                    <div class="i24"></div>
                     <%= revue.budget_commentaire %>
                 </div>
+                <div class="i24"></div>
               </div>
               <div class="col-md-6">
-                <div class="ouvrages-flexslider-text">
-                  <span><em>Actions prises par la Solideo </em></span><br><br>
+                <div class="c6 fs14 tl">
+                  <span class="c1"><em>Actions prises par la Solideo </em></span>
+                  <div class="i24"></div>
                   <%= revue.budget_action %>
-                </div><br>
+                </div><div class="i24"></div>
               </div>
             </div>
             </div>
@@ -230,14 +241,15 @@
         </ul>
       </div>
    
-   <br><br>
+  <div class="i24"></div>
 
 </section>
 
+<div class="i24"></div>
 
-<div class="SD-topo-box">
-  <div class="SD-topo-box-title">
-    <span>Financements</span>
+<div class="pd32 br20 bs bckc1">
+  <div>
+    <span class="fs16 fw7 pdt c0 bckc2 tupp">Financements</span>
   </div><br><br>
   <div class="row">
     <div class="col-md-12"> 
@@ -245,7 +257,7 @@
     </div>
   </div>
 </div>
-
+<div class="i24"></div>
 
 
 <script>

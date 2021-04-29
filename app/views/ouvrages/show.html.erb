@@ -1,47 +1,51 @@
 
-<div class="O_page"> 
-  <h1 class="SD_title SD_title2"><%= @ouvrage.name %></h1>
-  <h1 class="SD_subtitle">Dernière mise à jour : <% if !@lastdate.nil?%><%= l(@lastdate, format: "%e %B %Y") %><%else%>22 avril 2021<%end%></h1>
+<div class="mxw1 pd32 ma"> 
+  <div class="i24"></div>
+  <div class="c2 fw6 fs40 tc"><%= @ouvrage.name %></div>
+  <div class="i12"></div>
+  <div class="c2 fw4 fs20 tc">Dernière mise à jour : <% if !@lastdate.nil?%><%= l(@lastdate, format: "%e %B %Y") %><%else%>22 avril 2021<%end%></div>
+  <div class="i40"></div>
   <%= render 'topo_ouvrage'%>
   <%= render 'jalons' %>
   <%= render 'ouvrage_depenses' %>
   
-  <div class="SD-topo-box">
-        <div class="SD-topo-box-title">
-          <span>Informations complémentaires</span>
-        </div><br><br>
-       <div class="row">
-         <div class="col-md-6">
-           <div class="ouvrages-infos-title">
+  <div class="pd32 br20 bs bckc1">
+    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Informations complémentaires</span></div>
+    <div class="i24"></div>
+    <div class="row">
+      <div class="col-md-6">
+           <div class="c6 fs18">
                 Détail du programme 
            </div>
-           <div class="ouvrages-flexslider-text">
+           <div class="i24"></div>
+           <div class="c6 fs14">
              <% if !@ouvrage.description.nil?%>
                 <%= @ouvrage.description %>
              <% end %>
            </div>
-         </div>
-         <div class="col-md-6">
-           <div class="ouvrages-infos-title">
-                Pendant les JO
-              </div>
-           <div class="ouvrages-flexslider-text">
+           <div class="i24"></div>
+      </div>
+      <div class="col-md-6">
+        <div class="c6 fs18"> Pendant les JO</div>
+        <div class="i24"></div>
+        <div class="c6 fs14">
              <% if !@ouvrage.phase_jo.nil?%>
                 <%= @ouvrage.phase_jo %>
              <% end %>
-           </div><br><br>
-              <div class="ouvrages-infos-title">
-                Héritage 
-              </div>
-           <div class="ouvrages-flexslider-text">
+        </div>
+        <div class="i24"></div>
+        <div class="c6 fs18">Héritage</div>
+        <div class="i24"></div>
+        <div class="c6 fs14">
              <% if !@ouvrage.heritage.nil?%>
                 <%= @ouvrage.heritage %>
              <% end %>
-           </div>
-         </div>
-       </div>
-    
+        </div>
+        <div class="i24"></div>
       </div>
+    </div>
+    
+  </div>
 
 </div>
 <script>
