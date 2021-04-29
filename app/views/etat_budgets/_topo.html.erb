@@ -108,6 +108,7 @@
     chart: {
         type: 'column',
     height:'200px',
+    marginTop:20,
       backgroundColor: '#fff',
           style:{
           fontFamily: "Marianne Regular",
@@ -162,7 +163,87 @@
     },
     series: [{
         name: 'Budget Total prévu',
-        data: [{y:<%=(@etat_budget_actuel.budget_solideo/1000000).round%>, color:"#bfbfbf" },{y:<%=(@etat_budget_actuel.budget_cojo/1000000).round%>, color:"#bfbfbf" },{y:<%= (@etat_budget_actuel.budget_heritage/1000000).round%>, color: "#bfbfbf"},{y:<%=(@etat_budget_actuel.budget_hauteperformance/1000000).round%>, color: "#bfbfbf"}],
+        data: [
+        {y:<%=(@etat_budget_actuel.budget_solideo/1000000).round%>, color:"#bfbfbf",dataLabels: {
+                    enabled: true,
+                    formatter: function() {
+
+                      var point = this;                      
+                      ecart = <%= ((@etat_budget_actuel.budget_solideo-EtatBudget.order('date DESC').last.budget_solideo)/1000000).round %>;
+                      
+                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                      
+                       if (ecart >= 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                        }
+                        
+                        content = '<b>' + number  + ' </b>';
+
+                      return header + content;
+                    },
+                }, },
+        {y:<%=(@etat_budget_actuel.budget_cojo/1000000).round%>, color:"#bfbfbf",dataLabels: {
+                    enabled: true,
+                    formatter: function() {
+
+                      var point = this;                      
+                      ecart = <%= ((@etat_budget_actuel.budget_cojo-EtatBudget.order('date DESC').last.budget_cojo)/1000000).round %>;
+                      
+                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                      
+                       if (ecart >= 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                        }
+                        
+                        content = '<b>' + number  + ' </b>';
+
+                      return header + content;
+                    },
+                }, },
+        {y:<%= (@etat_budget_actuel.budget_heritage/1000000).round%>, color: "#bfbfbf",dataLabels: {
+                    enabled: true,
+                    formatter: function() {
+
+                      var point = this;                      
+                      ecart = <%= ((@etat_budget_actuel.budget_heritage-EtatBudget.order('date DESC').last.budget_heritage)/1000000).round %>;
+                      
+                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                      
+                       if (ecart >= 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                        }
+                        
+                        content = '<b>' + number  + ' </b>';
+
+                      return header + content;
+                    },
+                },},
+        {y:<%=(@etat_budget_actuel.budget_hauteperformance/1000000).round%>, color: "#bfbfbf",dataLabels: {
+                    enabled: true,
+                    formatter: function() {
+
+                      var point = this;                      
+                      ecart = <%= ((@etat_budget_actuel.budget_hauteperformance-EtatBudget.order('date DESC').last.budget_hauteperformance)/1000000).round %>;
+                      
+                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                      
+                       if (ecart >= 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                        }
+                        
+                        content = '<b>' + number  + ' </b>';
+
+                      return header + content;
+                    },
+                },}],
         pointPlacement: 0,
     },{
         name: 'Payés',
