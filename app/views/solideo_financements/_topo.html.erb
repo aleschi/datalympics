@@ -89,7 +89,7 @@
               </div>   
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville du Bourget').sum('montant')*100).round(1)%>% </div>
-                <div class="box_i1_t2">La bourget</div>
+                <div class="box_i1_t2">Le bourget</div>
               </div> 
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CASQY',date).sum('montant')/SolideoFinancement.where('financeur=?','CASQY').sum('montant')*100).round(1)%>% </div>
