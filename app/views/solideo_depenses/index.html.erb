@@ -11,29 +11,33 @@
  
   <div class="row">
     <div class="col-md-4 col-sm-5 col-xs-12"> 
-      <div class="calendar-infos">
-        <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-coins"></i>
+
+      <div class="inline-flex w100">
+        <div class="inline-flex w100 ma">
+        <div class="c1">
+        <i class="fas fa-coins fs20 mr10 w25"></i>
         </div>
         <div>
-        <%= number_with_delimiter((Maquette.where('date = ?',@dates_maquettes[@dates_maquettes.length-1]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
-          <span>Budget initial</span>
+        <span class="c1 fs16 fw7"><%= number_with_delimiter((Maquette.where('date = ?',@dates_maquettes[@dates_maquettes.length-1]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€</span><br>
+          <span class='c6 fs16 fw5'>Budget initial</span>
+        </div>
         </div>
       </div>
-      </div>
+      <div class="i32"></div>
       
-        <div class="calendar-infos">
-         <div class="calendar-infos-box">
-        <div>
-          <i class="fas fa-coins"></i>
+      <div class="inline-flex w100">
+        <div class="inline-flex w100 ma">
+        <div class="c1">
+          <i class="fas fa-coins fs20 mr10 w25"></i>
         </div>
         <div>
-          <%= number_with_delimiter((Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
-          <span>Budget actuel</span>
+          <span class="c1 fs16 fw7"><%= number_with_delimiter((Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€</span><br>
+          <span class='c6 fs16 fw5'>Budget actuel</span>
+        </div>
         </div>
       </div>
-      </div>
+      <div class="i60"></div>
+
       <div class="inline-flex w100">
         <div class="inline-flex w100 ma">
         <div class="c1">
@@ -45,19 +49,21 @@
         </div>
       </div>
       </div>
+      <div class="i32"></div>
 
-      <div class="hidden-xs"><br></div>
-      <div class="calendar-infos">
-        <div class="calendar-infos-box">
-        <div>
-         <i class="fas fa-euro-sign"></i>
+      <div class="inline-flex w100">
+        <div class="inline-flex w100 ma">
+        <div class="c1">
+         <i class="fas fa-euro-sign fs20 mr10 w25"></i>
         </div>
         <div>
-        311.2 M€<br>
-          <span>Budget 2021</span>
+          <span class="c1 fs16 fw7">311.2 M€</span><br>
+          <span class='c6 fs16 fw5'>Budget 2021</span>
         </div>
       </div>
       </div>
+      <div class="i32"></div>
+
       <div class="inline-flex w100">
         <div class="inline-flex w100 ma">
         <div class="c1">
@@ -69,13 +75,13 @@
         </div>
       </div>
       </div> 
-       
-       
+      <div class="i32"></div>    
    
     </div>
    
     <div class="col-md-8 col-sm-7 col-xs-12">
-      <div id="container-bar1"></div><br>
+      <div id="container-bar1"></div>
+      <div class="i60"></div>
       <div id="container-bar-all"></div> 
     </div>    
   </div>
@@ -114,19 +120,29 @@
           },
     },
     title: {
-        text: 'Répartition et suivi du budget par pole',
-        verticalAlign: "bottom",
+        text: 'Répartition et suivi du budget par pôle',
+        verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-          fontStyle: 'italic',
+        
           fontSize: '12px',
                   },
     },
 
     xAxis: {
         categories: ['Ouvrages', 'Fonctionnement',  "Innovation", "Réserve" ],
-        crosshair: true
+        crosshair: true,
+        labels: {
+                formatter: function () {
+                  if (this.value == "Ouvrages" || this.value == "Fonctionnement"){
+                    return '<span style="color:#E1000F">' + this.value + '</span>'
+                  } else {
+                    return this.value 
+                  }
+                },
+                useHTML: true,
+            },
     },
     yAxis: {
         min: 0,
@@ -185,18 +201,27 @@
     },
     title: {
        text: 'Suivi annuel des dépenses',
-       verticalAlign: "bottom",
+       verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-          fontStyle: 'italic',
           fontSize: '12px',
                   },
     },
 
     xAxis: {
         categories: ['Réalisé 2018', 'Réalisé 2019',  "Réalisé 2020", "Réalisé 2021", "Cumul"],
-        crosshair: true
+        crosshair: true,
+        labels: {
+                formatter: function () {
+                  if (this.value == "Réalisé 2021"){
+                    return '<span style="color:#E1000F">' + this.value + '</span>'
+                  } else {
+                    return this.value 
+                  }
+                },
+                useHTML: true,
+            },
     },
     yAxis: {
         min: 0,

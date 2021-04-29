@@ -121,7 +121,17 @@
 
         xAxis: {
             categories: ["privé + recettes", "Etat", "RIF", "Ville de Paris", "Métropole Grand Paris", "CD92", "CD93", "CD78", "EPT Plaine Commune","EPT Terres d'envol", "Ville de Dugny", "Ville du Bourget", "CASQY", "Ville de Marseille"],
-            crosshair: true
+            crosshair: true,
+             labels: {
+                formatter: function () {
+                  if (this.value == "privé + recettes"){
+                    return '<span style="color:#E1000F">' + this.value + '</span>'
+                  } else {
+                    return this.value 
+                  }
+                },
+                useHTML: true,
+            },
         },
         yAxis: {
             min: 0,
@@ -517,7 +527,17 @@
 
     xAxis: {
         categories: ['Etat', 'Collectivités',  "Privés (compléments)?", "Recettes" ],
-        crosshair: true
+        crosshair: true,
+        labels: {
+                formatter: function () {
+                  if (this.value == "Privés (compléments)?"){
+                    return '<span style="color:#E1000F;text-align:center;">' + this.value + '</span>'
+                  } else {
+                    return this.value 
+                  }
+                },
+                useHTML: true,
+            },
     },
     yAxis: {
         min: 0,
