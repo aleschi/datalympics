@@ -20,7 +20,7 @@
         <% @documents.each do |document| %>
          <% if document.date.year == date %>
           <% if document.file.attached?%>
-           <div class="fs18 c6 fw" style="padding-right:90px">
+           <div class="documents-mois-doc">
              <% if document.extension == "pdf"%> <i class="far fa-file-pdf"></i>
              <% elsif document.extension == "csv"%> <i class="far fa-file-excel"></i>
              <% elsif document.extension == "ppt" %> <i class="far fa-file-powerpoint"></i>
@@ -29,7 +29,7 @@
              <div class="documents-etat-btn"><%= link_to rails_blob_path(document.file, disposition: 'preview'), target: "_blank" do %><span class="hidden-xs">Visualiser </span><i class="fas fa-eye"></i><% end %><%= link_to delete_document_path(id: document.id), method: :post, class:"documents-etat-delete" do%><i class="fas fa-trash-alt"></i><% end%></div>
            </div>
           <% else%>
-            <div class="fs18 c6 fw" style="padding-right:90px">
+            <div class="documents-mois-doc">
              <i class="far fa-file-excel"></i> <%= document.name%>
               <div class="documents-etat-btn"><%= link_to edit_document_path(document), remote: true do%><span class="hidden-xs">Transmettre</span><span class="visible-xs"><i class="fas fa-download"></i></span><% end%></div>
            </div>
