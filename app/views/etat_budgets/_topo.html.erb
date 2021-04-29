@@ -7,17 +7,18 @@
   
     <div class="row">
     <div class="col-md-4 col-sm-5 col-xs-12">
+
       <div class="inline-flex w100">
         <div class="inline-flex w100 ma">
-        <div class="c1">
-        <i class="fas fa-coins fs20 mr10 w25"></i>
+          <div class="c1">
+            <i class="fas fa-coins fs20 mr10 w25"></i>
+          </div>
+          <div>
+          <span class="c1 fs16 fw7">
+            <%= number_with_delimiter((EtatBudget.first.budget_total/1000000).round, :delimiter => ' ') %> M€</span><br>
+            <span class='c6 fs16 fw5'>Budget initial</span>
+          </div>
         </div>
-        <div>
-        <span class="c1 fs16 fw7">
-          <%= number_with_delimiter((EtatBudget.first.budget_total/1000000).round, :delimiter => ' ') %> M€<br>
-          <span class='c6 fs16 fw5'>Budget initial</span>
-        </div>
-      </div>
       </div>
       <div class="i32"></div>
 
@@ -28,57 +29,57 @@
           </div>
           <div>
             <span class="c1 fs16 fw7">
-          <%= number_with_delimiter((EtatBudget.last.budget_total/1000000).round, :delimiter => ' ') %> M€<br>
+          <%= number_with_delimiter((EtatBudget.last.budget_total/1000000).round, :delimiter => ' ') %> M€</span><br>
             <span class='c6 fs16 fw5'>Budget actuel</span>
           </div>
         </div>
       </div>
       <div class="i60"></div>
 
+      
       <div class="inline-flex w100">
         <div class="inline-flex w100 ma">
-        <div class="c1">
-           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
+          <div class="c1">
+             <i class="fas fa-euro-sign fs20 mr10 w25"></i>
+          </div>
+          <div>
+            <span class="c1 fs16 fw7">
+            <%= number_with_delimiter((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')/1000000).round, :delimiter => ' ') %> M€</span><br>
+            <span class='c6 fs16 fw5'>Budget 2021</span>
+          </div>
         </div>
-        <div>
-          <span class="c1 fs16 fw7"><%= number_with_delimiter((EtatDepense.sum('cp_conso')/1000000).round, :delimiter => ' ') %> M€<br>
-          <span class='c6 fs16 fw5'>Dépenses cumulées depuis le début</span>
-        </div>
-      </div>
       </div>
 
       <div class="i32"></div>
       <div class="inline-flex w100">
         <div class="inline-flex w100 ma">
-        <div class="c1">
-           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
-        </div>
-        <div>
-          <span class="c1 fs16 fw7">
-          <%= number_with_delimiter((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')/1000000).round, :delimiter => ' ') %> M€<br>
-          <span class='c6 fs16 fw5'>Budget 2021</span>
+          <div class="c1">
+             <i class="fas fa-euro-sign fs20 mr10 w25"></i>
+          </div>
+          <div>
+            <span class="c1 fs16 fw7">
+            <%= number_with_delimiter((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/1000000).round, :delimiter => ' ') %> M€</span><br>
+            <span class='c6 fs16 fw5'>Dépenses 2021</span>
+          </div>
         </div>
       </div>
 
-      </div>
 
       <div class="i32"></div>
       <div class="inline-flex w100">
         <div class="inline-flex w100 ma">
-        <div class="c1">
-           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
-        </div>
-        <div>
-          <span class="c1 fs16 fw7">
-          <%= number_with_delimiter((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/1000000).round, :delimiter => ' ') %> M€<br>
-          <span class='c6 fs16 fw5'>Dépenses 2021</span>
+          <div class="c1">
+             <i class="fas fa-euro-sign fs20 mr10 w25"></i>
+          </div>
+          <div>
+            <span class="c1 fs16 fw7"><%= number_with_delimiter(((EtatDepense.sum('ae_conso')-EtatDepense.sum('cp_conso'))/1000000).round, :delimiter => ' ') %> M€</span><br>
+            <span class='c6 fs16 fw5'>Reste à payer (AE-CP)</span>
+          </div>
         </div>
       </div>
 
-
     </div>
 
-    </div>
       <div class="col-md-8 col-sm-7 col-xs-12">
         <div id="container-bar1"></div>
         <div class="i60"></div>
@@ -127,7 +128,7 @@
     },
 
     xAxis: {
-        categories: ['Solideo', 'Cojo',  "Héritage", "Haute Performance" ],
+        categories: ['Solideo', 'Cojo',  "Héritage", "Autres" ],
         crosshair: true
     },
     yAxis: {
@@ -259,6 +260,7 @@
     chart: {
         type: 'column',
     height:'200px',
+    marginTop:20,
       backgroundColor: '#fff',
           style:{
           fontFamily: "Marianne Regular",
@@ -277,7 +279,7 @@
     },
 
     xAxis: {
-        categories: ['Dépenses 2018', 'Dépenses 2019',  "Dépenses 2020", "Dépenses 2021", "Budget 2021","Dépenses Cumul"],
+        categories: ['Dépenses 2018', 'Dépenses 2019',  "Dépenses 2020", "Dépenses 2021", "Budget 2021","Dépenses Cumul",'AE conso cumul'],
         crosshair: true
     },
     yAxis: {
@@ -318,7 +320,8 @@
           {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2020,1,1), Date.new(2020,12,31)).sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
           {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2021,1,1), Date.new(2021,12,31)).sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
           {y:<%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2021,1,1), Date.new(2021,12,31)).sum('cp_prevu')/1000000).round%>, color: "#bfbfbf"},
-          {y:<%=(EtatDepense.all.sum('cp_conso')/1000000).round%>, color: "#76505B"}],
+          {y:<%=(EtatDepense.all.sum('cp_conso')/1000000).round%>, color: "#76505B"},
+          {y:<%=(EtatDepense.all.sum('ae_conso')/1000000).round%>, color: "#20E37B"}],
         pointPlacement: 0,
     },]
 });

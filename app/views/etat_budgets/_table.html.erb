@@ -43,7 +43,7 @@
               <th scope="col"><%= link_to solideo_depenses_path do %>Solideo<%end%></th>
               <th scope="col">Cojo</th>
               <th scope="col">Héritage</th>
-              <th scope="col">Haute Performance</th>
+              <th scope="col">Autres</th>
               <th scope="col" class="border-none">Total</th>
             </tr>
           </thead>
@@ -132,7 +132,7 @@
               <th scope="col"><%= link_to solideo_depenses_path do %>Solideo<%end%></th>
               <th scope="col">Cojo</th>
               <th scope="col">Héritage</th>
-              <th scope="col">Haute Performance</th>
+              <th scope="col">Autres</th>
               <th scope="col" class="border-none">Total</th>
             </tr>
           </thead>
@@ -440,7 +440,7 @@ $("#cp_button").addClass('button-cp-active');
           },
     },
     title: {
-       text: 'Suivi annuel des dépenses pour Haute Performance',
+       text: 'Suivi annuel des dépenses pour Autres',
        verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
@@ -714,7 +714,7 @@ $("#cp_button").addClass('button-cp-active');
           },
     },
     title: {
-       text: 'Suivi annuel des AE pour Haute Performance',
+       text: 'Suivi annuel des AE pour Autres',
        verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
@@ -845,7 +845,7 @@ Highcharts.chart('container-chart', {
             y: <%= ((EtatBudget.last.budget_heritage-EtatBudget.first.budget_heritage)/1000).round%>,
             color: "#C68D7B",
         },{
-            name: 'ΔHaute Performance',
+            name: 'ΔAutres',
             y: <%= ((EtatBudget.last.budget_hauteperformance-EtatBudget.first.budget_hauteperformance)/1000).round%>,
             color: "#C68D7B",
         },  {
