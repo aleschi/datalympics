@@ -1,28 +1,26 @@
 <% if !@document.nil?%>
 <%= render 'documents/form'%>
 <% end %>
-<div class="SD_page">
- 
-  <h1 class="SD_title">Documents Solideo </h1>
+<div class="mxw1 pd32 ma">
+  <div class="i24"></div>
+  <div class="c2 fw6 fs40 tc">Documents Solideo </div>
+   <div class="i40"></div>
   
-  <div class="SD-topo-box">
-   <div class="SF-topo-financeurs-title"><span>Liste des Documents </span></div><br>
-    <br>
-    
-    
-    
+  <div class="pd32 br20 bs bckc1">
+  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Liste des Documents </span></div>
+   <div class="i24"></div>
     <div class="row">
      <div class="col-md-12">
        <% @dates.each do |date| %>
        <% if date <= Date.today.year %>
-        <div class="documents-mois-titre">
+        <div class="c1 fw7 fs18 tupp">
           <%= date %>
         </div>
        <% if !@documents.nil?%>
         <% @documents.each do |document| %>
          <% if document.date.year == date %>
           <% if document.file.attached?%>
-           <div class="documents-mois-doc">
+           <div class="fs18 c6 fw" style="padding-right:90px">
              <% if document.extension == "pdf"%> <i class="far fa-file-pdf"></i>
              <% elsif document.extension == "csv"%> <i class="far fa-file-excel"></i>
              <% elsif document.extension == "ppt" %> <i class="far fa-file-powerpoint"></i>
@@ -31,7 +29,7 @@
              <div class="documents-etat-btn"><%= link_to rails_blob_path(document.file, disposition: 'preview'), target: "_blank" do %><span class="hidden-xs">Visualiser </span><i class="fas fa-eye"></i><% end %><%= link_to delete_document_path(id: document.id), method: :post, class:"documents-etat-delete" do%><i class="fas fa-trash-alt"></i><% end%></div>
            </div>
           <% else%>
-            <div class="documents-mois-doc">
+            <div class="fs18 c6 fw" style="padding-right:90px">
              <i class="far fa-file-excel"></i> <%= document.name%>
               <div class="documents-etat-btn"><%= link_to edit_document_path(document), remote: true do%><span class="hidden-xs">Transmettre</span><span class="visible-xs"><i class="fas fa-download"></i></span><% end%></div>
            </div>

@@ -17,7 +17,7 @@
           <div class="navigation-avatar-name">
             <% if user_signed_in? %><%= current_user.email%> <% end %>
           </div>
-          <div class="navigation-avatar-name">
+          <div class="navigation-avatar-name hidden">
             connecté en tant que : AGENT DB 
           </div>
         </div>
@@ -30,7 +30,7 @@
         <div class=" navigation-menu TB-menu-prof menu-accueil">
           <%= link_to root_path, class: "menu" do%><i class="fas fa-home"></i> Accueil<% end %>
         </div>
-        <div class="navigation-menu menu-jeux"><%= link_to les_jop2024_path, class: "menu" do %><i class="fab fa-free-code-camp"></i> Les Jeux 2024 <%end%></div>
+        <div class="navigation-menu menu-jeux hidden"><%= link_to les_jop2024_path, class: "menu" do %><i class="fab fa-free-code-camp"></i> Les Jeux 2024 <%end%></div>
 
         <!-- nav ouvrage page -->
         <% if !@navshow.nil? && !@ouvrage.nil?%>
@@ -63,25 +63,30 @@
             <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_path, class:"menu2 menu-solideo-ouvrages" do%>Infos & Carte <%end%></div> 
             <div class="navigation-menu navigation-menu2"><%= link_to chantiers_path, class:"menu2 menu-solideo-chantiers" do%>Suivi des risques<%end%></div>
             <div class="navigation-menu navigation-menu2"><%= link_to timeline_path, class:"menu2 menu-ouvrages-timeline" do%>Timeline des ouvrages<%end%></div>
+            <div class="navigation-menu navigation-menu2"><%= link_to conventions_path, class:"menu2 menu-ouvrages-conventions" do%>Suivi des conventions<%end%></div>
 
           </section>
 
           <!-- Budget Solideo -->
           <div class="dropdown navigation-menu ">
-            <a class="menu menu-solideo" href="#MonCollapse-xs" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-xs" id="btn-collapse-xs"><i class="fas fa-funnel-dollar"></i> Budget Solideo <span class="collapse-icon"></span></a>
+            <a class="menu menu-solideo" href="#MonCollapse-xs" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse-xs" id="btn-collapse-xs"><i class="fas fa-funnel-dollar"></i> Suivi Budget Solideo <span class="collapse-icon"></span></a>
           </div>
           <section id="MonCollapse-xs" class="collapse">
-            <div class="navigation-menu navigation-menu2"><%= link_to solideo_depenses_path, class:"menu2  menu-solideo-depenses" do %>Budget global<%end%></div>
+            <div class="navigation-menu navigation-menu2"><%= link_to solideo_depenses_path, class:"menu2  menu-solideo-depenses" do %>Dépenses Solideo<%end%></div>
             <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_depenses_path, class:"menu2 menu-solideo-maquette" do%>Maquette financière <%end%></div>
             <div class="navigation-menu navigation-menu2"><%= link_to solideo_financements_path, class:"menu2 menu-solideo-finances" do %>Financements & Recettes <%end%></div>
           </section>
 
+  
           <!-- Budget Etat-->
-          <div class="dropdown navigation-menu">
+          <div class="navigation-menu"><%= link_to etat_budgets_path, class:"menu  menu-budget-global" do %><i class="fas fa-funnel-dollar"></i> Suivi Budget Etat<%end%></div>
+
+
+          <div class="dropdown navigation-menu hidden">
             <a class="menu menu-budget-etat" href="#MonCollapse2-xs" id="btn-budget-collapse-xs" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="MonCollapse2-xs" id="btn-collapse-xs"><i class="fas fa-coins"></i> Budget Etat<span class="collapse-icon"></span></a>
           </div>
           <section id="MonCollapse2-xs" class="collapse">
-            <div class="navigation-menu navigation-menu2"><%= link_to etat_budgets_path, class:"menu2  menu-budget-global" do %>Budget global<%end%></div>
+            
 
             <div class="navigation-menu navigation-menu2"><%= link_to etat_budget_solideo_path, class:"menu2 menu-budget-solideo" do %>Part SOLIDEO <%end%></div>
 

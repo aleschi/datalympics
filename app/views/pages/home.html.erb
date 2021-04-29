@@ -20,7 +20,7 @@
               <div id="focus"></div>
             </div>
             <div class="col-md-3 padding-none">
-              <div class="bckc2 c0 fs14 fw4 pd8"><span class="fw8"><%= (@ouvrages_budget_2021-@ouvrages_depenses_2021).round(1)%> M€</span> <br>Reste à payer</div>
+              <div class="bckc2 c0 fs14 fw4 pd8 tc"><span class="fw8"><%= (@ouvrages_budget_2021-@ouvrages_depenses_2021).round(1)%> M€</span> <br>Reste à payer</div>
             </div>
           </div>
           
@@ -39,7 +39,7 @@
               <div id="budget"></div>
             </div>
             <div class="col-md-3 padding-none">
-              <div class="bckc2 c0 fs14 fw4 pd8"><span class="fw8"><%= (@ouvrages_budget_global-@ouvrages_depenses_global).round(1)%> M€</span> <br>Reste à payer</div>
+              <div class="bckc2 c0 fs14 fw4 pd8 tc"><span class="fw8"><%= (@ouvrages_budget_global-@ouvrages_depenses_global).round(1)%> M€</span> <br>Reste à payer</div>
             </div>
           </div>
             
@@ -61,70 +61,124 @@
             <% if !Convention.last.nil?%>            
 
             <div id="container-conv"></div>
+           
             <script>
-              Highcharts.chart('container-conv', {
-                  chart: {
-                      plotBackgroundColor: null,
-                      plotBorderWidth: null,
-                      plotShadow: false,
-                      type: 'pie',
-                      backgroundColor: '#fff',
-                        style:{
-                        fontFamily: "Marianne Regular",
-                  
-                        },
-                    height: '280px',
-                  },
-                  title: {
-                       text:null,   
-                        style: {
-                                color: "#8F8F8F",
-                                fontWeight: "400",
-                                fontStyle: "italic",
-                                fontSize: '16px',
-                                },
-                  },
-                  colors: ['#2E5D63','#C68D7B', '#20E37B'],
-                  tooltip: {
-                      pointFormat: '{series.name}: <b>{point.y} </b>',
-                    borderColor: 'transparent',
-                    borderRadius: 16,
-                    backgroundColor: '#fff',
+                Highcharts.chart('container-conv', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie',
+                        height:'280px',
+                        backgroundColor: '#fff',
+                          style:{
+                          fontFamily: "Marianne Regular",
+                    
+                          },
+                      
                     },
-              
-                  plotOptions: {
-                      pie: {
-                          allowPointSelect: true,
-                          cursor: 'pointer',
-                         size: 200,
-                          dataLabels: {
+                    title: {
+                         text:null,   
+                          style: {
+                                  color: "#8F8F8F",
+                                  fontWeight: "400",
+                                  fontStyle: "italic",
+                                  fontSize: '16px',
+                                  },
+                    },
+                    colors: ['#2E5D63','#C68D7B', '#20E37B'],
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.y} </b>',
+                      borderColor: 'transparent',
+                      borderRadius: 16,
+                      backgroundColor: '#fff',
+                      },
+                
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                           size: 200,
+                            
+                        }
+                    },
+                    series: [{
+                        name: 'Conventions signées',
+                        colorByPoint: true,
+                        innerSize: '80%',
+                        data: [ {
+                            name: 'Convention études',
+                            y: <%= Convention.order('date DESC').first.etudes_signature%>,
+                            dataLabels: {
                               enabled: true,
-                              format: '<b>{point.name}</b><br>{point.y}',
-                            style: {
-                                    color: "#8F8F8F",
-                                    fontSize: "11px",
-                                    fontWeight: "400",
-                                    fontStyle: "italic",
-                                    },
-                          }
-                      }
-                  },
-                  series: [{
-                      name: 'Conventions signées',
-                      colorByPoint: true,
-                      data: [{
-                          name: 'Conventions travaux',
-                          y: <%= Convention.last.travaux_signature%>,
-                      }, {
-                          name: 'Conventions objectifs',
-                          y: <%= Convention.last.objectifs_signature%>,
-                      }, {
-                          name: 'Convention études',
-                          y: <%= Convention.last.etudes_signature%>,
-                      }]
-                  }]
-              });
-            </script>
+                              formatter: function() {
+
+                                var point = this;                      
+                                ecart = <%= Convention.order('date DESC').first.etudes_signature - Convention.where('date = ?',Convention.order('date DESC').first.date-1.month).sum('etudes_signature') %>;
+                                
+                                number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                
+                                 if (ecart >= 0){
+                                    header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                  }else{
+                                    header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                                  }
+                                  
+                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDE <br/>';
+
+                                return content + header ;
+                              },
+                          },
+                        },{
+                            name: 'Conventions travaux',
+                            y: <%= Convention.order('date DESC').first.travaux_signature%>,
+                            dataLabels: {
+                              enabled: true,
+                              formatter: function() {
+
+                                var point = this;                      
+                                ecart = <%= Convention.order('date DESC').first.etudes_signature - Convention.where('date = ?',Convention.order('date DESC').first.date-1.month).sum('etudes_signature') %>;
+                                
+                                number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                
+                                 if (ecart >= 0){
+                                    header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                  }else{
+                                    header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                                  }
+                                  
+                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDT <br/>';
+
+                                return content + header ;
+                              },
+                          },
+                        }, {
+                            name: 'Conventions objectifs',
+                            y: <%= Convention.order('date DESC').first.objectifs_signature%>,
+                            dataLabels: {
+                              enabled: true,
+                              formatter: function() {
+
+                                var point = this;                      
+                                ecart = <%= Convention.order('date DESC').first.etudes_signature - Convention.where('date = ?',Convention.order('date DESC').first.date-1.month).sum('etudes_signature') %>;
+                                
+                                number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                                
+                                 if (ecart >= 0){
+                                    header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                                  }else{
+                                    header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                                  }
+                                  
+                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDO <br/>';
+
+                                return content + header ;
+                              },
+                          },
+                        }]
+                    }]
+                });
+              </script>
             <% end %>
           </div>
         </div>
@@ -315,7 +369,7 @@ Highcharts.chart('container-jauge4', {
             grouping: false,
             shadow: false,
             borderWidth: 0,
-            pointWidth: 25,
+            pointWidth: 15,
         }
     },
     series: [{
@@ -415,7 +469,7 @@ Highcharts.chart('container-jauge4', {
               grouping: false,
               shadow: false,
               borderWidth: 0,
-              pointWidth: 25,
+              pointWidth: 15,
           }
       },
       series: [{

@@ -1,70 +1,77 @@
 
 
 <% if !@etat_budget_actuel.nil? %>
-<div class="SD-topo-box">
-  <div class="SD-topo-box-title">
-    <span>Le Budget de l'état  en chiffres</span>
-  </div><br><br>
+<div class="pd32 br20 bs bckc1">
+  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Le Budget de l'état  en chiffres</span></div>
+  <div class="i24"></div>
   
     <div class="row">
     <div class="col-md-4 col-sm-5 col-xs-12">
-      <div class="calendar-infos">
-        <div class="calendar-infos-box">
-        <div>
-          <i class="fas fa-coins"></i>
+      <div class="inline-flex w100">
+        <div class="inline-flex w100 ma">
+        <div class="c1">
+        <i class="fas fa-coins fs20 mr10 w25"></i>
         </div>
         <div>
+        <span class="c1 fs16 fw7">
           <%= number_with_delimiter((EtatBudget.first.budget_total/1000000).round, :delimiter => ' ') %> M€<br>
-          <span>Budget initial</span>
+          <span class='c6 fs16 fw5'>Budget initial</span>
+        </div>
+      </div>
+      </div>
+      <div class="i32"></div>
+
+      <div class="inline-flex w100">
+        <div class="inline-flex w100 ma">
+          <div class="c1">
+            <i class="fas fa-coins fs20 mr10 w25"></i>
+          </div>
+          <div>
+            <span class="c1 fs16 fw7">
+          <%= number_with_delimiter((EtatBudget.last.budget_total/1000000).round, :delimiter => ' ') %> M€<br>
+            <span class='c6 fs16 fw5'>Budget actuel</span>
+          </div>
+        </div>
+      </div>
+      <div class="i60"></div>
+
+      <div class="inline-flex w100">
+        <div class="inline-flex w100 ma">
+        <div class="c1">
+           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
+        </div>
+        <div>
+          <span class="c1 fs16 fw7"><%= number_with_delimiter((EtatDepense.sum('cp_conso')/1000000).round, :delimiter => ' ') %> M€<br>
+          <span class='c6 fs16 fw5'>Dépenses cumulées depuis le début</span>
         </div>
       </div>
       </div>
 
-      <div class="calendar-infos">
-      <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-coins"></i>
+      <div class="i32"></div>
+      <div class="inline-flex w100">
+        <div class="inline-flex w100 ma">
+        <div class="c1">
+           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
         </div>
         <div>
-        <%= number_with_delimiter((EtatBudget.last.budget_total/1000000).round, :delimiter => ' ') %> M€<br>
-          <span>Budget actuel</span>
-        </div>
-      </div>
-
-    </div>
-    <div class="calendar-infos">
-        <div class="calendar-infos-box">
-        <div>
-           <i class="fas fa-euro-sign"></i>
-        </div>
-        <div>
-          <%= number_with_delimiter((EtatDepense.sum('cp_conso')/1000000).round, :delimiter => ' ') %> M€<br>
-          <span>Dépenses cumulées depuis le début</span>
-        </div>
-      </div>
-      </div>
-    <div class="hidden-xs"><br></div>
-      
-      <div class="calendar-infos">
-      <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-euro-sign"></i>
-        </div>
-        <div>
-        <%= number_with_delimiter((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')/1000000).round, :delimiter => ' ') %> M€<br>
-          <span>Budget 2021</span>
+          <span class="c1 fs16 fw7">
+          <%= number_with_delimiter((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')/1000000).round, :delimiter => ' ') %> M€<br>
+          <span class='c6 fs16 fw5'>Budget 2021</span>
         </div>
       </div>
 
-    </div>
-      <div class="calendar-infos">
-      <div class="calendar-infos-box">
-        <div>
-           <i class="fas fa-euro-sign"></i>
+      </div>
+
+      <div class="i32"></div>
+      <div class="inline-flex w100">
+        <div class="inline-flex w100 ma">
+        <div class="c1">
+           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
         </div>
         <div>
+          <span class="c1 fs16 fw7">
           <%= number_with_delimiter((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/1000000).round, :delimiter => ' ') %> M€<br>
-          <span>Dépenses 2021</span>
+          <span class='c6 fs16 fw5'>Dépenses 2021</span>
         </div>
       </div>
 
@@ -73,12 +80,14 @@
 
     </div>
       <div class="col-md-8 col-sm-7 col-xs-12">
-        <div id="container-bar1"></div><br>
+        <div id="container-bar1"></div>
+        <div class="i60"></div>
         <div id="container-bar-all"></div> 
       </div>
   </div>
-  <br><br>
+
 </div>
+<div class="i24"></div>
 <% end %>
 
 <script>
@@ -107,11 +116,11 @@
     },
     title: {
         text: 'Répartition et suivi du budget par action',
-        verticalAlign: "bottom",
+        verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-          fontStyle: 'italic',
+         
           fontSize: '12px',
                   },
     },
@@ -177,11 +186,11 @@
     },
     title: {
        text: 'Suivi annuel des dépenses',
-       verticalAlign: "bottom",
+       verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-          fontStyle: 'italic',
+    
           fontSize: '12px',
                   },
     },
