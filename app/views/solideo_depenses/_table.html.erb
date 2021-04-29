@@ -69,7 +69,17 @@
 
         xAxis: {
             categories: ['Dépenses 2018', 'Dépenses 2019',  "Dépenses 2020", "Dépenses 2021", "Budget 2021", "Total dépenses", "Total engagés", "Jalons validés"],
-            crosshair: true
+            crosshair: true,
+            labels: {
+                formatter: function () {
+                  if (this.value == "Dépenses 2018" || this.value == "Dépenses 2019" || this.value == "Dépenses 2020" ){
+                    return '<span style="color:#E1000F;">' + this.value + '</span>'
+                  } else {
+                    return this.value 
+                  }
+                },
+                useHTML: true,
+            },
         },
         yAxis: {
             min: 0,
@@ -173,6 +183,9 @@
                 },},
             {y:<%=(Chantier.where('date = ?',date).sum('total_depenses_actees')/1000000).round(1)%>, color: "#7D4E5B",dataLabels: {
                     enabled: true,
+                    inside: false,
+                    crop:false,
+                    overflow:'allow',
                     formatter: function() {
 
                       var point = this;                      
