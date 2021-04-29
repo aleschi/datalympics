@@ -197,14 +197,14 @@
           <% @ouvrage.ouvrages_revues.order('date DESC').each do |revue| %>
           <li>  
             <div class="flexslider-slide">
-              <div class="c1 fs18 tl">Rapport de supervision <%= l(revue.date, :format => '%B %Y')%> : 
+              <div class="c2 fs18 tl">Rapport de supervision <%= l(revue.date, :format => '%B %Y')%> : 
               </div>
               <div class="i32"></div>
             <div class="row">
               <div class="col-md-6">               
                 
                  <div class="inline-flex w100">
-                <div class="inline-flex mw350">
+                <div class="inline-flex w100 mw350">
                   <% if revue.budget_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
                   <% if revue.budget_indicateur == 2 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
                   <% if revue.budget_indicateur == 3%><div class="risque3 risque-active"></div><% else %><div class="risque3"></div><% end %>
@@ -266,8 +266,8 @@
     animation: "slide",
     animationLoop: false,
     slideshow: false, 
-    prevText: "Précédent",    
-    nextText:'Suivant',
+    prevText: "Mois suivant",    
+    nextText:'Mois précédent',
   });
 });
 </script>

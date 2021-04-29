@@ -23,27 +23,22 @@
   </div>
    <div class="i24"></div>
   
-  <div class="supervision-box">
-
     <div class="flexslider" id="flexslider">
         <ul class="slides">
           <% if @ouvrage.ouvrages_revues.count > 0 %>
           <% @ouvrage.ouvrages_revues.order('date DESC').each do |revue| %>
           <li> 
             <div class="flexslider-slide">
-              
-            <% if user_signed_in? && (current_user.email == "lou.vettier@finances.gouv.fr" || current_user.email == "alexandra.leschi@finances.gouv.fr") %>
-            <div class="edit-revues-btn"><%= link_to edit_ouvrages_revue_path(revue) do %> Modifier <i class="fas fa-pencil-alt"></i><% end %></div>
-            <% end %>
-              <div class="ouvrages-flexslider-title">
-                   Rapport de supervision <%= l(revue.date, :format => '%B %Y')%> :
-                </div><br>
+              <div class="c2 fs18 tl">Rapport de supervision <%= l(revue.date, :format => '%B %Y')%> :
+                </div>
+                <div class="i32"></div>
+
             <div class="row">
               <div class="col-md-6">               
                 
-                <div class="jauge-box">
+                <div class="inline-flex w100">
 
-                  <div class="jauge-risques">
+                  <div class="inline-flex w100 mw350">
                     <% if revue.delai_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
                     <% if revue.delai_indicateur == 2 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
                     <% if revue.delai_indicateur == 3 %><div class="risque3 risque-active"></div><% else %><div class="risque3"></div><% end %>
@@ -51,22 +46,24 @@
                     <% if revue.delai_indicateur == 5%><div class="risque5 risque-active"></div><% else %><div class="risque5"></div><% end %>
 
                   </div>
-                  <div class="jauge-infos">
-                    <%= revue.delai_time.to_i %> mois <br>
-                    <span>Retard envisagé </span>
+                  <div class="i24"></div>
+                    <div class="pdt tl w100">
+                    <span class="c3 fs18 "><%= revue.delai_time.to_i %> mois </span><br>
+                    <span class="c2 fs14 ">Retard envisagé </span>
                   </div>
                 </div>
-                <br><br>
-                  <div class="ouvrages-flexslider-text">
-                    <span><em>Revue MOA </em></span> <br><br>
+                <div class="i24"></div>
+                <div class="c6 fs14 tl">
+                    <span class="c1"><em>Revue MOA </em></span>
+                    <div class="i24"></div>
                    <%= revue.delai_commentaire %>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="ouvrages-flexslider-text">
-                   <span><em>Actions prises par la SOLIDEO </em></span><br><br>
+                <div class="c6 fs14 tl">
+                  <span class="c1"><em>Actions prises par la SOLIDEO </em></span><br><br>
                   <%= revue.delai_action %>
-                </div><br>
+                </div><div class="i24"></div>
               </div>
             </div>
               
@@ -76,8 +73,6 @@
           <% end %>
         </ul>
       </div>
-     
-  </div>
     
 </div>
 <div class="i24"></div>
