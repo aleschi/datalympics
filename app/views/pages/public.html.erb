@@ -1,36 +1,58 @@
+<script>
+  AOS.init();
+</script>
 <div class='background'>
 <%= render 'layouts/navigation_public'%> 
 </div>
 <div class='background'>
   <div class="page-public">
 
-<div class="graphic">
-  <div id="sections">
-    <div class="public-title">Combien coûtent les JOP24 ?</div>
-      <div class="step" id="1">         
-          Le budget des Jeux Olympiques et Paralympiques annoncé lors de la candidature de Paris 2024 est de 6,8 milliards d’euros.
-      </div>
-      <div class="step" id="2">
-          25% de ce budget est financé par de l’argent public, soit 1,7 milliards d’euros. L’argent public provient de différents contributeurs : l’Etat (XX%), la Ville de Paris (XX%) et d'autres collectivités locales. <br>
-      </div>
-    
-      <div class="step" id="3">
-          Il est réparti à travers différents poles. Une partie sert à construire et rénover les ouvrages accueillants les sportifs pour la compétition. Une partie sert aux frais de fonctionnement à savoir la rémunérations de toutes les personnes impliquées dans les jeux olympiques.
-      </div>
-      <div class="step" id="4">
-          2 organismes sont en charge de ce budget. La Solideo est la structure rattachée à l'Etat qui s'occupe de la construction et rénovation de la majorité des ouvrages. Le Cojo est quant à lui responsable de la billeterie, communication autour des jeux et de quelques sites de la compétition
-      </div>
-      <div class="step" id="5">
+  <div class="graphic">
+    <div class="sections">
+      <div class="public-title">Combien coûtent les JOP24 ?</div>
+        <div class="step tp1" id="1">         
+            Le budget des Jeux Olympiques et Paralympiques annoncé lors de la candidature de Paris 2024 est de <span class="tp1b">6,8 milliards d’euros.</span>
+        </div>
+        <div class="step tp1" id="2">
+            2 organismes sont en charge de ce budget. La Solideo est la structure rattachée à l'Etat qui s'occupe de la <span class="tp1b">construction et rénovation</span> de la majorité des ouvrages olympiques. Le Cojo est quant à lui responsable de la <span class="tp1b">billeterie</span>, de la <span class="tp1b">communication</span> autour des jeux et de <span class="tp1b">l'aménagement</span> de quelques sites de la compétition.
+        </div>
+
+        <div class="step tp1" id="2b">
+            Ces deux organismes recoivent de l'argent public pour assurer la réalisation des JOP. La Solideo qui assurent la construction mais également la pérénisation de ces derniers reçoit X € de la part de l'Etat. Le Cojo recoit X€ principalement pour la construction de certains sites d'entrainements.<br><br>
+            Au total, <span class="tp1b">1,7 milliards d’euros</span> est versé par l'Etat soit 25% du budget global <br><br>
+            L’argent public provient de différents contributeurs : l’Etat (XX%), et 12 autres collectivités dont la Ville de Paris (XX%) et la métropole Grand Paris (XX%). <br>
+        </div>
+      
+        <div class="step tp1" id="3">
+            Les fonds engagés par la Solideo sont répartis à travers différents poles. Une partie sert à construire et rénover les <span class="tp1b">ouvrages</span> accueillants les sportifs pour la compétition. Une partie sert aux <span class="tp1b">frais de fonctionnement</span> à savoir la rémunérations de toutes les personnes impliquées dans l'organisation des jeux olympiques.
+        </div>
+        
+    </div>
+    <div class="graphe-box">
+    <div id="graphe">
+
+    </div>
+    </div>
+  </div>
+
+
+  <div class="row step public-chiffres-aos" data-aos="zoom-in-up" data-aos-duration="1500">
+    <div id="recap"></div>
+  </div>
+
+  <div class="graphic">
+  <div class="sections">
+      <div class="step tp1" id="5">
           Comparaison avec les autres jeux olympiques
       </div>
-      <div class="step" id="6">
+      <div class="step tp1" id="6">
           Réalité
       </div>
   
 
   </div>
   <div class="graphe-box">
-  <div id="graphe">
+  <div id="graphe2">
 
   </div>
   </div>
@@ -89,6 +111,7 @@ var chart = Highcharts.chart('graphe', {
           gridLineColor: '#fff',
          
         },
+        colors: ['#cecece','#958B62','#DCB796','#FF8D7E'],
         legend: {
             shadow: false,
             enabled:false,
@@ -135,9 +158,99 @@ var chart = Highcharts.chart('graphe', {
 
         } ]
       });
+var chart2 = Highcharts.chart('graphe2', {
+        chart: {
+            type: 'column',
+          
+            height: '600px',
+            spacingTop: 0,
+            style:{
+              fontFamily: "Marianne Regular",
+            },
+             options3d: {
+                enabled: true,
+                alpha: 15,
+                beta: 15,
+                depth: 80,
+                viewDistance: 55
+            }
+        },
+        title: {
+            text: null,
+           
+        },
+        xAxis: {
+          categories: ['Suivi Budget 2021'],
+            title: {
+            text: null,
+          },
+          lineColor: '#fff',
+          gridLineColor: '#fff',
+          labels: {
+            enabled: false,
+          },
+        },
+        yAxis: {
+          gridLineColor: '#fff',
+      
+          title: {
+            text: null,
+          },
+          labels: {
+            enabled: false,
+          },
+        },
+        zAxis:{
+          gridLineColor: '#fff',
+         
+        },
+        colors: ['#cecece','#958B62','#DCB796','#FF8D7E'],
+        legend: {
+            shadow: false,
+            enabled:false,
+        },
+        tooltip: {
+            shared: true,
+            valueSuffix: 'M€',
+            borderColor: 'transparent',
+            borderRadius: 16,
+            backgroundColor: '#fff',
+        },
+        plotOptions: {
+            column: {
+                grouping: false,
+                stacking: 'normal',
+                shadow: false,
+                borderWidth: 0,
+                pointWidth: 65,
+            }
+        },
+        series: [{
+          name: "Budget prévu",
+          data: [{name: "Vancouver", y: 1.3, color:"#958B62"},{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 6.8,color:"#2323EA"},{name: "Sotchi",y: 8.8,color:"#5770BE"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
+          dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return content;
+            },
+            y: 0,
+         
+            },
+
+        } ]
+      });
 $('#1').addClass('vue');
 $('#2').addClass('inactive');
 $('#2').addClass('nonvue');
+$('#2b').addClass('inactive');
+$('#2b').addClass('nonvue');
 $('#3').addClass('inactive');
 $('#3').addClass('nonvue');
 $('#4').addClass('inactive');
@@ -168,7 +281,8 @@ document.addEventListener('scroll', function () {
     if(isElementInViewport($('#1')) && $('#1').hasClass('inactive') && $('#1').hasClass('vue')){
       chart.series[0].update({
         name: "Budget Jeux",
-        data: [6.8],
+        color: '#2323EA',
+        data: [{x:1, y:6.8,color:'#2323EA'}],
         dataLabels: {
               enabled: true,
               style: {
@@ -197,14 +311,15 @@ document.addEventListener('scroll', function () {
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
     };
-  
     if(isElementInViewport($('#2')) && $('#2').hasClass('inactive') && $('#2').hasClass('nonvue')){
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
       chart.series[0].update({
-        name: "Part privée",
-        data: [5.1],
+        name: "Part Cojo",
+        data: [{x:1,y:3.8,color:"#00ac8c"}],
+        color:"#00ac8c",
+        stack: "budget",
         dataLabels: {
               enabled: true,
               style: {
@@ -214,7 +329,7 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">privés</span> ';
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">COJO</span> ';
               return content;
             },
             y: 0,
@@ -222,13 +337,11 @@ document.addEventListener('scroll', function () {
             },
       });
       chart.addSeries({
-         name: 'Part Publique',
-            color: '#E7684C',
-        data: [1.7],
+        name: "Part Solideo",
+         color: '#4FC5CE',
+        data: [{x:1,y:3,color: '#4FC5CE'}],
         stack: "budget",
-         pointPadding: 0,
-            pointPlacement: 0,
-            dataLabels: {
+         dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
@@ -237,14 +350,15 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">publics</span> ';
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">SOLIDEO</span> ';
               return content;
             },
             y: 0,
             x: 0,
             },
       });
-
+      if (chart.series.length == 3){chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
       $('#2').removeClass('inactive');
       $('#2').removeClass('nonvue');
       $('#2').addClass('vue');
@@ -254,10 +368,35 @@ document.addEventListener('scroll', function () {
       $('#5').addClass('inactive');
     }; 
     if(isElementInViewport($('#2')) && $('#2').hasClass('inactive') && $('#2').hasClass('vue')){
-      
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      chart.addSeries({
+        name: "Part Solideo",
+        color: '#4FC5CE',
+        data: [{x:1,y:3,color: '#4FC5CE'}],
+        stack: "budget",
+         dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">SOLIDEO</span> ';
+              return content;
+            },
+            y: 0,
+            x: 0,
+            },
+      });
       chart.series[0].update({
-        name: "Part privée",
-        data: [5.1],
+        name: "Part Cojo",
+        data: [{x:1,y:3.8,color:"#00ac8c"}],
+        color:"#00ac8c",
+        stack: "budget",
         dataLabels: {
               enabled: true,
               style: {
@@ -267,34 +406,7 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">privés</span> ';
-              return content;
-            },
-            y: 0,
-            x: 0,
-            },
-      });
-      
-      if (chart.series.length == 3){chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
-
-      chart.series[1].update({
-        name: 'Part Publique',
-        color: '#E7684C',
-        data: [1.7],
-        stack: "budget",
-         pointPadding: 0,
-            pointPlacement: 0,
-            dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">publics</span> ';
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">COJO</span> ';
               return content;
             },
             y: 0,
@@ -305,40 +417,20 @@ document.addEventListener('scroll', function () {
       $('#2').addClass('nonvue');
       $('#2').removeClass('vue');
       $('#1').addClass('inactive');
+      $('#2b').addClass('inactive');
       $('#3').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
-    };   
+    };  
 
-    if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('nonvue')){
-      if (chart.series.length == 3){chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
+    if(isElementInViewport($('#2b')) && $('#2b').hasClass('inactive') && $('#2b').hasClass('nonvue')){
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
       chart.series[0].update({
-        name: "Ouvrages",
-        data: [4.8],
-        dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">ouvrages</span> ';
-              return content;
-            },
-            y: 0,
-            x: 0,
-            },
-      });
-      chart.series[1].update({
-        name: "Fonctionnement",
-        color: '#F29D53',
-        data: [0.6],
+        name: "Privés",
+        data: [{name: "Solideo",x:1, y: 1.3, color:"#FF6F4C"},{name: "Cojo",x:2,y: 2.6,color:"#FF6F4C"}],
         stack: "budget",
-        pointPadding: 0,
-        pointPlacement: 0,
         dataLabels: {
               enabled: true,
               style: {
@@ -348,20 +440,17 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Fonctionnement</span> ';
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+'<br/>'+point.series.name +' </span> ';
               return content;
             },
             y: 0,
-            x: 0,
+         
             },
       });
       chart.addSeries({
-        name: 'Autres',
-        color: '#FFE800',
-        data: [1.4],
+        name: "Publics",
+        data: [{name: "Solideo",x:1, y: 1.3, color:"#CECECE"},{name: "Cojo",x:2,y: 1.6,color:"#CECECE"}],
         stack: "budget",
-        pointPadding: 0,
-        pointPlacement: 0,
         dataLabels: {
               enabled: true,
               style: {
@@ -371,27 +460,147 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Autres</span> ';
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+'<br/>'+point.series.name+' </span> ';
               return content;
             },
             y: 0,
-            x: 0,
+         
             },
       });
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+
+      $('#2b').removeClass('inactive');
+      $('#2b').addClass('nonvue');
+      $('#2b').removeClass('vue');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#5').addClass('inactive');
+    }; 
+
+    if(isElementInViewport($('#2b')) && $('#2b').hasClass('inactive') && $('#2b').hasClass('vue')){
+      chart.series[0].remove()
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      chart.addSeries({
+         type: 'column',
+        name: "Privés",
+        data: [{name: "Solideo",x:1, y: 1.3, color:"#FF6F4C"},{name: "Cojo",x:2, y: 2.6,color:"#FF6F4C"}],
+        stack: "budget",
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return content;
+            },
+            y: 0,
+         
+            },
+      });
+      chart.addSeries({
+         type: 'column',
+        name: "Publics",
+        data: [{name: "Solideo",x:1, y: 1.3, color:"#CECECE"},{name: "Cojo",x:2,y: 1.6,color:"#CECECE"}],
+        stack: "budget",
+        dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return content;
+            },
+            y: 0,
+         
+            },
+      });
+
+      $('#2b').removeClass('inactive');
+      $('#2b').addClass('nonvue');
+      $('#2b').removeClass('vue');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#4').addClass('inactive');
+      $('#5').addClass('inactive');
+    };
+    if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('nonvue')){
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      chart.series[0].update({
+  
+          name: "Solideo",
+          data: [{name: "Ouvrages",x:1, y: 2.9, color:"#FF9940"},{name: "Fonctionnement",x:1,y: 0.1,color:"#DCB796"}],
+          dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;font-size:10px">'+point.key+' </span> ';
+              return content;
+            },
+            y: 0,
+         
+            },
+      });
+      chart.addSeries({
+     
+          name: "Cojo",
+          data: [{name: "Infrastructures des sites",x:2, y: 0.7, color:"#FF9940"},{name: "Services",x:2,y: 0.9,color:"#DCB796"},{name: "Technologies",x:2,y: 0.5,color:"#FF8D7E"},{name: "Personnel",x:2,y: 0.5,color:"#A26859"},{name: "Cérémonies",x:2,y: 0.2,color:"#7D4E5B"}],
+
+          dataLabels: {
+              enabled: true,
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;font-size:10px">'+point.key+' </span> ';
+              return content;
+            },
+            y: 0,
+         
+            },
+      });
+     
       $('#3').removeClass('inactive');
       $('#3').removeClass('nonvue');
       $('#3').addClass('vue');
       $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
       $('#4').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#2b').addClass('inactive');
       $('#5').addClass('inactive');
     }; 
     if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('vue')){
-      if (chart.series.length == 3){chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
+
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
       chart.series[0].update({
-        name: "Ouvrages",
-        data: [4.8],
+        type: 'column',
+        name: "Solideo",
+        data: [{name: "Ouvrages",x:1, y: 2.9, color:"#FF9940"},{name: "Fonctionnement",x:1,y: 0.1,color:"#DCB796"}],
         dataLabels: {
               enabled: true,
               style: {
@@ -401,43 +610,18 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">ouvrages</span> ';
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
               return content;
             },
             y: 0,
-            x: 0,
-            },
-      });
-      chart.series[1].update({
-        name: "Fonctionnement",
-        color: '#F29D53',
-        data: [0.6],
-        stack: "budget",
-        pointPadding: 0,
-        pointPlacement: 0,
-        dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Fonctionnement</span> ';
-              return content;
-            },
-            y: 0,
-            x: 0,
+         
             },
       });
       chart.addSeries({
-        name: 'Autres',
-        color: '#FFE800',
-        data: [1.4],
-        stack: "budget",
-        pointPadding: 0,
-        pointPlacement: 0,
+        type: 'column',
+        name: "Cojo",
+        data: [{name: "Infrastructures des sites",x:2, y: 0.7, color:"#FF9940"},{name: "Services",x:2,y: 0.9,color:"#DCB796"},{name: "Technologies",x:2,y: 0.5,color:"#FF8D7E"},{name: "Personnel",x:2,y: 0.5,color:"#A26859"},{name: "Cérémonies",x:2,y: 0.2,color:"#7D4E5B"}],
+
         dataLabels: {
               enabled: true,
               style: {
@@ -447,11 +631,11 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Autres</span> ';
+                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
               return content;
             },
             y: 0,
-            x: 0,
+         
             },
       });
       $('#3').removeClass('inactive');
@@ -459,115 +643,16 @@ document.addEventListener('scroll', function () {
       $('#3').addClass('nonvue');
       $('#1').addClass('inactive');
       $('#2').addClass('inactive');
+      $('#2b').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
     };
+  
 
-    if(isElementInViewport($('#4')) && $('#4').hasClass('inactive') && $('#4').hasClass('nonvue')){
-      chart.series[0].update({
-        name: "Part Cojo",
-        data: [3.8],
-        dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">COJO</span> ';
-              return content;
-            },
-            y: 0,
-            x: 0,
-            },
-      });
-      chart.series[1].update({
-        name: "Part Solideo",
-         color: '#4FC5CE',
-        data: [3],
-         dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">SOLIDEO</span> ';
-              return content;
-            },
-            y: 0,
-            x: 0,
-            },
-      });
-      if (chart.series.length == 3){chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
-      $('#4').removeClass('inactive');
-      $('#4').removeClass('nonvue');
-      $('#4').addClass('vue');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#5').addClass('inactive');
-    }; 
-    if(isElementInViewport($('#4')) && $('#4').hasClass('inactive') && $('#4').hasClass('vue')){
-      if (chart.series.length == 2){chart.series[1].remove()};
-      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
-      chart.addSeries({
-        name: "Part Solideo",
-        color: '#4FC5CE',
-        data: [3],
-        stack: "budget",
-         dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">SOLIDEO</span> ';
-              return content;
-            },
-            y: 0,
-            x: 0,
-            },
-      });
-      chart.series[0].update({
-        name: "Part Cojo",
-        data: [3.8],
-        stack: "budget",
-        dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">COJO</span> ';
-              return content;
-            },
-            y: 0,
-            x: 0,
-            },
-      });
-      $('#4').removeClass('inactive');
-      $('#4').removeClass('vue');
-      $('#4').addClass('nonvue');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#5').addClass('inactive');
-    };  
     if(isElementInViewport($('#5')) && $('#5').hasClass('inactive') && $('#5').hasClass('nonvue')){
-      chart.series[0].update({
+
+      chart2.series[0].update({
+        type: 'column',
         name: "Budget prévu",
         data: [{name: "Vancouver", y: 1.3, color:"#958B62"},{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 6.8,color:"#2323EA"},{name: "Sotchi",y: 8.8,color:"#5770BE"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
         dataLabels: {
@@ -586,10 +671,6 @@ document.addEventListener('scroll', function () {
          
             },
       });
-      if (chart.series.length == 2){chart.series[1].remove()};
-      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
-
       $('#5').removeClass('inactive');
       $('#5').removeClass('nonvue');
       $('#5').addClass('vue');
@@ -601,7 +682,7 @@ document.addEventListener('scroll', function () {
     }; 
 
     if(isElementInViewport($('#5')) && $('#5').hasClass('inactive') && $('#5').hasClass('vue')){
-      chart.series[0].update({
+      chart2.series[0].update({
         name: "Budget prévu",
         data: [{name: "Vancouver", y: 1.3, color:"#958B62"},{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 6.8,color:"#2323EA"},{name: "Sotchi",y: 8.8,color:"#5770BE"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
         dataLabels: {
@@ -620,9 +701,7 @@ document.addEventListener('scroll', function () {
          
             },
       });
-      if (chart.series.length == 2){chart.series[1].remove()};
-      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+    
       $('#5').removeClass('inactive');
       $('#5').removeClass('vue');
       $('#5').addClass('nonvue');
@@ -634,10 +713,7 @@ document.addEventListener('scroll', function () {
     }; 
 
     if(isElementInViewport($('#6')) && $('#6').hasClass('inactive')){
-      if (chart.series.length == 2){chart.series[1].remove()};
-      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
-      chart.series[0].update({
+      chart2.series[0].update({
         name: "Budget réel",
         data: [{name: "Vancouver", y: 4.8, color:"#958B62"},{name: "Pekin",y: 31,color:"#20E37B"},{name: "Londres",y: 11,color:"#466964"},{name: "Paris",y: 6.8,color:"#2323EA"},{name: "Sotchi",y: 36,color:"#5770BE"},{name: "Rio",y: 16.5,color:"#00AC8C"},{name: "Tokyo",y: 15.4,color:"#4FC5CE"}],
         dataLabels: {
@@ -664,5 +740,40 @@ document.addEventListener('scroll', function () {
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
     }; 
+});
+</script>
+
+<script>
+  Highcharts.chart('recap', {
+
+    title: {
+        text: 'Cheminement des fonds'
+    },
+    accessibility: {
+        point: {
+            valueDescriptionFormat: '{index}. {point.from} to {point.to}, {point.weight}.'
+        }
+    },
+    series: [{
+        keys: ['from', 'to', 'weight'],
+        data: [
+            ['Etat', 'Solideo', 0.9],
+            ['Etat', 'Cojo', 0.1],
+            ['Collectivites', 'Solideo', 0.4],
+            ['Collectivites', 'Cojo', 0.1],
+            ['Privé', 'Solideo', 2],
+            ['Privé', 'Cojo', 3.6],
+            ['Solideo', 'Ouvrages', 2.9],
+            ['Solideo', 'Fonctionnement', 0.1],
+            ['Cojo', 'Marketing',0.8],
+            ['Cojo', 'Infrasctuctures', 1.8],
+            ['Cojo', 'Cérémonies', 0.5],
+            ['Cojo', 'Personnel', 0.5],
+           
+        ],
+        type: 'sankey',
+        name: 'Répartition'
+    }]
+
 });
 </script>

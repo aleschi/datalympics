@@ -69,6 +69,12 @@ max-width:1200px;
 .c6{
   color:#8F8F8F; //gris 
 }
+.c7{
+  color:#2323EA; //bleu public
+}
+.c8{
+  color:#00AC8C; //vert public
+}
 .fw4{
   font-weight:400;
 }
@@ -258,7 +264,16 @@ button:focus{
    color: #fff !important;
       border: 2px solid #000091 !important;
 }
-
+.tp1{
+  color:#2323EA;
+  font-size:24px;
+  line-height:34px;
+  font-weight:normal;
+}
+.tp1b{
+  font-weight:bold;
+  color:#00AC8C;
+}
 .EB_page, .ED_page, .SD_page, .O_page, .home_page {
   max-width:1200px;
   margin:0 auto;
@@ -3241,7 +3256,7 @@ padding:15px;
   color:#1E1E1E;
 }
 
-#sections {
+.sections {
     position: relative;
     display: inline-block;
     width: 50%;
@@ -3276,6 +3291,14 @@ width: 100%;
     margin-left: 0; 
     
 }
+#graphe2 {
+    
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    margin-left: 0; 
+    
+}
 .position-sticky{
    position: sticky;
     top: 100px;
@@ -3289,9 +3312,7 @@ width: 100%;
 }
 .step{
   //margin-top:200px;
-  margin-bottom:1000px;
-  color:#2323EA;
-  font-size:28px;
+  margin-bottom:600px;
 }
 .footer{
   width:100%;
