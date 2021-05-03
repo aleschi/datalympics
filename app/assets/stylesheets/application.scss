@@ -3475,3 +3475,24 @@ border-radius:4px;
  color:#1E1E1E;
   font-size:12px;
 }
+
+.arrow-selector {
+position:absolute;
+right:0;
+bottom:50;
+z-index:10;
+  -webkit-animation: scrolling 2s ease infinite;
+  -moz-animation: scrolling 2s ease infinite;
+  -o-animation: scrolling 2s ease infinite;
+  animation: scrolling 2s ease infinite;
+}
+
+@keyframes scrolling {
+  0% { transform: translate(0);
+  }
+  50% {
+  transform: translate(0,20px);
+  }
+  100% { transform: translate(0);
+  }
+}

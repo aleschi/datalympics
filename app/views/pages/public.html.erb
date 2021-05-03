@@ -29,24 +29,24 @@
         
     </div>
     <div class="graphe-box">
-    <div id="graphe">
-
-    </div>
+    <div id="graphe"></div>
+    <div class="c1 fs14 arrow-selector"><i class="fas fa-arrow-down"></i></div>
     </div>
   </div>
 
-
+  <div class="ma" style='max-width:880px'>
   <div class="row step public-chiffres-aos" data-aos="zoom-in-up" data-aos-duration="1500">
     <div id="recap"></div>
+  </div>
   </div>
 
   <div class="graphic">
   <div class="sections">
       <div class="step tp1" id="5">
-          Comparaison avec les autres jeux olympiques
+        Sur les 10 dernières années, le budget moyen prévu lors des candidatures pour l’organisation des Jeux Olympiques et Paralympiques est de 6,6 milliards d’euros.
       </div>
       <div class="step tp1" id="6">
-          Réalité
+        Mais en réalité, le budget prévu est régulièrement dépassé. Lors de sa candidature, la ville de Paris s’est engagé à une maîtrise des coûts notamment en limitant le nombre de construction d’infrastructures pour les Jeux et en suivant au plus près les dépenses engagées.
       </div>
   
 
@@ -64,11 +64,11 @@
 <%= render 'layouts/footer'%> 
 </div>
 <script>
-
+$('#cojo2').hide();
+$('#solideo2').hide();
 var chart = Highcharts.chart('graphe', {
         chart: {
-            type: 'column',
-          
+            type: 'column',          
             height: '600px',
             spacingTop: 0,
             style:{
@@ -76,10 +76,10 @@ var chart = Highcharts.chart('graphe', {
             },
              options3d: {
                 enabled: true,
-                alpha: 15,
-                beta: 15,
-                depth: 80,
-                viewDistance: 55
+                alpha: 9,
+                beta: 16,
+                depth: 100,
+                viewDistance: 95
             }
         },
         title: {
@@ -87,14 +87,21 @@ var chart = Highcharts.chart('graphe', {
            
         },
         xAxis: {
-          categories: ['Suivi Budget 2021'],
+          categories: ['PARIS 2024'],
             title: {
             text: null,
           },
           lineColor: '#fff',
           gridLineColor: '#fff',
+          top: 10,
           labels: {
-            enabled: false,
+            enabled: true,
+
+            style:{
+              color:'#2323EA',
+              fontSize:'12px',
+
+            }
           },
         },
         yAxis: {
@@ -109,6 +116,9 @@ var chart = Highcharts.chart('graphe', {
         },
         zAxis:{
           gridLineColor: '#fff',
+           labels: {
+            enabled: false,
+          },
          
         },
         colors: ['#cecece','#958B62','#DCB796','#FF8D7E'],
@@ -129,11 +139,12 @@ var chart = Highcharts.chart('graphe', {
                 stacking: 'normal',
                 shadow: false,
                 borderWidth: 0,
-                pointWidth: 65,
+                pointWidth: 45,
+                depth: 45,
             }
         },
         series: [{
-            name: 'Budget Jeux',
+            name: 'Budget Total',
             color: '#2323EA',
             data: [6.8],
             stack: "budget",
@@ -149,8 +160,8 @@ var chart = Highcharts.chart('graphe', {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">prévus </span>';
-              return content;
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+              return number;
             },
             y: 100,
             x: 0,
@@ -169,10 +180,10 @@ var chart2 = Highcharts.chart('graphe2', {
             },
              options3d: {
                 enabled: true,
-                alpha: 15,
-                beta: 15,
-                depth: 80,
-                viewDistance: 55
+                alpha: 9,
+                beta: 16,
+                depth: 100,
+                viewDistance: 100,
             }
         },
         title: {
@@ -180,14 +191,21 @@ var chart2 = Highcharts.chart('graphe2', {
            
         },
         xAxis: {
-          categories: ['Suivi Budget 2021'],
+          categories: ["Vancouver", "Pekin", "Londres", "Paris", "Sotchi", "Rio","Tokyo"],
             title: {
             text: null,
           },
           lineColor: '#fff',
           gridLineColor: '#fff',
+          top: 10,
           labels: {
-            enabled: false,
+            enabled: true,
+
+            style:{
+              color:'#2323EA',
+              fontSize:'12px',
+
+            }
           },
         },
         yAxis: {
@@ -196,6 +214,7 @@ var chart2 = Highcharts.chart('graphe2', {
           title: {
             text: null,
           },
+
           labels: {
             enabled: false,
           },
@@ -222,7 +241,8 @@ var chart2 = Highcharts.chart('graphe2', {
                 stacking: 'normal',
                 shadow: false,
                 borderWidth: 0,
-                pointWidth: 65,
+                pointWidth: 45,
+                depth: 45,
             }
         },
         series: [{
@@ -238,7 +258,7 @@ var chart2 = Highcharts.chart('graphe2', {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
                 content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
-              return content;
+              return number;
             },
             y: 0,
          
@@ -279,10 +299,16 @@ function isElementInViewport (el) {
 document.addEventListener('scroll', function () {
 
     if(isElementInViewport($('#1')) && $('#1').hasClass('inactive') && $('#1').hasClass('vue')){
-      chart.series[0].update({
-        name: "Budget Jeux",
+      
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      chart.series[0].remove();
+
+      chart.addSeries({
+        name: "Budget Total",
         color: '#2323EA',
-        data: [{x:1, y:6.8,color:'#2323EA'}],
+        data: [{ y:6.8,color:'#2323EA'}],
         dataLabels: {
               enabled: true,
               style: {
@@ -292,21 +318,19 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">prévus</span> ';
-              return content;
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€</span> ';
+              return number;
             },
             y: 0,
             x: 0,
             },
       });
-     
-      if (chart.series.length == 2){chart.series[1].remove()};
-      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+
       $('#1').removeClass('inactive');
       $('#2').addClass('inactive');
       $('#2').removeClass('vue');
       $('#2').addClass('nonvue');
+      $('#2b').addClass('inactive');
       $('#3').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
@@ -315,54 +339,60 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      chart.xAxis[0].update({categories: ["PARIS 2024"]});
       chart.series[0].update({
-        name: "Part Cojo",
-        data: [{x:1,y:3.8,color:"#00ac8c"}],
+        name: "COJO",
+        data: [{y:3.8,color:"#00ac8c"}],
         color:"#00ac8c",
         stack: "budget",
+      
         dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline:'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">COJO</span> ';
-              return content;
+                content =  number + '  <br/>'+ '<span style="font-weight:400;font-size:8px;">COJO</span> ';
+               
+              return number ;
             },
             y: 0,
             x: 0,
             },
       });
       chart.addSeries({
-        name: "Part Solideo",
-         color: '#4FC5CE',
-        data: [{x:1,y:3,color: '#4FC5CE'}],
+        name: "SOLIDEO",
+        color: '#4FC5CE',
+        data: [{y:3,color: '#4FC5CE'}],
         stack: "budget",
-         dataLabels: {
+        dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline:'none',
+               
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">SOLIDEO</span> ';
-              return content;
+                content =  '<span style="text-align:center;">'+number + ' <br/>'+ '<span style="font-weight:400;font-size:8px;">SOLIDEO</span></span> ';
+              return number;
             },
             y: 0,
             x: 0,
             },
       });
-      if (chart.series.length == 3){chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[2].remove();chart.series[3].remove()};
+
       $('#2').removeClass('inactive');
       $('#2').removeClass('nonvue');
       $('#2').addClass('vue');
       $('#1').addClass('inactive');
+      $('#2b').addClass('inactive');
       $('#3').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
@@ -371,43 +401,48 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
-      chart.addSeries({
-        name: "Part Solideo",
-        color: '#4FC5CE',
-        data: [{x:1,y:3,color: '#4FC5CE'}],
+      chart.xAxis[0].update({categories: ["PARIS 2024"]});
+      chart.series[0].update({
+        name: "COJO",
+        data: [{y:3.8,color:"#00ac8c"}],
+        color:"#00ac8c",
         stack: "budget",
-         dataLabels: {
+      
+        dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline:'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">SOLIDEO</span> ';
-              return content;
+                content =  number + '  <br/>'+ '<span style="font-weight:400;font-size:8px;">COJO</span> ';
+               
+              return number ;
             },
             y: 0,
             x: 0,
             },
       });
-      chart.series[0].update({
-        name: "Part Cojo",
-        data: [{x:1,y:3.8,color:"#00ac8c"}],
-        color:"#00ac8c",
+      chart.addSeries({
+        name: "SOLIDEO",
+        color: '#4FC5CE',
+        data: [{y:3,color: '#4FC5CE'}],
         stack: "budget",
         dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline:'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">COJO</span> ';
-              return content;
+                content =  '<span style="text-align:center;">'+number + ' <br/>'+ '<span style="font-weight:400;font-size:8px;">SOLIDEO</span></span> ';
+              return number;
             },
             y: 0,
             x: 0,
@@ -421,26 +456,30 @@ document.addEventListener('scroll', function () {
       $('#3').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
+      $('#cojo2').show();
+      $('#solideo2').show();
     };  
 
     if(isElementInViewport($('#2b')) && $('#2b').hasClass('inactive') && $('#2b').hasClass('nonvue')){
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
       chart.series[0].update({
         name: "Privés",
-        data: [{name: "Solideo",x:1, y: 1.3, color:"#FF6F4C"},{name: "Cojo",x:2,y: 2.6,color:"#FF6F4C"}],
+        data: [{name: "SOLIDEO",x:0, y: 2.2, color:"#A26859"},{name: "COJO",x:1,y: 2.6,color:"#A26859"}],
         stack: "budget",
         dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline: 'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+'<br/>'+point.series.name +' </span> ';
+                content =  number + '<br/><span style="font-weight:400;font-size:10px;">'+point.series.name +' </span> ';
               return content;
             },
             y: 0,
@@ -449,30 +488,29 @@ document.addEventListener('scroll', function () {
       });
       chart.addSeries({
         name: "Publics",
-        data: [{name: "Solideo",x:1, y: 1.3, color:"#CECECE"},{name: "Cojo",x:2,y: 1.6,color:"#CECECE"}],
+        data: [{name: "SOLIDEO",x:0,y: 1.5, color:"#CECECE"},{name: "COJO",x:1,y: 0.4,color:"#CECECE"}],
         stack: "budget",
         dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline: 'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+'<br/>'+point.series.name+' </span> ';
+                content =  number + '<br/><span style="font-weight:400;font-size:10px;">'+point.series.name+' </span> ';
               return content;
             },
             y: 0,
          
             },
       });
-      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
 
       $('#2b').removeClass('inactive');
-      $('#2b').addClass('nonvue');
-      $('#2b').removeClass('vue');
+      $('#2b').addClass('vue');
+      $('#2b').removeClass('nonvue');
       $('#1').addClass('inactive');
       $('#2').addClass('inactive');
       $('#3').addClass('inactive');
@@ -481,25 +519,25 @@ document.addEventListener('scroll', function () {
     }; 
 
     if(isElementInViewport($('#2b')) && $('#2b').hasClass('inactive') && $('#2b').hasClass('vue')){
-      chart.series[0].remove()
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
-      chart.addSeries({
-         type: 'column',
+      chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
+      chart.series[0].update({
         name: "Privés",
-        data: [{name: "Solideo",x:1, y: 1.3, color:"#FF6F4C"},{name: "Cojo",x:2, y: 2.6,color:"#FF6F4C"}],
+        data: [{name: "SOLIDEO",x:0, y: 2.2, color:"#A26859"},{name: "COJO",x:1,y: 2.6,color:"#A26859"}],
         stack: "budget",
         dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline: 'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+                content =  number + '<br/><span style="font-weight:400;font-size:10px;">'+point.series.name +' </span> ';
               return content;
             },
             y: 0,
@@ -507,20 +545,20 @@ document.addEventListener('scroll', function () {
             },
       });
       chart.addSeries({
-         type: 'column',
         name: "Publics",
-        data: [{name: "Solideo",x:1, y: 1.3, color:"#CECECE"},{name: "Cojo",x:2,y: 1.6,color:"#CECECE"}],
+        data: [{name: "SOLIDEO",x:0, y: 1.5, color:"#CECECE"},{name: "COJO",x:1, y: 0.4,color:"#CECECE"}],
         stack: "budget",
         dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline: 'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+                content =  number + '<br/><span style="font-weight:400;font-size:10px;">'+point.series.name+' </span> ';
               return content;
             },
             y: 0,
@@ -541,21 +579,23 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
       chart.series[0].update({
   
           name: "Solideo",
-          data: [{name: "Ouvrages",x:1, y: 2.9, color:"#FF9940"},{name: "Fonctionnement",x:1,y: 0.1,color:"#DCB796"}],
+          data: [{name: "Ouvrages",x:0, y: 2.9, color:"#958B62"},{name: "Fonctionnement",x:0,y: 0.1,color:"#DCB796"}],
           dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline: 'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;font-size:10px">'+point.key+' </span> ';
-              return content;
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
             },
             y: 0,
          
@@ -564,19 +604,20 @@ document.addEventListener('scroll', function () {
       chart.addSeries({
      
           name: "Cojo",
-          data: [{name: "Infrastructures des sites",x:2, y: 0.7, color:"#FF9940"},{name: "Services",x:2,y: 0.9,color:"#DCB796"},{name: "Technologies",x:2,y: 0.5,color:"#FF8D7E"},{name: "Personnel",x:2,y: 0.5,color:"#A26859"},{name: "Cérémonies",x:2,y: 0.2,color:"#7D4E5B"}],
+          data: [{name: "Infrastructures",x:1, y: 0.7, color:"#FF9940"},{name: "Services",x:1,y: 0.9,color:"#DCB796"},{name: "Technologies",x:1,y: 0.5,color:"#FF8D7E"},{name: "Personnel",x:1,y: 0.5,color:"#A26859"},{name: "Cérémonies",x:1,y: 0.2,color:"#7D4E5B"}],
 
           dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline: 'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;font-size:10px">'+point.key+' </span> ';
-              return content;
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
             },
             y: 0,
          
@@ -597,42 +638,45 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
       chart.series[0].update({
-        type: 'column',
-        name: "Solideo",
-        data: [{name: "Ouvrages",x:1, y: 2.9, color:"#FF9940"},{name: "Fonctionnement",x:1,y: 0.1,color:"#DCB796"}],
-        dataLabels: {
+  
+          name: "Solideo",
+          data: [{name: "Ouvrages",x:0, y: 2.9, color:"#958B62"},{name: "Fonctionnement",x:0,y: 0.1,color:"#DCB796"}],
+          dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline: 'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
-              return content;
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
             },
             y: 0,
          
             },
       });
       chart.addSeries({
-        type: 'column',
-        name: "Cojo",
-        data: [{name: "Infrastructures des sites",x:2, y: 0.7, color:"#FF9940"},{name: "Services",x:2,y: 0.9,color:"#DCB796"},{name: "Technologies",x:2,y: 0.5,color:"#FF8D7E"},{name: "Personnel",x:2,y: 0.5,color:"#A26859"},{name: "Cérémonies",x:2,y: 0.2,color:"#7D4E5B"}],
+     
+          name: "Cojo",
+          data: [{name: "Infrastructures",x:1, y: 0.7, color:"#FF9940"},{name: "Services",x:1,y: 0.9,color:"#DCB796"},{name: "Technologies",x:1,y: 0.5,color:"#FF8D7E"},{name: "Personnel",x:1,y: 0.5,color:"#A26859"},{name: "Cérémonies",x:1,y: 0.2,color:"#7D4E5B"}],
 
-        dataLabels: {
+          dataLabels: {
               enabled: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
+                textOutline: 'none',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
-              return content;
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
             },
             y: 0,
          
@@ -664,8 +708,8 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
-              return content;
+                content =  number + '<br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return number;
             },
             y: 0,
          
@@ -677,7 +721,7 @@ document.addEventListener('scroll', function () {
       $('#1').addClass('inactive');
       $('#2').addClass('inactive');
       $('#3').addClass('inactive');
-      $('#4').addClass('inactive');
+      $('#2b').addClass('inactive');
       $('#6').addClass('inactive');
     }; 
 
@@ -694,8 +738,8 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
-              return content;
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return number;
             },
             y: 0,
          
@@ -708,7 +752,7 @@ document.addEventListener('scroll', function () {
       $('#1').addClass('inactive');
       $('#2').addClass('inactive');
       $('#3').addClass('inactive');
-      $('#4').addClass('inactive');
+      $('#2b').addClass('inactive');
       $('#6').addClass('inactive');
     }; 
 
@@ -725,8 +769,8 @@ document.addEventListener('scroll', function () {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
-              return content;
+                content =  number + '<br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return number;
             },
             y: 0,
          
@@ -737,7 +781,7 @@ document.addEventListener('scroll', function () {
       $('#1').addClass('inactive');
       $('#2').addClass('inactive');
       $('#3').addClass('inactive');
-      $('#4').addClass('inactive');
+      $('#2b').addClass('inactive');
       $('#5').addClass('inactive');
     }; 
 });
@@ -745,30 +789,35 @@ document.addEventListener('scroll', function () {
 
 <script>
   Highcharts.chart('recap', {
-
+    chart:{
+      height: '600px',
+      style:{
+              fontFamily: "Marianne Regular",
+            },
+    },
     title: {
-        text: 'Cheminement des fonds'
+        text: 'CHEMINEMENT DES FONDS',
+        style: {
+          color:'#2323EA',
+          fontSize:'20px',
+        },
     },
-    accessibility: {
-        point: {
-            valueDescriptionFormat: '{index}. {point.from} to {point.to}, {point.weight}.'
-        }
-    },
+    colors:['#2323EA','#00AC8C','#4FC5CE','#5770BE',"#A26859","#DBE5B0","#A2C744","#EFB786","#A28959","#A1AF83","#C893D0"],
     series: [{
         keys: ['from', 'to', 'weight'],
         data: [
-            ['Etat', 'Solideo', 0.9],
-            ['Etat', 'Cojo', 0.1],
-            ['Collectivites', 'Solideo', 0.4],
-            ['Collectivites', 'Cojo', 0.1],
-            ['Privé', 'Solideo', 2],
-            ['Privé', 'Cojo', 3.6],
-            ['Solideo', 'Ouvrages', 2.9],
-            ['Solideo', 'Fonctionnement', 0.1],
-            ['Cojo', 'Marketing',0.8],
-            ['Cojo', 'Infrasctuctures', 1.8],
-            ['Cojo', 'Cérémonies', 0.5],
-            ['Cojo', 'Personnel', 0.5],
+            {from: 'ÉTAT', to: 'SOLIDEO', weight: 0.9, color: "#2323EA"},
+            {from:'ÉTAT', to: 'COJO',weight: 0.1},
+            {from:'COLLECTIVITÉS',to: 'SOLIDEO',weight: 0.4},
+            {from:'COLLECTIVITÉS',to: 'COJO',weight: 0.1},
+            {from:'PRIVÉ',to: 'SOLIDEO',weight: 2},
+            {from:'PRIVÉ',to: 'COJO',weight: 3.6},
+            {from:'SOLIDEO',to: 'OUVRAGES',weight: 2.9},
+            {from:'SOLIDEO',to: 'FONCTIONNEMENT',weight: 0.1},
+            {from:'COJO',to: 'MARKETING',weight:0.8},
+            {from:'COJO',to: 'INFRASTRUCTURES',weight: 1.8},
+            {from:'COJO',to: 'CÉRÉMONIES',weight: 0.5},
+            {from:'COJO',to: 'PERSONNEL',weight: 0.5},
            
         ],
         type: 'sankey',
@@ -776,4 +825,31 @@ document.addEventListener('scroll', function () {
     }]
 
 });
+
+
+Highcharts.seriesTypes.sankey.prototype.pointAttribs = function(point, state) {
+    var opacity = this.options.linkOpacity,
+        color = point.color;
+
+    if (state) {
+        opacity = this.options.states[state].linkOpacity || opacity;
+        color = this.options.states[state].color || point.color;
+    }
+
+    return {
+        fill: point.isNode ?
+            color : {
+                linearGradient: {
+                    x1: 0,
+                    x2: 1,
+                    y1: 0,
+                    y2: 0
+                },
+                stops: [
+                    [0, Highcharts.color(color).setOpacity(opacity).get()],
+                    [1, Highcharts.color(point.toNode.color).setOpacity(opacity).get()]
+                ]
+            }
+    };
+}
 </script>
