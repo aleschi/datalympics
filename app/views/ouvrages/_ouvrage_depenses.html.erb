@@ -14,29 +14,20 @@
             <div class="c2 tc fw8 fs22"><%= l(date, format: "%e %B %Y") %> </div>
             <div class='i24'></div>
 
-            <div>
-              <div class="inline-flex">
+           
+             
               <% @ouvrage.chantiers.where('date = ?',date).each_with_index do |chantier,j| %>
                 <% if !chantier.nil?%>
-                  <% if @ouvrage.chantiers.where('date = ?',date).count == 1%>
-                    <div class="w100">
-                  <% elsif @ouvrage.chantiers.where('date = ?',date).count == 2%>
-                    <div class="w50">
-                  <% end%>
+                  <div class="w100">
                     <div class="c2 tc fw4 fs14"><%= chantier.typecontrat %> </div>
                     <div class='i24'></div>
                     <div id="ouvrages<%=i%><%=j%>"></div>
+                    <div class='i48'></div>
                     <script>
                       Highcharts.chart('ouvrages<%=i%><%=j%>', {
                         chart: {
                             type: 'column',
-                            <% if @ouvrage.chantiers.where('date = ?',date).count == 1%>
-                            width: 750,
-                            <%elsif @ouvrage.chantiers.where('date = ?',date).count == 2%>
-                            width: 350,
-                            <% else %>
-                            width: 350,
-                            <% end %>
+                            width:750,
                             marginTop:30,
                           backgroundColor: '#fff',
                               style:{
@@ -55,8 +46,18 @@
                         },
 
                         xAxis: {
-                            categories: ["Dépenses 2021", "Budget 2021", "Dépenses totales", "Dépenses actées totales"],
-                            crosshair: true
+                            categories: ["Dépenses 2018","Dépenses 2019","Dépenses 2020","Dépenses 2021", "Budget 2021", "Dépenses totales", "Dépenses actées totales"],
+                            crosshair: true,
+                            labels: {
+                              formatter: function () {
+                                if (this.value == "Dépenses 2018" || this.value == "Dépenses 2019" || this.value == "Dépenses 2020" ){
+                                  return '<span style="color:#E1000F;">' + this.value + '</span>'
+                                } else {
+                                  return this.value 
+                                }
+                              },
+                              useHTML: true,
+                          },
                         },
                         yAxis: {
                             min: 0,
@@ -89,6 +90,9 @@
                         series: [{
                             name: 'Dépenses',
                             data: [
+                            {y:0, color:"#2E5D63"},
+                            {y:0, color:"#2E5D63"},
+                            {y:0, color:"#2E5D63"},
                               {y:<%= (chantier.paiements_annee/1000).round(1)%>, color:"#2E5D63", dataLabels: {
                                       enabled: true,
                                       formatter: function() {
@@ -176,8 +180,8 @@
                   </div>
                 <% end %>
               <% end %>
-              </div>
-            </div>
+          
+            
           </div>
         </li>
       <% end %>
