@@ -546,7 +546,7 @@
                     return this.value 
                   }
                 },
-                useHTML: true,
+                useHTML: false,
             },
     },
     yAxis: {
@@ -582,7 +582,26 @@
     },
     series: [{
         name: 'Budget Total Maquette',
-        data: [{y:<%= (SolideoFinancement.where('financeur = ?','État').sum('montant')/1000000).round%>, color:"#bfbfbf" },
+        data: [{y:<%= (SolideoFinancement.where('financeur = ?','État').sum('montant')/1000000).round%>, color:"#bfbfbf",dataLabels: {
+                    enabled: true,
+                    formatter: function() {
+
+                      var point = this;                      
+                      ecart = <%= ((EtatBudget.order('date DESC').first.budget_solideo-EtatBudget.order('date DESC').last.budget_solideo)/1000000).round %>;
+                      
+                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                      
+                       if (ecart >= 0){
+                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
+                        }
+                        
+                        content = '<b>' + number  + ' </b>';
+
+                      return header + content;
+                    },
+                }, },
         {y:<%=(SolideoFinancement.where('financeur != ? AND financeur != ?','État','Privés + recettes').sum('montant')/1000000).round%>, color:"#bfbfbf" },
         {y:<%=((Maquette.where('date = ?',@dates_maquettes[0]).sum('total') - SolideoFinancement.sum('montant'))/1000000).round%>, color: "#bfbfbf"},
         {y:<%=(SolideoFinancement.where('financeur = ?','Privés + recettes').sum('montant')/1000000).round%>, color: "#bfbfbf"}],
@@ -610,7 +629,7 @@
           },
     },
     title: {
-        text: "Répartition des financements",
+        text: "Financeurs de la Solideo",
         verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
