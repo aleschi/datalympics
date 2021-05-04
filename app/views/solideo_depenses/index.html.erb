@@ -144,7 +144,7 @@
                     return this.value 
                   }
                 },
-                useHTML: true,
+                useHTML: false,
             },
     },
     yAxis: {
@@ -158,12 +158,11 @@
     enabled: false,
   },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
-            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
+        headerFormat: '<span style="font-size:10px">{point.key}</span><br/>',
+        pointFormat: '<b>{series.name} : {point.y:.1f} M€</b><br/>',
         useHTML: true,
+        shared: true,
+     
        borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
@@ -223,7 +222,7 @@
                     return this.value 
                   }
                 },
-                useHTML: true,
+                useHTML: false,
             },
     },
     yAxis: {
@@ -237,12 +236,12 @@
     enabled: false,
   },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
-            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
-        footerFormat: '</table>',
+   
+        headerFormat: '<span style="font-size:10px">{point.key}</span><br/>',
+        pointFormat: '<b>{series.name} : {point.y:.1f} M€</b><br/>',
+
         shared: true,
-        useHTML: true,
+       useHTML: true,
        borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
