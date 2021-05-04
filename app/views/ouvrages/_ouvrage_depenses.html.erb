@@ -12,13 +12,11 @@
         <li> 
           <div class="ga ma pr">
             <div class="c2 tc fw8 fs22"><%= l(date, format: "%e %B %Y") %> </div>
-            <div class='i24'></div>
-
-           
-             
+            <div class='i24'></div>      
               <% @ouvrage.chantiers.where('date = ?',date).each_with_index do |chantier,j| %>
                 <% if !chantier.nil?%>
                   <div class="w100">
+                    <div class='i24'></div>
                     <div class="c2 tc fw4 fs14"><%= chantier.typecontrat %> </div>
                     <div class='i24'></div>
                     <div id="ouvrages<%=i%><%=j%>"></div>
@@ -96,6 +94,9 @@
                             {y:0, color:"#2E5D63"},
                               {y:<%= (chantier.paiements_annee/1000).round(1)%>, color:"#2E5D63", dataLabels: {
                                       enabled: true,
+                                      inside: false,
+                                      crop:false,
+                                      overflow:'allow',
                                       formatter: function() {
 
                                         var point = this;                      
@@ -115,6 +116,9 @@
                               
                               {y:<%= (chantier.budget_annee/1000).round(1)%>, color:"#bfbfbf", dataLabels: {
                                       enabled: true,
+                                      inside: false,
+                                      crop:false,
+                                      overflow:'allow',
                                       formatter: function() {
 
                                         var point = this;                      
@@ -134,6 +138,9 @@
 
                                 {y:<%= (chantier.cumul_paiements/1000).round(1)%>, color:"#2E5D63", dataLabels: {
                                       enabled: true,
+                                      inside: false,
+                                      crop:false,
+                                      overflow:'allow',
                                       formatter: function() {
 
                                         var point = this;                      
