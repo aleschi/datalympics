@@ -124,7 +124,11 @@ var chart = Highcharts.chart('graphe', {
         colors: ['#cecece','#958B62','#DCB796','#FF8D7E'],
         legend: {
             shadow: false,
-            enabled:false,
+            enabled:true,
+            align:"right",
+            verticalAlign: "middle",
+            symbolRadius: 0,
+   
         },
         tooltip: {
             shared: true,
@@ -467,6 +471,7 @@ document.addEventListener('scroll', function () {
       chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
       chart.series[0].update({
         name: "Privés",
+        color:"#A26859",
         data: [{name: "SOLIDEO",x:0, y: 2, color:"#A26859"},{name: "COJO",x:1,y: 2.9,color:"#A26859"}],
         stack: "budget",
         dataLabels: {
@@ -488,6 +493,7 @@ document.addEventListener('scroll', function () {
       });
       chart.addSeries({
         name: "Publics",
+        color:"#CECECE",
         data: [{name: "SOLIDEO",x:0,y: 1.4, color:"#CECECE"},{name: "COJO",x:1,y: 0.1,color:"#CECECE"}],
         stack: "budget",
         dataLabels: {
@@ -525,6 +531,7 @@ document.addEventListener('scroll', function () {
       chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
       chart.series[0].update({
         name: "Privés",
+        color:"#A26859",
         data: [{name: "SOLIDEO",x:0, y: 2, color:"#A26859"},{name: "COJO",x:1,y: 2.9,color:"#A26859"}],
         stack: "budget",
         dataLabels: {
@@ -546,6 +553,7 @@ document.addEventListener('scroll', function () {
       });
       chart.addSeries({
         name: "Publics",
+        color:"#CECECE",
         data: [{name: "SOLIDEO",x:0, y: 1.4, color:"#CECECE"},{name: "COJO",x:1, y: 0.1,color:"#CECECE"}],
         stack: "budget",
         dataLabels: {
