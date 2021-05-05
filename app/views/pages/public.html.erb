@@ -6,10 +6,10 @@
 </div>
 <div class='background'>
   <div class="page-public">
-
+  <div class="public-title">Combien coûtent les Jeux Olympiques et Paralympiques 2024 ?</div>
   <div class="graphic">
     <div class="sections">
-      <div class="public-title">Combien coûtent les JOP24 ?</div>
+      
         <div class="step tp1" id="1">         
             Le budget des Jeux Olympiques et Paralympiques annoncé lors de la candidature de Paris 2024 est de <span class="tp1b">7,2 milliards d’euros.</span>
         </div>
@@ -18,8 +18,8 @@
         </div>
 
         <div class="step tp1" id="2b">
-            Ces deux organismes recoivent de l'argent public pour assurer la réalisation des JOP. La Solideo qui assurent la construction mais également la pérénisation de ces derniers recevra en tout  <span class="tp1b">1.4 Mds€</span> d'argent public. Parmi cest 1.4Mds, 1 Mds€ provient de la part de l'Etat. Le reste est à la charge d'une douzaine de collectivités. Le Cojo recoit quant à lui peu d'argent public ( <span class="tp1b">100M€</span> principalement pour les infrastructures de certains sites d'entrainements) car son finanement provient en grande majorité  du CIO et de ses recettes.<br><br>
-            Au total, <span class="tp1b">1,5 milliards d’euros</span> d'argent public soit 20% du budget global <br><br>
+            La Solideo qui assurent la construction mais également la pérénisation de ces derniers recevra en tout  <span class="tp1b">1.4 Mds€</span> d'argent public (1 Mds€ de l'Etat, le reste à la charge d'une douzaine de collectivités). Le Cojo recoit quant à lui moins d'argent public car son finanement provient en grande majorité du CIO et de ses recettes.<br><br>
+            Au total, <span class="tp1b">1,5 milliards d’euros</span> d'argent public est versé soit 20% du budget global. <br><br>
         </div>
       
         <div class="step tp1" id="3">
@@ -43,7 +43,7 @@
   <div class="graphic">
   <div class="sections">
       <div class="step tp1" id="5">
-        Sur les 10 dernières années, le budget moyen prévu lors des candidatures pour l’organisation des Jeux Olympiques et Paralympiques est de 6,6 milliards d’euros.
+        Sur les 10 dernières années, <span class="tp1b">le budget moyen</span> prévu lors des candidatures pour l’organisation des Jeux Olympiques et Paralympiques est de <span class="tp1b">6,6 milliards d’euros.</span>
       </div>
       <div class="step tp1" id="6">
         Mais en réalité, le budget prévu est régulièrement dépassé. Lors de sa candidature, la ville de Paris s’est engagé à une maîtrise des coûts notamment en limitant le nombre de construction d’infrastructures pour les Jeux et en suivant au plus près les dépenses engagées.
@@ -156,6 +156,8 @@ var chart = Highcharts.chart('graphe', {
             pointPlacement: 0,
             dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 textOutline: '0px',
@@ -165,10 +167,9 @@ var chart = Highcharts.chart('graphe', {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
                 content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
-              return number;
+                return number;
             },
-            y: 100,
-            x: 0,
+            
             },
 
         } ]
@@ -195,7 +196,7 @@ var chart2 = Highcharts.chart('graphe2', {
            
         },
         xAxis: {
-          categories: ["Vancouver", "Pekin", "Londres", "Paris", "Sotchi", "Rio","Tokyo"],
+          categories: ["Pekin 2008", "Londres 2012", "Paris 2024", "Rio 2016","Tokyo 2020"],
             title: {
             text: null,
           },
@@ -251,9 +252,10 @@ var chart2 = Highcharts.chart('graphe2', {
         },
         series: [{
           name: "Budget prévu",
-          data: [{name: "Vancouver", y: 1.3, color:"#958B62"},{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 7.2,color:"#2323EA"},{name: "Sotchi",y: 8.8,color:"#5770BE"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
+          data: [{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 7.2,color:"#2323EA"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
           dataLabels: {
               enabled: true,
+              skew3d: true,
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -310,23 +312,28 @@ document.addEventListener('scroll', function () {
       chart.series[0].remove();
 
       chart.addSeries({
-        name: "Budget Total",
-        color: '#2323EA',
-        data: [{ y:7.2,color:'#2323EA'}],
-        dataLabels: {
+        name: 'Budget Total',
+            color: '#2323EA',
+            data: [7.2],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
+                textOutline: '0px',
                 fontSize: '14px',
               },
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€</span> ';
-              return number;
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
             },
-            y: 0,
-            x: 0,
+            
             },
       });
 
@@ -352,6 +359,8 @@ document.addEventListener('scroll', function () {
       
         dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -364,8 +373,7 @@ document.addEventListener('scroll', function () {
                
               return number ;
             },
-            y: 0,
-            x: 0,
+          
             },
       });
       chart.addSeries({
@@ -375,6 +383,8 @@ document.addEventListener('scroll', function () {
         stack: "budget",
         dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -387,8 +397,7 @@ document.addEventListener('scroll', function () {
                 content =  '<span style="text-align:center;">'+number + ' <br/>'+ '<span style="font-weight:400;font-size:8px;">SOLIDEO</span></span> ';
               return number;
             },
-            y: 0,
-            x: 0,
+           
             },
       });
 
@@ -536,6 +545,8 @@ document.addEventListener('scroll', function () {
         stack: "budget",
         dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -547,7 +558,7 @@ document.addEventListener('scroll', function () {
                 content =  number + '<br/><span style="font-weight:400;font-size:10px;">'+point.series.name +' </span> ';
               return number;
             },
-            y: 0,
+       
          
             },
       });
@@ -558,6 +569,8 @@ document.addEventListener('scroll', function () {
         stack: "budget",
         dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -569,8 +582,6 @@ document.addEventListener('scroll', function () {
                 content =  number + '<br/><span style="font-weight:400;font-size:10px;">'+point.series.name+' </span> ';
               return number;
             },
-            y: 0,
-         
             },
       });
 
@@ -594,6 +605,8 @@ document.addEventListener('scroll', function () {
           data: [{name: "Ouvrages",x:0, y: 3.3, color:"#958B62"},{name: "Fonctionnement",x:0,y: 0.1,color:"#DCB796"}],
           dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -605,8 +618,6 @@ document.addEventListener('scroll', function () {
                 content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
               return number;
             },
-            y: 0,
-         
             },
       });
       chart.addSeries({
@@ -616,6 +627,8 @@ document.addEventListener('scroll', function () {
 
           dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -627,7 +640,6 @@ document.addEventListener('scroll', function () {
                 content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
               return number;
             },
-            y: 0,
          
             },
       });
@@ -653,6 +665,8 @@ document.addEventListener('scroll', function () {
           data: [{name: "Ouvrages",x:0, y: 3.3, color:"#958B62"},{name: "Fonctionnement",x:0,y: 0.1,color:"#DCB796"}],
           dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -664,8 +678,7 @@ document.addEventListener('scroll', function () {
                 content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
               return number;
             },
-            y: 0,
-         
+            
             },
       });
       chart.addSeries({
@@ -675,6 +688,8 @@ document.addEventListener('scroll', function () {
 
           dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -686,7 +701,6 @@ document.addEventListener('scroll', function () {
                 content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
               return number;
             },
-            y: 0,
          
             },
       });
@@ -706,9 +720,11 @@ document.addEventListener('scroll', function () {
       chart2.series[0].update({
         type: 'column',
         name: "Budget prévu",
-        data: [{name: "Vancouver", y: 1.3, color:"#958B62"},{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 7.2,color:"#2323EA"},{name: "Sotchi",y: 8.8,color:"#5770BE"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
+        data: [{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 7.2,color:"#2323EA"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
         dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -719,7 +735,6 @@ document.addEventListener('scroll', function () {
                 content =  number + '<br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
               return number;
             },
-            y: 0,
          
             },
       });
@@ -736,9 +751,11 @@ document.addEventListener('scroll', function () {
     if(isElementInViewport($('#5')) && $('#5').hasClass('inactive') && $('#5').hasClass('vue')){
       chart2.series[0].update({
         name: "Budget prévu",
-        data: [{name: "Vancouver", y: 1.3, color:"#958B62"},{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 7.2,color:"#2323EA"},{name: "Sotchi",y: 8.8,color:"#5770BE"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
+        data: [{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 7.2,color:"#2323EA"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
         dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -749,7 +766,6 @@ document.addEventListener('scroll', function () {
                 content =  number + ' <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
               return number;
             },
-            y: 0,
          
             },
       });
@@ -767,9 +783,11 @@ document.addEventListener('scroll', function () {
     if(isElementInViewport($('#6')) && $('#6').hasClass('inactive')){
       chart2.series[0].update({
         name: "Budget réel",
-        data: [{name: "Vancouver", y: 4.8, color:"#958B62"},{name: "Pekin",y: 31,color:"#20E37B"},{name: "Londres",y: 11,color:"#466964"},{name: "Paris",y: 7.2,color:"#2323EA"},{name: "Sotchi",y: 36,color:"#5770BE"},{name: "Rio",y: 16.5,color:"#00AC8C"},{name: "Tokyo",y: 15.4,color:"#4FC5CE"}],
+        data: [{name: "Pekin",y: 31,color:"#20E37B"},{name: "Londres",y: 11,color:"#466964"},{name: "Paris",y: 7.2,color:"#2323EA"},{name: "Rio",y: 16.5,color:"#00AC8C"},{name: "Tokyo",y: 15.4,color:"#4FC5CE"}],
         dataLabels: {
               enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
               style: {
                 color: '#fff',
                 fontSize: '14px',
@@ -780,7 +798,6 @@ document.addEventListener('scroll', function () {
                 content =  number + '<br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
               return number;
             },
-            y: 0,
          
             },
       });
@@ -810,6 +827,13 @@ document.addEventListener('scroll', function () {
           fontSize:'20px',
         },
     },
+    tooltip: {
+            shared: true,
+          
+            borderColor: 'transparent',
+            borderRadius: 16,
+            backgroundColor: '#fff',
+        },
     colors:['#2323EA','#00AC8C','#4FC5CE','#5770BE',"#A26859","#DBE5B0","#A2C744","#EFB786","#A28959","#A1AF83","#C893D0"],
     series: [{
         keys: ['from', 'to', 'weight'],
