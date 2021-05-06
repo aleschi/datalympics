@@ -14,6 +14,9 @@ module Datalympics
     config.active_record.default_timezone = :utc
 config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
+require Rails.root.join("lib/custom_public_exceptions")
+    config.exceptions_app = CustomPublicExceptions.new(Rails.public_path)
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
