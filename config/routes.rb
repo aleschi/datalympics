@@ -82,5 +82,7 @@ Rails.application.routes.draw do
 
   get 'association' => "chantiers#association"
   post 'import_association' => "chantiers#import_association"
+
+  match "/404" => "errors#error404", via: [:get, :post, :patch, :delete]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
