@@ -348,6 +348,9 @@ Highcharts.stockChart('programme', {
       width: 2,
       value: <%= @programme.where('type_budget = ? OR type_budget = ?',  "Bud. voté ou en cours de vote","Loi de Finances Initiale").first.montant.to_f/1000 %>,
     }],
+    title: {
+      text: "Total en k€",
+    },
   },
     plotOptions: {
         series: {
