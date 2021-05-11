@@ -1,10 +1,8 @@
 <div class="EB_page">
  <div class="ED_new_form_box">
    
-  <h1 class="EB_title_connexion">Datalympics</h1>
-  <div class="connexion_user">
-    <i class="fas fa-user-circle"></i>
-  </div>
+  <h1 class="EB_title_connexion"><%= image_tag 'logo_datalympics_blanc.svg'%></h1>
+ <div class="i40"></div>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 <%= render 'shared/devise_errors' %>
