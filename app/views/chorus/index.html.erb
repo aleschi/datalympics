@@ -1,8 +1,9 @@
 <div class="EB_page">
   <div class="SD-topo-box">
     <h1 class="chorus-index-title">DataChorus</h1>
-    <div class="chorus-index-subtitle">Le logiciel qui déchiffre Chorus</div>
-    
+    <div class="chorus-index-subtitle hidden">Le logiciel qui déchiffre Chorus</div>
+    <div class="i40"></div>
+    <div class="i40"></div>
     <%= form_tag search_choru_path, method: :get  do%>
     <%= search_form_for @q, url: search_choru_path do |f| %>
     <div class="chorus-search-box">
@@ -112,5 +113,6 @@ $('#programme-liste').hide();
   
  $('.programme-name').click(function(){
   $("#name").val($(this).text());
+  $('#programme-liste').hide();
  });
 </script>

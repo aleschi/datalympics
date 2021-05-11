@@ -1,10 +1,519 @@
 <div class="mxw1 pd32 ma">
-  <div class="i24"></div>
-  <div class="c2 fw6 fs40 tc">Le fond d'innovation </div>
-  <div class="i40"></div>
-  
-</div>
+	<div class="i24"></div>
+	<div class="c2 fw6 fs40 tc">Budget fond d'innovation </div>
+    <div class="i12"></div>
+	<div class="c2 fw4 fs20 tc">Dernière mise à jour : XX</div>
+	<div class="i40"></div>
 
+	<div class="row">
+	    <div class="col-md-6">
+	      	<div class="w100 bckc1 br20 bs pd24">
+	        <div><span class="fs16 fw7 pdt c0 bckc2 tupp">BUDGET EN CHIFFRES</span></div>
+		  	<div class="i24"></div>
+	        
+	        <div class="row">
+	        	<div class="col-md-5">
+	        		<div>
+	                  <div class="c1 fs20 fw7">12 M€</div>
+	                  <div class="i8"></div>
+	                  <div class="fw5 fs14 c6">Dotations votées</div>
+	                </div>
+	                <div class="i16"></div>
+		        	<div>
+	                  <div class="c1 fs20 fw7">24 M€</div>
+	                  <div class="i8"></div>
+	                  <div class="fw5 fs14 c6">Fonds non consommés à date</div>
+	                </div>
+	                
+	                
+	        	</div>
+	            <div class="col-md-7">
+	              <div id="budget"></div>
+	            </div>
+	            
+	        </div>
+	        <div id="budget2"></div>	          	        
+	      	</div>
+	      
+	    </div>
+	      <div class="col-md-6"> 
+	        <div class="w100 bckc1 br20 bs pd24">
+	        <div><span class="fs16 fw7 pdt c0 bckc2 tupp">LES FINANCEMENTS</span></div>
+		  	<div class="i24"></div>
+	        
+	        <div class="row">
+	            <div class="col-md-12">
+	              <div id="financements"></div>
+	            </div>
+	        </div>	          	        
+	      	</div>
+	       
+	      </div>
+	  </div>
+
+
+	<div class="i24"></div>
+
+	<div class="pd32 br20 bs bckc1">  
+	  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi des fonds innovation par projet</span></div>
+	  <div class="i24"></div>
+	  	<div class="row">
+	  		<div class="col-md-7">
+	  			<div id="projets"></div>
+	  		</div>
+	  		<div class="col-md-5">
+	  			<div id="pie"></div>
+	  		</div>
+	  	</div>
+	  	<div class="i24"></div>
+	</div>
+
+</div>
 <script>
   $('.menu-innovation').addClass('menu-active'); 
+</script>
+<script>
+Highcharts.chart('budget', {
+	chart: {
+        type: 'solidgauge',
+        height: '200px',
+          spacingTop: 0,
+          style:{
+            fontFamily: "Marianne Regular",
+          },
+    },
+
+    title: {
+		text: 'Consommation (€)',
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+          		fontSize: '12px',
+                  },
+    },
+
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: -90,
+        endAngle: 90,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '80%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: false
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#20E37B'], // green
+            [0.5, '#C68D7B'], // yellow
+            [0.9, '#F1013B'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        min: 0,
+        max: 36000000,
+        title: {
+        	text: null,
+            y: 100,
+        },
+        labels: {
+            y: 16
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 5,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Fonds investis',
+        data: [6000000],
+        innerRadius: '80%',
+      
+        dataLabels: {
+        	enabled: true,
+        	y:-50,
+            format:
+                '<div style="text-align:center">' +
+                '<span style="font-size:20px">'+<%=600/36%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%=600%>+' k€</span>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: ' %'
+        }
+    }],
+});
+</script>
+
+<script>
+ Highcharts.chart('financements', {
+    chart: {
+        type: 'column',
+        height:400,
+      	style:{
+          	fontFamily: "Marianne Regular",
+         	maxWidth: '500px',
+          },
+    },
+    title: {
+        text: "Répartition des Financements",
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",
+      			fontSize: '12px',
+                  },
+    },
+  	colors: ['#20E37B'],
+    xAxis: {
+        categories:  ["État", "Région IdF", "Ville de Paris", "CD 93", "Plaine co", "MGP", "Terre d'envol",],
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+      	gridLineColor: '#fff', 
+        title: {
+            text: 'Montant (k€)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' millions',
+      	borderColor: 'transparent',
+   		borderRadius: 16,
+   		backgroundColor: '#fff',
+    },
+  	legend: {
+    	enabled: false,
+  	},
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true,
+            }
+        }
+    },
+    
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y: 23382, color: "#C68D7B",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+        {y: 10000, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+        {y: 10000, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+        {y: 2018, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+        {y: 1400, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+        {y: 600, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}},
+        {y: 500, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}},  
+     ],
+ 	}],
+});
+  </script>
+<script>
+ Highcharts.chart('budget2', {
+    chart: {
+        type: 'column',
+        height:200,
+      	style:{
+          	fontFamily: "Marianne Regular",
+         	maxWidth: '500px',
+          },
+    },
+    title: {
+        text: "Suivi de la consommation",
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",
+      			fontSize: '12px',
+                  },
+    },
+  	colors: ['#20E37B'],
+    xAxis: {
+        categories:  ["2020", "2021", "2022", "2023", "2024"],
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+      	gridLineColor: '#fff', 
+        title: {
+            text: 'Montant (k€)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' millions',
+      	borderColor: 'transparent',
+   		borderRadius: 16,
+   		backgroundColor: '#fff',
+    },
+  	legend: {
+    	enabled: false,
+  	},
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true,
+            }
+        }
+    },
+    
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Budget',
+        data: [{y: 150, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+        {y: 8652, color: "#2E5D63",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+        {y: 9262, color: "#C4C4C4",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+        {y: 5007, color: "#C4C4C4",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+        {y: 1664, color: "#C4C4C4",dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',}}, 
+     ],
+ 	}],
+});
+  </script>
+<script>
+ Highcharts.chart('projets', {
+    chart: {
+        type: 'column',
+        height:200,
+      	style:{
+          	fontFamily: "Marianne Regular",
+          },
+    },
+    title: {
+        text: "Suivi de la consommation",
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",
+      			fontSize: '12px',
+                  },
+    },
+  	colors: ['#20E37B'],
+    xAxis: {
+        categories:  ["CAO", "Franchissement P.Larousse", "Secteur D - Nexity", "Batiment Cycle", "Arena 2", 'Espaces publics VOP'],
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+      	gridLineColor: '#fff', 
+        title: {
+            text: 'Montant (k€)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' millions',
+      	borderColor: 'transparent',
+   		borderRadius: 16,
+   		backgroundColor: '#fff',
+    },
+  	legend: {
+    	enabled: false,
+  	},
+    plotOptions: {
+        column: {
+        	stacking: 'normal',
+            dataLabels: {
+                enabled: false,
+            }
+        }
+    },
+    
+    credits: {
+        enabled: false
+    },
+    series: [
+    {
+        name: 'Innovation environnementale',
+        data: [{y: 1500, color: "#FFE800"}, 
+        {y: 8652, color: "#FFE800"}, 
+        {y: 9262, color: "#FFE800"}, 
+        {y: 5007, color: "#FFE800"}, 
+        {y: 1664, color: "#FFE800"}, 
+        {y: 1664, color: "#FFE800"}, 
+     ],
+ 	},
+ 	{
+        name: 'Innovation accessibilité',
+        data: [{y: 1500, color: "#4FC5CE"}, 
+        {y: 8652, color: "#4FC5CE"}, 
+        {y: 9262, color: "#4FC5CE"}, 
+        {y: 5007, color: "#4FC5CE"}, 
+        {y: 1664, color: "#4FC5CE"}, 
+        {y: 1664, color: "#4FC5CE"}, 
+     ],
+ 	},
+ 	{name: 'Innovation techniques',
+        data: [{y: 1500, color: "#00ACBC"}, 
+        {y: 8652, color: "#00ACBC"}, 
+        {y: 9262, color: "#00ACBC"}, 
+        {y: 5007, color: "#00ACBC"}, 
+        {y: 1664, color: "#00ACBC"}, 
+        {y: 1664, color: "#00ACBC"}, 
+     ],
+ 	}],
+});
+  </script>
+<script>
+Highcharts.chart('pie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+        backgroundColor: '#fff',
+          style:{
+          fontFamily: "Marianne Regular",
+       
+          },
+    height: 200,
+    },
+    title: {
+         text:null,   
+          style: {
+                  color: "#8F8F8F",
+                  fontWeight: "400",
+                  fontStyle: "italic",
+                  fontSize: '16px',
+                  },
+    },
+  colors: ['#00ACBC',"#FFE800",'#4FC5CE'],
+  tooltip: {
+        pointFormat: '{series.name}: <b>{point.y:,.0f} M€ </b>',
+      borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+           size: 100,
+            dataLabels: {
+                enabled: true,
+              connectorPadding: 0,
+             // distance: 10,
+                format: '<b>{point.name}</b><br>{point.y:,.0f} M€ - {point.percentage:.1f} %',
+              style: {
+                      color: "#8F8F8F",
+                      fontSize: "11px",
+                      fontWeight: "400",
+                      fontStyle: "italic",
+                      },
+            }
+        }
+    },
+    series: [{
+        name: 'Total',
+        colorByPoint: true,
+        data: [{
+            name: 'Innovation techniques',
+            y:  8,
+           
+        }, {
+            name: 'Innovation environnementale',
+            y: 12,
+        }, {
+            name: 'Innovation accessibilité',
+            y: 16,
+        }]
+    }]
+});
 </script>
