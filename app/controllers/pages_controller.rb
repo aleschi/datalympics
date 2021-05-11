@@ -20,6 +20,9 @@ class PagesController < ApplicationController
 
   def innovation
     @nav=true
+    @q = Ouvrage.all.ransack(params[:q])
+   
+    @ouvrages = Ouvrage.all
   end 
 
   def reporting

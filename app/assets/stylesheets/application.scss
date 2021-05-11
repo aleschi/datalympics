@@ -1115,6 +1115,23 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
   }
 }
+.O-span{
+margin:10px 0px;
+  span{
+  background-color:#F0F0F0;
+  color:#000;
+  font-size:12px;
+  margin-right:10px;
+  border-radius:50px;
+  padding:4px 8px;
+  i{
+  font-size:8px;
+  }
+  .fa-circle-env{
+  color:#FFE800;
+  }
+  }
+}
 .new-ouvrage-text{
  color:#444444;
   font-size:15px;

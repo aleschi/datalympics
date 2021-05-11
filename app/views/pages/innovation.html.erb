@@ -66,6 +66,7 @@
 	  		</div>
 	  	</div>
 	  	<div class="i24"></div>
+	  	<%= render 'liste_innovation'%>
 	</div>
 
 </div>
@@ -361,13 +362,13 @@ Highcharts.chart('budget', {
  Highcharts.chart('projets', {
     chart: {
         type: 'column',
-        height:200,
+        height:250,
       	style:{
           	fontFamily: "Marianne Regular",
           },
     },
     title: {
-        text: "Suivi de la consommation",
+        text: null,
         verticalAlign: "top",
         style: {
                 color: "#8F8F8F",
@@ -400,7 +401,7 @@ Highcharts.chart('budget', {
    		backgroundColor: '#fff',
     },
   	legend: {
-    	enabled: false,
+    	enabled: true,
   	},
     plotOptions: {
         column: {
@@ -417,6 +418,7 @@ Highcharts.chart('budget', {
     series: [
     {
         name: 'Innovation environnementale',
+        color: "#FFE800",
         data: [{y: 1500, color: "#FFE800"}, 
         {y: 8652, color: "#FFE800"}, 
         {y: 9262, color: "#FFE800"}, 
@@ -427,6 +429,7 @@ Highcharts.chart('budget', {
  	},
  	{
         name: 'Innovation accessibilité',
+        color: "#4FC5CE",
         data: [{y: 1500, color: "#4FC5CE"}, 
         {y: 8652, color: "#4FC5CE"}, 
         {y: 9262, color: "#4FC5CE"}, 
@@ -435,13 +438,14 @@ Highcharts.chart('budget', {
         {y: 1664, color: "#4FC5CE"}, 
      ],
  	},
- 	{name: 'Innovation techniques',
-        data: [{y: 1500, color: "#00ACBC"}, 
-        {y: 8652, color: "#00ACBC"}, 
-        {y: 9262, color: "#00ACBC"}, 
-        {y: 5007, color: "#00ACBC"}, 
-        {y: 1664, color: "#00ACBC"}, 
-        {y: 1664, color: "#00ACBC"}, 
+ 	{name: 'Innovation technologique',
+ 	color: "#00AC8C",
+        data: [{y: 1500, color: "#00AC8C"}, 
+        {y: 8652, color: "#00AC8C"}, 
+        {y: 9262, color: "#00AC8C"}, 
+        {y: 5007, color: "#00AC8C"}, 
+        {y: 1664, color: "#00AC8C"}, 
+        {y: 1664, color: "#00AC8C"}, 
      ],
  	}],
 });
@@ -458,7 +462,7 @@ Highcharts.chart('pie', {
           fontFamily: "Marianne Regular",
        
           },
-    height: 200,
+    height: 250,
     },
     title: {
          text:null,   
@@ -469,7 +473,10 @@ Highcharts.chart('pie', {
                   fontSize: '16px',
                   },
     },
-  colors: ['#00ACBC',"#FFE800",'#4FC5CE'],
+  colors: ['#00AC8C',"#FFE800",'#4FC5CE'],
+  legend: {
+    	enabled: true,
+  	},
   tooltip: {
         pointFormat: '{series.name}: <b>{point.y:,.0f} M€ </b>',
       borderColor: 'transparent',
@@ -504,7 +511,7 @@ Highcharts.chart('pie', {
         name: 'Total',
         colorByPoint: true,
         data: [{
-            name: 'Innovation techniques',
+            name: 'Innovation technologique',
             y:  8,
            
         }, {
