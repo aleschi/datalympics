@@ -12,45 +12,41 @@
   <div class="i40"></div>
     
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="w100 bckc1 br20 bs">
         <div class="bckc2 w100 br4 tc pd12 tupp c0 fs16 fw7">
-          BUDGET OUVRAGES 2021 (HORS ZAC)
+          SUIVI BUDGET OUVRAGES 
         </div>
         <div class="pd24">
           <div class="row inline-flex w100">
-            <div class="col-md-9">
+            <div class="col-md-4">
               <div id="focus"></div>
             </div>
-            <div class="col-md-3 padding-none">
-              <div class="bckc2 c0 fs14 fw4 pd8 tc"><span class="fw8"><%= (@ouvrages_budget_2021-@ouvrages_depenses_2021).round(1)%> M€</span> <br>Reste à payer</div>
+            <div class="col-md-2 padding-none">
+              <div class="bckc2 c0 fs14 fw4 pd8 tc"><span class="fw8"><%= (@ouvrages_depenses_attente).round(1)%> M€</span> <br>Paiements en attente</div>
+            </div>
+            <div class="col-md-6">
+              <div id="engagements"></div>
+            </div>
+          </div>
+          <div class="row inline-flex w100">
+            <div class="col-md-4">
+              <div id="budget"></div>
+            </div>
+            <div class="col-md-2 padding-none">
+              <div class="bckc2 c0 fs14 fw4 pd8 tc"><span class="fw8"><%= (@ouvrages_budget_global).round(1)%> M€</span> <br>montants engagés</div>
+            </div>
+            <div class="col-md-6">
+              <div id="jalons"></div>
             </div>
           </div>
           
         </div>
       </div>
-      <div class="i32"></div>
-    </div>
-      <div class="col-md-6"> 
-        <div class="w100 bckc1 br20 bs">
-          <div class="bckc2 w100 br4 tc pd12 tupp c0 fs16 fw7">
-           budget global ouvrages (HORS ZAC)
-          </div>
-          <div class="pd24">
-            <div class="row inline-flex w100">
-            <div class="col-md-9">
-              <div id="budget"></div>
-            </div>
-            <div class="col-md-3 padding-none">
-              <div class="bckc2 c0 fs14 fw4 pd8 tc"><span class="fw8"><%= (@ouvrages_budget_global-@ouvrages_depenses_global).round(1)%> M€</span> <br>Reste à payer</div>
-            </div>
-          </div>
-            
-          </div>
-        </div>
-        <div class="i32"></div>
+
       </div>
   </div>
+  <div class="i32"></div>
   
 
   <div class="row">
@@ -127,7 +123,7 @@
                                     header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
                                   }
                                   
-                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDE <br/>';
+                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400;>' + number  + ' CDE <br/>';
 
                                 return content + header ;
                               },
@@ -319,213 +315,365 @@ Highcharts.chart('container-jauge4', {
 });
   </script>
 
-
-
-  <script>
+<script>
     
     Highcharts.chart('focus', {
     chart: {
-        type: 'column',
-        inverted: true,
-        height: '150px',
-        spacingTop: 0,
-        style:{
-          fontFamily: "Marianne Regular",
-        },
-    },
-    title: {
-        text: null,
-       
-    },
-    xAxis: {
-      categories: ['Suivi Budget 2021'],
-        title: {
-        text: null,
-      },
-      lineColor: '#fff',
-      labels: {
-        enabled: false,
-      },
-    },
-    yAxis: {
-      gridLineColor: '#fff',
-      title: {
-        text: null,
-      },
-      labels: {
-        enabled: false,
-      },
-    },
-    legend: {
-        shadow: false,
-        enabled:false,
-    },
-    tooltip: {
-        shared: true,
-        valueSuffix: 'M€',
-        borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-    plotOptions: {
-        column: {
-            grouping: false,
-            shadow: false,
-            borderWidth: 0,
-            pointWidth: 15,
-        }
-    },
-    series: [{
-        name: 'Budget 2021',
-        color: '#C4C4C4',
-        data: [<%= @ouvrages_budget_2021%>],
-        pointPadding: 0,
-        pointPlacement: 0,
-        dataLabels: {
-          enabled: true,
-          style: {
-            color: '#C4C4C4',
-            textOutline: '0px',
-            fontSize: '14px',
-          },
-          formatter: function() {
-            var point = this, 
-            number = Highcharts.numberFormat(point.y, -1, ',',' '), 
-            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">prévus </span> ';
-          return content;
-        },
-        y: 100,
-        },
-
-    }, {
-        name: 'Paiements versés',
-        color: '#C68D7B',
-        data: [<%= @ouvrages_depenses_2021%>],
-        pointPadding: 0,
-        pointPlacement: 0,
-        dataLabels: {
-          enabled: true,
-          style: {
-            color: '#C68D7B',
-            fontSize: '14px',
-          },
-          formatter: function() {
-            var point = this, 
-            number = Highcharts.numberFormat(point.y, -1, ',',' '),
-            percentage =  <%= (@ouvrages_depenses_2021/@ouvrages_budget_2021*100).round%>
-            content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés - '+ percentage + '%</span>';
-          return content;
-        },
-        y: 100,
-        x: -20,
-        },
-    }, ]
-});
-  </script>
-   <script>
-    
-      Highcharts.chart('budget', {
-      chart: {
-          type: 'column',
-          inverted: true,
-          height: '150px',
-          spacingTop: 0,
+        type: 'solidgauge',
+        height: '200px',
+          spacingTop: 20,
           style:{
             fontFamily: "Marianne Regular",
           },
-      },
-      title: {
-          text: null,
-         
-      },
-      xAxis: {
-        categories: ['Suivi Budget 2021'],
-          title: {
-          text: null,
-        },
-        lineColor: '#fff',
-        labels: {
-          enabled: false,
-        },
-      },
-      yAxis: {
-        gridLineColor: '#fff',
+    },
+    title: {
+        text: 'Dépenses ouvrages 2021 (hors ZAC)',
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+       
+    },
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: -90,
+        endAngle: 90,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '80%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: false
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#20E37B'], // green
+            [0.5, '#C68D7B'], // yellow
+            [0.9, '#F1013B'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        min: 0,
+        max: <%= @ouvrages_budget_2021%>,
         title: {
           text: null,
+            y: 100,
         },
         labels: {
-          enabled: false,
+            y: 16
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 5,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Paiements versés',
+        data: [<%= @ouvrages_depenses_2021%>],
+        innerRadius: '80%',
+      
+        dataLabels: {
+          enabled: true,
+          y:-50,
+            format:
+                '<div style="text-align:center;color:#000;">' +
+                '<span style="font-size:20px">'+<%=((@ouvrages_depenses_2021/@ouvrages_budget_2021)*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%= @ouvrages_depenses_2021%>+' M€</span>' +
+                '</div>'
         },
+        tooltip: {
+            valueSuffix: ' %'
+        }
+    }],
+    
+});
+</script>
+<script>
+ Highcharts.chart('budget', {
+  chart: {
+        type: 'solidgauge',
+        height: '200px',
+          spacingTop: 20,
+          style:{
+            fontFamily: "Marianne Regular",
+          },
+    },
+
+    title: {
+    text: 'Dépenses globales ouvrages (hors ZAC)',
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+    },
+
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: -90,
+        endAngle: 90,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '80%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: false
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#20E37B'], // green
+            [0.5, '#C68D7B'], // yellow
+            [0.9, '#F1013B'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        min: 0,
+        max: <%= @budget_ouvrages%>,
+        title: {
+          text: null,
+            y: 100,
+        },
+        labels: {
+            y: 16
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 5,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Fonds investis',
+        data: [<%= @ouvrages_depenses_global%>],
+        innerRadius: '80%',
+      
+        dataLabels: {
+          enabled: true,
+          y:-50,
+            format:
+                '<div style="text-align:center">' +
+                '<span style="font-size:20px">'+<%= ((@ouvrages_depenses_global/@budget_ouvrages)*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%=@ouvrages_depenses_global%>+' M€</span>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: ' %'
+        }
+    }],
+});   
+      
+</script>
+<script>
+  Highcharts.chart('engagements', {
+      chart: {
+          type: 'waterfall',
+          height:200,
+          spacingRight:20,
+          spacingLeft:20,
+          spacingTop:20,
+          style:{
+            fontFamily: "Marianne Regular",
+            },
       },
+
+      title: {
+          text: "Evolution des montants engagés (cumul)",      
+          style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+      },
+
+      xAxis: {
+          type: 'category'
+      },
+
+      yAxis: {
+        gridLineColor: '#fff', 
+          title: {
+              text: 'Montant €'
+          }
+      },
+
       legend: {
-          shadow: false,
-          enabled:false,
+          enabled: false
       },
+
       tooltip: {
-          shared: true,
-          valueSuffix: 'M€',
-          borderColor: 'transparent',
+          pointFormat: '<b>{point.y:,.0f} €</b> ',
+         borderColor: 'transparent',
      borderRadius: 16,
      backgroundColor: '#fff',
       },
       plotOptions: {
-          column: {
-              grouping: false,
-              shadow: false,
-              borderWidth: 0,
-              pointWidth: 15,
+        waterfall: {
+            pointWidth: 25,
+        }
+      },
+
+      series: [{
+        borderColor: '#fff',
+        data: [{
+              name: '2020',
+              y: <%=(Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('cumul_depenses_actees')-Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('depenses_actees_annee')).round(1)%>,
+              color: "#76505B",
+          }, {
+              name: '2021',
+              y: <%=(Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('depenses_actees_annee')).round(1) %>,
+              color: "#76505B",
+          }, {
+              name: 'Cumul',
+              isSum: true,
+              color: "#76505B"
+          }],
+          dataLabels: {
+              enabled: true,
+              formatter: function () {
+                  return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
+              },
+            
+              style: {
+                  fontWeight: 'bold',
+                  color: '#000',
+              
+                fontFamily: 'Karla',
+              }
+          },
+          pointPadding: 0
+      }]
+  });
+</script>
+<script>
+  Highcharts.chart('jalons', {
+      chart: {
+          type: 'waterfall',
+          height:200,
+          spacingRight:20,
+          spacingLeft:20,
+          spacingTop:20,
+          style:{
+            fontFamily: "Marianne Regular",
+            },
+      },
+
+      title: {
+          text: "Evolution des jalons validés (cumul)",      
+          style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+      },
+
+      xAxis: {
+          type: 'category'
+      },
+
+      yAxis: {
+        gridLineColor: '#fff', 
+          title: {
+              text: 'Montant €'
           }
       },
+
+      legend: {
+          enabled: false
+      },
+
+      tooltip: {
+          pointFormat: '<b>{point.y:,.0f} €</b> ',
+         borderColor: 'transparent',
+     borderRadius: 16,
+     backgroundColor: '#fff',
+      },
+      plotOptions: {
+        waterfall: {
+            pointWidth: 25,
+        }
+      },
+
       series: [{
-          name: 'Montants engagés',
-          color: '#C4C4C4',
-          data: [<%= @ouvrages_budget_global%>],
-          pointPadding: 0,
-          pointPlacement: 0,
+        borderColor: '#fff',
+        data: [{
+              name: '2020',
+              y: <%=(Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('cumul_jalons')-Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('jalons_annee')).round(1)%>,
+              color: "#FFE800",
+          }, {
+              name: '2021',
+              y: <%=(Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('jalons_annee')).round(1) %>,
+              color: "#FFE800",
+          }, {
+              name: 'Cumul',
+              isSum: true,
+              color: "#FFE800"
+          }],
           dataLabels: {
-            enabled: true,
-            style: {
-              color: '#C4C4C4',
-              textOutline: '0px',
-              fontSize: '14px',
-            },
-            formatter: function() {
-              var point = this, 
-              number = Highcharts.numberFormat(point.y, -1, ',',' '),
-              content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">engagés </span>';
-            return content;
+              enabled: true,
+              formatter: function () {
+                  return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
+              },
+            
+              style: {
+                  fontWeight: 'bold',
+                  color: '#000',
+              
+                fontFamily: 'Karla',
+              }
           },
-          y: 100,
-          },
-
-      }, {
-          name: 'Paiements versés',
-          color: '#466964',
-          data: [<%= @ouvrages_depenses_global%>],
-          pointPadding: 0,
-          pointPlacement: 0,
-          dataLabels: {
-            enabled: true,
-            style: {
-              color: '#466964',
-              fontSize: '14px',
-            },
-            formatter: function() {
-              var point = this, 
-              number = Highcharts.numberFormat(point.y, -1, ',',' '),
-              percentage =  <%= (@ouvrages_depenses_global/@ouvrages_budget_global*100).round%>
-              content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">versés - '+percentage+'%</span> ';
-            return content;
-          },
-          y: 100,
-          x: -20,
-          },
-      }, ]
+          pointPadding: 0
+      }]
   });
-  </script>
+</script>
 <script>
-
   $('.menu-accueil').addClass('menu-active'); 
-
-
 </script>

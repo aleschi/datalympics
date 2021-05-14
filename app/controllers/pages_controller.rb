@@ -9,6 +9,10 @@ class PagesController < ApplicationController
     @ouvrages_budget_2021 = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('budget_annee')/1000000).round(1)
     @ouvrages_budget_global = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('total_depenses_actees')/1000000).round(1)
     @ouvrages_depenses_global = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('cumul_paiements')/1000000).round(1)
+    @ouvrages_depenses_attente = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('paiements_attente_annee')/1000000).round(1)
+
+    @dates_maquettes= Maquette.order('date DESC').pluck(:date).uniq! 
+    @budget_ouvrages = (Maquette.where('date = ?',@dates_maquettes[0]).where.not(ouvrage_id: nil).sum('total')/1000000).to_i 
   end
   
   def jop2024
