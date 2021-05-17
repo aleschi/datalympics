@@ -43,7 +43,7 @@
             </div> 
             <div class="col-md-2">
               <div class="box_i1">
-                      <div class="box_i1_t1"><%= @budget_ouvrages%>M€</div>
+                      <div class="box_i1_t1"><%= number_with_delimiter(@budget_ouvrages.to_i, :delimiter => ' ')%>M€</div>
                       <div class="box_i1_t2"> Budget total</div>
                   </div>
               <div class="i12"></div>
