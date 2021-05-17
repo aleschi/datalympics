@@ -15,32 +15,54 @@
     <div class="col-md-12">
       <div class="w100 bckc1 br20 bs">
         <div class="bckc2 w100 br4 tc pd12 tupp c0 fs16 fw7">
-          SUIVI BUDGET OUVRAGES 
+          SUIVI BUDGET OUVRAGES (hors ZAC)
         </div>
         <div class="pd24">
-          <div class="row inline-flex w100">
+          <div class="i12"></div>
+          <div class="row  w100">
             <div class="col-md-4">
-              <div id="focus"></div>
+              <div style="height:200px;overflow:hidden">
+                <div id="focus"></div>
+              </div>
             </div>
-            <div class="col-md-2 padding-none">
-              <div class="bckc2 c0 fs14 fw4 pd8 tc"><span class="fw8"><%= (@ouvrages_depenses_attente).round(1)%> M€</span> <br>Paiements en attente</div>
+            <div class="col-md-2">
+                <div class="box_i1">
+                  <div class="box_i1_t1"><%=@ouvrages_budget_2021%>M€ </div>
+                  <div class="box_i1_t2">Budget 2021</div>
+                </div>
+                <div class="i12"></div>
+                <div class="box_i1">
+                  <div class="box_i1_t1"><%= (@ouvrages_depenses_attente).round(1)%>M€ </div>
+                  <div class="box_i1_t2">Paiements en attente</div>
+                </div>
             </div>
+            <div class="col-md-4">
+              <div style="height:200px;overflow:hidden">
+                <div id="budget"></div>
+              </div>
+            </div> 
+            <div class="col-md-2">
+              <div class="box_i1">
+                      <div class="box_i1_t1"><%= @budget_ouvrages%>M€</div>
+                      <div class="box_i1_t2"> Budget total</div>
+                  </div>
+              <div class="i12"></div>
+                <div class="box_i1">
+                    <div class="box_i1_t1"><%= (@ouvrages_budget_global).round(1)%>M€ </div>
+                    <div class="box_i1_t2">Montants engagés</div>
+                </div> 
+            </div>
+          </div>
+          <div class="i24"></div>
+          <div class="row inline-flex w100 hidden">
             <div class="col-md-6">
               <div id="engagements"></div>
             </div>
-          </div>
-          <div class="row inline-flex w100">
-            <div class="col-md-4">
-              <div id="budget"></div>
-            </div>
-            <div class="col-md-2 padding-none">
-              <div class="bckc2 c0 fs14 fw4 pd8 tc"><span class="fw8"><%= (@ouvrages_budget_global).round(1)%> M€</span> <br>montants engagés</div>
-            </div>
             <div class="col-md-6">
-              <div id="jalons"></div>
+              <div id="jalons"></div> 
             </div>
           </div>
-          
+
         </div>
       </div>
 
@@ -320,14 +342,14 @@ Highcharts.chart('container-jauge4', {
     Highcharts.chart('focus', {
     chart: {
         type: 'solidgauge',
-        height: '200px',
-          spacingTop: 20,
+        height: '300px',
+          spacingTop: 0,
           style:{
             fontFamily: "Marianne Regular",
           },
     },
     title: {
-        text: 'Dépenses ouvrages 2021 (hors ZAC)',
+        text: 'Execution budgétaire 2021 (hors ZAC)',
         verticalAlign: "top",
         style: {
                 color: "#8F8F8F",
@@ -417,15 +439,15 @@ Highcharts.chart('container-jauge4', {
  Highcharts.chart('budget', {
   chart: {
         type: 'solidgauge',
-        height: '200px',
-          spacingTop: 20,
+        height: '300px',
+          spacingTop: 0,
           style:{
             fontFamily: "Marianne Regular",
           },
     },
 
     title: {
-    text: 'Dépenses globales ouvrages (hors ZAC)',
+    text: 'Dépenses depuis le début (hors ZAC)',
         verticalAlign: "top",
         style: {
                 color: "#8F8F8F",
