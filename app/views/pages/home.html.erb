@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-2">
                 <div class="box_i1">
-                  <div class="box_i1_t1"><%=@ouvrages_budget_2021%>M€ </div>
+                  <div class="box_i1_t1"><%= number_with_delimiter(@ouvrages_budget_2021.to_i, :delimiter => ' ')%>M€ </div>
                   <div class="box_i1_t2">Budget 2021</div>
                 </div>
                 <div class="i12"></div>
