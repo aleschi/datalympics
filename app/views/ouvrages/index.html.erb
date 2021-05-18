@@ -22,6 +22,16 @@
       </div>
       <div class="calendar-infos-box">
         <div>
+        <i class="fas fa-people-carry"></i>
+        </div>
+        <div>
+        <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1],).sum('total_public')/1000000).round(1), :delimiter => ' ') %> M€<br>
+          <span>Part publique</span>
+        </div>
+      </div>
+      
+      <div class="calendar-infos-box">
+        <div>
         <i class="fas fa-building"></i>
         </div>
         <div>
@@ -30,15 +40,6 @@
         </div>
       </div>
       <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-flag"></i>
-        </div>
-        <div>
-        35%<br>
-          <span>Ouvrages finalisés</span>
-        </div>
-      </div>
-          <div class="calendar-infos-box">
         <div>
            <i class="fas fa-coins"></i>
         </div>
@@ -58,13 +59,14 @@
       </div>
       <div class="calendar-infos-box">
         <div>
-        <i class="fas fa-people-carry"></i>
+        <i class="fas fa-flag"></i>
         </div>
         <div>
-        104<br>
-          <span>Employés</span>
+        35%<br>
+          <span>Ouvrages finalisés</span>
         </div>
       </div>
+      
     </div>
 
     <div class='inline-flex w100 hidden-xs'>
@@ -77,6 +79,15 @@
           <span>Budget Initial</span>
         </div>
       </div>
+      <div class="inline-flex w100 ma">
+        <div class="c1">
+           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
+        </div>
+        <div>
+          <span class="c1 fs16 fw7"><%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total_public')/1000000).round(1), :delimiter => ' ') %> M€</span><br>
+          <span class="c6 fs16 fw5">Part publique</span>
+        </div>
+      </div>
       <div class="calendar-infos-box">
         <div>
         <i class="fas fa-building"></i>
@@ -86,15 +97,7 @@
         <span>Ouvrages</span>
         </div>
       </div>
-      <div class="inline-flex w100 ma">
-        <div class="c1">
-        <i class="fas fa-flag fs20 mr10 w25"></i>
-        </div>
-        <div>
-          <span class="c3 fs16 fw7">35%</span><br>
-          <span class="c6 fs16 fw5">Ouvrages finalisés</span>
-        </div>
-      </div>
+      
     </div>
     <div class="i24"></div>
     <div class="inline-flex w100 hidden-xs">
@@ -116,15 +119,16 @@
           <span class="c6 fs16 fw5">Dépenses réalisées</span>
         </div>
       </div>
-      <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-people-carry"></i>
+      <div class="inline-flex w100 ma">
+        <div class="c1">
+        <i class="fas fa-flag fs20 mr10 w25"></i>
         </div>
         <div>
-        <span class="c3">104</span><br>
-          <span>Employés</span>
+          <span class="c3 fs16 fw7">35%</span><br>
+          <span class="c6 fs16 fw5">Ouvrages finalisés</span>
         </div>
       </div>
+      
     </div>
     <div class="i32"></div>
     <div class="tc hidden-xs">

@@ -2,10 +2,13 @@
 <div class="pd32 br20 bs bckc1">  
   <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Financements de la solideo</span></div>
   <div class="i24"></div>
-
+   <div class="i24"></div>
   <div class="row">
    <div class="col-md-5 col-xs-12">
-     <div class="mr10" id="container-bar"></div>
+     <div class="mr10 hidden" id="container-bar"></div>
+     <div id="financements_publics" style="height:200px;overflow:hidden;"></div>
+      <div class="i60"></div>
+      <div id="financements_publics_2021" style="height:200px;overflow:hidden;"></div>
     </div> 
     <div class="col-md-7 col-xs-12">  
       <div id="container-bar1"></div>
@@ -442,9 +445,206 @@
 </div>
 
 <script>
+    
+    Highcharts.chart('financements_publics', {
+    chart: {
+        type: 'solidgauge',
+        height: '200px',
+          spacingTop: 0,
+          style:{
+            fontFamily: "Marianne Regular",
+          },
+    },
+    title: {
+        text: 'Financements publics depuis le début',
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+       
+    },
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: -90,
+        endAngle: 90,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '80%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: false
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#20E37B'], // green
+            [0.5, '#C68D7B'], // yellow
+            [0.9, '#F1013B'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        min: 0,
+        max: <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total_public')/1000000)%>,
+        title: {
+          text: null,
+            y: 100,
+        },
+        labels: {
+            y: 16
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 5,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Financements reçus',
+        data: [100],
+        innerRadius: '80%',
+      
+        dataLabels: {
+          enabled: true,
+          y:-50,
+            format:
+                '<div style="text-align:center;color:#000;">' +
+                '<span style="font-size:20px">'+<%=((((SolideoFinancement.where('financeur!=? AND date <= ?','Privés + recettes',@dates_maquettes[0]).sum('montant')/1000000).round(1))/(Maquette.where('date = ?',@dates_maquettes[0]).sum('total_public')/1000000))*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%= 100  %>+' M€</span>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: ' %'
+        }
+    }],
+    
+});
+</script>
+<script>
+    
+    Highcharts.chart('financements_publics_2021', {
+    chart: {
+        type: 'solidgauge',
+        height: '200px',
+          spacingTop: 0,
+          style:{
+            fontFamily: "Marianne Regular",
+          },
+    },
+    title: {
+        text: 'Financements publics reçus 2021',
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+       
+    },
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: -90,
+        endAngle: 90,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '80%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: false
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#20E37B'], // green
+            [0.5, '#C68D7B'], // yellow
+            [0.9, '#F1013B'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        min: 0,
+        max: <%= (SolideoFinancement.where('financeur!=? AND date = ?','Privés + recettes',Date.new(2021,1,1)).sum('montant')/1000000).round(1) %>,
+        title: {
+          text: null,
+            y: 100,
+        },
+        labels: {
+            y: 16
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 5,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Financements reçus',
+        data: [<%= 0 %>],
+        innerRadius: '80%',
+      
+        dataLabels: {
+          enabled: true,
+          y:-50,
+            format:
+                '<div style="text-align:center;color:#000;">' +
+                '<span style="font-size:20px">'+<%=(((0)/(SolideoFinancement.where('financeur!=? AND date = ?','Privés + recettes',Date.new(2021,1,1)).sum('montant')/1000000))*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%= 0 %>+' M€</span>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: ' %'
+        }
+    }],
+    
+});
+</script>
+<script>
   Highcharts.chart('container-bar1', {
     chart: {
-        type: 'column',
+      spacingTop: 0,
+        type: 'waterfall',
     height:'200px',
       backgroundColor: '#fff',
           style:{
@@ -458,19 +658,18 @@
         style: {
                   color: "#8F8F8F",
                   fontWeight: "400",
-    
           fontSize: '12px',
                   },
     },
 
     xAxis: {
-        categories: ['Recu 2018', 'Recu 2019',  "Recu 2020", "Prev 2021", "Cumul"],
-        crosshair: true
+        type: 'category',
+
     },
     yAxis: {
         min: 0,
         title: {
-            text: 'Budget financé (M€)'
+            text: 'Financements recçus (M€)'
         },
       gridLineColor: "#fff",
     },
@@ -478,44 +677,81 @@
     enabled: false,
   },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
-            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
-        footerFormat: '</table>',
+   
+        headerFormat: '<span style="font-size:10px">{point.key}</span><br/>',
+        pointFormat: '<b>Dépenses annuelles : {point.y:.1f} M€</b><br/>',
+
         shared: true,
-        useHTML: true,
+       useHTML: true,
        borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
     },
     plotOptions: {
+      waterfall: {
+            pointWidth: 25,
+        },
         column: {
+
             pointPadding: 0.2,
             borderWidth: 0,
             grouping: false,
-          dataLabels: {
+            pointWidth: 30,
+            dataLabels: {
                 enabled: true
             }
         }
     },
     series: [{
-        name: 'Budget',
-        data: [{y:<%= (SolideoFinancement.where('date = ?',Date.new(2018,1,1)).sum('montant')/1000000).round%>, color:"#2E5D63" },{y:<%= (SolideoFinancement.where('date = ?',Date.new(2019,1,1)).sum('montant')/1000000).round%>, color:"#2E5D63" },{y:<%= (SolideoFinancement.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000000).round%>, color: "#2E5D63"},{y:<%= (SolideoFinancement.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000000).round%>, color: "#bfbfbf"},{y:<%= (SolideoFinancement.where('date <= ?',Date.new(2021,1,1)).sum('montant')/1000000).round(1)%>, color: "#bfbfbf"}],
-        pointPlacement: 0,
-    },{
-        name: 'Reçu',
-        data: [{y:<%= (SolideoFinancement.where('date = ?',Date.new(2018,1,1)).sum('montant')/1000000).round%>, color:"#2E5D63" },{y:<%= (SolideoFinancement.where('date = ?',Date.new(2019,1,1)).sum('montant')/1000000).round%>, color:"#2E5D63" },{y:<%= (SolideoFinancement.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000000).round%>, color: "#2E5D63"},{y:0, color: "#2E5D63"}, {y: <%= (SolideoFinancement.where('date <= ?',Date.new(2020,1,1)).sum('montant')/1000000).round(1)%>, color: "#C68D7B"}],
-        pointPlacement: 0,
-
-    }]
+        borderColor: '#fff',
+        data: [{
+              name: '2018',
+              y: <%= (SolideoFinancement.where('date = ?',Date.new(2018,1,1)).sum('montant')/1000000).round%>,
+              color: "#2E5D63",
+          }, {
+              name: '2019',
+              y: <%= (SolideoFinancement.where('date = ?',Date.new(2019,1,1)).sum('montant')/1000000).round%>,
+              color: "#2E5D63",
+          },{
+              name: '2020',
+              y: <%= (SolideoFinancement.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000000).round%>,
+              color: "#2E5D63",
+          },{
+              name: '2021',
+              y: 0,
+              color: "#2E5D63",
+          }, {
+              name: 'Cumul',
+              isSum: true,
+              color: "#2E5D63"
+          }],
+          dataLabels: {
+              enabled: true,
+              inside: false,
+                    crop:false,
+                    overflow:'allow',
+              formatter: function () {
+                  return Highcharts.numberFormat(this.y, 0, ',') + 'M€';
+              },
+            
+              style: {
+                  fontWeight: 'bold',
+                  color: '#000',
+              
+                fontFamily: 'Karla',
+              }
+          },
+          pointPadding: 0
+      }]
 });
- </script>
+ </script> 
 
 
 <script>
 
   Highcharts.chart('container-bar2', {
     chart: {
+      spacingTop: 0,
         type: 'column',
     height:'200px',
       backgroundColor: '#fff',
