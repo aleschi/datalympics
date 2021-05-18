@@ -301,7 +301,9 @@ Highcharts.chart('container-2', {
                   },
       },
 
-    yAxis: [{ // Primary yAxis
+
+    yAxis: [
+    { // Primary yAxis
         labels: {
             format: '{value} M€',
             style: {
@@ -314,7 +316,7 @@ Highcharts.chart('container-2', {
                 color: '#76505B'
             }
         }
-    }, { // Secondary yAxis
+    },{ // Secondary yAxis
         title: {
             text: 'ETP',
             style: {
@@ -338,33 +340,47 @@ Highcharts.chart('container-2', {
       
     },
   xAxis:{
-      max: 2021,
-     tickInterval: 1,
+      categories: ['2018','2019','2020','2021'],
   },
     plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2018,
-         
-        }
+      column: {
+            stacking: 'normal',
+            pointWidth: 30,
+        },
     },
 
   
 
     series: [ {
-        name: 'Dépenses',
+        name: 'Frais de fonctionnement',
       type: 'column',
       color: '#76505B',
+      stack: 'montant',
         tooltip: {
             valueSuffix: ' M€',
         },
         data: [{y:4.8,color: '#76505B'},{y:11.5,color: '#76505B'},{y:17.8,color: '#76505B'},{y:18.6, color: '#bfbfbf'}],
         dataLabels: {
                 enabled: true,
-                verticalAlign: "center",
-                y: 30,
+                x:30,
+                verticalAlign: "middle",
+                style:{color:'#76505B'},
+
+            },
+    },{
+        name: 'Masse salariale',
+      type: 'column',
+      color: '#20E37B',
+      stack: 'montant',
+        tooltip: {
+            valueSuffix: ' M€',
+        },
+        data: [{y:2.1,color: '#20E37B'},{y:6.1,color: '#20E37B'},{y:9.2,color: '#20E37B'},{y:13.1, color: '#8F8F8F'}],
+        dataLabels: {
+                enabled: true,
+                x:-30,
+                verticalAlign: "middle",
+                style:{color:'#20E37B'},
 
             },
     },{

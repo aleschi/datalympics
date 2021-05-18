@@ -193,7 +193,7 @@
 <script>
   Highcharts.chart('container-bar1', {
     chart: {
-        type: 'column',
+        type: 'waterfall',
     height:'200px',
       backgroundColor: '#fff',
           style:{
@@ -212,18 +212,8 @@
     },
 
     xAxis: {
-        categories: ['Réalisé 2018', 'Réalisé 2019',  "Réalisé 2020", "Réalisé 2021", "Cumul"],
-        crosshair: true,
-        labels: {
-                formatter: function () {
-                  if (this.value == "Réalisé 2021"){
-                    return '<span style="color:#E1000F">' + this.value + '</span>'
-                  } else {
-                    return this.value 
-                  }
-                },
-                useHTML: false,
-            },
+        type: 'category',
+
     },
     yAxis: {
         min: 0,
@@ -238,7 +228,7 @@
     tooltip: {
    
         headerFormat: '<span style="font-size:10px">{point.key}</span><br/>',
-        pointFormat: '<b>{series.name} : {point.y:.1f} M€</b><br/>',
+        pointFormat: '<b>Dépenses annuelles : {point.y:.1f} M€</b><br/>',
 
         shared: true,
        useHTML: true,
@@ -251,20 +241,51 @@
             pointPadding: 0.2,
             borderWidth: 0,
             grouping: false,
-          dataLabels: {
+            dataLabels: {
                 enabled: true
             }
         }
     },
     series: [{
-        name: 'Budget',
-        data: [{y:36.6, color:"#2E5D63" },{y:92.1, color:"#2E5D63" },{y:228.6, color: "#2E5D63"},{y:311.2, color: "#bfbfbf"},{y:668.4, color: "#bfbfbf"}],
-        pointPlacement: 0,
-    },{
-        name: 'Réalisé',
-        data: [{y:36.6, color:"#2E5D63" },{y:92.1, color:"#2E5D63" },{y:228.6, color: "#2E5D63"},{y:<%= (@ouvrages_depenses_2021+8.1).round(1) %>, color: "#2E5D63"}, {y: <%=(36.6+92.1+228.6+@ouvrages_depenses_2021+8.1).round(1)%>, color: "#C68D7B"}],
-        pointPlacement: 0,
-
-    }]
+        borderColor: '#fff',
+        data: [{
+              name: '2018',
+              y: 36.6,
+              color: "#2E5D63",
+          }, {
+              name: '2019',
+              y: 92.1,
+              color: "#2E5D63",
+          },{
+              name: '2020',
+              y: 228.6,
+              color: "#2E5D63",
+          },{
+              name: '2021',
+              y: <%=(@ouvrages_depenses_2021+8.1).round(1)%>,
+              color: "#2E5D63",
+          }, {
+              name: 'Cumul',
+              isSum: true,
+              color: "#2E5D63"
+          }],
+          dataLabels: {
+              enabled: true,
+              inside: false,
+                    crop:false,
+                    overflow:'allow',
+              formatter: function () {
+                  return Highcharts.numberFormat(this.y, 0, ',') + 'M€';
+              },
+            
+              style: {
+                  fontWeight: 'bold',
+                  color: '#000',
+              
+                fontFamily: 'Karla',
+              }
+          },
+          pointPadding: 0
+      }]
 });
  </script> 
