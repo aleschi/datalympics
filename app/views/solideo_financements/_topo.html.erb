@@ -497,6 +497,7 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
+        tickPositions: [0, <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total_public')/1000000)%>],
         min: 0,
         max: <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total_public')/1000000)%>,
         title: {
@@ -596,6 +597,7 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
+        tickPositions: [0, <%= (SolideoFinancement.where('financeur!=? AND date = ?','Privés + recettes',Date.new(2021,1,1)).sum('montant')/1000000).round(1)%>],
         min: 0,
         max: <%= (SolideoFinancement.where('financeur!=? AND date = ?','Privés + recettes',Date.new(2021,1,1)).sum('montant')/1000000).round(1) %>,
         title: {

@@ -101,6 +101,7 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
+        tickPositions: [0, <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000)%>],
         min: 0,
         max: <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000)%>,
         title: {
@@ -200,6 +201,7 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
+        tickPositions: [0, 311.2],
         min: 0,
         max: 311.2,
         title: {
