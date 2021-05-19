@@ -151,7 +151,7 @@ var chart = Highcharts.chart('graphe', {
         },
         tooltip: {
             shared: true,
-            valueSuffix: 'M€',
+            valueSuffix: 'Mds€',
             borderColor: 'transparent',
             borderRadius: 16,
             backgroundColor: '#fff',
@@ -254,7 +254,7 @@ var chart2 = Highcharts.chart('graphe2', {
         },
         tooltip: {
             shared: true,
-            valueSuffix: 'M€',
+            valueSuffix: 'Mds€',
             borderColor: 'transparent',
             borderRadius: 16,
             backgroundColor: '#fff',
@@ -282,7 +282,7 @@ var chart2 = Highcharts.chart('graphe2', {
               formatter: function() {
                 var point = this, 
                 number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+                content =  number + ' Mds€ <br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
               return number;
             },
             y: 0,
@@ -369,6 +369,7 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      if (chart.series.length == 8){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove();chart.series[5].remove();chart.series[6].remove();chart.series[7].remove();chart.series[8].remove()};
       chart.xAxis[0].update({categories: ["PARIS 2024"]});
       chart.series[0].update({
         name: "COJO",
@@ -433,6 +434,7 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      if (chart.series.length == 8){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove();chart.series[5].remove();chart.series[6].remove();chart.series[7].remove();chart.series[8].remove()};
       chart.xAxis[0].update({categories: ["PARIS 2024"]});
       chart.series[0].update({
         name: "COJO",
@@ -496,6 +498,7 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      if (chart.series.length == 8){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove();chart.series[5].remove();chart.series[6].remove();chart.series[7].remove();chart.series[8].remove()};
       chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
       chart.series[0].update({
         name: "Privés + Recettes",
@@ -556,6 +559,7 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      if (chart.series.length == 8){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove();chart.series[5].remove();chart.series[6].remove();chart.series[7].remove();chart.series[8].remove()};
       chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
       chart.series[0].update({
         name: "Privés + Recettes",
@@ -617,11 +621,14 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      if (chart.series.length == 8){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove();chart.series[5].remove();chart.series[6].remove();chart.series[7].remove();chart.series[8].remove()};
       chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
       chart.series[0].update({
   
-          name: "Dépenses",
-          data: [{name: "Ouvrages",x:0, y: 4.1, color:"#958B62"},{name: "Fonctionnement",x:0,y: 0.1,color:"#DCB796"},{name: "Innovation",x:0,y: 0.04,color:"#FF8D7E"},{name: "Infrastructures",x:1, y: 0.7, color:"#FF9940"},{name: "Services",x:1,y: 1.8,color:"#DCB796"},{name: "Technologies",x:1,y: 0.5,color:"#FF8D7E"},{name: "Personnel",x:1,y: 0.5,color:"#A26859"},{name: "Cérémonies",x:1,y: 0.2,color:"#7D4E5B"}],
+          name: "Ouvrages",
+          stack: "Solideo",
+          color: "#958B62",
+          data: [{x:0,y: 4.1, color:"#958B62"}],
           dataLabels: {
               enabled: true,
               skew3d: true,
@@ -640,7 +647,174 @@ document.addEventListener('scroll', function () {
             
             },
       });
-
+      chart.addSeries({
+  
+          name: "Fonctionnement",
+          stack: "Solideo",
+          color: "#DCB796",
+          data: [{x:0,y: 0.1,color:"#DCB796"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Innovation",
+          stack: "Solideo",
+          color:"#FF8D7E",
+          data: [{x:0,y: 0.04,color:"#FF8D7E"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Infrastructures",
+          stack: "Cojo",
+          color:"#FF9940",
+          data: [{x:1,y: 0.9, color:"#FF9940"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Services",
+          stack: "Cojo",
+          color:"#DCB796",
+          data: [{x:1,y: 1.8,color:"#DCB796"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Technologies",
+          stack: "Cojo",
+          color:"#FF8D7E",
+          data: [{x:1,y: 0.5,color:"#FF8D7E"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Personnel",
+          stack: "Cojo",
+          color:"#A26859",
+          data: [{x:1,y: 0.5,color:"#A26859"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Cérémonies",
+          stack: "Cojo",
+          color:"#7D4E5B",
+          data: [{x:1,y: 0.2,color:"#7D4E5B"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
      
       $('#3').removeClass('inactive');
       $('#3').removeClass('nonvue');
@@ -655,11 +829,182 @@ document.addEventListener('scroll', function () {
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      if (chart.series.length == 8){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove();chart.series[5].remove();chart.series[6].remove();chart.series[7].remove();chart.series[8].remove()};
       chart.xAxis[0].update({categories: ["SOLIDEO","COJO"]});
       chart.series[0].update({
   
-          name: "Dépenses",
-          data: [{name: "Ouvrages",x:0, y: 4.1, color:"#958B62"},{name: "Fonctionnement",x:0,y: 0.1,color:"#DCB796"},{name: "Innovation",x:0,y: 0.04,color:"#FF8D7E"},{name: "Infrastructures",x:1, y: 0.7, color:"#FF9940"},{name: "Services",x:1,y: 1.8,color:"#DCB796"},{name: "Technologies",x:1,y: 0.5,color:"#FF8D7E"},{name: "Personnel",x:1,y: 0.5,color:"#A26859"},{name: "Cérémonies",x:1,y: 0.2,color:"#7D4E5B"}],
+          name: "Ouvrages",
+          stack: "Solideo",
+          color: "#958B62",
+          data: [{x:0,y: 4.1, color:"#958B62"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Fonctionnement",
+          stack: "Solideo",
+          color: "#DCB796",
+          data: [{x:0,y: 0.1,color:"#DCB796"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Innovation",
+          stack: "Solideo",
+          color:"#FF8D7E",
+          data: [{x:0,y: 0.04,color:"#FF8D7E"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Infrastructures",
+          stack: "Cojo",
+          color:"#FF9940",
+          data: [{x:1,y: 0.9, color:"#FF9940"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Services",
+          stack: "Cojo",
+          color:"#DCB796",
+          data: [{x:1,y: 1.8,color:"#DCB796"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Technologies",
+          stack: "Cojo",
+          color:"#FF8D7E",
+          data: [{x:1,y: 0.5,color:"#FF8D7E"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Personnel",
+          stack: "Cojo",
+          color:"#A26859",
+          data: [{x:1,y: 0.5,color:"#A26859"}],
+          dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+                textOutline: 'none',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;font-size:8px">'+point.key+' </span> ';
+              return number;
+            },
+            
+            },
+      });
+      chart.addSeries({
+  
+          name: "Cérémonies",
+          stack: "Cojo",
+          color:"#7D4E5B",
+          data: [{x:1,y: 0.2,color:"#7D4E5B"}],
           dataLabels: {
               enabled: true,
               skew3d: true,
@@ -813,18 +1158,19 @@ document.addEventListener('scroll', function () {
     series: [{
         keys: ['from', 'to', 'weight'],
         data: [
-            {from: 'ÉTAT', to: 'SOLIDEO', weight: 0.9, color: "#2323EA"},
-            {from:'ÉTAT', to: 'COJO',weight: 0.1},
-            {from:'COLLECTIVITÉS',to: 'SOLIDEO',weight: 0.4},
-            {from:'COLLECTIVITÉS',to: 'COJO',weight: 0.1},
-            {from:'PRIVÉ',to: 'SOLIDEO',weight: 2},
-            {from:'PRIVÉ',to: 'COJO',weight: 3.6},
-            {from:'SOLIDEO',to: 'OUVRAGES',weight: 2.9},
+            {from: 'ÉTAT', to: 'SOLIDEO', weight: 0.95, color: "#2323EA"},
+            {from:'ÉTAT', to: 'COJO',weight: 0.08},
+            {from:'COLLECTIVITÉS',to: 'SOLIDEO',weight: 0.45},
+            {from:'COLLECTIVITÉS',to: 'COJO',weight: 0.02},
+            {from:'PRIVÉ',to: 'SOLIDEO',weight: 2.8},
+            {from:'PRIVÉ',to: 'COJO',weight: 3.8},
+            {from:'SOLIDEO',to: 'OUVRAGES',weight: 4.1},
             {from:'SOLIDEO',to: 'FONCTIONNEMENT',weight: 0.1},
-            {from:'COJO',to: 'MARKETING',weight:0.8},
-            {from:'COJO',to: 'INFRASTRUCTURES',weight: 1.8},
-            {from:'COJO',to: 'CÉRÉMONIES',weight: 0.5},
+            {from:'COJO',to: 'INFRASTRUCTURES',weight:0.9},
+            {from:'COJO',to: 'SERVICES',weight: 1.8},
+            {from:'COJO',to: 'CÉRÉMONIES',weight: 0.2},
             {from:'COJO',to: 'PERSONNEL',weight: 0.5},
+            {from:'COJO',to: 'TECHNOLOGIES',weight: 0.5},
            
         ],
         type: 'sankey',
