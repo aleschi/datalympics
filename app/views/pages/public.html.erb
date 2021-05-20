@@ -60,13 +60,23 @@ Le COJO a pour rôle principal de planifier, d’organiser et de livrer les Jeux
 
   <div class="graphic">
   <div class="sections">
+    <div class="step tp1" id="7">
+        Le budget annoncé lors de la candidature était de <span class="tp1b">7 milliards d’euros.</span>
+        <br><br>
+        Le budget actuel de 8,1 Mds€ est certes supérieur au budget initial mais s'explique par plusieurs raisons : <br>
+        • l'impact de <span class="tp1b">l'inflation</span>. Cela se répercute sur les prix des matériaux de construction par exemple. <br>
+        • l'impact du <span class="tp1b">Covid-19</span> <br>
+        • raisons liées aux <span class="tp1b">ouvrages</span> <br>
+
+      </div>
       <div class="step tp1" id="5">
         A titre de comparaison, sur les 10 dernières années, le budget moyen prévu lors des candidatures pour l’organisation des Jeux Olympiques et Paralympiques d'été est de <span class="tp1b">7,2 milliards d’euros.</span></span>
       </div>
       <div class="step tp1" id="6">
-        Mais en réalité, le budget prévu est régulièrement dépassé. <br>
-        Lors de sa candidature, la ville de Paris s’est engagé à une maîtrise des coûts notamment en limitant le nombre de construction d’infrastructures pour les Jeux et en suivant au plus près les dépenses engagées.
+        Mais en réalité, le budget prévu est régulièrement dépassé et en partie pour les raisons mentionnées au-dessus. <br>
+        Toutefois, la ville de Paris s’est engagé à une maîtrise des coûts notamment en limitant le nombre de construction d’infrastructures pour les Jeux et en suivant au plus près les dépenses engagées.
       </div>
+      
   
 
   </div>
@@ -303,6 +313,9 @@ $('#4').addClass('nonvue');
 $('#5').addClass('inactive');
 $('#5').addClass('nonvue');
 $('#6').addClass('inactive');
+$('#6').addClass('nonvue');
+$('#7').addClass('nonvue');
+$('#7').addClass('inactive');
 
 function isElementInViewport (el) {
 
@@ -364,6 +377,7 @@ document.addEventListener('scroll', function () {
       $('#3').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
+      $('#7').addClass('inactive');
     };
     if(isElementInViewport($('#2')) && $('#2').hasClass('inactive') && $('#2').hasClass('nonvue')){
       if (chart.series.length == 2){chart.series[1].remove()};
@@ -490,6 +504,7 @@ document.addEventListener('scroll', function () {
       $('#3').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
+      $('#7').addClass('inactive');
       $('#cojo2').show();
       $('#solideo2').show();
     };  
@@ -553,6 +568,7 @@ document.addEventListener('scroll', function () {
       $('#3').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
+      $('#7').addClass('inactive');
     }; 
 
     if(isElementInViewport($('#2b')) && $('#2b').hasClass('inactive') && $('#2b').hasClass('vue')){
@@ -616,6 +632,7 @@ document.addEventListener('scroll', function () {
       $('#3').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
+      $('#7').addClass('inactive');
     };
     if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('nonvue')){
       if (chart.series.length == 2){chart.series[1].remove()};
@@ -1032,11 +1049,17 @@ document.addEventListener('scroll', function () {
       $('#2b').addClass('inactive');
       $('#4').addClass('inactive');
       $('#5').addClass('inactive');
+      $('#7').addClass('inactive');
     };
   
 
     if(isElementInViewport($('#5')) && $('#5').hasClass('inactive') && $('#5').hasClass('nonvue')){
+      if (chart2.series.length == 2){chart2.series[1].remove()};
+      if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
+      if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
+      if (chart2.series.length == 5){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove();chart2.series[4].remove()};
 
+      chart2.xAxis[0].update({categories: ["Pekin 2008", "Londres 2012", "Paris 2024", "Rio 2016","Tokyo 2020"]});
       chart2.series[0].update({
         type: 'column',
         name: "Budget prévu",
@@ -1066,10 +1089,18 @@ document.addEventListener('scroll', function () {
       $('#3').addClass('inactive');
       $('#2b').addClass('inactive');
       $('#6').addClass('inactive');
+      $('#7').addClass('inactive');
     }; 
 
     if(isElementInViewport($('#5')) && $('#5').hasClass('inactive') && $('#5').hasClass('vue')){
+      if (chart2.series.length == 2){chart2.series[1].remove()};
+      if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
+      if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
+      if (chart2.series.length == 5){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove();chart2.series[4].remove()};
+
+      chart2.xAxis[0].update({categories: ["Pekin 2008", "Londres 2012", "Paris 2024", "Rio 2016","Tokyo 2020"]});
       chart2.series[0].update({
+        type: 'column',
         name: "Budget prévu",
         data: [{name: "Pekin",y: 2.6,color:"#20E37B"},{name: "Londres",y: 4.5,color:"#466964"},{name: "Paris",y: 7,color:"#2323EA"},{name: "Rio",y: 9,color:"#00AC8C"},{name: "Tokyo",y: 13,color:"#4FC5CE"}],
         dataLabels: {
@@ -1098,9 +1129,16 @@ document.addEventListener('scroll', function () {
       $('#3').addClass('inactive');
       $('#2b').addClass('inactive');
       $('#6').addClass('inactive');
+      $('#7').addClass('inactive');
     }; 
 
-    if(isElementInViewport($('#6')) && $('#6').hasClass('inactive')){
+    if(isElementInViewport($('#6')) && $('#6').hasClass('inactive') && $('#6').hasClass('nonvue')){
+      if (chart2.series.length == 2){chart2.series[1].remove()};
+      if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
+      if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
+      if (chart2.series.length == 5){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove();chart2.series[4].remove()};
+
+      chart2.xAxis[0].update({categories: ["Pekin 2008", "Londres 2012", "Paris 2024", "Rio 2016","Tokyo 2020"]});
       chart2.series[0].update({
         name: "Budget réel",
         data: [{name: "Pekin",y: 31,color:"#20E37B"},{name: "Londres",y: 11,color:"#466964"},{name: "Paris",y: 8.1,color:"#2323EA"},{name: "Rio",y: 16.5,color:"#00AC8C"},{name: "Tokyo",y: 15.4,color:"#4FC5CE"}],
@@ -1121,14 +1159,334 @@ document.addEventListener('scroll', function () {
          
             },
       });
-
       $('#6').removeClass('inactive');
+      $('#6').removeClass('nonvue');
+      $('#6').addClass('vue');
       $('#1').addClass('inactive');
       $('#2').addClass('inactive');
       $('#3').addClass('inactive');
       $('#2b').addClass('inactive');
       $('#5').addClass('inactive');
+      $('#7').addClass('inactive');
     }; 
+
+    if(isElementInViewport($('#6')) && $('#6').hasClass('inactive') && $('#6').hasClass('vue')){
+      if (chart2.series.length == 2){chart2.series[1].remove()};
+      if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
+      if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
+      if (chart2.series.length == 5){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove();chart2.series[4].remove()};
+
+      chart2.xAxis[0].update({categories: ["Pekin 2008", "Londres 2012", "Paris 2024", "Rio 2016","Tokyo 2020"]});
+      chart2.series[0].update({
+        name: "Budget réel",
+        type: 'column',
+        data: [{name: "Pekin",y: 31,color:"#20E37B"},{name: "Londres",y: 11,color:"#466964"},{name: "Paris",y: 8.1,color:"#2323EA"},{name: "Rio",y: 16.5,color:"#00AC8C"},{name: "Tokyo",y: 15.4,color:"#4FC5CE"}],
+        dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + '<br/>'+ '<span style="font-weight:400;">'+point.key+' </span> ';
+              return number;
+            },
+         
+            },
+      });
+    
+      $('#6').removeClass('inactive');
+      $('#6').removeClass('vue');
+      $('#6').addClass('nonvue');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#2b').addClass('inactive');
+      $('#5').addClass('inactive');
+      $('#7').addClass('inactive');
+    }; 
+
+    if(isElementInViewport($('#7')) && $('#7').hasClass('inactive') && $('#7').hasClass('nonvue')){
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      if (chart.series.length == 5){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove()};
+
+      chart2.xAxis[0].update({categories: ["PARIS 2024"]});
+      chart2.series[0].update({
+        name: 'Budget Total',
+        zIndex: 10,
+        index:1,
+            color: '#2323EA',
+            data: [7],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+      });
+
+      function series1(){
+        chart2.addSeries({
+            name: 'Inflation',
+            zIndex: 1,
+            index:0,
+            color: '#20E37B',
+            data: [0.3],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+        });
+      };
+      function series2(){
+        chart2.addSeries({
+            name: 'Covid-19',
+            zIndex: 1,
+            index:0,
+            color: '#FF6F4C',
+            data: [0.3],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+        });
+      };
+      function series3(){
+        chart2.addSeries({
+          zIndex: 1,
+          index:0,
+            name: 'Autres',
+            color: '#7D4E5B',
+            data: [0.3],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+        });
+      };
+
+      setTimeout(series1, 800);
+      setTimeout(series2, 1600);
+      setTimeout(series3, 2400);
+
+      $('#7').removeClass('nonvue');
+      $('#7').addClass('vue');
+      $('#7').removeClass('inactive');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#2b').addClass('inactive');
+      $('#5').addClass('inactive');
+      $('#6').addClass('inactive');
+
+    };
+
+    if(isElementInViewport($('#7')) && $('#7').hasClass('inactive') && $('#7').hasClass('vue')){
+      if (chart.series.length == 2){chart.series[1].remove()};
+      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
+      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
+      if (chart.series.length == 5){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove()};
+
+      chart2.xAxis[0].update({categories: ["PARIS 2024"]});
+      chart2.series[0].update({
+        name: 'Budget Total',
+        zIndex: 10,
+        index:1,
+            color: '#2323EA',
+            data: [7],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+      });
+
+      function series1(){
+        chart2.addSeries({
+            name: 'Inflation',
+            zIndex: 1,
+            index:0,
+            color: '#20E37B',
+            data: [0.3],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+        });
+      };
+      function series2(){
+        chart2.addSeries({
+            name: 'Covid-19',
+            zIndex: 1,
+            index:0,
+            color: '#FF6F4C',
+            data: [0.3],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+        });
+      };
+      function series3(){
+        chart2.addSeries({
+          zIndex: 1,
+          index:0,
+            name: 'Autres',
+            color: '#7D4E5B',
+            data: [0.3],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+        });
+      };
+
+      setTimeout(series1, 800);
+      setTimeout(series2, 1600);
+      setTimeout(series3, 2400);
+
+      $('#7').removeClass('vue');
+      $('#7').addClass('nonvue');
+      $('#7').removeClass('inactive');
+      $('#1').addClass('inactive');
+      $('#2').addClass('inactive');
+      $('#3').addClass('inactive');
+      $('#2b').addClass('inactive');
+      $('#5').addClass('inactive');
+      $('#6').addClass('inactive');
+
+    };
 });
 </script>
 
