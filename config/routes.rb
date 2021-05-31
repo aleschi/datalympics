@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :innovations
   resources :chorus do 
     collection do 
       post 'import' => 'chorus#import'
@@ -43,6 +44,11 @@ Rails.application.routes.draw do
   end 
   resources :documents
   resources :conventions
+  resources :innovations do 
+    collection do 
+      post 'import' => 'innovations#import'
+    end 
+  end
   root 'pages#home'
   get 'documents-etat' => 'documents#documents_etat'
   
@@ -73,7 +79,7 @@ Rails.application.routes.draw do
   get 'les-jop2024' => 'pages#jop2024'
   get 'synthese' => "pages#synthese"
   get 'reporting' => "pages#reporting"
-  get 'innovation' => "pages#innovation"
+
   get 'mentions-legales' => "pages#mentions"
   get 'public' => "pages#public"
   get 'utilisation-budget' => 'pages#interets'

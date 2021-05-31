@@ -22,12 +22,7 @@ class PagesController < ApplicationController
     @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", SolideoFinancement.last.date).sum('montant')
   end 
 
-  def innovation
-    @nav=true
-    @q = Ouvrage.all.ransack(params[:q])
-   
-    @ouvrages = Ouvrage.all
-  end 
+
 
   def reporting
   end 

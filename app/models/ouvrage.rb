@@ -17,14 +17,18 @@ class Ouvrage < ApplicationRecord
         @ouvrage = Ouvrage.find_by_name(row[0])
       end 
       @ouvrage.name = row[0]
-      @ouvrage.maitre_oeuvre = row[1]
-      @ouvrage.budget = row[2]
+      @ouvrage.adresse = row[1]
+      @ouvrage.maitre_oeuvre = row[2]
+      @ouvrage.budget = row[3]
       if !@ouvrage.budget.nil?
         @ouvrage.budget = @ouvrage.budget * 1000
       else 
         @ouvrage.budget = 0
       end
-      @ouvrage.adresse = row[3]
+      @ouvrage.description = row[4]
+      @ouvrage.heritage = row[5]
+      @ouvrage.start = row[6]
+      @ouvrage.end = row[7]
       @ouvrage.save
     end
 

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nom: MyString
+  porteur: MyString
+  ouvrage: one
+  dotation: 1.5
+  date: 2021-05-31
+  description: MyString
+
+two:
+  nom: MyString
+  porteur: MyString
+  ouvrage: two
+  dotation: 1.5
+  date: 2021-05-31
+  description: MyString

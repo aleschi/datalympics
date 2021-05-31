@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_075920) do
+ActiveRecord::Schema.define(version: 2021_05_31_073336) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -152,6 +152,18 @@ ActiveRecord::Schema.define(version: 2021_04_22_075920) do
     t.float "cp_conso"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "innovations", force: :cascade do |t|
+    t.string "nom"
+    t.string "porteur"
+    t.integer "ouvrage_id"
+    t.float "dotation"
+    t.date "date"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ouvrage_id"], name: "index_innovations_on_ouvrage_id"
   end
 
   create_table "maquettes", force: :cascade do |t|
