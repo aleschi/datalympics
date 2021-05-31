@@ -1,6 +1,6 @@
 class Innovation < ApplicationRecord
   belongs_to :ouvrage
-
+  has_many :echeancierinnovations
   require 'csv'
 
   def self.import(file)

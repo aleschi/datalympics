@@ -47,8 +47,10 @@ Rails.application.routes.draw do
   resources :innovations do 
     collection do 
       post 'import' => 'innovations#import'
+      post 'import2' => 'innovations#import2'
     end 
   end
+  get '/new-versement'=>'innovations#new_versement'
   root 'pages#home'
   get 'documents-etat' => 'documents#documents_etat'
   

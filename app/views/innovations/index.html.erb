@@ -14,13 +14,13 @@
           <div class="row">
             <div class="col-md-5">
               <div>
-                    <div class="c1 fs20 fw7">12 M€</div>
+                    <div class="c1 fs20 fw7"><%= (Innovation.all.sum('dotation')/1000000).round %>M€</div>
                     <div class="i8"></div>
                     <div class="fw5 fs14 c6">Dotations votées</div>
                   </div>
                   <div class="i16"></div>
               <div>
-                    <div class="c1 fs20 fw7">24 M€</div>
+                    <div class="c1 fs20 fw7"><%= (36-(Innovation.all.sum('dotation')/1000000).round) %> M€</div>
                     <div class="i8"></div>
                     <div class="fw5 fs14 c6">Fonds non consommés à date</div>
                   </div>
@@ -146,7 +146,7 @@
                   x: Date.UTC(2020, 1, 1),
                   name: '2020',
                   label: '2020',
-                  description: "XXX € ",
+                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2020,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
                   color:'#466964',
                   dataLabels: {
                     connectorColor: '#466964',
@@ -155,7 +155,7 @@
                   x: Date.UTC(2021, 1, 1),
                   name: '2021',
                   label: '2021',
-                  description: "XXX € ",
+                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
                   color:'#466964',
                   dataLabels: {
                     connectorColor: '#466964',
@@ -164,7 +164,7 @@
                   x: Date.UTC(2022, 1, 1),
                   name: '2022',
                   label: '2022',
-                  description: "XXX € ",
+                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2022,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
                   color:'#CECECE',
                   dataLabels: {
                     connectorColor: '#CECECE',
@@ -173,7 +173,7 @@
                   x: Date.UTC(2023, 1, 1),
                   name: '2023',
                   label: '2023',
-                  description: "XXX € ",
+                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2023,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
                   color:'#CECECE',
                   dataLabels: {
                     connectorColor: '#CECECE',
@@ -182,7 +182,7 @@
                   x: Date.UTC(2024, 1, 1),
                   name: '2024',
                   label: '2024',
-                  description: "XXX € ",
+                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2024,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
                   color:'#CECECE',
                   dataLabels: {
                     connectorColor: '#CECECE',
@@ -212,7 +212,7 @@ Highcharts.chart('budget', {
     },
 
     title: {
-    text: 'Consommation (€)',
+    text: 'Consommation (M€)',
         verticalAlign: "top",
         style: {
                 color: "#8F8F8F",
@@ -253,14 +253,16 @@ Highcharts.chart('budget', {
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
+        tickPositions: [0, 36],
         min: 0,
-        max: 36000000,
+        max: 36,
         title: {
           text: null,
             y: 100,
         },
         labels: {
-            y: 16
+            y: 16,
+            ormat: '{value:.0f}M€',
         }
     },
 
@@ -280,7 +282,7 @@ Highcharts.chart('budget', {
 
     series: [{
         name: 'Fonds investis',
-        data: [370000000],
+        data: [<%= (Echeancierinnovation.where('date <= ?',Date.today).sum('montant')/1000000).round %>],
         innerRadius: '80%',
       
         dataLabels: {
@@ -288,8 +290,8 @@ Highcharts.chart('budget', {
           y:-50,
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:20px">'+<%=3900/36%>+'%</span><br/>' +
-                '<span style="font-size:12px;opacity:0.7">'+<%=600%>+' k€</span>' +
+                '<span style="font-size:20px">'+<%=((Echeancierinnovation.where('date <= ?',Date.today).sum('montant')/10000)/36).round%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%=(Echeancierinnovation.where('date <= ?',Date.today).sum('montant')/1000000).round%>+' M€</span>' +
                 '</div>'
         },
         tooltip: {
@@ -456,27 +458,27 @@ Highcharts.chart('budget', {
     },
     series: [{
         name: 'Budget',
-        data: [{y: 150, color: "#2E5D63",dataLabels: {
+        data: [{y: <%= (Echeancierinnovation.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000).round %>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 8652, color: "#2E5D63",dataLabels: {
+        {y: <%= (Echeancierinnovation.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000).round%>, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 9262, color: "#C4C4C4",dataLabels: {
+        {y: <%= (Echeancierinnovation.where('date = ?',Date.new(2022,1,1)).sum('montant')/1000).round%>, color: "#C4C4C4",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 5007, color: "#C4C4C4",dataLabels: {
+        {y: <%= (Echeancierinnovation.where('date = ?',Date.new(2023,1,1)).sum('montant')/1000).round%>, color: "#C4C4C4",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 1664, color: "#C4C4C4",dataLabels: {
+        {y: <%= (Echeancierinnovation.where('date = ?',Date.new(2024,1,1)).sum('montant')/1000).round %>, color: "#C4C4C4",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,

@@ -16,9 +16,13 @@ class InnovationsController < ApplicationController
 	end 
 
 	def import
-    Innovation.import(params[:file])
-    redirect_to innovations_path
-    
+    	Innovation.import(params[:file])
+    	redirect_to innovations_path   
+  	end
+
+  	def import2
+    	Echeancierinnovation.import(params[:file])
+    	redirect_to innovations_path  
   	end
 
 	def create
