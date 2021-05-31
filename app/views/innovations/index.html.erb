@@ -69,6 +69,133 @@
       <%= render 'liste_innovation'%>
   </div>
 
+   <div class="i24"></div>
+
+  <div class="pd32 br20 bs bckc1">  
+    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi échéancier par projet</span></div>
+    <div class="i24"></div>
+    <% Innovation.all.each_with_index do |innovation,i| %>
+      <div class="fs14 c2"><span class="fw7"><%= innovation.ouvrage.name %></span> - <%= innovation.nom%> </div>
+      <div class="fs10 c6">Dotation Totale : <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
+      <div id="container-steps<%=i%>"></div> 
+      <script>
+      Highcharts.chart('container-steps<%=i%>', {
+          chart: {
+              zoomType: 'x',
+              type: 'timeline',
+              style:{
+              fontFamily: "Marianne Regular",
+              },
+              height:'120px',
+              spacing: [0,0,0,0],
+
+          },
+          xAxis: {
+              type: 'datetime',
+              visible: false
+          },
+          yAxis: {
+              gridLineWidth: 1,
+              title: null,
+              labels: {
+                  enabled: false
+              }
+          },
+
+          legend: {
+              enabled: false
+          },
+          title: {
+              text: null,
+          },
+
+          tooltip: {
+              style: {
+                  width: 300
+              },
+              
+              useHTML: true,
+              borderColor: 'transparent',
+              borderRadius: 16,
+              backgroundColor: '#fff',
+
+          },
+          series: [{
+              zones: [{
+                value: Date.UTC(2021, 1, 1),
+                color: '#466964'
+              }, {
+                color: '#cecece'
+              }],
+              zoneAxis: 'x',
+              dataLabels: {
+                distance: -30,
+
+                borderColor: 'transparent',
+                borderRadius: 16,
+                backgroundColor: '#fff',
+                alternate : false,
+                  allowOverlap: false,
+                  format: '<span style="color:{point.color}">● </span><span style="font-weight: bold;" > ' +
+                      '{point.x:%Y}</span><br/>{point.description}'
+              },
+              marker: {
+                  symbol: 'circle'
+              },
+              data: [{
+                  x: Date.UTC(2020, 1, 1),
+                  name: '2020',
+                  label: '2020',
+                  description: "XXX € ",
+                  color:'#466964',
+                  dataLabels: {
+                    connectorColor: '#466964',
+                  },
+              }, {
+                  x: Date.UTC(2021, 1, 1),
+                  name: '2021',
+                  label: '2021',
+                  description: "XXX € ",
+                  color:'#466964',
+                  dataLabels: {
+                    connectorColor: '#466964',
+                  },
+              }, {
+                  x: Date.UTC(2022, 1, 1),
+                  name: '2022',
+                  label: '2022',
+                  description: "XXX € ",
+                  color:'#CECECE',
+                  dataLabels: {
+                    connectorColor: '#CECECE',
+                  },
+              }, {
+                  x: Date.UTC(2023, 1, 1),
+                  name: '2023',
+                  label: '2023',
+                  description: "XXX € ",
+                  color:'#CECECE',
+                  dataLabels: {
+                    connectorColor: '#CECECE',
+                  },
+              }, {
+                  x: Date.UTC(2024, 1, 1),
+                  name: '2024',
+                  label: '2024',
+                  description: "XXX € ",
+                  color:'#CECECE',
+                  dataLabels: {
+                    connectorColor: '#CECECE',
+                  },
+              }]
+          }]
+      });
+      </script> 
+    <% end %>
+    </div>
+
+  </div>
+
 </div>
 <script>
   $('.menu-innovation').addClass('menu-active'); 
@@ -426,8 +553,8 @@ Highcharts.chart('budget', {
         {y: 1664, color: "#FFE800"}, 
         {y: 1664, color: "#FFE800"}, 
      ],
-  },
-  {
+    },
+    {
         name: 'Innovation accessibilité',
         color: "#4FC5CE",
         data: [{y: 1500, color: "#4FC5CE"}, 
@@ -437,9 +564,9 @@ Highcharts.chart('budget', {
         {y: 1664, color: "#4FC5CE"}, 
         {y: 1664, color: "#4FC5CE"}, 
      ],
-  },
-  {name: 'Innovation technologique',
-  color: "#00AC8C",
+    },
+    {name: 'Innovation technologique',
+    color: "#00AC8C",
         data: [{y: 1500, color: "#00AC8C"}, 
         {y: 8652, color: "#00AC8C"}, 
         {y: 9262, color: "#00AC8C"}, 
@@ -447,12 +574,12 @@ Highcharts.chart('budget', {
         {y: 1664, color: "#00AC8C"}, 
         {y: 1664, color: "#00AC8C"}, 
      ],
-  }],
+    }],
 });
   </script>
 <script>
 Highcharts.chart('pie', {
-    chart: {
+  chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
@@ -464,7 +591,7 @@ Highcharts.chart('pie', {
           },
     height: 250,
     },
-    title: {
+  title: {
          text:null,   
           style: {
                   color: "#8F8F8F",

@@ -4,20 +4,24 @@
   
        <%= search_form_for @q, url: recherche_ouvrages_path , method: :get, remote: true, id: "search-form" do |f| %>
         <div class="ouvrages-search">
-           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un ouvrage", data: {autocomplete_source: ouvrages_path} %> 
+           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un projet", data: {autocomplete_source: ouvrages_path} %> 
           <%= f.button :submit, id:"submit_button", class:"ouvrages-submit" do %><i class="fas fa-search"></i><% end %>
         </div>
           <% end %>     
     
     <div class="ouvrages-box">
+      <% @ouvrages.each do |ouvrage|%>
       <div class='ouvrages-mo'>
-           CAO - MOA
+           <%= ouvrage.name%>
       </div>
+      <% ouvrage.innovations.each do |innovation|%>
       <div class="O-name">     
-        <a>Charpente <span>- 10000 k€</span> </a>         
+        <a><%= innovation.nom%> <span>- <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</span> </a>         
       </div>
       <div class="O-span"><span><i class="fas fa-circle fa-circle-env"></i> Innovation environnementale</span><span>TPE</span></div>
-
+      <%end %>
+      <br>
+      <% end %>
     </div>
   </div>
   <div class="col-md-6">

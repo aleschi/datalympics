@@ -4,7 +4,11 @@ class InnovationsController < ApplicationController
 		@nav=true
 	    @q = Ouvrage.all.ransack(params[:q])
 	   
-	    @ouvrages = Ouvrage.all
+	   @ouvrages_ids = Innovation.all.pluck(:ouvrage_id).uniq!
+	    @ouvrages = Ouvrage.where(id: @ouvrages_ids)
+	    @innovations = Innovation.all
+
+
 	end 
 
 	def new

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_31_073336) do
+ActiveRecord::Schema.define(version: 2021_05_31_154059) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -128,6 +128,16 @@ ActiveRecord::Schema.define(version: 2021_05_31_073336) do
     t.string "appartenance"
     t.string "extension"
     t.date "date"
+  end
+
+  create_table "echeancierinnovations", force: :cascade do |t|
+    t.integer "innovation_id"
+    t.date "date"
+    t.float "montant"
+    t.boolean "versement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["innovation_id"], name: "index_echeancierinnovations_on_innovation_id"
   end
 
   create_table "etat_budgets", force: :cascade do |t|
