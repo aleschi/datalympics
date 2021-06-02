@@ -4,10 +4,15 @@ class InnovationsController < ApplicationController
 		@nav=true
 	    @q = Ouvrage.all.ransack(params[:q])
 	   
-	   @ouvrages_ids = Innovation.all.pluck(:ouvrage_id).uniq!
+	   	@ouvrages_ids = Innovation.all.pluck(:ouvrage_id).uniq!
 	    @ouvrages = Ouvrage.where(id: @ouvrages_ids)
 	    @innovations = Innovation.all
 
+	    if params[:term]
+        @projets = Innovation.where('nom like ?', "%#{params[:term]}%")
+        
+        render json: @projets.map(&:nom)  
+      	end
 
 	end 
 
@@ -24,6 +29,26 @@ class InnovationsController < ApplicationController
     	Echeancierinnovation.import(params[:file])
     	redirect_to innovations_path  
   	end
+
+  	def import_categorie
+    	Typeinnovation.import(params[:file])
+    	redirect_to innovations_path  
+  	end
+  	def new_categorie
+  	end
+
+  	def search 
+    @projets = Innovation.all
+    @q = @projets.ransack(params[:q])
+    @projets = @q.result
+    
+    
+    respond_to do |format|
+
+     format.js
+
+    end
+  end 
 
 	def create
 	end 

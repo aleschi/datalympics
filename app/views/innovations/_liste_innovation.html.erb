@@ -2,9 +2,9 @@
 <div class="row">
   <div class="col-md-6">
   
-       <%= search_form_for @q, url: recherche_ouvrages_path , method: :get, remote: true, id: "search-form" do |f| %>
+       <%= search_form_for @q, url: recherche_projets_path , method: :get, remote: true, id: "search-form" do |f| %>
         <div class="ouvrages-search">
-           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un projet", data: {autocomplete_source: ouvrages_path} %> 
+           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un projet", data: {autocomplete_source: innovations_path} %> 
           <%= f.button :submit, id:"submit_button", class:"ouvrages-submit" do %><i class="fas fa-search"></i><% end %>
         </div>
           <% end %>     
@@ -18,7 +18,7 @@
       <div class="O-name">     
         <a><%= innovation.nom%> <span>- <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</span> </a>         
       </div>
-      <div class="O-span"><span><i class="fas fa-circle fa-circle-env"></i> Innovation environnementale</span><span>TPE</span></div>
+      <div class="O-span"><% if innovation.typeinnovations.count > 0 %><% innovation.typeinnovations.each do |type|%><span><% if type.categorie == "Excellence environnementale"%><i class="fas fa-circle fa-circle-env"></i><% elsif type.categorie == "Innovation technologique"%><i class="fas fa-circle fa-circle-tech"></i><%else%><i class="fas fa-circle fa-circle-acc"></i><%end%> <%= type.categorie%></span><% end %><%end%></div>
       <%end %>
       <br>
       <% end %>

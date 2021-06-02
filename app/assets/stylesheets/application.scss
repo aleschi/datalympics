@@ -1121,6 +1121,8 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 .O-span{
 margin:10px 0px;
   span{
+  white-space: pre;
+  line-height:30px;
   background-color:#F0F0F0;
   color:#000;
   font-size:12px;
@@ -1132,6 +1134,12 @@ margin:10px 0px;
   }
   .fa-circle-env{
   color:#FFE800;
+  }
+  .fa-circle-tech{
+  color:#00AC8C;
+  }
+  .fa-circle-acc{
+  color:#4FC5CE;
   }
   }
 }
@@ -3519,3 +3527,4 @@ z-index:10;
   100% { transform: translate(0);
   }
 }
+

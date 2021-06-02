@@ -48,9 +48,11 @@ Rails.application.routes.draw do
     collection do 
       post 'import' => 'innovations#import'
       post 'import2' => 'innovations#import2'
+      post 'import_categorie' => 'innovations#import_categorie'
     end 
   end
   get '/new-versement'=>'innovations#new_versement'
+  get '/new-categorie'=>'innovations#new_categorie'
   root 'pages#home'
   get 'documents-etat' => 'documents#documents_etat'
   
@@ -63,6 +65,7 @@ Rails.application.routes.draw do
   
   get 'collectivites' => 'solideo_financements#collectivites'
   get 'recherche-ouvrages' => 'ouvrages#search'
+  get 'recherche-projets' => 'innovations#search'
   post 'delete-document' => 'documents#delete_file'
   
   get 'timeline' => 'ouvrages#timeline'

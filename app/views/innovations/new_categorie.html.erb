@@ -1,0 +1,54 @@
+
+  
+<div class="EB_page">
+	<div class="ED_home_button">
+    <%= link_to ouvrages_path do %><i class="fas fa-chevron-left"></i>Retour<%end %>
+  </div>
+  <h1 class="EB_title">Ajouter un nouveau document</h1>
+  <div class="ED_new_form_box">
+  <%=form_tag import_categorie_innovations_path, multipart: true do %>
+    
+  <div class="document-file-input">
+          <label><%= file_field_tag :file, accept: '.csv'  %>
+            <div class="document-type"><i class="far fa-file-pdf"></i> </div>
+            <div class="input-text"><i class="fas fa-plus-circle"></i><br>Ajouter un document</div>
+            <div class="document-check">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          </label>
+          
+        <div class="modal-search-filters-form-btn">
+          <%= submit_tag "Transmettre", id: "submit_btn" %>  
+        </div>
+                    
+        </div>
+
+  <%end%>
+
+  
+
+</div>
+</div>
+
+
+<script>
+  $('.document-check').hide();
+  $('.document-type').hide();
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+         
+              
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $("input").change(function() {
+      readURL(this);
+      $('.document-check').show();
+      $('.input-text').html($(this).val().replace(/C:\\fakepath\\/i, ''));
+      $('.document-type').show();
+  });
+
+</script>

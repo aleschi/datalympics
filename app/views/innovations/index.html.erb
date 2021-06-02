@@ -2,7 +2,7 @@
   <div class="i24"></div>
   <div class="c2 fw6 fs40 tc">Budget fond d'innovation </div>
     <div class="i12"></div>
-  <div class="c2 fw4 fs20 tc">Dernière mise à jour : XX</div>
+  <div class="c2 fw4 fs20 tc">Dernière mise à jour : 2 juin 2021</div>
   <div class="i40"></div>
 
   <div class="row">
@@ -74,124 +74,130 @@
   <div class="pd32 br20 bs bckc1">  
     <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi échéancier par projet</span></div>
     <div class="i24"></div>
-    <% Innovation.all.each_with_index do |innovation,i| %>
-      <div class="fs14 c2"><span class="fw7"><%= innovation.ouvrage.name %></span> - <%= innovation.nom%> </div>
-      <div class="fs10 c6">Dotation Totale : <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
-      <div id="container-steps<%=i%>"></div> 
-      <script>
-      Highcharts.chart('container-steps<%=i%>', {
-          chart: {
-              zoomType: 'x',
-              type: 'timeline',
-              style:{
-              fontFamily: "Marianne Regular",
-              },
-              height:'120px',
-              spacing: [0,0,0,0],
+    <% @ouvrages.each_with_index do |ouvrage,i|%>
+      <div class="ouvrages-mo"><%= ouvrage.name%></div>
+      <div class="i24"></div>
+      <% ouvrage.innovations.each_with_index do |innovation,j|%>
+        <div class="fs14 c2"><span class="fw7"><%= innovation.ouvrage.name %></span> - <%= innovation.nom%> </div>
+        <div class="fs10 c6">Dotation Totale : <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
+        <div id="container-steps<%=i%><%=j%>"></div> 
+        <script>
+        Highcharts.chart('container-steps<%=i%><%=j%>', {
+            chart: {
+                zoomType: 'x',
+                type: 'timeline',
+                style:{
+                fontFamily: "Marianne Regular",
+                },
+                height:'120px',
+                spacing: [0,0,0,0],
 
-          },
-          xAxis: {
-              type: 'datetime',
-              visible: false
-          },
-          yAxis: {
-              gridLineWidth: 1,
-              title: null,
-              labels: {
-                  enabled: false
-              }
-          },
+            },
+            xAxis: {
+                type: 'datetime',
+                visible: false
+            },
+            yAxis: {
+                gridLineWidth: 1,
+                title: null,
+                labels: {
+                    enabled: false
+                }
+            },
 
-          legend: {
-              enabled: false
-          },
-          title: {
-              text: null,
-          },
+            legend: {
+                enabled: false
+            },
+            title: {
+                text: null,
+            },
 
-          tooltip: {
-              style: {
-                  width: 300
-              },
-              
-              useHTML: true,
-              borderColor: 'transparent',
-              borderRadius: 16,
-              backgroundColor: '#fff',
-
-          },
-          series: [{
-              zones: [{
-                value: Date.UTC(2021, 1, 1),
-                color: '#466964'
-              }, {
-                color: '#cecece'
-              }],
-              zoneAxis: 'x',
-              dataLabels: {
-                distance: -30,
-
+            tooltip: {
+                style: {
+                    width: 300
+                },
+                
+                useHTML: true,
                 borderColor: 'transparent',
                 borderRadius: 16,
                 backgroundColor: '#fff',
-                alternate : false,
-                  allowOverlap: false,
-                  format: '<span style="color:{point.color}">● </span><span style="font-weight: bold;" > ' +
-                      '{point.x:%Y}</span><br/>{point.description}'
-              },
-              marker: {
-                  symbol: 'circle'
-              },
-              data: [{
-                  x: Date.UTC(2020, 1, 1),
-                  name: '2020',
-                  label: '2020',
-                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2020,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
-                  color:'#466964',
-                  dataLabels: {
-                    connectorColor: '#466964',
-                  },
-              }, {
-                  x: Date.UTC(2021, 1, 1),
-                  name: '2021',
-                  label: '2021',
-                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
-                  color:'#466964',
-                  dataLabels: {
-                    connectorColor: '#466964',
-                  },
-              }, {
-                  x: Date.UTC(2022, 1, 1),
-                  name: '2022',
-                  label: '2022',
-                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2022,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
-                  color:'#CECECE',
-                  dataLabels: {
-                    connectorColor: '#CECECE',
-                  },
-              }, {
-                  x: Date.UTC(2023, 1, 1),
-                  name: '2023',
-                  label: '2023',
-                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2023,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
-                  color:'#CECECE',
-                  dataLabels: {
-                    connectorColor: '#CECECE',
-                  },
-              }, {
-                  x: Date.UTC(2024, 1, 1),
-                  name: '2024',
-                  label: '2024',
-                  description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2024,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
-                  color:'#CECECE',
-                  dataLabels: {
-                    connectorColor: '#CECECE',
-                  },
-              }]
-          }]
-      });
-      </script> 
+
+            },
+            series: [{
+                zones: [{
+                  value: Date.UTC(2021, 1, 1),
+                  color: '#466964'
+                }, {
+                  color: '#cecece'
+                }],
+                zoneAxis: 'x',
+                dataLabels: {
+                  distance: -30,
+
+                  borderColor: 'transparent',
+                  borderRadius: 16,
+                  backgroundColor: '#fff',
+                  alternate : false,
+                    allowOverlap: false,
+                    format: '<span style="color:{point.color}">● </span><span style="font-weight: bold;" > ' +
+                        '{point.x:%Y}</span><br/>{point.description}'
+                },
+                marker: {
+                    symbol: 'circle'
+                },
+                data: [{
+                    x: Date.UTC(2020, 1, 1),
+                    name: '2020',
+                    label: '2020',
+                    description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2020,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                    color:'#466964',
+                    dataLabels: {
+                      connectorColor: '#466964',
+                    },
+                }, {
+                    x: Date.UTC(2021, 1, 1),
+                    name: '2021',
+                    label: '2021',
+                    description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                    color:'#466964',
+                    dataLabels: {
+                      connectorColor: '#466964',
+                    },
+                }, {
+                    x: Date.UTC(2022, 1, 1),
+                    name: '2022',
+                    label: '2022',
+                    description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2022,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                    color:'#CECECE',
+                    dataLabels: {
+                      connectorColor: '#CECECE',
+                    },
+                }, {
+                    x: Date.UTC(2023, 1, 1),
+                    name: '2023',
+                    label: '2023',
+                    description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2023,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                    color:'#CECECE',
+                    dataLabels: {
+                      connectorColor: '#CECECE',
+                    },
+                }, {
+                    x: Date.UTC(2024, 1, 1),
+                    name: '2024',
+                    label: '2024',
+                    description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2024,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                    color:'#CECECE',
+                    dataLabels: {
+                      connectorColor: '#CECECE',
+                    },
+                }]
+            }]
+        });
+        </script>
+      <% end %>
+      <div class="i24"></div>
     <% end %>
+    
     </div>
 
   </div>
@@ -607,7 +613,7 @@ Highcharts.chart('pie', {
       enabled: true,
     },
   tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:,.0f} M€ </b>',
+        pointFormat: '{series.name}: <b>{point.y} projets </b>',
       borderColor: 'transparent',
    borderRadius: 16,
    backgroundColor: '#fff',
@@ -626,7 +632,7 @@ Highcharts.chart('pie', {
                 enabled: true,
               connectorPadding: 0,
              // distance: 10,
-                format: '<b>{point.name}</b><br>{point.y:,.0f} M€ - {point.percentage:.1f} %',
+                format: '<b>{point.name}</b><br>{point.y} projets',
               style: {
                       color: "#8F8F8F",
                       fontSize: "11px",
@@ -641,14 +647,14 @@ Highcharts.chart('pie', {
         colorByPoint: true,
         data: [{
             name: 'Innovation technologique',
-            y:  8,
+            y:  <%= Typeinnovation.where('categorie = ?','Innovation technologique').count%>,
            
         }, {
-            name: 'Innovation environnementale',
-            y: 12,
+            name: 'Excellence environnementale',
+            y: <%= Typeinnovation.where('categorie = ?','Excellence environnementale').count%>,
         }, {
             name: 'Innovation accessibilité',
-            y: 16,
+            y: <%= Typeinnovation.where('categorie = ?','Accessibilité').count%>,
         }]
     }]
 });
