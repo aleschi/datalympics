@@ -78,7 +78,7 @@
       <div class="ouvrages-mo"><%= ouvrage.name%></div>
       <div class="i24"></div>
       <% ouvrage.innovations.each_with_index do |innovation,j|%>
-        <div class="fs14 c2"><span class="fw7"><%= innovation.ouvrage.name %></span> - <%= innovation.nom%> </div>
+        <div class="fs14 c2"><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar<%=i%><%=j%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><span class="fw7"><%= innovation.ouvrage.name %></span> - <%= innovation.nom%> </button></div>
         <div class="fs10 c6">Dotation Totale : <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
         <div id="container-steps<%=i%><%=j%>"></div> 
         <script>
@@ -194,6 +194,147 @@
             }]
         });
         </script>
+        <div class="collapse sidebar navigation-fixed" id="sidebar<%=i%><%=j%>">
+          <div class="pd32">
+          <div class="close-sidebar">Fermer</div>
+          <div class="i40"></div>
+          <div class="fs18 c2 fw8"><%= innovation.ouvrage.name%> </div>  
+          <div class="fs16 c2"><%= innovation.nom%> </div>
+          <div class="i24"></div>
+          <div class="fs14 c2 fw8">Description</div>
+          <div class="i12"></div>
+          <div class="fs14 c2">Blablablablaba</div>
+          <div class="i24"></div>
+          <div class="fs14 c2 fw8">Type innovation</div>
+          <div class="fs14 c2"><div class="O-span"><% if innovation.typeinnovations.count > 0 %><% innovation.typeinnovations.each do |type|%><span><% if type.categorie == "Excellence environnementale"%><i class="fas fa-circle fa-circle-env"></i><% elsif type.categorie == "Innovation technologique"%><i class="fas fa-circle fa-circle-tech"></i><%else%><i class="fas fa-circle fa-circle-acc"></i><%end%> <%= type.categorie%></span><% end %><%end%></div></div>
+          <div class="i24"></div>
+          <div class="fs14 c2 fw8">Montant de la dotation</div>
+          <div class="fs14 c2"><%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
+          <div class="i24"></div>
+          <div class="fs14 c2 fw8">Suivi du budget</div>
+          <div id="container-steps2<%=i%><%=j%>"></div> 
+          <script>
+          Highcharts.chart('container-steps2<%=i%><%=j%>', {
+              chart: {
+                  zoomType: 'x',
+                  type: 'timeline',
+                  style:{
+                  fontFamily: "Marianne Regular",
+                  },
+                  height:'120px',
+                  spacing: [0,0,0,0],
+
+              },
+              xAxis: {
+                  type: 'datetime',
+                  visible: false
+              },
+              yAxis: {
+                  gridLineWidth: 1,
+                  title: null,
+                  labels: {
+                      enabled: false
+                  }
+              },
+
+              legend: {
+                  enabled: false
+              },
+              title: {
+                  text: null,
+              },
+
+              tooltip: {
+                  style: {
+                      width: 300
+                  },
+                  
+                  useHTML: true,
+                  borderColor: 'transparent',
+                  borderRadius: 16,
+                  backgroundColor: '#fff',
+
+              },
+              series: [{
+                  zones: [{
+                    value: Date.UTC(2021, 1, 1),
+                    color: '#466964'
+                  }, {
+                    color: '#cecece'
+                  }],
+                  zoneAxis: 'x',
+                  dataLabels: {
+                    distance: -30,
+
+                    borderColor: 'transparent',
+                    borderRadius: 16,
+                    backgroundColor: '#fff',
+                    alternate : false,
+                      allowOverlap: false,
+                      format: '<span style="color:{point.color}">● </span><span style="font-weight: bold;" > ' +
+                          '{point.x:%Y}</span><br/>{point.description}'
+                  },
+                  marker: {
+                      symbol: 'circle'
+                  },
+                  data: [{
+                      x: Date.UTC(2020, 1, 1),
+                      name: '2020',
+                      label: '2020',
+                      description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2020,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                      color:'#466964',
+                      dataLabels: {
+                        connectorColor: '#466964',
+                      },
+                  }, {
+                      x: Date.UTC(2021, 1, 1),
+                      name: '2021',
+                      label: '2021',
+                      description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                      color:'#466964',
+                      dataLabels: {
+                        connectorColor: '#466964',
+                      },
+                  }, {
+                      x: Date.UTC(2022, 1, 1),
+                      name: '2022',
+                      label: '2022',
+                      description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2022,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                      color:'#CECECE',
+                      dataLabels: {
+                        connectorColor: '#CECECE',
+                      },
+                  }, {
+                      x: Date.UTC(2023, 1, 1),
+                      name: '2023',
+                      label: '2023',
+                      description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2023,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                      color:'#CECECE',
+                      dataLabels: {
+                        connectorColor: '#CECECE',
+                      },
+                  }, {
+                      x: Date.UTC(2024, 1, 1),
+                      name: '2024',
+                      label: '2024',
+                      description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2024,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                      color:'#CECECE',
+                      dataLabels: {
+                        connectorColor: '#CECECE',
+                      },
+                  }]
+              }]
+          });
+          </script>
+          <div class="i24"></div>
+          <div class="fs14 c2 fw8">Entreprises ? </div>
+          </div>
+        </div>
+        <script>
+          $(".close-sidebar").on("click",function(){
+            $('.sidebar').removeClass('in');
+          });
+        </script>
       <% end %>
       <div class="i24"></div>
     <% end %>
@@ -202,7 +343,12 @@
 
   </div>
 
+
+
 </div>
+
+
+
 <script>
   $('.menu-innovation').addClass('menu-active'); 
 </script>
