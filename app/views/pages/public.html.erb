@@ -66,7 +66,7 @@ Le COJO a pour rôle principal de planifier, d’organiser et de livrer les Jeux
         Le budget actuel de 8,1 Mds€ est certes supérieur au budget initial mais s'explique par plusieurs raisons : <br>
         • l'impact de <span class="tp1b">l'inflation</span>. Cela se répercute sur les prix des matériaux de construction par exemple. <br>
         • l'impact du <span class="tp1b">Covid-19</span> <br>
-        • raisons liées aux <span class="tp1b">ouvrages</span> <br>
+        • des raisons liées aux <span class="tp1b">ouvrages</span> (délai, personnel etc...)<br>
 
       </div>
       <div class="step tp1" id="5">
@@ -1211,10 +1211,10 @@ document.addEventListener('scroll', function () {
     }; 
 
     if(isElementInViewport($('#7')) && $('#7').hasClass('inactive') && $('#7').hasClass('nonvue')){
-      if (chart.series.length == 2){chart.series[1].remove()};
-      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
-      if (chart.series.length == 5){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove()};
+      if (chart2.series.length == 2){chart2.series[1].remove()};
+      if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
+      if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
+      if (chart2.series.length == 5){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove();chart2.series[4].remove()};
 
       chart2.xAxis[0].update({categories: ["PARIS 2024"]});
       chart2.series[0].update({
@@ -1245,13 +1245,41 @@ document.addEventListener('scroll', function () {
             },
       });
 
-      function series1(){
-        chart2.addSeries({
-            name: 'Inflation',
+      chart2.addSeries({
+            name: 'Inflation + Covid + Autres',
             zIndex: 1,
             index:0,
             color: '#20E37B',
-            data: [0.3],
+            data: [0.9],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+        });
+
+      function series1(){
+        chart2.addSeries({
+            name: 'Inflation + Covid + Autres',
+            zIndex: 1,
+            index:0,
+            color: '#20E37B',
+            data: [0.9],
             stack: "budget",
             pointPadding: 0,
             pointPlacement: 0,
@@ -1333,9 +1361,8 @@ document.addEventListener('scroll', function () {
         });
       };
 
-      setTimeout(series1, 800);
-      setTimeout(series2, 1600);
-      setTimeout(series3, 2400);
+      //setTimeout(series1, 800);
+
 
       $('#7').removeClass('nonvue');
       $('#7').addClass('vue');
@@ -1350,10 +1377,10 @@ document.addEventListener('scroll', function () {
     };
 
     if(isElementInViewport($('#7')) && $('#7').hasClass('inactive') && $('#7').hasClass('vue')){
-      if (chart.series.length == 2){chart.series[1].remove()};
-      if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
-      if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
-      if (chart.series.length == 5){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove();chart.series[4].remove()};
+      if (chart2.series.length == 2){chart2.series[1].remove()};
+      if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
+      if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
+      if (chart2.series.length == 5){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove();chart2.series[4].remove()};
 
       chart2.xAxis[0].update({categories: ["PARIS 2024"]});
       chart2.series[0].update({
@@ -1383,14 +1410,41 @@ document.addEventListener('scroll', function () {
             
             },
       });
-
-      function series1(){
-        chart2.addSeries({
-            name: 'Inflation',
+      chart2.addSeries({
+            name: 'Inflation + Covid + Autres',
             zIndex: 1,
             index:0,
             color: '#20E37B',
-            data: [0.3],
+            data: [0.9],
+            stack: "budget",
+            pointPadding: 0,
+            pointPlacement: 0,
+            dataLabels: {
+              enabled: true,
+              skew3d: true,
+              verticalAlign: 'middle',
+              style: {
+                color: '#fff',
+                textOutline: '0px',
+                fontSize: '14px',
+              },
+              formatter: function() {
+                var point = this, 
+                number = Highcharts.numberFormat(point.y, -1, ',',' '),
+                content =  number + ' <br/>'+ '<span style="font-weight:400;">Mds€  </span>';
+                return number;
+            },
+            
+            },
+        });
+
+      function series1(){
+        chart2.addSeries({
+            name: 'Inflation + Covid + Autres',
+            zIndex: 1,
+            index:0,
+            color: '#20E37B',
+            data: [0.9],
             stack: "budget",
             pointPadding: 0,
             pointPlacement: 0,
@@ -1472,9 +1526,9 @@ document.addEventListener('scroll', function () {
         });
       };
 
-      setTimeout(series1, 800);
-      setTimeout(series2, 1600);
-      setTimeout(series3, 2400);
+      //setTimeout(series1, 800);
+      //setTimeout(series2, 1600);
+      //setTimeout(series3, 2400);
 
       $('#7').removeClass('vue');
       $('#7').addClass('nonvue');
