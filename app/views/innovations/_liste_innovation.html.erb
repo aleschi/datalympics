@@ -16,7 +16,7 @@
       </div>
       <% ouvrage.innovations.each do |innovation|%>
       <div class="O-name">     
-        <a><%= innovation.nom%> <span>- <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</span> </a>         
+        <a class="cp tun" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><%= innovation.nom%> <span>- <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</span> </a>         
       </div>
       <div class="O-span"><% if innovation.typeinnovations.count > 0 %><% innovation.typeinnovations.each do |type|%><span><% if type.categorie == "Excellence environnementale"%><i class="fas fa-circle fa-circle-env"></i><% elsif type.categorie == "Innovation technologique"%><i class="fas fa-circle fa-circle-tech"></i><%else%><i class="fas fa-circle fa-circle-acc"></i><%end%> <%= type.categorie%></span><% end %><%end%></div>
       <%end %>
@@ -123,27 +123,18 @@ function initMap() {
                       
                           
                 bindInfoWindow(marker, map, infowindow, '<div class="pd12">'+ 
-                  '<div><a class="c2 c2h fs16 fw8">Nom innovation</a></div>'+ 
-                  '<div class="c2 fs16">CAO</div>'+
+                  '<div><a class="c2 c2h fs16 fw8"><%= ouvrage.name %></a></div>'+ 
+                  <% ouvrage.innovations.each do |innovation|%>
+                  
                   '<div class="i12"></div>'+
-                  '<div class="c1 fs16 fw8">XXXX€</div>'+
-                  '<div class="i8"></div>'+
-                  '<div class="c2 fs16">blablabla</div>'+
-                  '<div class="i12"></div>'+
-                  '<div class="O-span"><span><i class="fas fa-circle fa-circle-env"></i> Innovation environnementale</span><span>TPE</span></div>'+
+                  '<div class="fs14"><a class="cp tun c1" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><%= innovation.nom %></a> <span class="fs12 c6"> - <%= innovation.dotation.to_i %>€</span></div>'+
+                  <% end %>
+                  
                   '</div>');
        
-                               <% if ouvrage.ouvrages_revues.count > 0 %>
-                               <% if ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
-                                AddMouseover(marker, imager, image2r);
-                              <% elsif ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 4 %>
-                              AddMouseover(marker, imagei, image2i);
-                                <%else%>
+                            
                                 AddMouseover(marker, image, image2);
-                                <%end %>
-                               <% else %>
-                                AddMouseover(marker, image, image2);
-                                <% end %>
+                              
                       
                 <% end %>
                 }

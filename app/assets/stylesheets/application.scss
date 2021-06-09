@@ -43,6 +43,9 @@ max-width:1200px;
 }
 .c1{
   color:#000091;
+  &:hover{
+  color:#000091;
+  }
 }
 .c1h{
   &:hover{
@@ -3541,6 +3544,8 @@ z-index:10;
   width:100%;
   }
 }
+
+
 .close-sidebar{
   cursor:pointer;
   color:#8f8f8f;

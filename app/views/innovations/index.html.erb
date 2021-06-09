@@ -55,7 +55,7 @@
   <div class="i24"></div>
 
   <div class="pd32 br20 bs bckc1">  
-    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi des fonds innovation par projet</span></div>
+    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Cartographie des projets</span></div>
     <div class="i24"></div>
       <div class="row">
         <div class="col-md-7">
@@ -71,15 +71,15 @@
 
    <div class="i24"></div>
 
-  <div class="pd32 br20 bs bckc1">  
+  <div class="pd32 br20 bs bckc1 pr">  
     <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi échéancier par projet</span></div>
     <div class="i24"></div>
     <% @ouvrages.each_with_index do |ouvrage,i|%>
       <div class="ouvrages-mo"><%= ouvrage.name%></div>
       <div class="i24"></div>
       <% ouvrage.innovations.each_with_index do |innovation,j|%>
-        <div class="fs14 c2"><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar<%=i%><%=j%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><span class="fw7"><%= innovation.ouvrage.name %></span> - <%= innovation.nom%> </button></div>
-        <div class="fs10 c6">Dotation Totale : <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
+        <div class="fs14 c2"><button class="navbar-toggler bn bckc1 c1" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><span class="fw7"><%= innovation.ouvrage.name %></span> - <%= innovation.nom%> </button></div>
+        <div class="fs10 c6 hidden">Dotation Totale : <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
         <div id="container-steps<%=i%><%=j%>"></div> 
         <script>
         Highcharts.chart('container-steps<%=i%><%=j%>', {
@@ -194,12 +194,14 @@
             }]
         });
         </script>
-        <div class="collapse sidebar navigation-fixed" id="sidebar<%=i%><%=j%>">
+        <div class="collapse sidebar navigation-fixed bs" id="sidebar<%=innovation.id%>">
+          <div class="sidebar2-box">
           <div class="pd32">
           <div class="close-sidebar">Fermer</div>
           <div class="i40"></div>
-          <div class="fs18 c2 fw8"><%= innovation.ouvrage.name%> </div>  
-          <div class="fs16 c2"><%= innovation.nom%> </div>
+          <div class="fs18 c2 fw8"><%= innovation.nom%> </div>
+          <div class="fs16 c2"><%= innovation.ouvrage.name%> </div>  
+          
           <div class="i24"></div>
           <div class="fs14 c2 fw8">Description</div>
           <div class="i12"></div>
@@ -329,6 +331,7 @@
           <div class="i24"></div>
           <div class="fs14 c2 fw8">Entreprises ? </div>
           </div>
+          </div>
         </div>
         <script>
           $(".close-sidebar").on("click",function(){
@@ -398,7 +401,7 @@ Highcharts.chart('budget', {
     yAxis: {
         stops: [
             [0.1, '#20E37B'], // green
-            [0.5, '#C68D7B'], // yellow
+            [0.5, '#20E37B'], // yellow
             [0.9, '#F1013B'] // red
         ],
         lineWidth: 0,
@@ -512,37 +515,37 @@ Highcharts.chart('budget', {
     },
     series: [{
         name: 'Budget',
-        data: [{y: 23382, color: "#C68D7B",dataLabels: {
+        data: [{y: 23382, color: "#2E5D63",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 10000, color: "#2E5D63",dataLabels: {
+        {y: 10000, color: "#C68D7B",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 10000, color: "#2E5D63",dataLabels: {
+        {y: 10000, color: "#20E37B",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 2018, color: "#2E5D63",dataLabels: {
+        {y: 2018, color: "#5770BE",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 1400, color: "#2E5D63",dataLabels: {
+        {y: 1400, color: "#76505B",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 600, color: "#2E5D63",dataLabels: {
+        {y: 600, color: "#DDE10F",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}},
-        {y: 500, color: "#2E5D63",dataLabels: {
+        {y: 500, color: "#4FC5CE",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
@@ -562,7 +565,7 @@ Highcharts.chart('budget', {
           },
     },
     title: {
-        text: "Suivi de la consommation",
+        text: "Suivi de la consommation (k€)",
         verticalAlign: "top",
         style: {
                 color: "#8F8F8F",
@@ -610,12 +613,12 @@ Highcharts.chart('budget', {
     },
     series: [{
         name: 'Budget',
-        data: [{y: <%= (Echeancierinnovation.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000).round %>, color: "#2E5D63",dataLabels: {
+        data: [{y: <%= (Echeancierinnovation.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000).round %>, color: "#20E37B",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: <%= (Echeancierinnovation.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000).round%>, color: "#2E5D63",dataLabels: {
+        {y: <%= (Echeancierinnovation.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000).round%>, color: "#20E37B",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
@@ -659,7 +662,8 @@ Highcharts.chart('budget', {
     },
     colors: ['#20E37B'],
     xAxis: {
-        categories:  ["CAO", "Franchissement P.Larousse", "Secteur D - Nexity", "Batiment Cycle", "Arena 2", 'Espaces publics VOP'],
+        //categories:  ["CAO", "Franchissement P.Larousse", "Secteur D - Nexity", "Batiment Cycle", "Arena 2", 'Espaces publics VOP'],
+        categories: [<% @ouvrages.each do |ouvrage|%>"<%= ouvrage.name%>",<%end%>],
         title: {
             text: null
         }
@@ -668,7 +672,7 @@ Highcharts.chart('budget', {
         min: 0,
         gridLineColor: '#fff', 
         title: {
-            text: 'Montant (k€)',
+            text: 'Montant (€)',
             align: 'high'
         },
         labels: {
@@ -676,59 +680,56 @@ Highcharts.chart('budget', {
         }
     },
     tooltip: {
-        valueSuffix: ' millions',
+        valueSuffix: ' €',
         borderColor: 'transparent',
       borderRadius: 16,
       backgroundColor: '#fff',
     },
     legend: {
-      enabled: true,
+      enabled: false,
     },
     plotOptions: {
         column: {
           stacking: 'normal',
             dataLabels: {
                 enabled: false,
-            }
-        }
+            },
+            pointWidth: 20,
+        },
     },
     
     credits: {
         enabled: false
     },
+
     series: [
-    {
-        name: 'Innovation environnementale',
-        color: "#FFE800",
-        data: [{y: 1500, color: "#FFE800"}, 
-        {y: 8652, color: "#FFE800"}, 
-        {y: 9262, color: "#FFE800"}, 
-        {y: 5007, color: "#FFE800"}, 
-        {y: 1664, color: "#FFE800"}, 
-        {y: 1664, color: "#FFE800"}, 
-     ],
-    },
-    {
-        name: 'Innovation accessibilité',
-        color: "#4FC5CE",
-        data: [{y: 1500, color: "#4FC5CE"}, 
-        {y: 8652, color: "#4FC5CE"}, 
-        {y: 9262, color: "#4FC5CE"}, 
-        {y: 5007, color: "#4FC5CE"}, 
-        {y: 1664, color: "#4FC5CE"}, 
-        {y: 1664, color: "#4FC5CE"}, 
-     ],
-    },
-    {name: 'Innovation technologique',
-    color: "#00AC8C",
-        data: [{y: 1500, color: "#00AC8C"}, 
-        {y: 8652, color: "#00AC8C"}, 
-        {y: 9262, color: "#00AC8C"}, 
-        {y: 5007, color: "#00AC8C"}, 
-        {y: 1664, color: "#00AC8C"}, 
-        {y: 1664, color: "#00AC8C"}, 
-     ],
-    }],
+    <% @ouvrages.each_with_index do |ouvrage,i|%>
+      <% ouvrage.innovations.each_with_index do |innovation,j|%>
+        {
+          name: "<%=innovation.nom%>",
+          stack: "<%= ouvrage.name%>",
+
+          <% if i == 0 %>
+          color:"#466964",
+          <%elsif i == 1 %>
+          color:"#D08A77",
+          <% elsif i == 2 %>
+          color:"#20E37B",
+          <% elsif i == 3 %>
+          color:"#5770BE",
+          <% elsif i == 4 %>
+          color:"#BFBFBF",
+          <% elsif i == 5 %>
+          color:"#F1013B",
+          <% elsif i == 6 %>
+          color:"#FFE800",
+          <% end %>
+          opacity: 1-<%=0.15*j%>,
+          data: [{x:<%=i%>,y: <%= innovation.dotation.to_i%>}],
+        },
+      <% end %>
+    <% end %>
+   ],
 });
   </script>
 <script>
