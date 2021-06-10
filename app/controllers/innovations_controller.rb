@@ -44,11 +44,16 @@ class InnovationsController < ApplicationController
   	end
 
   	def search 
+  	@ouvrages = Ouvrage.all
+
     @projets = Innovation.all
     @q = @projets.ransack(params[:q])
     @projets = @q.result
 
-    @ouvrages_ids = @projets.first.ouvrage_id
+    @ouvrages_ids =[]
+    @projets.each do |projet|
+    @ouvrages_ids << projet.ouvrage_id
+	end
 	@ouvrages = Ouvrage.where(id: @ouvrages_ids)
     
     respond_to do |format|
