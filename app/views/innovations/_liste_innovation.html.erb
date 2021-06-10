@@ -1,37 +1,3 @@
-
-<div class="row">
-  <div class="col-md-6">
-  
-       <%= search_form_for @q, url: recherche_projets_path , method: :get, remote: true, id: "search-form" do |f| %>
-        <div class="ouvrages-search">
-           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un projet", data: {autocomplete_source: innovations_path} %> 
-          <%= f.button :submit, id:"submit_button", class:"ouvrages-submit" do %><i class="fas fa-search"></i><% end %>
-        </div>
-          <% end %>     
-    
-    <div class="ouvrages-box">
-      <% @ouvrages.each do |ouvrage|%>
-      <div class='ouvrages-mo'>
-           <%= ouvrage.name%>
-      </div>
-      <% ouvrage.innovations.each do |innovation|%>
-      <div class="O-name">     
-        <a class="cp tun" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><%= innovation.nom%> <span>- <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</span> </a>         
-      </div>
-      <div class="O-span"><% if innovation.typeinnovations.count > 0 %><% innovation.typeinnovations.each do |type|%><span><% if type.categorie == "Excellence environnementale"%><i class="fas fa-circle fa-circle-env"></i><% elsif type.categorie == "Innovation technologique"%><i class="fas fa-circle fa-circle-tech"></i><%else%><i class="fas fa-circle fa-circle-acc"></i><%end%> <%= type.categorie%></span><% end %><%end%></div>
-      <%end %>
-      <br>
-      <% end %>
-    </div>
-  </div>
-  <div class="col-md-6">
-      <div id="map">
-      
-      </div>
-
-    </div>
-</div>
-
  <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzB6sn07VIK_DzRsbm87THvZtEO1qPaNg&map_ids=4c4b12db708d00c6&callback=initMap"
       defer
@@ -42,7 +8,7 @@ function initMap() {
   var map = new google.maps.Map(document.getElementById("map"), {
     mapId: "4c4b12db708d00c6",
     center: { lat: <%= @ouvrages.first.latitude%>, lng: <%= @ouvrages.first.longitude%> },
-    zoom: 10,
+    zoom: 12,
     
   });
 
@@ -51,19 +17,19 @@ function initMap() {
                        });
               var image = {
                           path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
-                          fillColor: '#FFE800',
+                          fillColor: '#000091',
                           fillOpacity: 1,
                           scale: 0.5,
-                          strokeColor: '#FFE800',
+                          strokeColor: '#000091',
                           strokeWeight: 1,
                           labelOrigin: new google.maps.Point(0, -30)
                         };
               var image2 ={
                           path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
-                          fillColor: '#FFE800',
+                          fillColor: '#000091',
                           fillOpacity: 1,
                           scale: 0.6,
-                          strokeColor: '#FFE800',
+                          strokeColor: '#000091',
                           strokeWeight: 1,
                           labelOrigin: new google.maps.Point(0, -30)
                         };
@@ -107,7 +73,7 @@ function initMap() {
   
         <% @ouvrages.each do |ouvrage| %>
                         
-                var marker = new google.maps.Marker({
+                var marker<%= ouvrage.id%> = new google.maps.Marker({
                                 position: {lat: <% if ouvrage.latitude.nil?%>48.856614<% else%><%= ouvrage.latitude%><%end%>, lng: <% if ouvrage.longitude.nil?%>2.3522219<% else %><%= ouvrage.longitude%><%end%>},
                                 map: map,
                                 icon: <% if ouvrage.ouvrages_revues.count > 0 %><% if ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>imager<% elsif ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 4 %>imagei<% else %>image<% end%><% else %>image <% end %>,
@@ -119,10 +85,24 @@ function initMap() {
                                       fontSize: '8px'
                                 },
                               });
-                
+
+                <% ouvrage.innovations.each do |innovation|%>
+                $('#bouton<%=innovation.id%>').click(function (){
+                  infowindow.open(map, marker<%= ouvrage.id%>);
+                  infowindow.setContent('<div class="pd12">'+ 
+                        '<div><a class="c2 c2h fs16 fw8"><%= ouvrage.name %></a></div>'+ 
+                        <% ouvrage.innovations.each do |innovation|%>
+                        
+                        '<div class="i12"></div>'+
+                        '<div class="fs14"><a class="cp tun c1" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><%= innovation.nom %></a> <span class="fs12 c6"> - <%= innovation.dotation.to_i %>€</span></div>'+
+                        <% end %>
+                        
+                        '</div>');
+                });
+                <%end%>
                       
                           
-                bindInfoWindow(marker, map, infowindow, '<div class="pd12">'+ 
+                bindInfoWindow(marker<%= ouvrage.id%>, map, infowindow, '<div class="pd12">'+ 
                   '<div><a class="c2 c2h fs16 fw8"><%= ouvrage.name %></a></div>'+ 
                   <% ouvrage.innovations.each do |innovation|%>
                   
@@ -133,7 +113,7 @@ function initMap() {
                   '</div>');
        
                             
-                                AddMouseover(marker, image, image2);
+                                AddMouseover(marker<%= ouvrage.id%>, image, image2);
                               
                       
                 <% end %>
@@ -195,9 +175,46 @@ function initMap() {
                             });
                       
                 }
+
+
                      
                       
 </script>
+<div class="row">
+  <div class="col-md-6">
+  
+       <%= search_form_for @q, url: recherche_projets_path , method: :get, remote: true, id: "search-form" do |f| %>
+        <div class="ouvrages-search">
+           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un projet", data: {autocomplete_source: innovations_path} %> 
+          <%= f.button :submit, id:"submit_button", class:"ouvrages-submit" do %><i class="fas fa-search"></i><% end %>
+        </div>
+          <% end %>     
+    
+    <div class="ouvrages-box">
+      <% @ouvrages.each do |ouvrage|%>
+      <div class='ouvrages-mo'>
+           <%= ouvrage.name%>
+      </div>
+      <% ouvrage.innovations.each do |innovation|%>
+      <div class="O-name">     
+        <a class="cp tun" id="bouton<%=innovation.id%>"><%= innovation.nom%> <span>- <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</span> </a>         
+      </div>
+      <div class="O-span"><% if innovation.typeinnovations.count > 0 %><% innovation.typeinnovations.each do |type|%><span><% if type.categorie == "Excellence environnementale"%><i class="fas fa-circle fa-circle-env"></i><% elsif type.categorie == "Innovation technologique"%><i class="fas fa-circle fa-circle-tech"></i><%else%><i class="fas fa-circle fa-circle-acc"></i><%end%> <%= type.categorie%></span><% end %><%end%></div>
+      <%end %>
+      <br>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-6">
+      <div id="map">
+      
+      </div>
+
+    </div>
+</div>
+
+
+
 <script>
 
   $(function() {

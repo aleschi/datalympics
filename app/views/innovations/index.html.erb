@@ -58,10 +58,10 @@
     <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Cartographie des projets</span></div>
     <div class="i24"></div>
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-6">
           <div id="projets"></div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
           <div id="pie"></div>
         </div>
       </div>
@@ -647,6 +647,9 @@ Highcharts.chart('budget', {
     chart: {
         type: 'column',
         height:250,
+        spacingBottom:0,
+        spacingRight:0,
+        spacingLeft:0,
         style:{
             fontFamily: "Marianne Regular",
           },
@@ -663,20 +666,35 @@ Highcharts.chart('budget', {
     colors: ['#20E37B'],
     xAxis: {
         //categories:  ["CAO", "Franchissement P.Larousse", "Secteur D - Nexity", "Batiment Cycle", "Arena 2", 'Espaces publics VOP'],
-        categories: [<% @ouvrages.each do |ouvrage|%>"<%= ouvrage.name%>",<%end%>],
+        categories: [<% @ouvrages.each do |ouvrage|%>"<%= ouvrage.name%> - <%= (ouvrage.innovations.sum('dotation')/1000).to_i%>k€",<%end%>],
         title: {
-            text: null
-        }
+            text: null,
+        },
+        labels: {
+
+        style: {
+                
+                fontSize: '8px',
+                  },
+                },
     },
     yAxis: {
+  
         min: 0,
+        max: <%= @maxarr %>,
         gridLineColor: '#fff', 
         title: {
             text: 'Montant (€)',
             align: 'high'
         },
         labels: {
-            overflow: 'justify'
+          style: {
+                color: "#8F8F8F",
+                fontWeight: "400",
+            fontSize: '8px',
+                  },
+            overflow: 'justify',
+
         }
     },
     tooltip: {
@@ -708,7 +726,7 @@ Highcharts.chart('budget', {
         {
           name: "<%=innovation.nom%>",
           stack: "<%= ouvrage.name%>",
-
+          index:<%= ouvrage.innovations.length - j %>,
           <% if i == 0 %>
           color:"#466964",
           <%elsif i == 1 %>

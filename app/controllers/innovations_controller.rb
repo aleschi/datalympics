@@ -14,6 +14,12 @@ class InnovationsController < ApplicationController
         render json: @projets.map(&:nom)  
       	end
 
+      	@arr=[]
+      	@ouvrages.each do |ouvrage|
+      		@arr << ouvrage.innovations.sum('dotation')
+      	end 
+      	@maxarr = @arr.max
+
 	end 
 
 	def new
