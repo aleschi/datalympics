@@ -2,7 +2,7 @@ class InnovationsController < ApplicationController
 
 	def index
 		@nav=true
-	    @q = Ouvrage.all.ransack(params[:q])
+	    @q = Innovation.all.ransack(params[:q])
 	   
 	   	@ouvrages_ids = Innovation.all.pluck(:ouvrage_id).uniq!
 	    @ouvrages = Ouvrage.where(id: @ouvrages_ids)
@@ -47,7 +47,9 @@ class InnovationsController < ApplicationController
     @projets = Innovation.all
     @q = @projets.ransack(params[:q])
     @projets = @q.result
-    
+
+    @ouvrages_ids = @projets.first.ouvrage_id
+	@ouvrages = Ouvrage.where(id: @ouvrages_ids)
     
     respond_to do |format|
 
