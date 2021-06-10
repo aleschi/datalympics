@@ -1,0 +1,87 @@
+<div class="modal fade" id="navlogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h1 class="EB_title_connexion"><%= image_tag 'logo_datalympics_blanc.png'%></h1>
+      </div>
+      
+      <div class="modal-body">
+        <div class="error-message" id="error-message"></div>
+   
+          
+        <div class="i40"></div>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name, {:nav_login => true}), remote: true)  do |f|  %>
+        <%= render 'shared/devise_errors' %>
+          <div class="form">
+            <%= f.label :email, "Adresse mail" %>
+            <%= f.email_field :email,required: true, autofocus: true, autocomplete: "email",class:"form-field", id: "form-field1" %>
+          </div>
+
+          <div class="form">
+            <%= f.label :password %>
+            <%= f.password_field :password,required: true, autocomplete: "current-password",class:"form-field", id: "form-field2" %>
+          </div>
+
+
+          <div class="form-submit">
+            <%= f.submit "Connexion", class:"submit-btn" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+   </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    //form id
+    $('#new_user')
+    .bind('ajax:success', function(evt, data, status, xhr) {
+      //function called on status: 200 (for ex.)
+      //console.log('success');
+      $('#navlogin').modal('hide');
+    })
+    .bind("ajax:error", function(evt, xhr, status, error) {
+      //function called on status: 401 or 500 (for ex.)
+      //console.log(xhr.responseText);
+      $('#error-message').html("Identifiants incorrects")
+    });
+  });
+</script>
+
+<script>
+ 
+ $(document).ready(function(e) {
+ 
+  $('#form-field1').keyup(function() {
+ 
+    var nombreCaractere = $(this).val().length;
+    var nombreCaractere2 = $('#form-field2').val().length;
+
+ 
+    if ( nombreCaractere > 0 && nombreCaractere2 > 0 ){
+     $(".submit-btn").addClass("submit-btn-active");
+     }
+ 
+  });
+   
+   $('#form-field2').keyup(function() {
+ 
+    var nombreCaractere = $(this).val().length;
+    var nombreCaractere2 = $('#form-field1').val().length;
+
+ 
+    if ( nombreCaractere > 0 && nombreCaractere2 > 0 ){
+     $(".submit-btn").addClass("submit-btn-active");
+     }
+ 
+  });
+ 
+});
+   
+
+</script>
