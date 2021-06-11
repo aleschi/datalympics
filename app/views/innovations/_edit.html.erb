@@ -1,0 +1,76 @@
+<div class="modal fade" id="navlogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div>Modifier un projet </div>
+        <div>Nom du projet</div>
+      </div>
+      
+      <div class="modal-body">
+        <div class="c3 pd8" id="error-message"></div>
+   
+          
+        <div class="i40"></div>
+
+
+        <%= form_with(model: innovation) do |form| %>
+
+          <div class="form">
+            <%= form.label :nom %>
+            <%= form.text_field :nom, class:"form-field" %>
+          </div>
+
+          <div class="form">
+            <%= form.label :porteur %>
+            <%= form.text_field :porteur, class:"form-field"  %>
+          </div>
+
+          <div class="form">
+            <%= form.label :ouvrage_id %>
+            <%= form.text_field :ouvrage_id, class:"form-field"  %>
+          </div>
+
+          <div class="form">
+            <%= form.label :dotation %>
+            <%= form.text_field :dotation, class:"form-field"  %>
+          </div>
+
+          <div class="form">
+            <%= form.label :date %>
+            <%= form.date_select :date, class:"form-field"  %>
+          </div>
+
+          <div class="form">
+            <%= form.label :description %>
+            <%= form.text_field :description, class:"form-field"  %>
+          </div>
+
+          <div class="form-submit">
+            <%= form.submit "modifier", class:"submit-btn" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+   </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    //form id
+    $('#new_user')
+    .bind('ajax:success', function(evt, data, status, xhr) {
+      //function called on status: 200 (for ex.)
+      //console.log('success');
+      $('#navlogin').modal('hide');
+    })
+    .bind("ajax:error", function(evt, xhr, status, error) {
+      //function called on status: 401 or 500 (for ex.)
+      //console.log(xhr.responseText);
+      $('#error-message').html("Identifiants incorrects")
+    });
+  });
+</script>
+

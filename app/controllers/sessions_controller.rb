@@ -33,7 +33,7 @@ class SessionsController < Devise::SessionsController
   def invalid_login_attempt
 #  set_flash_message(:alert, :invalid)
   render json: flash[:alert], status: 401
-end
+  end
 
 
 end

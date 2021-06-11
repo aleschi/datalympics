@@ -1,99 +1,96 @@
-<%= render 'shared/navlogin_form' %>
-<script>
-  AOS.init();
-</script>
-<div class='background'>
-<%= render 'layouts/navigation_public'%> 
-</div>
-<div class='background hidden-xs hidden-sm'>
+
+<div class='background visible-sm visible-xs'>
   <div class="page-public">
-    <div class="public-title">Combien coûtent les Jeux Olympiques et Paralympiques 2024 ?</div>
-    <div class="graphic">
-      <div class="sections">
-        
-          <div class="step tp1" id="1">         
-              Le budget des Jeux Olympiques et Paralympiques annoncé lors de la candidature de Paris 2024 est de <span class="tp1b">8,1 milliards d’euros.</span>
-          </div>
-          <div class="step tp1" id="2">
-            Ce budget est géré par 2 structures créées en décembre 2017 suite à la validation de la candidature de Paris :<br><br>
-
-            • <span class="tu">le COJO </span>(Comité d'Organisation des Jeux Olympiques ou Paris 2024), qui en détient <span class="tp1b">48%.</span> <br>
-
-            • <span class="tu">la SOLIDEO </span>(Société de livraison des ouvrages olympiques) qui détient <span class="tp1b">52%</span> du budget; <br><br>
-
-            <span class="fs14">En savoir plus sur le statut de ces structures (lien vers le jaune)</span><br>
-          </div>
-
-          <div class="step tp1" id="2b">
-            Ces deux organismes recoivent de l'argent public pour assurer la réalisation des Jeux. 
-              <br><br>
-              Le budget de la SOLIDEO est financé à <span class="tp1b">33%</span> par de l'argent public, dont <span class="tp1b">960 M€</span> de la part de l’Etat et <span class="tp1b">445 M€</span> de la part des collectivités. 
-              <br><br>
-              Le COJO reçoit, lui, <span class="tp1b">3%</span> d'argent public car son budget est majoritairement financé par le CIO et les recettes liées aux Jeux. 
-              <br><br>
-              Au total, près de <span class="tp1b">1,5 Mds€</span> du budget des Jeux est financé par de l’argent public, soit <span class="tp1b">19%</span> du budget global.<br>
-
-            </div>
-              
-            <div class="step tp1" id="3">
-                  La SOLIDEO, qui s'occupe de la construction et de la rénovation de la majorité des ouvrages olympiques, répartit son budget dans 3 grands pôles : <br>
-                  • les dépenses liées aux <span class="tp1b">ouvrages : 96%</span><br>
-                  • les dépenses liées à ses <span class="tp1b">frais de fonctionnement</span> (masse salariale, outillage etc..) : <span class="tp1b">2,4%</span><br>
-                  • les fonds attribués à des projets innovants : <span class="tp1b">1,6%</span><br>
-                  <br><br>
-                  Le COJO a pour rôle principal de planifier, d’organiser et de livrer les Jeux ainsi que de financer les dépenses organisationnelles (accueil, communication, marketing, personnel etc..) et toutes les installations provisoires. <br><br>
-          
-            </div>
-      </div>
-      <div class="graphe-box">
-        <div id="graphe"></div>
-        <div class="c1 fs14 arrow-selector"><i class="fas fa-arrow-down"></i></div>
-      </div>
+  <div class="public-title">Combien coûtent les Jeux Olympiques et Paralympiques 2024 ?</div>
+  <div class="graphic">    
+    <div class="graphe-box">
+      <div id="graphexs"></div>
+      <div class="c1 fs14 arrow-selector"><i class="fas fa-arrow-down"></i></div>
     </div>
 
-    <div class="ma" style='max-width:880px'>
-      <div class="row step public-chiffres-aos" data-aos="zoom-in-up" data-aos-duration="1500">
-        <div id="recap"></div>
-      </div>
-    </div>
+    <div class="sections">
+      
+        <div class="step tp1" id="1xs">         
+            Le budget des Jeux Olympiques et Paralympiques annoncé lors de la candidature de Paris 2024 est de <span class="tp1b">8,1 milliards d’euros.</span>
+        </div>
+        <div class="step tp1" id="2xs">
+          Ce budget est géré par 2 structures créées en décembre 2017 suite à la validation de la candidature de Paris :<br><br>
 
-    <div class="graphic">
-      <div class="sections">
-        <div class="step tp1" id="7">
-            Le budget annoncé lors de la candidature était de <span class="tp1b">7 milliards d’euros.</span>
+          • <span class="tu">le COJO </span>(Comité d'Organisation des Jeux Olympiques ou Paris 2024), qui en détient <span class="tp1b">48%.</span> <br>
+
+          • <span class="tu">la SOLIDEO </span>(Société de livraison des ouvrages olympiques) qui détient <span class="tp1b">52%</span> du budget; <br><br>
+
+          <span class="fs14">En savoir plus sur le statut de ces structures (lien vers le jaune)</span><br>
+        </div>
+
+        <div class="step tp1" id="2bxs">
+          Ces deux organismes recoivent de l'argent public pour assurer la réalisation des Jeux. 
             <br><br>
-            Le budget actuel de 8,1 Mds€ est certes supérieur au budget initial mais s'explique par plusieurs raisons : <br>
-            • l'impact de <span class="tp1b">l'inflation</span>. Cela se répercute sur les prix des matériaux de construction par exemple. <br>
-            • l'impact du <span class="tp1b">Covid-19</span> <br>
-            • des raisons liées aux <span class="tp1b">ouvrages</span> (délai, personnel etc...)<br>
+            Le budget de la SOLIDEO est financé à <span class="tp1b">33%</span> par de l'argent public, dont <span class="tp1b">960 M€</span> de la part de l’Etat et <span class="tp1b">445 M€</span> de la part des collectivités. 
+            <br><br>
+            Le COJO reçoit, lui, <span class="tp1b">3%</span> d'argent public car son budget est majoritairement financé par le CIO et les recettes liées aux Jeux. 
+            <br><br>
+            Au total, près de <span class="tp1b">1,5 Mds€</span> du budget des Jeux est financé par de l’argent public, soit <span class="tp1b">19%</span> du budget global.<br>
 
-        </div>
-        <div class="step tp1" id="5">
-            A titre de comparaison, sur les 10 dernières années, le budget moyen prévu lors des candidatures pour l’organisation des Jeux Olympiques et Paralympiques d'été est de <span class="tp1b">7,2 milliards d’euros.</span></span>
-        </div>
-        <div class="step tp1" id="6">
-            Mais en réalité, le budget prévu est régulièrement dépassé et en partie pour les raisons mentionnées au-dessus. <br>
-            Toutefois, la ville de Paris s’est engagée à une maîtrise des coûts notamment en favorisant la réutilisation de lieux existants, limitant ainsi construction de nouvelles infrastructures pour les Jeux, et en suivant au plus près les dépenses engagées.
-        </div>
-      </div>
-      <div class="graphe-box">
-        <div id="graphe2"></div>
-      </div>
+          </div>
+            
+          <div class="step tp1" id="3xs">
+                La SOLIDEO, qui s'occupe de la construction et de la rénovation de la majorité des ouvrages olympiques, répartit son budget dans 3 grands pôles : <br>
+                • les dépenses liées aux <span class="tp1b">ouvrages : 96%</span><br>
+                • les dépenses liées à ses <span class="tp1b">frais de fonctionnement</span> (masse salariale, outillage etc..) : <span class="tp1b">2,4%</span><br>
+                • les fonds attribués à des projets innovants : <span class="tp1b">1,6%</span><br>
+                <br><br>
+                Le COJO a pour rôle principal de planifier, d’organiser et de livrer les Jeux ainsi que de financer les dépenses organisationnelles (accueil, communication, marketing, personnel etc..) et toutes les installations provisoires. <br><br>
+        
+          </div>
     </div>
   </div>
+
+  <div class="ma" style='max-width:880px'>
+  <div class="row step public-chiffres-aos" data-aos="zoom-in-up" data-aos-duration="1500">
+    <div id="recapxs"></div>
+  </div>
+  </div>
+
+  <div class="graphic">
+    <div class="graphe-box">
+      <div id="graphe2xs"></div>
+    </div>
+    <div class="sections">
+      <div class="step tp1" id="7xs">
+          Le budget annoncé lors de la candidature était de <span class="tp1b">7 milliards d’euros.</span>
+          <br><br>
+          Le budget actuel de 8,1 Mds€ est certes supérieur au budget initial mais s'explique par plusieurs raisons : <br>
+          • l'impact de <span class="tp1b">l'inflation</span>. Cela se répercute sur les prix des matériaux de construction par exemple. <br>
+          • l'impact du <span class="tp1b">Covid-19</span> <br>
+          • des raisons liées aux <span class="tp1b">ouvrages</span> (délai, personnel etc...)<br>
+
+        </div>
+        <div class="step tp1" id="5xs">
+          A titre de comparaison, sur les 10 dernières années, le budget moyen prévu lors des candidatures pour l’organisation des Jeux Olympiques et Paralympiques d'été est de <span class="tp1b">7,2 milliards d’euros.</span></span>
+        </div>
+        <div class="step tp1" id="6xs">
+          Mais en réalité, le budget prévu est régulièrement dépassé et en partie pour les raisons mentionnées au-dessus. <br>
+          Toutefois, la ville de Paris s’est engagée à une maîtrise des coûts notamment en favorisant la réutilisation de lieux existants, limitant ainsi construction de nouvelles infrastructures pour les Jeux, et en suivant au plus près les dépenses engagées.
+        </div>
+        
+    
+
+    </div>
+  
 </div>
-<%= render 'public_xs' %>
+</div>
+
 </div>
 <div class='background'>
 <%= render 'layouts/footer'%> 
 </div>
 <script>
-$('#cojo2').hide();
-$('#solideo2').hide();
-var chart = Highcharts.chart('graphe', {
+
+var chart = Highcharts.chart('graphexs', {
         chart: {
             type: 'column',          
-            height: '600px',
+            height: '300px',
             spacingTop: 0,
             style:{
               fontFamily: "Marianne Regular",
@@ -198,11 +195,11 @@ var chart = Highcharts.chart('graphe', {
 
         } ]
       });
-var chart2 = Highcharts.chart('graphe2', {
+var chart2 = Highcharts.chart('graphe2xs', {
         chart: {
             type: 'column',
           
-            height: '600px',
+            height: '300px',
             spacingTop: 0,
             style:{
               fontFamily: "Marianne Regular",
@@ -296,21 +293,21 @@ var chart2 = Highcharts.chart('graphe2', {
 
         } ]
       });
-$('#1').addClass('vue');
-$('#2').addClass('inactive');
-$('#2').addClass('nonvue');
-$('#2b').addClass('inactive');
-$('#2b').addClass('nonvue');
-$('#3').addClass('inactive');
-$('#3').addClass('nonvue');
-$('#4').addClass('inactive');
-$('#4').addClass('nonvue');
-$('#5').addClass('inactive');
-$('#5').addClass('nonvue');
-$('#6').addClass('inactive');
-$('#6').addClass('nonvue');
-$('#7').addClass('nonvue');
-$('#7').addClass('inactive');
+$('#1xs').addClass('vue');
+$('#2xs').addClass('inactive');
+$('#2xs').addClass('nonvue');
+$('#2bxs').addClass('inactive');
+$('#2bxs').addClass('nonvue');
+$('#3xs').addClass('inactive');
+$('#3xs').addClass('nonvue');
+$('#4xs').addClass('inactive');
+$('#4xs').addClass('nonvue');
+$('#5xs').addClass('inactive');
+$('#5xs').addClass('nonvue');
+$('#6xs').addClass('inactive');
+$('#6xs').addClass('nonvue');
+$('#7xs').addClass('nonvue');
+$('#7xs').addClass('inactive');
 
 function isElementInViewport (el) {
 
@@ -331,7 +328,7 @@ function isElementInViewport (el) {
 
 document.addEventListener('scroll', function () {
 
-    if(isElementInViewport($('#1')) && $('#1').hasClass('inactive') && $('#1').hasClass('vue')){
+    if(isElementInViewport($('#1xs')) && $('#1xs').hasClass('inactive') && $('#1xs').hasClass('vue')){
       
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
@@ -364,17 +361,17 @@ document.addEventListener('scroll', function () {
             },
       });
 
-      $('#1').removeClass('inactive');
-      $('#2').addClass('inactive');
-      $('#2').removeClass('vue');
-      $('#2').addClass('nonvue');
-      $('#2b').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#4').addClass('inactive');
-      $('#5').addClass('inactive');
-      $('#7').addClass('inactive');
+      $('#1xs').removeClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#2xs').removeClass('vue');
+      $('#2xs').addClass('nonvue');
+      $('#2bxs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#4xs').addClass('inactive');
+      $('#5xs').addClass('inactive');
+      $('#7xs').addClass('inactive');
     };
-    if(isElementInViewport($('#2')) && $('#2').hasClass('inactive') && $('#2').hasClass('nonvue')){
+    if(isElementInViewport($('#2xs')) && $('#2xs').hasClass('inactive') && $('#2xs').hasClass('nonvue')){
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
@@ -430,16 +427,16 @@ document.addEventListener('scroll', function () {
             },
       });
 
-      $('#2').removeClass('inactive');
-      $('#2').removeClass('nonvue');
-      $('#2').addClass('vue');
-      $('#1').addClass('inactive');
-      $('#2b').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#4').addClass('inactive');
-      $('#5').addClass('inactive');
+      $('#2xs').removeClass('inactive');
+      $('#2xs').removeClass('nonvue');
+      $('#2xs').addClass('vue');
+      $('#1xs').addClass('inactive');
+      $('#2bxs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#4xs').addClass('inactive');
+      $('#5xs').addClass('inactive');
     }; 
-    if(isElementInViewport($('#2')) && $('#2').hasClass('inactive') && $('#2').hasClass('vue')){
+    if(isElementInViewport($('#2xs')) && $('#2xs').hasClass('inactive') && $('#2xs').hasClass('vue')){
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
@@ -491,20 +488,19 @@ document.addEventListener('scroll', function () {
             x: 0,
             },
       });
-      $('#2').removeClass('inactive');
-      $('#2').addClass('nonvue');
-      $('#2').removeClass('vue');
-      $('#1').addClass('inactive');
-      $('#2b').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#4').addClass('inactive');
-      $('#5').addClass('inactive');
-      $('#7').addClass('inactive');
-      $('#cojo2').show();
-      $('#solideo2').show();
+      $('#2xs').removeClass('inactive');
+      $('#2xs').addClass('nonvue');
+      $('#2xs').removeClass('vue');
+      $('#1xs').addClass('inactive');
+      $('#2bxs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#4xs').addClass('inactive');
+      $('#5xs').addClass('inactive');
+      $('#7xs').addClass('inactive');
+
     };  
 
-    if(isElementInViewport($('#2b')) && $('#2b').hasClass('inactive') && $('#2b').hasClass('nonvue')){
+    if(isElementInViewport($('#2bxs')) && $('#2bxs').hasClass('inactive') && $('#2bxs').hasClass('nonvue')){
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
@@ -555,18 +551,18 @@ document.addEventListener('scroll', function () {
             },
       });
 
-      $('#2b').removeClass('inactive');
-      $('#2b').addClass('vue');
-      $('#2b').removeClass('nonvue');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#4').addClass('inactive');
-      $('#5').addClass('inactive');
-      $('#7').addClass('inactive');
+      $('#2bxs').removeClass('inactive');
+      $('#2bxs').addClass('vue');
+      $('#2bxs').removeClass('nonvue');
+      $('#1xs').addClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#4xs').addClass('inactive');
+      $('#5xs').addClass('inactive');
+      $('#7xs').addClass('inactive');
     }; 
 
-    if(isElementInViewport($('#2b')) && $('#2b').hasClass('inactive') && $('#2b').hasClass('vue')){
+    if(isElementInViewport($('#2bxs')) && $('#2bxs').hasClass('inactive') && $('#2bxs').hasClass('vue')){
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
@@ -619,17 +615,17 @@ document.addEventListener('scroll', function () {
             },
       });
 
-      $('#2b').removeClass('inactive');
-      $('#2b').addClass('nonvue');
-      $('#2b').removeClass('vue');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#4').addClass('inactive');
-      $('#5').addClass('inactive');
-      $('#7').addClass('inactive');
+      $('#2bxs').removeClass('inactive');
+      $('#2bxs').addClass('nonvue');
+      $('#2bxs').removeClass('vue');
+      $('#1xs').addClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#4xs').addClass('inactive');
+      $('#5xs').addClass('inactive');
+      $('#7xs').addClass('inactive');
     };
-    if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('nonvue')){
+    if(isElementInViewport($('#3xs')) && $('#3xs').hasClass('inactive') && $('#3xs').hasClass('nonvue')){
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
@@ -828,16 +824,16 @@ document.addEventListener('scroll', function () {
             },
       });
      
-      $('#3').removeClass('inactive');
-      $('#3').removeClass('nonvue');
-      $('#3').addClass('vue');
-      $('#1').addClass('inactive');
-      $('#4').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#2b').addClass('inactive');
-      $('#5').addClass('inactive');
+      $('#3xs').removeClass('inactive');
+      $('#3xs').removeClass('nonvue');
+      $('#3xs').addClass('vue');
+      $('#1xs').addClass('inactive');
+      $('#4xs').addClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#2bxs').addClass('inactive');
+      $('#5xs').addClass('inactive');
     }; 
-    if(isElementInViewport($('#3')) && $('#3').hasClass('inactive') && $('#3').hasClass('vue')){
+    if(isElementInViewport($('#3xs')) && $('#3xs').hasClass('inactive') && $('#3xs').hasClass('vue')){
       if (chart.series.length == 2){chart.series[1].remove()};
       if (chart.series.length == 3){chart.series[1].remove();chart.series[2].remove()};
       if (chart.series.length == 4){chart.series[1].remove();chart.series[2].remove();chart.series[3].remove()};
@@ -1036,19 +1032,19 @@ document.addEventListener('scroll', function () {
             },
       });
 
-      $('#3').removeClass('inactive');
-      $('#3').removeClass('vue');
-      $('#3').addClass('nonvue');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#2b').addClass('inactive');
-      $('#4').addClass('inactive');
-      $('#5').addClass('inactive');
-      $('#7').addClass('inactive');
+      $('#3xs').removeClass('inactive');
+      $('#3xs').removeClass('vue');
+      $('#3xs').addClass('nonvue');
+      $('#1xs').addClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#2bxs').addClass('inactive');
+      $('#4xs').addClass('inactive');
+      $('#5xs').addClass('inactive');
+      $('#7xs').addClass('inactive');
     };
   
 
-    if(isElementInViewport($('#5')) && $('#5').hasClass('inactive') && $('#5').hasClass('nonvue')){
+    if(isElementInViewport($('#5xs')) && $('#5xs').hasClass('inactive') && $('#5xs').hasClass('nonvue')){
       if (chart2.series.length == 2){chart2.series[1].remove()};
       if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
       if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
@@ -1076,15 +1072,15 @@ document.addEventListener('scroll', function () {
          
             },
       });
-      $('#5').removeClass('inactive');
-      $('#5').removeClass('nonvue');
-      $('#5').addClass('vue');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#2b').addClass('inactive');
-      $('#6').addClass('inactive');
-      $('#7').addClass('inactive');
+      $('#5xs').removeClass('inactive');
+      $('#5xs').removeClass('nonvue');
+      $('#5xs').addClass('vue');
+      $('#1xs').addClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#2bxs').addClass('inactive');
+      $('#6xs').addClass('inactive');
+      $('#7xs').addClass('inactive');
     }; 
 
     if(isElementInViewport($('#5')) && $('#5').hasClass('inactive') && $('#5').hasClass('vue')){
@@ -1116,18 +1112,18 @@ document.addEventListener('scroll', function () {
             },
       });
     
-      $('#5').removeClass('inactive');
-      $('#5').removeClass('vue');
-      $('#5').addClass('nonvue');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#2b').addClass('inactive');
-      $('#6').addClass('inactive');
-      $('#7').addClass('inactive');
+      $('#5xs').removeClass('inactive');
+      $('#5xs').removeClass('vue');
+      $('#5xs').addClass('nonvue');
+      $('#1xs').addClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#2bxs').addClass('inactive');
+      $('#6xs').addClass('inactive');
+      $('#7xs').addClass('inactive');
     }; 
 
-    if(isElementInViewport($('#6')) && $('#6').hasClass('inactive') && $('#6').hasClass('nonvue')){
+    if(isElementInViewport($('#6xs')) && $('#6xs').hasClass('inactive') && $('#6xs').hasClass('nonvue')){
       if (chart2.series.length == 2){chart2.series[1].remove()};
       if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
       if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
@@ -1154,18 +1150,18 @@ document.addEventListener('scroll', function () {
          
             },
       });
-      $('#6').removeClass('inactive');
-      $('#6').removeClass('nonvue');
-      $('#6').addClass('vue');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#2b').addClass('inactive');
-      $('#5').addClass('inactive');
-      $('#7').addClass('inactive');
+      $('#6xs').removeClass('inactive');
+      $('#6xs').removeClass('nonvue');
+      $('#6xs').addClass('vue');
+      $('#1xs').addClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#2bxs').addClass('inactive');
+      $('#5xs').addClass('inactive');
+      $('#7xs').addClass('inactive');
     }; 
 
-    if(isElementInViewport($('#6')) && $('#6').hasClass('inactive') && $('#6').hasClass('vue')){
+    if(isElementInViewport($('#6xs')) && $('#6xs').hasClass('inactive') && $('#6xs').hasClass('vue')){
       if (chart2.series.length == 2){chart2.series[1].remove()};
       if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
       if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
@@ -1194,18 +1190,18 @@ document.addEventListener('scroll', function () {
             },
       });
     
-      $('#6').removeClass('inactive');
-      $('#6').removeClass('vue');
-      $('#6').addClass('nonvue');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#2b').addClass('inactive');
-      $('#5').addClass('inactive');
-      $('#7').addClass('inactive');
+      $('#6xs').removeClass('inactive');
+      $('#6xs').removeClass('vue');
+      $('#6xs').addClass('nonvue');
+      $('#1xs').addClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#2bxs').addClass('inactive');
+      $('#5xs').addClass('inactive');
+      $('#7xs').addClass('inactive');
     }; 
 
-    if(isElementInViewport($('#7')) && $('#7').hasClass('inactive') && $('#7').hasClass('nonvue')){
+    if(isElementInViewport($('#7xs')) && $('#7xs').hasClass('inactive') && $('#7xs').hasClass('nonvue')){
       if (chart2.series.length == 2){chart2.series[1].remove()};
       if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
       if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
@@ -1359,19 +1355,19 @@ document.addEventListener('scroll', function () {
       //setTimeout(series1, 800);
 
 
-      $('#7').removeClass('nonvue');
-      $('#7').addClass('vue');
-      $('#7').removeClass('inactive');
-      $('#1').addClass('inactive');
-      $('#2').addClass('inactive');
-      $('#3').addClass('inactive');
-      $('#2b').addClass('inactive');
-      $('#5').addClass('inactive');
-      $('#6').addClass('inactive');
+      $('#7xs').removeClass('nonvue');
+      $('#7xs').addClass('vue');
+      $('#7xs').removeClass('inactive');
+      $('#1xs').addClass('inactive');
+      $('#2xs').addClass('inactive');
+      $('#3xs').addClass('inactive');
+      $('#2bxs').addClass('inactive');
+      $('#5xs').addClass('inactive');
+      $('#6xs').addClass('inactive');
 
     };
 
-    if(isElementInViewport($('#7')) && $('#7').hasClass('inactive') && $('#7').hasClass('vue')){
+    if(isElementInViewport($('#7xs')) && $('#7xs').hasClass('inactive') && $('#7xs').hasClass('vue')){
       if (chart2.series.length == 2){chart2.series[1].remove()};
       if (chart2.series.length == 3){chart2.series[1].remove();chart2.series[2].remove()};
       if (chart2.series.length == 4){chart2.series[1].remove();chart2.series[2].remove();chart2.series[3].remove()};
@@ -1540,7 +1536,7 @@ document.addEventListener('scroll', function () {
 </script>
 
 <script>
-  Highcharts.chart('recap', {
+  Highcharts.chart('recapxs', {
     chart:{
       height: '600px',
       style:{
