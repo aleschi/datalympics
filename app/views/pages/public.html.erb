@@ -1,88 +1,93 @@
-<%= render 'shared/navlogin_form' %>
 <script>
   AOS.init();
 </script>
 <div class='background'>
 <%= render 'layouts/navigation_public'%> 
 </div>
-<div class='background hidden-xs hidden-sm'>
+<div class='background'>
   <div class="page-public">
-    <div class="public-title">Combien coûtent les Jeux Olympiques et Paralympiques 2024 ?</div>
-    <div class="graphic">
-      <div class="sections">
+  <div class="public-title">Combien coûtent les Jeux Olympiques et Paralympiques 2024 ?</div>
+  <div class="graphic">
+    <div class="sections">
+      
+        <div class="step tp1" id="1">         
+            Le budget des Jeux Olympiques et Paralympiques annoncé lors de la candidature de Paris 2024 est de <span class="tp1b">8,1 milliards d’euros.</span>
+        </div>
+        <div class="step tp1" id="2">
+          Ce budget est géré par 2 structures créées en décembre 2017 suite à la validation de la candidature de Paris :<br><br>
+
+          • <span class="tu">le COJO </span>(Comité d'Organisation des Jeux Olympiques ou Paris 2024), qui en détient <span class="tp1b">48%.</span> <br>
+
+          • <span class="tu">la SOLIDEO </span>(Société de livraison des ouvrages olympiques) qui détient <span class="tp1b">52%</span> du budget; <br><br>
+
+          <span class="fs14">En savoir plus sur le statut de ces structures (lien vers le jaune)</span><br>
+        </div>
+
+        <div class="step tp1" id="2b">
+          Ces deux organismes recoivent de l'argent public pour assurer la réalisation des Jeux. 
+<br><br>
+Le budget de la SOLIDEO est financé à <span class="tp1b">33%</span> par de l'argent public, dont <span class="tp1b">960 M€</span> de la part de l’Etat et <span class="tp1b">445 M€</span> de la part des collectivités. 
+<br><br>
+Le COJO reçoit, lui, <span class="tp1b">3%</span> d'argent public car son budget est majoritairement financé par le CIO et les recettes liées aux Jeux. 
+<br><br>
+Au total, près de <span class="tp1b">1,5 Mds€</span> du budget des Jeux est financé par de l’argent public, soit <span class="tp1b">19%</span> du budget global.<br>
+
+        </div>
+      
+        <div class="step tp1" id="3">
+          La SOLIDEO, qui s'occupe de la construction et de la rénovation de la majorité des ouvrages olympiques, répartit son budget dans 3 grands pôles : <br>
+• les dépenses liées aux <span class="tp1b">ouvrages : 96%</span><br>
+• les dépenses liées à ses <span class="tp1b">frais de fonctionnement</span> (masse salariale, outillage etc..) : <span class="tp1b">2,4%</span><br>
+• les fonds attribués à des projets innovants : <span class="tp1b">1,6%</span><br>
+<br><br>
+Le COJO a pour rôle principal de planifier, d’organiser et de livrer les Jeux ainsi que de financer les dépenses organisationnelles (accueil, communication, marketing, personnel etc..) et toutes les installations provisoires. <br><br>
+
+
         
-          <div class="step tp1" id="1">         
-              Le budget des Jeux Olympiques et Paralympiques annoncé lors de la candidature de Paris 2024 est de <span class="tp1b">8,1 milliards d’euros.</span>
-          </div>
-          <div class="step tp1" id="2">
-            Ce budget est géré par 2 structures créées en décembre 2017 suite à la validation de la candidature de Paris :<br><br>
-
-            • <span class="tu">le COJO </span>(Comité d'Organisation des Jeux Olympiques ou Paris 2024), qui en détient <span class="tp1b">48%.</span> <br>
-
-            • <span class="tu">la SOLIDEO </span>(Société de livraison des ouvrages olympiques) qui détient <span class="tp1b">52%</span> du budget; <br><br>
-
-            <span class="fs14">En savoir plus sur le statut de ces structures (lien vers le jaune)</span><br>
-          </div>
-
-          <div class="step tp1" id="2b">
-            Ces deux organismes recoivent de l'argent public pour assurer la réalisation des Jeux. 
-              <br><br>
-              Le budget de la SOLIDEO est financé à <span class="tp1b">33%</span> par de l'argent public, dont <span class="tp1b">960 M€</span> de la part de l’Etat et <span class="tp1b">445 M€</span> de la part des collectivités. 
-              <br><br>
-              Le COJO reçoit, lui, <span class="tp1b">3%</span> d'argent public car son budget est majoritairement financé par le CIO et les recettes liées aux Jeux. 
-              <br><br>
-              Au total, près de <span class="tp1b">1,5 Mds€</span> du budget des Jeux est financé par de l’argent public, soit <span class="tp1b">19%</span> du budget global.<br>
-
-            </div>
-              
-            <div class="step tp1" id="3">
-                  La SOLIDEO, qui s'occupe de la construction et de la rénovation de la majorité des ouvrages olympiques, répartit son budget dans 3 grands pôles : <br>
-                  • les dépenses liées aux <span class="tp1b">ouvrages : 96%</span><br>
-                  • les dépenses liées à ses <span class="tp1b">frais de fonctionnement</span> (masse salariale, outillage etc..) : <span class="tp1b">2,4%</span><br>
-                  • les fonds attribués à des projets innovants : <span class="tp1b">1,6%</span><br>
-                  <br><br>
-                  Le COJO a pour rôle principal de planifier, d’organiser et de livrer les Jeux ainsi que de financer les dépenses organisationnelles (accueil, communication, marketing, personnel etc..) et toutes les installations provisoires. <br><br>
-          
-            </div>
-      </div>
-      <div class="graphe-box">
-        <div id="graphe"></div>
-        <div class="c1 fs14 arrow-selector"><i class="fas fa-arrow-down"></i></div>
-      </div>
-    </div>
-
-    <div class="ma" style='max-width:880px'>
-      <div class="row step public-chiffres-aos" data-aos="zoom-in-up" data-aos-duration="1500">
-        <div id="recap"></div>
-      </div>
-    </div>
-
-    <div class="graphic">
-      <div class="sections">
-        <div class="step tp1" id="7">
-            Le budget annoncé lors de la candidature était de <span class="tp1b">7 milliards d’euros.</span>
-            <br><br>
-            Le budget actuel de 8,1 Mds€ est certes supérieur au budget initial mais s'explique par plusieurs raisons : <br>
-            • l'impact de <span class="tp1b">l'inflation</span>. Cela se répercute sur les prix des matériaux de construction par exemple. <br>
-            • l'impact du <span class="tp1b">Covid-19</span> <br>
-            • des raisons liées aux <span class="tp1b">ouvrages</span> (délai, personnel etc...)<br>
-
-        </div>
-        <div class="step tp1" id="5">
-            A titre de comparaison, sur les 10 dernières années, le budget moyen prévu lors des candidatures pour l’organisation des Jeux Olympiques et Paralympiques d'été est de <span class="tp1b">7,2 milliards d’euros.</span></span>
-        </div>
-        <div class="step tp1" id="6">
-            Mais en réalité, le budget prévu est régulièrement dépassé et en partie pour les raisons mentionnées au-dessus. <br>
-            Toutefois, la ville de Paris s’est engagée à une maîtrise des coûts notamment en favorisant la réutilisation de lieux existants, limitant ainsi construction de nouvelles infrastructures pour les Jeux, et en suivant au plus près les dépenses engagées.
-        </div>
-      </div>
-      <div class="graphe-box">
-        <div id="graphe2"></div>
-      </div>
     </div>
   </div>
+    <div class="graphe-box">
+    <div id="graphe"></div>
+    <div class="c1 fs14 arrow-selector"><i class="fas fa-arrow-down"></i></div>
+    </div>
+  </div>
+
+  <div class="ma" style='max-width:880px'>
+  <div class="row step public-chiffres-aos" data-aos="zoom-in-up" data-aos-duration="1500">
+    <div id="recap"></div>
+  </div>
+  </div>
+
+  <div class="graphic">
+  <div class="sections">
+    <div class="step tp1" id="7">
+        Le budget annoncé lors de la candidature était de <span class="tp1b">7 milliards d’euros.</span>
+        <br><br>
+        Le budget actuel de 8,1 Mds€ est certes supérieur au budget initial mais s'explique par plusieurs raisons : <br>
+        • l'impact de <span class="tp1b">l'inflation</span>. Cela se répercute sur les prix des matériaux de construction par exemple. <br>
+        • l'impact du <span class="tp1b">Covid-19</span> <br>
+        • des raisons liées aux <span class="tp1b">ouvrages</span> (délai, personnel etc...)<br>
+
+      </div>
+      <div class="step tp1" id="5">
+        A titre de comparaison, sur les 10 dernières années, le budget moyen prévu lors des candidatures pour l’organisation des Jeux Olympiques et Paralympiques d'été est de <span class="tp1b">7,2 milliards d’euros.</span></span>
+      </div>
+      <div class="step tp1" id="6">
+        Mais en réalité, le budget prévu est régulièrement dépassé et en partie pour les raisons mentionnées au-dessus. <br>
+        Toutefois, la ville de Paris s’est engagée à une maîtrise des coûts notamment en favorisant la réutilisation de lieux existants, limitant ainsi construction de nouvelles infrastructures pour les Jeux, et en suivant au plus près les dépenses engagées.
+      </div>
+      
+  
+
+  </div>
+  <div class="graphe-box">
+  <div id="graphe2">
+
+  </div>
+  </div>
 </div>
-<%= render 'public_xs' %>
+</div>
+
 </div>
 <div class='background'>
 <%= render 'layouts/footer'%> 
