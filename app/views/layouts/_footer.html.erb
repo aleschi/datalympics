@@ -4,19 +4,19 @@
       <%= image_tag 'logo_ministere.png'%>
     </div>
     <div class="footer-text">
-      Texte optionnel 3 lignes maximum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet mollis dolor. Maecenas pellentesque aliquet ex nec aliquam.
+      
       <div class="footer-links"><a href="https://legifrance.gouv.fr" target="_blank">legifrance.gouv.fr</a> <a href="https://gouvernement.fr" target="_blank">gouvernement.fr</a> <a href="https://service-public.fr" target="_blank">service-public.fr</a> <a href="https://data.gouv.fr" target="_blank">data.gouv.fr</a></div>
     </div>
   </div>
   <div class="footer-bottom">
-    <a>Plan du site</a>
+    <%= link_to mentions_legales_path do %>Plan du site<%end%>
     <span>|</span>
-    <a>Accessibilité</a>
+    <%= link_to mentions_legales_path do %>Accessibilité<%end%>
     <span>|</span>
-    <a>Mentions légales</a>
+    <%= link_to mentions_legales_path do %>Mentions légales<%end%>
     <span>|</span>
-    <a>Données personnelles</a>
+    <%= link_to mentions_legales_path do %>Données personnelles<%end%>
     <span>|</span>
-    <a>Gestion des cookies</a>
+    <%= link_to mentions_legales_path do %>Gestion des cookies<%end%>
   </div>
 </div>

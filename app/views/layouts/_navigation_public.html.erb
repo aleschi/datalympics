@@ -1,23 +1,23 @@
-<div class="logo-ministere">
+<div class="logo-ministere inline-flex">
   <%= image_tag 'logo_ministere.png'%>
+  <%= image_tag 'logo_datalympics_blanc.png', class:"img-logo"%>
 </div>
-<div class="navbar-chorus-box">
+<div class="navbar-chorus-box hidden-sm hidden-xs">
 <div class="navbar-chorus">
-  <div class="navbar-chorus-onglet"><%= link_to chorus_path do %>Accueil<% end %></div>
+  <div class="navbar-chorus-onglet"><%= link_to public_path do %>Accueil<% end %></div>
   <div class="navbar-public-onglet"> 
   <div class="">
      <div class="dropdown">
        <button class="btn btn-secondary dropdown-toggle dropwdown-menu-public-navbar" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Les JOP 2024<i class="fas fa-chevron-down"></i></button>
         <div class="dropdown-menu dropwdown-menu-public-navbar-list" aria-labelledby="budget">       
-          <li><a>Combien coutent les JOP2024 ? </a></li>
+          <li><%= link_to public_path do %>Combien coutent les JOP2024 ? <%end%></li>
           <li><a>A quoi sert le budget des JOP2024 ?</a></li>
-          <li><a>Qui fait les dépenses ?</a></li>
           <li><a>Quels sont les impacts ?</a></li>
        </div>
      </div>
   </div> 
   </div> 
-  <div class="navbar-public-right"><a type="button" data-toggle="modal" data-target="#navlogin"><i class="fas fa-user-circle"></i>Connexion</a></div>
+  <div class="navbar-public-right"><% if user_signed_in? %><%= link_to root_path do %>Tableau de bord <i class="fas fa-arrow-right"></i><%end%><%else%><a type="button" data-toggle="modal" data-target="#navlogin"><i class="fas fa-user-circle"></i>Connexion</a><%end%></div>
 </div>
 
 </div>

@@ -37,7 +37,7 @@ class PagesController < ApplicationController
   end 
 
   def mentions
-  @nav=true 
+
   end 
 
   def public
