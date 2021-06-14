@@ -53,6 +53,8 @@ gem 'toastr-rails'
 gem 'flex-slider-rails'
 gem 'bootstrap-slider-rails'
 gem 'Dhalang'
+gem 'bootstrap3-datetimepicker-rails'
+gem 'momentjs-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

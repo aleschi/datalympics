@@ -1,47 +1,160 @@
-<%= form_with(model: innovation, local: true) do |form| %>
-  <% if innovation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(innovation.errors.count, "error") %> prohibited this innovation from being saved:</h2>
+<div class="fs20 fw4 c2 pd8"><%= @innovation.nom %></div>
+<div class="c3 pd8" id="error-message"></div>
 
-      <ul>
-      <% innovation.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_tag form_edit_path, method: :post do%>
+<%=hidden_field_tag :id, @innovation.id %>
+<div class="row">
+  <div class="col-md-6">
+          <div class="form">
+            <label>Nom</label>
+            <%= text_field_tag :nom, @innovation.nom, class:"form-field" %>
+          </div>
+
+          <div class="form">
+            <label>Porteur</label>
+            <%= text_field_tag :porteur,@innovation.porteur, class:"form-field"  %>
+          </div>
+
+          <div class="form">
+            <label>Dotation</label>
+            <%= number_field_tag :dotation,@innovation.dotation, class:"form-field"  %>
+          </div>
+
+          
+  </div>
+  <div class="col-md-6">
+
+          <div class="form">
+            <label>Description</label>
+            <%= text_area_tag :description,@innovation.description, rows: 10, class:"form-field"  %>
+          </div>
+
+          <div class="form hidden">
+            <label>Date Signature</label>
+        
+          
+          <div id='datepicker'>
+          <input type='text' class="form-field"  required='true' readonly="readonly"/>
+          </div>
+          <%= hidden_field_tag :date, id: 'date' %>
+        </div>
+          
+  </div>
+</div>
+
+          
+
+  <div class="form">
+            <label>Type d'innovation</label>
+            <div class="modal-search-filters-form">
+            <label><%= check_box_tag 'categories[]',"Excellence environnementale", @catenv, class:"checkbox-input1"%>Excellence environnementale</label>
+            <label><%= check_box_tag 'categories[]',"Innovation technologique", @cattec, class:"checkbox-input2" %>Innovation technologique</label>
+            <label><%= check_box_tag 'categories[]',"Accessibilité", @catacc, class:"checkbox-input3" %>Accessibilité</label>
+          </div>
+          </div>
+
+    <div class="form">
+            <label>Echéancier des dépenses</label>
+             <div class="row">
+              <div class="col-md-3">
+               <label>Année</label>
+              </div>
+              <div class="col-md-3">
+                <label>Montant versé</label>
+              </div>
+              <div class="col-md-3"><label>Versement effectué</label></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+               <label>2018</label>
+              </div>
+              <div class="col-md-3">
+                <%= @innovation.echeancierinnovations.where('date <= ?',Date.new(2018,12,1)).sum('montant').to_i %> €
+              </div>
+              <div class="col-md-3"><% if @innovation.echeancierinnovations.where('date <= ?',Date.new(2018,12,1)).sum('montant') > 0%><label>Versé</label><%end%></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+               <label>2019</label>
+              </div>
+              <div class="col-md-3">
+                <%= @innovation.echeancierinnovations.where('date = ?',Date.new(2019,1,1)).sum('montant').to_i %> €
+              </div>
+              <div class="col-md-3"><% if @innovation.echeancierinnovations.where('date = ?',Date.new(2019,1,1)).sum('montant') > 0 %><label>Versé</label><% end %></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+               <label>2020</label>
+              </div>
+              <div class="col-md-3">
+                <%= @innovation.echeancierinnovations.where('date = ?',Date.new(2020,1,1)).sum('montant').to_i %> €
+              </div>
+              <div class="col-md-3"><% if @innovation.echeancierinnovations.where('date = ?',Date.new(2020,1,1)).sum('montant') > 0 %><label>Versé</label><% end %></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+               <label>2021</label>
+              </div>
+              <div class="col-md-3">
+                <%= @innovation.echeancierinnovations.where('date = ?',Date.new(2021,1,1)).sum('montant').to_i %> €
+              </div>
+              <div class="col-md-3"><% if @innovation.echeancierinnovations.where('date = ?',Date.new(2021,1,1)).sum('montant') > 0 %><label><%= check_box_tag :versement_2021, @innovation.echeancierinnovations.where('date = ?',Date.new(2021,1,1)).first.versement,@innovation.echeancierinnovations.where('date = ?',Date.new(2021,1,1)).first.versement %>Versé</label><% end %></div>
+            </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :nom %>
-    <%= form.text_field :nom %>
-  </div>
-
-  <div class="field">
-    <%= form.label :porteur %>
-    <%= form.text_field :porteur %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ouvrage_id %>
-    <%= form.text_field :ouvrage_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :dotation %>
-    <%= form.text_field :dotation %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+    <div class="form-submit">
+      <%= submit_tag 'Modifier', class:"submit-btn submit-btn-active"%>
+    </div>
 <% end %>
+
+
+<script>
+ 
+  if ($('.checkbox-input1').is(':checked')) {
+           $('.checkbox-input1').parent().addClass('modal-search-filters-form-active');
+        };
+        if ($('.checkbox-input2').is(':checked')) {
+           $('.checkbox-input2').parent().addClass('modal-search-filters-form-active');
+        };
+        if ($('.checkbox-input3').is(':checked')) {
+           $('.checkbox-input3').parent().addClass('modal-search-filters-form-active');
+        };
+
+ $('input').change(function()
+      {
+        if ($(this).is(':checked')) {
+           $(this).parent().addClass('modal-search-filters-form-active');
+        }else{
+           $(this).parent().removeClass('modal-search-filters-form-active');
+        };
+      });
+  
+</script>
+
+<script>
+  $('#datepicker').datetimepicker({
+      locale: 'fr',
+    //sideBySide: true,
+    ignoreReadonly: true,
+    defaultDate: "<%= @innovation.date.strftime("%m/%d/%Y")%>",
+
+    format: "DD/MM/YY ",
+
+    showClose: true,
+    keepOpen: false,
+    toolbarPlacement: "top",
+    icons: {
+            close: 'closeText',
+        },
+    allowInputToggle: true,
+    widgetPositioning: {
+vertical: 'bottom',
+        },
+        });
+
+
+  $(function(){
+      $("#datepicker").on("dp.change", function (e) {
+        $("#date").val($('#datepicker').data("DateTimePicker").viewDate());
+    });
+  });
+</script>

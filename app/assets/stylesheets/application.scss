@@ -3,6 +3,7 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import 'toastr';
+@import 'bootstrap-datetimepicker';
 
 @font-face {
   font-family: 'Marianne Regular';
@@ -834,6 +835,7 @@ display: none;
     text-transform:uppercase;
     background-color:#F8F8F8;
     border-bottom:1px solid #000091;
+    display: inline !important;
     &:hover{
       cursor:pointer;
     }
@@ -2834,6 +2836,9 @@ input[type="checkbox"]:checked {
 .modal-dialog {
   width:500px;
 }
+}
+.modal-dialog2{
+  width:60%;
 }
 .chorus-search-box{
   text-align:center;

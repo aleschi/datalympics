@@ -1,3 +1,4 @@
+<%= render 'edit'%>
 <div class="mxw1 pd32 ma">
   <div class="i24"></div>
   <div class="c2 fw6 fs40 tc">Budget fond d'innovation </div>
@@ -159,9 +160,17 @@
                     name: '2021',
                     label: '2021',
                     description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
+                    <% if innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.versement == true %>
                     color:'#466964',
+                     <% else %>
+                     color:'#CECECE',
+                     <%end %>
                     dataLabels: {
-                      connectorColor: '#466964',
+                      <% if innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.versement == true %>
+                        connectorColor: '#466964',
+                      <% else %>
+                        connectorColor: '#CECECE',
+                      <%end %>
                     },
                 }, {
                     x: Date.UTC(2022, 1, 1),
@@ -201,11 +210,11 @@
           <div class="i40"></div>
           <div class="fs18 c2 fw8"><%= innovation.nom%> </div>
           <div class="fs16 c2"><%= innovation.ouvrage.name%> </div>  
-          
+          <div><a class="c1" id="innovation_url<%= innovation.id%>">Modifier</a></div>
           <div class="i24"></div>
           <div class="fs14 c2 fw8">Description</div>
           <div class="i12"></div>
-          <div class="fs14 c2">Blablablablaba</div>
+          <div class="fs14 c2"><%= innovation.description %></div>
           <div class="i24"></div>
           <div class="fs14 c2 fw8">Type innovation</div>
           <div class="fs14 c2"><div class="O-span"><% if innovation.typeinnovations.count > 0 %><% innovation.typeinnovations.each do |type|%><span><% if type.categorie == "Excellence environnementale"%><i class="fas fa-circle fa-circle-env"></i><% elsif type.categorie == "Innovation technologique"%><i class="fas fa-circle fa-circle-tech"></i><%else%><i class="fas fa-circle fa-circle-acc"></i><%end%> <%= type.categorie%></span><% end %><%end%></div></div>
@@ -293,9 +302,17 @@
                       name: '2021',
                       label: '2021',
                       description: "<%= number_with_delimiter(innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.montant.to_i, :delimiter => ' ') %>€ ",
-                      color:'#466964',
-                      dataLabels: {
+                      <% if innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.versement == true %>
+                    color:'#466964',
+                     <% else %>
+                     color:'#CECECE',
+                     <%end %>
+                      dataLabels: { 
+                        <% if innovation.echeancierinnovations.where('date = ?', Date.new(2021,1,1)).first.versement == true %>
                         connectorColor: '#466964',
+                        <% else %>
+                        connectorColor: '#CECECE',
+                        <%end %>
                       },
                   }, {
                       x: Date.UTC(2022, 1, 1),
@@ -337,6 +354,19 @@
           $(".close-sidebar").on("click",function(){
             $('.sidebar').removeClass('in');
           });
+        
+        $('#innovation_url<%= innovation.id%>').click(function() {
+        $("#modal-innovation").modal('show');
+
+          $.ajax({
+              type:'GET',
+              url:"/innovations/"+<%= innovation.id%>+"/edit",
+                      
+              success:function(result){
+                  $("#innovation-form").html(result);
+              }
+            });
+        });
         </script>
       <% end %>
       <div class="i24"></div>

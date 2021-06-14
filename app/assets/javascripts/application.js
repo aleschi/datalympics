@@ -16,10 +16,13 @@
 //= require bootstrap-sprockets
 //= require jquery-ui
 //= require jquery_ujs
+//= require moment 
+//= require moment/fr.js 
 //= require activestorage
 //= require toastr
 //= require jquery.flexslider
 //= require turbolinks
+//= require bootstrap-datetimepicker
 
 //= require chartkick
 //= require_tree .
@@ -62,4 +65,19 @@ $(document).ready(function() {
     nextText:'Année préc',
   });
  })
- 
+ $( document ).on('turbolinks:load', function() {
+  $('#datetimepicker').datetimepicker({
+    locale: 'fr',
+    //sideBySide: true,
+    ignoreReadonly: true,
+    format: "DD MMM YY à HH:mm",
+    showClose: true,
+    keepOpen: false,
+    toolbarPlacement: "top",
+    icons: {
+            close: 'closeText',
+        },
+    allowInputToggle: true,
+    minDate: moment()
+  });
+});
