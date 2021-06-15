@@ -40,6 +40,9 @@ class PagesController < ApplicationController
 
   end 
 
+  def accessibilite
+  end 
+
   def public
   end
 
@@ -47,7 +50,7 @@ class PagesController < ApplicationController
     @ouvrages = Ouvrage.all
   end 
   
-  def acteurs
+  def impacts
   end 
 
 end

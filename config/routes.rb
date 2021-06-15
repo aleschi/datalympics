@@ -86,9 +86,10 @@ Rails.application.routes.draw do
   get 'reporting' => "pages#reporting"
 
   get 'mentions-legales' => "pages#mentions"
+  get 'accessibilite' => "pages#accessibilite"
   get 'public' => "pages#public"
   get 'utilisation-budget' => 'pages#interets'
-  get 'acteurs' => 'pages#acteurs'
+  get 'impacts' => 'pages#impacts'
   post 'maquette-date' => 'ouvrages_depenses#maquette_date'
 
   get 'association' => "chantiers#association"

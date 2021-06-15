@@ -1,3 +1,4 @@
+<%= render 'shared/navlogin_form'%>
 <script>
   AOS.init();
 </script>
@@ -8,35 +9,27 @@
   <div class="page-public">
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="public-title">A quoi sert le budget des JOP24 ?</div>
-      <div class="step">
-            Il est réparti à travers différents poles. Une partie sert à construire et rénover les ouvrages accueillants les sportifs pour la compétition. Une partie sert aux frais de fonctionnement à savoir la rémunérations de toutes les personnes impliquées dans les jeux olympiques.
+      <div class="tp1">
+            Le budget des JOP2024 sert en grande partie à construire et rénover les ouvrages accueillants les sportifs pour la compétition. Il existera au total 87 ouvrages olympiques et paralympiques. Afin de limiter les coûts, 95% des ouvrages sont des ouvrages existants, qui seront rénovés pour les compétitions.
+      </div> 
+      <div class="i24"></div>
+      <div class="inline-flex">
+            <div class="public-map-choice choice-renovation"><a><i class="fas fa-map-marker"></i> Espaces rénovés (X)</a></div>
+            <div class="public-map-choice choice-construction"><a><i class="fas fa-map-marker"></i> Espaces construits (X)</a></div>
+            <div class="public-map-choice choice-olympiques"><a><i class="fas fa-map-marker"></i> Epreuves olympiques (X)</a></div>
+            <div class="public-map-choice choice-para"><a><i class="fas fa-map-marker"></i> Epreuves paralympiques (X)</a></div>
       </div> 
     </div>
-    <div class="col-md-6">
-      <div id="container"></div>
-    </div>
+
   </div>
 
   <%= render 'interets_map'%>
 
-  <div class="graphic">
-    <div class="graphe-box">
-      <div class="position-sticky">
-      <div class="step">
-            Au total les jeux accueilleront
-      </div> 
-      </div>
-    </div>
-    <div class="graphe-box">
-        <div class="public-chiffres-aos" data-aos="fade-left" data-aos-duration="1500"><span>15000 </span>athlètes</div>
-        <div class="public-chiffres-aos" data-aos="fade-left" data-aos-duration="1500"><span>182</span> nations</div>
-        <div class="public-chiffres-aos" data-aos="fade-left" data-aos-duration="1500"><span>32</span> sports olympiques</div>
-        <div class="public-chiffres-aos" data-aos="fade-left" data-aos-duration="1500"><span>22</span> sports paralympiques</div>
-        <div class="public-chiffres-aos" data-aos="fade-left" data-aos-duration="1500"><span>540</span> épreuves</div>
-    </div>
-  </div>
+
+
+
 </div>
 
 </div>
@@ -46,153 +39,3 @@
 </div>
 
 
-<script>
-
-var chart = Highcharts.chart('container', {
-        chart: {
-            type: 'column',
-          
-            height: '600px',
-            spacingTop: 0,
-            style:{
-              fontFamily: "Marianne Regular",
-            },
-             options3d: {
-                enabled: true,
-                alpha: 15,
-                beta: 15,
-                depth: 80,
-                viewDistance: 55
-            }
-        },
-        title: {
-            text: null,
-           
-        },
-        xAxis: {
-          categories: ['Suivi Budget 2021'],
-            title: {
-            text: null,
-          },
-          lineColor: '#fff',
-          gridLineColor: '#fff',
-          labels: {
-            enabled: false,
-          },
-        },
-        yAxis: {
-          gridLineColor: '#fff',
-      
-          title: {
-            text: null,
-          },
-          labels: {
-            enabled: false,
-          },
-        },
-        zAxis:{
-          gridLineColor: '#fff',
-         
-        },
-        legend: {
-            shadow: false,
-            enabled:false,
-        },
-        tooltip: {
-            shared: true,
-            valueSuffix: 'M€',
-            borderColor: 'transparent',
-            borderRadius: 16,
-            backgroundColor: '#fff',
-        },
-        plotOptions: {
-            column: {
-                grouping: false,
-                stacking: 'normal',
-                shadow: false,
-                borderWidth: 0,
-                pointWidth: 65,
-            }
-        },
-        series: [{
-            name: "Ouvrages",
-        data: [4.8],
-            color: '#2323EA',
-     
-            stack: "budget",
-            pointPadding: 0,
-            pointPlacement: 0,
-            dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                textOutline: '0px',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">ouvrages </span>';
-              return content;
-            },
-            y: 100,
-            x: 0,
-            },
-
-        },{
-            name: "Fonctionnement",
-        data: [0.6],
-            color: '#F29D53',
-     
-            stack: "budget",
-            pointPadding: 0,
-            pointPlacement: 0,
-            dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                textOutline: '0px',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Fonctionnement </span>';
-              return content;
-            },
-            y: 0,
-            x: 0,
-            },
-
-        } ,{
-            name: "Autres",
-        data: [1.4],
-            color: '#FFE800',
-     
-            stack: "budget",
-            pointPadding: 0,
-            pointPlacement: 0,
-            dataLabels: {
-              enabled: true,
-              style: {
-                color: '#fff',
-                textOutline: '0px',
-                fontSize: '14px',
-              },
-              formatter: function() {
-                var point = this, 
-                number = Highcharts.numberFormat(point.y, -1, ',',' '),
-                content =  number + ' M€ <br/>'+ '<span style="font-weight:400;">Autres </span>';
-              return content;
-            },
-            y: 0,
-            x: 0,
-            },
-
-        }  ]
-      });
-
-
-
-
-</script>
