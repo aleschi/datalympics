@@ -97,6 +97,11 @@ Rails.application.routes.draw do
 
   post 'form-edit' => 'innovations#form_edit'
 
+  post 'import_disciplines' => "pages#import_disciplines"
+  get 'new-disciplines' => "pages#new_disciplines"
+  post 'import_ouvrages_publics' => "pages#import_ouvrages_publics"
+  get 'new-ouvrages-publics' => "pages#new_ouvrages_publics"
+
   match "/404" => "errors#error404", via: [:get, :post, :patch, :delete]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -48,9 +48,26 @@ class PagesController < ApplicationController
 
   def interets
     @ouvrages = Ouvrage.all
-  end 
+  end
+
   
   def impacts
+  end 
+
+  def ouvrages_publics_new
+  end 
+  
+  def import_ouvrages_publics
+    OuvragesPublic.import(params[:file])
+    redirect_to utilisation_budget_path
+  end 
+  def disciplines_new
+
+  end 
+  
+  def import_disciplines
+    Discipline.import(params[:file])
+    redirect_to utilisation_budget_path
   end 
 
 end
