@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_02_065757) do
+ActiveRecord::Schema.define(version: 2021_06_16_104603) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -119,6 +119,9 @@ ActiveRecord::Schema.define(version: 2021_06_02_065757) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "epreuves"
+    t.integer "ouvrages_publics_id"
+    t.index ["ouvrages_publics_id"], name: "index_disciplines_on_ouvrages_publics_id"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -228,6 +231,17 @@ ActiveRecord::Schema.define(version: 2021_06_02_065757) do
     t.datetime "updated_at", null: false
     t.float "montant_prevu"
     t.index ["ouvrage_id"], name: "index_ouvrages_financements_on_ouvrage_id"
+  end
+
+  create_table "ouvrages_publics", force: :cascade do |t|
+    t.string "nom"
+    t.string "travaux"
+    t.string "appartenance"
+    t.integer "ouvrages_id"
+    t.string "adresse"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ouvrages_id"], name: "index_ouvrages_publics_on_ouvrages_id"
   end
 
   create_table "ouvrages_revues", force: :cascade do |t|
