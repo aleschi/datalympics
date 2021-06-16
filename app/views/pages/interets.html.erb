@@ -10,17 +10,17 @@
 
   <div class="row">
     <div class="col-md-12">
-      <div class="public-title">A quoi sert le budget des JOP24 ?</div>
+      <div class="public-title">À quoi sert le budget des JOP24 ?</div>
       <div class="tp1">
-            Le budget des JOP2024 sert en grande partie à construire, aménager et rénover les ouvrages accueillants les sportifs pour la compétition. Il existera au total 85 ouvrages olympiques et paralympiques. Afin de limiter les coûts, 95% des ouvrages sont des ouvrages existants, qui seront aménagés et rénovés pour les compétitions.
+            Le budget des JOP2024 sert en grande partie à construire, aménager et rénover les ouvrages accueillants les sportifs pour la compétition. Il existera au total 85 ouvrages olympiques et paralympiques. Afin de limiter les coûts, 85% des ouvrages sont des ouvrages existants, qui seront aménagés et rénovés pour les compétitions.
       </div> 
       <div class="i24"></div>
       <div class="inline-flex">
-            <div class="public-map-choice choice-renovation"><a><i class="fas fa-map-marker"></i> Espaces rénovés (X)</a></div>
-            <div class="public-map-choice choice-construction"><a><i class="fas fa-map-marker"></i> Espaces construits (X)</a></div>
-            <div class="public-map-choice choice-olympiques"><a><i class="fas fa-map-marker"></i> Aménagement (X)</a></div>
-            <div class="public-map-choice choice-para"><a>S SOLIDEO (X)</a></div>
-            <div class="public-map-choice choice-para"><a>C COJO (X)</a></div>
+            <div class="public-map-choice choice-renovation"><a><i class="fas fa-map-marker"></i> Espaces rénovés (<%= OuvragesPublic.where('travaux = ?','Rénovation').count%>)</a></div>
+            <div class="public-map-choice choice-construction"><a><i class="fas fa-map-marker"></i> Espaces construits (<%= OuvragesPublic.where('travaux = ?','Construction').count%>)</a></div>
+            <div class="public-map-choice choice-olympiques"><a><i class="fas fa-map-marker"></i> Aménagement (<%= OuvragesPublic.where('travaux = ?','Amenagement').count%>)</a></div>
+            <div class="public-map-choice choice-para"><a>SOLIDEO (<%= OuvragesPublic.where('appartenance = ?','Solideo').count%>)</a></div>
+            <div class="public-map-choice choice-para"><a>COJO (<%= OuvragesPublic.where('appartenance = ?','Cojo').count%>)</a></div>
       </div> 
     </div>
 

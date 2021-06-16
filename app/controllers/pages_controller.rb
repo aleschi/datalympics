@@ -47,7 +47,7 @@ class PagesController < ApplicationController
   end
 
   def interets
-    @ouvrages = Ouvrage.all
+    @ouvrages = OuvragesPublic.all
   end
 
   
