@@ -1,4 +1,5 @@
 class OuvragesPublic < ApplicationRecord
+  has_many :disciplines
 	geocoded_by :adresse
   after_validation :geocode
   require 'csv'

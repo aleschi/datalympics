@@ -108,7 +108,9 @@ function initMap() {
     
           
               
-    bindInfoWindow(marker, map, infowindow, '<div>'+ '<p><%= ouvrage.nom%></p>'+ '</div>');
+    bindInfoWindow(marker, map, infowindow, '<div>'+ '<div class="c2 fw7 fs18"><%= ouvrage.nom%></div><div class="i12"></div>' 
+      <% if ouvrage.disciplines.where('epreuves = ?',"Olympiques").count > 0 %>+'<div class="c2 fw6 fs14">Épreuves Olympiques </div><div>'<% ouvrage.disciplines.where('epreuves = ?',"Olympiques").each do |discipline|%>+'<span><%=discipline.name%> </span>'<%end%>+'</div><div class="i8"></div>'<%end%>
+      <% if ouvrage.disciplines.where('epreuves = ?',"Paralympiques").count > 0 %>+'<div class="c2 fw6 fs14">Épreuves Paralympiques </div><div>'<% ouvrage.disciplines.where('epreuves = ?',"Paralympiques").each do |discipline|%>+'<span><%=discipline.name%> </span>'<%end%>+'</div>'<%end%> + '</div>');
 
         <% if ouvrage.travaux == "Construction"%> AddMouseover(marker, imager, image2r);
         <% elsif ouvrage.travaux == "Rénovation" %>AddMouseover(marker, imagei, image2i);

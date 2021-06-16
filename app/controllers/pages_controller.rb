@@ -48,8 +48,30 @@ class PagesController < ApplicationController
 
   def interets
     @ouvrages = OuvragesPublic.all
+
+    @q = Discipline.all.ransack(params[:q])
+    if params[:term]
+        @disciplines = Discipline.where('name like ?', "%#{params[:term]}%")       
+        render json: @disciplines.map(&:name).uniq!  
+    end
   end
 
+  def search_ouvrages_publics 
+    @ouvrages = OuvragesPublic.all
+    @q = Discipline.all.ransack(params[:q])
+    @disciplines = @q.result
+    @ouvrages_id = []
+    @disciplines.each do |discipline|
+      @ouvrages_id << discipline.ouvrages_public_id
+    end
+    @ouvrages = OuvragesPublic.where(id: @ouvrages_id)
+    
+    respond_to do |format|
+
+     format.js
+
+    end
+  end 
   
   def impacts
   end 
@@ -69,5 +91,6 @@ class PagesController < ApplicationController
     Discipline.import(params[:file])
     redirect_to utilisation_budget_path
   end 
+
 
 end
