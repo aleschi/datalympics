@@ -17,20 +17,7 @@
       <div class="i24"></div>
        
       <div id="interets-map">
-        <div class="inline-flex">
-            <div class="public-map-choice choice-renovation"><a><i class="fas fa-map-marker"></i> Espaces rénovés (<%= OuvragesPublic.where('travaux = ?','Rénovation').count%>)</a></div>
-            <div class="public-map-choice choice-construction"><a><i class="fas fa-map-marker"></i> Espaces construits (<%= OuvragesPublic.where('travaux = ?','Construction').count%>)</a></div>
-            <div class="public-map-choice choice-olympiques"><a><i class="fas fa-map-marker"></i> Aménagement (<%= OuvragesPublic.where('travaux = ?','Amenagement').count%>)</a></div>
-            <div class="public-map-choice choice-para"><a>SOLIDEO (<%= OuvragesPublic.where('appartenance = ?','Solideo').count%>)</a></div>
-            <div class="public-map-choice choice-para"><a>COJO (<%= OuvragesPublic.where('appartenance = ?','Cojo').count%>)</a></div>
-
-            <%= search_form_for @q, url: recherche_ouvrages_publics_path , method: :get, remote: true, id: "search-form" do |f| %>
-              <div class="ouvrages-search">
-              <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez une discipline", data: {autocomplete_source: utilisation_budget_path} %> 
-              <%= f.button :submit, id:"submit_button", class:"ouvrages-submit" do %><i class="fas fa-search"></i><% end %>
-              </div>
-            <% end %>
-        </div>
+        
         <%= render 'interets_map'%>
       </div>
 

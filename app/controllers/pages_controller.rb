@@ -65,6 +65,13 @@ class PagesController < ApplicationController
       @ouvrages_id << discipline.ouvrages_public_id
     end
     @ouvrages = OuvragesPublic.where(id: @ouvrages_id)
+
+    if params[:appartenance]
+      @ouvrages = OuvragesPublic.where('appartenance = ?',params[:appartenance])
+    end
+    if params[:travaux]
+      @ouvrages = OuvragesPublic.where('travaux = ?',params[:travaux])
+    end  
     
     respond_to do |format|
 
