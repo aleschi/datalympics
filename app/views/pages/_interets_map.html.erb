@@ -1,11 +1,15 @@
         
         <div>
           <div class="inline-flex">
-            <div class="public-map-choice choice-para"><%= link_to recherche_ouvrages_publics_path({appartenance: "Solideo"}),id: "Solideo", remote: true do%>SOLIDEO (<%= OuvragesPublic.where('appartenance = ?','Solideo').count%>)<%end%></div>
-            <div class="public-map-choice choice-para"><%= link_to recherche_ouvrages_publics_path({appartenance: "Cojo"}),id: "Cojo", remote: true do%>COJO (<%= OuvragesPublic.where('appartenance = ?','Cojo').count%>)<%end%></div>
-            <div class="public-map-choice choice-renovation"><%= link_to recherche_ouvrages_publics_path({travaux: "Rénovation"}),id: "Rénovation", remote: true do%><i class="fas fa-map-marker"></i> Espaces rénovés (<%= OuvragesPublic.where('travaux = ?','Rénovation').count%>)<%end%></div>
-            <div class="public-map-choice choice-construction"><%= link_to recherche_ouvrages_publics_path({travaux: "Construction"}),id: "Construction", remote: true do%><i class="fas fa-map-marker"></i> Espaces construits (<%= OuvragesPublic.where('travaux = ?','Construction').count%>)<%end%></div>
-            <div class="public-map-choice choice-olympiques"><%= link_to recherche_ouvrages_publics_path({travaux: "Amenagement"}),id: "Amenagement", remote: true do%><i class="fas fa-map-marker"></i> Aménagement (<%= OuvragesPublic.where('travaux = ?','Amenagement').count%>)<%end%></div>
+            <div class="public-map-choice choice-para"><% if !@active.nil? && @active == "Solideo"%><%= link_to recherche_ouvrages_publics_path,class: "public-map-choice-active", remote: true do%>SOLIDEO (<%= OuvragesPublic.where('appartenance = ?','Solideo').count%>)<%end%><%else%><%= link_to recherche_ouvrages_publics_path({appartenance: "Solideo"}),id: "Solideo", remote: true do%>SOLIDEO (<%= OuvragesPublic.where('appartenance = ?','Solideo').count%>)<%end%><%end%></div>
+
+            <div class="public-map-choice choice-para"><% if !@active.nil? && @active == "Cojo"%><%= link_to recherche_ouvrages_publics_path,class: "public-map-choice-active", remote: true do%>COJO (<%= OuvragesPublic.where('appartenance = ?','Cojo').count%>)<%end%><%else%><%= link_to recherche_ouvrages_publics_path({appartenance: "Cojo"}),id: "Cojo", remote: true do%>COJO (<%= OuvragesPublic.where('appartenance = ?','Cojo').count%>)<%end%><%end%></div>
+
+            <div class="public-map-choice choice-renovation"><% if !@active.nil? && @active == "Rénovation"%><%= link_to recherche_ouvrages_publics_path,class: "public-map-choice-active", remote: true do%>Espaces rénovés (<%= OuvragesPublic.where('travaux = ?','Rénovation').count%>)<%end%><%else%><%= link_to recherche_ouvrages_publics_path({travaux: "Rénovation"}),id: "Rénovation", remote: true do%><i class="fas fa-map-marker"></i> Espaces rénovés (<%= OuvragesPublic.where('travaux = ?','Rénovation').count%>)<%end%><%end%></div>
+
+            <div class="public-map-choice choice-construction"><% if !@active.nil? && @active == "Construction"%><%= link_to recherche_ouvrages_publics_path,class: "public-map-choice-active", remote: true do%>Espaces construits (<%= OuvragesPublic.where('travaux = ?','Construction').count%>)<%end%><%else%><%= link_to recherche_ouvrages_publics_path({travaux: "Construction"}),id: "Construction", remote: true do%><i class="fas fa-map-marker"></i> Espaces construits (<%= OuvragesPublic.where('travaux = ?','Construction').count%>)<%end%><%end%></div>
+
+            <div class="public-map-choice choice-olympiques"><% if !@active.nil? && @active == "Amenagement"%><%= link_to recherche_ouvrages_publics_path,class: "public-map-choice-active", remote: true do%>Aménagement (<%= OuvragesPublic.where('travaux = ?','Amenagement').count%>)<%end%><%else%><%= link_to recherche_ouvrages_publics_path({travaux: "Amenagement"}),id: "Amenagement", remote: true do%><i class="fas fa-map-marker"></i> Aménagement (<%= OuvragesPublic.where('travaux = ?','Amenagement').count%>)<%end%><%end%></div>
             
             <div class="pull-right" style="position:absolute;right:15px;">
             <%= search_form_for @q, url: recherche_ouvrages_publics_path , method: :get, remote: true, id: "search-form" do |f| %>
@@ -28,11 +32,7 @@
       defer
     ></script>
 
-<% if !@active.nil?%>
-  <script>
-    $('#<%=@active%>').addClass('public-map-choice-active');
-  </script>
-<%end%>
+
 
 <script>
 
