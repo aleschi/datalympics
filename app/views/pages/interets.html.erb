@@ -23,6 +23,10 @@
         <%= render 'interets_map'%>
       </div>
 
+
+      <div class="i40"></div>
+      <div id="treemap"></div>
+
     </div>
 
   </div>
@@ -34,5 +38,49 @@
 <div class='background'>
 <%= render 'layouts/footer'%> 
 </div>
+<script>
+Highcharts.chart('treemap', {
+   chart: {
+              type: 'treemap',          
+              style:{
+                fontFamily: "Marianne Regular",
+              },
+            },
+    title: {
+        text: 'Répartition des coûts par discipline',
+        verticalAlign: "top",
+        style: {
+                color: "#2323EA",
+                fontWeight: "500",        
+              fontSize: '22px',
+                  },
+       
+    },
+    tooltip: {
+      pointFormat: '<b>{point.name} : {point.value:.1f} M€</b><br/>',
+     
+       borderColor: 'transparent',
+   borderRadius: 16,
+   backgroundColor: '#fff',
 
-
+    },
+    legend:{
+      enabled:false,
+    },
+    colorAxis: {
+        minColor: '#FFFFFF',
+        maxColor: '#DBAE22',
+    },
+    series: [{
+        type: 'treemap',
+        layoutAlgorithm: 'squarified',
+        data: [
+        <% @disciplines_all.each_with_index do |nom,i|%>{
+            name: '<%=nom%>',
+            value: 3,
+            colorValue: <%=i+1%>,
+        },
+        <%end%> ]
+    }],
+});
+</script>
