@@ -1,33 +1,39 @@
+        
         <div>
           <div class="inline-flex">
-            <div class="public-map-choice choice-renovation"><%= link_to recherche_ouvrages_publics_path({travaux: "Rénovation"}), remote: true do%><i class="fas fa-map-marker"></i> Espaces rénovés (<%= OuvragesPublic.where('travaux = ?','Rénovation').count%>)<%end%></div>
-            <div class="public-map-choice choice-construction"><%= link_to recherche_ouvrages_publics_path({travaux: "Construction"}), remote: true do%><i class="fas fa-map-marker"></i> Espaces construits (<%= OuvragesPublic.where('travaux = ?','Construction').count%>)<%end%></div>
-            <div class="public-map-choice choice-olympiques"><%= link_to recherche_ouvrages_publics_path({travaux: "Amenagement"}), remote: true do%><i class="fas fa-map-marker"></i> Aménagement (<%= OuvragesPublic.where('travaux = ?','Amenagement').count%>)<%end%></div>
-            <div class="public-map-choice choice-para"><%= link_to recherche_ouvrages_publics_path({appartenance: "Solideo"}), remote: true do%>SOLIDEO (<%= OuvragesPublic.where('appartenance = ?','Solideo').count%>)<%end%></div>
-            <div class="public-map-choice choice-para"><%= link_to recherche_ouvrages_publics_path({appartenance: "Cojo"}), remote: true do%>COJO (<%= OuvragesPublic.where('appartenance = ?','Cojo').count%>)<%end%></div>
-
+            <div class="public-map-choice choice-para"><%= link_to recherche_ouvrages_publics_path({appartenance: "Solideo"}),id: "Solideo", remote: true do%>SOLIDEO (<%= OuvragesPublic.where('appartenance = ?','Solideo').count%>)<%end%></div>
+            <div class="public-map-choice choice-para"><%= link_to recherche_ouvrages_publics_path({appartenance: "Cojo"}),id: "Cojo", remote: true do%>COJO (<%= OuvragesPublic.where('appartenance = ?','Cojo').count%>)<%end%></div>
+            <div class="public-map-choice choice-renovation"><%= link_to recherche_ouvrages_publics_path({travaux: "Rénovation"}),id: "Rénovation", remote: true do%><i class="fas fa-map-marker"></i> Espaces rénovés (<%= OuvragesPublic.where('travaux = ?','Rénovation').count%>)<%end%></div>
+            <div class="public-map-choice choice-construction"><%= link_to recherche_ouvrages_publics_path({travaux: "Construction"}),id: "Construction", remote: true do%><i class="fas fa-map-marker"></i> Espaces construits (<%= OuvragesPublic.where('travaux = ?','Construction').count%>)<%end%></div>
+            <div class="public-map-choice choice-olympiques"><%= link_to recherche_ouvrages_publics_path({travaux: "Amenagement"}),id: "Amenagement", remote: true do%><i class="fas fa-map-marker"></i> Aménagement (<%= OuvragesPublic.where('travaux = ?','Amenagement').count%>)<%end%></div>
+            
+            <div class="pull-right" style="position:absolute;right:15px;">
             <%= search_form_for @q, url: recherche_ouvrages_publics_path , method: :get, remote: true, id: "search-form" do |f| %>
               <div class="ouvrages-search">
               <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez une discipline", data: {autocomplete_source: utilisation_budget_path} %> 
               <%= f.button :submit, id:"submit_button", class:"ouvrages-submit" do %><i class="fas fa-search"></i><% end %>
               </div>
             <% end %>
+            </div>
+          </div>
         </div>
-      </div>
-  <div class="row">
 
-    <div class="col-md-12">
-    <div id="map">
-      
-      </div>
-    </div>
-  </div>
+    <div id="map"></div>
+
+
 
 
  <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzB6sn07VIK_DzRsbm87THvZtEO1qPaNg&map_ids=4c4b12db708d00c6&callback=initMap"
       defer
     ></script>
+
+<% if !@active.nil?%>
+  <script>
+    $('#<%=@active%>').addClass('public-map-choice-active');
+  </script>
+<%end%>
+
 <script>
 
 function initMap() {
@@ -109,7 +115,7 @@ function initMap() {
                       <% end%>
                       ,
                     label: {
-                         fontFamily: "'Font Awesome 5 Free'",
+                         
                          <% if ouvrage.appartenance == "Solideo"%>
                           text: 'S',//'\uf6e3', //icon code
                           <%else%>
@@ -123,7 +129,7 @@ function initMap() {
     
           
               
-    bindInfoWindow(marker, map, infowindow, '<div>'+ '<div class="c2 fw7 fs18"><%= ouvrage.nom%></div><div class="i12"></div>' 
+    bindInfoWindow(marker, map, infowindow, '<div class="body-map pd12">'+ '<div class="c1 fw7 fs18"><%= ouvrage.nom%></div><div class="i12"></div>' 
       <% if ouvrage.disciplines.where('epreuves = ?',"Olympiques").count > 0 %>+'<div class="c2 fw6 fs14">Épreuves Olympiques </div><div>'<% ouvrage.disciplines.where('epreuves = ?',"Olympiques").each do |discipline|%>+'<span><%=discipline.name%> </span>'<%end%>+'</div><div class="i8"></div>'<%end%>
       <% if ouvrage.disciplines.where('epreuves = ?',"Paralympiques").count > 0 %>+'<div class="c2 fw6 fs14">Épreuves Paralympiques </div><div>'<% ouvrage.disciplines.where('epreuves = ?',"Paralympiques").each do |discipline|%>+'<span><%=discipline.name%> </span>'<%end%>+'</div>'<%end%> + '</div>');
 
@@ -195,4 +201,48 @@ function initMap() {
     }
                      
                       
+</script>
+
+
+<script>
+
+  $(function() {
+ // var matieres = ["Stade de france", "Arena 2", "village"]
+  // Below is the name of the textfield that will be autocomplete    
+    $('#name').autocomplete({
+ // This is the source of the auocomplete suggestions. In this case a list of names from the people controller, in JSON format.
+     
+      source: $('#name').data('autocomplete-source'),
+          //  source:matieres,
+           
+      select: function(event, ui) {
+       // $.ajax({
+       //   type:'GET',
+       //   url: '/ouvrages',
+          
+        //});
+        $("#name").val(ui.item.label);
+          $("#submit_button").click()    
+
+    },
+        })
+     .data("ui-autocomplete")._renderItem = function(ul, item){
+       var expression = new RegExp(this.term, "gi");
+      var result = expression.exec(item.label);
+      var answer; 
+      if (result.index == 0){
+        answer = item.label.replace(expression, "<span style='font-weight:bold;color:#000091'>" + this.term + "</span>");
+        return $("<li></li>")
+      .append("<a>"+answer+"</a>")
+      .prependTo(ul);
+      }   
+      else
+       answer = item.label.replace(expression, "<span style='font-weight:bold;color:#000091'>" + this.term.toLowerCase() + "</span>");
+      return $("<li></li>")
+      .append("<a>"+answer+"</a>")
+      .appendTo(ul);
+     
+    };
+    
+  });
 </script>
