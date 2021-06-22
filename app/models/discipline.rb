@@ -1,4 +1,5 @@
 class Discipline < ApplicationRecord
+  belongs_to :ouvrages_public
 	require 'csv'
 
   def self.import(file)

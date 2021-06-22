@@ -49,6 +49,8 @@ class PagesController < ApplicationController
   def interets
     @ouvrages = OuvragesPublic.all
     @disciplines_all = Discipline.all.pluck(:name).uniq!
+    
+
     @q = Discipline.all.ransack(params[:q])
     if params[:term]
         @disciplines = Discipline.where('name like ?', "%#{params[:term]}%")       

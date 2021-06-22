@@ -77,7 +77,13 @@ Highcharts.chart('treemap', {
         data: [
         <% @disciplines_all.each_with_index do |nom,i|%>{
             name: '<%=nom%>',
-            value: 3,
+            <%@montant = 0%>
+            <% Discipline.where('name = ?', nom).each do |discipline|%>
+            <% if !discipline.ouvrages_public.ouvrage_id.nil? && !Maquette.where('ouvrage_id = ?',discipline.ouvrages_public.ouvrage_id).order('date DESC').last.nil? %>
+            <% @montant += Maquette.where('ouvrage_id = ?',discipline.ouvrages_public.ouvrage_id).order('date DESC').last.total %>
+            <% end %>
+            <%end%>
+            value: <%= @montant %>,
             colorValue: <%=i+1%>,
         },
         <%end%> ]
