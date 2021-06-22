@@ -47,7 +47,7 @@ Highcharts.chart('treemap', {
               },
             },
     title: {
-        text: 'Répartition des coûts par discipline',
+        text: 'Répartition des coûts par ouvrage',
         verticalAlign: "top",
         style: {
                 color: "#2323EA",
@@ -75,15 +75,13 @@ Highcharts.chart('treemap', {
         type: 'treemap',
         layoutAlgorithm: 'squarified',
         data: [
-        <% @disciplines_all.each_with_index do |nom,i|%>{
-            name: '<%=nom%>',
-            <%@montant = 0%>
-            <% Discipline.where('name = ?', nom).each do |discipline|%>
-            <% if !discipline.ouvrages_public.ouvrage_id.nil? && !Maquette.where('ouvrage_id = ?',discipline.ouvrages_public.ouvrage_id).order('date DESC').last.nil? %>
-            <% @montant += Maquette.where('ouvrage_id = ?',discipline.ouvrages_public.ouvrage_id).order('date DESC').last.total %>
+        <% Ouvrage.all.each_with_index do |ouvrage,i|%>{
+            name: '<%=ouvrage.name%>',
+            <% if !Maquette.where('ouvrage_id = ?',ouvrage.id).order('date DESC').last.nil? %>
+            value: <%=  Maquette.where('ouvrage_id = ?',ouvrage.id).order('date DESC').last.total.to_f/1000000 %>,
+            <%else%>
+            value: 0,
             <% end %>
-            <%end%>
-            value: <%= @montant %>,
             colorValue: <%=i+1%>,
         },
         <%end%> ]
