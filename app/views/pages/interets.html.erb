@@ -57,11 +57,12 @@ Highcharts.chart('treemap', {
        
     },
     tooltip: {
-      pointFormat: '<b>{point.name} : {point.value:.1f} M€</b><br/>',
+   
+      pointFormat: '<b>{point.name} : {point.value:.1f} M€</b><br/>{point.description}<br/>',
      
        borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
+    borderRadius: 16,
+    backgroundColor: '#fff',
 
     },
     legend:{
@@ -82,6 +83,11 @@ Highcharts.chart('treemap', {
             <%else%>
             value: 0,
             <% end %>
+            <% if !OuvragesPublic.where('ouvrage_id = ?',ouvrage.id).first.nil? && OuvragesPublic.where('ouvrage_id = ?',ouvrage.id).first.disciplines.count > 0 %>
+            description: "<% OuvragesPublic.where('ouvrage_id = ?',ouvrage.id).first.disciplines.each do |discipline| %><%= discipline.name%>, <%end%>",
+            <% else %>
+            description: 'Installation/Aménagement pour les JOP2024',
+            <%end%>
             colorValue: <%=i+1%>,
         },
         <%end%> ]
