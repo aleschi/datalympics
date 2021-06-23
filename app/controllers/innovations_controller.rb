@@ -1,5 +1,5 @@
 class InnovationsController < ApplicationController
-
+before_action :authenticate_user!
 	def index
 		@nav=true
 	    @q = Innovation.all.ransack(params[:q])
