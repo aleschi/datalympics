@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  validates_format_of :email, with: /\@finances.gouv.fr/, message: 'Vous devez avoir un mail finances.gouv.fr'
+  #validates_format_of :email, with: /\@finances.gouv.fr/, message: 'Vous devez avoir un mail finances.gouv.fr'
 end
