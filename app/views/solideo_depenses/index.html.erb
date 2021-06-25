@@ -11,8 +11,11 @@
         <span class="fs16 fw7 pdt c0 bckc2 tupp">Budget global de la Solideo</span>
   </div>
   <div class="i24"></div>
+  
+
+  <div class="box-erreur">Des données financières sont manquantes ou inexactes </div>
   <div class="i24"></div>
- 
+  <div class="i24"></div>
   <div class="row">
     <div class="col-md-4 col-sm-5 col-xs-12"> 
       <div id="depenses_totales" style="height:150px;overflow:hidden;"></div>
@@ -32,7 +35,25 @@
     <div class="col-md-8 col-sm-7 col-xs-12">
       <div id="container-bar1"></div>
       <div class="i60"></div>
-      <div id="container-bar-all"></div> 
+      <div class="row">
+        <div class="col-md-4">
+        <div id="pie-ouvrages"></div> 
+        </div>
+        <div class="col-md-4">
+        <div id="pie-fonctionnement"></div> 
+        </div>
+        <div class="col-md-4">
+          <div class="box_i1">
+            <div class="box_i1_t1">RÉSERVE</div>
+            <div class="box_i1_t2"><%= @budget_reserve_initial - @budget_reserve_consomme%>M€</div>
+          </div>
+          <div class="i32"></div>
+          <div class="box_i1">
+            <div class="box_i1_t1">INNOVATION</div>
+            <div class="box_i1_t2"><%=(Echeancierinnovation.where('date <= ?',Date.today).sum('montant')/1000000).round%>M€/<%=@budget_innovation_initial%>M€ consommés</div>
+          </div>
+        </div>
+      </div>
     </div>    
   </div>
 
@@ -101,9 +122,10 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
-        tickPositions: [0, <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000)%>],
-        min: 0,
+        tickPositions: [<%= (36.6+92.1+228.6+8.1 + @ouvrages_depenses_2021).round(1)%>, <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000)%>],
+        min: <%= (36.6+92.1+228.6+8.1 + @ouvrages_depenses_2021).round(1)%>,
         max: <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000)%>,
+        startOnTick:true,
         title: {
           text: null,
             y: 100,
@@ -129,16 +151,16 @@
     },
     series: [{
         name: 'Paiements versés',
-        data: [<%= (36.6+92.1+228.6+8.1 + @ouvrages_depenses_2021).round(1)%>],
+        data: [<%= (36.6+92.1+228.6+8.1 + @ouvrages_depenses_2021).round(1) + ((36.6+92.1+228.6+8.1 + @ouvrages_depenses_2021)/(Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000))*((Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000)-(36.6+92.1+228.6+8.1 + @ouvrages_depenses_2021))%>],
         innerRadius: '80%',
       
         dataLabels: {
           enabled: true,
-          y:-50,
+          y:-40,
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=(((36.6+92.1+228.6+8.1 + @ouvrages_depenses_2021)/(Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000))*100).round(1)%>+'%</span><br/>' +
-                '<span style="font-size:12px;opacity:0.7">'+<%= (36.6+92.1+228.6+8.1 + @ouvrages_depenses_2021).round(1) %>+' M€</span>' +
+                
                 '</div>'
         },
         tooltip: {
@@ -201,8 +223,8 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
-        tickPositions: [0, 311.2],
-        min: 0,
+        tickPositions: [<%=8.1 + @ouvrages_depenses_2021%>, 311.2],
+        min: <%=8.1 + @ouvrages_depenses_2021%>,
         max: 311.2,
         title: {
           text: null,
@@ -229,16 +251,16 @@
     },
     series: [{
         name: 'Paiements versés',
-        data: [<%= 8.1 + @ouvrages_depenses_2021%>],
+        data: [<%= 8.1 + @ouvrages_depenses_2021 + ((8.1 + @ouvrages_depenses_2021)/311.2)*(311.2-(8.1 + @ouvrages_depenses_2021)) %>],
         innerRadius: '80%',
       
         dataLabels: {
           enabled: true,
-          y:-50,
+          y:-40,
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=(((8.1 + @ouvrages_depenses_2021)/311.2)*100).round(1)%>+'%</span><br/>' +
-                '<span style="font-size:12px;opacity:0.7">'+<%= 8.1 + @ouvrages_depenses_2021 %>+' M€</span>' +
+               
                 '</div>'
         },
         tooltip: {
@@ -256,110 +278,7 @@
   $('#MonCollapse').addClass('in'); 
 
 </script>
-<script>
 
-  Highcharts.chart('container-bar-all', {
-    chart: {
-        type: 'column',
-    height:'200px',
-      backgroundColor: '#fff',
-          style:{
-          fontFamily: "Marianne Regular",
-     
-          },
-    },
-    title: {
-        text: 'Répartition et suivi du budget par pôle',
-        verticalAlign: "top",
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-        
-          fontSize: '12px',
-                  },
-    },
-
-    xAxis: {
-        categories: ['Ouvrages', 'Fonctionnement',  "Innovation", "Réserve" ],
-        crosshair: true,
-        labels: {
-                formatter: function () {
-                  if (this.value == "Ouvrages" || this.value == "Fonctionnement"){
-                    return '<span style="color:#E1000F">' + this.value + '</span>'
-                  } else {
-                    return this.value 
-                  }
-                },
-                useHTML: false,
-            },
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Budget (M€)'
-        },
-      gridLineColor: "#fff",
-    },
-  legend: {
-    enabled: false,
-  },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><br/>',
-        pointFormat: '<b>{series.name} : {point.y:.1f} M€</b><br/>',
-        useHTML: true,
-        shared: true,
-     
-       borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-            grouping: false,
-            pointWidth: 30,
-          dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    series: [{
-        name: 'Budget Total Maquette',
-        data: [{y:<%= @budget_ouvrages%>, color:"#bfbfbf" },{y:<%= @budget_fonctionnement%>, color:"#bfbfbf" },{y:<%=@budget_innovation_initial%>, color: "#bfbfbf"},{y:<%=@budget_reserve_initial%>, color: "#bfbfbf"}],
-        pointPlacement: 0,
-    },{
-        name: 'Consommé',
-        data: [{y:<%= @budget_ouvrages_depenses%>, color:"#5770BE",dataLabels: {
-                enabled: true,
-                x:30,
-                verticalAlign: "middle",
-                style:{color:'#5770BE'},
-
-            }, },{y:<%= (4.8+11.5+17.8+8.1).round(1)%>, color:"#76505B",dataLabels: {
-                enabled: true,
-                x:30,
-                verticalAlign: "middle",
-                style:{color:'#76505B'},
-
-            }, },{y:<%=@budget_innovation_consomme%>, color: "#FFE800",dataLabels: {
-                enabled: true,
-                x:30,
-                verticalAlign: "middle",
-                style:{color:'#FFE800'},
-
-            },},{y:<%=@budget_reserve_consomme%>, color: "#D08A77",dataLabels: {
-                enabled: true,
-                x:30,
-                verticalAlign: "middle",
-                style:{color:'#D08A77'},
-
-            },}],
-        pointPlacement: 0,
-
-    }]
-});
-</script>
 
 <script>
   Highcharts.chart('container-bar1', {
@@ -465,3 +384,217 @@
       }]
 });
  </script> 
+<script>
+    
+    Highcharts.chart('pie-fonctionnement', {
+    chart: {
+        type: 'solidgauge',
+        height: '180px',
+          spacingTop: 0,
+          style:{
+            fontFamily: "Marianne Regular",
+          },
+    },
+    title: {
+        text: 'Frais Fonctionnement',
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+       
+    },
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: 0,
+        endAngle: 360,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '0%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: true,
+        shared: true,
+            useHTML: true,
+           borderColor: 'transparent',
+       borderRadius: 16,
+       backgroundColor: '#fff',
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#7D4E5B'], // green
+            [0.5, '#7D4E5B'], // yellow
+            [0.9, '#7D4E5B'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        tickPositions: [<%=(4.8+11.5+17.8+8.1).round(1)%>, <%= @budget_fonctionnement%>],
+        min: 0,
+        max: <%= @budget_fonctionnement%>,
+        title: {
+          text: null,
+            y: 100,
+        },
+        labels: {
+            y: 16,
+            format: '{value:.0f}M€',
+            enabled: false,
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 0,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Paiements versés',
+        data: [<%= (4.8+11.5+17.8+8.1).round(1)%>],
+        innerRadius: '0%',
+      
+        dataLabels: {
+          enabled: true,
+          y:5,
+            format:
+                '<div style="text-align:center;color:#000;">' +
+                '<span style="font-size:20px">'+<%=(((4.8+11.5+17.8+8.1).round(1)/(@budget_fonctionnement))*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%= (4.8+11.5+17.8+8.1).round(1) %>+' M€</span>' +
+                '</div>'
+        },
+        tooltip: {
+            pointFormat: '<span style="padding:0">Paiements versés : <b>'+ <%= (4.8+11.5+17.8+8.1).round(1) %>+'M€/'+<%=@budget_fonctionnement%>+'M€</b></span>',
+            valueSuffix: ' M€'
+        }
+    }],
+    
+});
+</script>
+<script>
+    
+    Highcharts.chart('pie-ouvrages', {
+    chart: {
+        type: 'solidgauge',
+        height: '220px',
+          spacingTop: 0,
+          style:{
+            fontFamily: "Marianne Regular",
+          },
+    },
+    title: {
+        text: 'Dépenses Ouvrages',
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+       
+    },
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: 0,
+        endAngle: 360,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '0%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: true,
+        shared: true,
+            useHTML: true,
+           borderColor: 'transparent',
+       borderRadius: 16,
+       backgroundColor: '#fff',
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#5770BE'], // green
+            [0.5, '#5770BE'], // yellow
+            [0.9, '#5770BE'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 0,
+        tickPositions: [<%=@budget_ouvrages_depenses%>, <%= @budget_ouvrages%>],
+        min: 0,
+        max: <%= @budget_ouvrages%>,
+        title: {
+          text: null,
+            y: 100,
+        },
+        labels: {
+            y: 16,
+            format: '{value:.0f}M€',
+            enabled: false,
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 0,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Paiements versés',
+        data: [<%= @budget_ouvrages_depenses%>],
+        innerRadius: '0%',
+      
+        dataLabels: {
+          enabled: true,
+          y:0,
+            format:
+                '<div style="text-align:center;color:#000;">' +
+                '<span style="font-size:20px">'+<%=((@budget_ouvrages_depenses.to_f/@budget_ouvrages.to_f)*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%= @budget_ouvrages_depenses %>+' M€</span>' +
+                '</div>'
+        },
+        tooltip: {
+          pointFormat: '<span style="padding:0">Paiements versés : <b>'+ <%= @budget_ouvrages_depenses %>+'M€/'+<%=@budget_ouvrages%>+'M€</b></span>',
+            valueSuffix: ' M€'
+        }
+    }],
+    
+});
+</script>

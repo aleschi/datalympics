@@ -97,8 +97,8 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
-        tickPositions: [0, <%= (EtatBudget.last.budget_total/1000000)%>],
-        min: 0,
+        tickPositions: [<%= (EtatDepense.where('date <= ?', Date.today).sum('cp_conso')/1000000).round %>, <%= (EtatBudget.last.budget_total/1000000)%>],
+        min: <%= (EtatDepense.where('date <= ?', Date.today).sum('cp_conso')/1000000).round %>,
         max: <%= (EtatBudget.last.budget_total/1000000)%>,
         title: {
           text: null,
@@ -125,16 +125,15 @@
     },
     series: [{
         name: 'Paiements versés',
-        data: [<%= (EtatDepense.where('date <= ?', Date.today).sum('cp_conso')/1000000).round %>],
+        data: [<%= (EtatDepense.where('date <= ?', Date.today).sum('cp_conso')/1000000).round + (EtatDepense.where('date <= ?', Date.today).sum('cp_conso')/EtatBudget.last.budget_total)*(EtatBudget.last.budget_total-EtatDepense.where('date <= ?', Date.today).sum('cp_conso'))/1000000%>],
         innerRadius: '80%',
       
         dataLabels: {
           enabled: true,
-          y:-50,
+          y:-40,
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=((EtatDepense.where('date <= ?', Date.today).sum('cp_conso')/EtatBudget.last.budget_total)*100).round %>+'%</span><br/>' +
-                '<span style="font-size:12px;opacity:0.7">'+<%= (EtatDepense.where('date <= ?', Date.today).sum('cp_conso')/1000000).round %>+' M€</span>' +
                 '</div>'
         },
         tooltip: {
@@ -197,8 +196,8 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
-        tickPositions: [0, <%= (EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')/1000000).round%>],
-        min: 0,
+        tickPositions: [<%= (EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/1000000).round%>, <%= (EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')/1000000).round%>],
+        min: <%= (EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/1000000).round%>,
         max: <%= (EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')/1000000).round%>,
         title: {
           text: null,
@@ -225,16 +224,15 @@
     },
     series: [{
         name: 'Paiements versés',
-        data: [<%= (EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/1000000).round%>],
+        data: [<%= (EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/1000000).round + (EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu'))*(EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')-EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso'))/1000000%>],
         innerRadius: '80%',
       
         dataLabels: {
           enabled: true,
-          y:-50,
+          y:-40,
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu'))*100).round %>+'%</span><br/>' +
-                '<span style="font-size:12px;opacity:0.7">'+<%= (EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso')/1000000).round %>+' M€</span>' +
                 '</div>'
         },
         tooltip: {

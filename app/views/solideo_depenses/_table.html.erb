@@ -283,32 +283,8 @@
 </div>
 <div class="i24"></div>
 
-<div  class="pd32 br20 bs bckc1">
-  <div>
-    <span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi des fonds innovation </span>
-  </div>
-  <div class="i24"></div>
 
-  <div class="row">   
-      <div class="col-md-12">
-        <div id="container-3"></div>
-      </div>
-  </div>
-</div>
-<div class="i24"></div>
 
-<div class="pd32 br20 bs bckc1">
-  <div>
-    <span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi des fonds réserve </span>
-  </div>
-  <div class="i24"></div>
-  <div class="row"> 
-      <div class="col-md-12">
-        <div id="container-4"></div>     
-      </div>
-  </div><br><br>
-  
-</div>
 <div class="i24"></div>
 
 <script>
@@ -364,8 +340,8 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
-        tickPositions: [0, <%= @ouvrages_budget_2021%>],
-        min: 0,
+        tickPositions: [<%= @ouvrages_depenses_2021%>, <%= @ouvrages_budget_2021%>],
+        min: <%= @ouvrages_depenses_2021%>,
         max: <%= @ouvrages_budget_2021%>,
         title: {
           text: null,
@@ -392,7 +368,7 @@
     },
     series: [{
         name: 'Paiements versés',
-        data: [<%= @ouvrages_depenses_2021%>],
+        data: [<%= @ouvrages_depenses_2021 + (@ouvrages_depenses_2021/@ouvrages_budget_2021)*(@ouvrages_budget_2021-@ouvrages_depenses_2021)%>],
         innerRadius: '80%',
       
         dataLabels: {
@@ -401,7 +377,6 @@
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=((@ouvrages_depenses_2021/@ouvrages_budget_2021)*100).round(1)%>+'%</span><br/>' +
-                '<span style="font-size:12px;opacity:0.7">'+<%= @ouvrages_depenses_2021%>+' M€</span>' +
                 '</div>'
         },
         tooltip: {
@@ -464,9 +439,10 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
-        tickPositions: [0, <%= @budget_ouvrages%>],
-        min: 0,
+        tickPositions: [<%= @ouvrages_depenses_global%>, <%= @budget_ouvrages%>],
+        min: <%= @ouvrages_depenses_global%>,
         max: <%= @budget_ouvrages%>,
+        startOnTick:true,
         title: {
           text: null,
             y: 100,
@@ -493,7 +469,7 @@
 
     series: [{
         name: 'Fonds investis',
-        data: [<%= @ouvrages_depenses_global%>],
+        data: [<%= @ouvrages_depenses_global + ((@ouvrages_depenses_global.to_f/@budget_ouvrages.to_f)*(@budget_ouvrages-@ouvrages_depenses_global)).round(1)%>],
         innerRadius: '80%',
       
         dataLabels: {
@@ -501,8 +477,7 @@
           y:-50,
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:20px">'+<%= ((@ouvrages_depenses_global/@budget_ouvrages)*100).round(1)%>+'%</span><br/>' +
-                '<span style="font-size:12px;opacity:0.7">'+<%=@ouvrages_depenses_global%>+' M€</span>' +
+                '<span style="font-size:20px">'+<%= ((@ouvrages_depenses_global/@budget_ouvrages)*100).round(1)%>+'%</span><br/>' + 
                 '</div>'
         },
         tooltip: {
@@ -636,180 +611,4 @@ Highcharts.chart('container-2', {
 
 });
 </script>
-<% if !@dates_maquettes.nil?%>
-<script>
-Highcharts.chart('container-3', {
 
-  chart:{
-            backgroundColor: '#fff',
-           type: 'areaspline',
-          height:'250px',
-        style:{
-          fontFamily: "Marianne Regular",
-        // maxWidth: '500px'
-          },
-       
-          },
-
-      title: {
-        text:null,
-  
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
-                  },
-      },
-  colors: ['#20E37B'],
-    yAxis: {
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Total k€'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-        valueSuffix: 'k€',
-    borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-      
-    },
-  xAxis:{
-    type: 'datetime',
-  },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-        }
-    },
-
-  
-
-    series: [{
-        name: 'Evolution des fonds innovation',
-        tooltip: {
-          headerFormat: null,
-           pointFormatter: function() {
-              var point = this,
-              series = point.series,
-              firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-              number = Highcharts.numberFormat(point.y, -1, ',',' '),
-              header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
-               
-              content =  '<b>Fonds restants : '+ number + ' k€</b><br/>';
-
-            return header + content;
-          },
-        },
-        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month-1%>,<%= date.day%>),<%=(Maquette.where('date = ? AND (name = ? OR name = ?)',date, "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')/1000).round%>], <% end%>],
-       dataLabels: {
-                enabled: true,
-            },
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-</script>
-<script>
-Highcharts.chart('container-4', {
-
-  chart:{
-        backgroundColor: '#fff',
-        type: 'areaspline',
-        height:'250px',
-        style:{
-          fontFamily: "Marianne Regular",
-          },
-       
-        },
-
-        title: {
-          text:null,
-        },
-  colors: ['#C68D7B'],
-  yAxis: {
-      gridLineColor: '#fff', 
-        title: {
-            text: 'Total k€'
-        }
-    },
-  tooltip: {
-      //  pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-      
-   borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-      
-    },
-    xAxis:{
-      type: 'datetime',
-    },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-        }
-    },
-
-  
-
-    series: [{
-        name: 'Evolution de la réserve ',
-        tooltip: {
-          headerFormat: null,
-           pointFormatter: function() {
-              var point = this,
-              series = point.series,
-              firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-              number = Highcharts.numberFormat(point.y, -1, ',',' '),
-              header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
-               
-              content =  '<b>Réserve restante : '+ number + ' k€</b><br/>';
-
-            return header + content;
-          },
-        },
-        data: [<% @dates_maquettes.each do |date|%> [Date.UTC(<%=date.year%>, <%=date.month-1%>,<%= date.day%>),<%=(Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',date, "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')/1000).round%>], <% end%>],
-       dataLabels: {
-                enabled: true,
-            },
-             
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
-
-});
-</script>
-<% end %>

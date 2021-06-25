@@ -3685,3 +3685,11 @@ position:relative;
 outline:none;
 appearance:none;
 }
+
+.box-erreur{
+  background-color: rgba(225, 0, 15, 0.1);
+  color: #E1000F;
+  padding: 10px 24px;
+  font-size:15px;
+  border-radius:5px;
+}

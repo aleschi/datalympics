@@ -15,9 +15,8 @@ before_action :authenticate_user!
 
     @budget_fonctionnement = (Maquette.where('date = ? AND name = ?',@dates_maquettes[0], "Frais de Structure SOLIDEO").sum('total')/1000000).to_i 
     
-    @budget_innovation_initial = (Maquette.where('date = ? AND (name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')/1000000).to_i
-    @budget_innovation_consomme = ((Maquette.where('date = ? AND (name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')-Maquette.where('date = ? AND (name = ? OR name = ?)',@dates_maquettes[0], "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total'))/1000000).to_i
-    
+    @budget_innovation_initial = (Maquette.where('date = ? AND (name = ? OR name = ?)',@dates_maquettes[0], "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')/1000000).to_i
+   
     @budget_reserve_initial = (Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')/1000000).to_i 
     @budget_reserve_consomme = ((Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total') - Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[0], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total'))/1000000).to_i 
 
