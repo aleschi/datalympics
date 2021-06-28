@@ -38,8 +38,9 @@
       
        <% if !@documents.nil?%>
         <% @documents.each do |document| %>
-        <div class="col-md-3">
+        
           <% if document.file.attached?%>
+          <div class="col-md-3">
           <%= link_to rails_blob_path(document.file, disposition: 'preview'), target: "_blank", class:'c2' do %>
            <div class="bs br8 pd12 c2 bckc3" style='height:150px;'>
              <% if document.extension == "pdf"%> <i class="far fa-file-pdf c1"></i>
@@ -51,8 +52,9 @@
              <div><%= link_to delete_document_path(id: document.id), method: :post, class:"c1" do%><i class="fas fa-trash-alt"></i><% end%></div>
            </div>
           <% end %>
-          <% end %>
           </div>
+          <% end %>
+          
         <% end %>
        <% end %> 
        
