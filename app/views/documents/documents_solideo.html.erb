@@ -1,53 +1,89 @@
-<% if !@document.nil?%>
-<%= render 'documents/form'%>
-<% end %>
+
 <div class="mxw1 pd32 ma">
   <div class="i24"></div>
   <div class="c2 fw6 fs40 tc">Documents Solideo </div>
    <div class="i40"></div>
   
   <div class="pd32 br20 bs bckc1">
+  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Transmettre un document </span></div>
+   <div class="i32"></div>
+   <%= form_for(Document.new) do |form| %>
+   <%= form.hidden_field :date, value: Date.today%>
+   <%= form.hidden_field :name, id: 'name_doc'%>
+   <%= form.hidden_field :appartenance, value: 'solideo' %>
+   <%= form.hidden_field :extension, id: 'ext'%>
+
+        <div class="document-file-input">
+          <label><%= form.file_field :file %>
+            <div class="document-type"><i class="far fa-file-pdf"></i> </div>
+            <div class="input-text"><i class="fas fa-plus-circle"></i><br><span class="tu">Télécharger un document</span><br>ou cliquer-glisser un fichier</div>
+            <div class="document-check">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          </label>
+          
+        <div class="modal-search-filters-form-btn">
+          <%= submit_tag "Transmettre", id: "submit_btn" %>  
+        </div>
+                    
+        </div>
+        <% end %>
+ </div>
+ <div class="i24"></div>
+  <div class="pd32 br20 bs bckc1">
   <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Liste des Documents </span></div>
    <div class="i24"></div>
     <div class="row">
-     <div class="col-md-12">
-       <% @dates.each do |date| %>
-       <% if date <= Date.today.year %>
-        <div class="c1 fw7 fs18 tupp">
-          <%= date %>
-        </div>
-        <div class="i12"></div>
+     
+      
        <% if !@documents.nil?%>
         <% @documents.each do |document| %>
-         <% if document.date.year == date %>
+        <div class="col-md-3">
           <% if document.file.attached?%>
-           <div class="documents-mois-doc">
-             <% if document.extension == "pdf"%> <i class="far fa-file-pdf"></i>
-             <% elsif document.extension == "csv"%> <i class="far fa-file-excel"></i>
-             <% elsif document.extension == "ppt" %> <i class="far fa-file-powerpoint"></i>
+          <%= link_to rails_blob_path(document.file, disposition: 'preview'), target: "_blank", class:'c2' do %>
+           <div class="bs br8 pd12 c2 bckc3" style='height:150px;'>
+             <% if document.extension == "pdf"%> <i class="far fa-file-pdf c1"></i>
+             <% elsif document.extension == "csv" || document.extension == "xlsx"%> <i class="far fa-file-excel c1"></i>
+             <% elsif document.extension == "ppt" %> <i class="far fa-file-powerpoint c1"></i>
              <% end %>
              <%= document.name%>
-             <div class="documents-etat-btn"><%= link_to rails_blob_path(document.file, disposition: 'preview'), target: "_blank" do %><span class="hidden-xs">Visualiser </span><i class="fas fa-eye"></i><% end %><%= link_to delete_document_path(id: document.id), method: :post, class:"documents-etat-delete" do%><i class="fas fa-trash-alt"></i><% end%></div>
-           </div>
-          <% else%>
-            <div class="documents-mois-doc">
-             <i class="far fa-file-excel"></i> <%= document.name%>
-              <div class="documents-etat-btn"><%= link_to edit_document_path(document), remote: true do%><span class="hidden-xs">Transmettre</span><span class="visible-xs"><i class="fas fa-download"></i></span><% end%></div>
+             <div class="i12"></div>
+             <div><%= link_to delete_document_path(id: document.id), method: :post, class:"c1" do%><i class="fas fa-trash-alt"></i><% end%></div>
            </div>
           <% end %>
           <% end %>
+          </div>
         <% end %>
-       <br>
        <% end %> 
-       <% end %>
-     <% end %>
        
       
-      </div>
+      
     </div>  
   </div>
 </div>
+<script>
+  $('.document-check').hide();
+  $('.document-type').hide();
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+         
+              
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $("input").change(function() {
+      readURL(this);
+      $('.document-check').show();
+      $('.input-text').html($(this).val().replace(/C:\\fakepath\\/i, ''));
+      $('.document-type').show();
+      $('#name_doc').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+      $('#ext').val($(this).val().split('.')[1]);
+  });
 
+</script>
 <script>
 
   $('.menu-documents-solideo').addClass('menu-active'); 

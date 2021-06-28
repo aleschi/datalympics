@@ -9,7 +9,7 @@ class DocumentsController < ApplicationController
      @document = Document.new(document_params)
     respond_to do |format|
       if @document.save
-        format.html { redirect_to documents_etat_path }
+        format.html { redirect_to documents_solideo_path }
       else
         format.html { render :new }
       end
