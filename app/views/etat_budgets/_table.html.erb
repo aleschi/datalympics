@@ -11,28 +11,17 @@
   <!-- suivi des cp -->
   <div id="cp">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div id="bar-solideo"></div>
       </div>
-      <div class="col-md-6">
-        <div id="bar-cojo"></div>
-      </div>
+      
     </div>
-    <div class="i60"></div>
-    <div class="row">
-      <div class="col-md-6">
-        <div id="bar-heritage"></div>
-      </div>
-      <div class="col-md-6">
-        <div id="bar-hp"></div>
-      </div>
-    </div>
-
     <div class="i40"></div>
+   
     <div>
-      <span class="fs16 fw7 pdt c0 bckc2 tupp">Répartition annuelle des dépenses de l'état en K€ (CP consommés / CP prévus)</span>
+      <span class="fs16 fw7 pdt c2 ">Tableau Répartition annuelle des dépenses de l'état en K€ (CP consommés / CP prévus)</span>
     </div>
-    <div class="i24"></div>
+    <div class="i12"></div>
     <% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
 
       <div class="ED_table hidden-xs">
@@ -102,26 +91,17 @@
   <!-- suivi des ae-->
   <div id="ae">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div id="bar-solideo-ae"></div>
       </div>
-      <div class="col-md-6">
-        <div id="bar-cojo-ae"></div>
-      </div>
+     
     </div>
-    <div class="i60"></div>
-    <div class="row">
-      <div class="col-md-6">
-        <div id="bar-heritage-ae"></div>
-      </div>
-      <div class="col-md-6">
-        <div id="bar-hp-ae"></div>
-      </div>
+    <div class="i40"></div>
+    
+    <div>
+      <span class="fs16 fw7 pdt c2 ">Répartition annuelle des dépenses de l'état en K€ (AE consommés / AE prévus)</span>
     </div>
-    <br><br>
-    <div class="SD-topo-box-title">
-      <span>Répartition annuelle des dépenses de l'état en K€ (AE consommés / AE prévus)</span>
-    </div><br><br>
+     <div class="i12"></div>
     <% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
 
       <div class="ED_table hidden-xs">
@@ -225,7 +205,7 @@ $("#cp_button").addClass('button-cp-active');
   Highcharts.chart('bar-solideo', {
     chart: {
         type: 'column',
-    height:'250px',
+    height:'300px',
       backgroundColor: '#fff',
           style:{
           fontFamily: "Marianne Regular",
@@ -233,7 +213,7 @@ $("#cp_button").addClass('button-cp-active');
           },
     },
     title: {
-       text: 'Suivi annuel des dépenses pour la Solideo',
+       text: 'Répartition annuel des dépenses (CP)',
        verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
@@ -244,7 +224,7 @@ $("#cp_button").addClass('button-cp-active');
     },
 
     xAxis: {
-        categories: ['Dépenses 2018', 'Dépenses 2019',  "Dépenses 2020","Dépenses 2021", "Budget 2021", "Cumul"],
+        categories: ['2018', '2019',  "2020","2021", "Prev 2021",],
         crosshair: true
     },
     yAxis: {
@@ -255,7 +235,7 @@ $("#cp_button").addClass('button-cp-active');
       gridLineColor: "#fff",
     },
   legend: {
-    enabled: false,
+    enabled: true,
   },
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -274,242 +254,68 @@ $("#cp_button").addClass('button-cp-active');
             borderWidth: 0,
             grouping: false,
           dataLabels: {
-                enabled: true
+                enabled: false,
             }
         }
     },
-    series: [{
-        name: 'Budget',
-        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"solideo").sum('cp_conso')/1000000).round %>, color: "#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"solideo").sum('cp_conso')/1000000).round%>, color:"#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"solideo").sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"solideo").sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"solideo").sum('cp_prevu')/1000000).round%>, color: "#bfbfbf"},
-          {y:<%=(EtatDepense.where('beneficiaire = ?',"solideo").sum('cp_conso')/1000000).round%>, color: "#76505B"}],
+    series: [
+    {
+        name: 'Solideo',
+        color: '#5770BE',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"solideo").sum('cp_conso')/1000000).round %> },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"solideo").sum('cp_conso')/1000000).round%> },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"solideo").sum('cp_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"solideo").sum('cp_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"solideo").sum('cp_prevu')/1000000).round%>},
+          ],
+        pointPlacement: 0,
+    },{
+        name: 'Cojo',
+        color:'#76505B',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"cojo").sum('cp_conso')/1000000).round %> },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"cojo").sum('cp_conso')/1000000).round%> },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"cojo").sum('cp_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"cojo").sum('cp_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"cojo").sum('cp_prevu')/1000000).round%>},
+          ],
+        pointPlacement: 0,
+    },{
+        name: 'Heritage',
+        color:'#D08A77',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"heritage").sum('cp_conso')/1000000).round %>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"heritage").sum('cp_conso')/1000000).round%> },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"heritage").sum('cp_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"heritage").sum('cp_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"heritage").sum('cp_prevu')/1000000).round%>},
+          ],
+        pointPlacement: 0,
+    },{
+        name: 'Haute Performance',
+        color:'#FFE800',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"hauteperformance").sum('cp_conso')/1000000).round %>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"hauteperformance").sum('cp_conso')/1000000).round%> },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"hauteperformance").sum('cp_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"hauteperformance").sum('cp_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"hauteperformance").sum('cp_prevu')/1000000).round%>},
+          ],
         pointPlacement: 0,
     },]
 });
  </script> 
-<script>
-  Highcharts.chart('bar-cojo', {
-    chart: {
-        type: 'column',
-    height:'250px',
-      backgroundColor: '#fff',
-          style:{
-          fontFamily: "Marianne Regular",
-     
-          },
-    },
-    title: {
-       text: 'Suivi annuel des dépenses pour le Cojo',
-       verticalAlign: "top",
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-   
-          fontSize: '12px',
-                  },
-    },
 
-    xAxis: {
-        categories: ['Dépenses 2018', 'Dépenses 2019',  "Dépenses 2020","Dépenses 2021", "Budget 2021", "Cumul"],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Budget Consommé (M€)'
-        },
-      gridLineColor: "#fff",
-    },
-  legend: {
-    enabled: false,
-  },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
-            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true,
-       borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-            grouping: false,
-          dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    series: [{
-        name: 'Budget',
-        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"cojo").sum('cp_conso')/1000000).round %>, color: "#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"cojo").sum('cp_conso')/1000000).round%>, color:"#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"cojo").sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"cojo").sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"cojo").sum('cp_prevu')/1000000).round%>, color: "#bfbfbf"},
-          {y:<%=(EtatDepense.where('beneficiaire = ?',"cojo").sum('cp_conso')/1000000).round%>, color: "#76505B"}],
-        pointPlacement: 0,
-    },]
-  });
-</script> 
-<script>
-  Highcharts.chart('bar-heritage', {
-    chart: {
-        type: 'column',
-    height:'250px',
-      backgroundColor: '#fff',
-          style:{
-          fontFamily: "Marianne Regular",
-     
-          },
-    },
-    title: {
-       text: 'Suivi annuel des dépenses pour Héritage',
-       verticalAlign: "top",
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-      
-          fontSize: '12px',
-                  },
-    },
-
-    xAxis: {
-        categories: ['Dépenses 2018', 'Dépenses 2019',  "Dépenses 2020","Dépenses 2021", "Budget 2021", "Cumul"],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Budget Consommé (M€)'
-        },
-      gridLineColor: "#fff",
-    },
-  legend: {
-    enabled: false,
-  },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
-            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true,
-       borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-            grouping: false,
-          dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    series: [{
-        name: 'Budget',
-        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"heritage").sum('cp_conso')/1000000).round %>, color: "#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"heritage").sum('cp_conso')/1000000).round%>, color:"#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"heritage").sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"heritage").sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"heritage").sum('cp_prevu')/1000000).round%>, color: "#bfbfbf"},
-          {y:<%=(EtatDepense.where('beneficiaire = ?',"heritage").sum('cp_conso')/1000000).round%>, color: "#76505B"}],
-        pointPlacement: 0,
-    },]
-  });
-</script> 
-<script>
-  Highcharts.chart('bar-hp', {
-    chart: {
-        type: 'column',
-    height:'250px',
-      backgroundColor: '#fff',
-          style:{
-          fontFamily: "Marianne Regular",
-     
-          },
-    },
-    title: {
-       text: 'Suivi annuel des dépenses pour Autres',
-       verticalAlign: "top",
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-     
-          fontSize: '12px',
-                  },
-    },
-
-    xAxis: {
-        categories: ['Dépenses 2018', 'Dépenses 2019',  "Dépenses 2020","Dépenses 2021", "Budget 2021", "Cumul"],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Budget Consommé (M€)'
-        },
-      gridLineColor: "#fff",
-    },
-  legend: {
-    enabled: false,
-  },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
-            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true,
-       borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-            grouping: false,
-          dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    series: [{
-        name: 'Budget',
-        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"hauteperformance").sum('cp_conso')/1000000).round %>, color: "#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"hauteperformance").sum('cp_conso')/1000000).round%>, color:"#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"hauteperformance").sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"hauteperformance").sum('cp_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"hauteperformance").sum('cp_prevu')/1000000).round%>, color: "#bfbfbf"},
-          {y:<%=(EtatDepense.where('beneficiaire = ?',"hauteperformance").sum('cp_conso')/1000000).round%>, color: "#76505B"}],
-        pointPlacement: 0,
-    },]
-  });
-</script>
 <!-- ae-->
 <script>
   Highcharts.chart('bar-solideo-ae', {
     chart: {
         type: 'column',
-        height:'250px',
+        height:'300px',
         backgroundColor: '#fff',
           style:{
           fontFamily: "Marianne Regular",     
           },
     },
     title: {
-       text: 'Suivi annuel des AE pour la Solideo',
+       text: 'Répartition annuel des AE',
        verticalAlign: "top",
         style: {
                   color: "#8F8F8F",
@@ -519,7 +325,7 @@ $("#cp_button").addClass('button-cp-active');
     },
 
     xAxis: {
-        categories: ['Dépenses 2018', 'Dépenses 2019',  "Dépenses 2020","Dépenses 2021", "Budget 2021", "Cumul"],
+        categories: ['2018', '2019',  "2020","2021", "Prev 2021",],
         crosshair: true
     },
     yAxis: {
@@ -529,7 +335,7 @@ $("#cp_button").addClass('button-cp-active');
       gridLineColor: "#fff",
     },
   legend: {
-    enabled: false,
+    enabled: true,
   },
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -548,18 +354,49 @@ $("#cp_button").addClass('button-cp-active');
             borderWidth: 0,
             grouping: false,
           dataLabels: {
-                enabled: true
+                enabled: false,
             }
         }
     },
     series: [{
-        name: 'Budget',
-        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"solideo").sum('ae_conso')/1000000).round %>, color: "#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"solideo").sum('ae_conso')/1000000).round%>, color:"#2E5D63" },
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"solideo").sum('ae_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"solideo").sum('ae_conso')/1000000).round%>, color: "#2E5D63"},
-          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"solideo").sum('ae_prevu')/1000000).round%>, color: "#bfbfbf"},
-          {y:<%=(EtatDepense.where('beneficiaire = ?',"solideo").sum('ae_conso')/1000000).round%>, color: "#76505B"}],
+        name: 'Solideo',
+        color: '#5770BE',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"solideo").sum('ae_conso')/1000000).round %>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"solideo").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"solideo").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"solideo").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"solideo").sum('ae_prevu')/1000000).round%>},
+          ],
+        pointPlacement: 0,
+    },{
+        name: 'Cojo',
+        color:'#76505B',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"cojo").sum('ae_conso')/1000000).round %>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"cojo").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"cojo").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"cojo").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"cojo").sum('ae_prevu')/1000000).round%>},
+          ],
+        pointPlacement: 0,
+    },{
+        name: 'Heritage',
+        color:'#D08A77',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"heritage").sum('ae_conso')/1000000).round %> },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"heritage").sum('ae_conso')/1000000).round%> },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"heritage").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"heritage").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"heritage").sum('ae_prevu')/1000000).round%>},
+          ],
+        pointPlacement: 0,
+    },{
+        name: 'Haute Performance',
+        color:'#FFE800',
+        data: [{y:<%= (EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2018,1,1), Date.new(2018,12,31),"hauteperformance").sum('ae_conso')/1000000).round %>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2019,1,1), Date.new(2019,12,31),"hauteperformance").sum('ae_conso')/1000000).round%> },
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2020,1,1), Date.new(2020,12,31),"hauteperformance").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"hauteperformance").sum('ae_conso')/1000000).round%>},
+          {y:<%=(EtatDepense.where('date >= ? AND date <= ? AND beneficiaire = ?', Date.new(2021,1,1), Date.new(2021,12,31),"hauteperformance").sum('ae_prevu')/1000000).round%>},
+         ],
         pointPlacement: 0,
     },]
 });

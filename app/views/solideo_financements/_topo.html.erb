@@ -2,18 +2,48 @@
 <div class="pd32 br20 bs bckc1">  
   <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Financements de la solideo</span></div>
   <div class="i24"></div>
+  <div class="box-erreur">Des données financières sont manquantes ou inexactes </div>
+   <div class="i24"></div>
    <div class="i24"></div>
   <div class="row">
-   <div class="col-md-5 col-xs-12">
-     <div class="mr10 hidden" id="container-bar"></div>
-     <div id="financements_publics" style="height:200px;overflow:hidden;"></div>
-      <div class="i60"></div>
-      <div id="financements_publics_2021" style="height:200px;overflow:hidden;"></div>
+   <div class="col-md-4 col-xs-12">
+ 
+     <div id="financements_publics" style="height:150px;overflow:hidden;"></div>
+      
+      <div id="financements_publics_2021" style="height:150px;overflow:hidden;"></div>
+      <div class="box_i1">
+            <div class="box_i1_t1">+<%= number_with_delimiter(((EtatBudget.order('date DESC').first.budget_solideo-EtatBudget.order('date DESC').last.budget_solideo)/1000000).round(1), :delimiter => ' ') %> M€</div>
+            <div class="box_i1_t2">Augm. Financements Etat</div>
+      </div>
+      <div class="i12"></div>
+      <div class="box_i1">
+            <div class="box_i1_t1">+XX M€</div>
+            <div class="box_i1_t2">Augm. Financements Collectivités</div>
+      </div>
     </div> 
-    <div class="col-md-7 col-xs-12">  
+    <div class="col-md-8 col-xs-12">  
       <div id="container-bar1"></div>
       <div class="i60"></div>
-      <div id="container-bar2"></div>
+      
+      <div class="row">
+        <div class="col-md-4">
+        <div id="pie-etat"></div> 
+        </div>
+        <div class="col-md-4">
+        <div id="pie-co"></div> 
+        </div>
+        <div class="col-md-4">
+          <div class="box_i1">
+            <div class="box_i1_t1">Fonds privés</div>
+            <div class="box_i1_t2">XX/XX M€ reçus</div>
+          </div>
+          <div class="i32"></div>
+          <div class="box_i1">
+            <div class="box_i1_t1">Recettes </div>
+            <div class="box_i1_t2">XX/X XM€ reçus</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>  
 </div>
@@ -43,30 +73,37 @@
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')/SolideoFinancement.where('financeur=?','État').sum('montant')*100).round %>% </div>
                   <div class="box_i1_t2">Etat</div>
+                  <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','État',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','État').sum('montant')/1000000).round(1)%>M€</div>
               </div>
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','RIF',date).sum('montant')/SolideoFinancement.where('financeur=?','RIF').sum('montant')*100).round %>% </div>
                   <div class="box_i1_t2">IDF</div>
+                  <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','RIF',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','RIF').sum('montant')/1000000).round(1)%>M€</div>
               </div>
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date).sum('montant')/SolideoFinancement.where('financeur=?','Métropole Grand Paris').sum('montant')*100).round %>%</div>
                 <div class="box_i1_t2"> MGP</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Métropole Grand Paris',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','Métropole Grand Paris').sum('montant')/1000000).round(1)%>M€</div>
               </div> 
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Paris',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville de Paris').sum('montant')*100).round %>% </div>
                 <div class="box_i1_t2">Ville de Paris</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Paris',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','Ville de Paris').sum('montant')/1000000).round(1)%>M€</div>
               </div>   
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CD93',date).sum('montant')/SolideoFinancement.where('financeur=?','CD93').sum('montant')*100).round(0) %>% </div>
                 <div class="box_i1_t2">CD 93</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CD93',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','CD93').sum('montant')/1000000).round(1)%>M€</div>
               </div> 
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date).sum('montant')/SolideoFinancement.where('financeur=?','EPT Plaine Commune').sum('montant')*100).round %>% </div>
                 <div class="box_i1_t2">Plaine Co</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','EPT Plaine Commune',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','EPT Plaine Commune').sum('montant')/1000000).round(1)%>M€</div>
               </div>
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date).sum('montant')/SolideoFinancement.where('financeur=?','Privés + recettes').sum('montant')*100).round %>% </div>
                 <div class="box_i1_t2">Recettes</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Privés + recettes',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','Privés + recettes').sum('montant')/1000000).round(1)%>M€</div>
               </div>
             </div>
         </div> 
@@ -77,30 +114,37 @@
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Marseille',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville de Marseille').sum('montant')*100).round(1)%>% </div>
                   <div class="box_i1_t2"> Marseille</div>
+                  <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Marseille',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','Ville de Marseille').sum('montant')/1000000).round(1)%>M€</div>
               </div>
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date).sum('montant')/SolideoFinancement.where('financeur=?',"EPT Terres d'envol").sum('montant')*100).round(1)%>% </div>
                   <div class="box_i1_t2">Terre d'envol</div>
+                  <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?',"EPT Terres d'envol",date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?',"EPT Terres d'envol").sum('montant')/1000000).round(1)%>M€</div>
               </div>
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CD92',date).sum('montant')/SolideoFinancement.where('financeur=?','CD92').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">CD92</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CD92',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','CD92').sum('montant')/1000000).round(1)%>M€</div>
               </div> 
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville de Dugny').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">Dugny</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville de Dugny',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','Ville de Dugny').sum('montant')/1000000).round(1)%>M€</div>
               </div>   
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')/SolideoFinancement.where('financeur=?','Ville du Bourget').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">Le bourget</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','Ville du Bourget',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','Ville du Bourget').sum('montant')/1000000).round(1)%>M€</div>
               </div> 
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CASQY',date).sum('montant')/SolideoFinancement.where('financeur=?','CASQY').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">Casqy</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CASQY',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','CASQY').sum('montant')/1000000).round(1)%>M€</div>
               </div>
               <div class="box_i1">
                   <div class="box_i1_t1"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CD78',date).sum('montant')/SolideoFinancement.where('financeur=?','CD78').sum('montant')*100).round(1)%>% </div>
                 <div class="box_i1_t2">CD78</div>
+                <div class="box_i1_t2"><%= (SolideoFinancement.where('financeur=? AND date <= ?','CD78',date).sum('montant')/1000000).round(1)%>/<%= (SolideoFinancement.where('financeur=?','CD78').sum('montant')/1000000).round(1)%>M€</div>
               </div>
             </div>
         </div> 
@@ -456,7 +500,7 @@
           },
     },
     title: {
-        text: 'Financements publics depuis le début',
+        text: 'Financements reçus depuis 2018',
         verticalAlign: "top",
         style: {
                 color: "#8F8F8F",
@@ -490,16 +534,16 @@
     yAxis: {
         stops: [
             [0.1, '#20E37B'], // green
-            [0.5, '#C68D7B'], // yellow
-            [0.9, '#F1013B'] // red
+            [0.5, '#20E37B'], // yellow
+            [0.9, '#20E37B'] // red
         ],
         lineWidth: 0,
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
-        tickPositions: [0, <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total_public')/1000000)%>],
-        min: 0,
-        max: <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total_public')/1000000)%>,
+        tickPositions: [<%=(SolideoFinancement.where('date <= ?',Date.new(2020,1,1)).sum('montant')/1000000).round(1)%>, <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000)%>],
+        min: <%= (SolideoFinancement.where('date <= ?',Date.new(2020,1,1)).sum('montant')/1000000).round(1)%>,
+        max: <%= (Maquette.where('date = ?',@dates_maquettes[0]).sum('total')/1000000)%>,
         title: {
           text: null,
             y: 100,
@@ -525,16 +569,15 @@
     },
     series: [{
         name: 'Financements reçus',
-        data: [100],
+        data: [<%= ((SolideoFinancement.where('date <= ?',Date.new(2020,1,1)).sum('montant')+ (SolideoFinancement.where('date <= ?',Date.new(2020,1,1)).sum('montant')/Maquette.where('date = ?',@dates_maquettes[0]).sum('total'))*(Maquette.where('date = ?',@dates_maquettes[0]).sum('total')-SolideoFinancement.where('date <= ?',Date.new(2020,1,1)).sum('montant')))/1000000).round(1)%>],
         innerRadius: '80%',
       
         dataLabels: {
           enabled: true,
-          y:-50,
+          y:-40,
             format:
                 '<div style="text-align:center;color:#000;">' +
-                '<span style="font-size:20px">'+<%=((((SolideoFinancement.where('financeur!=? AND date <= ?','Privés + recettes',@dates_maquettes[0]).sum('montant')/1000000).round(1))/(Maquette.where('date = ?',@dates_maquettes[0]).sum('total_public')/1000000))*100).round(1)%>+'%</span><br/>' +
-                '<span style="font-size:12px;opacity:0.7">'+<%= 100  %>+' M€</span>' +
+                '<span style="font-size:20px">'+<%=((SolideoFinancement.where('date <= ?',Date.new(2020,1,1)).sum('montant')/Maquette.where('date = ?',@dates_maquettes[0]).sum('total'))*100).round(1)%>+'%</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -556,7 +599,7 @@
           },
     },
     title: {
-        text: 'Financements publics reçus 2021',
+        text: 'Financements reçus en 2021',
         verticalAlign: "top",
         style: {
                 color: "#8F8F8F",
@@ -597,9 +640,9 @@
         tickWidth: 0,
         minorTickInterval: null,
         tickAmount: 2,
-        tickPositions: [0, <%= (SolideoFinancement.where('financeur!=? AND date = ?','Privés + recettes',Date.new(2021,1,1)).sum('montant')/1000000).round(1)%>],
+        tickPositions: [0, <%= (SolideoFinancement.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000000).round(1)%>],
         min: 0,
-        max: <%= (SolideoFinancement.where('financeur!=? AND date = ?','Privés + recettes',Date.new(2021,1,1)).sum('montant')/1000000).round(1) %>,
+        max: <%= (SolideoFinancement.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000000).round(1) %>,
         title: {
           text: null,
             y: 100,
@@ -631,11 +674,10 @@
       
         dataLabels: {
           enabled: true,
-          y:-50,
+          y:-40,
             format:
                 '<div style="text-align:center;color:#000;">' +
-                '<span style="font-size:20px">'+<%=(((0)/(SolideoFinancement.where('financeur!=? AND date = ?','Privés + recettes',Date.new(2021,1,1)).sum('montant')/1000000))*100).round(1)%>+'%</span><br/>' +
-                '<span style="font-size:12px;opacity:0.7">'+<%= 0 %>+' M€</span>' +
+                '<span style="font-size:20px">'+<%=(((0)/(SolideoFinancement.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000000))*100).round(1)%>+'%</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -684,7 +726,7 @@
     tooltip: {
    
         headerFormat: '<span style="font-size:10px">{point.key}</span><br/>',
-        pointFormat: '<b>Dépenses annuelles : {point.y:.1f} M€</b><br/>',
+        pointFormat: '<b>Financements reçus : {point.y:.1f} M€</b><br/>',
 
         shared: true,
        useHTML: true,
@@ -751,187 +793,219 @@
 });
  </script> 
 
-
 <script>
-
-  Highcharts.chart('container-bar2', {
+    
+    Highcharts.chart('pie-etat', {
     chart: {
-      spacingTop: 0,
-        type: 'column',
-    height:'200px',
-      backgroundColor: '#fff',
+        type: 'solidgauge',
+        height: '220px',
+          spacingTop: 0,
           style:{
-          fontFamily: "Marianne Regular",
-     
+            fontFamily: "Marianne Regular",
           },
     },
     title: {
-        text: 'Répartition des financements',
+        text: 'Financements Etat',
         verticalAlign: "top",
         style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-    
-          fontSize: '12px',
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
                   },
+       
+    },
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: 0,
+        endAngle: 360,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '0%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
     },
 
-    xAxis: {
-        categories: ['Etat', 'Collectivités',  "Privés (compléments)?", "Recettes" ],
-        crosshair: true,
-        labels: {
-                formatter: function () {
-                  if (this.value == "Privés (compléments)?"){
-                    return '<span style="color:#E1000F;text-align:center;">' + this.value + '</span>'
-                  } else {
-                    return this.value 
-                  }
-                },
-                useHTML: false,
-            },
+    exporting: {
+        enabled: false
     },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Budget (M€)'
-        },
-      gridLineColor: "#fff",
-    },
-  legend: {
-    enabled: false,
-  },
+
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
-            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
-        footerFormat: '</table>',
+        enabled: true,
         shared: true,
-        useHTML: true,
-       borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
+            useHTML: true,
+           borderColor: 'transparent',
+       borderRadius: 16,
+       backgroundColor: '#fff',
     },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-            grouping: false,
-          dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    series: [{
-        name: 'Budget Total Maquette',
-        data: [{y:<%= (SolideoFinancement.where('financeur = ?','État').sum('montant')/1000000).round%>, color:"#bfbfbf",dataLabels: {
-                    enabled: true,
-                    formatter: function() {
 
-                      var point = this;                      
-                      ecart = <%= ((EtatBudget.order('date DESC').first.budget_solideo-EtatBudget.order('date DESC').last.budget_solideo)/1000000).round %>;
-                      
-                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                      
-                       if (ecart >= 0){
-                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
-                        }else{
-                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
-                        }
-                        
-                        content = '<b>' + number  + ' </b>';
-
-                      return header + content;
-                    },
-                }, },
-        {y:<%=(SolideoFinancement.where('financeur != ? AND financeur != ?','État','Privés + recettes').sum('montant')/1000000).round%>, color:"#bfbfbf" },
-        {y:<%=((Maquette.where('date = ?',@dates_maquettes[0]).sum('total') - SolideoFinancement.sum('montant'))/1000000).round%>, color: "#bfbfbf"},
-        {y:<%=(SolideoFinancement.where('financeur = ?','Privés + recettes').sum('montant')/1000000).round%>, color: "#bfbfbf"}],
-        pointPlacement: 0,
-    },{
-        name: 'Reçu',
-        data: [{y:<%= (SolideoFinancement.where('financeur = ? AND date <= ?','État', Date.new(2020,1,1)).sum('montant')/1000000).round%>, color:"#5770BE" },
-        {y:<%=(SolideoFinancement.where('financeur != ? AND financeur != ? AND date <= ?','État','Privés + recettes',Date.new(2020,1,1)).sum('montant')/1000000).round%>, color:"#76505B" },
-        {y:0, color: "#FFE800"},
-        {y:<%=(SolideoFinancement.where('financeur = ? AND date <= ?','Privés + recettes',Date.new(2020,1,1)).sum('montant')/1000000).round%>, color: "#D08A77"}],
-        pointPlacement: 0,
-
-    }]
-});
-</script>
-
-<script>
- Highcharts.chart('container-bar', {
-    chart: {
-        type: 'bar',
-
-      style:{
-          fontFamily: "Marianne Regular",
-         maxWidth: '500px',
-          },
-    },
-    title: {
-        text: "Financeurs de la Solideo",
-        verticalAlign: "top",
-        style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-      fontSize: '12px',
-                  },
-    },
-  colors: ['#20E37B'],
-    xAxis: {
-        categories:  ["État", "Concours Privés", "Région IdF", "Ville de Paris", "CD 93", "Plaine co", "Marseille", "Terre d'envol", "MGP", "CD92", "Dugny", "Le Bourget", "CASQY", "CD78"],
-        title: {
-            text: null
-        }
-    },
+    // the value axis
     yAxis: {
+        stops: [
+            [0.1, '#5770BE'], // green
+            [0.5, '#5770BE'], // yellow
+            [0.9, '#5770BE'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 0,
+        tickPositions: [<%= (SolideoFinancement.where('financeur = ? AND date <= ?','État', Date.new(2020,1,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where('financeur = ?','État').sum('montant')/1000000).round %>],
         min: 0,
-      gridLineColor: '#fff', 
+        max: <%= (SolideoFinancement.where('financeur = ?','État').sum('montant')/1000000).round%>,
         title: {
-            text: 'Montant (M€)',
-            align: 'high'
+          text: null,
+            y: 100,
         },
         labels: {
-            overflow: 'justify'
+            y: 16,
+            format: '{value:.0f}M€',
+            enabled: false,
         }
     },
-    tooltip: {
-        valueSuffix: ' millions',
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-  legend: {
-    enabled: false,
-  },
+
     plotOptions: {
-        bar: {
+        solidgauge: {
             dataLabels: {
-                enabled: true
+                y: 0,
+                borderWidth: 0,
+                useHTML: true
             }
         }
     },
-    
+
     credits: {
         enabled: false
     },
     series: [{
-        name: 'Budget',
-        data: [{y: <%= (SolideoFinancement.where("financeur = ?", "État").sum('montant')/1000000).round %>, color: "#C68D7B"}, 
-        {y: <%= (SolideoFinancement.where("financeur = ?", "Privés + recettes").sum('montant')/1000000).round %>, color: "#2E5D63"}, 
-        <%= (SolideoFinancement.where("financeur = ?", "RIF").sum('montant')/1000000).round %>, 
-        <%= (SolideoFinancement.where("financeur = ?", "Ville de Paris").sum('montant')/1000000).round %>, 
-        <%= (SolideoFinancement.where("financeur = ?", "CD93").sum('montant')/1000000).round %>, 
-        <%= (SolideoFinancement.where("financeur = ?", "EPT Plaine Commune").sum('montant')/1000000).round %>,
-        <%= (SolideoFinancement.where("financeur = ?", "Ville de Marseille").sum('montant')/1000000).round %>,
-        <%= (SolideoFinancement.where("financeur = ?", "EPT Terres d'envol").sum('montant')/1000000).round %>,
-        <%= (SolideoFinancement.where("financeur = ?", "Métropole Grand Paris").sum('montant')/1000000).round %>,
-        <%= (SolideoFinancement.where("financeur = ?", "CD92").sum('montant')/1000000).round %>,
-        <%= (SolideoFinancement.where("financeur = ?", "Ville de Dugny").sum('montant')/1000000).round %>,
-        <%= (SolideoFinancement.where("financeur = ?", "Ville du Bourget").sum('montant')/1000000).round %>,
-        <%= (SolideoFinancement.where("financeur = ?", "CASQY").sum('montant')/1000000).round %>,
-        <%= (SolideoFinancement.where("financeur = ?", "CD78").sum('montant')/1000000).round %>],
-     }]
+        name: 'Financements reçus',
+        data: [<%= (SolideoFinancement.where('financeur = ? AND date <= ?','État', Date.new(2020,1,1)).sum('montant')/1000000).round%>],
+        innerRadius: '0%',
+      
+        dataLabels: {
+          enabled: true,
+          y:0,
+            format:
+                '<div style="text-align:center;color:#000;">' +
+                '<span style="font-size:20px">'+<%=((SolideoFinancement.where('financeur = ? AND date <= ?','État', Date.new(2020,1,1)).sum('montant')/SolideoFinancement.where('financeur = ?','État').sum('montant'))*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%= (SolideoFinancement.where('financeur = ? AND date <= ?','État', Date.new(2020,1,1)).sum('montant')/1000000).round %>+' M€</span>' +
+                '</div>'
+        },
+        tooltip: {
+          pointFormat: '<span style="padding:0">Financements reçus : <b>'+ <%= (SolideoFinancement.where('financeur = ? AND date <= ?','État', Date.new(2020,1,1)).sum('montant')/1000000).round%>+'M€/'+<%=(SolideoFinancement.where('financeur = ?','État').sum('montant')/1000000).round%>+'M€</b></span>',
+            valueSuffix: ' M€'
+        }
+    }],
+    
 });
-  </script>
+</script>
+<script>
+    
+    Highcharts.chart('pie-co', {
+    chart: {
+        type: 'solidgauge',
+        height: '180px',
+          spacingTop: 0,
+          style:{
+            fontFamily: "Marianne Regular",
+          },
+    },
+    title: {
+        text: 'Financements Collectivités',
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+       
+    },
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: 0,
+        endAngle: 360,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '0%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: true,
+        shared: true,
+            useHTML: true,
+           borderColor: 'transparent',
+       borderRadius: 16,
+       backgroundColor: '#fff',
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#7D4E5B'], // green
+            [0.5, '#7D4E5B'], // yellow
+            [0.9, '#7D4E5B'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        tickPositions: [<%=(SolideoFinancement.where('financeur != ? AND financeur != ? AND date <= ?','État','Privés + recettes',Date.new(2020,1,1)).sum('montant')/1000000).round%>, <%= (SolideoFinancement.where('financeur != ? AND financeur != ?','État','Privés + recettes').sum('montant')/1000000).round%>],
+        min: 0,
+        max: <%= (SolideoFinancement.where('financeur != ? AND financeur != ?','État','Privés + recettes').sum('montant')/1000000).round%>,
+        title: {
+          text: null,
+            y: 100,
+        },
+        labels: {
+            y: 16,
+            format: '{value:.0f}M€',
+            enabled: false,
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 0,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Financements reçus',
+        data: [<%= (SolideoFinancement.where('financeur != ? AND financeur != ? AND date <= ?','État','Privés + recettes',Date.new(2020,1,1)).sum('montant')/1000000).round%>],
+        innerRadius: '0%',
+      
+        dataLabels: {
+          enabled: true,
+          y:5,
+            format:
+                '<div style="text-align:center;color:#000;">' +
+                '<span style="font-size:20px">'+<%=(SolideoFinancement.where('financeur != ? AND financeur != ? AND date <= ?','État','Privés + recettes',Date.new(2020,1,1)).sum('montant')/(SolideoFinancement.where('financeur != ? AND financeur != ?','État','Privés + recettes').sum('montant'))*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%= (SolideoFinancement.where('financeur != ? AND financeur != ? AND date <= ?','État','Privés + recettes',Date.new(2020,1,1)).sum('montant')/1000000).round %>+' M€</span>' +
+                '</div>'
+        },
+        tooltip: {
+            pointFormat: '<span style="padding:0">Financements reçus : <b>'+ <%= (SolideoFinancement.where('financeur != ? AND financeur != ? AND date <= ?','État','Privés + recettes',Date.new(2020,1,1)).sum('montant')/1000000).round %>+'M€/'+<%=(SolideoFinancement.where('financeur != ? AND financeur != ?','État','Privés + recettes').sum('montant')/1000000).round%>+'M€</b></span>',
+            valueSuffix: ' M€'
+        }
+    }],
+    
+});
+</script>
+
+

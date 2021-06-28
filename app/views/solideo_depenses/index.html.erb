@@ -26,8 +26,8 @@
       <div class="i32"></div>
       <div id="depenses_2021" style="height:150px;overflow:hidden;"></div>
       <div class="box_i1">
-            <div class="box_i1_t1">+XX M€</div>
-            <div class="box_i1_t2">Par rap. au prévu à date</div>
+            <div class="box_i1_t1"><%= number_with_delimiter((311.2 - (8.1 + @ouvrages_depenses_2021)).round  , :delimiter => ' ') %> M€</div>
+            <div class="box_i1_t2">Disponible pour 2021</div>
       </div>
 
     </div>
@@ -45,7 +45,7 @@
         <div class="col-md-4">
           <div class="box_i1">
             <div class="box_i1_t1">RÉSERVE</div>
-            <div class="box_i1_t2"><%= @budget_reserve_initial - @budget_reserve_consomme%>M€</div>
+            <div class="box_i1_t2"><%= @budget_reserve_initial - @budget_reserve_consomme%>M€ disponibles</div>
           </div>
           <div class="i32"></div>
           <div class="box_i1">
@@ -318,7 +318,7 @@
     tooltip: {
    
         headerFormat: '<span style="font-size:10px">{point.key}</span><br/>',
-        pointFormat: '<b>Dépenses annuelles : {point.y:.1f} M€</b><br/>',
+        pointFormat: '<b>Dépenses : {point.y:.1f} M€</b><br/>',
 
         shared: true,
        useHTML: true,

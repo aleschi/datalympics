@@ -10,13 +10,13 @@
       <div id="depenses_totales" style="height:150px;overflow:hidden;"></div>
       <div class="box_i1">
             <div class="box_i1_t1">+<%= number_with_delimiter((EtatBudget.last.budget_total/1000000-EtatBudget.first.budget_total/1000000).round(1), :delimiter => ' ') %> M€</div>
-            <div class="box_i1_t2">Augmentation Budget Total</div>
+            <div class="box_i1_t2">Par rap. au budget initial</div>
       </div>
       <div class="i32"></div>
       <div id="depenses_2021" style="height:150px;overflow:hidden;"></div>
       <div class="box_i1">
-            <div class="box_i1_t1"><%= number_with_delimiter(((EtatDepense.sum('ae_conso')-EtatDepense.sum('cp_conso'))/1000000).round, :delimiter => ' ') %> M€</div>
-            <div class="box_i1_t2">Reste à payer (AE-CP)</div>
+            <div class="box_i1_t1"><%= number_with_delimiter(((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')-EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso'))/1000000).round, :delimiter => ' ') %> M€</div>
+            <div class="box_i1_t2">Disponible</div>
       </div>
 
 
