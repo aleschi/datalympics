@@ -159,71 +159,71 @@ Highcharts.stockChart('container-chorus', {
   
     series: [
 
-      {
-        name: 'Crédits ouverts',
-        color: '#2E5D63',
-        tooltip: {
+       {
+        	name: 'Crédits ouverts',
+        	color: '#2E5D63',
+        	tooltip: {
            pointFormatter: function() {
-      var point = this,
-          series = point.series,
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
-         
-        content =  point.name + '<br/>'+ '<b>Crédits ouverts : '+ number + ' k€</b><br/>';
+		      var point = this,
+		          series = point.series,
+		        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+		        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+		        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+		         
+		        content =  point.name + '<br/>'+ '<b>Crédits ouverts : '+ number + ' k€</b><br/>';
 
-      return header + content;
-    },
-        },
-        data: [
-        
-          <% @montant = 0 %>
-         
-          <% @programme.where(' type_piece != ?', 'MADI').each do |programme| %>
-            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
-            <% @montant =  programme.montant %>
-            {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
-            <% elsif programme.type_piece == "RB" %>
-            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant - programme.montant).to_f/1000).round%>,  },
-          <% @montant = @montant - programme.montant %>
-            <% else %>              
-            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
-            <% @montant = @montant + programme.montant %>
-            <% end %> 
-          <% end %>
-   
-        ],
-        fillColor: {
-                linearGradient: {
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 1
-                },
-                stops: [
-                    [0, "#2E5D63"],
-                    [1, Highcharts.color("#2E5D63").setOpacity(0).get('rgba')]
-                ]
-            },
+		      return header + content;
+	    	},
+	        },
+	        data: [
+	        
+	          <% @montant = 0 %>
+	         
+	          <% @programme.where(' type_piece != ?', 'MADI').each do |programme| %>
+	            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
+	            <% @montant =  programme.montant %>
+	            {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
+	            <% elsif programme.type_piece == "RB" %>
+	            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant - programme.montant).to_f/1000).round%>,  },
+	          <% @montant = @montant - programme.montant %>
+	            <% else %>              
+	            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
+	            <% @montant = @montant + programme.montant %>
+	            <% end %> 
+	          <% end %>
+	   
+	        ],
+	        fillColor: {
+	                linearGradient: {
+	                    x1: 0,
+	                    y1: 0,
+	                    x2: 0,
+	                    y2: 1
+	                },
+	                stops: [
+	                    [0, "#2E5D63"],
+	                    [1, Highcharts.color("#2E5D63").setOpacity(0).get('rgba')]
+	                ]
+	            },
      
-    }, 
+    	}, 
     
     {
         name: 'Programme',
         color: '#20E37B',
          tooltip: {
-           pointFormatter: function() {
-      var point = this,
-        series = point.series,
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-         
-        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
+	           pointFormatter: function() {
+	      var point = this,
+	        series = point.series,
+	        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+	        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+	        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+	         
+	        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
 
-      return header + content;
-    },
-      },
+	      return header + content;
+	    },
+        },
         data: [
        
           <% @montant = 0 %>
@@ -247,17 +247,17 @@ Highcharts.stockChart('container-chorus', {
         color: '#5770BE',
          tooltip: {
            pointFormatter: function() {
-      var point = this,
-        series = point.series,
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-         
-        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
+		      var point = this,
+		        series = point.series,
+		        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+		        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+		        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+		         
+		        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
 
-      return header + content;
-    },
-      },
+		      return header + content;
+		    },
+        },
         data: [
        
           <% @montant = 0 %>  
@@ -272,17 +272,17 @@ Highcharts.stockChart('container-chorus', {
         color: '#169B62',
          tooltip: {
            pointFormatter: function() {
-      var point = this,
-        series = point.series,
-        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-         
-        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
+		      var point = this,
+		        series = point.series,
+		        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+		        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+		        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+		         
+		        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
 
-      return header + content;
-    },
-      },
+		      return header + content;
+		    },
+      	},
         data: [
        
           <% @montant = 0 %>  
@@ -290,8 +290,8 @@ Highcharts.stockChart('container-chorus', {
           	<% if @conso.count > 0 %>  
           	<% @conso.each do |conso| %>
             <% if conso.date < programme.date %>    
-            [ Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
-            <% @montant = @montant - programme.montant %>
+            [ Date.UTC(<%=conso.date.year%>,<%= conso.date.month-1%>, <%=conso.date.day%>), <%=  ((@montant + conso.montant).to_f/1000).round%>],
+            <% @montant = @montant - conso.montant %>
             <% end %>
             <% end %> 
             <% end %>                  
