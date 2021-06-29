@@ -38,6 +38,12 @@ class EtatBudgetsController < ApplicationController
     @bop = Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?','cp', '0350-CDSP',Date.new(2020,1,1), Date.new(2020,12,31), 'HT2').order('date ASC')
     @uo = Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?','cp', '0350-CDSP-CDSP',Date.new(2020,1,1), Date.new(2020,12,31), 'HT2').order('date ASC')
     @conso = Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?)', '0350-CDSP-CDSP',Date.new(2020,1,1), Date.new(2020,12,31), 'cp', "21","22","23","24","25","26").where.not(domaine_fonctionnel: nil).order('date ASC')
+
+    @montant_lfi = @programme.where('type_budget = ?', "Loi de Finances Initiale").first.montant
+    @montant_dispo = @programme.where('type_piece != ? AND type_piece != ?',"MADI",'RB').sum('montant')
+    @montant_reserve = @programme.where('type_piece = ?','RB').sum('montant')
+    @montant_conso = Choru.where('centre_financier = ?','0350-CDSP-CDSP').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?)', Date.new(2020,1,1), Date.new(2020,12,31), 'cp', "21","22","23","24","25","26").sum('montant')
+       
   end
 
   # GET /etat_budgets/1
