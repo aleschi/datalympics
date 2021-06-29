@@ -12,6 +12,51 @@
 
   <div class="i24"></div>
    <div id="container-chorus"></div>
+   <div class="i24"></div>
+
+    <div class="ED_table">
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Action</th>
+          <th scope="col">Consommation (€)</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+   
+        
+         <!-- total annuel -->
+            <tr class="total-annuel">
+                <td><%= l(Date.new(2020,1,1), format: "%Y") %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><%= number_with_delimiter(@conso.sum('montant'), :delimiter => ' ') %></td>
+            </tr>
+        
+        <% @conso.each do |choru| %>
+          <tr>
+            <td><%= l(choru.date, format: "%e %b %Y") %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+             <td><%= choru.domaine_fonctionnel %></td>
+            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+
+          </tr>
+        <% end %>
+        
+       
+      </tbody>
+    </table>
+  </div>
 </div>
 <div class="i24"></div>
 </div>
@@ -290,7 +335,7 @@ Highcharts.stockChart('container-chorus', {
           	<% if @conso.count > 0 %>  
           	<% @conso.each do |conso| %>
             <% if conso.date < programme.date %>    
-            [ Date.UTC(<%=conso.date.year%>,<%= conso.date.month-1%>, <%=conso.date.day%>), <%=  ((@montant + conso.montant).to_f/1000).round%>],
+            [ Date.UTC(<%=conso.date.year%>,<%= conso.date.month-1%>, <%=conso.date.day%>), <%=  ((@montant - conso.montant).to_f/1000).round%>],
             <% @montant = @montant - conso.montant %>
             <% end %>
             <% end %> 
