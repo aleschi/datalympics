@@ -14,62 +14,17 @@ class EtatBudgetsController < ApplicationController
     end
     
     @etat_depenses = EtatDepense.all
-    if !EtatDepense.where("beneficiaire =?", "solideo").nil?
-      @etat_depenses_solideo = EtatDepense.where("beneficiaire =?", "solideo").sum('cp_conso')
-    else 
-      @etat_depenses_solideo = 0
-    end 
-    if !EtatDepense.where("beneficiaire =?", "cojo").nil?
-      @etat_depenses_cojo = EtatDepense.where("beneficiaire =?", "cojo").sum('cp_conso')
-    else
-      @etat_depenses_cojo = 0
-    end 
-    if !EtatDepense.where("beneficiaire =?", "heritage").nil?
-      @etat_depenses_heritage = EtatDepense.where("beneficiaire =?", "heritage").sum('cp_conso')
-    else 
-      @etat_depenses_heritage = 0
-    end 
-    if !EtatDepense.where("beneficiaire =?", "hauteperformance").nil?
-      @etat_depenses_hauteperformance = EtatDepense.where("beneficiaire =?", "hauteperformance").sum('cp_conso')
-    else
-      @etat_depenses_hauteperformance = 0
-    end
-    
     @etat_depenses_hash = EtatDepense.all.order('date DESC').group(:date).sum('cp_conso')
     @etat_depenses_array = []
     @etat_depenses_hash.each do |h|
       @etat_depenses_array << h[0]
     end 
-    
-    @h_depenses_annee = EtatDepense.all.unscope(:order).group_by_year(:date).sum('cp_conso')
-    @h_depenses_prevu_annee = EtatDepense.all.unscope(:order).group_by_year(:date).sum('cp_prevu')
-    @depenses_annee = []
-    @depenses_prevu_annee = []
-    (2018..2025).each do |annee|    
-      @is_present = false 
-      @h_depenses_annee.each do |h|
-        if h[0].year == annee
-          @depenses_annee << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_annee << 0
-      end
-    end
-    (2018..2025).each do |annee|    
-      @is_present = false 
-      @h_depenses_prevu_annee.each do |h|
-        if h[0].year == annee
-          @depenses_prevu_annee << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @depenses_prevu_annee << 0
-      end
-    end
-    
+ 
+    @etat_depenses_solideo = EtatDepense.where("beneficiaire =?", "solideo").sum('cp_conso') 
+    @etat_depenses_cojo = EtatDepense.where("beneficiaire =?", "cojo").sum('cp_conso')  
+    @etat_depenses_heritage = EtatDepense.where("beneficiaire =?", "heritage").sum('cp_conso')
+    @etat_depenses_hauteperformance = EtatDepense.where("beneficiaire =?", "hauteperformance").sum('cp_conso')
+
     @ouvrages= Ouvrage.where("maitre_oeuvre = ? ", 'Etat')
     @ouvrages_etat=[]
     OuvragesFinancement.where('name = ?', "Etat").each do |financement|
@@ -78,7 +33,11 @@ class EtatBudgetsController < ApplicationController
       end 
     end
     @ouvrages_etat.uniq!
-    
+
+    @programme = Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?','cp', '350', Date.new(2020,1,1), Date.new(2020,12,31), 'HT2').order('date ASC')
+    @bop = Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?','cp', '0350-CDSP',Date.new(2020,1,1), Date.new(2020,12,31), 'HT2').order('date ASC')
+    @uo = Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?','cp', '0350-CDSP-CDSP',Date.new(2020,1,1), Date.new(2020,12,31), 'HT2').order('date ASC')
+    @conso = Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?)', '0350-CDSP-CDSP',Date.new(2020,1,1), Date.new(2020,12,31), 'cp', "21","22","23","24","25","26").where.not(domaine_fonctionnel: nil).order('date ASC')
   end
 
   # GET /etat_budgets/1
