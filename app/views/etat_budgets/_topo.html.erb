@@ -16,7 +16,7 @@
       <div id="depenses_2021" style="height:150px;overflow:hidden;"></div>
       <div class="box_i1">
             <div class="box_i1_t1"><%= number_with_delimiter(((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')-EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso'))/1000000).round, :delimiter => ' ') %> M€</div>
-            <div class="box_i1_t2">Disponible</div>
+            <div class="box_i1_t2">Disponible pour 2021</div>
       </div>
 
 
@@ -25,7 +25,25 @@
       <div class="col-md-8 col-sm-7 col-xs-12">
         <div id="container-bar1"></div>
         <div class="i60"></div>
-        <div id="container-bar-all"></div> 
+        <div class="row">
+        <div class="col-md-4">
+        <div id="pie-solideo"></div> 
+        </div>
+        <div class="col-md-4">
+        <div id="pie-cojo"></div> 
+        </div>
+        <div class="col-md-4">
+          <div class="box_i1">
+            <div class="box_i1_t1">Héritage</div>
+            <div class="box_i1_t2"><%= (EtatDepense.where('beneficiaire = ?', "heritage",).sum('cp_conso')/1000000).round%>/<%= (@etat_budget_actuel.budget_heritage/1000000).round%>M€ consommés</div>
+          </div>
+          <div class="i32"></div>
+          <div class="box_i1">
+            <div class="box_i1_t1">Haute Performance</div>
+            <div class="box_i1_t2"><%= (EtatDepense.where('beneficiaire = ?', "hauteperformance",).sum('cp_conso')/1000000).round%>/<%=(@etat_budget_actuel.budget_hauteperformance/1000000).round%>M€ consommés</div>
+          </div>
+        </div>
+      </div>
       </div>
   </div>
 
@@ -242,158 +260,221 @@
     
 });
 </script>
-<script>
 
-  Highcharts.chart('container-bar-all', {
+<script>
+    
+    Highcharts.chart('pie-cojo', {
     chart: {
-        type: 'column',
-    height:'200px',
-    marginTop:20,
-      backgroundColor: '#fff',
+        type: 'solidgauge',
+        height: '180px',
+          spacingTop: 0,
           style:{
-          fontFamily: "Marianne Regular",
-     
+            fontFamily: "Marianne Regular",
           },
     },
     title: {
-        text: 'Répartition et suivi du budget par action',
+        text: 'Dépenses Cojo',
         verticalAlign: "top",
         style: {
-                  color: "#8F8F8F",
-                  fontWeight: "400",
-         
-          fontSize: '12px',
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
                   },
+       
+    },
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: 0,
+        endAngle: 360,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '0%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
     },
 
-    xAxis: {
-        categories: ['Solideo', 'Cojo',  "Héritage", "Autres" ],
-        crosshair: true
+    exporting: {
+        enabled: false
     },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Budget (M€)'
-        },
-      gridLineColor: "#fff",
-    },
-  legend: {
-    enabled: false,
-  },
+
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
-            '<td style="padding:0"><b> {point.y:.1f} M€</b></td></tr>',
-        footerFormat: '</table>',
+        enabled: true,
         shared: true,
-        useHTML: true,
-       borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
+            useHTML: true,
+           borderColor: 'transparent',
+       borderRadius: 16,
+       backgroundColor: '#fff',
     },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#7D4E5B'], // green
+            [0.5, '#7D4E5B'], // yellow
+            [0.9, '#7D4E5B'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        tickPositions: [<%= (EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')/1000000).round%> , <%= (@etat_budget_actuel.budget_cojo/1000000).round%>],
+        min: 0,
+        max: <%= (@etat_budget_actuel.budget_cojo/1000000).round%>,
+        title: {
+          text: null,
+            y: 100,
+        },
+        labels: {
+            y: 16,
+            format: '{value:.0f}M€',
+            enabled: false,
+        }
+    },
+
     plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-            grouping: false,
-          dataLabels: {
-                enabled: true
+        solidgauge: {
+            dataLabels: {
+                y: 0,
+                borderWidth: 0,
+                useHTML: true
             }
         }
     },
+
+    credits: {
+        enabled: false
+    },
     series: [{
-        name: 'Budget Total prévu',
-        data: [
-        {y:<%=(@etat_budget_actuel.budget_solideo/1000000).round%>, color:"#bfbfbf",dataLabels: {
-                    enabled: true,
-                    formatter: function() {
-
-                      var point = this;                      
-                      ecart = <%= ((@etat_budget_actuel.budget_solideo-EtatBudget.order('date DESC').last.budget_solideo)/1000000).round %>;
-                      
-                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                      
-                       if (ecart >= 0){
-                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
-                        }else{
-                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
-                        }
-                        
-                        content = '<b>' + number  + ' </b>';
-
-                      return header + content;
-                    },
-                }, },
-        {y:<%=(@etat_budget_actuel.budget_cojo/1000000).round%>, color:"#bfbfbf",dataLabels: {
-                    enabled: true,
-                    formatter: function() {
-
-                      var point = this;                      
-                      ecart = <%= ((@etat_budget_actuel.budget_cojo-EtatBudget.order('date DESC').last.budget_cojo)/1000000).round %>;
-                      
-                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                      
-                       if (ecart >= 0){
-                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
-                        }else{
-                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
-                        }
-                        
-                        content = '<b>' + number  + ' </b>';
-
-                      return header + content;
-                    },
-                }, },
-        {y:<%= (@etat_budget_actuel.budget_heritage/1000000).round%>, color: "#bfbfbf",dataLabels: {
-                    enabled: true,
-                    formatter: function() {
-
-                      var point = this;                      
-                      ecart = <%= ((@etat_budget_actuel.budget_heritage-EtatBudget.order('date DESC').last.budget_heritage)/1000000).round %>;
-                      
-                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                      
-                       if (ecart >= 0){
-                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
-                        }else{
-                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
-                        }
-                        
-                        content = '<b>' + number  + ' </b>';
-
-                      return header + content;
-                    },
-                },},
-        {y:<%=(@etat_budget_actuel.budget_hauteperformance/1000000).round%>, color: "#bfbfbf",dataLabels: {
-                    enabled: true,
-                    formatter: function() {
-
-                      var point = this;                      
-                      ecart = <%= ((@etat_budget_actuel.budget_hauteperformance-EtatBudget.order('date DESC').last.budget_hauteperformance)/1000000).round %>;
-                      
-                      number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                      
-                       if (ecart >= 0){
-                          header = '<span style="font-size: 10px;color:#20E37B"> +' + ecart  + '</span><br/>';
-                        }else{
-                          header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
-                        }
-                        
-                        content = '<b>' + number  + ' </b>';
-
-                      return header + content;
-                    },
-                },}],
-        pointPlacement: 0,
-    },{
-        name: 'Payés',
-        data: [{y:<%= (EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/1000000).round%> , color:"#5770BE" },{y:<%= (EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')/1000000).round%> , color:"#76505B" },{y:<%= (EtatDepense.where('beneficiaire = ?', "hauteperformance",).sum('cp_conso')/1000000).round%> , color: "#FFE800"},{y:<%= (EtatDepense.where('beneficiaire = ?', "heritage",).sum('cp_conso')/1000000).round%> , color: "#D08A77"}],
-        pointPlacement: 0,
-
-    }]
+        name: 'Paiements versés',
+        data: [<%= EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')%>],
+        innerRadius: '0%',
+      
+        dataLabels: {
+          enabled: true,
+          y:5,
+            format:
+                '<div style="text-align:center;color:#000;">' +
+                '<span style="font-size:20px">'+<%=((EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')/(@etat_budget_actuel.budget_cojo))*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%= (EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')/1000000).round%> +' M€</span>' +
+                '</div>'
+        },
+        tooltip: {
+            pointFormat: '<span style="padding:0">Paiements versés : <b>'+ <%= (EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')/1000000).round%> +'M€/'+<%=(@etat_budget_actuel.budget_cojo/1000000).round%>+'M€</b></span>',
+            valueSuffix: ' M€'
+        }
+    }],
+    
 });
 </script>
+<script>
+    
+    Highcharts.chart('pie-solideo', {
+    chart: {
+        type: 'solidgauge',
+        height: '220px',
+          spacingTop: 0,
+          style:{
+            fontFamily: "Marianne Regular",
+          },
+    },
+    title: {
+        text: 'Dépenses Solideo',
+        verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
+       
+    },
+    pane: {
+        //center: ['50%', '50%'],
+        size: '100%',
+        startAngle: 0,
+        endAngle: 360,
+        background: {
+            backgroundColor:'#C4C4C4',
+            innerRadius: '0%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
 
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: true,
+        shared: true,
+            useHTML: true,
+           borderColor: 'transparent',
+       borderRadius: 16,
+       backgroundColor: '#fff',
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#5770BE'], // green
+            [0.5, '#5770BE'], // yellow
+            [0.9, '#5770BE'] // red
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 0,
+        tickPositions: [<%=(EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/1000000).round%>, <%= (@etat_budget_actuel.budget_solideo/1000000).round%>],
+        min: 0,
+        max: <%= (@etat_budget_actuel.budget_solideo/1000000).round%>,
+        title: {
+          text: null,
+            y: 100,
+        },
+        labels: {
+            y: 16,
+            format: '{value:.0f}M€',
+            enabled: false,
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 0,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Paiements versés',
+        data: [<%= (EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/1000000).round%>],
+        innerRadius: '0%',
+      
+        dataLabels: {
+          enabled: true,
+          y:0,
+            format:
+                '<div style="text-align:center;color:#000;">' +
+                '<span style="font-size:20px">'+<%=((EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/@etat_budget_actuel.budget_solideo)*100).round(1)%>+'%</span><br/>' +
+                '<span style="font-size:12px;opacity:0.7">'+<%= (EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/1000000).round%>+' M€</span>' +
+                '</div>'
+        },
+        tooltip: {
+          pointFormat: '<span style="padding:0">Paiements versés : <b>'+ <%= (EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/1000000).round %>+'M€/'+<%=(@etat_budget_actuel.budget_solideo/1000000).round%>+'M€</b></span>',
+            valueSuffix: ' M€'
+        }
+    }],
+    
+});
+</script>
 <script>
   Highcharts.chart('container-bar1', {
     chart: {
