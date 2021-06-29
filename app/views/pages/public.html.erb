@@ -61,22 +61,22 @@
     <div class="graphic">
       <div class="sections">
         <div class="step tp1" id="7">
-          Le budget annoncé lors de la candidature était de <span class="tp1b">7 milliards d’euros.</span>
-          <br><br>
-          Le budget actuel de 8,1 Mds€ est certes supérieur au budget initial mais s'explique par plusieurs raisons : <br>
-          • l'impact de <span class="tp1b">l'inflation</span>. Cela se répercute sur les prix des matériaux de construction par exemple. <br>
-          • l'impact du <span class="tp1b">Covid-19</span> <br>
-          • des raisons liées aux <span class="tp1b">ouvrages</span> (délai, personnel etc...)<br><br>
+          Le budget annoncé lors de la candidature était de <span class="tp1b">7 milliards d’euros.</span><br><br> 
 
-          Ces surcoûts sont pris en charges par les acteurs privés et publics.
+          Les évolutions du budget s’expliquent par :<br>
+          • des surcoûts liés à différentes raisons : <span class="tp1b">l'impact du Covid-19</span> (+40 millions d’euros), <span class="tp1b">l’indexation</span> (+190 millions d’euros) et <span class="tp1b">des raisons liées aux ouvrages</span> (délai, personnel etc...)<br>
+          • des <span class="tp1b">économies</span> réalisées pour compenser les surcoûts : réduction de périmètre A DETAILLER
+          <br><br>
+          Ces surcoûts sont pris en charge par les acteurs publics (X%) et les acteurs privés (X%)
+
 
         </div>
         <div class="step tp1" id="5">
           À titre de comparaison, sur les 10 dernières années, le budget moyen prévu lors des candidatures pour l’organisation des Jeux Olympiques et Paralympiques d'été est de <span class="tp1b">7,2 milliards d’euros.</span></span>
         </div>
         <div class="step tp1" id="6">
-          Mais en réalité, le budget prévu est régulièrement dépassé et en partie pour les raisons mentionnées au-dessus. <br>
-          Toutefois, la ville de Paris s’est engagée à une maîtrise des coûts notamment en favorisant la réutilisation de lieux existants, limitant ainsi construction de nouvelles infrastructures pour les Jeux, et en suivant au plus près les dépenses engagées.
+          Mais en réalité, le budget prévu est régulièrement dépassé. <br>
+          Cependant, toutes les parties prenantes se sont engagées à une maîtrise des coûts en suivant au plus près les dépenses engagées et en limitant le nombre de construction d’infrastructures pour les Jeux.
         </div>
       </div>
       <div class="graphe-box">
@@ -356,13 +356,22 @@
       }
 
       var rect = el.getBoundingClientRect();
+      if ($(window).width() < 992) {
+        return (
+            rect.top >= 420 &&
+            //rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight*1.2 || document.documentElement.clientHeight*1.2)  /* or $(window).height() */
+            //rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+        );
+      }else{
+        return (
+            rect.top >= 0 &&
+            //rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight*1.2 || document.documentElement.clientHeight*1.2)  /* or $(window).height() */
+            //rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+        );
 
-      return (
-          rect.top >= 420 &&
-          //rect.left >= 0 &&
-          rect.bottom <= (window.innerHeight*1.2 || document.documentElement.clientHeight*1.2)  /* or $(window).height() */
-          //rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
-      );
+      }
   }
 
   document.addEventListener('scroll', function () {

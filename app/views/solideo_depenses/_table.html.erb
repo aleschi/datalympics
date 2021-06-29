@@ -24,17 +24,17 @@
           <div class="box_i1_t1"><%= (@ouvrages_budget_2021-@ouvrages_depenses_2021).round(1)%> M€ </div>
           <div class="box_i1_t2">Disponible pour 2021</div>
         </div>
-        <div class="i12"></div>
+        <div class="i40"></div>
         <div class="box_i1">
             <div class="box_i1_t1"><%= (@budget_ouvrages - @ouvrages_depenses_global).round(1)%> M€ </div>
-            <div class="box_i1_t2">Reste / budget total</div>
+            <div class="box_i1_t2">Restants</div>
         </div> 
     </div>
   </div>
 
-  <div class="i24"></div>
+  <div class="i40"></div>
 
-  <div class="row  w100">
+  <div class="row w100">
     <div class="col-md-12">
       <div id="ouvrages-depenses"></div>
     </div>
@@ -63,7 +63,7 @@
                 <div class="i16"></div>
                 <div class="box_i1">
                     <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).to_i %>M€ </div>
-                  <div class="box_i1_t2">subv. restants</div>
+                  <div class="box_i1_t2">subventions restantes</div>
                 </div>
                 <div class="i16"></div>
                 <div class="box_i1">
@@ -84,7 +84,7 @@
         
                 <div class="box_i1">
                     <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date).sum('paiements_annee'))/1000000).to_i %>M€ </div>
-                  <div class="box_i1_t2">subv. restants 2021</div>
+                  <div class="box_i1_t2">subventions restantes 2021</div>
                 </div> 
                 <div class="i16"></div>
                 <div class="box_i1">
@@ -112,13 +112,13 @@
               },
         },
         title: {
-            text: null,
-            style: {
-                      color: "#8F8F8F",
-                      fontWeight: "400",
-              fontStyle: 'italic',
-              fontSize: '16px',
-                      },
+            text: 'Synthèse budgétaire mensuelle ouvrages (Hors Zac)',
+            verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
         },
 
         xAxis: {
@@ -514,13 +514,13 @@
               },
         },
         title: {
-            text: null,
-            style: {
-                      color: "#8F8F8F",
-                      fontWeight: "400",
-              fontStyle: 'italic',
-              fontSize: '16px',
-                      },
+            text: 'Évolution annuelle des dépenses des ouvrages (hors ZAC)',
+            verticalAlign: "top",
+        style: {
+                color: "#8F8F8F",
+                fontWeight: "400",        
+              fontSize: '12px',
+                  },
         },
 
         xAxis: {
