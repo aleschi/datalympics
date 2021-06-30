@@ -1,13 +1,13 @@
 
-<div  class="table-box">
-<div class="SD-topo-box-title">
-    <span>Détails des dépenses de l'état en K€</span>
-  </div><br><br>
-<% if !@etat_depenses.nil? %>
-  
-    <div class="ED_table_filtres">
-      <a type="button" data-toggle="modal" data-target="#filtres" ><i class="fas fa-sliders-h"></i> Filtrer </a>
+<div class="box_page">
+  <div><span class="titre_section">Détails des dépenses de l'état en K€</span></div>
+  <div class="i24"></div>
+  <div class="i24"></div>
+
+  <% if !@etat_depenses.nil? %>  
+    <div><a class="bouton" type="button" data-toggle="modal" data-target="#filtres" ><i class="fas fa-sliders-h"></i> Filtrer </a>
     </div>
+    <div class="i24"></div>
     <div class="ED_table">
       <table class="table-striped">
         <thead>
@@ -44,13 +44,9 @@
         </tbody>
       </table>
     </div>
-  <% else %>
-    <div>
-      Aucune dépense renseignée
-    </div>
   <%end%>
- 
-    <div class="EB-details">
-    <%= link_to new_etat_depense_path do %>Ajouter une dépense<%end%>
-  </div> 
-</div><br>
+
+  <div class="i24"></div>
+  <div class="text-center"><%= link_to new_etat_depense_path, class:"bouton" do %>Ajouter une dépense<%end%></div>
+  <div class="i24"></div> 
+</div>

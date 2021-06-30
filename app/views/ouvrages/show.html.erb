@@ -1,16 +1,16 @@
 
-<div class="mxw1 pd32 ma"> 
+<div class="page_w"> 
   <div class="i24"></div>
-  <div class="c2 fw6 fs40 tc"><%= @ouvrage.name %></div>
+  <div class="titre_page text-center"><%= @ouvrage.name %></div>
   <div class="i12"></div>
-  <div class="c2 fw4 fs20 tc">Dernière mise à jour : <% if !@lastdate.nil?%><%= l(@lastdate, format: "%e %B %Y") %><%else%>22 avril 2021<%end%></div>
+  <div class="stitre_page text-center">Dernière mise à jour : <% if !@lastdate.nil?%><%= l(@lastdate, format: "%e %B %Y") %><%else%>22 avril 2021<%end%></div>
   <div class="i40"></div>
   <%= render 'topo_ouvrage'%>
   <%= render 'jalons' %>
   <%= render 'ouvrage_depenses' %>
   
-  <div class="pd32 br20 bs bckc1">
-    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Informations complémentaires</span></div>
+  <div class="box_page">
+    <div><span class="titre_section">Informations complémentaires</span></div>
     <div class="i24"></div>
     <div class="row">
       <div class="col-md-6">

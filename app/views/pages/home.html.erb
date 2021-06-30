@@ -1,54 +1,52 @@
-<div class="EB_page">
-  <div class="fs32 fw7 c2 hidden-sm hidden-xs">
+<div class="page_w">
+  <div class="titre_page hidden-sm hidden-xs">
     Bienvenue sur le Tableau de bord<br>
     de DATALYMPICS
   </div>
-  <div class="fs32 fw7 c2 visible-sm visible-xs">
+  <div class="titre_page visible-sm visible-xs">
     Bienvenue sur le Tableau de bord de DATALYMPICS
   </div>
-
-
   <div class="i40"></div>
     
-  <div class="bs bckc1 w100 br20 bsh" style="height:140px;overflow:hidden">
-    <%= link_to etat_budgets_path, class:"c1 fs40 fw7" do%>
+  <div class="box_accueil" >
+    <%= link_to etat_budgets_path do%>
     <div class="inline-flex2 w100">
     <div class="image-box"><%= image_tag 'etat_accueil.png' %></div>
-    <div class="w75 text-right pd32">Suivre le budget de l'État<i class="fas fa-arrow-right" style="margin-left:20px;"></i></div>
+    <div class="titre_section_acc">Suivre le budget de l'État<i class="fas fa-arrow-right"></i></div>
     </div>
     <%end%>
   </div>
-<div class="i32"></div>
-  <div class="bs bckc1 w100 br20 bsh" style="height:140px;overflow:hidden">
-    <%= link_to solideo_depenses_path, class:"c1 fs40 fw7" do%>
+  <div class="i32"></div>
+  <div class="box_accueil" >
+    <%= link_to solideo_depenses_path do%>
     <div class="inline-flex2 w100">
     <div class="image-box"><%= image_tag 'logo_solideo.svg' %></div>
-    <div class="w75 text-right pd32">
-      <div>Suivre le budget de la Solideo<i class="fas fa-arrow-right" style="margin-left:20px;"></i></div>
-      <div class="c6 fs14 fw4" style="margin-right:60px;">Dépenses Solideo - Financements et recettes - Maquettes financières</div>
+    <div class="titre_section_acc">
+      <div>Suivre le budget de la Solideo<i class="fas fa-arrow-right"></i></div>
+      <div class="stitre_section_acc"">Dépenses Solideo - Financements et recettes - Maquettes financières</div>
     </div>
     </div>
     <%end%>
   </div>
-<div class="i32"></div>
-  <div class="bs bckc1 w100 br20 bsh" style="height:140px;overflow:hidden">
-    <%= link_to ouvrages_path, class:"c1 fs40 fw7" do%>
+  <div class="i32"></div>
+  <div class="box_accueil" >
+    <%= link_to ouvrages_path do%>
     <div class="inline-flex2 w100">
     <div class="image-box"><%= image_tag 'ouvrages_accueil.png'%></div>
-    <div class="w75 text-right pd32">
-      <div>Suivre l'avancée des ouvrages<i class="fas fa-arrow-right" style="margin-left:20px;"></i></div>
-      <div class="c6 fs14 fw4" style="margin-right:60px;">Infos & carte - Suivi des risques - Timeline des ouvrages - Suivi des conventions</div>
+    <div class="titre_section_acc">
+      <div>Suivre l'avancée des ouvrages<i class="fas fa-arrow-right"></i></div>
+      <div class="stitre_section_acc"">Infos & carte - Suivi des risques - Timeline des ouvrages - Suivi des conventions</div>
     </div>
 
     </div>
     <%end%>
   </div>
-<div class="i32"></div>
-  <div class="bs bckc1 w100 br20 bsh" style="height:140px;overflow:hidden">
-    <%= link_to innovations_path, class:"c1 fs40 fw7" do%>
+  <div class="i32"></div>
+  <div class="box_accueil">
+    <%= link_to innovations_path do%>
     <div class="inline-flex2 w100">
     <div class="image-box"><%= image_tag 'innovation_accueil.png' %></div>
-    <div class="w75 text-right pd32">Suivre les projets innovants<i class="fas fa-arrow-right" style="margin-left:20px;"></i></div>
+    <div class="titre_section_acc">Suivre les projets innovants<i class="fas fa-arrow-right"></i></div>
     </div>
     <%end%>
   </div>

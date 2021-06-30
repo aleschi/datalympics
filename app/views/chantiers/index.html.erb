@@ -1,11 +1,14 @@
-<div class="O_page">
-  <h1 class="SD_title SD_title2">Suivi des risques</h1>
-    <h1 class="SD_subtitle">Dernière mise à jour : 22 février 2020</h1>
-  <div class="SD-table-box">
-    <div class="SD-topo-box-title">
-            <span>Chiffres</span>
-    </div><br><br>
+<div class="page_w">
+  <div class="i24"></div>
+  <div class="titre_page text-center">Suivi des risques</div>
+   <div class="i12"></div>
+  <div class="stitre_page text-center">Dernière mise à jour : 22 février 2020</div>
+  <div class="i40"></div>
+  <div class="box_page">
+    <div><span class="titre_section">Chiffres</span></div>
+    <div class="i24"></div>
     <div class="risques-actu-text">Aujourd'hui il existe : </div>
+    <% if OuvragesRevue.count > 0%>
     <div class="visible-xs">
       <div class="ouvrages-budget-infos">
         <div class="calendar-infos-box">     
@@ -55,10 +58,13 @@
       </div>
       <br><br>
     </div>
+    <% end %>
     
-    <div class="SD-topo-box-title">
-      <span>Risques actuels</span>
-    </div><br><br>
+    <div>
+      <span class="titre_section">Risques actuels</span>
+    </div>
+    <div class="i24"></div>
+    <% if OuvragesRevue.count > 0%>
     <div class="risques-infos-title-box" > 
          <div class="risques-infos-title-hr">
            <hr>
@@ -195,8 +201,9 @@
       </div>
        
     <% end %>
+
+    <% end %>
   </div>
-  <br>
   
 
 </div>

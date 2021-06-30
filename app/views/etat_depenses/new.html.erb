@@ -1,11 +1,14 @@
 
-<div class="EB_page">
-  <div class="ED_home_button">
-    <%= link_to etat_depenses_path do %><i class="fas fa-chevron-left"></i>Retour<%end %>
+<div class="page_w">
+  <div class="i24"></div>
+  <div>
+    <%= link_to etat_depenses_path, class:"bouton" do %><i class="fas fa-chevron-left"></i>Retour<%end %>
   </div>
-  <h1 class="EB_title">Ajouter une nouvelle dépense</h1>
+  	<div class="titre_page text-center">Ajouter une nouvelle dépense</div>
+    <div class="i40"></div>
 
-  <%= render 'form', etat_depense: @etat_depense %>
-  <br>
+  	<%= render 'form', etat_depense: @etat_depense %>
+
+
 
 </div>

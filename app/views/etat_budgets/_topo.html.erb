@@ -1,11 +1,10 @@
 
 
 <% if !@etat_budget_actuel.nil? %>
-<div class="pd32 br20 bs bckc1">
-  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Le Budget de l'état  en chiffres</span></div>
-  <div class="i24"></div>
-  
-    <div class="row">
+<div class="box_page">
+  <div><span class="titre_section">Le Budget de l'état  en chiffres</span></div>
+  <div class="i24"></div>  
+  <div class="row">
     <div class="col-md-4 col-sm-5 col-xs-12">
       <div id="depenses_totales" style="height:150px;overflow:hidden;"></div>
       <div class="box_i1">
@@ -18,19 +17,18 @@
             <div class="box_i1_t1"><%= number_with_delimiter(((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')-EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso'))/1000000).round, :delimiter => ' ') %> M€</div>
             <div class="box_i1_t2">Disponible pour 2021</div>
       </div>
-
-
     </div>
 
-      <div class="col-md-8 col-sm-7 col-xs-12">
-        <div id="container-bar1"></div>
-        <div class="i60"></div>
-        <div class="row">
+    <div class="col-md-8 col-sm-7 col-xs-12">
+      <div id="container-bar1"></div>
+      <div class="i60"></div>
+
+      <div class="row">
         <div class="col-md-4">
-        <div id="pie-solideo"></div> 
+          <div id="pie-solideo"></div> 
         </div>
         <div class="col-md-4">
-        <div id="pie-cojo"></div> 
+          <div id="pie-cojo"></div> 
         </div>
         <div class="col-md-4">
           <div class="box_i1">
@@ -49,7 +47,7 @@
 
 </div>
 <div class="i24"></div>
-<% end %>
+
 
 <script>
   $('.infos-details').hide();
@@ -77,7 +75,7 @@
         text: 'Execution budgétaire depuis le début',
         verticalAlign: "top",
         style: {
-                color: "#8F8F8F",
+                color: "#6A6A6A",
                 fontWeight: "400",        
               fontSize: '12px',
                   },
@@ -176,7 +174,7 @@
         text: 'Execution budgétaire 2021',
         verticalAlign: "top",
         style: {
-                color: "#8F8F8F",
+                color: "#6A6A6A",
                 fontWeight: "400",        
               fontSize: '12px',
                   },
@@ -276,7 +274,7 @@
         text: 'Dépenses Cojo',
         verticalAlign: "top",
         style: {
-                color: "#8F8F8F",
+                color: "#6A6A6A",
                 fontWeight: "400",        
               fontSize: '12px',
                   },
@@ -383,7 +381,7 @@
         text: 'Dépenses Solideo',
         verticalAlign: "top",
         style: {
-                color: "#8F8F8F",
+                color: "#6A6A6A",
                 fontWeight: "400",        
               fontSize: '12px',
                   },
@@ -490,7 +488,7 @@
        text: 'Suivi annuel des dépenses',
        verticalAlign: "top",
         style: {
-                  color: "#8F8F8F",
+                  color: "#6A6A6A",
                   fontWeight: "400",
           fontSize: '12px',
                   },
@@ -580,3 +578,4 @@
     
 });
  </script> 
+ <% end %>

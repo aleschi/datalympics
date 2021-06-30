@@ -1,10 +1,10 @@
-
-  
-<div class="EB_page">
-	<div class="ED_home_button">
-    <%= link_to ouvrages_path do %><i class="fas fa-chevron-left"></i>Retour<%end %>
+<div class="page_w">
+  <div class="i24"></div>
+  <div>
+    <%= link_to innovations_path, class:"bouton" do %><i class="fas fa-chevron-left"></i>Retour<%end %>
   </div>
-  <h1 class="EB_title">Ajouter un nouveau document</h1>
+  <div class="titre_page text-center">Ajouter un nouveau document</div>
+  <div class="i40"></div>
   <div class="ED_new_form_box">
   <%=form_tag import2_innovations_path, multipart: true do %>
     

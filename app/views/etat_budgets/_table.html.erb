@@ -1,20 +1,19 @@
-<div  class="pd32 br20 bs bckc1">
-   <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Répartition annuelle des dépenses de l'état par action</span>
+<div  class="box_page">
+   <div><span class="titre_section">Répartition annuelle des dépenses de l'état par action</span>
   </div>
   <div class="i24"></div>
   <div class="i12"></div>
-  <div class='tc'>
-  <div class="inline-flex"><div id="cp_button" class="br4 c2 cp bs pdb">Visualisation des CP</div><div id="ae_button" class="br4 c2 cp bs pdb">Visualisation des AE</div></div>
+  <div class='text-center'>
+  <div class="inline-flex"><div id="cp_button" class="bouton">Visualisation des CP</div><div id="ae_button" class="bouton_unselected">Visualisation des AE</div></div>
   </div>
-
   <div class="i40"></div>
+
   <!-- suivi des cp -->
   <div id="cp">
     <div class="row">
       <div class="col-md-12">
         <div id="bar-solideo"></div>
-      </div>
-      
+      </div>   
     </div>
     <div class="i40"></div>
    
@@ -23,7 +22,6 @@
     </div>
     <div class="i12"></div>
     <% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
-
       <div class="ED_table hidden-xs">
         <table class="table-striped">
           <thead>
@@ -75,16 +73,9 @@
           </tbody>
            
         </table>
-      </div>
-    
-    
-      <div class="EB-details">
-      <%= link_to "détails des dépenses" , etat_depenses_path %>
-      </div>
-    <% else %>
-      <div>
-        Aucune dépense renseignée
-      </div>
+      </div > 
+      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>détails des dépenses <%end%></div>
+      <div class="i24"></div>
     <%end%>
   </div>
 
@@ -101,7 +92,7 @@
     <div>
       <span class="fs16 fw7 pdt c2 ">Répartition annuelle des dépenses de l'état en K€ (AE consommés / AE prévus)</span>
     </div>
-     <div class="i12"></div>
+    <div class="i12"></div>
     <% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
 
       <div class="ED_table hidden-xs">
@@ -156,48 +147,44 @@
            
         </table>
       </div>
-    
-    
-      <div class="EB-details">
-      <%= link_to "détails des dépenses" , etat_depenses_path %>
-      </div>
-    <% else %>
-      <div>
-        Aucune dépense renseignée
-      </div>
+      
+      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>Détails des dépenses <%end%></div>
+      <div class="i24"></div>
     <%end%>
   </div>
-
- 
 </div>
+
 <div class="i24"></div>
 
-<div  class="pd32 br20 bs bckc1">
+<div  class="box_page">
   <div>
-    <span class="fs16 fw7 pdt c0 bckc2 tupp">Évolution de la maquette budgétaire de l'état</span>
+    <span class="titre_section">Évolution de la maquette budgétaire de l'état</span>
   </div>
   <div class="i24"></div>
 
-    <div id="container-chart">
-      
-    </div><br>
+  <div id="container-chart"></div>
 </div>
+
 <div class="i24"></div>
 
 <script>
 $('#ae').hide();
-$("#cp_button").addClass('button-cp-active');
+
  $("#cp_button").click(function () {
   $('#ae').hide();
   $('#cp').show();
-  $("#cp_button").addClass('button-cp-active');
-  $("#ae_button").removeClass('button-cp-active');
+  $("#cp_button").addClass('bouton');
+  $("#cp_button").removeClass('bouton_unselected');
+  $("#ae_button").removeClass('bouton');
+  $("#ae_button").addClass('bouton_unselected');
  });
   $("#ae_button").click(function () {
   $('#cp').hide();
   $('#ae').show();
-  $("#ae_button").addClass('button-cp-active');
-  $("#cp_button").removeClass('button-cp-active');
+  $("#ae_button").addClass('bouton');
+  $("#ae_button").removeClass('bouton_unselected');
+  $("#cp_button").removeClass('bouton');
+  $("#cp_button").addClass('bouton_unselected');
  });
 </script>
 <!--cp-->
@@ -216,7 +203,7 @@ $("#cp_button").addClass('button-cp-active');
        text: 'Répartition annuel des dépenses (CP)',
        verticalAlign: "top",
         style: {
-                  color: "#8F8F8F",
+                  color: "#6A6A6A",
                   fontWeight: "400",
   
           fontSize: '12px',
@@ -318,7 +305,7 @@ $("#cp_button").addClass('button-cp-active');
        text: 'Répartition annuel des AE',
        verticalAlign: "top",
         style: {
-                  color: "#8F8F8F",
+                  color: "#6A6A6A",
                   fontWeight: "400",
                   fontSize: '12px',
                   },
@@ -417,7 +404,7 @@ Highcharts.chart('container-chart', {
     title: {
         text: null,
         style: {
-                  color: "#8F8F8F",
+                  color: "#6A6A6A",
                   fontWeight: "400",
           fontStyle: 'italic',
       fontSize: '16px',

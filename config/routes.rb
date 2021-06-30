@@ -57,8 +57,8 @@ Rails.application.routes.draw do
   get 'documents-etat' => 'documents#documents_etat'
   
   get 'documents-solideo' => 'documents#documents_solideo'
-  get 'etat-budget-solideo' => "etat_budgets#budget_solideo"
-  get 'etat-budget-cojo' => "etat_budgets#budget_cojo"
+
+ 
   
   get 'etat_depenses_filter' => 'etat_depenses#index_filter'
   get 'solideo_financements_filter' => 'solideo_financements#index_filter'

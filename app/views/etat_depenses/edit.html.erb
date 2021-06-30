@@ -1,8 +1,9 @@
-<div class="EB_page">
-   <div class="ED_home_button">
-    <%= link_to etat_depenses_path do %><i class="fas fa-chevron-left"></i>Retour<%end %>
+<div class="page_w">
+  <div class="i24"></div>
+  <div>
+    <%= link_to etat_depenses_path, class:"bouton" do %><i class="fas fa-chevron-left"></i>Retour<%end %>
   </div>
-<h1 class="EB_title">Modifier la dépense de l'Etat</h1>
+  	<div class="titre_page text-center">Modifier la dépense de l'Etat</div>
 
 <%= render 'form', etat_depense: @etat_depense %>
 

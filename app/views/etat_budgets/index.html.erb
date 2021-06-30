@@ -1,67 +1,62 @@
-<div class="mxw1 pd32 ma">
+<div class="page_w">
  <div class="i24"></div>
-  <div class="c2 fw6 fs40 tc">Suivi du budget de l'Etat pour les JOP2024</div>
+  <div class="titre_page text-center">Suivi du budget de l'Etat pour les JOP2024</div>
+  <div class="i12"></div>
+  <div class="stitre_page text-center">Dernière mise à jour : 15 avril 2021 </div>
   <div class="i40"></div>
   <%= render 'topo'%>
   <%= render 'table'%>
 
-<div  class="pd32 br20 bs bckc1">
-  <div>
-    <span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi execution budgétaire 2020 (Programme 350)</span>
-  </div>
+  <div  class="box_page">
+    <div><span class="titre_section">Suivi execution budgétaire 2020 (Programme 350)</span></div>
+    <div class="i24"></div>
 
-  <div class="i24"></div>
-  <div class="box-chiffres-chorus-box">
-    <div class="box-chiffres-chorus">
-      <div class="box-chiffres-chorus-lfi">LFI <br> <span><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
-      <div class="box-chiffres-chorus-dispo">Crédits ouverts <br><span><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
-      <div class="box-chiffres-chorus-conso">Consommation <br><span> <%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</span></div>
-      <div class="box-chiffres-chorus-reserve">Réserve <br><span><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
+    <div class="box-chiffres-chorus-box">
+      <div class="box-chiffres-chorus">
+        <div class="box-chiffres-chorus-lfi">LFI <br> <span><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
+        <div class="box-chiffres-chorus-dispo">Crédits ouverts <br><span><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
+        <div class="box-chiffres-chorus-conso">Consommation <br><span> <%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</span></div>
+        <div class="box-chiffres-chorus-reserve">Réserve <br><span><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
+      </div>
     </div>
-  </div>
-  <div class="i24"></div>
-   <div id="container-chorus"></div>
-   <div class="i24"></div>
+    <div class="i24"></div>
+    <div id="container-chorus"></div>
+    <div class="i24"></div>
 
     <div class="ED_table">
-    <table class="table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Compte budgetaire</th>
-          <th scope="col">Action</th>
-          <th scope="col">Consommation (€)</th>
-
-        </tr>
-      </thead>
-
-      <tbody>
-   
-        
-         <!-- total annuel -->
-            <tr class="total-annuel">
-                <td><%= l(Date.new(2020,1,1), format: "%Y") %></td>
-                <td></td>
-                <td></td>
-                <td><%= number_with_delimiter(@conso.sum('montant'), :delimiter => ' ') %></td>
-            </tr>
-        
-        <% @conso.each do |choru| %>
+      <table class="table-striped">
+        <thead>
           <tr>
-            <td><%= l(choru.date, format: "%e %b %Y") %></td>
-            <td><%= choru.compte_budgetaire %></td>
-             <td><%= choru.domaine_fonctionnel %></td>
-            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
-
+            <th scope="col">Date</th>
+            <th scope="col">Compte budgetaire</th>
+            <th scope="col">Action</th>
+            <th scope="col">Consommation (€)</th>
           </tr>
-        <% end %>
-        
-       
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+           <!-- total annuel -->
+            <tr class="total-annuel">
+              <td><%= l(Date.new(2020,1,1), format: "%Y") %></td>
+              <td></td>
+              <td></td>
+              <td><%= number_with_delimiter(@conso.sum('montant'), :delimiter => ' ') %></td>
+            </tr>
+          
+          <% @conso.each do |choru| %>
+            <tr>
+              <td><%= l(choru.date, format: "%e %b %Y") %></td>
+              <td><%= choru.compte_budgetaire %></td>
+              <td><%= choru.domaine_fonctionnel %></td>
+              <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<div class="i24"></div>
+
+  <div class="i24"></div>
 </div>
 
 <script>
@@ -72,9 +67,7 @@
 <script>
   
 Highcharts.stockChart('container-chorus', {
- // mapNavigation: {
- //           enableMouseWheelZoom: true
- //       },
+
    chart:{
         backgroundColor: '#fff',
         borderColor: '#fff',

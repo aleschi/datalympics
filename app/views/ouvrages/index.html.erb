@@ -1,13 +1,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.6/proj4.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
    
-<div class="mxw1 pd32 ma">
+<div class="page_w">
   <div class="i24"></div>
-  <h1 class="c2 fw6 fs40 tc">Les ouvrages des JOP2024 </h1>
+  <div class="titre_page text-center">Les ouvrages des JOP2024 </div>
+  <div class="i12"></div>
+  <div class="stitre_page text-center">Dernière mise à jour : 15 avril 2021 </div>
   <div class="i40"></div>
   
-  <div  class="pd32 br20 bs bckc1">
-    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Les ouvrages en chiffres </span></div>
+  <div  class="box_page">
+    <div><span class="titre_section">Les ouvrages en chiffres </span></div>
     <div class="i24"></div>
 
     <div class="visible-xs">
@@ -130,32 +132,20 @@
       </div>
       
     </div>
-    <div class="i32"></div>
-    <div class="tc hidden-xs">
-    
-      <div class="inline-flex tc">
-        <div>
-          <a id="carte-ouvrages-btn" class="c1 fs16 pd8 tun bd2 cp m10 c1h"><i class="fas fa-map-marked-alt"></i> Carte des ouvrages</a>
-        </div>
-        <div>
-          <a id="moa-ouvrages-btn" class="c1 fs16 pd8 tun bd2 cp m10 c1h"><i class="fas fa-hard-hat"></i> MOA des ouvrages</a>
-        </div>
-      </div>
-          
-    </div>
-    <div class="i24"></div>
+
   </div>
 
   <div class="i24"></div>
 
-  <div  class="pd32 br20 bs bckc1" id="carte-ouvrages">
-  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Carte des ouvrages</span></div>
+  <div  class="box_page" id="carte-ouvrages">
+  <div><span class="titre_section">Carte des ouvrages</span></div>
   <div class="i24"></div>
     <div id="ouvrages-results"><%= render 'ouvrages/liste'%></div> 
   </div>
 
-  <div class="pd32 br20 bs bckc1" id="moa-ouvrages">
-  <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Les ouvrages par MOA </span></div>
+  <div class="i24"></div>
+  <div class="box_page" id="moa-ouvrages">
+  <div><span class="titre_section">Les ouvrages par MOA </span></div>
   <div class="i24"></div>
 
   <div class="row">
@@ -183,7 +173,7 @@ Highcharts.chart('bubble', {
     title: {
         text: "",
       style: {
-            color: '#8F8F8F',
+            color: '#6A6A6A',
             fontSize: '16px',
             fontStyle: 'italic',
             }
@@ -253,24 +243,7 @@ Highcharts.chart('bubble', {
 
 
 
-<script>
-  $('#carte-ouvrages').show();
-    $('#moa-ouvrages').hide();
-  $('#carte-ouvrages-btn').addClass('btn-link-active ');
-$('#carte-ouvrages-btn').click(function() {
-    $('#carte-ouvrages').show();
-  $('#carte-ouvrages-btn').addClass('btn-link-active ');
-    $('#moa-ouvrages').hide();
-  $('#moa-ouvrages-btn').removeClass('btn-link-active ');
-});
-  $('#moa-ouvrages-btn').click(function() {
-    $('#carte-ouvrages').hide();
-    $('#carte-ouvrages-btn').removeClass('btn-link-active ');
-    $('#moa-ouvrages').show();
-    $('#moa-ouvrages-btn').addClass('btn-link-active ');
-});
 
-</script>
 
 <script>
 

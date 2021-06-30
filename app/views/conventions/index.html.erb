@@ -1,12 +1,12 @@
-<div class="mxw1 pd32 ma">
+<div class="page_w">
   <div class="i24"></div>
-  <div class="c2 fw6 fs40 tc">Suivi des conventions </div>
+  <div class="titre_page text-center">Suivi des conventions </div>
   <div class="i12"></div>
-  <div class="c2 fw4 fs20 tc">Dernière mise à jour : <% if !Convention.last.nil?%><%= l(Convention.last.updated_at, format: "%e %B %Y") %> <% end %> </div>
+  <div class="stitre_page text-center">Dernière mise à jour : <% if !Convention.last.nil?%><%= l(Convention.last.updated_at, format: "%e %B %Y") %> <% end %> </div>
   <div class="i40"></div>
 
-  <div  class="pd32 br20 bs bckc1">
-    <div><span class="fs16 fw7 pdt c0 bckc2 tupp">Suivi des conventions </span></div>
+  <div  class="box_page">
+    <div><span class="titre_section">Suivi des conventions </span></div>
     <div class="i24"></div>
 
     <% if !@conventions.nil?%>
@@ -51,7 +51,7 @@
                     title: {
                          text:null,   
                           style: {
-                                  color: "#8F8F8F",
+                                  color: "#6A6A6A",
                                   fontWeight: "400",
                                   fontStyle: "italic",
                                   fontSize: '16px',
@@ -95,7 +95,7 @@
                                     header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
                                   }
                                   
-                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDE <br/>';
+                                  content = '<span style="font-size: 11px;color:#6A6A6A";font-weight:400>' + number  + ' CDE <br/>';
 
                                 return content + header ;
                               },
@@ -118,7 +118,7 @@
                                     header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
                                   }
                                   
-                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDTRAV <br/>';
+                                  content = '<span style="font-size: 11px;color:#6A6A6A";font-weight:400>' + number  + ' CDTRAV <br/>';
 
                                 return content + header ;
                               },
@@ -141,7 +141,7 @@
                                     header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
                                   }
                                   
-                                  content = '<span style="font-size: 11px;color:#8F8F8F";font-weight:400>' + number  + ' CDO <br/>';
+                                  content = '<span style="font-size: 11px;color:#6A6A6A";font-weight:400>' + number  + ' CDO <br/>';
 
                                 return content + header ;
                               },
