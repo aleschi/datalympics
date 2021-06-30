@@ -54,7 +54,6 @@ Rails.application.routes.draw do
   get '/new-versement'=>'innovations#new_versement'
   get '/new-categorie'=>'innovations#new_categorie'
   root 'pages#home'
-  get 'documents-etat' => 'documents#documents_etat'
   
   get 'documents-solideo' => 'documents#documents_solideo'
 
@@ -63,7 +62,7 @@ Rails.application.routes.draw do
   get 'etat_depenses_filter' => 'etat_depenses#index_filter'
   get 'solideo_financements_filter' => 'solideo_financements#index_filter'
   
-  get 'collectivites' => 'solideo_financements#collectivites'
+  
   get 'recherche-ouvrages' => 'ouvrages#search'
   get 'recherche-projets' => 'innovations#search'
   post 'delete-document' => 'documents#delete_file'
@@ -78,7 +77,7 @@ Rails.application.routes.draw do
   get 'search_choru' => "chorus#search_choru"
   
   post 'import_maquette' => "ouvrages_depenses#import_maquette"
-  get 'maquette' => 'ouvrages_depenses#maquette'
+
   
   post 'update_file' => 'ouvrages#update_file'
   get 'les-jop2024' => 'pages#jop2024'

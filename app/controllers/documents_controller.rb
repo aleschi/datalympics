@@ -40,13 +40,6 @@ class DocumentsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end 
   
-  def documents_etat
-     @nav=true
-    @document= Document.where('appartenance = ?', "etat").first
-    @documents= Document.where('appartenance = ?', "etat")
-    
-    @dates = [2025,2024,2023,2022,2021,2020,2019,2018]
-  end
   
   def documents_solideo
      @nav=true

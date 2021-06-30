@@ -12,122 +12,61 @@
     <div><span class="titre_section">Les ouvrages en chiffres </span></div>
     <div class="i24"></div>
 
-    <div class="visible-xs">
-      <div class="calendar-infos-box">
-      <div>
-        <i class="fas fa-coins"></i>
-      </div>
-      <div>
-        <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
-        <span>Budget Initial</span>
-      </div>
-      </div>
-      <div class="calendar-infos-box">
+    <div class='inline-flex w100'>
+      <div class="box_chiffre inline-flex">
+        <div><i class="fas fa-coins"></i></div>
         <div>
-        <i class="fas fa-people-carry"></i>
-        </div>
-        <div>
-        <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1],).sum('total_public')/1000000).round(1), :delimiter => ' ') %> M€<br>
-          <span>Part publique</span>
+          <div class="chiffre_cle"><%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€</div>
+          <div class="texte_chiffre">Budget Initial</div>
         </div>
       </div>
-      
-      <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-building"></i>
-        </div>
-        <div>
-        <%= Ouvrage.all.count %> <br>
-        <span>Ouvrages</span>
-        </div>
-      </div>
-      <div class="calendar-infos-box">
-        <div>
-           <i class="fas fa-coins"></i>
-        </div>
-        <div>
-          <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
-          <span>Budget réactualisé</span>
-        </div>
-      </div>
-      <div class="calendar-infos-box">
+      <div class="box_chiffre inline-flex">
         <div>
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          <%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> €<br>
-          <span>Dépenses réalisées</span>
+          <div class="chiffre_cle"><%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total_public')/1000000).round(1), :delimiter => ' ') %> M€</div>
+          <div class="texte_chiffre">Part publique</div>
         </div>
       </div>
-      <div class="calendar-infos-box">
-        <div>
-        <i class="fas fa-flag"></i>
-        </div>
-        <div>
-        35%<br>
-          <span>Ouvrages finalisés</span>
-        </div>
-      </div>
-      
-    </div>
-
-    <div class='inline-flex w100 hidden-xs'>
-      <div class="calendar-infos-box">
-        <div>
-          <i class="fas fa-coins"></i>
-        </div>
-        <div>
-          <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
-          <span>Budget Initial</span>
-        </div>
-      </div>
-      <div class="calendar-infos-box">
-        <div class="c1">
-           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
-        </div>
-        <div>
-          <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total_public')/1000000).round(1), :delimiter => ' ') %> M€<br>
-          <span class="c6 fs16 fw5">Part publique</span>
-        </div>
-      </div>
-      <div class="calendar-infos-box">
+      <div class="box_chiffre inline-flex">
         <div>
         <i class="fas fa-building"></i>
         </div>
         <div>
-        <%= Ouvrage.all.count %> <br>
-        <span>Ouvrages</span>
+        <div class="chiffre_cle"><%= Ouvrage.all.count %> </div>
+        <div class="texte_chiffre">Ouvrages</div>
         </div>
       </div>
       
     </div>
     <div class="i24"></div>
     <div class="inline-flex w100 hidden-xs">
-      <div class="calendar-infos-box">
+      <div class="box_chiffre inline-flex">
         <div>
            <i class="fas fa-coins"></i>
         </div>
         <div>
-          <%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€<br>
-          <span>Budget réactualisé</span>
+          <div class="chiffre_cle"><%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€</div>
+        <div class="texte_chiffre">Budget réactualisé</div>
         </div>
       </div>
-      <div class="calendar-infos-box">
+      <div class="box_chiffre inline-flex">
         <div class="c1">
-           <i class="fas fa-euro-sign fs20 mr10 w25"></i>
+           <i class="fas fa-euro-sign"></i>
         </div>
-        <div class="c3">
-         <%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> M€<br>
-          <span class="c6 fs16 fw5">Dépenses réalisées</span>
+        <div>
+         <div class="chiffre_cle c3"><%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> M€</div>
+        <div class="texte_chiffre">Dépenses réalisées</div>
         </div>
       </div>
-      <div class="calendar-infos-box">
+      <div class="box_chiffre inline-flex">
         <div>
-        <i class="fas fa-flag fs20 mr10 w25"></i>
+        <i class="fas fa-flag"></i>
         </div>
-        <div class="c3">
-          35%<br>
-          <span class="c6 fs16 fw5">Ouvrages finalisés</span>
+        <div>
+          <div class="chiffre_cle c3">35%</div>
+        <div class="texte_chiffre">Ouvrages finalisés</div>
         </div>
       </div>
       

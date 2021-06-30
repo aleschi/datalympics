@@ -138,14 +138,6 @@ before_action :authenticate_user!
     redirect_to ouvrages_depenses_path
   end 
   
-  def maquette 
-    @maquette_name = []
-    Maquette.all.each do |maquette|
-      @maquette_name << maquette.name
-    end
-    @maquette_name.uniq!
-  end 
-
 
   # PATCH/PUT /ouvrages_depenses/1
   # PATCH/PUT /ouvrages_depenses/1.json

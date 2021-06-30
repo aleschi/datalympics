@@ -7,7 +7,7 @@
                 <button class="btn btn-secondary dropdown-toggle bckc1 fs14 bs" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Maquette <%= l(@dates_maquettes[0], format: "%e %B %Y") %><i class="fas fa-chevron-down"></i></button>
                 <div class="dropdown-menu bn bs pd12 w100" aria-labelledby="budget">       
                   <% @dates_maquettes_o[0..@dates_maquettes.length-2].each do |date|%>
-                    <div><%= link_to maquette_date_path(date: date),remote: true, method: :post, class: 'c2 fs14 c2h' do %>Maquette <%= l(date, format: "%e %B %Y") %><% end %></div>
+                    <div><%= link_to maquette_date_path(date: date),remote: true, method: :post, class: 'c2 fs14' do %>Maquette <%= l(date, format: "%e %B %Y") %><% end %></div>
                     <div class="i12"></div>
                   <% end %>
                 </div>

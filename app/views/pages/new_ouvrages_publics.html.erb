@@ -1,8 +1,8 @@
-<div class="EB_page">
-
-  <h1 class="EB_title">Ajouter un document</h1>
-  
-   <div class="SD-topo-box">
+<div class="page_w">
+  <div class="i24"></div>
+  <div class="titre_page text-center">Ajouter un nouveau document</div>
+  <div class="i40"></div>
+  <div class="ED_new_form_box">
       <%= form_tag import_ouvrages_publics_path, multipart: true do%>
         <div class="document-file-input">
           <label><%= file_field_tag  :file, accept: '.csv' %>

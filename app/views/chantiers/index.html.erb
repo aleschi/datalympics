@@ -5,77 +5,52 @@
   <div class="stitre_page text-center">Dernière mise à jour : 22 février 2020</div>
   <div class="i40"></div>
   <div class="box_page">
-    <div><span class="titre_section">Chiffres</span></div>
-    <div class="i24"></div>
-    <div class="risques-actu-text">Aujourd'hui il existe : </div>
-    <% if OuvragesRevue.count > 0%>
-    <div class="visible-xs">
-      <div class="ouvrages-budget-infos">
-        <div class="calendar-infos-box">     
-          <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).count %></div>               <div><span>risques critiques</span></div>
-        </div>
+    <div><span class="titre_section">Risques à ce jour </span></div>
+    <div class="i32"></div>
+     
+    <div class="inline-flex w100">
+
+      <div class="box_chiffre inline-flex">     
+        <div class="chiffre_cle" style='margin-right:10px;'>XX</div>               
+        <div class="texte_chiffre">Risques <br>critiques</div>
       </div>
-      <div class="ouvrages-budget-infos">
-        <div class="calendar-infos-box">  
-          <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).count %></div>               <div><span>risques importants</span></div>
-        </div>
-      </div>
-      <div class="ouvrages-budget-infos">
-        <div class="calendar-infos-box"> 
-         <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).count %></div>
-         <div><span>risques modérés</span></div>
-            </div>
-        </div>
-      <div class="ouvrages-budget-infos">
-        <div class="calendar-infos-box">  
-          <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).count %></div>
-          <div><span>risques faibles</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="ouvrages-budget-infos-box hidden-xs">
-      <div class="ouvrages-budget-infos">
-      <div class="calendar-infos-box">     
-        <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).count %></div>               <div><span>risques <br>critiques</span></div>
-      </div>
-      </div>
-      <div class="ouvrages-budget-infos">
-      <div class="calendar-infos-box">  
-        <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 4).count %></div>               <div><span>risques <br>importants</span></div>
-        </div>
-      </div>
-      <div class="ouvrages-budget-infos">
-     <div class="calendar-infos-box"> 
-       <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 3).count %></div>
-       <div><span>risques<br>modérés</span></div>
-          </div>
-      </div>
-      <div class="ouvrages-budget-infos">
-        <div class="calendar-infos-box">  
-        <div class="risques-actu-number"><%= OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 2).count %></div>
-        <div><span>risques <br>faibles</span></div>
-        </div>
-      </div>
-      <br><br>
-    </div>
-    <% end %>
     
-    <div>
-      <span class="titre_section">Risques actuels</span>
+      <div class="box_chiffre inline-flex">  
+        <div class="chiffre_cle" style='margin-right:10px;'>XX</div>               
+        <div class="texte_chiffre">Risques <br>importants</div>
+        </div>
+  
+      <div class="box_chiffre inline-flex"> 
+       <div class="chiffre_cle" style='margin-right:10px;'>XX</div>
+       <div class="texte_chiffre">Risques <br>modérés</div>
+        </div>
+    
+        <div class="box_chiffre inline-flex">  
+        <div class="chiffre_cle" style='margin-right:10px;'>XX</div>
+        <div class="texte_chiffre">Risques <br>faibles</div>
+        </div>
+ 
     </div>
-    <div class="i24"></div>
-    <% if OuvragesRevue.count > 0%>
-    <div class="risques-infos-title-box" > 
+    
+    <div class="i40"></div>
+    <div>
+      <span class="titre_section">Suivi des Risques</span>
+    </div>
+    <div class="i32"></div>
+   
+    <div class="inline-flex w100" > 
          <div class="risques-infos-title-hr">
            <hr>
          </div>
          <div class="risques-infos-title" > 
-         Risques critiques <br>(Fin > Date JOP)
+         Risques critiques (Fin > Date JOP)
          </div>
           <div class="risques-infos-title-hr">
            <hr>
          </div>
-      </div>
+    </div>
+
+    <% if OuvragesRevue.count > 0%>
     <% if OuvragesRevue.where('date = ? AND delai_indicateur = ?', OuvragesRevue.order('date DESC').first.date, 5).count > 0 %>
  
     <div class="ED_table ED_table-riques">
@@ -100,12 +75,12 @@
 
     <% end %>
 
-      <div class="risques-infos-title-box" > 
+      <div class="inline-flex w100" > 
          <div class="risques-infos-title-hr">
            <hr>
          </div>
          <div class="risques-infos-title" > 
-         Risques importants <br>(Décalage > 6 mois)
+         Risques importants (Retard > 6 mois)
          </div>
           <div class="risques-infos-title-hr">
            <hr>
@@ -136,12 +111,12 @@
  
     <% end %>
     
-    <div class="risques-infos-title-box" > 
+    <div class="inline-flex w100" > 
       <div class="risques-infos-title-hr">
            <hr>
       </div>
       <div class="risques-infos-title" > 
-        Risques modérés <br>(Décalage : 3-6 mois)
+        Risques modérés (Retard : 3-6 mois)
       </div>
       <div class="risques-infos-title-hr">
            <hr>
@@ -171,10 +146,10 @@
 
     <% end %>
    
-    <div class="risques-infos-title-box" > 
+    <div class="inline-flex w100" > 
       <div class="risques-infos-title-hr"><hr></div>
       <div class="risques-infos-title" > 
-        Risques faibles <br>(Décalage < 3 mois)
+        Risques faibles (Retard < 3 mois)
       </div>
       <div class="risques-infos-title-hr"><hr></div>
     </div>

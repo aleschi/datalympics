@@ -90,7 +90,7 @@ function initMap() {
                 $('#bouton<%=innovation.id%>').click(function (){
                   infowindow.open(map, marker<%= ouvrage.id%>);
                   infowindow.setContent('<div class="pd12">'+ 
-                        '<div><a class="c2 c2h fs16 fw8"><%= ouvrage.name %></a></div>'+ 
+                        '<div><a class="c2 fs16 fw8"><%= ouvrage.name %></a></div>'+ 
                         <% ouvrage.innovations.each do |innovation|%>
                         
                         '<div class="i12"></div>'+
@@ -103,7 +103,7 @@ function initMap() {
                       
                           
                 bindInfoWindow(marker<%= ouvrage.id%>, map, infowindow, '<div class="pd12">'+ 
-                  '<div><a class="c2 c2h fs16 fw8"><%= ouvrage.name %></a></div>'+ 
+                  '<div><a class="c2 fs16 fw8"><%= ouvrage.name %></a></div>'+ 
                   <% ouvrage.innovations.each do |innovation|%>
                   
                   '<div class="i12"></div>'+

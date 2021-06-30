@@ -1,6 +1,7 @@
 
-<div class="SD-topo-box" id="dynamique-programme">
-  <div class="SD-topo-box-title2">Visualisation du Programme <%= @search %> <% if ChorusNomenclature.where('nom = ?',@search).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',@search).first.designation %><%end%></div><br>
+<div class="box_page" id="dynamique-programme">
+  <div><span class="titre_section">Visualisation du Programme <%= @search %> <% if ChorusNomenclature.where('nom = ?',@search).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',@search).first.designation %><%end%></span></div>
+    <div class="i32"></div>
   
   <div class="box-chiffres-chorus-box">
     <div class="box-chiffres-chorus">
@@ -19,10 +20,10 @@
   </div>
   <br><br>
   
-  <div class="button-chorus">
-  <div class="button-chorus-box">
-    <div class="button-chorus-tables" id="programme-bilan-btn">Afficher les bilans</div>
-    <div class="button-chorus-tables" id="programme-tables-btn">Afficher les tables</div>
+  <div class="text-center">
+  <div class="inline-flex">
+    <div class="bouton" style="margin-right:5px" id="programme-bilan-btn">Afficher les bilans</div>
+    <div class="bouton" style="margin-left:5px" id="programme-tables-btn">Afficher les tables</div>
   </div>
   </div>
  
@@ -104,11 +105,11 @@
   <br> 
   <% end %>
 </div>
-
+<div class="i24"></div>
 <% if !@programme.nil? && @programme.count > 0%>
-<div class="SD-topo-box" id="dynamique-bop">
-  <div class="SD-topo-box-title2">Visualisation des mouvements de crédits au niveau des BOP (<%= @bop_arr.length%>)</div>
-  <br>
+<div class="box_page" id="dynamique-bop">
+  <div><span class="titre_section">Visualisation des mouvements de crédits au niveau des BOP (<%= @bop_arr.length%>)</span></div>
+  <div class="i32"></div>
   <div class="chorus-dropdown-box">
      <div class="dropdown dropdown-chorus">
        <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonbop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner un BOP <i class="fas fa-chevron-down"></i></button>
@@ -120,7 +121,7 @@
           
             
           <% end %>
-          <div class="chorus-submit-form"><%= f.submit "Afficher", class: "submit-chorus submit-chorus-bop"%></div>
+          <div class="chorus-submit-form"><%= f.submit "Afficher", class: "bouton bouton-bop"%></div>
         <% end %>
        </div>
      </div>
@@ -139,8 +140,8 @@
   </div>
 </div>
 
-</div>
 
+<div class="i24"></div>
 <div id="uo_bloc">
   <%= render 'chorus/uo_bloc'%>
 </div>
@@ -200,7 +201,7 @@ $(searchid).click(function () {
   }
   
 });
-$('.submit-chorus-bop').on("click",function(){  
+$('.bouton-bop').on("click",function(){  
    $("#dropdownMenuButtonbop").dropdown('toggle');
 });
 </script>

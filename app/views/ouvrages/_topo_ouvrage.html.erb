@@ -11,10 +11,7 @@
             <%= image_tag @ouvrage.photo%>
             <% end %>
           </div>
-          <div class="O-topo-infos-text visible-xs">
-            Lieu : <%= @ouvrage.adresse %><br>
-            MOA : <%= @ouvrage.maitre_oeuvre %><br>
-          </div>
+          
         </div>
         <div class="col-md-4 col-xs-6">
           <div id="container-jauge">
@@ -28,40 +25,40 @@
         </div>
       </div>
 
-      <br>
+      <div class="i24"></div>
       <div class="row">
-        <div class="ouvrages-budget-infos-box">
+        <div class="inline-flex w100">
           <div class="ouvrages-budget-infos">
-              <div class="calendar-infos-box">
+              <div class="box_chiffre inline-flex">
                 <div>
                   <i class="fas fa-coins"></i>
                 </div>
                 <div>
-                  <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').last.total/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€<br>
-                  <span>Budget Initial</span>
+                  <div class="chiffre_cle"><% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').last.total/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€</div>
+        <div class="texte_chiffre">Budget Initial</div>
                 </div>
               </div>
           </div>
           <div class="ouvrages-budget-infos">
-            <div class="calendar-infos-box">
+            <div class="box_chiffre inline-flex">
               <div>
                  <i class="fas fa-euro-sign"></i>
               </div>
               <div>
-                <% if @ouvrage.chantiers.count > 0 %><%= number_with_delimiter((@ouvrage.chantiers.where('date = ?',@lastdate).sum('cumul_paiements')/1000).to_i, :delimiter => ' ')%><% else %>0<%end%> k€<br>
-                <span>Dépenses réalisées</span>
+                <div class="chiffre_cle"><% if @ouvrage.chantiers.count > 0 %><%= number_with_delimiter((@ouvrage.chantiers.where('date = ?',@lastdate).sum('cumul_paiements')/1000).to_i, :delimiter => ' ')%><% else %>0<%end%> k€</div>
+        <div class="texte_chiffre">Dépenses réalisées</div>
               </div>
             </div>
            
         </div>
           <div class="ouvrages-budget-infos">
-            <div class="calendar-infos-box">
+            <div class="box_chiffre inline-flex">
                 <div>
                   <i class="fas fa-coins"></i>
                 </div>
                 <div>
-                  <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€<br>
-                  <span>Budget recalculé</span>
+                 <div class="chiffre_cle"> <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€</div>
+                  <div class="texte_chiffre">Budget recalculé</div>
                 </div>
               </div>
         </div>
@@ -110,7 +107,7 @@
 
 Highcharts.chart('container-jauge', {
 
-    chart: {
+  chart: {
         type: 'solidgauge',
         height: '150px',
         spacing: [0,0,0,0],
@@ -171,7 +168,7 @@ Highcharts.chart('container-jauge', {
                 color: '#6A6A6A',
               },
               valueSuffix: '%',
-              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#6A6A6A; font-size:10px;font-weight:400">{series.name}</span>',
+              format: '<span style="font-size:10px; color: {point.color}; font-weight: bold">{point.y:,.0f} %</span><br><span style="color:#E1000F; font-size:10px;font-weight:400">{series.name}</span>',
             verticalAlign: 'middle',
               align: 'center',
         

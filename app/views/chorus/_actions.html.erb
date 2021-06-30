@@ -1,7 +1,8 @@
 
 <% if  !@actions_show.empty?%>
-<div class="SD-topo-box">
-<div class="SD-topo-box-title2">Visualisation au niveau des actions des UO (<%= @uo_actions.length %>)</div><br>
+<div class="box_page">
+<div><span class="titre_section">Visualisation au niveau des actions des UO (<%= @uo_actions.length %>)</span></div>
+<div class="i32"></div>
    <div class="chorus-dropdown-box">
    <div class="dropdown dropdown-chorus">
      <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner une action <i class="fas fa-chevron-down"></i></button>
@@ -11,7 +12,7 @@
         <% (0..@uo_actions.length-1).each do |i|%>
           <label><%= f.check_box :id,{:multiple => true},[@uo_actions[i][0],@uo_actions[i][1]] ,nil %>  <%= @uo_actions[i][0]%> - <%= @uo_actions[i][1]%> <% if ChorusNomenclature.where('nom = ?',@uo_actions[i][1]).count > 0 %>(<%= ChorusNomenclature.where('nom = ?',@uo_actions[i][1]).first.designation %>)<%end%></label>
         <% end %>
-        <div class="chorus-submit-form"><%= f.submit "Afficher", class: "submit-chorus submit-chorus-action"%></div>
+        <div class="chorus-submit-form"><%= f.submit "Afficher", class: "bouton bouton-action"%></div>
        <% end %>
       </div>
     </div>
@@ -46,7 +47,7 @@ $(searchaction).click(function () {
   }
   
 });
-$('.submit-chorus-action').on("click",function(){  
+$('.bouton-action').on("click",function(){  
    $("#dropdownMenuButtonaction").dropdown('toggle');
 });
 </script>

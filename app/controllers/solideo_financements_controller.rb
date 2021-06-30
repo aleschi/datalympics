@@ -26,25 +26,6 @@ before_action :authenticate_user!
   # GET /solideo_financements/1
   # GET /solideo_financements/1.json
   def show
-     @nav=true
-    @financement=SolideoFinancement.where('financeur = ?', @solideo_financement.financeur)
-    @ouvrage_finances = OuvragesFinancement.where('name = ?', @solideo_financement.financeur)
-    
-    @ouvrages_hash = @ouvrage_finances.group(:ouvrage_id).sum('montant')
-    @ouvrages = []
-    
-      @ouvrages_hash.each do |h|
-        if !h[0].nil?
-        @ouvrages << h[0]
-        end 
-      end
-    @ouvrages_co=[]
-    OuvragesFinancement.where('name = ?', @solideo_financement.financeur).each do |financement| 
-      if Ouvrage.find(financement.ouvrage_id).maitre_oeuvre != @solideo_financement.financeur
-      @ouvrages_co << financement.ouvrage_id 
-      end 
-    end
-    @ouvrages_co.uniq!
   end 
 
   # GET /solideo_financements/new
@@ -74,45 +55,6 @@ before_action :authenticate_user!
     redirect_to new_solideo_financement_path 
   end  
   
-  def collectivites
-     @nav=true
-    @solideo_financements = SolideoFinancement.where('financeur != ? AND financeur != ? ', 'Etat', "privé").all
-     @financeurs_hash = @solideo_financements.group(:financeur).sum('montant')
-    @financeurs = []
-    @financeurs_hash.each do |h|
-      @financeurs << h[0]
-    end
-    
-    
-    @financements_collectivites =  SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant') 
-    @financements_collectivites_p =  SolideoFinancement.where("financeur != ? AND financeur != ?", "Etat", "privé").unscope(:order).group_by_year(:date).sum('montant_prevu')
-    @financements_annee_co= []
-    @financements_annee_co_prevu= []
-        (2018..2025).each do |annee|    
-      @is_present = false 
-       @financements_collectivites.each do |h|
-        if h[0].year == annee
-          @financements_annee_co << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @financements_annee_co << 0
-      end
-    end
-    (2018..2025).each do |annee|    
-      @is_present = false 
-       @financements_collectivites_p.each do |h|
-        if h[0].year == annee
-          @financements_annee_co_prevu << h[1]
-          @is_present = true 
-        end 
-      end
-      if @is_present == false 
-         @financements_annee_co_prevu << 0
-      end
-    end
-  end 
 
   # POST /solideo_financements
   # POST /solideo_financements.json

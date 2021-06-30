@@ -52,7 +52,7 @@
             <label><%= check_box_tag 'categories[]',"Accessibilité", @catacc, class:"checkbox-input3" %>Accessibilité</label>
           </div>
           </div>
-
+    <div class="i24"></div>
     <div class="form">
             <label>Echéancier des dépenses</label>
              <div class="row">
@@ -101,9 +101,11 @@
               <div class="col-md-3"><% if @innovation.echeancierinnovations.where('date = ?',Date.new(2021,1,1)).sum('montant') > 0 %><label><%= check_box_tag :versement_2021, @innovation.echeancierinnovations.where('date = ?',Date.new(2021,1,1)).first.versement,@innovation.echeancierinnovations.where('date = ?',Date.new(2021,1,1)).first.versement %>Versé</label><% end %></div>
             </div>
     </div>
-    <div class="form-submit">
-      <%= submit_tag 'Modifier', class:"submit-btn submit-btn-active"%>
+    <div class="i40"></div>
+    <div class="text-center">
+      <%= submit_tag 'Modifier', class:"bouton"%>
     </div>
+    <div class="i24"></div>
 <% end %>
 
 

@@ -8,7 +8,7 @@
     <div class="i40"></div>
     <div class="ED_new_form_box">
        
-      <h1 class="EB_title_connexion"><%= image_tag 'logo_datalympics_blanc.png'%></h1>
+      <h1 class="logo_connexion"><%= image_tag 'logo_datalympics_blanc.png'%></h1>
       <div class="i40"></div>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -17,16 +17,17 @@
           <%= f.label :email, "Adresse mail" %>
           <%= f.email_field :email,required: true, autofocus: true, autocomplete: "email",class:"form-field", id: "form-field1" %>
         </div>
-
+        <div class="i24"></div>
         <div class="form">
           <%= f.label :password %>
           <%= f.password_field :password,required: true, autocomplete: "current-password",class:"form-field", id: "form-field2" %>
         </div>
 
-
-        <div class="form-submit">
-          <%= f.submit "Connexion", class:"submit-btn" %>
+        <div class="i40"></div>
+        <div class="text-center">
+          <%= f.submit "Connexion", class:"bouton_inactif" %>
         </div>
+        <div class="i24"></div>
       <% end %>
     </div>
     <div class="i40"></div>
@@ -48,7 +49,7 @@
 
  
     if ( nombreCaractere > 0 && nombreCaractere2 > 0 ){
-     $(".submit-btn").addClass("submit-btn-active");
+     $(".bouton_inactif").addClass("bouton");
      }
  
   });
@@ -60,7 +61,7 @@
 
  
     if ( nombreCaractere > 0 && nombreCaractere2 > 0 ){
-     $(".submit-btn").addClass("submit-btn-active");
+     $(".bouton_inactif").addClass("bouton");
      }
  
   });

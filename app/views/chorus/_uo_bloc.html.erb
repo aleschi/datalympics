@@ -1,8 +1,9 @@
 
 <% if !@uo.nil? &&  !@uo.first.nil?%>
-<div class="SD-topo-box" id="dynamique-uo">
-  <div class="SD-topo-box-title2">Visualisation au niveau des UO (<%= @uo_arr.length %>)     
-  </div><br>
+<div class="box_page" id="dynamique-uo">
+  <div><span class="titre_section">Visualisation au niveau des UO (<%= @uo_arr.length %>)</span>     
+  </div>
+  <div class="i32"></div>
   <div class="chorus-dropdown-box">
    <div class="dropdown dropdown-chorus">
      <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonuo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner une UO <i class="fas fa-chevron-down"></i></button>
@@ -12,7 +13,7 @@
           <% (0..@uo_arr.length-1).each do |i|%>
             <label><%= f.check_box :id,{:multiple => true}, @uo_arr[i], nil %>  <%= @uo_arr[i]%> <% if ChorusNomenclature.where('nom = ?',@uo_arr[i]).count > 0 %>(<%= ChorusNomenclature.where('nom = ?',@uo_arr[i]).first.designation %>)<%end%></label>
           <% end %>
-        <div class="chorus-submit-form"><%= f.submit "Afficher", class: "submit-chorus submit-chorus-uo"%></div>
+        <div class="chorus-submit-form"><%= f.submit "Afficher", class: "bouton bouton-uo"%></div>
          <% end %>
       </div>
     </div>
@@ -21,6 +22,7 @@
     <%= render 'chorus/uo'%>
   </div>
 </div>
+<div class="i24"></div>
 <div id="actions">
     <%= render 'chorus/actions'%>
 </div>  
@@ -50,7 +52,7 @@ $(searchuoid).click(function () {
   }
   
 });
-$('.submit-chorus-uo').on("click",function(){  
+$('.bouton-uo').on("click",function(){  
    $("#dropdownMenuButtonuo").dropdown('toggle');
 });
 </script>

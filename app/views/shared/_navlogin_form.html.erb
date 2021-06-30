@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h1 class="EB_title_connexion"><%= image_tag 'logo_datalympics_blanc.png'%></h1>
+        <h1 class="logo_connexion"><%= image_tag 'logo_datalympics_blanc.png'%></h1>
       </div>
       
       <div class="modal-body">
@@ -20,16 +20,17 @@
             <%= f.label :email, "Adresse mail" %>
             <%= f.email_field :email,required: true, autofocus: true, autocomplete: "email",class:"form-field", id: "form-field1" %>
           </div>
-
+          <div class="i24"></div>
           <div class="form">
             <%= f.label :password %>
             <%= f.password_field :password,required: true, autocomplete: "current-password",class:"form-field", id: "form-field2" %>
           </div>
 
-
-          <div class="form-submit">
-            <%= f.submit "Connexion", class:"submit-btn" %>
+          <div class="i40"></div>
+          <div class="text-center">
+            <%= f.submit "Connexion", class:"bouton_inactif" %>
           </div>
+          <div class="i24"></div>
         <% end %>
       </div>
     </div>
@@ -64,7 +65,7 @@
 
  
     if ( nombreCaractere > 0 && nombreCaractere2 > 0 ){
-     $(".submit-btn").addClass("submit-btn-active");
+     $(".bouton_inactif").addClass("bouton");
      }
  
   });
@@ -76,7 +77,7 @@
 
  
     if ( nombreCaractere > 0 && nombreCaractere2 > 0 ){
-     $(".submit-btn").addClass("submit-btn-active");
+     $(".bouton_inactif").addClass("bouton");
      }
  
   });
