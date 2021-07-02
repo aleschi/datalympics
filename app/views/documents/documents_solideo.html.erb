@@ -14,9 +14,9 @@
    <%= form.hidden_field :extension, id: 'ext'%>
 
         <div class="document-file-input">
-          <label><%= form.file_field :file %>
+          <label id="dragzone"><%= form.file_field :file, id:'input-file' %>
             <div class="document-type"><i class="far fa-file-pdf"></i> </div>
-            <div class="input-text"><i class="fas fa-plus-circle"></i><br><span class="tu">Télécharger un document</span></div>
+            <div class="input-text"><i class="fas fa-plus-circle"></i><br>Glissez vos fichiers ici <br><br><span class="tu">Télécharger depuis votre appareil</span></div>
             <div class="document-check">
             <i class="fas fa-check-circle"></i>
           </div>
@@ -64,9 +64,56 @@
   </div>
 </div>
 <script>
+
   $('.document-check').hide();
   $('.document-type').hide();
   $('#submit_btn').hide();
+
+window.addEventListener("dragover",function(e){
+  e = e || event;
+  e.preventDefault();
+  $('#dragzone').addClass('drag-over');
+},false);
+window.addEventListener("drop",function(e){
+  e = e || event;
+  e.preventDefault();
+  
+  // begin loading image data to pass to our embed
+  var droppedFiles = e.dataTransfer.files;
+
+  var files = {};
+  //$('#input-file').files = droppedFiles;
+  $('#input-file').prop('files', droppedFiles);
+ // for (var i = 0; i < droppedFiles.length; i++) {
+    files[0] = droppedFiles[0]; // bc file is ref is overwritten
+
+    var reader = new FileReader();
+    reader.file = files[0]; // bc loadend event has no file ref
+
+    reader.addEventListener("loadend", function (ev, loadedFile) {
+      var fileObject = {};
+      var currentReader = ev.target;
+
+      loadedFile = currentReader.file;
+      
+      console.log("File loaded:" + loadedFile.name);
+      fileObject.dataURI = currentReader.result;
+      //fileObject.name = loadedFile.name;
+      //fileObject.type = loadedFile.type;
+      $('.document-check').show();
+      $('#submit_btn').show();
+      $('.input-text').html(loadedFile.name);
+      $('.document-type').show();
+                  
+      
+      $('#name_doc').val(loadedFile.name);
+      $('#ext').val(loadedFile.name.split('.')[1]);
+      
+    });
+    
+    reader.readAsDataURL(files[0]);
+  //}
+},false);
     function readURL(input) {
       if (input.files && input.files[0]) {
           var reader = new FileReader();
