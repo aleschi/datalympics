@@ -2450,7 +2450,11 @@ width:100%;
   pointer-events: none;
 }
 
-  
+@media(max-width:1112px){
+.titre_section_acc{
+font-size:28px;
+}
+}  
 
 @media(max-width:992px){
   .page_w{

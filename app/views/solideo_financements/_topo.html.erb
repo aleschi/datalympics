@@ -40,7 +40,7 @@
           <div class="i32"></div>
           <div class="box_i1">
             <div class="box_i1_t1">Recettes </div>
-            <div class="box_i1_t2">XX/X XM€ reçus</div>
+            <div class="box_i1_t2">XX/XX M€ reçus</div>
           </div>
         </div>
       </div>
@@ -868,7 +868,7 @@
     plotOptions: {
         solidgauge: {
             dataLabels: {
-                y: 0,
+                y: -10,
                 borderWidth: 0,
                 useHTML: true
             }
@@ -885,7 +885,7 @@
       
         dataLabels: {
           enabled: true,
-          y:0,
+          
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=((SolideoFinancement.where('financeur = ? AND date <= ?','État', Date.new(2020,1,1)).sum('montant')/SolideoFinancement.where('financeur = ?','État').sum('montant'))*100).round(1)%>+'%</span><br/>' +
@@ -905,7 +905,7 @@
     Highcharts.chart('pie-co', {
     chart: {
         type: 'solidgauge',
-        height: '180px',
+        height: '220px',
           spacingTop: 0,
           style:{
             fontFamily: "Marianne Regular",
@@ -929,7 +929,7 @@
         background: {
             backgroundColor:'#C4C4C4',
             innerRadius: '0%',
-            outerRadius: '100%',
+            outerRadius: '80%',
             shape: 'arc'
         }
     },
@@ -975,7 +975,7 @@
     plotOptions: {
         solidgauge: {
             dataLabels: {
-                y: 0,
+                y: -10,
                 borderWidth: 0,
                 useHTML: true
             }
@@ -989,10 +989,10 @@
         name: 'Financements reçus',
         data: [<%= (SolideoFinancement.where('financeur != ? AND financeur != ? AND date <= ?','État','Privés + recettes',Date.new(2020,1,1)).sum('montant')/1000000).round%>],
         innerRadius: '0%',
-      
+        radius: '80%',
         dataLabels: {
           enabled: true,
-          y:5,
+         
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=(SolideoFinancement.where('financeur != ? AND financeur != ? AND date <= ?','État','Privés + recettes',Date.new(2020,1,1)).sum('montant')/(SolideoFinancement.where('financeur != ? AND financeur != ?','État','Privés + recettes').sum('montant'))*100).round(1)%>+'%</span><br/>' +

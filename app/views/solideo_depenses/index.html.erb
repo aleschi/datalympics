@@ -81,7 +81,7 @@
           },
     },
     title: {
-        text: 'Execution budgétaire depuis le début',
+        text: 'Exécution budgétaire depuis le début',
         verticalAlign: "top",
         style: {
                 color: "#6A6A6A",
@@ -182,7 +182,7 @@
           },
     },
     title: {
-        text: 'Execution budgétaire 2021',
+        text: 'Exécution budgétaire 2021',
         verticalAlign: "top",
         style: {
                 color: "#6A6A6A",
@@ -389,7 +389,7 @@
     Highcharts.chart('pie-fonctionnement', {
     chart: {
         type: 'solidgauge',
-        height: '180px',
+        height: '220px',
           spacingTop: 0,
           style:{
             fontFamily: "Marianne Regular",
@@ -413,7 +413,7 @@
         background: {
             backgroundColor:'#C4C4C4',
             innerRadius: '0%',
-            outerRadius: '100%',
+            outerRadius: '80%',
             shape: 'arc'
         }
     },
@@ -459,7 +459,7 @@
     plotOptions: {
         solidgauge: {
             dataLabels: {
-                y: 0,
+                y: -10,
                 borderWidth: 0,
                 useHTML: true
             }
@@ -473,10 +473,10 @@
         name: 'Paiements versés',
         data: [<%= (4.8+11.5+17.8+8.1).round(1)%>],
         innerRadius: '0%',
-      
+        radius: '80%',
         dataLabels: {
           enabled: true,
-          y:5,
+         
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=(((4.8+11.5+17.8+8.1).round(1)/(@budget_fonctionnement))*100).round(1)%>+'%</span><br/>' +
@@ -566,7 +566,7 @@
     plotOptions: {
         solidgauge: {
             dataLabels: {
-                y: 0,
+                y: -10,
                 borderWidth: 0,
                 useHTML: true
             }
@@ -583,7 +583,7 @@
       
         dataLabels: {
           enabled: true,
-          y:0,
+        
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=((@budget_ouvrages_depenses.to_f/@budget_ouvrages.to_f)*100).round(1)%>+'%</span><br/>' +

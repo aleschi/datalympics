@@ -73,7 +73,7 @@
            
         </table>
       </div > 
-      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>détails des dépenses <%end%></div>
+      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>Afficher les détails des dépenses <%end%></div>
       <div class="i24"></div>
     <%end%>
   </div>
@@ -89,7 +89,7 @@
     <div class="i40"></div>
     
     <div>
-      <span class="fs16 fw7 pdt c2 ">Répartition annuelle des dépenses de l'état en K€ (AE consommés / AE prévus)</span>
+      <span class="fs16 fw7 pdt c2 ">Tableau répartition annuelle des dépenses de l'état en K€ (AE consommés / AE prévus)</span>
     </div>
     <div class="i12"></div>
     <% if !@etat_depenses_array.nil? && !@etat_depenses_array.empty? %>
@@ -147,7 +147,7 @@
         </table>
       </div>
       
-      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>Détails des dépenses <%end%></div>
+      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>Afficher les détails des dépenses <%end%></div>
       <div class="i24"></div>
     <%end%>
   </div>
@@ -199,7 +199,7 @@ $('#ae').hide();
           },
     },
     title: {
-       text: 'Répartition annuel des dépenses (CP)',
+       text: 'Répartition annuelle des dépenses (CP)',
        verticalAlign: "top",
         style: {
                   color: "#6A6A6A",

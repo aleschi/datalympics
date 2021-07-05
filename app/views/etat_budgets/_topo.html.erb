@@ -9,7 +9,7 @@
       <div id="depenses_totales" style="height:150px;overflow:hidden;"></div>
       <div class="box_i1">
             <div class="box_i1_t1">+<%= number_with_delimiter((EtatBudget.last.budget_total/1000000-EtatBudget.first.budget_total/1000000).round(1), :delimiter => ' ') %> M€</div>
-            <div class="box_i1_t2">Par rap. au budget initial</div>
+            <div class="box_i1_t2">Écart sur le budget total </div>
       </div>
       <div class="i32"></div>
       <div id="depenses_2021" style="height:150px;overflow:hidden;"></div>
@@ -63,7 +63,7 @@
           },
     },
     title: {
-        text: 'Execution budgétaire depuis le début',
+        text: 'Exécution budgétaire depuis le début',
         verticalAlign: "top",
         style: {
                 color: "#6A6A6A",
@@ -162,7 +162,7 @@
           },
     },
     title: {
-        text: 'Execution budgétaire 2021',
+        text: 'Exécution budgétaire 2021',
         verticalAlign: "top",
         style: {
                 color: "#6A6A6A",
@@ -255,11 +255,12 @@
     Highcharts.chart('pie-cojo', {
     chart: {
         type: 'solidgauge',
-        height: '180px',
+        height: '220px',
           spacingTop: 0,
           style:{
             fontFamily: "Marianne Regular",
           },
+          
     },
     title: {
         text: 'Dépenses Cojo',
@@ -279,7 +280,7 @@
         background: {
             backgroundColor:'#C4C4C4',
             innerRadius: '0%',
-            outerRadius: '100%',
+            outerRadius: '80%',
             shape: 'arc'
         }
     },
@@ -325,7 +326,7 @@
     plotOptions: {
         solidgauge: {
             dataLabels: {
-                y: 0,
+                y: -10,
                 borderWidth: 0,
                 useHTML: true
             }
@@ -339,10 +340,10 @@
         name: 'Paiements versés',
         data: [<%= EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')%>],
         innerRadius: '0%',
-      
+        radius: '80%',
         dataLabels: {
           enabled: true,
-          y:5,
+          
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=((EtatDepense.where('beneficiaire = ?', "cojo",).sum('cp_conso')/(@etat_budget_actuel.budget_cojo))*100).round(1)%>+'%</span><br/>' +
@@ -363,10 +364,11 @@
     chart: {
         type: 'solidgauge',
         height: '220px',
-          spacingTop: 0,
-          style:{
+        spacingTop: 0,
+        style:{
             fontFamily: "Marianne Regular",
           },
+        
     },
     title: {
         text: 'Dépenses Solideo',
@@ -432,7 +434,7 @@
     plotOptions: {
         solidgauge: {
             dataLabels: {
-                y: 0,
+                y: -10,
                 borderWidth: 0,
                 useHTML: true
             }
@@ -449,7 +451,7 @@
       
         dataLabels: {
           enabled: true,
-          y:0,
+      
             format:
                 '<div style="text-align:center;color:#000;">' +
                 '<span style="font-size:20px">'+<%=((EtatDepense.where('beneficiaire = ?', "solideo",).sum('cp_conso')/@etat_budget_actuel.budget_solideo)*100).round(1)%>+'%</span><br/>' +
