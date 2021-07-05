@@ -3,18 +3,30 @@
   <div><span class="titre_section">Visualisation du Programme <%= @search %> <% if ChorusNomenclature.where('nom = ?',@search).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',@search).first.designation %><%end%></span></div>
     <div class="i32"></div>
   
-  <div class="box-chiffres-chorus-box">
-    <div class="box-chiffres-chorus">
-      <div class="box-chiffres-chorus-lfi">LFI <br> <span><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
-      <div class="box-chiffres-chorus-dispo">Crédits ouverts <br><span><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
-      <div class="box-chiffres-chorus-conso">Consommation <br><span> <%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</span></div>
-      <div class="box-chiffres-chorus-reserve">Réserve <br><span><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
+  <div class="w100 text-center pd32">
+    <div class="box_chiffres inline-flex">
+      <div>
+        <div class="box_i1_t1">LFI </div>
+        <div class="box_chiffres_number c3"><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+      </div>
+      <div>
+        <div class="box_i1_t1">Crédits ouverts</div>
+        <div class="box_chiffres_number c4"><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+      </div>
+      <div>
+        <div class="box_i1_t1">Consommation </div> 
+        <div class="box_chiffres_number c7"><%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</div>
+      </div>
+      <div>
+        <div class="box_i1_t1">Réserve </div>
+        <div class="box_chiffres_number"><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+      </div>
     </div>
-  </div>
+    </div>
   
   <% if !@programme.nil? && @programme.count > 0%>
   <div class="row">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="col-md-12">
       <div id="programme"></div>
     </div>
   </div>
@@ -127,7 +139,7 @@
      </div>
   </div>
   <div class="row">
-   <div class="col-md-offset-1 col-md-10">
+   <div class="col-md-12">
       <div id="bop">
        <%= render 'chorus/bop'%>
       </div>  
@@ -495,7 +507,7 @@ Highcharts.stockChart('programme', {
       <% if @vision == "1" || @vision == "2"%> 
              {
         name: 'Mouvements',
-        color: '#20E37B',
+        color: '#2323EA',
          tooltip: {
            pointFormatter: function() {
       var point = this,

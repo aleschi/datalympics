@@ -8,21 +8,33 @@
   <%= render 'table'%>
 
   <div  class="box_page">
-    <div><span class="titre_section">Suivi execution budgétaire 2020 (Programme 350)</span></div>
-    <div class="i24"></div>
+    <div><span class="titre_section">Suivi exécution budgétaire 2020 (Programme 350)</span></div>
+    <div class="i12"></div>
 
-    <div class="box-chiffres-chorus-box">
-      <div class="box-chiffres-chorus">
-        <div class="box-chiffres-chorus-lfi">LFI <br> <span><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
-        <div class="box-chiffres-chorus-dispo">Crédits ouverts <br><span><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
-        <div class="box-chiffres-chorus-conso">Consommation <br><span> <%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</span></div>
-        <div class="box-chiffres-chorus-reserve">Réserve <br><span><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></span></div>
+    <div class="w100 text-center pd32">
+    <div class="box_chiffres inline-flex">
+      <div>
+        <div class="box_i1_t1">LFI </div>
+        <div class="box_chiffres_number c3"><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+      </div>
+      <div>
+        <div class="box_i1_t1">Crédits ouverts</div>
+        <div class="box_chiffres_number c4"><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+      </div>
+      <div>
+        <div class="box_i1_t1">Consommation </div> 
+        <div class="box_chiffres_number c7"><%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</div>
+      </div>
+      <div>
+        <div class="box_i1_t1">Réserve </div>
+        <div class="box_chiffres_number"><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
       </div>
     </div>
-    <div class="i24"></div>
+    </div>
+    
     <div id="container-chorus"></div>
     <div class="i40"></div>
-    <div class='titre_tableau'>Tableau des dépenses par les actions du programme
+    <div class='titre_tableau'>Tableau des dépenses par actions du programme
     </div>
     <div class="i12"></div>
     <div class="ED_table">
@@ -168,14 +180,14 @@ Highcharts.stockChart('container-chorus', {
 		},
 		yAxis: {
 		    plotLines: [{
-		      color: '#FF6F4C',
+		      color: '#E1000F',
 		      label: {
 		        text: "LFI",
 		        textAlign: 'left',
 		        verticalAlign: 'middle',
 		        x: -30,
 		        style: {
-		          color:'#FF6F4C',
+		          color:'#E1000F',
 		        },
 		      },
 		      zIndex: 1,
@@ -254,7 +266,7 @@ Highcharts.stockChart('container-chorus', {
     
     {
         name: 'Programme',
-        color: '#20E37B',
+        color: '#2323EA',
          tooltip: {
 	           pointFormatter: function() {
 	      var point = this,

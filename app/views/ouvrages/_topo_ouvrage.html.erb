@@ -182,7 +182,7 @@ Highcharts.chart('container-jauge', {
     series: [{
         name: 'Budget consommé',
         data: [{
-            color: "#20E37B",
+            color: "#2323EA",
             radius: '100%',
             innerRadius: '88%',
             y: <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %> <%= (@ouvrage.chantiers.where('date = ?',@lastdate).sum('cumul_paiements')/Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total*100).round(1) %> <%end %>,
@@ -270,7 +270,7 @@ Highcharts.chart('container-jauge2', {
     series: [{
         name: 'Avancée travaux',
         data: [{
-            color: "#20E37B",
+            color: "#2323EA",
             radius: '100%',
             innerRadius: '88%',
             y: 20

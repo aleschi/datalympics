@@ -443,8 +443,8 @@ Highcharts.chart('budget', {
     // the value axis
     yAxis: {
         stops: [
-            [0.1, '#20E37B'], // green
-            [0.5, '#20E37B'], // yellow
+            [0.1, '#2323EA'], // green
+            [0.5, '#2323EA'], // yellow
             [0.9, '#F1013B'] // red
         ],
         lineWidth: 0,
@@ -517,7 +517,7 @@ Highcharts.chart('budget', {
             fontSize: '12px',
                   },
     },
-    colors: ['#20E37B'],
+    colors: ['#2323EA'],
     xAxis: {
         categories:  ["État", "Région IdF", "Ville de Paris", "CD 93", "Plaine co", "MGP", "Terre d'envol",],
         title: {
@@ -567,7 +567,7 @@ Highcharts.chart('budget', {
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: 10000, color: "#20E37B",dataLabels: {
+        {y: 10000, color: "#2323EA",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
@@ -615,7 +615,7 @@ Highcharts.chart('budget', {
             fontSize: '12px',
                   },
     },
-    colors: ['#20E37B'],
+    colors: ['#2323EA'],
     xAxis: {
         categories:  ["2020", "2021", "2022", "2023", "2024"],
         title: {
@@ -655,12 +655,12 @@ Highcharts.chart('budget', {
     },
     series: [{
         name: 'Budget',
-        data: [{y: <%= (Echeancierinnovation.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000).round %>, color: "#20E37B",dataLabels: {
+        data: [{y: <%= (Echeancierinnovation.where('date = ?',Date.new(2020,1,1)).sum('montant')/1000).round %>, color: "#2323EA",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
                     overflow:'allow',}}, 
-        {y: <%= (Echeancierinnovation.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000).round%>, color: "#20E37B",dataLabels: {
+        {y: <%= (Echeancierinnovation.where('date = ?',Date.new(2021,1,1)).sum('montant')/1000).round%>, color: "#2323EA",dataLabels: {
                       enabled: true,
                       inside: false,
                     crop:false,
@@ -705,7 +705,7 @@ Highcharts.chart('budget', {
             fontSize: '12px',
                   },
     },
-    colors: ['#20E37B'],
+    colors: ['#2323EA'],
     xAxis: {
         //categories:  ["CAO", "Franchissement P.Larousse", "Secteur D - Nexity", "Batiment Cycle", "Arena 2", 'Espaces publics VOP'],
         categories: [<% @ouvrages.each do |ouvrage|%>"<%= ouvrage.name%> - <%= (ouvrage.innovations.sum('dotation')/1000).to_i%>k€",<%end%>],
@@ -774,7 +774,7 @@ Highcharts.chart('budget', {
           <%elsif i == 1 %>
           color:"#D08A77",
           <% elsif i == 2 %>
-          color:"#20E37B",
+          color:"#2323EA",
           <% elsif i == 3 %>
           color:"#5770BE",
           <% elsif i == 4 %>

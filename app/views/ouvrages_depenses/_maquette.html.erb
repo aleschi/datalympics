@@ -4,7 +4,7 @@
           <div class="row">
             <div class="col-md-12 tc">
               <div class="dropdown tc inline-block">
-                <button class="btn btn-secondary dropdown-toggle bckc1 fs14 bs" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Maquette <%= l(@dates_maquettes[0], format: "%e %B %Y") %><i class="fas fa-chevron-down"></i></button>
+                <button class="btn btn-secondary dropdown-toggle bckc3 fs14 bs" type="button" id="budget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Maquette <%= l(@dates_maquettes[0], format: "%e %B %Y") %> <i class="fas fa-chevron-down"></i></button>
                 <div class="dropdown-menu bn bs pd12 w100" aria-labelledby="budget">       
                   <% @dates_maquettes_o[0..@dates_maquettes.length-2].each do |date|%>
                     <div><%= link_to maquette_date_path(date: date),remote: true, method: :post, class: 'c2 fs14' do %>Maquette <%= l(date, format: "%e %B %Y") %><% end %></div>
@@ -78,7 +78,7 @@
                       }, {
                           name: "Réduction de périmètre",
                           y: <%= @maquette_budget_diminution %>,
-                        color: "#20E37B",
+                        color: "#2E5D63",
                       }, {
                           name: "Réserve",
                           y: <%= @maquette_ecart_reserve %>,
@@ -86,7 +86,7 @@
                       }, {
                           name: 'Prévisionnel <%= l(@dates_maquettes[0], format: "%e %B %Y")%>',
                           isSum: true,
-                          color: "#2E5D63"
+                          color: "#2323EA"
                       }],
                       dataLabels: {
                           enabled: true,
@@ -106,42 +106,35 @@
               });
             </script>
          
-            <div>
-               <div class="inline-flex w100">
-                  <div class="box_i1 tc">
-                    <div class="c2 fw4 fs14 tupp">Augmentation</div>
-                    <div class="i12"></div>
-                    <div class="c3 fw8 fs20"><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation)/1000).to_i, :delimiter => ' ') %> k€</div>
-                    <div class="i12"></div>
-                    <div class="c3 tu fw4 fs12 cp" id="augmentation-btn">Afficher détails</div>
-                  </div>
-                  <div class="box_i1 tc">
-                    <div class="c2 fw4 fs14 tupp">Diminution</div>
-                    <div class="i12"></div>
-                    <div class="c4 fw8 fs20"><%= number_with_delimiter((@maquette_budget_diminution/1000).to_i, :delimiter => ' ') %> k€</div>
-                    <div class="i12"></div>
-                    <div class="c4 tu fw4 fs12 cp" id="diminution-btn">Afficher détails</div>
-                  </div>
-                  <div class="box_i1 tc">
-                    <div class="c2 fw4 fs14 tupp">Ponction Réserve</div>
-                    <div class="i12"></div>
-                    <div class="c5 fw8 fs20"><%= number_with_delimiter((@maquette_ecart_reserve/1000).to_i, :delimiter => ' ')%> k€</div>
-                    <div class="i12"></div>
-                    <div class="c5 tu fw4 fs12 cp" id="reserve-btn">Afficher détails</div>
-                  </div>
-                  <div class="box_i1 tc">
-                    <div class="c2 fw4 fs14 tupp">Ecart total à maquette 2018</div>
-                    <div class="i12"></div>
-                    <div class='c1 fw8 fs20'><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation+@maquette_budget_diminution+@maquette_ecart_reserve)/1000).to_i, :delimiter => ' ') %> k€</div>
-                    <div class="i12"></div>
-                  </div>
-               </div>
+            <div class="w100 text-center pd32">
+            <div class="box_chiffres inline-flex">
+              <div>
+                <div class="box_i1_t1">Augmentation</div>
+                <div class="box_chiffres_number c3"><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation)/1000).to_i, :delimiter => ' ') %> k€</div>
+                  
+              </div>
+              <div>
+                <div class="box_i1_t1">Diminution</div>
+                <div class="box_chiffres_number c4"><%= number_with_delimiter((@maquette_budget_diminution/1000).to_i, :delimiter => ' ') %> k€</div>    
+              </div>
+              <div>
+                <div class="box_i1_t1">Ponction Réserve</div>
+                <div class="box_chiffres_number c5"><%= number_with_delimiter((@maquette_ecart_reserve/1000).to_i, :delimiter => ' ')%> k€</div>
+              </div>
+              <div>
+                <div class="box_i1_t1">Écart total à maquette 2018</div>
+                <div class='box_chiffres_number c7'><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation+@maquette_budget_diminution+@maquette_ecart_reserve)/1000).to_i, :delimiter => ' ') %> k€</div>
+                   
+              </div>
+            </div>
             </div>
 
+           
+          <div style="max-height:300px;overflow: scroll;">
             <div class="chart-budget-box" id="augmentation">      
-              <div class="chart-budget-col-title c3 fw8 fs16 tupp">Augmentation <span class="c3"><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation)/1000).to_i, :delimiter => ' ') %> k€</span></div>
+              <div class="chart-budget-col-title c3">Augmentation <span class="c3"><%= number_with_delimiter(((@maquette_budget_nouveau+@maquette_budget_augmentation)/1000).to_i, :delimiter => ' ') %> k€</span></div>
             
-                <div class="chart-budget-col-subtitle c2 fw7 tupp fs14">Nouveaux ouvrages   <span class="c3"><%= number_with_delimiter((@maquette_budget_nouveau/1000).to_i, :delimiter => ' ') %> k€</span></div>
+                <div class="chart-budget-col-subtitle">Nouveaux ouvrages   <span class="c3"><%= number_with_delimiter((@maquette_budget_nouveau/1000).to_i, :delimiter => ' ') %> k€</span></div>
                   <div class="w100" >
                     <table class="table-striped w100">
                     <tbody>
@@ -161,7 +154,7 @@
               
                 
                 <div class="i12"></div>
-                <div class="chart-budget-col-subtitle fw7 c2 tupp fs14">Besoins complémentaires<span class="c3"><%= number_with_delimiter((@maquette_budget_augmentation/1000).to_i, :delimiter => ' ') %> k€</span></div>
+                <div class="chart-budget-col-subtitle">Besoins complémentaires<span class="c3"><%= number_with_delimiter((@maquette_budget_augmentation/1000).to_i, :delimiter => ' ') %> k€</span></div>
                 <div class="w100" >
                     <table class="table-striped w100">
                     <tbody>
@@ -179,7 +172,7 @@
             </div>
             <div class="chart-budget-box" id="diminution"> 
 
-              <div class="chart-budget-col-title c4 fw8 fs16 tupp">Diminution <span class="c4"><%= number_with_delimiter((@maquette_budget_diminution/1000).to_i, :delimiter => ' ') %> k€</span> </div>
+              <div class="chart-budget-col-title c4">Diminution <span class="c4"><%= number_with_delimiter((@maquette_budget_diminution/1000).to_i, :delimiter => ' ') %> k€</span> </div>
               <div class="w100" >
                 <table class="table-striped w100">
                 <tbody>
@@ -214,7 +207,7 @@
             </div>
             <div class="chart-budget-box" id="reserve"> 
 
-              <div class="chart-budget-col-title c5 fw8 fs16 tupp">Ponction sur la réserve  <span class="c5"><%= number_with_delimiter((@maquette_ecart_reserve/1000).to_i, :delimiter => ' ')%> k€</span> </div>
+              <div class="chart-budget-col-title c5">Ponction sur la réserve  <span class="c5"><%= number_with_delimiter((@maquette_ecart_reserve/1000).to_i, :delimiter => ' ')%> k€</span> </div>
 
                <div class="w100" >
                   <table class="table-striped w100">
@@ -234,28 +227,11 @@
                   </table>
                 </div>
 
-            </div> <br><br>
+            </div>
+        </div>
+     <div class='i32'></div>       
 </div>
-            <script>
-              $('#augmentation').hide();
-              $('#diminution').hide();
-              $('#reserve').hide();
-              $('#augmentation-btn').click(function () {
-                $('#augmentation').show();
-                $('#diminution').hide();
-                $('#reserve').hide();
-              });
-                $('#diminution-btn').click(function () {
-                $('#augmentation').hide();
-                $('#diminution').show();
-                $('#reserve').hide();
-              });
-              $('#reserve-btn').click(function () {
-                $('#augmentation').hide();
-                $('#diminution').hide();
-                $('#reserve').show();
-              });
-            </script>
+           
            
 
      
