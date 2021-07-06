@@ -1,6 +1,6 @@
 <div class="page_w">
  <div class="i24"></div>
-  <div class="titre_page text-center">Suivi du budget de l'Etat pour les JOP2024</div>
+  <div class="titre_page text-center">Suivi du budget de l'Etat</div>
   <div class="i12"></div>
   <div class="stitre_page text-center">Dernière mise à jour : 15 avril 2021 </div>
   <div class="i40"></div>
@@ -12,7 +12,7 @@
     <div class="i12"></div>
 
     <div class="w100 text-center pd32">
-    <div class="box_chiffres inline-flex">
+    <div class="box_chiffres">
       <div>
         <div class="box_i1_t1">LFI </div>
         <div class="box_chiffres_number c3"><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
@@ -25,10 +25,7 @@
         <div class="box_i1_t1">Consommation </div> 
         <div class="box_chiffres_number c7"><%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</div>
       </div>
-      <div>
-        <div class="box_i1_t1">Réserve </div>
-        <div class="box_chiffres_number"><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
-      </div>
+      
     </div>
     </div>
     
@@ -42,7 +39,7 @@
         <thead>
           <tr>
             <th scope="col">Date</th>
-            <th scope="col">Compte budgetaire</th>
+            <th scope="col">Compte budgétaire</th>
             <th scope="col">Action</th>
             <th scope="col">Consommation (€)</th>
           </tr>

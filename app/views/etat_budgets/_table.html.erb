@@ -1,10 +1,10 @@
-<div  class="box_page">
-   <div><span class="titre_section">Répartition annuelle des dépenses de l'état par action</span>
-  </div>
+<div class="box_page">
+  <div><span class="titre_section">Répartition annuelle des dépenses de l'état par action</span></div>
   <div class="i24"></div>
   <div class="i12"></div>
+
   <div class='text-center'>
-  <div class="inline-flex"><div id="cp_button" class="bouton">Visualisation des CP</div><div id="ae_button" class="bouton_unselected">Visualisation des AE</div></div>
+    <div class="inline-flex"><div id="cp_button" class="bouton">Visualisation des CP</div><div id="ae_button" class="bouton_unselected">Visualisation des AE</div></div>
   </div>
   <div class="i40"></div>
 
@@ -73,7 +73,7 @@
            
         </table>
       </div > 
-      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>Afficher les détails des dépenses <%end%></div>
+      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>Détails des dépenses <%end%></div>
       <div class="i24"></div>
     <%end%>
   </div>
@@ -147,7 +147,7 @@
         </table>
       </div>
       
-      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>Afficher les détails des dépenses <%end%></div>
+      <div class="text-center"><%= link_to etat_depenses_path, class:"bouton" do %>Détails des dépenses <%end%></div>
       <div class="i24"></div>
     <%end%>
   </div>
@@ -156,10 +156,8 @@
 <div class="i24"></div>
 
 <div  class="box_page">
-  <div>
-    <span class="titre_section">Évolution de la maquette budgétaire de l'état</span>
-  </div>
-  <div class="i24"></div>
+  <div><span class="titre_section">Évolution de la maquette budgétaire de l'état</span></div>
+  <div class="i32"></div>
 
   <div id="container-chart"></div>
 </div>
@@ -167,7 +165,7 @@
 <div class="i24"></div>
 
 <script>
-$('#ae').hide();
+  $('#ae').hide();
 
  $("#cp_button").click(function () {
   $('#ae').hide();
@@ -191,11 +189,13 @@ $('#ae').hide();
   Highcharts.chart('bar-solideo', {
     chart: {
         type: 'column',
-    height:'300px',
-      backgroundColor: '#fff',
-          style:{
-          fontFamily: "Marianne Regular",
-     
+        height:300,
+        backgroundColor: '#fff',
+        spacingBottom:0,
+        spacingRight:0,
+        spacingLeft:0,
+        style:{
+          fontFamily: "Marianne Regular",  
           },
     },
     title: {
@@ -204,25 +204,25 @@ $('#ae').hide();
         style: {
                   color: "#6A6A6A",
                   fontWeight: "400",
-  
-          fontSize: '12px',
+                  fontSize: '12px',
                   },
     },
 
     xAxis: {
         categories: ['2018', '2019',  "2020","2021", "Prev 2021",],
-        crosshair: true
+        crosshair: true,
     },
     yAxis: {
         min: 0,
+        max: <%=(EtatDepense.where('date >= ? AND date <= ?', Date.new(2021,1,1), Date.new(2021,12,31)).sum('cp_prevu')/1000000).round%>,
         title: {
             text: 'Budget Consommé (M€)'
         },
-      gridLineColor: "#fff",
+        gridLineColor: "#fff",
     },
-  legend: {
-    enabled: true,
-  },
+   legend: {
+      enabled: true,
+    },
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="padding:0"><b>{series.name} : </b></td>' +
@@ -230,9 +230,9 @@ $('#ae').hide();
         footerFormat: '</table>',
         shared: true,
         useHTML: true,
-       borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
+        borderColor: 'transparent',
+        borderRadius: 16,
+        backgroundColor: '#fff',
     },
     plotOptions: {
         column: {
@@ -286,8 +286,8 @@ $('#ae').hide();
           ],
         pointPlacement: 0,
     },]
-});
- </script> 
+  }); 
+</script> 
 
 <!-- ae-->
 <script>
@@ -301,7 +301,7 @@ $('#ae').hide();
           },
     },
     title: {
-       text: 'Répartition annuel des AE',
+       text: 'Répartition annuelle des AE',
        verticalAlign: "top",
         style: {
                   color: "#6A6A6A",
@@ -385,34 +385,33 @@ $('#ae').hide();
          ],
         pointPlacement: 0,
     },]
-});
- </script> 
-
+  });
+</script> 
 
 
 <script>
-Highcharts.chart('container-chart', {
+  Highcharts.chart('container-chart', {
     chart: {
-        type: 'waterfall',
-    
+        type: 'waterfall',    
         style:{
           fontFamily: "Marianne Regular",
           },
+        spacingRight:0,
+        spacingLeft:0,
+        marginRight:0,
     },
-
     title: {
         text: null,
         style: {
-                  color: "#6A6A6A",
-                  fontWeight: "400",
-          fontStyle: 'italic',
-      fontSize: '16px',
+                color: "#6A6A6A",
+                fontWeight: "400",
+                fontStyle: 'italic',
+                fontSize: '16px',
                   },
     },
-
     xAxis: {
         type: 'category',
-      labels: {
+        labels: {
                 formatter: function () {
                   if (this.value == "ΔSolideo"){
                     return '<a href="/solideo_depenses" style="color:#000091">' + this.value + '</a>'
@@ -423,25 +422,21 @@ Highcharts.chart('container-chart', {
                 useHTML: true,
             },
     },
-
     yAxis: {
-      gridLineColor: '#E6F0FF', 
+        gridLineColor: '#E6F0FF', 
         title: {
             text: 'Montant k€'
         }
     },
-
     legend: {
         enabled: false
     },
-
     tooltip: {
         pointFormat: '<b>{point.y:,.0f}</b> k€',
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
+        borderColor: 'transparent',
+        borderRadius: 16,
+        backgroundColor: '#fff',
     },
-
     series: [{
       borderColor: '#fff',
       data: [{
@@ -485,5 +480,5 @@ Highcharts.chart('container-chart', {
         },
         pointPadding: 0
     }]
-});
+  });
 </script>

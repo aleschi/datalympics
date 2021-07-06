@@ -1,36 +1,37 @@
-
-
 <% if !@etat_budget_actuel.nil? %>
 <div class="box_page">
   <div><span class="titre_section">Le Budget de l'état  en chiffres</span></div>
   <div class="i24"></div>  
+
   <div class="row">
     <div class="col-md-4 col-sm-5 col-xs-12">
       <div id="depenses_totales" style="height:150px;overflow:hidden;"></div>
       <div class="box_i1">
-            <div class="box_i1_t1">+<%= number_with_delimiter((EtatBudget.last.budget_total/1000000-EtatBudget.first.budget_total/1000000).round(1), :delimiter => ' ') %> M€</div>
-            <div class="box_i1_t2">Écart sur le budget total </div>
+        <div class="box_i1_t1">+<%= number_with_delimiter((EtatBudget.last.budget_total/1000000-EtatBudget.first.budget_total/1000000).round(1), :delimiter => ' ') %> M€</div>
+        <div class="box_i1_t2">Écart sur le budget total </div>
       </div>
       <div class="i32"></div>
       <div id="depenses_2021" style="height:150px;overflow:hidden;"></div>
       <div class="box_i1">
-            <div class="box_i1_t1"><%= number_with_delimiter(((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')-EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso'))/1000000).round, :delimiter => ' ') %> M€</div>
-            <div class="box_i1_t2">Disponible pour 2021</div>
+        <div class="box_i1_t1"><%= number_with_delimiter(((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')-EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso'))/1000000).round, :delimiter => ' ') %> M€</div>
+        <div class="box_i1_t2">Disponible pour 2021</div>
       </div>
+      <div class="i40 visible-xs visible-sm"></div> 
     </div>
+    
 
     <div class="col-md-8 col-sm-7 col-xs-12">
       <div id="container-bar1"></div>
       <div class="i60"></div>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-4 col-xs-6">
           <div id="pie-solideo"></div> 
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-4 col-xs-6">
           <div id="pie-cojo"></div> 
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-4 col-xs-12">
           <div class="box_i1">
             <div class="box_i1_t1">Héritage</div>
             <div class="box_i1_t2"><%= (EtatDepense.where('beneficiaire = ?', "heritage",).sum('cp_conso')/1000000).round%>/<%= (@etat_budget_actuel.budget_heritage/1000000).round%>M€ consommés</div>
