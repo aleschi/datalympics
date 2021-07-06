@@ -193,7 +193,7 @@ function initMap() {
     <div class="ouvrages-box">
       <% @ouvrages.each do |ouvrage|%>
       <div class='ouvrages-mo'>
-           <%= ouvrage.name%>
+           <% if ouvrage.name == "Canal Saint Denis"%>Franchissement Pierre LAROUSSE<%else%><%= ouvrage.name%><%end %>
       </div>
       <% ouvrage.innovations.each do |innovation|%>
       <div class="O-name">     

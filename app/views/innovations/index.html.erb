@@ -15,7 +15,7 @@
           <div class="row">
             <div class="col-md-5">
               <div>
-                  <div class="c1 fs20 fw7"><%= (Innovation.all.sum('dotation')/1000000).round %>M€</div>
+                  <div class="c1 fs20 fw7"><%= (Innovation.all.sum('dotation')/1000000).round %> M€</div>
                   <div class="i8"></div>
                   <div class="fw5 fs14 c6">Dotations votées</div>
               </div>
@@ -75,7 +75,7 @@
     <div><span class="titre_section">Suivi échéancier par projet</span></div>
     <div class="i24"></div>
     <% @ouvrages.each_with_index do |ouvrage,i|%>
-      <div class="ouvrages-mo"><%= ouvrage.name%></div>
+      <div class="ouvrages-mo"><% if ouvrage.name == "Canal Saint Denis"%>Franchissement Pierre LAROUSSE<%else%><%= ouvrage.name%><%end %></div>
       <div class="i24"></div>
       <% ouvrage.innovations.each_with_index do |innovation,j|%>
         <div class="fs14 c2"><button class="navbar-toggler bn bckc1 c1" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><span class="fw7"><%= innovation.ouvrage.name %></span> - <%= innovation.nom%> </button></div>
