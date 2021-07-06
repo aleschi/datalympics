@@ -6,20 +6,21 @@
 
   <div class="i40"></div>
 
-  <div class="row w100">
-    <div class="col-md-4">
+  <div class="row w100 margin-none">
+    <div class="col-md-4 col-sm-4 col-xs-12">
       <div style="height:200px;overflow:hidden">
         <div id="focus"></div>
       </div>
     </div>
     
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-4 col-xs-12">
       <div style="height:200px;overflow:hidden">
         <div id="budget"></div>
       </div>
+      <div class="i40 visible-xs"></div>
     </div> 
 
-    <div class="col-md-4">  
+    <div class="col-md-4 col-sm-4 col-xs-12">  
         <div class="box_i1">
           <div class="box_i1_t1"><%= (@ouvrages_budget_2021-@ouvrages_depenses_2021).round(1)%> M€ </div>
           <div class="box_i1_t2">Disponible pour 2021</div>
@@ -27,7 +28,7 @@
         <div class="i40"></div>
         <div class="box_i1">
             <div class="box_i1_t1"><%= (@budget_ouvrages - @ouvrages_depenses_global).round(1)%> M€ </div>
-            <div class="box_i1_t2">Restants</div>
+            <div class="box_i1_t2">Total restant</div>
         </div> 
     </div>
   </div>
@@ -48,14 +49,14 @@
 
     <li> 
       <div class="ga ma pr">
-        <div class="c2 tc fw8 fs22"><%= l(date, format: "%e %B %Y") %> </div>
+        <div class="modal_title text-center"><%= l(date, format: "%e %B %Y") %></div>
         <div class='i24'></div>
-        <div class="row w100">
-          <div class="col-md-8">
+        <div class="row w100 margin-none">
+          <div class="col-md-8 col-sm-12 col-xs-12">
             <div id="ouvrages<%=i%>"></div>
             <div class="i8"></div>
           </div>
-          <div class="col-md-2"> 
+          <div class="col-md-2 col-sm-6 col-xs-12"> 
                 <div class="box_i1">
                     <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('cumul_paiements')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>% </div>
                     <div class="box_i1_t2">Exec. totale</div>
@@ -63,18 +64,17 @@
                 <div class="i16"></div>
                 <div class="box_i1">
                     <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).to_i %>M€ </div>
-                  <div class="box_i1_t2">subventions restantes</div>
+                  <div class="box_i1_t2">subventions totales restantes</div>
                 </div>
                 <div class="i16"></div>
                 <div class="box_i1">
                     <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('cumul_jalons')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>%</div>
                     <div class="box_i1_t2"> jalons validés totaux</div>
                 </div>
+                <div class="i16"></div>
           </div>
          
-          <div class="col-md-2">
-             
-                
+          <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="box_i1">
                     <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('paiements_annee')/Chantier.where('date = ?',date).sum('budget_annee'))*100).round(1)%>% </div>
                   <div class="box_i1_t2">Exec. 2021</div>
@@ -91,6 +91,7 @@
                   <div class="box_i1_t1"><%= (Chantier.where('date = ?',date).sum('paiements_attente_annee')/1000000).round(1)%>M€ </div>
                   <div class="box_i1_t2">Paiements en attente</div>
                 </div>  
+                <div class="i16"></div>
           </div>
            
          
@@ -98,11 +99,13 @@
       </div>
         
     <script>
-      Highcharts.chart('ouvrages<%=i%>', {
+    var chart<%=i%> = Highcharts.chart('ouvrages<%=i%>', {
         chart: {
             type: 'column',
-            marginTop:30,
-            width: 500,
+            marginTop:40,
+            //width: 500,
+            marginRight:0,
+            marginLeft:0,
             height:300,
             spacing: [0,0,0,0],
           backgroundColor: '#fff',
@@ -178,12 +181,12 @@
                       number = Highcharts.numberFormat(point.y, -1, ',',' ');
                       
                        if (ecart >= 0){
-                          header = '<span style="font-size: 10px;color:#2323EA"> +' + ecart  + '</span><br/>';
+                          header = '<span style="font-size: 10px;color:#2323EA"> +' + ecart  + ' </span><br/>';
                         }else{
                           header = '<span style="font-size: 10px;color:#E1000F">' + ecart  + '</span><br/>';
                         }
                         
-                        content = '<b>' + number  + ' </b>';
+                        content = '<b>' + number  + '</b>';
 
                       return header + content;
                     },
@@ -274,6 +277,11 @@
             pointPlacement: 0,
         }]
       });
+      if ($(window).width() > 992) {
+        chart<%=i%>.update({
+          chart: {width:500,},
+        })
+      }
      </script> 
     </li>
     <% end %>
@@ -597,6 +605,8 @@ Highcharts.chart('container-2', {
          backgroundColor: '#fff',
          zoomType: 'xy',
          height:'250px',
+         spacingRight:0,
+         spacingLeft:0,
          style:{
          fontFamily: "Marianne Regular",
          //maxWidth: '500px'
@@ -618,7 +628,7 @@ Highcharts.chart('container-2', {
     yAxis: [
     { // Primary yAxis
         labels: {
-            format: '{value} M€',
+            format: '{value}',
             style: {
                 color: '#76505B'
             }
@@ -637,7 +647,7 @@ Highcharts.chart('container-2', {
             }
         },
         labels: {
-            format: '{value} ETP',
+            format: '{value}',
             style: {
                 color: '#5770BE'
             }

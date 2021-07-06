@@ -52,8 +52,8 @@ $(document).ready(function() {
     animation: "slide",
     animationLoop: false,
     slideshow: false,
-    prevText: "Mois suivant",    
-    nextText:'Mois précédent',
+    prevText: "",    
+    nextText:'',
   });
  })
   $(document).on("turbolinks:load", function() {

@@ -16,7 +16,7 @@
         <div class="box_i1_t1"><%= number_with_delimiter(((EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_prevu')-EtatDepense.where('date >= ?', Date.new(2021,1,1)).sum('cp_conso'))/1000000).round, :delimiter => ' ') %> M€</div>
         <div class="box_i1_t2">Disponible pour 2021</div>
       </div>
-      <div class="i40 visible-xs visible-sm"></div> 
+      <div class="i40 visible-xs"></div> 
     </div>
     
 
