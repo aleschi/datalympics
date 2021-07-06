@@ -1,6 +1,6 @@
 <div class="page_w">
  <div class="i24"></div>
-  <div class="titre_page text-center">Suivi du budget de l'Etat</div>
+  <div class="titre_page text-center">Suivi du budget de l'État</div>
   <div class="i12"></div>
   <div class="stitre_page text-center">Dernière mise à jour : 15 avril 2021 </div>
   <div class="i40"></div>
@@ -39,9 +39,10 @@
         <thead>
           <tr>
             <th scope="col">Date</th>
-            <th scope="col">Compte budgétaire</th>
+            <th class="hidden-xs" scope="col">Compte budgétaire</th>
+            <th class="visible-xs" scope="col">CB</th>
             <th scope="col">Action</th>
-            <th scope="col">Consommation (€)</th>
+            <th scope="col">Montant </th>
           </tr>
         </thead>
 
@@ -56,7 +57,7 @@
           
           <% @conso.each do |choru| %>
             <tr>
-              <td><%= l(choru.date, format: "%e %b %Y") %></td>
+              <td><%= l(choru.date, format: "%e %b %y") %></td>
               <td><%= choru.compte_budgetaire %></td>
               <td><%= choru.domaine_fonctionnel %></td>
               <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
@@ -77,304 +78,304 @@
   
 <script>
   
-Highcharts.stockChart('container-chorus', {
+  Highcharts.stockChart('container-chorus', {
 
-   chart:{
-        backgroundColor: '#fff',
-        borderColor: '#fff',
-        type: 'scatter',
-        height: '600px',
-        spacing: [0,40,0,40],
-        style:{
-          fontFamily: "Marianne Regular",
-          },
-        zoomType: 'x',
-          },
-  		navigator: {
-        maskFill: 'rgba(248,248,248,0.3)',
-    	},
-  		rangeSelector: {
-            buttons: [ {
-                type: 'month',
-                count: 1,
-                text: '1m'
-            }, {
-                type: 'month',
-                count: 3,
-                text: '3m'
-            },{
-                type: 'month',
-                count: 6,
-                text: '6m'
-            }, {
-                type: 'year',
-                count: 1,
-                text: '1an'
-            }, {
-                type: 'all',
-                text: 'Tout'
-            }],
-            selected: 3,
-            buttonTheme: { // styles for the buttons
-            fill: '#F8F8F8',
-            stroke: 'none',
-            'stroke-width': 0,
-            r: 4,
-            style: {
-                color: '#000',
-                fontWeight: 'bold'
+     chart:{
+          backgroundColor: '#fff',
+          borderColor: '#fff',
+          type: 'scatter',
+          height: '600px',
+          spacing: [0,40,0,40],
+          style:{
+            fontFamily: "Marianne Regular",
             },
-            states: {
-                hover: {
-                },
-                select: {
-                    fill: '#000091',
-                    style: {
-                        color: 'white'
-                    }
-                }
-                // disabled: { ... }
-            }
-        },
-        inputStyle: {
-                color: '#000',            
+          zoomType: 'x',
             },
-        labelStyle: {
-            color: '#000', 
-        	},
-        },
-	    legend: {
-	     enabled: true,
-	     verticalAlign: 'top',
-	    },
-	    title: {
-	            text:"",
-	    },
-	    yAxis: {
-	      gridLineColor: '#fff', 
-	        title: {
-	            text: 'Total k€'
-	        }
-	    },
-		scrollbar: {
-		    barBackgroundColor: '#CECECE',
-		    barBorderColor: "#F8F8F8",
-		    barBorderRadius: 6,
-		    buttonBackgroundColor: "#F8F8F8",
-		    buttonArrowColor:'#CECECE',
-		    buttonBackgroundColor:"#F8F8F8",
-		    buttonBorderColor:"#F8F8F8",
-		    buttonBorderRadius: 6,
-		    rifleColor:"#F8F8F8",
-		},
-	    tooltip: {
-	    	borderColor: 'transparent',
-	   		borderRadius: 16,
-	   		backgroundColor: '#fff',
-	    },
-		xAxis:{
-		    type: 'datetime',
-		},
-		yAxis: {
-		    plotLines: [{
-		      color: '#E1000F',
-		      label: {
-		        text: "LFI",
-		        textAlign: 'left',
-		        verticalAlign: 'middle',
-		        x: -30,
-		        style: {
-		          color:'#E1000F',
-		        },
-		      },
-		      zIndex: 1,
-		      width: 2,
-		      value: <%= @programme.where('type_budget = ? OR type_budget = ?',  "Bud. voté ou en cours de vote","Loi de Finances Initiale").first.montant.to_f/1000 %>,
-		    }],
-		    title: {
-		      text: "Total en k€",
-		    },
-		},
-	    plotOptions: {
-	        series: {
-	          lineWidth: 2,
-	            label: {
-	                connectorAllowed: false
-	            }, 
-	            marker: {
-	                enabled: true,
-	                radius:2,
-	            },
-	          step: 'left',
-	        }
-	    },
- 
-  
-    series: [
-
-       {
-        	name: 'Crédits ouverts',
-        	color: '#2E5D63',
-        	tooltip: {
-           pointFormatter: function() {
-		      var point = this,
-		          series = point.series,
-		        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-		        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-		        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
-		         
-		        content =  point.name + '<br/>'+ '<b>Crédits ouverts : '+ number + ' k€</b><br/>';
-
-		      return header + content;
-	    	},
-	        },
-	        data: [
-	        
-	          <% @montant = 0 %>
-	         
-	          <% @programme.where(' type_piece != ?', 'MADI').each do |programme| %>
-	            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
-	            <% @montant =  programme.montant %>
-	            {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
-	            <% elsif programme.type_piece == "RB" %>
-	            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant - programme.montant).to_f/1000).round%>,  },
-	          <% @montant = @montant - programme.montant %>
-	            <% else %>              
-	            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
-	            <% @montant = @montant + programme.montant %>
-	            <% end %> 
-	          <% end %>
-	   
-	        ],
-	        fillColor: {
-	                linearGradient: {
-	                    x1: 0,
-	                    y1: 0,
-	                    x2: 0,
-	                    y2: 1
-	                },
-	                stops: [
-	                    [0, "#2E5D63"],
-	                    [1, Highcharts.color("#2E5D63").setOpacity(0).get('rgba')]
-	                ]
-	            },
-     
-    	}, 
-    
-    {
-        name: 'Programme',
-        color: '#76505B',
-         tooltip: {
-	           pointFormatter: function() {
-	      var point = this,
-	        series = point.series,
-	        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-	        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-	        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-	         
-	        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
-
-	      return header + content;
-	    },
-        },
-        data: [
-       
-          <% @montant = 0 %>
-       
-          <% @programme.each do |programme| %>
-            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
-            <% @montant =  programme.montant %>
-            {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
-            <% else %>              
-            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
-            <% @montant = @montant + programme.montant %>
-            <% end %> 
-   
-          <% end %>
-        ],
-               
-    
-    },
-    {
-        name: 'BOP 350-CDSP',
-        color: '#5770BE',
-         tooltip: {
-           pointFormatter: function() {
-		      var point = this,
-		        series = point.series,
-		        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-		        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-		        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-		         
-		        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
-
-		      return header + content;
-		    },
-        },
-        data: [
-       
-          <% @montant = 0 %>  
-          <% @bop.each do |programme| %>                     
-            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
-            <% @montant = @montant + programme.montant %> 
-          <% end %>
-        ],
-    },
-    {
-        name: 'UO 350-CDSP-CDSP',
-        color: '#169B62',
-         tooltip: {
-           pointFormatter: function() {
-		      var point = this,
-		        series = point.series,
-		        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
-		        number = Highcharts.numberFormat(point.y, -1, ',',' '),
-		        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
-		         
-		        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
-
-		      return header + content;
-		    },
+    		navigator: {
+          maskFill: 'rgba(248,248,248,0.3)',
       	},
-        data: [
+    		rangeSelector: {
+              buttons: [ {
+                  type: 'month',
+                  count: 1,
+                  text: '1m'
+              }, {
+                  type: 'month',
+                  count: 3,
+                  text: '3m'
+              },{
+                  type: 'month',
+                  count: 6,
+                  text: '6m'
+              }, {
+                  type: 'year',
+                  count: 1,
+                  text: '1an'
+              }, {
+                  type: 'all',
+                  text: 'Tout'
+              }],
+              selected: 3,
+              buttonTheme: { // styles for the buttons
+              fill: '#F8F8F8',
+              stroke: 'none',
+              'stroke-width': 0,
+              r: 4,
+              style: {
+                  color: '#000',
+                  fontWeight: 'bold'
+              },
+              states: {
+                  hover: {
+                  },
+                  select: {
+                      fill: '#000091',
+                      style: {
+                          color: 'white'
+                      }
+                  }
+                  // disabled: { ... }
+              }
+          },
+          inputStyle: {
+                  color: '#000',            
+              },
+          labelStyle: {
+              color: '#000', 
+          	},
+          },
+  	    legend: {
+  	     enabled: true,
+  	     verticalAlign: 'top',
+  	    },
+  	    title: {
+  	            text:"",
+  	    },
+  	    yAxis: {
+  	      gridLineColor: '#fff', 
+  	        title: {
+  	            text: 'Total k€'
+  	        }
+  	    },
+  		scrollbar: {
+  		    barBackgroundColor: '#CECECE',
+  		    barBorderColor: "#F8F8F8",
+  		    barBorderRadius: 6,
+  		    buttonBackgroundColor: "#F8F8F8",
+  		    buttonArrowColor:'#CECECE',
+  		    buttonBackgroundColor:"#F8F8F8",
+  		    buttonBorderColor:"#F8F8F8",
+  		    buttonBorderRadius: 6,
+  		    rifleColor:"#F8F8F8",
+  		},
+  	    tooltip: {
+  	    	borderColor: 'transparent',
+  	   		borderRadius: 16,
+  	   		backgroundColor: '#fff',
+  	    },
+  		xAxis:{
+  		    type: 'datetime',
+  		},
+  		yAxis: {
+  		    plotLines: [{
+  		      color: '#E1000F',
+  		      label: {
+  		        text: "LFI",
+  		        textAlign: 'left',
+  		        verticalAlign: 'middle',
+  		        x: -30,
+  		        style: {
+  		          color:'#E1000F',
+  		        },
+  		      },
+  		      zIndex: 1,
+  		      width: 2,
+  		      value: <%= @programme.where('type_budget = ? OR type_budget = ?',  "Bud. voté ou en cours de vote","Loi de Finances Initiale").first.montant.to_f/1000 %>,
+  		    }],
+  		    title: {
+  		      text: "Total en k€",
+  		    },
+  		},
+  	    plotOptions: {
+  	        series: {
+  	          lineWidth: 2,
+  	            label: {
+  	                connectorAllowed: false
+  	            }, 
+  	            marker: {
+  	                enabled: true,
+  	                radius:2,
+  	            },
+  	          step: 'left',
+  	        }
+  	    },
+   
+    
+      series: [
+
+         {
+          	name: 'Crédits ouverts',
+          	color: '#2E5D63',
+          	tooltip: {
+             pointFormatter: function() {
+  		      var point = this,
+  		          series = point.series,
+  		        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+  		        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+  		        header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+  		         
+  		        content =  point.name + '<br/>'+ '<b>Crédits ouverts : '+ number + ' k€</b><br/>';
+
+  		      return header + content;
+  	    	},
+  	        },
+  	        data: [
+  	        
+  	          <% @montant = 0 %>
+  	         
+  	          <% @programme.where(' type_piece != ?', 'MADI').each do |programme| %>
+  	            <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
+  	            <% @montant =  programme.montant %>
+  	            {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
+  	            <% elsif programme.type_piece == "RB" %>
+  	            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant - programme.montant).to_f/1000).round%>,  },
+  	          <% @montant = @montant - programme.montant %>
+  	            <% else %>              
+  	            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
+  	            <% @montant = @montant + programme.montant %>
+  	            <% end %> 
+  	          <% end %>
+  	   
+  	        ],
+  	        fillColor: {
+  	                linearGradient: {
+  	                    x1: 0,
+  	                    y1: 0,
+  	                    x2: 0,
+  	                    y2: 1
+  	                },
+  	                stops: [
+  	                    [0, "#2E5D63"],
+  	                    [1, Highcharts.color("#2E5D63").setOpacity(0).get('rgba')]
+  	                ]
+  	            },
        
-          <% @montant = 0 %>  
-          <% @uo.each do |programme| %> 
-          	<% if @conso.count > 0 %>  
-          	<% @conso.each do |conso| %>
-            <% if conso.date < programme.date %> 
-            {name:  'Consommation : <%= number_with_delimiter((conso.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=conso.date.year%>,<%= conso.date.month-1%>, <%=conso.date.day%>),y: <%=  ((@montant - conso.montant).to_f/1000).round%>,  },   
-            
-            <% @montant = @montant - conso.montant %>
-            <% end %>
-            <% end %> 
-            <% end %>                  
-            {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
-            <% @montant = @montant + programme.montant %> 
-          <% end %>
-        ],
-    },
-     
+      	}, 
       
+      {
+          name: 'Programme',
+          color: '#76505B',
+           tooltip: {
+  	           pointFormatter: function() {
+  	      var point = this,
+  	        series = point.series,
+  	        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+  	        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+  	        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+  	         
+  	        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
+
+  	      return header + content;
+  	    },
+          },
+          data: [
+         
+            <% @montant = 0 %>
+         
+            <% @programme.each do |programme| %>
+              <% if programme.type_budget == "Bud. voté ou en cours de vote" || programme.type_budget == "Loi de Finances Initiale" %>
+              <% @montant =  programme.montant %>
+              {name:  '<%= programme.type_budget.to_s %> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), y: <%= (programme.montant.to_f/1000).round%>,}, 
+              <% else %>              
+              {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
+              <% @montant = @montant + programme.montant %>
+              <% end %> 
      
-            ],
+            <% end %>
+          ],
+                 
+      
+      },
+      {
+          name: 'BOP 350-CDSP',
+          color: '#5770BE',
+           tooltip: {
+             pointFormatter: function() {
+  		      var point = this,
+  		        series = point.series,
+  		        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+  		        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+  		        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+  		         
+  		        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
 
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
+  		      return header + content;
+  		    },
+          },
+          data: [
+         
+            <% @montant = 0 %>  
+            <% @bop.each do |programme| %>                     
+              {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
+              <% @montant = @montant + programme.montant %> 
+            <% end %>
+          ],
+      },
+      {
+          name: 'UO 350-CDSP-CDSP',
+          color: '#169B62',
+           tooltip: {
+             pointFormatter: function() {
+  		      var point = this,
+  		        series = point.series,
+  		        firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+  		        number = Highcharts.numberFormat(point.y, -1, ',',' '),
+  		        header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
+  		         
+  		        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
 
-});
+  		      return header + content;
+  		    },
+        	},
+          data: [
+         
+            <% @montant = 0 %>  
+            <% @uo.each do |programme| %> 
+            	<% if @conso.count > 0 %>  
+            	<% @conso.each do |conso| %>
+              <% if conso.date < programme.date %> 
+              {name:  'Consommation : <%= number_with_delimiter((conso.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=conso.date.year%>,<%= conso.date.month-1%>, <%=conso.date.day%>),y: <%=  ((@montant - conso.montant).to_f/1000).round%>,  },   
+              
+              <% @montant = @montant - conso.montant %>
+              <% end %>
+              <% end %> 
+              <% end %>                  
+              {name:  '<%= programme.type_budget.to_s%> : <%= number_with_delimiter((programme.montant.to_f/1000).round, :delimiter => ' ').to_s %> k€', x: Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>),y: <%=  ((@montant + programme.montant).to_f/1000).round%>,  },
+              <% @montant = @montant + programme.montant %> 
+            <% end %>
+          ],
+      },
+       
+        
+       
+              ],
+
+      responsive: {
+          rules: [{
+              condition: {
+                  maxWidth: 500
+              },
+              chartOptions: {
+                  legend: {
+                      layout: 'horizontal',
+                      align: 'center',
+                      verticalAlign: 'bottom'
+                  }
+              }
+          }]
+      }
+
+  });
 </script>
 
 
