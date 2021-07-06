@@ -9,53 +9,58 @@
     <div class="i40"></div>
     <%= form_tag search_choru_path, method: :get  do%>
     <%= search_form_for @q, url: search_choru_path do |f| %>
-    <div class="text-center w100">
-      
-        <div class="chorus-search-box-form">
-        <%= f.search_field :centre_financier_cont,class: "form-field", id:"name",required: true, placeholder: "Entrer le numéro d'un programme", data: {autocomplete_source: chorus_path} %> 
-        <a type="button" class="choru-search-submit"> <i class="fas fa-search"></i><span class="hidden-xs hidden-sm">Liste programme</span></a>
-        </div> 
-        <div class="chorus-search-box-form-list" id="programme-liste">
-          <div style="text-align:left;">  
-          <% if !@liste_programme.nil?%>
-            <% @liste_programme.each do |programme| %>
-            <div class="liste-programme-name"><a class="programme-name"><%= programme %> <% if ChorusNomenclature.where('nom = ?',programme).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',programme).first.designation %><%end%></a></div>
-            <% end %>
-          <% end %>                   
+
+      <div class="text-center w100">
+        
+          <div class="chorus-search-box-form">
+          <%= f.search_field :centre_financier_cont,class: "form-field", id:"name",required: true, placeholder: "Entrer le numéro d'un programme", data: {autocomplete_source: chorus_path} %> 
+          <a type="button" class="choru-search-submit"> <i class="fas fa-search"></i><span class="hidden-xs hidden-sm">Liste programme</span></a>
+          </div> 
+          <div class="chorus-search-box-form-list" id="programme-liste">
+            <div style="text-align:left;">  
+            <% if !@liste_programme.nil?%>
+              <% @liste_programme.each do |programme| %>
+              <div class="liste-programme-name"><a class="programme-name"><%= programme %> <% if ChorusNomenclature.where('nom = ?',programme).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',programme).first.designation %><%end%></a></div>
+              <% end %>
+            <% end %>                   
+            </div>
           </div>
-        </div>
-    </div>
-    <div class="i60"></div>
-    <div class="text-center w100">
-      <div class="inline-flex">
-        <div class="form">
-          <label>Vision</label>
-          <%= select_tag :vision, options_for_select([["Statique","0"],["Dynamique","1"],["Statique et Dynamique","2"]]), {prompt:"- Sélectionner -"} %>
-   
-        </div>
-        <div class="form">
-          <label>AE/CP</label>
-          <%= select_tag :type_ae, options_for_select([["CP","cp"],["AE","ae"]]), {prompt:"- Sélectionner -"} %>
-   
-        </div>
-        <div class="form">
-          <label>HT2/T2</label>
-          <%= select_tag :budget, options_for_select([["HT2","HT2"],["T2","T2"]]), {prompt:"- Sélectionner -"} %>
-   
-        </div>
-        <div class="form">
-          <label>Année</label>
-          <%= select_tag :dates, options_for_select([["2020","2020"]]), {prompt:"- Sélectionner -"} %>
-   
-        </div>
- 
-       
       </div>
-    </div>
+      
+   
     <div class="i60"></div>
-    <div class='text-center'>
-        <%= button_tag(type: "submit",class:'bouton') do %><i class="fas fa-search"></i> Rechercher <% end %>
-    </div>
+
+      <div class="text-center w100">
+        <div class="inline-flex">
+          <div class="form">
+            <label>Vision</label>
+            <%= select_tag :vision, options_for_select([["Statique","0"],["Dynamique","1"],["Statique et Dynamique","2"]]), {prompt:"- Sélectionner -"} %>
+     
+          </div>
+          <div class="form">
+            <label>AE/CP</label>
+            <%= select_tag :type_ae, options_for_select([["CP","cp"],["AE","ae"]]), {prompt:"- Sélectionner -"} %>
+     
+          </div>
+          <div class="form">
+            <label>HT2/T2</label>
+            <%= select_tag :budget, options_for_select([["HT2","HT2"],["T2","T2"]]), {prompt:"- Sélectionner -"} %>
+     
+          </div>
+          <div class="form">
+            <label>Année</label>
+            <%= select_tag :dates, options_for_select([["2020","2020"]]), {prompt:"- Sélectionner -"} %>
+     
+          </div>
+   
+         
+        </div>
+      </div>
+      <div class="i60"></div>
+      <div class='text-center'>
+          <%= button_tag(type: "submit",class:'bouton') do %><i class="fas fa-search"></i> Rechercher <% end %>
+      </div>
+ 
     <% end %>
     <% end %>
     <div class="i40"></div>
@@ -65,6 +70,7 @@
 <div class='background'>
 <%= render 'layouts/footer'%>
 </div>
+
 <script>
 
   $(function() {
