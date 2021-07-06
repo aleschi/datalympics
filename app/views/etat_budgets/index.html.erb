@@ -57,7 +57,7 @@
           
           <% @conso.each do |choru| %>
             <tr>
-              <td><%= l(choru.date, format: "%e %b %y") %></td>
+              <td><%= l(choru.date, format: "%e %b") %></td>
               <td><%= choru.compte_budgetaire %></td>
               <td><%= choru.domaine_fonctionnel %></td>
               <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
