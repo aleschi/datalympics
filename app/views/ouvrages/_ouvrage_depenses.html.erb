@@ -11,13 +11,13 @@
       <% if @ouvrage.chantiers.where('date = ?',date).count > 0 %>
         <li> 
           <div class="ga ma pr">
-            <div class="c2 tc fw8 fs22"><%= l(date, format: "%e %B %Y") %> </div>
+            <div class="modal_title text-center"><%= l(date, format: "%e %B %Y") %> </div>
             <div class='i24'></div>      
               <% @ouvrage.chantiers.where('date = ?',date).each_with_index do |chantier,j| %>
                 <% if !chantier.nil?%>
                   <div class="w100">
                     <div class='i24'></div>
-                    <div class="c2 tc fw4 fs14"><%= chantier.typecontrat %> </div>
+                    
                     <div class='i24'></div>
                     <div id="ouvrages<%=i%><%=j%>"></div>
                     <div class='i48'></div>
@@ -35,12 +35,12 @@
                               },
                         },
                         title: {
-                            text: null,
+                            text: '<%= chantier.typecontrat %>',
                             style: {
                                       color: "#6A6A6A",
                                       fontWeight: "400",
-                              fontStyle: 'italic',
-                              fontSize: '16px',
+                   
+                              fontSize: '12px',
                                       },
                         },
 

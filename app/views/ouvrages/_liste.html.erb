@@ -4,7 +4,7 @@
   
        <%= search_form_for @q, url: recherche_ouvrages_path , method: :get, remote: true, id: "search-form" do |f| %>
         <div class="ouvrages-search">
-           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un ouvrage", data: {autocomplete_source: ouvrages_path} %> 
+           <%= f.search_field :name_cont,class: "ouvrages-search-field", id:"name",placeholder: "Rechercher un ouvrage", data: {autocomplete_source: ouvrages_path} %> 
           <%= f.button :submit, id:"submit_button", class:"ouvrages-submit" do %><i class="fas fa-search"></i><% end %>
         </div>
           <% end %>     
@@ -12,9 +12,10 @@
     <div class="ouvrages-box">
       <% if !@ouvrages.nil?%>
        <% if @ouvrages.where('maitre_oeuvre = ?', "SOLIDEO").count > 0 %>
-         <div class='ouvrages-mo'>
+         <div class='titre_tableau'>
            MOA : Solideo
          </div>
+         <div class="i12"></div>
          <% @ouvrages.where('maitre_oeuvre = ?', "SOLIDEO").where.not('name like ?',"%SITE d'ENTRAINEMENT%").each do |ouvrage| %>
           <div class="O-name">
             <%= link_to ouvrage do %>
@@ -36,9 +37,10 @@
         <% end %>
         <br><br>
        <% @maitre_oeuvre.each do |mo|%>
-         <div class='ouvrages-mo'>
+         <div class='titre_tableau'>
            MOA : <%= mo %>
          </div>
+         <div class="i12"></div>
          <% @ouvrages.where('maitre_oeuvre = ?', mo).where.not('name like ?',"%SITE d'ENTRAINEMENT%").each do |ouvrage| %>
           <div class="O-name">
           <%= link_to ouvrage do %>

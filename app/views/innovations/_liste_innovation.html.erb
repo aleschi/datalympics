@@ -90,11 +90,11 @@ function initMap() {
                 $('#bouton<%=innovation.id%>').click(function (){
                   infowindow.open(map, marker<%= ouvrage.id%>);
                   infowindow.setContent('<div class="pd12">'+ 
-                        '<div><a class="c2 fs16 fw8"><%= ouvrage.name %></a></div>'+ 
+                        '<div><a class="titre_tableau"><%= ouvrage.name %></a></div>'+ 
                         <% ouvrage.innovations.each do |innovation|%>
                         
                         '<div class="i12"></div>'+
-                        '<div class="fs14"><a class="cp tun c1" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><%= innovation.nom %></a> <span class="fs12 c6"> - <%= innovation.dotation.to_i %>€</span></div>'+
+                        '<div class="O-name"><a type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><%= innovation.nom %><span > - <%= innovation.dotation.to_i %>€</span></a> </div>'+
                         <% end %>
                         
                         '</div>');
@@ -103,11 +103,11 @@ function initMap() {
                       
                           
                 bindInfoWindow(marker<%= ouvrage.id%>, map, infowindow, '<div class="pd12">'+ 
-                  '<div><a class="c2 fs16 fw8"><%= ouvrage.name %></a></div>'+ 
+                  '<div><a class="titre_tableau"><%= ouvrage.name %></a></div>'+ 
                   <% ouvrage.innovations.each do |innovation|%>
                   
                   '<div class="i12"></div>'+
-                  '<div class="fs14"><a class="cp tun c1" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><%= innovation.nom %></a> <span class="fs12 c6"> - <%= innovation.dotation.to_i %>€</span></div>'+
+                  '<div class="O-name"><a type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><%= innovation.nom %><span> - <%= innovation.dotation.to_i %>€</span></a> </div>'+
                   <% end %>
                   
                   '</div>');
@@ -185,19 +185,20 @@ function initMap() {
   
        <%= search_form_for @q, url: recherche_projets_path , method: :get, remote: true, id: "search-form" do |f| %>
         <div class="ouvrages-search">
-           <%= f.search_field :nom_cont,class: "ouvrages-search-field", id:"name",placeholder: "Cherchez un projet", data: {autocomplete_source: innovations_path} %> 
+           <%= f.search_field :nom_cont,class: "ouvrages-search-field", id:"name",placeholder: "Rechercher un projet", data: {autocomplete_source: innovations_path} %> 
           <%= f.button :submit, id:"submit_button", class:"ouvrages-submit" do %><i class="fas fa-search"></i><% end %>
         </div>
           <% end %>     
     
     <div class="ouvrages-box">
       <% @ouvrages.each do |ouvrage|%>
-      <div class='ouvrages-mo'>
+      <div class='titre_tableau'>
            <% if ouvrage.name == "Canal Saint Denis"%>Franchissement Pierre LAROUSSE<%else%><%= ouvrage.name%><%end %>
       </div>
+      <div class="i12"></div>
       <% ouvrage.innovations.each do |innovation|%>
       <div class="O-name">     
-        <a class="cp tun" id="bouton<%=innovation.id%>"><%= innovation.nom%> <span>- <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</span> </a>         
+        <a id="bouton<%=innovation.id%>"><%= innovation.nom%> <span>- <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</span> </a>         
       </div>
       <div class="O-span"><% if innovation.typeinnovations.count > 0 %><% innovation.typeinnovations.each do |type|%><span><% if type.categorie == "Excellence environnementale"%><i class="fas fa-circle fa-circle-env"></i><% elsif type.categorie == "Innovation technologique"%><i class="fas fa-circle fa-circle-tech"></i><%else%><i class="fas fa-circle fa-circle-acc"></i><%end%> <%= type.categorie%></span><% end %><%end%></div>
       <%end %>

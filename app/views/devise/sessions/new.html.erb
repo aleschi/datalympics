@@ -8,8 +8,9 @@
     <div class="i40"></div>
     <div class="ED_new_form_box">
        
-      <h1 class="logo_connexion"><%= image_tag 'logo_datalympics_blanc.png'%></h1>
+      <h1 class="logo_connexion hidden-xs"><%= image_tag 'logo_datalympics_blanc.png'%></h1>
       <div class="i40"></div>
+      <div class="i24 visible-xs"></div>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <%= render 'shared/devise_errors' %>

@@ -15,15 +15,15 @@
           <div class="row">
             <div class="col-md-5">
               <div>
-                  <div class="c1 fs20 fw7"><%= (Innovation.all.sum('dotation')/1000000).round %> M€</div>
+                  <div class="chiffre_cle"><%= (Innovation.all.sum('dotation')/1000000).round %> M€</div>
                   <div class="i8"></div>
-                  <div class="fw5 fs14 c6">Dotations votées</div>
+                  <div class="texte_chiffre">Dotations votées</div>
               </div>
               <div class="i16"></div>
               <div>
-                  <div class="c1 fs20 fw7"><%= (36-(Innovation.all.sum('dotation')/1000000).round) %> M€</div>
+                  <div class="chiffre_cle"><%= (36-(Innovation.all.sum('dotation')/1000000).round) %> M€</div>
                   <div class="i8"></div>
-                  <div class="fw5 fs14 c6">Fonds non consommés à date</div>
+                  <div class="texte_chiffre">Fonds non consommés à date</div>
               </div>            
             </div>
             <div class="i24 visible-xs visible-sm"></div>
@@ -75,11 +75,11 @@
     <div><span class="titre_section">Suivi échéancier par projet</span></div>
     <div class="i24"></div>
     <% @ouvrages.each_with_index do |ouvrage,i|%>
-      <div class="ouvrages-mo"><% if ouvrage.name == "Canal Saint Denis"%>Franchissement Pierre LAROUSSE<%else%><%= ouvrage.name%><%end %></div>
+      <div class="titre_tableau"><% if ouvrage.name == "Canal Saint Denis"%>Franchissement Pierre LAROUSSE<%else%><%= ouvrage.name%><%end %></div>
       <div class="i24"></div>
       <% ouvrage.innovations.each_with_index do |innovation,j|%>
-        <div class="fs14 c2"><button class="navbar-toggler bn bckc1 c1" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><span class="fw7"><%= innovation.ouvrage.name %></span> - <%= innovation.nom%> </button></div>
-        <div class="fs10 c6 hidden">Dotation Totale : <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
+        <div class="O-name"><a class="navbar-toggler bn bckc1 c1" type="button" data-toggle="collapse" data-target="#sidebar<%=innovation.id%>" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation"><%= innovation.nom%> <span> - <%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</span></a></div>
+      
         <div id="container-steps<%=i%><%=j%>"></div> 
         <script>
         Highcharts.chart('container-steps<%=i%><%=j%>', {
@@ -207,21 +207,20 @@
           <div class="pd32">
           <div class="close-sidebar">Fermer</div>
           <div class="i40"></div>
-          <div class="fs18 c2 fw8"><%= innovation.nom%> </div>
-          <div class="fs16 c2"><%= innovation.ouvrage.name%> </div>  
-          <div><a class="c1" id="innovation_url<%= innovation.id%>">Modifier</a></div>
+          <div class="modal_title"><%= innovation.nom%> </div>
+          <div class="box_i1_t1"><%= innovation.ouvrage.name%> </div> 
+          <div class="i24"></div> 
+          
+          <div class="box_i1_t2 fw8">Description</div>
+          <div class="box_i1_t2"><%= innovation.description %></div>
           <div class="i24"></div>
-          <div class="fs14 c2 fw8">Description</div>
-          <div class="i12"></div>
-          <div class="fs14 c2"><%= innovation.description %></div>
+          <div class="box_i1_t2 fw8">Type innovation</div>
+          <div class="box_i1_t2"><div class="O-span"><% if innovation.typeinnovations.count > 0 %><% innovation.typeinnovations.each do |type|%><span><% if type.categorie == "Excellence environnementale"%><i class="fas fa-circle fa-circle-env"></i><% elsif type.categorie == "Innovation technologique"%><i class="fas fa-circle fa-circle-tech"></i><%else%><i class="fas fa-circle fa-circle-acc"></i><%end%> <%= type.categorie%></span><% end %><%end%></div></div>
           <div class="i24"></div>
-          <div class="fs14 c2 fw8">Type innovation</div>
-          <div class="fs14 c2"><div class="O-span"><% if innovation.typeinnovations.count > 0 %><% innovation.typeinnovations.each do |type|%><span><% if type.categorie == "Excellence environnementale"%><i class="fas fa-circle fa-circle-env"></i><% elsif type.categorie == "Innovation technologique"%><i class="fas fa-circle fa-circle-tech"></i><%else%><i class="fas fa-circle fa-circle-acc"></i><%end%> <%= type.categorie%></span><% end %><%end%></div></div>
+          <div class="box_i1_t2 fw8">Montant de la dotation</div>
+          <div class="box_i1_t2"><%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
           <div class="i24"></div>
-          <div class="fs14 c2 fw8">Montant de la dotation</div>
-          <div class="fs14 c2"><%= number_with_delimiter(innovation.dotation.to_i, :delimiter => ' ')%>€</div>
-          <div class="i24"></div>
-          <div class="fs14 c2 fw8">Suivi du budget</div>
+          <div class="box_i1_t2 fw8">Suivi du budget</div>
           <div id="container-steps2<%=i%><%=j%>"></div> 
           <script>
           Highcharts.chart('container-steps2<%=i%><%=j%>', {
@@ -360,8 +359,12 @@
               }]
           });
           </script>
-          <div class="i24"></div>
-          <div class="fs14 c2 fw8">Entreprises ? / Livrables ?</div>
+          
+          <div class="box_i1_t2 fw8">Entreprises ? / Livrables ?</div>
+          
+          <div class="i40"></div>
+          <div><a class="bouton" id="innovation_url<%= innovation.id%>">Modifier</a></div>
+          <div class="i100"></div>
           </div>
           </div>
         </div>
@@ -594,8 +597,8 @@ Highcharts.chart('budget', {
                     overflow:'allow',}},  
      ],
   }],
-});
-  </script>
+  });
+</script>
 <script>
  Highcharts.chart('budget2', {
     chart: {
@@ -682,8 +685,8 @@ Highcharts.chart('budget', {
                     overflow:'allow',}}, 
      ],
   }],
-});
-  </script>
+  });
+</script>
 <script>
  Highcharts.chart('projets', {
     chart: {
@@ -790,81 +793,81 @@ Highcharts.chart('budget', {
       <% end %>
     <% end %>
    ],
-});
+  });
   </script>
 <script>
-Highcharts.chart('pie', {
-  chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        backgroundColor: '#fff',
-          style:{
-          fontFamily: "Marianne Regular",
-       
-          },
-    height: 250,
-    },
-  title: {
-         text:null,   
-          style: {
-                  color: "#6A6A6A",
-                  fontWeight: "400",
-                  fontStyle: "italic",
-                  fontSize: '16px',
-                  },
-    },
-  colors: ['#00AC8C',"#FFE800",'#4FC5CE'],
-  legend: {
-      enabled: true,
-    },
-  tooltip: {
-        pointFormat: '{series.name}: <b>{point.y} projets </b>',
-      borderColor: 'transparent',
-   borderRadius: 16,
-   backgroundColor: '#fff',
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-           size: 100,
-            dataLabels: {
-                enabled: true,
-              connectorPadding: 0,
-             // distance: 10,
-                format: '<b>{point.name}</b><br>{point.y} projets',
-              style: {
-                      color: "#6A6A6A",
-                      fontSize: "11px",
-                      fontWeight: "400",
-                      fontStyle: "italic",
-                      },
-            }
-        }
-    },
-    series: [{
-        name: 'Total',
-        colorByPoint: true,
-        data: [{
-            name: 'Innovation technologique',
-            y:  <%= Typeinnovation.where('categorie = ?','Innovation technologique').count%>,
-           
-        }, {
-            name: 'Excellence environnementale',
-            y: <%= Typeinnovation.where('categorie = ?','Excellence environnementale').count%>,
-        }, {
-            name: 'Innovation accessibilité',
-            y: <%= Typeinnovation.where('categorie = ?','Accessibilité').count%>,
-        }]
-    }]
-});
+  Highcharts.chart('pie', {
+    chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie',
+          backgroundColor: '#fff',
+            style:{
+            fontFamily: "Marianne Regular",
+         
+            },
+      height: 250,
+      },
+    title: {
+           text:null,   
+            style: {
+                    color: "#6A6A6A",
+                    fontWeight: "400",
+                    fontStyle: "italic",
+                    fontSize: '16px',
+                    },
+      },
+    colors: ['#00AC8C',"#FFE800",'#4FC5CE'],
+    legend: {
+        enabled: true,
+      },
+    tooltip: {
+          pointFormat: '{series.name}: <b>{point.y} projets </b>',
+        borderColor: 'transparent',
+     borderRadius: 16,
+     backgroundColor: '#fff',
+      },
+      accessibility: {
+          point: {
+              valueSuffix: '%'
+          }
+      },
+      plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+             size: 100,
+              dataLabels: {
+                  enabled: true,
+                connectorPadding: 0,
+               // distance: 10,
+                  format: '<b>{point.name}</b><br>{point.y} projets',
+                style: {
+                        color: "#6A6A6A",
+                        fontSize: "11px",
+                        fontWeight: "400",
+                        fontStyle: "italic",
+                        },
+              }
+          }
+      },
+      series: [{
+          name: 'Total',
+          colorByPoint: true,
+          data: [{
+              name: 'Innovation technologique',
+              y:  <%= Typeinnovation.where('categorie = ?','Innovation technologique').count%>,
+             
+          }, {
+              name: 'Excellence environnementale',
+              y: <%= Typeinnovation.where('categorie = ?','Excellence environnementale').count%>,
+          }, {
+              name: 'Innovation accessibilité',
+              y: <%= Typeinnovation.where('categorie = ?','Accessibilité').count%>,
+          }]
+      }]
+  });
 </script>
 <script>
 

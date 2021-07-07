@@ -27,31 +27,29 @@
 
       <div class="i24"></div>
       <div class="row">
-        <div class="inline-flex w100">
-          <div class="ouvrages-budget-infos">
-              <div class="box_chiffre inline-flex">
+        <div class="col-md-12">
+        <div class="box_alignement">
+          
+            <div class="box_chiffre inline-flex">
                 <div>
                   <i class="fas fa-coins"></i>
                 </div>
                 <div>
                   <div class="chiffre_cle"><% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').last.total/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€</div>
-        <div class="texte_chiffre">Budget Initial</div>
+                <div class="texte_chiffre">Budget Initial</div>
                 </div>
-              </div>
-          </div>
-          <div class="ouvrages-budget-infos">
+            </div>
+            
             <div class="box_chiffre inline-flex">
               <div>
                  <i class="fas fa-euro-sign"></i>
               </div>
               <div>
                 <div class="chiffre_cle"><% if @ouvrage.chantiers.count > 0 %><%= number_with_delimiter((@ouvrage.chantiers.where('date = ?',@lastdate).sum('cumul_paiements')/1000).to_i, :delimiter => ' ')%><% else %>0<%end%> k€</div>
-        <div class="texte_chiffre">Dépenses réalisées</div>
+                <div class="texte_chiffre">Dépenses réalisées</div>
               </div>
             </div>
-           
-        </div>
-          <div class="ouvrages-budget-infos">
+
             <div class="box_chiffre inline-flex">
                 <div>
                   <i class="fas fa-coins"></i>
@@ -60,7 +58,7 @@
                  <div class="chiffre_cle"> <% if Maquette.where('ouvrage_id = ?',@ouvrage.id).count > 0 %><%= number_with_delimiter((Maquette.where('ouvrage_id = ?',@ouvrage.id).order('date DESC').first.total/1000).to_i, :delimiter => ' ')%><% else %> XXX<% end %> k€</div>
                   <div class="texte_chiffre">Budget recalculé</div>
                 </div>
-              </div>
+            </div>  
         </div>
         </div>
       </div>

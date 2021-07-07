@@ -1,10 +1,10 @@
-<div class="fs20 fw4 c2 pd8"><%= @innovation.nom %></div>
+<div class="box_i1_t1"><%= @innovation.nom %></div>
 <div class="c3 pd8" id="error-message"></div>
 
 <%= form_tag form_edit_path, method: :post do%>
 <%=hidden_field_tag :id, @innovation.id %>
-<div class="row">
-  <div class="col-md-6">
+<div class="row margin-none">
+  <div class="col-md-6 padding-none">
           <div class="form">
             <label>Nom</label>
             <%= text_field_tag :nom, @innovation.nom, class:"form-field" %>

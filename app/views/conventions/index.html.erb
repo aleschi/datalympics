@@ -15,27 +15,55 @@
         <% @conventions.order('date DESC').each_with_index do |convention,i| %>
         <li> 
           <div class="ga ma pr">
-            <div class="c2 tc fw8 fs22"><%= l(convention.date, format: "%e %B %Y") %> </div>
+            <div class="modal_title text-center"><%= l(convention.date, format: "%e %B %Y") %> </div>
             <div class='i24'></div>
 
-              <div class="inline-flex">
-                <div id="container<%=i%>"></div>
-                <div class="mw250 pd12 bs br8 bckc3">
-                  <div class="c2 fs14"><span class="c1 fs20"><%= convention.objectifs_signature + convention.travaux_signature + convention.etudes_signature%></span> Conventions signées </div>
-                  <div class="i12"></div>
-                  <div class="c2 fs14"><span class="c1 fs20"><%= convention.objectifs_encours%></span> CDO en cours de signature</div>
-                  <div class="i12"></div>
-                  <div class="c2 fs14"><span class="c1 fs20"><%= convention.avenants_objectifs_encours%></span> Avenants aux CDO en cours</div>
-                  <div class="i12"></div>
-                  <div class="c2 fs14"><span class="c1 fs20"><%= convention.avenants_travaux_encours%> </span> Avenants aux CTRAV en cours</div>
-                  <div class="i12"></div>
-                  <div class="c2 fs14"><span class="c1 fs20"><%= convention.protocole_etudes_encours%> </span>Protocoles d'études en cours de signature (VDP)</div>
-                  <div class="i12"></div>
-                  <div class="c2 fs14"><span class="c1 fs20"><%= convention.objectifs_elaboration%></span> CDO en cours d’élaboration</div>
+              <div class="row w100 margin-none">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                  <div id="container<%=i%>"></div>
+                </div>
+                
+                <div class="col-md-2 col-sm-6 col-xs-12"> 
+                  <div class="box_i1">
+                      <div class="box_i1_t1"><%= convention.objectifs_signature + convention.travaux_signature + convention.etudes_signature%> </div>
+                      <div class="box_i1_t2">Conventions signées</div>
+                  </div>
+                  <div class="i16"></div>
+                  <div class="box_i1">
+                      <div class="box_i1_t1"><%= convention.objectifs_encours%></div>
+                    <div class="box_i1_t2">CDO en cours de signature</div>
+                  </div>
+                  <div class="i16"></div>
+                  <div class="box_i1">
+                      <div class="box_i1_t1"><%= convention.avenants_objectifs_encours%></div>
+                      <div class="box_i1_t2">Av. CDO en cours</div>
+                  </div>
+                  <div class="i16"></div>
+                </div>
+         
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                  <div class="box_i1">
+                      <div class="box_i1_t1"><%= convention.avenants_travaux_encours%></div>
+                    <div class="box_i1_t2">Av. CTRAV en cours</div>
+                  </div>
+               
+                  <div class="i16"></div>
+          
+                  <div class="box_i1">
+                      <div class="box_i1_t1"><%= convention.protocole_etudes_encours%></div>
+                    <div class="box_i1_t2">PE en cours de signature</div>
+                  </div> 
+                  <div class="i16"></div>
+                  <div class="box_i1">
+                    <div class="box_i1_t1"><%= convention.objectifs_elaboration%></div>
+                    <div class="box_i1_t2">CDO en cours d’élaboration</div>
+                  </div>  
+                  <div class="i16"></div>
                 </div>
               </div>
+
               <script>
-                Highcharts.chart('container<%=i%>', {
+                var chart<%=i%> = Highcharts.chart('container<%=i%>', {
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
@@ -46,16 +74,17 @@
                           fontFamily: "Marianne Regular",
                     
                           },
+                          spacingTop:0,
+                          marginTop:0,
+                          height:300,
+                          width:400,
+                          spacingRight:0,
+                          spacingLeft:0,
                       
                     },
                     title: {
                          text:null,   
-                          style: {
-                                  color: "#6A6A6A",
-                                  fontWeight: "400",
-                                  fontStyle: "italic",
-                                  fontSize: '16px',
-                                  },
+                         
                     },
                     colors: ['#2E5D63','#C68D7B', '#2323EA'],
                     tooltip: {
@@ -149,6 +178,12 @@
                         }]
                     }]
                 });
+
+                if ($(window).width() < 992) {
+                  chart<%=i%>.update({
+                    chart: {width:220,},
+                  })
+                }
               </script>
           </div>
         </li>

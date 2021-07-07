@@ -31,20 +31,17 @@ a {
  font-family: 'Marianne Regular', sans-serif;
  }
 body {
- font-family: 'Marianne Regular', sans-serif;
- background: #e7e7e7;
- min-height: 100%;
+  font-family: 'Marianne Regular', sans-serif;
+  background: #e7e7e7;
+  min-height: 100%;
   width:100%;
- position: relative;
- margin: 0;
- padding: 0;
- // padding-bottom:60px;
+  position: relative;
+  margin: 0;
+  padding: 0;
  }
 
 
-.fw4{
-  font-weight:400;
-}
+
 .fw6{
   font-weight:600;
 }
@@ -54,42 +51,17 @@ body {
 .fw8{
   font-weight:800;
 }
-.fs10{
-  font-size:10px;
-}
 .fs12{
   font-size:12px;
 }
 .fs14{
   font-size:14px;
 }
-.fs16{
-  font-size:16px;
-}
+
 .fs18{
   font-size:18px;
 }
-.fs20{
-  font-size:20px;
-}
-.fs22{
-  font-size:22px;
-}
-.fs32{
-  font-size:32px;
-}
-.fs40{
-  font-size:40px;
-}
-.tc{
-  text-align:center;
-}
-.tl{
-  text-align:left;
-}
-.i4{
-  height:4px;
-}
+
 .i8{
   height:8px;
 }
@@ -135,18 +107,7 @@ body {
 .w50{
   width:50%;
 }
-.w25_{
-  width:25%;
-}
-.w75{
-  width:75%;
-}
-.w25{
-  width:25px;
-}
-.mw250{
-  max-width:250px;
-}
+
 .mw350{
   max-width:350px;
 }
@@ -421,6 +382,7 @@ color:#6A6A6A;
     margin:0 auto;
     padding:25px 15px;
     max-width:500px;
+    box-shadow:none;
   }
 }
 .form-text{
@@ -544,7 +506,7 @@ display: none;
   color: #1E1E1E;
   font-weight:700;
   font-size:22px;
-  margin-bottom:20px;
+  //margin-bottom:20px;
 }
 
 .modal-search-filters-form-title{
@@ -603,10 +565,11 @@ display: none;
 
 
 .O-name{
-  a{
   color: #000091;
   font-size:15px;
-  font-weight:700;
+  font-weight:300;
+  a{
+  color: #000091;
     span{
       font-weight:500;
       font-size:12px;
@@ -662,19 +625,6 @@ margin:10px 0px;
 .highcharts-button-symbol,.highcharts-button.highcharts-contextbutton,.highcharts-button.highcharts-contextbutton.highcharts-button-normal, .highcharts-credits{
   display:none;
 }
-.highcharts-data-labels.highcharts-series-0.highcharts-solidgauge-series.highcharts-tracker{
-  //transform: translate(10px,40px) !important; 
-}
-
-
-.ouvrages-mo{
-  color: #6A6A6A;
-  font-size: 16px;
-  margin-bottom: 10px;
-  font-weight:700;
-  text-transform: uppercase;
-  border-bottom: 1px solid #6A6A6A;
-}
 
 
 .ouvrages-box{
@@ -687,58 +637,18 @@ margin:10px 0px;
     width: 0;
     height: 0;
 }
-.table-edit-btn{
-  display: inline-flex;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flex;
-  display: -moz-inline-flex;
-  width:100%;
-}
 
-.box_chiffre inline-flex{
-    display: inline-flex;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flex;
-  display: -moz-inline-flex;
-  width:100%;
-  align-items:center;
-  margin:auto;
-  color: #000091;
-  font-weight:700;
-  font-size: 16px;
-  margin-bottom:20px;
-  i{
-    margin-right:10px;
-    font-size: 22px;
-    width: 25px;
-  }
-}
-
-
-.ouvrages-budget-infos{
-  margin:auto;
-  margin-bottom:10px;
-}
-.ouvrages-budget-infos-number{
-  color: #000091;
-  font-weight:700;
-  font-size: 18px;
-}
-.ouvrages-budget-infos-texte{
-  color: #000091;
-  font-weight:700;
-  font-size: 14px;
-}
 
 .ouvrages-search{
   border:1px solid #000091;
   padding:0px;
   padding-left:5px;
-  border-top-left-radius:5px;
-  border-top-right-radius:5px;
+  border-top-left-radius:4px;
+  border-top-right-radius:4px;
   margin-bottom:20px;
   border-bottom:3px solid #000091;
-   display: inline-flex;
+  background-color:#F0F0F0;
+  display: inline-flex;
   display: -webkit-inline-flex;
   display: -ms-inline-flex;
   display: -moz-inline-flex;
@@ -758,6 +668,7 @@ margin:10px 0px;
   outline:none;
   width:100%;
   padding:5px 15px;
+  background-color:#F0F0F0;
 }
 .ouvrages-search-field::placeholder{
   color:#6A6A6A;
@@ -2365,7 +2276,7 @@ width:100%;
   }
 }
 .form{
-  margin: 0px 10px;
+  margin: 0px 0px;
 }
 .form select {
   width:100%;
@@ -2425,6 +2336,15 @@ width:100%;
   font-size:20px;
   font-weight:600;
 }
+
+.box_alignement{
+  width:100%;
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flex;
+  display: -moz-inline-flex;
+}
+
 @media(max-width:1112px){
 .titre_section_acc{
 font-size:28px;
@@ -2475,6 +2395,12 @@ font-size:28px;
     display:inline-block;
     width:200px;
     height:100%;
+  }
+  .box_alignement{
+  display:inline-block;
+  }
+  .document-file-input{
+  width:100%;
   }
 }
 

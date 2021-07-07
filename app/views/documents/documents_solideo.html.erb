@@ -16,7 +16,7 @@
         <div class="document-file-input">
           <label id="dragzone"><%= form.file_field :file, id:'input-file' %>
             <div class="document-type"><i class="far fa-file-pdf"></i> </div>
-            <div class="input-text"><i class="fas fa-plus-circle"></i><br>Glissez vos fichiers ici <br><br><span class="tu">Télécharger depuis votre appareil</span></div>
+            <div class="input-text"><i class="fas fa-plus-circle"></i><span class="hidden-xs hidden-sm"><br>Glissez vos fichiers ici </span><br><br><span class="tu">Télécharger depuis votre appareil</span></div>
             <div class="document-check">
             <i class="fas fa-check-circle"></i>
           </div>
@@ -40,7 +40,7 @@
         <% @documents.each do |document| %>
         
           <% if document.file.attached?%>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-4">
           <%= link_to rails_blob_path(document.file, disposition: 'preview'), target: "_blank", class:'c2' do %>
            <div class="bs br8 pd12 c2 bckc3" style='height:150px;'>
              <% if document.extension == "pdf"%> <i class="far fa-file-pdf c1"></i>
@@ -51,8 +51,10 @@
              <div class="i12"></div>
              <div><%= link_to delete_document_path(id: document.id), method: :post, class:"c1" do%><i class="fas fa-trash-alt"></i><% end%></div>
            </div>
+           <div class="i12 "></div>
           <% end %>
           </div>
+          
           <% end %>
           
         <% end %>

@@ -61,8 +61,8 @@ $(document).ready(function() {
     animation: "slide",
     animationLoop: false,
     slideshow: false,
-    prevText: "Année suiv",    
-    nextText:'Année préc',
+    prevText: "",    
+    nextText:'',
   });
  })
  $( document ).on('turbolinks:load', function() {
