@@ -53,14 +53,13 @@
     <div class="navbar-chorus-onglet2">
     <div class="">
        <div class="dropdown">
-         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-navbar" type="button" id="vision" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><% if @vision == "0" %>Vision statique<%elsif @vision == "1" %>Vision dynamique<%else %>Vision statique & dynamique <% end %><i class="fas fa-chevron-down"></i></button>
+         <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-navbar" type="button" id="vision" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><% if @vision == "0" %>Suivi consommation<%elsif @vision == "1" %>Allocution des ressources<% end %><i class="fas fa-chevron-down"></i></button>
           <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="vision">
           <%= form_tag choru_path(:date => @dates, :id => params[:id]), method: :get, class: "vision_form"  do%>
             <%= hidden_field_tag :budget, @budget %>
             <%= hidden_field_tag :type_ae, @type_ae %>
-            <li><label><%= radio_button_tag :vision, "0" %>  Statique </label></li>
-            <li><label><%= radio_button_tag :vision, "1" %>  Dynamique</label></li>
-            <li><label><%= radio_button_tag :vision, "2"%>  Statique & Dynamique</label></li>     
+            <li><label><%= radio_button_tag :vision, "0" %> Suivi consommation </label></li>
+            <li><label><%= radio_button_tag :vision, "1" %> Allocution des ressources</label></li>   
           <% end %>
          </div>
        </div>

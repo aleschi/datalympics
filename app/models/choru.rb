@@ -5,13 +5,24 @@ class Choru < ApplicationRecord
     CSV.foreach(file.path) do |row|
       if !row[0].nil? && !row[0].empty?
         if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).count > 0 
-          if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
-            @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).order('date DESC').first
-            @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
+          if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date < Date.new(2020,3,15) ||  Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > Date.new(2020,10,15)#inf au 15 mars ou sup au 15oct
+            if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > row[0].to_date - 1.day #on rassemble suivi quotidien
+              @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).order('date DESC').first
+              @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
 
-            if @chorus.montant == 0 
-              @chorus.destroy
-            end 
+              if @chorus.montant == 0 
+                @chorus.destroy
+              end 
+            end
+          else
+            if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
+              @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).order('date DESC').first
+              @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
+
+              if @chorus.montant == 0 
+                @chorus.destroy
+              end 
+            end
           end
         end
 

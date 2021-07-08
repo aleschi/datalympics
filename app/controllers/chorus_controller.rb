@@ -321,6 +321,41 @@ class ChorusController < ApplicationController
     @choru.destroy
     redirect_to chorus_path
   end
+
+  def supp
+    @chorus = Choru.all.order('date ASC')
+
+    @chorus.each do |choru| #on groupe tous les meme jours
+      if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ? AND date = ?' , choru.compte_budgetaire,choru.operation,choru.type_piece,choru.centre_financier, choru.date).count > 1 #plusieur pieces identiques le meme jour
+          if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ? AND date <= ?' , choru.compte_budgetaire,choru.operation,choru.type_piece,choru.centre_financier, choru.date).order('date DESC').first.date == choru.date  #on rassemble suivi quotidien
+            @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ? AND date <= ?' , choru.compte_budgetaire,choru.operation,choru.type_piece,choru.centre_financier, choru.date).order('date DESC').first
+            @chorus.montant = @chorus.montant + choru.montant#cumul
+
+            if @chorus.montant == 0 
+              @chorus.destroy
+            end 
+          end
+          choru.destroy
+      end
+    end
+
+    @chorus.each do |choru|
+      if choru.date > Date.new(2020,3,15) &&  choru.date < Date.new(2020,10,15)#regroupement hebdo au milieu de l'année
+        if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ? AND date < ?' , choru.compte_budgetaire,choru.operation,choru.type_piece,choru.centre_financier, choru.date).count > 1
+        if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ? AND date < ?' , choru.compte_budgetaire,choru.operation,choru.type_piece,choru.centre_financier, choru.date).order('date DESC').first.date > choru.date - 7.days #on rassemble sur une semaine
+          @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ? AND date < ?' , choru.compte_budgetaire,choru.operation,choru.type_piece,choru.centre_financier, choru.date).order('date DESC').first
+          @chorus.montant = @chorus.montant + choru.montant #cumul
+
+          if @chorus.montant == 0 
+            @chorus.destroy
+          end 
+          choru.destroy
+        end
+        end   
+      end
+    end
+    redirect_to chorus_path
+  end 
   
   private
 

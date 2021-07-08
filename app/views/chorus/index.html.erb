@@ -32,22 +32,22 @@
 
       <div class="text-center w100">
         <div class="inline-flex">
-          <div class="form">
+          <div class="form form-chorus">
             <label>Vision</label>
-            <%= select_tag :vision, options_for_select([["Statique","0"],["Dynamique","1"],["Statique et Dynamique","2"]]), {prompt:"- Sélectionner -"} %>
+            <%= select_tag :vision, options_for_select([["Suivi consommation","0"],["Allocution des ressources","1"]]), {prompt:"- Sélectionner -"} %>
      
           </div>
-          <div class="form">
+          <div class="form form-chorus">
             <label>AE/CP</label>
             <%= select_tag :type_ae, options_for_select([["CP","cp"],["AE","ae"]]), {prompt:"- Sélectionner -"} %>
      
           </div>
-          <div class="form">
+          <div class="form form-chorus">
             <label>HT2/T2</label>
             <%= select_tag :budget, options_for_select([["HT2","HT2"],["T2","T2"]]), {prompt:"- Sélectionner -"} %>
      
           </div>
-          <div class="form">
+          <div class="form form-chorus">
             <label>Année</label>
             <%= select_tag :dates, options_for_select([["2020","2020"]]), {prompt:"- Sélectionner -"} %>
      
