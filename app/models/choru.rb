@@ -4,49 +4,127 @@ class Choru < ApplicationRecord
   def self.import(file)
     CSV.foreach(file.path) do |row|
       if !row[0].nil? && !row[0].empty?
-        if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).count > 0 
-          if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date < Date.new(2020,3,15) ||  Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > Date.new(2020,10,15)#inf au 15 mars ou sup au 15oct
-            if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > row[0].to_date - 1.day #on rassemble suivi quotidien
-              @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).order('date DESC').first
-              @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
+        if row[7].nil? || row[7].empty? #si ce nest pas des actions
+          if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).count > 0 #il existe une piece avec les mm infos
+            if row[0] < Date.new(2020,3,15) ||  row[0] > Date.new(2020,10,15)#inf au 15 mars ou sup au 15oct
+              if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > row[0].to_date - 1.day #on rassemble suivi quotidien
+                @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).order('date DESC').first
+                @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
 
-              if @chorus.montant == 0 
-                @chorus.destroy
-              end 
+                if @chorus.montant == 0 
+                  @chorus.destroy
+                end 
+              else 
+                @chorus = Choru.new
+                @chorus.date = row[0]
+                @chorus.type_piece = row[1]
+                @chorus.operation = row[2]
+                @chorus.type_budget = row[3]
+                @chorus.centre_financier = row[4]
+                @chorus.compte_budgetaire = row[5]
+                @chorus.montant = row[6].to_f/100
+               # @chorus.domaine_fonctionnel = row[7]
+                if !row[8].nil? && !row[8].empty?
+                  @chorus.type_ae = row[8]
+                else
+                  @chorus.type_ae = "cp"
+                end
+                @chorus.save 
+                if @chorus.date.nil?
+                  @chorus.destroy 
+                end
+              end
+            else #date 
+              if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
+                @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).order('date DESC').first
+                @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
+
+                if @chorus.montant == 0 
+                  @chorus.destroy
+                end 
+              else 
+                @chorus = Choru.new
+                @chorus.date = row[0]
+                @chorus.type_piece = row[1]
+                @chorus.operation = row[2]
+                @chorus.type_budget = row[3]
+                @chorus.centre_financier = row[4]
+                @chorus.compte_budgetaire = row[5]
+                @chorus.montant = row[6].to_f/100
+               # @chorus.domaine_fonctionnel = row[7]
+                if !row[8].nil? && !row[8].empty?
+                  @chorus.type_ae = row[8]
+                else
+                  @chorus.type_ae = "cp"
+                end
+                @chorus.save 
+                if @chorus.date.nil?
+                  @chorus.destroy 
+                end
+              end
             end
-          else
-            if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
-              @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).order('date DESC').first
-              @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
-
-              if @chorus.montant == 0 
-                @chorus.destroy
-              end 
+          else #count == 0 
+            @chorus = Choru.new
+            @chorus.date = row[0]
+            @chorus.type_piece = row[1]
+            @chorus.operation = row[2]
+            @chorus.type_budget = row[3]
+            @chorus.centre_financier = row[4]
+            @chorus.compte_budgetaire = row[5]
+            @chorus.montant = row[6].to_f/100
+           # @chorus.domaine_fonctionnel = row[7]
+            if !row[8].nil? && !row[8].empty?
+              @chorus.type_ae = row[8]
+            else
+              @chorus.type_ae = "cp"
             end
-          end
-        end
-
-        if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).count == 0 || Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date < row[0].to_date - 7.days
-          @chorus = Choru.new
-          @chorus.date = row[0]
-          @chorus.type_piece = row[1]
-          @chorus.operation = row[2]
-          @chorus.type_budget = row[3]
-          @chorus.centre_financier = row[4]
-          @chorus.compte_budgetaire = row[5]
-          @chorus.montant = row[6].to_f/100
-          @chorus.domaine_fonctionnel = row[7]
-          if !row[8].nil? && !row[8].empty?
-            @chorus.type_ae = row[8]
-          else
-            @chorus.type_ae = "cp"
-          end
-          @chorus.save 
+            @chorus.save 
             if @chorus.date.nil?
               @chorus.destroy 
             end
-        end
- 
+          end
+        else #c'est une action
+          if Choru.where('type_budget = ?, centre_financier = ?' , row[3], row[4]).count > 0 
+            if row[0] < Date.new(2020,3,15) || row[0] > Date.new(2020,10,15)#inf au 15 mars ou sup au 15oct
+              if Choru.where('type_budget = ?, centre_financier = ?' , row[3], row[4]).order('date DESC').first.date > row[0].to_date - 1.day #on rassemble suivi quotidien
+                @chorus = Choru.where('type_budget = ?, centre_financier = ?' , row[3], row[4]).order('date DESC').first
+                @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
+
+                if @chorus.montant == 0 
+                  @chorus.destroy
+                end 
+              end
+            else
+              if Choru.where('type_budget = ?, centre_financier = ?' , row[3], row[4]).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
+                @chorus = Choru.where('type_budget = ?, centre_financier = ?' , row[3], row[4]).order('date DESC').first
+                @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
+
+                if @chorus.montant == 0 
+                  @chorus.destroy
+                end 
+              end
+            end
+          else #==0 
+            @chorus = Choru.new
+            @chorus.date = row[0]
+            @chorus.type_piece = row[1]
+            @chorus.operation = row[2]
+            @chorus.type_budget = row[3]
+            @chorus.centre_financier = row[4]
+            @chorus.compte_budgetaire = row[5]
+            @chorus.montant = row[6].to_f/100
+           # @chorus.domaine_fonctionnel = row[7]
+            if !row[8].nil? && !row[8].empty?
+              @chorus.type_ae = row[8]
+            else
+              @chorus.type_ae = "cp"
+            end
+            @chorus.save 
+            if @chorus.date.nil?
+              @chorus.destroy 
+            end
+          end 
+        end  
       end
     end
   end
