@@ -178,9 +178,46 @@ title: {
            <% @montant = @montant + programme.montant %>
           <% end %>
           <% end %>
+        ],     
+      },
+      <% if Choru.where('centre_financier like ?','%'+bop+'%').where('date >= ? AND date <= ? AND type_ae = ?', Date.new(2020,1,1), Date.new(2020,12,31), @type_ae).where.not(domaine_fonctionnel: nil).count > 0%>
+        {
+        name: 'Consommation',
+        color: '#000091',
+       
+        data: [
+  
+          <% @montant = 0 %>
+          [Date.UTC(2020,1,1),0],
+          <% if @budget == "T2"%>
+            <% Choru.where('centre_financier like ?','%'+bop+'%').where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ?)', Date.new(2020,1,1), Date.new(2020,12,31), @type_ae, "21","22","23").where.not(domaine_fonctionnel: nil).order('date ASC').each do |programme| %>
+                 
+            [ Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
+            <% @montant = @montant + programme.montant %>
+            <% end %> 
+          <% else %>
+           <% Choru.where('centre_financier like ?','%'+bop+'%').where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?)', Date.new(2020,1,1), Date.new(2020,12,31), @type_ae, "21","22","23").where.not(domaine_fonctionnel: nil).order('date ASC').each do |programme| %>
+                 
+            [ Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
+            <% @montant = @montant + programme.montant %>
+            <% end %> 
+          
+          <% end %>
+   
         ],
-      
-    },
+        tooltip: {
+         pointFormatter: function() {
+          var point = this,
+           firstDate = Highcharts.dateFormat('%e %b %Y', point.x),
+            number = Highcharts.numberFormat(point.y, -1, ',',' '),   
+              header = '<span style="font-size: 12px">' + firstDate   + '</span><br/>',
+            content =  '<b>Montant consommé : '+ number + ' k€</b><br/>';
+            return header + content;
+          },
+        },
+      },
+
+      <% end %>
       <% end %>
       <% end %>
             ],
