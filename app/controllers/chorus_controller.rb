@@ -229,6 +229,7 @@ class ChorusController < ApplicationController
   def select_uo
     @dates = params[:date]
     @budget = params[:budget]
+    @vision = params[:vision]
     @uo = Choru.where('date = ?', Date.new(1000))
     @uos = Choru.where('date = ?', Date.new(1000))
     @bops_show = params[:bop_id] 

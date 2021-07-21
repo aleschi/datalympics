@@ -8,7 +8,7 @@
    <div class="dropdown dropdown-chorus">
      <button class="btn btn-secondary dropdown-toggle dropdown-select-chorus" type="button" id="dropdownMenuButtonuo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélectionner une UO <i class="fas fa-chevron-down"></i></button>
       <div class="dropdown-menu dropwdown-menu-chorus" aria-labelledby="dropdownMenuButtonuo">
-          <%= form_with url: select_uo_path(:bop_id => @bops_show, :date => @dates, :budget => @budget,:type_ae => @type_ae, :programme => @search), id: "uo_form" do |f|%>
+          <%= form_with url: select_uo_path(:bop_id => @bops_show, :date => @dates,:vision => @vision, :budget => @budget,:type_ae => @type_ae, :programme => @search), id: "uo_form" do |f|%>
           <label><%= f.check_box :searchuo,{:multiple => true}, @search, nil %> Tout sélectionner </label>
           <% (0..@uo_arr.length-1).each do |i|%>
             <label><%= f.check_box :id,{:multiple => true}, @uo_arr[i], nil %>  <%= @uo_arr[i]%> <% if ChorusNomenclature.where('nom = ?',@uo_arr[i]).count > 0 %>(<%= ChorusNomenclature.where('nom = ?',@uo_arr[i]).first.designation %>)<%end%></label>
@@ -23,7 +23,7 @@
   </div>
 </div>
 <div class="i24"></div>
-<div id="actions">
+<!-- <div id="actions">-->
    <!--  render 'chorus/actions' -->
 </div>  
 
