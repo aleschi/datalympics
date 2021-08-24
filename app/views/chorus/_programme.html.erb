@@ -58,7 +58,7 @@
             <tr>
               <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
               <% @type_pieces.each do |piece|%>
-                <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece).sum('montant'), :delimiter => ' ') %> €</td>
+                <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece).sum('montant').round(2), :delimiter => ' ') %> €</td>
               <% end %>
 
             </tr>
@@ -94,7 +94,7 @@
             <td></td>
             <td></td>
             <td><%= @budget %></td>
-            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant'), :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant').round(2), :delimiter => ' ') %></td>
         </tr><br>
         <% @programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
           <tr>
@@ -104,7 +104,7 @@
             <td><%= choru.operation %></td>
             <td><%= choru.centre_financier %></td>
             <td><%= choru.compte_budgetaire %></td>
-            <td><%= number_with_delimiter(choru.montant, :delimiter => ' ') %></td>
+            <td><%= number_with_delimiter(choru.montant.round(2), :delimiter => ' ') %></td>
 
           </tr>
         <% end %>

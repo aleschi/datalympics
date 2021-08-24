@@ -11,7 +11,7 @@ class Choru < ApplicationRecord
                   @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
 
                   if @chorus.montant == 0 
-                    @chorus.destroy
+                   @chorus.destroy
                   end         
             else #count == 0 ou pas dans dernier jours 
               @chorus = Choru.new
@@ -30,10 +30,10 @@ class Choru < ApplicationRecord
               end
             end 
 
-              @chorus.save 
-              if @chorus.date.nil?
-                @chorus.destroy 
-              end
+            @chorus.save 
+            if @chorus.date.nil?
+              @chorus.destroy 
+            end
         
           end #piece ok
 
@@ -61,12 +61,12 @@ class Choru < ApplicationRecord
             end
           end
 
-            @chorus.save 
-            if @chorus.date.nil?
-              @chorus.destroy 
-            end
+          @chorus.save 
+          if @chorus.date.nil?
+            @chorus.destroy 
+          end
        
-        end  
+        end 
       end
     end
   end

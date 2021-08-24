@@ -91,13 +91,13 @@ class ChorusController < ApplicationController
             end
           end 
           @type_pieces.uniq! 
-          @montant_lfi = @programme.where('type_budget = ? OR type_budget = ?', "Bud. voté ou en cours de vote", "Loi de Finances Initiale").first.montant
-          @montant_dispo = @programme.where('type_piece != ? AND type_piece != ?',"MADI",'RB').sum('montant')
-          @montant_reserve = @programme.where('type_piece = ?','RB').sum('montant')
+          @montant_lfi = @programme.where('type_budget = ? OR type_budget = ?', "Bud. voté ou en cours de vote", "Loi de Finances Initiale").first.montant.to_i
+          @montant_dispo = @chorus.where(domaine_fonctionnel: nil).sum('montant').to_i
+          @montant_reserve = @programme.where('type_piece = ?','RB').sum('montant').to_i
           if @budget == "T2"
-          @montant_conso = Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ?)', @date, @date + 1.year,@type_ae, "21","22","23","24","25","26").sum('montant')
+          @montant_conso = Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ?)', @date, @date + 1.year,@type_ae, "21","22","23","24","25","26").sum('montant').to_i
           else 
-            @montant_conso = Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?)', @date, @date + 1.year,@type_ae, "21","22","23","24","25","26").sum('montant')
+            @montant_conso = Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?)', @date, @date + 1.year,@type_ae, "21","22","23","24","25","26").sum('montant').to_i
           end 
   
           @bops = @chorus.select { |choru| choru.centre_financier.count("-") == 1 } #tous les bops du programme  
