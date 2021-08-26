@@ -5,7 +5,7 @@ class Choru < ApplicationRecord
     CSV.foreach(file.path) do |row|
       if !row[0].nil? && !row[0].empty?
         if (row[7].nil? || row[7].empty?)  #si ce nest pas des actions
-          if row[1] != 'P-FC'
+         
             if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).count > 0 && Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
                   @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).order('date DESC').first
                   @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
@@ -35,9 +35,7 @@ class Choru < ApplicationRecord
               @chorus.destroy 
             end
         
-          end #piece ok
-
-        else #c'est une action
+        elsif (!row[7].nil? && !row[7].empty?) #c'est une action
           if Choru.where('centre_financier = ?', row[4]).where.not(domaine_fonctionnel: nil).count > 0 && Choru.where('centre_financier = ?' ,row[4]).where.not(domaine_fonctionnel: nil).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
                 @chorus = Choru.where('centre_financier = ?' ,row[4]).where.not(domaine_fonctionnel: nil).order('date DESC').first
                 @chorus.montant = @chorus.montant + (row[6].to_f/100).to_i #cumul
