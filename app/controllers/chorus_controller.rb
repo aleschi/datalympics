@@ -84,7 +84,7 @@ class ChorusController < ApplicationController
 
         @type_pieces=[] 
         if !@programme.nil? && @programme.count > 0
-          @programme = @programme.order('created_at ASC').order('date ASC')
+          @programme = @programme.order('date ASC,montant DESC')
           @programme.each do |choru|
             if choru.type_piece != "RB" && choru.type_piece != "LFI"
             @type_pieces << choru.type_piece

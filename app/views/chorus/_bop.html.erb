@@ -157,7 +157,7 @@ title: {
           <% @dates.each do |date| %>
           <% @montant = 0 %>
        
-          <% Choru.where('type_ae = ? AND centre_financier = ? AND compte_budgetaire = ? AND date >= ? AND date <= ?',@type_ae, bop,@budget, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC').each do |programme| %>
+          <% Choru.where('type_ae = ? AND centre_financier = ? AND compte_budgetaire = ? AND date >= ? AND date <= ?',@type_ae, bop,@budget, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC,montant DESC').each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round %>],
            <% @montant = @montant + programme.montant %>
           <% end %>
@@ -173,7 +173,7 @@ title: {
           <% @dates.each do |date| %>
           <% @montant = 0 %>
          
-          <% Choru.where('type_ae = ? AND centre_financier = ? AND compte_budgetaire = ? AND operation !=? AND date >= ? AND date <= ?',@type_ae, bop, @budget,"Envoyer", Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('created_at ASC').order('date ASC').each do |programme| %>
+          <% Choru.where('type_ae = ? AND centre_financier = ? AND compte_budgetaire = ? AND operation !=? AND date >= ? AND date <= ?',@type_ae, bop, @budget,"Envoyer", Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).order('date ASC,montant DESC').each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round %>],
            <% @montant = @montant + programme.montant %>
           <% end %>
@@ -187,7 +187,7 @@ title: {
           <% @dates.each do |date| %>
           <% @montant = 0 %>
          
-          <% Choru.where('type_ae = ? AND centre_financier like ? AND date >= ? AND date <= ?',@type_ae,'%'+ bop+'%', Date.new(date.to_i-1,12,31),Date.new(date.to_i,12,31)).where.not(domaine_fonctionnel: nil).order('created_at ASC').order('date ASC').each do |programme| %>
+          <% Choru.where('type_ae = ? AND centre_financier like ? AND date >= ? AND date <= ?',@type_ae,'%'+ bop+'%', Date.new(date.to_i-1,12,31),Date.new(date.to_i,12,31)).where.not(domaine_fonctionnel: nil).order('date ASC,montant DESC').each do |programme| %>
             [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round %>],
            <% @montant = @montant + programme.montant %>
           <% end %>
