@@ -24,7 +24,9 @@
         <% @type_pieces_uo.each do |piece|%>
           <th scope="col"><%= piece%> Réception</th>
         <% end %>
-          <th scope="col">Consommation par actions </th>         
+          <th scope="col">Consommation par actions </th> 
+          <th>Total</th>
+            
       </tr>
     </thead>
 
@@ -36,9 +38,11 @@
             <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
             <td><%=uo %></td>
               <% @type_pieces_uo.each do |piece|%>
-            <td><%= number_with_delimiter(Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND operation = ? AND compte_budgetaire = ? ',@type_ae, uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, "Réception", @budget).sum('montant').round(2), :delimiter => ' ') %> €</td>
+            <td><%= number_with_delimiter(Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date <= ? AND type_piece = ? AND compte_budgetaire = ? ',@type_ae, uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),piece, @budget).sum('montant').round(2), :delimiter => ' ') %> €</td>
             <%end%>
-            <td><%= number_with_delimiter(Choru.where.not(domaine_fonctionnel: nil).where('type_ae = ?AND centre_financier = ? AND date >= ? AND date <= ?',@type_ae, uo,Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant').round(2), :delimiter => ' ') %> €</td>
+            <td><% if @budget == "HT2"%><%= number_with_delimiter(Choru.where.not(domaine_fonctionnel: nil).where('type_ae = ?AND centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?',@type_ae, uo,Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),'21','22','23').sum('montant').round(2), :delimiter => ' ') %> €<%else%><%= number_with_delimiter(Choru.where.not(domaine_fonctionnel: nil).where('type_ae = ?AND centre_financier = ? AND date >= ? AND date <= ? AND (compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ?)',@type_ae, uo,Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),'21','22','23').sum('montant').round(2), :delimiter => ' ') %> €<%end%></td>
+            <td><% if @budget == "HT2"%><%= number_with_delimiter((Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ? ',@type_ae, uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), @budget).sum('montant')-Choru.where.not(domaine_fonctionnel: nil).where('type_ae = ?AND centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?',@type_ae, uo,Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),'21','22','23').sum('montant')).round(2), :delimiter => ' ') %>  €<%else%><%= number_with_delimiter((Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ? ',@type_ae, uo, Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), @budget).sum('montant')-Choru.where.not(domaine_fonctionnel: nil).where('type_ae = ?AND centre_financier = ? AND date >= ? AND date <= ? AND (compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ?)',@type_ae, uo,Date.new(date.to_i,1,1),Date.new(date.to_i,12,31),'21','22','23').sum('montant')).round(2), :delimiter => ' ') %>  €<%end%></td>
+       
 
           </tr>
         <% end %>
@@ -56,7 +60,7 @@
             <th scope="col">Date</th>
           
             <th scope="col">Type piece</th>
-            <th scope="col">Operation</th>
+           
             <th scope="col">Centre financier</th>
             <th scope="col">Compte budgetaire</th>
             <th scope="col">Montant (€)</th>
@@ -72,7 +76,7 @@
                 <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
         
                 <td></td>
-                <td></td>
+            
                 <td><%= uo %></td>
                 <td><%= @budget %></td>
                 <td><%= number_with_delimiter(Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',@type_ae, uo,Date.new(date.to_i,1,1),Date.new(date.to_i,12,31), @budget).sum('montant').round(2), :delimiter => ' ') %></td>
@@ -83,7 +87,7 @@
               <td><%= l(choru.date, format: "%e %b %Y") %></td>
               
               <td><%= choru.type_piece %></td>
-              <td><%= choru.operation %></td>
+            
               <td><%= choru.centre_financier %></td>
               <td><%= choru.compte_budgetaire %></td>
               <td><%= number_with_delimiter(choru.montant.round(2), :delimiter => ' ') %></td>
@@ -295,11 +299,17 @@ title: {
               <% if !@dates.nil?%>
                 <% @dates.each do |date| %>
                 <% @montant = 0 %>
-             
-                <% Choru.where('centre_financier = ? AND date >= ? AND date <= ?', uo, Date.new(date.to_i,1,1), Date.new(date.to_i,12,31)).where.not(domaine_fonctionnel: nil).order('created_at ASC').order('date ASC').each do |programme| %>
-                  [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
-                 <% @montant = @montant + programme.montant %>
-                <% end %>
+                  <% if @budget == "HT2"%>
+                    <% Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?', uo, Date.new(date.to_i,1,1), Date.new(date.to_i,12,31),'21', '22', '23').where.not(domaine_fonctionnel: nil).order('created_at ASC').order('date ASC').each do |programme| %>
+                    [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
+                    <% @montant = @montant + programme.montant %>
+                    <%end%>
+                   <%else%>
+                    <% Choru.where('centre_financier = ? AND date >= ? AND date <= ? AND (compte_budgetaire = OR compte_budgetaire = ? OR compte_budgetaire = ?)', uo, Date.new(date.to_i,1,1), Date.new(date.to_i,12,31),'21', '22', '23').where.not(domaine_fonctionnel: nil).order('created_at ASC').order('date ASC').each do |programme| %>
+                    [Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%= ((@montant + programme.montant).to_f/1000).round%>],
+                    <% @montant = @montant + programme.montant %>
+                    <%end%>
+                  <% end %>
               <% end %>
             <% end %>
             ],
