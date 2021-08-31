@@ -36,6 +36,7 @@ class Choru < ApplicationRecord
             end
         
         elsif (!row[7].nil? && !row[7].empty?) #c'est une action
+          
           if Choru.where('compte_budgetaire = ? AND centre_financier = ?', row[5],row[4]).where.not(domaine_fonctionnel: nil).count > 0 && Choru.where('compte_budgetaire = ? AND centre_financier = ?' ,row[5],row[4]).where.not(domaine_fonctionnel: nil).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
                 @chorus = Choru.where('compte_budgetaire = ? AND centre_financier = ?' ,row[5],row[4]).where.not(domaine_fonctionnel: nil).order('date DESC').first
                 @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul

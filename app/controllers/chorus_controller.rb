@@ -80,17 +80,13 @@ class ChorusController < ApplicationController
       
       if !@chorus.nil?
         @chorus = @chorus.order('date ASC')
-        @programme = Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date < ? AND compte_budgetaire = ?',@type_ae, @search, @date, @date + 1.year, @budget)
+        @programme = Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',@type_ae, @search, @date, @date + 1.year, @budget)
 
-        @type_pieces=[] 
+       
         if !@programme.nil? && @programme.count > 0
           @programme = @programme.order('date ASC,montant DESC')
-          @programme.each do |choru|
-            if choru.type_piece != "RB" && choru.type_piece != "LFI"
-            @type_pieces << choru.type_piece
-            end
-          end 
-          @type_pieces.uniq! 
+          @type_pieces = @programme.pluck(:type_piece).uniq!
+          
           @montant_lfi = @programme.where('type_budget = ? OR type_budget = ?', "Bud. voté ou en cours de vote", "Loi de Finances Initiale").first.montant.to_i
           @montant_dispo = @chorus.where(domaine_fonctionnel: nil).sum('montant').to_i
           @montant_reserve = @programme.where('type_piece = ?','RB').sum('montant').to_i
