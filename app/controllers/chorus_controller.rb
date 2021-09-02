@@ -82,16 +82,15 @@ class ChorusController < ApplicationController
         @chorus = @chorus.order('date ASC')
         @programme = Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',@type_ae, @search, @date, @date + 1.year, @budget)
 
-       
         if !@programme.nil? && @programme.count > 0
           @programme = @programme.order('date ASC,montant DESC')
-          @type_pieces = @programme.pluck(:type_piece).uniq!
+          @type_pieces = @programme.pluck(:type_piece).uniq
           
           @montant_lfi = @programme.where('type_budget = ? OR type_budget = ?', "Bud. voté ou en cours de vote", "Loi de Finances Initiale").first.montant.to_i
           @montant_dispo = @chorus.where(domaine_fonctionnel: nil).sum('montant').to_i
           @montant_reserve = @programme.where('type_piece = ?','RB').sum('montant').to_i
           if @budget == "T2"
-          @montant_conso = Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ?)', @date, @date + 1.year,@type_ae, "21","22","23").sum('montant').to_i
+            @montant_conso = Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ?)', @date, @date + 1.year,@type_ae, "21","22","23").sum('montant').to_i
           else 
             @montant_conso = Choru.where('centre_financier like ?','%'+@search+'%').where.not(domaine_fonctionnel: nil).where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?)', @date, @date + 1.year,@type_ae, "21","22","23").sum('montant').to_i
           end 

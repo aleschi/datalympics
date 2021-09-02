@@ -38,6 +38,7 @@
   </div>
   </div>
  
+  <% if !@type_pieces.nil?%>
   <div class="ED_table" id="programme-bilan">
     <table class="table-striped">
       <thead>
@@ -67,6 +68,7 @@
       </tbody>
     </table>
   </div>
+  <%end%>
 
   <div class="ED_table" id="programme-tables">
     <table class="table-striped">
@@ -429,11 +431,11 @@ Highcharts.stockChart('programme', {
             },
      
     }, 
-<% if @programme.where('date >= ? AND date <= ? AND type_piece = ?', @date ,@date+1.year, 'RB').sum('montant') != 0%>
+    <% if @programme.where('date >= ? AND date <= ? AND type_piece = ?', @date ,@date+1.year, 'RB').sum('montant') != 0%>
     {
-        name: 'Crédits ouverts + Réserve',
-        color: '#C68D7B',
-        data: [
+      name: 'Crédits ouverts + Réserve',
+      color: '#C68D7B',
+      data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
          
@@ -478,8 +480,8 @@ Highcharts.stockChart('programme', {
           <% if @budget == "T2"%>
             <% Choru.where('centre_financier like ?','%'+@search+'%').where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire = ? OR compte_budgetaire = ? OR compte_budgetaire = ?)', Date.new(2020,1,1), Date.new(2020,12,31), @type_ae, "21","22","23").where.not(domaine_fonctionnel: nil).group_by_week(:date,week_start: :monday).sum('montant').each do |programme| %>
                  
-            [ Date.UTC(<%=programme.date.year%>,<%= programme.date.month-1%>, <%=programme.date.day%>), <%=  ((@montant + programme.montant).to_f/1000).round%>],
-            <% @montant = @montant + programme.montant %>
+             [Date.UTC(<%=programme[0].year%>,<%= programme[0].month-1%>, <%=programme[0].day%>), <%=  ((@montant + programme[1]).to_f/1000).round%>],
+            <% @montant = @montant + programme[1] %>
             <% end %> 
           <% else %>
            <% Choru.where('centre_financier like ?','%'+@search+'%').where('date >= ? AND date <= ? AND type_ae = ? AND (compte_budgetaire != ? AND compte_budgetaire != ? AND compte_budgetaire != ?)', Date.new(2020,1,1), Date.new(2020,12,31), @type_ae, "21","22","23").where.not(domaine_fonctionnel: nil).group_by_week(:date,week_start: :monday).sum('montant').each do |programme| %>
