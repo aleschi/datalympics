@@ -1,4 +1,3 @@
-
 <div class="box_page" id="dynamique-programme">
   <div><span class="titre_section">Visualisation du Programme <%= @search %> <% if ChorusNomenclature.where('nom = ?',@search).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',@search).first.designation %><%end%></span></div>
     <div class="i32"></div>
@@ -429,9 +428,11 @@ Highcharts.stockChart('programme', {
                 ]
             },
      
-    }, {
+    }, 
+<% if @programme.where('date >= ? AND date <= ? AND type_piece = ?', @date ,@date+1.year, 'RB').sum('montant') != 0%>
+    {
         name: 'Crédits ouverts + Réserve',
-      color: '#C68D7B',
+        color: '#C68D7B',
         data: [
           <% @dates.each do |date| %>
           <% @montant = 0 %>
@@ -458,11 +459,13 @@ Highcharts.stockChart('programme', {
          
         content =   point.name + '<br/>'+ '<b>Crédits ouverts + réserve: '+ number + ' k€</b><br/>';
 
-      return header + content;
-    },
+        return header + content;
+        },
       },
     
     },
+    <%end%>
+
       <% if Choru.where('centre_financier like ?','%'+@search+'%').where('date >= ? AND date <= ? AND type_ae = ?', Date.new(2020,1,1), Date.new(2020,12,31), @type_ae).where.not(domaine_fonctionnel: nil).count > 0%>
         {
         name: 'Consommation',
@@ -506,7 +509,7 @@ Highcharts.stockChart('programme', {
       <% end %>
       <% if @vision == "1" || @vision == "2"%> 
              {
-        name: 'Mouvements',
+        name: 'Solde Budgétaire',
         color: '#76505B',
          tooltip: {
            pointFormatter: function() {
@@ -516,7 +519,7 @@ Highcharts.stockChart('programme', {
         number = Highcharts.numberFormat(point.y, -1, ',',' '),
         header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
          
-        content =  point.name + '<br/>'+'<b>Disponible : '+ number + ' k€</b><br/>';
+        content =  point.name + '<br/>'+'<b>Solde Budgétaire : '+ number + ' k€</b><br/>';
 
       return header + content;
     },
