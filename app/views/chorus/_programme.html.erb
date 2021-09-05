@@ -540,7 +540,9 @@ Highcharts.stockChart('programme', {
             <% end %> 
           <% end %>
           <% end %>
+          <% if @montant_conso != 0 %>
           [Date.UTC(2020,12,1),<%= (@montant_dispo - @montant_conso)/1000%>],
+          <% end %>
         ],
                
     
