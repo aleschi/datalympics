@@ -54,7 +54,7 @@
     <div class="">
        <div class="dropdown">
          <button class="btn btn-secondary dropdown-toggle dropwdown-menu-chorus-navbar" type="button" id="vision" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><% if @vision == "0" %>Suivi consommation<%elsif @vision == "1" %>Allocation des ressources<% end %><i class="fas fa-chevron-down"></i></button>
-          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" aria-labelledby="vision">
+          <div class="dropdown-menu dropwdown-menu-chorus-navbar-list" style="width:270px;" aria-labelledby="vision"> 
           <%= form_tag choru_path(:date => @dates, :id => params[:id]), method: :get, class: "vision_form"  do%>
             <%= hidden_field_tag :budget, @budget %>
             <%= hidden_field_tag :type_ae, @type_ae %>

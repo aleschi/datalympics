@@ -1,0 +1,47 @@
+
+
+
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date <% if @order.nil? || @order == "ASC"%><%= link_to sort_table_programme_path(:date => @dates, :vision => @vision, :budget => @budget, :type_ae => @type_ae, :programme => @search, :desc => true ), method: :post, remote: true do %><i class="fas fa-sort"></i><% end %><%else%><%= link_to sort_table_programme_path(:date => @dates, :vision => @vision, :budget => @budget, :type_ae => @type_ae, :programme => @search, :desc => false), method: :post, remote: true do %><i class="fas fa-sort"></i><% end %><%end%></th>
+          <th scope="col">Type piece</th>
+          <th scope="col">Type budget</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Centre financier</th>
+          <th scope="col">Compte budgetaire</th>
+          <th scope="col">Montant (€) <% if @order_montant.nil? || @order_montant == "ASC"%><%= link_to sort_table_programme_path(:date => @dates, :vision => @vision, :budget => @budget, :type_ae => @type_ae, :programme => @search, :order_montant => true ), method: :post, remote: true do %><i class="fas fa-sort"></i><% end %><%else%><%= link_to sort_table_programme_path(:date => @dates, :vision => @vision, :budget => @budget, :type_ae => @type_ae, :programme => @search, :order_montant => false), method: :post, remote: true do %><i class="fas fa-sort"></i><% end %><%end%></th>
+
+        </tr>
+      </thead>
+      <% if !@programme.nil?%>
+      <tbody>
+        <% @dates.each do |date| %>
+        <!-- total annuel -->
+        <tr class="total-annuel">
+            <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%= @budget %></td>
+            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant').round(2), :delimiter => ' ') %></td>
+        </tr><br>
+        <% @programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
+          <tr>
+            <td><%= l(choru.date, format: "%e %b %Y") %></td>
+            <td><%= choru.type_piece %></td>
+            <td><%= choru.type_budget %></td>
+            <td><%= choru.operation %></td>
+            <td><%= choru.centre_financier %></td>
+            <td><%= choru.compte_budgetaire %></td>
+            <td><%= number_with_delimiter(choru.montant.round(2), :delimiter => ' ') %></td>
+
+          </tr>
+        <% end %>
+        
+        <% end %>
+      </tbody>
+      <% end %>
+    </table>
+

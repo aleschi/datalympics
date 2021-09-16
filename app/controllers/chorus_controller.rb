@@ -352,6 +352,31 @@ class ChorusController < ApplicationController
     end
     redirect_to chorus_path
   end 
+
+  def sort_table_programme
+    @dates = params[:date]
+    @vision = params[:vision]
+    @budget = params[:budget]
+    @type_ae = params[:type_ae]
+    @search = params[:programme]
+    @date = Date.new(2019,12,31)
+
+    @programme = Choru.where('type_ae = ? AND centre_financier = ? AND date >= ? AND date <= ? AND compte_budgetaire = ?',@type_ae, @search, @date, @date + 1.year, @budget)
+    if !params[:desc].nil? && params[:desc] == 'true' 
+      @programme = @programme.order('date DESC,montant ASC')
+      @order = "DESC"
+    elsif !params[:desc].nil? && params[:desc] == 'false' 
+      @programme = @programme.order('date ASC,montant DESC')
+      @order = "ASC"
+    elsif !params[:order_montant].nil? && params[:order_montant] == 'true' 
+      @programme = @programme.order('montant DESC')
+      @order_montant = "DESC"
+    elsif !params[:order_montant].nil? && params[:order_montant] == 'false' 
+      @programme = @programme.order('montant ASC')
+      @order_montant = "ASC"
+    end
+    respond_to :js 
+  end 
   
   private
 

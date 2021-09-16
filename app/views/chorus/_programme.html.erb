@@ -34,7 +34,7 @@
   <div class="text-center">
   <div class="inline-flex">
     <div class="bouton" style="margin-right:5px" id="programme-bilan-btn">Afficher les bilans</div>
-    <div class="bouton" style="margin-left:5px" id="programme-tables-btn">Afficher les tables</div>
+    <div class="bouton" style="margin-left:5px" id="programme-tables-btn">Afficher les données</div>
   </div>
   </div>
  
@@ -69,51 +69,8 @@
     </table>
   </div>
   <%end%>
-
   <div class="ED_table" id="programme-tables">
-    <table class="table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Type piece</th>
-          <th scope="col">Type budget</th>
-          <th scope="col">Operation</th>
-          <th scope="col">Centre financier</th>
-          <th scope="col">Compte budgetaire</th>
-          <th scope="col">Montant (€)</th>
-
-        </tr>
-      </thead>
-      <% if !@programme.nil?%>
-      <tbody>
-        <% @dates.each do |date| %>
-        <!-- total annuel -->
-        <tr class="total-annuel">
-            <td><%= l(Date.new(date.to_i,1,1), format: "%Y") %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><%= @budget %></td>
-            <td><%= number_with_delimiter(@programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).sum('montant').round(2), :delimiter => ' ') %></td>
-        </tr><br>
-        <% @programme.where('date >= ? AND date <= ?',Date.new(date.to_i,1,1),Date.new(date.to_i,12,31)).each do |choru| %>
-          <tr>
-            <td><%= l(choru.date, format: "%e %b %Y") %></td>
-            <td><%= choru.type_piece %></td>
-            <td><%= choru.type_budget %></td>
-            <td><%= choru.operation %></td>
-            <td><%= choru.centre_financier %></td>
-            <td><%= choru.compte_budgetaire %></td>
-            <td><%= number_with_delimiter(choru.montant.round(2), :delimiter => ' ') %></td>
-
-          </tr>
-        <% end %>
-        
-        <% end %>
-      </tbody>
-      <% end %>
-    </table>
+    <%= render 'chorus/table_programme'%>
   </div>
   <br> 
   <% end %>
