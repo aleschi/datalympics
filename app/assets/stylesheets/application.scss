@@ -2444,3 +2444,8 @@ color:#2323EA;
   color:#2323EA; //bleu
 }
 
+select {
+  &:hover{
+  cursor: pointer; 
+  }
+}
