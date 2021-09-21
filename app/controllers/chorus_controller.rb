@@ -86,7 +86,7 @@ class ChorusController < ApplicationController
           @programme = @programme.order('date ASC,montant DESC')
           @type_pieces = @programme.pluck(:type_piece).uniq
           
-          @montant_lfi = @programme.where('type_budget = ? OR type_budget = ?', "Bud. voté ou en cours de vote", "Loi de Finances Initiale").first.montant.to_i
+          @montant_lfi = @programme.where('type_budget = ?', "Bud. voté ou en cours de vote").sum('montant').to_i
           @montant_dispo = @chorus.where(domaine_fonctionnel: nil).sum('montant').to_i
           @montant_reserve = @programme.where('type_piece = ?','RB').sum('montant').to_i
           if @budget == "T2"
@@ -113,7 +113,7 @@ class ChorusController < ApplicationController
           end
 
           #compter le nombre de uo differents du bop selecionne
-          @uo_search = @bop.first.centre_financier + '-'
+          @uo_search = @bop_arr[0] + '-'
           @uos = Choru.where('type_ae = ? AND compte_budgetaire = ?',@type_ae, @budget).where('centre_financier like ? ', '%'+@uo_search+'%').order('date ASC')
           @uo_arr = []
           @uos.each do |uo|
@@ -122,7 +122,7 @@ class ChorusController < ApplicationController
           @uo_arr.uniq! 
           @uos_show = [@uo_arr[0]]
           @uo = Choru.where('type_ae = ? AND centre_financier = ?  AND date >= ? AND date < ? AND compte_budgetaire = ?',@type_ae, @uo_arr[0],@date, @date + 1.year, @budget ).order('date ASC') #on choisit dafficher le premier uo      
-         @type_pieces_uo=[]
+          @type_pieces_uo=[]
           if !@uo.nil?
             @uo.each do |choru|
               @type_pieces_uo << choru.type_piece

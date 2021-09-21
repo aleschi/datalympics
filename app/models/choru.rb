@@ -6,8 +6,8 @@ class Choru < ApplicationRecord
       if !row[0].nil? && !row[0].empty?
         if (row[7].nil? || row[7].empty?)  #si ce nest pas des actions
          
-            if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).count > 0 && Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1], row[4]).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
-                  @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ?' , row[5],row[2],row[1],row[4]).order('date DESC').first
+            if Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ? AND type_ae = ?' , row[5],row[2],row[1],row[4],row[8]).count > 0 && Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ? AND type_ae = ?' , row[5],row[2],row[1], row[4], row[8]).order('date DESC').first.date > row[0].to_date - 7.days #on rassemble
+                  @chorus = Choru.where('compte_budgetaire = ? AND operation = ? AND type_piece = ? AND centre_financier = ? AND type_ae = ?' , row[5],row[2],row[1],row[4],row[8]).order('date DESC').first
                   @chorus.montant = @chorus.montant + row[6].to_f/100 #cumul
 
                   if @chorus.montant == 0 
@@ -22,12 +22,8 @@ class Choru < ApplicationRecord
               @chorus.centre_financier = row[4]
               @chorus.compte_budgetaire = row[5]
               @chorus.montant = row[6].to_f/100
-             # @chorus.domaine_fonctionnel = row[7]
-              if !row[8].nil? && !row[8].empty?
-                @chorus.type_ae = row[8]
-              else
-                @chorus.type_ae = "cp"
-              end
+              @chorus.type_ae = row[8]
+              
             end 
 
             @chorus.save 
