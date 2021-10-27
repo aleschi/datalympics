@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_141846) do
+ActiveRecord::Schema.define(version: 2021_10_27_090859) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -280,6 +280,34 @@ ActiveRecord::Schema.define(version: 2021_08_24_141846) do
     t.float "montant_prevu"
     t.float "montant"
     t.string "categorie"
+  end
+
+  create_table "solideo_structure_budgets", force: :cascade do |t|
+    t.date "date"
+    t.float "budget_global"
+    t.float "budget_annee"
+    t.integer "solideo_structure_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["solideo_structure_id"], name: "index_solideo_structure_budgets_on_solideo_structure_id"
+  end
+
+  create_table "solideo_structure_depenses", force: :cascade do |t|
+    t.date "date"
+    t.float "droits_constates_cumul"
+    t.float "droits_constates_annee"
+    t.float "montants_engages_cumul"
+    t.integer "solideo_structure_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["solideo_structure_id"], name: "index_solideo_structure_depenses_on_solideo_structure_id"
+  end
+
+  create_table "solideo_structures", force: :cascade do |t|
+    t.string "name"
+    t.string "categorie"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "typeinnovations", force: :cascade do |t|

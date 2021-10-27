@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2021-10-27
+  budget_global: 1.5
+  budget_annee: 1.5
+  solideo_structure: one
+
+two:
+  date: 2021-10-27
+  budget_global: 1.5
+  budget_annee: 1.5
+  solideo_structure: two

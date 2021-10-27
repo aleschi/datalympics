@@ -1,0 +1,9 @@
+entrypoint: bundle exec rackup --port $PORT
+env: flex
+runtime: ruby
+
+env_variables:
+  SECRET_KEY_BASE: a0df926da1c29ceee3cab3309c5a2d50ad4829658dca50159c3536d6108e430a3080a0da7db6755c8276eb53ebe5cced2ef801d71b6f101b3f796dd080640aaf
+
+beta_settings:
+  cloud_sql_instances: datalympics:europe-west1:datalympics

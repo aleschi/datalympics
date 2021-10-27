@@ -23,7 +23,12 @@ Rails.application.routes.draw do
       post 'import' => 'ouvrages_depenses#import'
     end
   end 
-  resources :solideo_depenses
+  resources :solideo_depenses do 
+    collection do 
+      post 'import_structure' => 'solideo_depenses#import_structure'
+      post 'import_depenses' => 'solideo_depenses#import_depenses'
+    end 
+  end
   resources :solideo_financements do 
     collection do 
       post 'import' => 'solideo_financements#import'
@@ -57,7 +62,7 @@ Rails.application.routes.draw do
   
   get 'documents-solideo' => 'documents#documents_solideo'
 
- 
+  get 'new_structure' => 'solideo_depenses#new_structure'
   
   get 'etat_depenses_filter' => 'etat_depenses#index_filter'
   get 'solideo_financements_filter' => 'solideo_financements#index_filter'

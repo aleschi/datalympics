@@ -1,121 +1,43 @@
-
-<div class="box_page">
+<div class="i24"></div>
+<div  class="box_page">
   <div>
-    <span class="titre_section">Suivi du budget des ouvrages (Hors ZAC)</span>
+    <span class="titre_section">Suivi des engagements </span>
   </div>
-
-  <div class="i40"></div>
-
-  <div class="row w100 margin-none">
-    <div class="col-md-4 col-sm-4 col-xs-12">
-      <div style="height:200px;overflow:hidden">
-        <div id="focus"></div>
-      </div>
-    </div>
-    
-    <div class="col-md-4 col-sm-4 col-xs-12">
-      <div style="height:200px;overflow:hidden">
-        <div id="budget"></div>
-      </div>
-      <div class="i40 visible-xs"></div>
-    </div> 
-
-    <div class="col-md-4 col-sm-4 col-xs-12">  
-        <div class="box_i1">
-          <div class="box_i1_t1"><%= (@ouvrages_budget_2021-@ouvrages_depenses_2021).round(1)%> M€ </div>
-          <div class="box_i1_t2">Disponible pour 2021</div>
-        </div>
-        <div class="i40"></div>
-        <div class="box_i1">
-            <div class="box_i1_t1"><%= (@budget_ouvrages - @ouvrages_depenses_global).round(1)%> M€ </div>
-            <div class="box_i1_t2">Total restant</div>
-        </div> 
-    </div>
-  </div>
-
-  <div class="i40"></div>
-
-  <div class="row w100">
-    <div class="col-md-12">
-      <div id="ouvrages-depenses"></div>
-    </div>
-  </div>
-  
   <div class="i24"></div>
-    
-  <div class="flexslider2" id="flexslider">
+  <div class="flexslider2">
     <ul class="slides">
-    <% @dates_ouvrages_reporting.each_with_index do |date,i|%>
+    <% @dates_depenses_reporting.each_with_index do |date,i|%>
 
     <li> 
       <div class="ga ma pr">
         <div class="modal_title text-center"><%= l(date, format: "%e %B %Y") %></div>
         <div class='i24'></div>
         <div class="row w100 margin-none">
-          <div class="col-md-8 col-sm-12 col-xs-12">
-            <div id="ouvrages<%=i%>"></div>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div id="engagements<%=i%>"></div>
             <div class="i8"></div>
           </div>
-          <div class="col-md-2 col-sm-6 col-xs-12"> 
-                <div class="box_i1">
-                    <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('cumul_paiements')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>% </div>
-                    <div class="box_i1_t2">Exec. totale</div>
-                </div>
-                <div class="i16"></div>
-                <div class="box_i1">
-                    <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date).sum('cumul_paiements'))/1000000).to_i %>M€ </div>
-                  <div class="box_i1_t2">subventions totales restantes</div>
-                </div>
-                <div class="i16"></div>
-                <div class="box_i1">
-                    <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('cumul_jalons')/Chantier.where('date = ?',date).sum('total_depenses_actees'))*100).round(1)%>%</div>
-                    <div class="box_i1_t2"> jalons validés totaux</div>
-                </div>
-                <div class="i16"></div>
-          </div>
-         
-          <div class="col-md-2 col-sm-6 col-xs-12">
-                <div class="box_i1">
-                    <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('paiements_annee')/Chantier.where('date = ?',date).sum('budget_annee'))*100).round(1)%>% </div>
-                  <div class="box_i1_t2">Exec. 2021</div>
-                </div>
-             
-                <div class="i16"></div>
-        
-                <div class="box_i1">
-                    <div class="box_i1_t1"><%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date).sum('paiements_annee'))/1000000).to_i %>M€ </div>
-                  <div class="box_i1_t2">subventions restantes 2021</div>
-                </div> 
-                <div class="i16"></div>
-                <div class="box_i1">
-                  <div class="box_i1_t1"><%= (Chantier.where('date = ?',date).sum('paiements_attente_annee')/1000000).round(1)%>M€ </div>
-                  <div class="box_i1_t2">Paiements en attente</div>
-                </div>  
-                <div class="i16"></div>
-          </div>
-           
-         
         </div>
       </div>
         
     <script>
-    var chart<%=i%> = Highcharts.chart('ouvrages<%=i%>', {
+      var chart<%=i%> = Highcharts.chart('engagements<%=i%>', {
         chart: {
             type: 'column',
             marginTop:40,
-            //width: 500,
+           
             marginRight:0,
             marginLeft:0,
             height:300,
             spacing: [0,0,0,0],
-          backgroundColor: '#fff',
-              style:{
+            backgroundColor: '#fff',
+            style:{
               fontFamily: "Marianne Regular",
          
               },
         },
         title: {
-            text: 'Synthèse budgétaire mensuelle ouvrages (Hors Zac)',
+            text: 'Suivi des engagements (cumul depuis 2018)',
             verticalAlign: "top",
             style: {
                 color: "#6A6A6A",
@@ -125,7 +47,7 @@
           },
 
         xAxis: {
-            categories: ["Dépenses 2021", "Budget 2021", "Cumul dépenses", "Montants engagés", "Jalons validés"],
+            categories: ["Ouvrages MOA Solideo", "Ouvrages hors MOA SOLIDEO", "Fonctionnement", "Réserve et Innovation", "Total"],
             crosshair: true,
             labels: {
                 formatter: function () {
@@ -154,9 +76,9 @@
   
             shared: true,
             useHTML: true,
-           borderColor: 'transparent',
-       borderRadius: 16,
-       backgroundColor: '#fff',
+            borderColor: 'transparent',
+            borderRadius: 16,
+            backgroundColor: '#fff',
         },
         plotOptions: {
             column: {
@@ -168,15 +90,15 @@
             }
         },
         series: [{
-            name: 'Budget année',
+            name: 'Droits constatés 2021',
             data: [
             
-            {y:<%=(Chantier.where('date = ?',date).sum('paiements_annee')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
+            {y:<%=SolideoStructureDepense.where(solideo_structure_id: @list_structure_moas).where('date = ?',date).sum('montants_engages_cumul').round(1)%>, color: "#2E5D63",dataLabels: {
                     enabled: true,
                     formatter: function() {
 
                       var point = this;                      
-                      ecart = <%=((Chantier.where('date = ?',date).sum('paiements_annee')-Chantier.where('date = ?',date-1.month).sum('paiements_annee'))/1000000).round(1)%>;
+                      ecart = <%=(SolideoStructureDepense.where(solideo_structure_id: @list_structure_moas).where('date = ?',date).sum('montants_engages_cumul')-SolideoStructureDepense.where(solideo_structure_id: @list_structure_moas).where('date = ?',date-1.month).sum('montants_engages_cumul')).round(1)%>;
                       
                       number = Highcharts.numberFormat(point.y, -1, ',',' ');
                       
@@ -191,12 +113,12 @@
                       return header + content;
                     },
                 },},
-            {y:<%=(Chantier.where('date = ?',date).sum('budget_annee')/1000000).round(1)%>, color: "#bfbfbf",dataLabels: {
+            {y:<%=SolideoStructureDepense.where(solideo_structure_id: @list_structure_moahs).where('date = ?',date).sum('montants_engages_cumul').round(1)%>, color: "#bfbfbf",dataLabels: {
                     enabled: true,
                     formatter: function() {
 
                       var point = this;                      
-                      ecart = <%=((Chantier.where('date = ?',date).sum('budget_annee')-Chantier.where('date = ?',date-1.month).sum('budget_annee'))/1000000).round(1)%>;
+                      ecart = <%=(SolideoStructureDepense.where(solideo_structure_id: @list_structure_moahs).where('date = ?',date).sum('montants_engages_cumul')-SolideoStructureDepense.where(solideo_structure_id: @list_structure_moahs).where('date = ?',date-1.month).sum('montants_engages_cumul')).round(1)%>;
                       
                       number = Highcharts.numberFormat(point.y, -1, ',',' ');
                       
@@ -211,12 +133,12 @@
                       return header + content;
                     },
                 },},
-            {y:<%=(Chantier.where('date = ?',date).sum('cumul_paiements')/1000000).round(1)%>, color: "#2E5D63",dataLabels: {
+            {y:<%=SolideoStructureDepense.where(solideo_structure_id: @list_structure_f).where('date = ?',date).sum('montants_engages_cumul').round(1)%>, color: "#2E5D63",dataLabels: {
                     enabled: true,
                     formatter: function() {
 
                       var point = this;                      
-                      ecart = <%=((Chantier.where('date = ?',date).sum('cumul_paiements')-Chantier.where('date = ?',date-1.month).sum('cumul_paiements'))/1000000).round(1)%>;
+                      ecart = <%=(SolideoStructureDepense.where(solideo_structure_id: @list_structure_f).where('date = ?',date).sum('montants_engages_cumul')-SolideoStructureDepense.where(solideo_structure_id: @list_structure_f).where('date = ?',date-1.month).sum('montants_engages_cumul')).round(1)%>;
                       
                       number = Highcharts.numberFormat(point.y, -1, ',',' ');
                       
@@ -231,7 +153,7 @@
                       return header + content;
                     },
                 },},
-            {y:<%=(Chantier.where('date = ?',date).sum('total_depenses_actees')/1000000).round(1)%>, color: "#7D4E5B",dataLabels: {
+            {y:<%=SolideoStructureDepense.where(solideo_structure_id: @list_structure_ri).where('date = ?',date).sum('montants_engages_cumul').round(1)%>, color: "#7D4E5B",dataLabels: {
                     enabled: true,
                     inside: false,
                     crop:false,
@@ -239,7 +161,7 @@
                     formatter: function() {
 
                       var point = this;                      
-                      ecart = <%=((Chantier.where('date = ?',date).sum('total_depenses_actees')-Chantier.where('date = ?',date-1.month).sum('total_depenses_actees'))/1000000).round(1)%>;
+                      ecart = <%=(SolideoStructureDepense.where(solideo_structure_id: @list_structure_ri).where('date = ?',date).sum('montants_engages_cumul')-SolideoStructureDepense.where(solideo_structure_id: @list_structure_ri).where('date = ?',date-1.month).sum('droits_constates_annee')).round(1)%>;
                       
                       number = Highcharts.numberFormat(point.y, -1, ',',' ');
                       
@@ -254,12 +176,12 @@
                       return header + content;
                     },
                 },},
-            {y:<%=(Chantier.where('date = ?',date).sum('cumul_jalons')/1000000).round(1)%>, color: "#FFE800",dataLabels: {
+            {y:<%=SolideoStructureDepense.where('date = ?',date).sum('montants_engages_cumul').round(1)%>, color: "#FFE800",dataLabels: {
                     enabled: true,
                     formatter: function() {
 
                       var point = this;                      
-                      ecart = <%=((Chantier.where('date = ?',date).sum('cumul_jalons')-Chantier.where('date = ?',date-1.month).sum('cumul_jalons'))/1000000).round(1)%>;
+                      ecart = <%=(SolideoStructureDepense.where('date = ?',date).sum('montants_engages_cumul')-SolideoStructureDepense.where('date = ?',date-1.month).sum('montants_engages_cumul')).round(1)%>;
                       
                       number = Highcharts.numberFormat(point.y, -1, ',',' ');
                       
@@ -279,16 +201,15 @@
       });
       if ($(window).width() > 992) {
         chart<%=i%>.update({
-          chart: {width:500,},
+          chart: {width:800,},
         })
       }
-     </script> 
+    </script> 
     </li>
     <% end %>
     </ul>
   </div>
 </div>
-
 <div class="i24"></div>
 
 <div  class="box_page">

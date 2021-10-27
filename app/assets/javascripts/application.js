@@ -65,6 +65,15 @@ $(document).ready(function() {
     nextText:'',
   });
  })
+  $(document).on("turbolinks:load", function() {
+  $('.flexslider2').flexslider({ 
+    animation: "slide",
+    animationLoop: false,
+    slideshow: false,
+    prevText: "",    
+    nextText:'',
+  });
+ })
  $( document ).on('turbolinks:load', function() {
   $('#datetimepicker').datetimepicker({
     locale: 'fr',

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2021-10-27
+  droits_constates_cumul: 1.5
+  droits_constates_annee: 1.5
+  montants_engages_cumul: 1.5
+  solideo_structure: one
+
+two:
+  date: 2021-10-27
+  droits_constates_cumul: 1.5
+  droits_constates_annee: 1.5
+  montants_engages_cumul: 1.5
+  solideo_structure: two
