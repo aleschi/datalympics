@@ -14,7 +14,7 @@ class SolideoStructureDepense < ApplicationRecord
         	if !structure.nil?
 	        	depense = structure.solideo_structure_depenses.create(date: row_data['date'].to_date, droits_constates_cumul: row_data['Droits constatés'], droits_constates_annee: row_data['Droits constatés année'], montants_engages_cumul: row_data['Engagé'])
 	  			
-	  			if structure.solideo_structure_budgets.count == 0 || structure.solideo_structure_budgets.last.budget_global != row_data['Budget Global'] || structure.solideo_structure_budgets.last.budget_annee != row_data['Budget Année'] #si nexiste pas ou valeur d'un budget differente ce nouveau mois on met à jour 
+	  			if structure.solideo_structure_budgets.count == 0 || structure.solideo_structure_budgets.order(date: :asc).last.budget_global != row_data['Budget Global'] || structure.solideo_structure_budgets.order(date: :asc).last.budget_annee != row_data['Budget Année'] #si nexiste pas ou valeur d'un budget differente ce nouveau mois on met à jour 
 	  				budget = structure.solideo_structure_budgets.new
 	  				budget.date = row_data['date'].to_date
 	  				budget.budget_global = row_data['Budget Global']

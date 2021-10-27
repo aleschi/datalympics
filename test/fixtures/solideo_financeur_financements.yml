@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2021-10-27
+  titres_emis: 1.5
+  encaissements: 1.5
+  solideo_financeur: one
+
+two:
+  date: 2021-10-27
+  titres_emis: 1.5
+  encaissements: 1.5
+  solideo_financeur: two

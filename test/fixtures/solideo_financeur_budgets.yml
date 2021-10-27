@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2021-10-27
+  financement_global: 1.5
+  solideo_financeur: one
+
+two:
+  date: 2021-10-27
+  financement_global: 1.5
+  solideo_financeur: two

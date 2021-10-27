@@ -2,12 +2,11 @@
   <div class="i24"></div>
   <div class="titre_page text-center">Ajouter un nouveau document</div>
   <div class="i40"></div>
-  <div class="ED_new_form_box">
 
-    <%=form_tag import_financements_solideo_financements_path, multipart: true do %>
-
-      <div class="document-file-input">
-          <label><%= file_field_tag :file, accept: '.xlsx'  %>
+     <div class="ED_new_form_box">
+      <%= form_tag import_financeur_solideo_financements_path, multipart: true do%>
+        <div class="document-file-input">
+          <label><%= file_field_tag  :file, accept: '.xlsx' %>
             <div class="document-type"><i class="far fa-file-pdf"></i> </div>
             <div class="input-text"><i class="fas fa-plus-circle"></i><br>Ajouter un document</div>
             <div class="document-check">
@@ -20,11 +19,10 @@
         </div>
                     
         </div>
-            
-      <%end%>
+        <% end %>
   </div>
-</div>
 
+</div>
 <script>
   $('.document-check').hide();
   $('.document-type').hide();

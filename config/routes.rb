@@ -34,6 +34,8 @@ Rails.application.routes.draw do
       post 'import' => 'solideo_financements#import'
       post 'import2' => 'solideo_financements#import2'
       post 'deleteall' => 'solideo_financements#delete_financements'
+      post 'import_financeur' => 'solideo_financements#import_financeur'
+      post 'import_financements' => 'solideo_financements#import_financements'
     end 
     
   end 
@@ -63,6 +65,7 @@ Rails.application.routes.draw do
   get 'documents-solideo' => 'documents#documents_solideo'
 
   get 'new_structure' => 'solideo_depenses#new_structure'
+  get 'new_financeur' => 'solideo_financements#new_financeur'
   
   get 'etat_depenses_filter' => 'etat_depenses#index_filter'
   get 'solideo_financements_filter' => 'solideo_financements#index_filter'

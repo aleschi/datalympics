@@ -14,7 +14,26 @@ before_action :authenticate_user!
     @solideo_financements_collectivites = SolideoFinancement.where("financeur != ? AND financeur != ? AND date = ?", "Etat", "privé", SolideoFinancement.last.date).sum('montant')
     
     @dates_reporting = [Date.new(2020,1,1),Date.new(2019,1,1),Date.new(2018,1,1)]
-   
+    if SolideoFinanceurFinancement.count > 0
+      @etat = SolideoFinanceur.where(name: "Etat").first
+      @financements_etat = SolideoFinanceurFinancement.where(solideo_financeur_id: @etat.id).where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements')
+      @financements_etat_global = SolideoFinanceurBudget.where(solideo_financeur_id: @etat.id).where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('financement_global')
+
+      @collectivites = SolideoFinanceur.where('categorie = ? AND name != ?','SUBVENTION', "Etat").pluck(:id)
+      @financements_collectivites = SolideoFinanceurFinancement.where(solideo_financeur_id: @collectivites).where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements')
+      @financements_collectivites_global = SolideoFinanceurBudget.where(solideo_financeur_id: @collectivites).where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('financement_global')
+
+      @recettes = SolideoFinanceur.where(categorie: "RECETTES HPF")
+      @financements_recettes = SolideoFinanceurFinancement.where(solideo_financeur_id: @recettes).where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements')
+      @financements_recettes_global = SolideoFinanceurBudget.where(solideo_financeur_id: @recettes).where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('financement_global')
+
+      @paris = SolideoFinanceur.where(categorie: "PARIS 2024")
+      @financements_paris = SolideoFinanceurFinancement.where(solideo_financeur_id: @paris).where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements')
+      @financements_paris_global = SolideoFinanceurBudget.where(solideo_financeur_id: @paris).where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('financement_global')
+
+      @dates_financements_reporting = SolideoFinanceurFinancement.order('date DESC').pluck(:date).uniq
+
+    end
   end
   
   def index_filter
@@ -95,6 +114,16 @@ before_action :authenticate_user!
       format.json { head :no_content }
     end
   end
+  def new_financeur
+  end
+  def import_financeur
+    SolideoFinanceur.import(params[:file])
+    redirect_to solideo_financements_path
+  end 
+  def import_financements
+    SolideoFinanceurFinancement.import(params[:file])
+    redirect_to solideo_financements_path
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.

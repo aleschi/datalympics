@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_27_090859) do
+ActiveRecord::Schema.define(version: 2021_10_27_151352) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -280,6 +280,32 @@ ActiveRecord::Schema.define(version: 2021_10_27_090859) do
     t.float "montant_prevu"
     t.float "montant"
     t.string "categorie"
+  end
+
+  create_table "solideo_financeur_budgets", force: :cascade do |t|
+    t.date "date"
+    t.float "financement_global"
+    t.integer "solideo_financeur_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["solideo_financeur_id"], name: "index_solideo_financeur_budgets_on_solideo_financeur_id"
+  end
+
+  create_table "solideo_financeur_financements", force: :cascade do |t|
+    t.date "date"
+    t.float "titres_emis"
+    t.float "encaissements"
+    t.integer "solideo_financeur_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["solideo_financeur_id"], name: "index_solideo_financeur_financements_on_solideo_financeur_id"
+  end
+
+  create_table "solideo_financeurs", force: :cascade do |t|
+    t.string "name"
+    t.string "categorie"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "solideo_structure_budgets", force: :cascade do |t|
