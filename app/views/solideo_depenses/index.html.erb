@@ -1,7 +1,7 @@
 <% if !SolideoStructureDepense.last.nil?%>
 <div class="page_w">
   <div class="i24"></div>
-  <div class="titre_page text-center">Suivi du budget</div>
+  <div class="titre_page text-center">Suivi du budget </div>
   <div class="i12"></div>
   <div class="stitre_page text-center">Dernière mise à jour : <%= l(SolideoStructureDepense.order(date: :asc).last.date, format: "%e %B %Y") %></div>
   <div class="i40"></div>
@@ -9,7 +9,7 @@
 <div class="box_page">
   <div><span class="titre_section">Exécution budgétaire depuis 2018 (€ courant)</span></div>
   <div class="i24"></div>
-  <div class="box-erreur">Des données financières sont potentiellement manquantes ou inexactes </div>
+  <div class="box-erreur">Des données financières sont potentiellement manquantes ou inexactes. </div>
   <div class="i24"></div>
   <div class="i24"></div>
   <div class="row">
@@ -80,7 +80,7 @@
               },
         },
         title: {
-            text: 'Suivi des droits constatés (cumul depuis le début)',
+            text: 'Suivi des dépenses cumulées depuis 2018',
             verticalAlign: "top",
             style: {
                 color: "#6A6A6A",
@@ -133,7 +133,7 @@
             }
         },
         series: [{
-            name: 'Droits constatés',
+            name: 'Dépenses',
             data: [
             
             {y:<%=SolideoStructureDepense.where(solideo_structure_id: @list_structure_moas).where('date = ?',date).sum('droits_constates_cumul').round(1)%>, color: "#2E5D63",dataLabels: {
@@ -257,7 +257,7 @@
 <div class="i24"></div>
 <div class="box_page">
   <div>
-        <span class="titre_section">Exécution budgétaire 2021</span>
+        <span class="titre_section">Exécution budgétaire 2021 (€ courant)</span>
   </div>
   <div class="i24"></div>
   <div class="i24"></div>
@@ -326,7 +326,7 @@
               },
         },
         title: {
-            text: 'Suivi des droits constatés (cumul depuis Janvier 2021)',
+            text: 'Suivi des dépenses cumulées depuis Janvier 2021',
             verticalAlign: "top",
             style: {
                 color: "#6A6A6A",
@@ -379,7 +379,7 @@
             }
         },
         series: [{
-            name: 'Droits constatés 2021',
+            name: 'Dépenses 2021',
             data: [
             
             {y:<%=SolideoStructureDepense.where(solideo_structure_id: @list_structure_moas).where('date = ?',date).sum('droits_constates_annee').round(1)%>, color: "#2E5D63",dataLabels: {
@@ -521,7 +521,7 @@
           },
     },
     title: {
-        text: 'Droits constatés depuis 2018',
+        text: 'Dépenses cumulées depuis 2018 (€ courant)',
         verticalAlign: "top",
         style: {
                 color: "#6A6A6A",
@@ -590,7 +590,7 @@
         enabled: false
     },
     series: [{
-        name: 'Droits constatés',
+        name: 'Dépenses',
         data: [<%= SolideoStructureDepense.where('date = ?',SolideoStructureDepense.order(date: :asc).last.date).sum('droits_constates_cumul').round(1) + (SolideoStructureDepense.where('date = ?',SolideoStructureDepense.order(date: :asc).last.date).sum('droits_constates_cumul')/SolideoStructureBudget.where('date = ?',SolideoStructureBudget.order(date: :asc).last.date).sum('budget_global'))*(SolideoStructureBudget.where('date = ?',SolideoStructureBudget.order(date: :asc).last.date).sum('budget_global')-SolideoStructureDepense.where('date = ?',SolideoStructureDepense.order(date: :asc).last.date).sum('droits_constates_cumul')).round(1)%>],
         innerRadius: '80%',
       
@@ -691,7 +691,7 @@
         enabled: false
     },
     series: [{
-        name: 'Droits constatés',
+        name: 'Dépenses',
         data: [<%= SolideoStructureDepense.where('date = ?',SolideoStructureDepense.order(date: :asc).last.date).sum('droits_constates_annee')+ (SolideoStructureDepense.where('date = ?',SolideoStructureDepense.order(date: :asc).last.date).sum('droits_constates_annee')/SolideoStructureBudget.where('date = ?',SolideoStructureBudget.order(date: :asc).last.date).sum('budget_annee'))*(SolideoStructureBudget.where('date = ?',SolideoStructureBudget.order(date: :asc).last.date).sum('budget_annee')-SolideoStructureDepense.where('date = ?',SolideoStructureDepense.order(date: :asc).last.date).sum('droits_constates_annee')) %>],
         innerRadius: '80%',
       
@@ -745,7 +745,14 @@
 
     xAxis: {
         type: 'category',
-
+        labels: {
+                formatter: function () {
+                  if (this.value == "2020" || this.value == "Cumul"){
+                    return '<span style="color:#E1000F">' + this.value + '</span>'
+                  } else {
+                    return this.value 
+                  }
+                },},
     },
     yAxis: {
         min: 0,
@@ -840,7 +847,7 @@
           },
     },
     title: {
-        text: 'Droits constatés Ouvrages MOA Hors SOLIDEO',
+        text: 'Dépenses Ouvrages MOA Hors SOLIDEO',
         verticalAlign: "top",
         style: {
                 color: "#6A6A6A",
@@ -947,7 +954,7 @@
           },
     },
     title: {
-        text: 'Droits constatés Ouvrages MOA SOLIDEO',
+        text: 'Dépenses Ouvrages MOA SOLIDEO',
         verticalAlign: "top",
         style: {
                 color: "#6A6A6A",
@@ -1055,7 +1062,7 @@
           },
     },
     title: {
-        text: 'Droits constatés Ouvrages MOA Hors SOLIDEO 2021',
+        text: 'Dépenses Ouvrages MOA Hors SOLIDEO 2021',
         verticalAlign: "top",
         style: {
                 color: "#6A6A6A",
@@ -1162,7 +1169,7 @@
           },
     },
     title: {
-        text: 'Droits constatés Ouvrages MOA SOLIDEO 2021',
+        text: 'Dépenses Ouvrages MOA SOLIDEO 2021',
         verticalAlign: "top",
         style: {
                 color: "#6A6A6A",

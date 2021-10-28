@@ -1,7 +1,7 @@
 <div class="i24"></div>
 <div  class="box_page">
   <div>
-    <span class="titre_section">Suivi des engagements </span>
+    <span class="titre_section">Suivi des engagements (€ courant)</span>
   </div>
   <div class="i24"></div>
   <div class="flexslider2">
@@ -37,7 +37,7 @@
               },
         },
         title: {
-            text: 'Suivi des engagements (cumul depuis 2018)',
+            text: 'Suivi des engagements cumulés depuis 2018',
             verticalAlign: "top",
             style: {
                 color: "#6A6A6A",
@@ -90,7 +90,7 @@
             }
         },
         series: [{
-            name: 'Droits constatés 2021',
+            name: 'Dépenses 2021',
             data: [
             
             {y:<%=SolideoStructureDepense.where(solideo_structure_id: @list_structure_moas).where('date = ?',date).sum('montants_engages_cumul').round(1)%>, color: "#2E5D63",dataLabels: {
@@ -567,7 +567,7 @@ Highcharts.chart('container-2', {
     },{ // Secondary yAxis
       max:120,
         title: {
-            text: 'ETP',
+            text: 'Plafond ETP',
             style: {
                 color: '#5770BE'
             }
@@ -634,7 +634,7 @@ Highcharts.chart('container-2', {
 
             },
     },{
-        name: 'ETP',
+        name: 'Plafond ETP',
         type: 'spline',
         yAxis: 1,
       color: '#5770BE',

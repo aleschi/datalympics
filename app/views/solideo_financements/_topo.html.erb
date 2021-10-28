@@ -30,7 +30,7 @@
           </div>
           <div class="i32"></div>
           <div class="box_i1">
-            <div class="box_i1_t1">SOLIDEO - PARIS 2024 </div>
+            <div class="box_i1_t1">PARIS 2024 </div>
             <div class="box_i1_t2"><%= @financements_paris.round(1) %>/<%=@financements_paris_global.round(1)%>  M€ reçus</div>
           </div>
         </div>
@@ -99,7 +99,7 @@
             crosshair: true,
              labels: {
                 formatter: function () {
-                  if (this.value == "Paris 2024"){
+                  if (this.value == "Paris"){
                     return '<span style="color:#E1000F">' + this.value + '</span>'
                   } else {
                     return this.value 
@@ -283,7 +283,7 @@
             crosshair: true,
              labels: {
                 formatter: function () {
-                  if (this.value == "Paris 2024"){
+                  if (this.value == "Paris"){
                     return '<span style="color:#E1000F">' + this.value + '</span>'
                   } else {
                     return this.value 
