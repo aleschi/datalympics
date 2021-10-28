@@ -63,7 +63,7 @@
               <% SolideoFinanceur.where(categorie: "SUBVENTION").each do |s|%>
               <div class="box_i1 box_i1_f">
                   <div class="box_i1_t1"><%= (s.solideo_financeur_financements.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements')/s.solideo_financeur_budgets.where('date = ?',SolideoFinanceurBudget.order(date: :asc).last.date).sum('financement_global')*100).round %>% </div>
-                <div class="box_i1_t2">Ville de Paris</div>
+                <div class="box_i1_t2"><%= s.name%></div>
                 <div class="box_i1_t2"><%= s.solideo_financeur_financements.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements').round(1)%>/<%= s.solideo_financeur_budgets.where('date = ?',SolideoFinanceurBudget.order(date: :asc).last.date).sum('financement_global').round(1)%>M€</div>
               </div> 
               <% end %>
@@ -85,7 +85,7 @@
               },
         },
         title: {
-            text: 'Financements reçus (cumul depuis 2018)',
+            text: 'Financements encaissés (cumul depuis 2018)',
             verticalAlign: "top",
             style: {
                 color: "#6A6A6A",
@@ -139,12 +139,12 @@
         series: [{
             name: 'Financements cumulés',
             data: [
-            {name: 'Recette HPF', y:<%= SolideoFinanceur.where(categorie: 'RECETTES HPF').first.solideo_financeur_financements.where('date = ?',date).sum('encaissements').round(1)%>, color:"#2E5D63", dataLabels: {
+            {name: 'Recette HPF', y:<%= SolideoFinanceurFinancement.where(solideo_financeur_id: @recettes).where('date = ?',date).sum('encaissements').round(1)%>, color:"#2E5D63", dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= (SolideoFinanceur.where(categorie: 'RECETTES HPF').first.solideo_financeur_financements.where('date = ?',date).sum('encaissements')-SolideoFinanceur.where(categorie: 'RECETTES HPF').first.solideo_financeur_financements.where('date = ?',date-1.month).sum('encaissements')).round(1)%>;
+                        ecart = <%= (SolideoFinanceurFinancement.where(solideo_financeur_id: @recettes).where('date = ?',date).sum('encaissements')-SolideoFinanceurFinancement.where(solideo_financeur_id: @recettes).where('date = ?',date-1.month).sum('encaissements')).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
                         if (ecart > 0){
@@ -157,12 +157,12 @@
                         return header + content;
                       },
                   },},
-              {name: 'Paris 2024', y:<%= SolideoFinanceur.where(categorie: 'PARIS 2024').first.solideo_financeur_financements.where('date = ?',date).sum('encaissements').round(1)%>, color:"#2E5D63", dataLabels: {
+              {name: 'Paris 2024', y:<%= SolideoFinanceurFinancement.where(solideo_financeur_id: @paris).where('date = ?',date).sum('encaissements').round(1)%>, color:"#2E5D63", dataLabels: {
                       enabled: true,
                       formatter: function() {
 
                         var point = this;                      
-                        ecart = <%= (SolideoFinanceur.where(categorie: 'PARIS 2024').first.solideo_financeur_financements.where('date = ?',date).sum('encaissements')-SolideoFinanceur.where(categorie: 'PARIS 2024').first.solideo_financeur_financements.where('date = ?',date-1.month).sum('encaissements')).round(1)%>;
+                        ecart = <%= (SolideoFinanceurFinancement.where(solideo_financeur_id: @paris).where('date = ?',date).sum('encaissements')-SolideoFinanceurFinancement.where(solideo_financeur_id: @paris).where('date = ?',date-1.month).sum('encaissements')).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
                         if (ecart > 0){
@@ -185,6 +185,190 @@
 
                         var point = this;                      
                         ecart = <%= (s.solideo_financeur_financements.where('date = ?',date).sum('encaissements')-s.solideo_financeur_financements.where('date = ?',date-1.month).sum('encaissements')).round(1)%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
+                          header = '<span style="font-size: 10px;color:#2323EA"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  }, },
+              <%end%>
+              
+            
+            
+              ],
+            pointPlacement: 0,
+        }]
+      });
+      if ($(window).width() > 992) {
+        chart<%=i%>.update({
+          chart: {width:750,},
+        })
+      }
+      if ($(window).width() < 992) {
+        chart<%=i%>.update({
+          chart: {type:'bar',},
+        })
+      }
+      </script> 
+    </li>
+    <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="i24"></div>
+
+<div class="box_page">  
+  <div><span class="titre_section">Suivi mensuel des titres émis</span></div>
+  <div class="i24"></div>
+
+  <div class="flexslider2" id="flexslider-fin">
+    <ul class="slides">
+    <% @dates_financements_reporting.each_with_index do |date,i|%>
+
+    <li> 
+      <div class="ga ma pr">
+        <div class="modal_title text-center"><%= l(date, format: "%e %B %Y") %> </div>
+        <div class='i24'></div>
+        <div id="titres<%=i%>"></div>
+
+        <div class="i24"></div>
+        <div class="c2 fs14 tc">Pourcentage des subventions reçues par rapport au subventions totales prévues</div>
+        <div class="i24"></div>
+        <div>
+          
+            <div class="">
+              <% SolideoFinanceur.where(categorie: "SUBVENTION").each do |s|%>
+              <div class="box_i1 box_i1_f">
+                  <div class="box_i1_t1"><%= (s.solideo_financeur_financements.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('titres_emis')/s.solideo_financeur_budgets.where('date = ?',SolideoFinanceurBudget.order(date: :asc).last.date).sum('financement_global')*100).round %>% </div>
+                <div class="box_i1_t2"><%= s.name%></div>
+                <div class="box_i1_t2"><%= s.solideo_financeur_financements.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('titres_emis').round(1)%>/<%= s.solideo_financeur_budgets.where('date = ?',SolideoFinanceurBudget.order(date: :asc).last.date).sum('financement_global').round(1)%>M€</div>
+              </div> 
+              <% end %>
+            </div> 
+        <div class="i12"></div>
+   
+      </div>
+        
+      <script>
+      var chart<%=i%> = Highcharts.chart('titres<%=i%>', {
+        chart: {
+            type: 'column',
+            marginTop:40,
+            
+          backgroundColor: '#fff',
+              style:{
+              fontFamily: "Marianne Regular",
+         
+              },
+        },
+        title: {
+            text: 'Financements encaissés (cumul depuis 2018)',
+            verticalAlign: "top",
+            style: {
+                color: "#6A6A6A",
+                fontWeight: "400",        
+                fontSize: '12px',
+                  },
+          },
+
+        xAxis: {
+            categories: ["Recettes HPF","Paris 2024", "Etat", "RIF", "Ville de Paris", "Métropole Grand Paris", "CD92", "CD93", "CD78", "EPT Plaine Commune","EPT Terres d'envol", "Ville de Dugny", "Ville du Bourget", "CASQY", "Ville de Marseille"],
+            crosshair: true,
+             labels: {
+                formatter: function () {
+                  if (this.value == "Paris 2024"){
+                    return '<span style="color:#E1000F">' + this.value + '</span>'
+                  } else {
+                    return this.value 
+                  }
+                },
+                useHTML: true,
+            },
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Financements (M€)'
+            },
+          gridLineColor: "#fff",
+        },
+        legend: {
+          enabled: false,
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+            pointFormat: '<span style="padding:0">Financements reçus : <b> {point.y:.1f} M€</b></span>',
+  
+            shared: true,
+            useHTML: true,
+            borderColor: 'transparent',
+            borderRadius: 16,
+            backgroundColor: '#fff',
+          },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0,
+                grouping: false,
+              
+            }
+        },
+        series: [{
+            name: 'Financements cumulés',
+            data: [
+            {name: 'Recette HPF', y:<%= SolideoFinanceurFinancement.where(solideo_financeur_id: @recettes).where('date = ?',date).sum('titres_emis').round(1)%>, color:"#2E5D63", dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= (SolideoFinanceurFinancement.where(solideo_financeur_id: @recettes).where('date = ?',date).sum('titres_emis')-SolideoFinanceurFinancement.where(solideo_financeur_id: @recettes).where('date = ?',date-1.month).sum('titres_emis')).round(1)%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
+                          header = '<span style="font-size: 10px;color:#2323EA"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              {name: 'Paris 2024', y:<%= SolideoFinanceurFinancement.where(solideo_financeur_id: @paris).where('date = ?',date).sum('titres_emis').round(1)%>, color:"#2E5D63", dataLabels: {
+                      enabled: true,
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= (SolideoFinanceurFinancement.where(solideo_financeur_id: @paris).where('date = ?',date).sum('titres_emis')-SolideoFinanceurFinancement.where(solideo_financeur_id: @paris).where('date = ?',date-1.month).sum('titres_emis')).round(1)%>;
+                        
+                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
+                        if (ecart > 0){
+                          header = '<span style="font-size: 10px;color:#2323EA"> +' + ecart  + '</span><br/>';
+                        }else{
+                          header = '';
+                        }
+                          content = '<b>' + number  + ' </b>';
+
+                        return header + content;
+                      },
+                  },},
+              <% SolideoFinanceur.where(categorie: "SUBVENTION").each do |s|%>
+              {name: "<%= s.name%>", y:<%= s.solideo_financeur_financements.where('date = ?',date).sum('titres_emis').round(1)%>, color:"#2E5D63", dataLabels: {
+                      enabled: true,
+                      inside: false,
+                    crop:false,
+                    overflow:'allow',
+                      formatter: function() {
+
+                        var point = this;                      
+                        ecart = <%= (s.solideo_financeur_financements.where('date = ?',date).sum('titres_emis')-s.solideo_financeur_financements.where('date = ?',date-1.month).sum('titres_emis')).round(1)%>;
                         
                         number = Highcharts.numberFormat(point.y, -1, ',',' ');
                         if (ecart > 0){
@@ -302,7 +486,7 @@
         enabled: false
     },
     series: [{
-        name: 'Financements reçus',
+        name: 'Financements encaissés',
         data: [<%= (SolideoFinanceurFinancement.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements')+ (SolideoFinanceurFinancement.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements')/SolideoFinanceurBudget.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('financement_global'))*(SolideoFinanceurBudget.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('financement_global')-SolideoFinanceurFinancement.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements'))).round(1)%>],
         innerRadius: '80%',
       
@@ -351,7 +535,7 @@
     yAxis: {
         min: 0,
         title: {
-            text: 'Financements recçus (M€)'
+            text: 'Financements encaissés (M€)'
         },
       gridLineColor: "#fff",
     },
@@ -361,7 +545,7 @@
     tooltip: {
    
         headerFormat: '<span style="font-size:10px">{point.key}</span><br/>',
-        pointFormat: '<b>Financements reçus : {point.y:.1f} M€</b><br/>',
+        pointFormat: '<b>Financements encaissés : {point.y:.1f} M€</b><br/>',
 
         shared: true,
        useHTML: true,
@@ -400,7 +584,7 @@
               color: "#2E5D63",
           },{
               name: '2021',
-              y: 0,
+              y: <%= (SolideoFinanceurFinancement.where('date = ?',SolideoFinanceurFinancement.order(date: :asc).last.date).sum('encaissements')-399).round%>,
               color: "#2E5D63",
           }, {
               name: 'Cumul',

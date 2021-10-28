@@ -35,6 +35,10 @@ class OuvragesController < ApplicationController
     @dates_ouvrages_reporting = Chantier.order('date DESC').pluck(:date).uniq!
     @ouvrages_depenses_global = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('cumul_paiements')/1000000).round(1)
 
+    @list_structure_ouvrages = SolideoStructure.where('categorie = ? OR categorie = ? ',"OUVRAGE HORS MOA SOLIDEO", "OUVRAGE MOA SOLIDEO").pluck(:id)
+    @etat_id = SolideoFinanceur.where('name = ? ',"Etat").first.id 
+    @collectivites = SolideoFinanceur.where('categorie = ? AND name != ?','SUBVENTION', "Etat").pluck(:id)
+          
   end
   
   def search 

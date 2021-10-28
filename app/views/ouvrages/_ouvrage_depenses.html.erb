@@ -5,253 +5,9 @@
   </div>
   <div class="i24"></div>
 
-  <div class="flexslider2" id="flexslider3">
-    <ul class="slides">
-      <% @dates_ouvrages_reporting.each_with_index do |date,i|%>
-      <% if @ouvrage.chantiers.where('date = ?',date).count > 0 %>
-        <li> 
-          <div class="ga ma pr">
-            <div class="modal_title text-center"><%= l(date, format: "%e %B %Y") %> </div>
-            <div class='i24'></div>      
-              <% @ouvrage.chantiers.where('date = ?',date).each_with_index do |chantier,j| %>
-                <% if !chantier.nil?%>
-                  <div class="w100">
-                    <div class='i24'></div>
-                    
-                    <div class='i24'></div>
-                    <div id="ouvrages<%=i%><%=j%>"></div>
-                    <div class='i48'></div>
-                    <script>
-                      Highcharts.chart('ouvrages<%=i%><%=j%>', {
-                        chart: {
-                            type: 'column',
-                            width:750,
-                            height:250,
-                            marginTop:30,
-                          backgroundColor: '#fff',
-                              style:{
-                              fontFamily: "Marianne Regular",
-                         
-                              },
-                        },
-                        title: {
-                            text: '<%= chantier.typecontrat %>',
-                            style: {
-                                      color: "#6A6A6A",
-                                      fontWeight: "400",
-                   
-                              fontSize: '12px',
-                                      },
-                        },
-
-                        xAxis: {
-                            categories: ["Dépenses 2018","Dépenses 2019","Dépenses 2020","Dépenses 2021", "Budget 2021", "Dépenses totales", "Dépenses actées totales"],
-                            crosshair: true,
-                            labels: {
-                              formatter: function () {
-                                if (this.value == "Dépenses 2018" || this.value == "Dépenses 2019" || this.value == "Dépenses 2020" ){
-                                  return '<span style="color:#E1000F;">' + this.value + '</span>'
-                                } else {
-                                  return this.value 
-                                }
-                              },
-                              useHTML: true,
-                          },
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Budget dépensé (k€)'
-                            },
-                          gridLineColor: "#fff",
-                        },
-                        legend: {
-                          enabled: false,
-                        },
-                        tooltip: {
-                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-                            pointFormat: '<span style="padding:0"><b> {point.y:.1f} k€</b></span>',
-                  
-                            shared: true,
-                            useHTML: true,
-                            borderColor: 'transparent',
-                            borderRadius: 16,
-                            backgroundColor: '#fff',
-                          },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.2,
-                                borderWidth: 0,
-                                grouping: false,
-                              
-                            }
-                        },
-                        series: [{
-                            name: 'Dépenses',
-                            data: [
-                            {y:0, color:"#2E5D63"},
-                            {y:0, color:"#2E5D63"},
-                            {y:0, color:"#2E5D63"},
-                              {y:<%= (chantier.paiements_annee/1000).round(1)%>, color:"#2E5D63", dataLabels: {
-                                      enabled: true,
-                                      inside: false,
-                                      crop:false,
-                                      overflow:'allow',
-                                      formatter: function() {
-
-                                        var point = this;                      
-                                        ecart = <%= ((chantier.paiements_annee-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('paiements_annee'))/1000).round(1)%>;
-                                        
-                                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                                        if (ecart > 0){
-                                          header = '<span style="font-size: 10px;color:#2323EA"> +' + ecart  + '</span><br/>';
-                                        }else{
-                                          header = '';
-                                        }
-                                          content = '<b>' + number  + ' </b>';
-
-                                        return header + content;
-                                      },
-                                  },},
-                              
-                              {y:<%= (chantier.budget_annee/1000).round(1)%>, color:"#bfbfbf", dataLabels: {
-                                      enabled: true,
-                                      inside: false,
-                                      crop:false,
-                                      overflow:'allow',
-                                      formatter: function() {
-
-                                        var point = this;                      
-                                        ecart = <%= ((chantier.budget_annee-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('budget_annee'))/1000).round(1)%>;
-                                        
-                                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                                        if (ecart > 0){
-                                          header = '<span style="font-size: 10px;color:#2323EA"> +' + ecart  + '</span><br/>';
-                                        }else{
-                                          header = '';
-                                        }
-                                          content = '<b>' + number  + ' </b>';
-
-                                        return header + content;
-                                      },
-                                  },},
-
-                                {y:<%= (chantier.cumul_paiements/1000).round(1)%>, color:"#2E5D63", dataLabels: {
-                                      enabled: true,
-                                      inside: false,
-                                      crop:false,
-                                      overflow:'allow',
-                                      formatter: function() {
-
-                                        var point = this;                      
-                                        ecart = <%= ((chantier.cumul_paiements-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('cumul_paiements'))/1000).round(1)%>;
-                                        
-                                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                                        if (ecart > 0){
-                                          header = '<span style="font-size: 10px;color:#2323EA"> +' + ecart  + '</span><br/>';
-                                        }else{
-                                          header = '';
-                                        }
-                                          content = '<b>' + number  + ' </b>';
-
-                                        return header + content;
-                                      },
-                                  },},
-
-                                  {y:<%= (chantier.total_depenses_actees/1000).round(1)%>, color:"#7D4E5B", dataLabels: {
-                                      enabled: true,
-                                      inside: false,
-                                      crop:false,
-                                      overflow:'allow',
-                                      formatter: function() {
-
-                                        var point = this;                      
-                                        ecart = <%= ((chantier.total_depenses_actees-Chantier.where('name=? AND typecontrat = ? AND date = ?',chantier.name, chantier.typecontrat,date-1.month).sum('total_depenses_actees'))/1000).round(1)%>;
-                                        
-                                        number = Highcharts.numberFormat(point.y, -1, ',',' ');
-                                        if (ecart > 0){
-                                          header = '<span style="font-size: 10px;color:#2323EA"> +' + ecart  + '</span><br/>';
-                                        }else{
-                                          header = '';
-                                        }
-                                          content = '<b>' + number  + ' </b>';
-
-                                        return header + content;
-                                      },
-                                  },},
-                            
-                              ],
-                            pointPlacement: 0,
-                        }]
-                      });
-                    </script> 
-                  </div>
-                <% end %>
-              <% end %>
-          
-            
-          </div>
-        </li>
-      <% end %>
-      <% end %>
-    </ul>
-  </div>
+  <div id="suivi_temp"></div>
   <div class="i40"></div>
  
-   <div>
-        <span class="titre_section">Infos sur le suivi budgétaire</span>
-   </div>
-  <div class="i24"></div>
-   
-   <div class="flexslider" id="flexslider2">
-        <ul class="slides">
-          <% if @ouvrage.ouvrages_revues.count > 0 %>
-          <% @ouvrage.ouvrages_revues.order('date DESC').each do |revue| %>
-          <li>  
-            <div class="flexslider-slide">
-              <div class="c2 fs18 tl">Rapport de supervision <%= l(revue.date, :format => '%B %Y')%> : 
-              </div>
-              <div class="i32"></div>
-            <div class="row">
-              <div class="col-md-6">               
-                
-                 <div class="inline-flex w100">
-                <div class="inline-flex w100 mw350">
-                  <% if revue.budget_indicateur == 1%><div class="risque1 risque-active"></div><% else %><div class="risque1"></div><% end %>
-                  <% if revue.budget_indicateur == 2 %><div class="risque2 risque-active"></div><% else %><div class="risque2"></div><% end %>
-                  <% if revue.budget_indicateur == 3%><div class="risque3 risque-active"></div><% else %><div class="risque3"></div><% end %>
-                  <% if revue.budget_indicateur == 4%><div class="risque4 risque-active"></div><% else %><div class="risque4"></div><% end %>
-                  <% if revue.budget_indicateur == 5%><div class="risque5 risque-active"></div><% else %><div class="risque5"></div><% end %>
-                  
-                </div>
-                <div class="i24"></div>
-                     <div class="pdt tl w100">
-                      <span class="c3 fs18 ">XX  k€ </span><br>
-                    <span class="c2 fs14 ">Surcoûts envisagés </span>
-                  </div>
-                </div>
-                <div class="i24"></div>
-                <div class="c6 fs14 tl">
-                    <span class="c1"><em>Revue MOA</em> </span> 
-                    <div class="i24"></div>
-                    <%= revue.budget_commentaire %>
-                </div>
-                <div class="i24"></div>
-              </div>
-              <div class="col-md-6">
-                <div class="c6 fs14 tl">
-                  <span class="c1"><em>Actions prises par la Solideo </em></span>
-                  <div class="i24"></div>
-                  <%= revue.budget_action %>
-                </div><div class="i24"></div>
-              </div>
-            </div>
-            </div>
-          </li>
-          <% end %>
-          <% end %>
-        </ul>
-      </div>
    
   <div class="i24"></div>
 
@@ -271,27 +27,75 @@
   </div>
 </div>
 <div class="i24"></div>
-
-
 <script>
- $(document).on("turbolinks:load", function() {
-  $('#flexslider2').flexslider({ 
-    animation: "slide",
-    animationLoop: false,
-    slideshow: false, 
-    prevText: "Mois suivant",    
-    nextText:'Mois précédent',
-  });
-});
-</script>
-<script>
- $(document).on("turbolinks:load", function() {
-  $('#flexslider3').flexslider({ 
-    animation: "slide",
-    animationLoop: false,
-    slideshow: false, 
-    prevText: "Mois suivant",    
-    nextText:'Mois précédent',
-  });
-});
+Highcharts.chart('suivi_temp', {
+chart: {
+            type: 'line',
+            marginTop:40,
+           
+            marginRight:0,
+            marginLeft:0,
+            height:300,
+            spacing: [0,0,0,0],
+            backgroundColor: '#fff',
+            style:{
+              fontFamily: "Marianne Regular",
+         
+              },
+        },
+        title: {
+            text: 'Suivi des droits constatés',
+            verticalAlign: "top",
+            style: {
+                color: "#6A6A6A",
+                fontWeight: "400",        
+                fontSize: '12px',
+                  },
+          },
+
+        xAxis: {
+          type: 'datetime',
+          minTickInterval: 28*24*3600*1000,  
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Droits constatés (M€)'
+            },
+          gridLineColor: "#fff",
+        },
+      legend: {
+        enabled: false,
+      },
+      plotOptions: {
+        series: {
+          lineWidth: 2,
+            label: {
+                connectorAllowed: false
+            },  
+           marker: {
+                enabled: true
+            },
+          step: 'left',
+        }
+      },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+            pointFormat: '<span style="padding:0"><b> {point.y:.1f} M€</b></span>',
+  
+            shared: true,
+            useHTML: true,
+            borderColor: 'transparent',
+            borderRadius: 16,
+            backgroundColor: '#fff',
+        },
+        series: [{
+            name: 'Droits constatés 2021',
+            data: [[Date.UTC(2019,1,1),0],
+            <% SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_depenses.order(date: :asc).each do |d|%>
+            [Date.UTC(<%= d.date.year%>,<%= d.date.month-1%>,<%= d.date.day%>) , <%=d.droits_constates_cumul%>],
+            <%end%>
+            ],
+          }],
+        })
 </script>

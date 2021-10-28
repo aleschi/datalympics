@@ -20,7 +20,7 @@ class SolideoFinanceurFinancement < ApplicationRecord
 	  				budget.save 
           		else #on met juste a jour la date 
 		            budget = structure.solideo_financeur_budgets.last
-		            budget.date = row_data['Financement'].to_date
+		            budget.date = row_data['date'].to_date
 		            budget.save 
 	  			end
   			end

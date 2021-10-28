@@ -16,8 +16,8 @@
       <div class="box_chiffre inline-flex">
         <div><i class="fas fa-coins"></i></div>
         <div>
-          <div class="chiffre_cle"><%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€</div>
-          <div class="texte_chiffre">Budget Initial</div>
+          <div class="chiffre_cle"><%= number_with_delimiter(SolideoStructureBudget.where(solideo_structure_id: @list_structure_ouvrages).where('date = ?',SolideoStructureBudget.order(date: :asc).last.date).sum('budget_global').round(1), :delimiter => ' ') %> M€</div>
+          <div class="texte_chiffre">Budget Global</div>
         </div>
       </div>
       <div class="i24 visible-xs"></div>
@@ -26,8 +26,8 @@
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-          <div class="chiffre_cle"><%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[@dates_maquettes.length-1]).sum('total_public')/1000000).round(1), :delimiter => ' ') %> M€</div>
-          <div class="texte_chiffre">Part publique</div>
+          <div class="chiffre_cle c3"><%= number_with_delimiter(SolideoFinanceurBudget.where(solideo_financeur_id: @etat_id).order(date: :asc).last.financement_global.round(1), :delimiter => ' ') %> M€</div>
+          <div class="texte_chiffre">Financement Etat</div>
         </div>
       </div>
       <div class="i24 visible-xs"></div>
@@ -36,7 +36,7 @@
         <i class="fas fa-building"></i>
         </div>
         <div>
-        <div class="chiffre_cle"><%= Ouvrage.all.count %> </div>
+        <div class="chiffre_cle c3"><%= Ouvrage.all.count %> </div>
         <div class="texte_chiffre">Ouvrages</div>
         </div>
       </div>
@@ -44,23 +44,24 @@
     </div>
     <div class="i24"></div>
     <div class="box_alignement">
-      <div class="box_chiffre inline-flex">
-        <div>
-           <i class="fas fa-coins"></i>
-        </div>
-        <div>
-          <div class="chiffre_cle"><%= number_with_delimiter((Maquette.where.not(ouvrage_id: nil).where("date = ?", @dates_maquettes[0]).sum('total')/1000000).round(1), :delimiter => ' ') %> M€</div>
-        <div class="texte_chiffre">Budget réactualisé</div>
-        </div>
-      </div>
-      <div class="i24 visible-xs"></div>
+      
       <div class="box_chiffre inline-flex">
         <div class="c1">
            <i class="fas fa-euro-sign"></i>
         </div>
         <div>
-         <div class="chiffre_cle c3"><%= number_with_delimiter(@ouvrages_depenses_global, :delimiter => ' ') %> M€</div>
+         <div class="chiffre_cle"><%= number_with_delimiter(SolideoStructureDepense.where(solideo_structure_id: @list_structure_ouvrages).where('date = ?',SolideoStructureDepense.order(date: :asc).last.date).sum('droits_constates_cumul').round(1), :delimiter => ' ') %> M€</div>
         <div class="texte_chiffre">Dépenses réalisées</div>
+        </div>
+      </div>
+      <div class="i24 visible-xs"></div>
+      <div class="box_chiffre inline-flex">
+        <div>
+           <i class="fas fa-coins"></i>
+        </div>
+        <div>
+          <div class="chiffre_cle c3"><%= number_with_delimiter(SolideoFinanceurBudget.where(solideo_financeur_id: @collectivites).where('date = ?',SolideoFinanceurBudget.order(date: :asc).last.date).sum('financement_global').round(1), :delimiter => ' ') %> M€</div>
+        <div class="texte_chiffre">Financements collectivités</div>
         </div>
       </div>
       <div class="i24 visible-xs"></div>
