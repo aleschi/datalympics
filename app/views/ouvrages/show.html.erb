@@ -2,8 +2,10 @@
 <div class="page_w"> 
   <div class="i24"></div>
   <div class="titre_page text-center"><%= @ouvrage.name %></div>
+  <% if !SolideoStructureDepense.last.nil?%>
   <div class="i12"></div>
-  <div class="stitre_page text-center">Dernière mise à jour : 30 septembre 2021</div>
+  <div class="stitre_page text-center">Dernière mise à jour : <%= l(SolideoStructureDepense.order(date: :asc).last.date, format: "%e %B %Y") %></div>
+  <% end%>
   <div class="i40"></div>
   <%= render 'topo_ouvrage'%>
   <%= render 'jalons' %>

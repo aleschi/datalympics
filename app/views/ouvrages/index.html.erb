@@ -4,8 +4,10 @@
 <div class="page_w">
   <div class="i24"></div>
   <div class="titre_page text-center">Les ouvrages des JOP2024 </div>
+  <% if !SolideoStructureDepense.last.nil?%>
   <div class="i12"></div>
-  <div class="stitre_page text-center">Dernière mise à jour : 15 avril 2021 </div>
+  <div class="stitre_page text-center">Dernière mise à jour : <%= l(SolideoStructureDepense.order(date: :asc).last.date, format: "%e %B %Y") %> </div>
+  <% end%>
   <div class="i40"></div>
   
   <div  class="box_page">
