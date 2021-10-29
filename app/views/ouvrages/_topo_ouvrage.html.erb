@@ -35,7 +35,7 @@
                   <i class="fas fa-coins"></i>
                 </div>
                 <div>
-                  <div class="chiffre_cle"><% if SolideoStructure.where('name = ?',@ouvrage.name).count > 0 %><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).last.budget_global.round(1)%><% else %> XXX<% end %> M€</div>
+                  <div class="chiffre_cle"><% if !SolideoStructure.where('name = ?',@ouvrage.name).first.nil?%><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).last.budget_global.round(1)%><% else %> XXX<% end %> M€</div>
                 <div class="texte_chiffre">Budget Global</div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                  <i class="fas fa-euro-sign"></i>
               </div>
               <div>
-                <div class="chiffre_cle"><% if SolideoStructure.where('name = ?',@ouvrage.name).count > 0 %><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_depenses.order(date: :asc).last.droits_constates_cumul.round(1)%><% else %>0<%end%> M€</div>
+                <div class="chiffre_cle"><% if !SolideoStructure.where('name = ?',@ouvrage.name).first.nil? %><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_depenses.order(date: :asc).last.droits_constates_cumul.round(1)%><% else %>XXX <%end%> M€</div>
                 <div class="texte_chiffre">Dépenses totales</div>
               </div>
             </div>
@@ -55,7 +55,7 @@
                   <i class="fas fa-coins"></i>
                 </div>
                 <div>
-                 <div class="chiffre_cle"> <% if SolideoStructure.where('name = ?',@ouvrage.name).count > 0 %><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).last.budget_annee.round(1)%><% else %> XXX<% end %> M€</div>
+                 <div class="chiffre_cle"> <% if !SolideoStructure.where('name = ?',@ouvrage.name).first.nil? %><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).last.budget_annee.round(1)%><% else %> XXX<% end %> M€</div>
                   <div class="texte_chiffre">Budget 2021</div>
                 </div>
             </div> 
@@ -64,7 +64,7 @@
                  <i class="fas fa-euro-sign"></i>
               </div>
               <div>
-                <div class="chiffre_cle"><% if SolideoStructure.where('name = ?',@ouvrage.name).count > 0 %><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_depenses.order(date: :asc).last.droits_constates_annee.round(1)%><% else %>0<%end%> M€</div>
+                <div class="chiffre_cle"><% if !SolideoStructure.where('name = ?',@ouvrage.name).first.nil? %><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_depenses.order(date: :asc).last.droits_constates_annee.round(1)%><% else %>XXX<%end%> M€</div>
                 <div class="texte_chiffre">Dépenses 2021</div>
               </div>
             </div> 
@@ -82,7 +82,7 @@
         </div>
         <div class="pdt w100 tl">
       
-          <span class="fs18 c1"><% if (SolideoStructure.where('name = ?',@ouvrage.name).count > 0 %><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).last.budget_global-SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).first.budget_global).round(1)%><% else %> XXX<% end %> M€</span><br>
+          <span class="fs18 c1"><% if !SolideoStructure.where('name = ?',@ouvrage.name).first.nil? %><%= (SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).last.budget_global-SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).first.budget_global).round(1)%><% else %> XXX<% end %> M€</span><br>
          <span class="fs14 c2">Ecarts budget global</span>
          
           </div>
@@ -97,9 +97,7 @@
           <i class="fas fa-stopwatch"></i>
         </div>
         <div class="pdt w100 tl">
-          <span class="fs18 c1"><% if @ouvrage.ouvrages_revues.count > 0 %>
-             <%= @ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %> mois 
-          <% else %> Pas de données <% end %></span><br>
+          <span class="fs18 c1">XX mois</span><br>
           <span class="fs14 c2">Retard envisagé</span>
         </div>
       </div>
@@ -192,7 +190,7 @@ Highcharts.chart('container-jauge', {
             color: "#2323EA",
             radius: '100%',
             innerRadius: '88%',
-            y: <% if !SolideoStructure.where('name = ?',@ouvrage.name).nil?%><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_depenses.order(date: :asc).last.droits_constates_cumul / SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).last.budget_global * 100 %><%else%>0<%end%>,
+            y: <% if !SolideoStructure.where('name = ?',@ouvrage.name).first.nil?%><%= SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_depenses.order(date: :asc).last.droits_constates_cumul / SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_budgets.order(date: :asc).last.budget_global * 100 %><%else%>0<%end%>,
         }]
     }]
 });

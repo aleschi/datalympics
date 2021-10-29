@@ -7,11 +7,7 @@ Rails.application.routes.draw do
      
     end
   end 
-  resources :chantiers do 
-    collection do 
-      post 'import' => 'chantiers#import'
-    end 
-  end 
+ 
   devise_for :users, :path => "",
     :path_names =>  {:sign_in => "connexion", :sign_out => "deconnexion"}
   ActiveAdmin.routes(self)
@@ -39,7 +35,7 @@ Rails.application.routes.draw do
     end 
     
   end 
-  resources :ouvrages_revues
+
   resources :etat_budgets
   resources :etat_depenses do 
     collection do 
@@ -50,7 +46,7 @@ Rails.application.routes.draw do
     collection {post :import}
   end 
   resources :documents
-  resources :conventions
+
   resources :innovations do 
     collection do 
       post 'import' => 'innovations#import'
@@ -76,6 +72,7 @@ Rails.application.routes.draw do
   post 'delete-document' => 'documents#delete_file'
   
   get 'timeline' => 'ouvrages#timeline'
+  get 'risques' => 'ouvrages#risques'
   post 'select_bop' => 'chorus#select_bop'
   post 'select_uo' => 'chorus#select_uo'
    post 'select_date_programme' => 'chorus#select_date_programme'
@@ -98,9 +95,6 @@ Rails.application.routes.draw do
   get 'utilisation-budget' => 'pages#interets'
   get 'impacts' => 'pages#impacts'
   post 'maquette-date' => 'ouvrages_depenses#maquette_date'
-
-  get 'association' => "chantiers#association"
-  post 'import_association' => "chantiers#import_association"
 
   post 'form-edit' => 'innovations#form_edit'
 

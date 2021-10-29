@@ -155,7 +155,7 @@ function initMap() {
                 var marker = new google.maps.Marker({
                                 position: {lat: <% if ouvrage.latitude.nil?%>48.856614<% else%><%= ouvrage.latitude%><%end%>, lng: <% if ouvrage.longitude.nil?%>2.3522219<% else %><%= ouvrage.longitude%><%end%>},
                                 map: map,
-                                icon: <% if ouvrage.ouvrages_revues.count > 0 %><% if ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>imager<% elsif ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 4 %>imagei<% else %>image<% end%><% else %>image <% end %>,
+                                icon: image ,
                                 label: {
                                      fontFamily: "'Font Awesome 5 Free'",
                                       text: '\uf6e3', //icon code
@@ -169,17 +169,9 @@ function initMap() {
                           
                 bindInfoWindow(marker, map, infowindow, '<div class="search-container-fluid">'+ '<p class="search-name"><%= link_to ouvrage_path(ouvrage) do %><%= ouvrage.name%><% end %></p>'+ '</div>');
        
-                               <% if ouvrage.ouvrages_revues.count > 0 %>
-                               <% if ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
-                                AddMouseover(marker, imager, image2r);
-                              <% elsif ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 4 %>
-                              AddMouseover(marker, imagei, image2i);
-                                <%else%>
+                               
                                 AddMouseover(marker, image, image2);
-                                <%end %>
-                               <% else %>
-                                AddMouseover(marker, image, image2);
-                                <% end %>
+                             
                       
                 <% end %>
                 }

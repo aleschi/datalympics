@@ -61,32 +61,6 @@
 
 </script>
 
-<script>
-  <% if @ouvrage.ouvrages_revues.count > 0%>
-  <% @revue = @ouvrage.ouvrages_revues.order('date DESC').first %>
-  <% if @revue.delai_indicateur == 1 %>
-  $(".jauge-clock").addClass('flag1');
-  <% elsif @revue.delai_indicateur == 2 %>
-  $(".jauge-clock").addClass('flag2');
-  <% elsif @revue.delai_indicateur == 3 %>
-  $(".jauge-clock").addClass('flag3');
-  <% elsif @revue.delai_indicateur == 4 %>
-  $(".jauge-clock").addClass('flag4');
-  <% elsif @revue.delai_indicateur == 5%>
-  $(".jauge-clock").addClass('flag5');
-  <% end %>
-  <% if @revue.budget_indicateur == 1 %>
-  $(".jauge-flag").addClass('flag1');
-  <% elsif @revue.budget_indicateur == 2 %>
-  $(".jauge-flag").addClass('flag2');
-  <% elsif @revue.budget_indicateur == 3 %>
-  $(".jauge-flag").addClass('flag3');
-  <% elsif @revue.budget_indicateur == 4 %>
-  $(".jauge-flag").addClass('flag4');
-  <% elsif @revue.budget_indicateur == 5 %>
-  $(".jauge-flag").addClass('flag5');
-  <% end %>
-  <% end %>
-</script>
+
 
 

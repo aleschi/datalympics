@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_27_151352) do
+ActiveRecord::Schema.define(version: 2021_10_29_084023) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -47,29 +47,6 @@ ActiveRecord::Schema.define(version: 2021_10_27_151352) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "chantiers", force: :cascade do |t|
-    t.string "name"
-    t.integer "ouvrage_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "code"
-    t.string "site"
-    t.string "libelle"
-    t.string "typecontrat"
-    t.date "datesignature"
-    t.float "total_depenses_actees"
-    t.float "depenses_actees_annee"
-    t.float "jalons_annee"
-    t.float "paiements_annee"
-    t.float "paiements_attente_annee"
-    t.float "budget_annee"
-    t.float "cumul_depenses_actees"
-    t.float "cumul_jalons"
-    t.float "cumul_paiements"
-    t.date "date"
-    t.index ["ouvrage_id"], name: "index_chantiers_on_ouvrage_id"
-  end
-
   create_table "chorus", force: :cascade do |t|
     t.date "date"
     t.string "type_piece"
@@ -97,20 +74,6 @@ ActiveRecord::Schema.define(version: 2021_10_27_151352) do
     t.date "date"
     t.integer "ae_conso"
     t.integer "cp_conso"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "conventions", force: :cascade do |t|
-    t.integer "travaux_signature"
-    t.integer "objectifs_signature"
-    t.integer "etudes_signature"
-    t.integer "objectifs_encours"
-    t.integer "avenants_objectifs_encours"
-    t.integer "avenants_travaux_encours"
-    t.integer "protocole_etudes_encours"
-    t.integer "objectifs_elaboration"
-    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -244,22 +207,6 @@ ActiveRecord::Schema.define(version: 2021_10_27_151352) do
     t.float "longitude"
     t.integer "ouvrage_id"
     t.index ["ouvrage_id"], name: "index_ouvrages_publics_on_ouvrage_id"
-  end
-
-  create_table "ouvrages_revues", force: :cascade do |t|
-    t.date "date"
-    t.integer "ouvrage_id"
-    t.string "delai_commentaire"
-    t.string "delai_action"
-    t.float "delai_time"
-    t.integer "budget_indicateur"
-    t.string "budget_commentaire"
-    t.string "budget_action"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "delai_indicateur", default: 1
-    t.date "date_maj"
-    t.index ["ouvrage_id"], name: "index_ouvrages_revues_on_ouvrage_id"
   end
 
   create_table "solideo_depenses", force: :cascade do |t|

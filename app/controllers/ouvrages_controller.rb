@@ -29,12 +29,7 @@ class OuvragesController < ApplicationController
         render json: @ouvrages.map(&:name)  
       end
     
-    
-
-    @dates_maquettes= Maquette.order('date DESC').pluck(:date).uniq! 
-    @dates_ouvrages_reporting = Chantier.order('date DESC').pluck(:date).uniq!
-    @ouvrages_depenses_global = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('cumul_paiements')/1000000).round(1)
-
+  
     @list_structure_ouvrages = SolideoStructure.where('categorie = ? OR categorie = ? ',"OUVRAGE HORS MOA SOLIDEO", "OUVRAGE MOA SOLIDEO").pluck(:id)
     @etat_id = SolideoFinanceur.where('name = ? ',"Etat").first.id 
     @collectivites = SolideoFinanceur.where('categorie = ? AND name != ?','SUBVENTION', "Etat").pluck(:id)
@@ -72,13 +67,8 @@ class OuvragesController < ApplicationController
     @navshow = true 
     @nav=true
     @ouvrage_depenses = OuvragesDepense.all.where('ouvrage_id = ?', @ouvrage.id)
- 
-    if @ouvrage.chantiers.count > 0
-      @lastdate = @ouvrage.chantiers.order('date DESC').first.date #derniere date du reporting
-    else 
-      @lastdate = Date.yesterday
-    end
-    @dates_ouvrages_reporting = Chantier.pluck(:date).uniq!
+
+   
   end
 
   # GET /ouvrages/new
@@ -144,6 +134,10 @@ class OuvragesController < ApplicationController
   end
   
   def timeline
+    @nav=true 
+  end 
+
+  def risques
     @nav=true 
   end 
 

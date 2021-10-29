@@ -92,8 +92,10 @@ chart: {
         series: [{
             name: 'Droits constatés 2021',
             data: [[Date.UTC(2019,1,1),0],
+            <% if !SolideoStructure.where('name = ?',@ouvrage.name).first.nil?%>
             <% SolideoStructure.where('name = ?',@ouvrage.name).first.solideo_structure_depenses.order(date: :asc).each do |d|%>
             [Date.UTC(<%= d.date.year%>,<%= d.date.month-1%>,<%= d.date.day%>) , <%=d.droits_constates_cumul%>],
+            <%end%>
             <%end%>
             ],
           }],

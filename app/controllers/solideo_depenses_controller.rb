@@ -6,26 +6,7 @@ before_action :authenticate_user!
   def index
      @nav=true
 
-    @dates_ouvrages_reporting = Chantier.order('date DESC').pluck(:date).uniq!
-    
-    @dates_maquettes= Maquette.order('date DESC').pluck(:date).uniq! 
 
-    @budget_ouvrages = (Maquette.where('date = ?',@dates_maquettes[0]).where.not(ouvrage_id: nil).sum('total')/1000000).to_i 
-    @budget_ouvrages_depenses = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('cumul_paiements')/1000000).to_i
-
-    @budget_fonctionnement = (Maquette.where('date = ? AND name = ?',@dates_maquettes[0], "Frais de Structure SOLIDEO").sum('total')/1000000).to_i 
-    
-    @budget_innovation_initial = (Maquette.where('date = ? AND (name = ? OR name = ?)',@dates_maquettes[0], "Fonds Innovation et Développement Durable", "Paris Fonds Vert").sum('total')/1000000).to_i
-   
-    @budget_reserve_initial = (Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total')/1000000).to_i 
-    @budget_reserve_consomme = ((Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[@dates_maquettes.length-1], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total') - Maquette.where('date = ? AND (name = ? OR name = ? OR name = ? OR name = ?)',@dates_maquettes[0], "Réserve pour compléments de programme", "CPJ","Voies Olympiques [Réserve]", "Stade de France [Pertes d'exploitation]").sum('total'))/1000000).to_i 
-
-    @ouvrages_depenses_2021 = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('paiements_annee')/1000000)
-    @ouvrages_budget_2021 = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('budget_annee')/1000000)
-
-    @ouvrages_budget_global = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('total_depenses_actees')/1000000).round(1)
-    @ouvrages_depenses_global = (Chantier.where('date = ?',@dates_ouvrages_reporting[0]).sum('cumul_paiements')/1000000).round(1)
-    
     #droits constates ouvrage moa solideo
     if SolideoStructureDepense.count > 0
       @list_structure_moas = SolideoStructure.where(categorie: "OUVRAGE MOA SOLIDEO").pluck(:id)

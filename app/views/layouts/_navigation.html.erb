@@ -20,27 +20,17 @@
   <div class=" navigation-menu TB-menu-prof menu-accueil">
     <%= link_to root_path, class: "menu" do%><i class="fas fa-home"></i> Accueil<% end %>
   </div>
-  <div class="navigation-menu menu-jeux hidden"><%= link_to les_jop2024_path, class: "menu" do %><i class="fab fa-free-code-camp"></i> Les Jeux 2024 <%end%></div>
 
   <!-- nav ouvrage page -->
   <% if !@navshow.nil? && !@ouvrage.nil?%>
-    <% if !@chantier.nil?%>
-      <div class="navigation-menu">
-        <%= link_to ouvrage_path(@ouvrage), class:"menu" do%><i class="fas fa-arrow-left"></i> Retour à   l'ouvrage<%end%>
-      </div>
-    <% else %>
-      <div class="navigation-menu"><%= link_to ouvrages_path, class:"menu" do%><i class="fas fa-arrow-left"></i> Retour aux ouvrages<%end%></div>
-    <% end %>
+    <div class="navigation-menu"><%= link_to ouvrages_path, class:"menu" do%><i class="fas fa-arrow-left"></i> Retour aux ouvrages<%end%></div>
   
     <div class="dropdown navigation-menu ">
       <a class="menu menu-ouvrages" href="#ouvrages" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="ouvrages" id="btn-collapse-ouvrages"><i class="fas fa-building"></i> Ouvrages <span class="collapse-icon"></span></a>
     </div>
     <section id="ouvrages" class="collapse">
       <div class="navigation-menu navigation-menu2"><a class="menu2  menu-ouvrages-ouvrage"><%= @ouvrage.name %></a></div>
-      <% if !@chantier.nil?%>
-        <div class="navigation-menu navigation-menu3"><a class="menu2  menu-ouvrages-ouvrage"><%= @chantier.name %></a></div>     
-      <% end %>
-   </section>
+    </section>
   
   <!-- nav menu princial -->
   <% else%>
@@ -51,7 +41,7 @@
     </div>  
     <section id="MonCollapse3" class="collapse">
       <div class="navigation-menu navigation-menu2"><%= link_to ouvrages_path, class:"menu2 menu-solideo-ouvrages" do%>Infos & Carte <%end%></div> 
-      <div class="navigation-menu navigation-menu2"><%= link_to chantiers_path, class:"menu2 menu-solideo-chantiers" do%>Suivi des risques<%end%></div>
+      <div class="navigation-menu navigation-menu2"><%= link_to risques_path, class:"menu2 menu-solideo-chantiers" do%>Suivi des risques<%end%></div>
       <div class="navigation-menu navigation-menu2"><%= link_to timeline_path, class:"menu2 menu-ouvrages-timeline" do%>Timeline des ouvrages<%end%></div>
       
     </section>

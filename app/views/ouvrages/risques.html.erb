@@ -1,0 +1,188 @@
+<div class="page_w">
+  <div class="i24"></div>
+  <div class="titre_page text-center">Suivi des risques</div>
+   <div class="i12"></div>
+  <div class="stitre_page text-center">Dernière mise à jour : 30 septembre 2021</div>
+  <div class="i40"></div>
+  <div class="box_page">
+    <div><span class="titre_section">Risques à ce jour </span></div>
+    <div class="i32"></div>
+     
+    <div class="box_alignement">
+
+      <div class="box_chiffre inline-flex">     
+        <div class="chiffre_cle" style='margin-right:10px;'>XX</div>               
+        <div class="texte_chiffre">Risques <br>critiques</div>
+      </div>
+      <div class="i24 visible-xs"></div>
+    
+      <div class="box_chiffre inline-flex">  
+        <div class="chiffre_cle" style='margin-right:10px;'>XX</div>               
+        <div class="texte_chiffre">Risques <br>importants</div>
+      </div>
+      <div class="i24 visible-xs"></div>
+  
+      <div class="box_chiffre inline-flex"> 
+       <div class="chiffre_cle" style='margin-right:10px;'>XX</div>
+       <div class="texte_chiffre">Risques <br>modérés</div>
+      </div>
+      <div class="i24 visible-xs"></div>
+    
+        <div class="box_chiffre inline-flex">  
+        <div class="chiffre_cle" style='margin-right:10px;'>XX</div>
+        <div class="texte_chiffre">Risques <br>faibles</div>
+        </div>
+ 
+    </div>
+    
+    <div class="i40"></div>
+    <div>
+      <span class="titre_section">Suivi des Risques</span>
+    </div>
+    <div class="i32"></div>
+   
+    <div class="inline-flex w100" > 
+         <div class="risques-infos-title-hr">
+           <hr>
+         </div>
+         <div class="risques-infos-title" > 
+         Risques critiques (Fin > Date JOP)
+         </div>
+          <div class="risques-infos-title-hr">
+           <hr>
+         </div>
+    </div>
+
+
+ 
+    <div class="ED_table ED_table-riques">
+      <table class="table-striped">
+        <tbody> 
+          <tr>
+              <td class="risque-infos-name"><span class='critique'><i class="fas fa-exclamation-triangle"></i></span> EX : <%= link_to ouvrage_path(Ouvrage.first) do %><%= Ouvrage.first.name %> <% end %>
+              <div class="visible-xs">Retard : X mois</div>
+              <div class="visible-xs"><em>Dernière MAJ : 30 sept 2021</em></div>
+              
+            </td>
+              <td class="hidden-xs">Dernière MAJ : 30 sept 2021</td>
+              <td class="hidden-xs">Retard : XX mois </td>
+              <td class="hidden-sm hidden-xs">MOA : XX</td>
+            
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+
+
+      <div class="inline-flex w100" > 
+         <div class="risques-infos-title-hr">
+           <hr>
+         </div>
+         <div class="risques-infos-title" > 
+         Risques importants (Retard > 6 mois)
+         </div>
+          <div class="risques-infos-title-hr">
+           <hr>
+         </div>
+      </div>
+
+    <div class="ED_table ED_table-riques">
+      <table class="table-striped">
+        <tbody> 
+          <tr>
+            <td class="risque-infos-name"><span class='important'><i class="fas fa-exclamation-triangle"></i></span> EX : <%= link_to ouvrage_path(Ouvrage.first) do %><%= Ouvrage.first.name %> <% end %>
+                <div class="visible-xs">Retard : XX mois</div>
+                <div class="visible-xs"><em>Dernière MAJ : 30 sept 2021</em></div>
+        
+            </td>
+              <td class="hidden-xs">Dernière MAJ : 30 sept 2021</td>
+              <td class="hidden-xs">Retard : XX mois </td>
+              <td class="hidden-sm hidden-xs">MOA : XX</td>
+            
+          </tr>  
+
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="inline-flex w100" > 
+      <div class="risques-infos-title-hr">
+           <hr>
+      </div>
+      <div class="risques-infos-title" > 
+        Risques modérés (Retard : 3-6 mois)
+      </div>
+      <div class="risques-infos-title-hr">
+           <hr>
+      </div>
+    </div>
+
+
+      <div class="ED_table ED_table-riques">
+        <table class="table-striped">
+          <tbody>
+            <tr>
+                <td class="risque-infos-name"><span class='modere'><i class="fas fa-exclamation-triangle"></i></span> EX :  <%= link_to ouvrage_path(Ouvrage.first) do %><%= Ouvrage.first.name %> <% end %>
+                  <div class="visible-xs">Retard : XX mois</div>
+              <div class="visible-xs"><em>Dernière MAJ : 30 sept 2021</em></div>
+             
+              </td>
+                <td class="hidden-xs">Dernière MAJ : 30 sept 2021</td>
+                <td class="hidden-xs">Retard : XX mois </td>
+                <td class="hidden-sm hidden-xs">MOA : XX</td>
+              
+            </tr> 
+
+          </tbody>
+        </table>
+      </div>
+
+
+   
+    <div class="inline-flex w100" > 
+      <div class="risques-infos-title-hr"><hr></div>
+      <div class="risques-infos-title" > 
+        Risques faibles (Retard < 3 mois)
+      </div>
+      <div class="risques-infos-title-hr"><hr></div>
+    </div>
+
+    
+      <div class="ED_table ED_table-riques">
+        <table class="table-striped">
+          <tbody> 
+
+            <tr>
+                <td class="risque-infos-name"><span class='faible'><i class="fas fa-exclamation-triangle"></i></span> EX : <%= link_to ouvrage_path(Ouvrage.first) do %><%= Ouvrage.first.name %> <% end %>
+                  <div class="visible-xs">Retard : XX mois</div>
+              <div class="visible-xs"><em>Dernière MAJ : 30 sept 2021</em></div>
+                  
+              </td>
+                <td class="hidden-xs">Dernière MAJ : 30 sept 2021</td>
+                <td class="hidden-xs">Retard : XXmois </td>
+                <td class="hidden-sm hidden-xs">MOA : XX</td>
+              
+            </tr> 
+      
+          </tbody>
+        </table>
+      </div>
+       
+
+
+
+  </div>
+  
+
+</div>
+
+<script>
+
+  $('.menu-solideo-chantiers').addClass('menu-active2'); 
+  $('.menu-ouvrages').addClass('menu-active'); 
+
+  $('#MonCollapse3').addClass('in'); 
+
+</script>
