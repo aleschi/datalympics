@@ -141,33 +141,25 @@ Highcharts.chart('container-steps', {
             x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month %>),
             x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
             y: <%= index +1%>,
-        <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>  
-           color: "red",
-          <% end %>
+
         }, {
            name: "Jalon 2",
             x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 3%>),
             x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
             y: <%= index +1%>,
-          <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
-           color: "red",
-          <% end %>
+
         }, {
            name: "Jalon 3",
             x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
             x2: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 8%>),
             y: <%= index +1%>,
-          <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
-           color: "red",
-          <% end %>
+
         }, {
            name: "Jalon 4",
             x: Date.UTC(<%= ouvrage.start.year %>, <%= ouvrage.start.month + 6%>),
-            x2: Date.UTC(<%= ouvrage.end.year %>, <% if ouvrage.ouvrages_revues.count > 0 %> <%= ouvrage.end.month + ouvrage.ouvrages_revues.order("date DESC").first.delai_time.to_i %><% else%><%= ouvrage.end.month %> <% end %>),
+            x2: Date.UTC(<%= ouvrage.end.year %>, <%= ouvrage.end.month %>),
             y: <%= index +1%>,
-          <% if ouvrage.ouvrages_revues.count > 0 && ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>
-           color: "red",
-          <% end %>
+ 
         },
           <% end %>
        <% end %>

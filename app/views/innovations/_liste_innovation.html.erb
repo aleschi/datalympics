@@ -76,7 +76,7 @@ function initMap() {
                 var marker<%= ouvrage.id%> = new google.maps.Marker({
                                 position: {lat: <% if ouvrage.latitude.nil?%>48.856614<% else%><%= ouvrage.latitude%><%end%>, lng: <% if ouvrage.longitude.nil?%>2.3522219<% else %><%= ouvrage.longitude%><%end%>},
                                 map: map,
-                                icon: <% if ouvrage.ouvrages_revues.count > 0 %><% if ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 5 %>imager<% elsif ouvrage.ouvrages_revues.order("date DESC").first.delai_indicateur == 4 %>imagei<% else %>image<% end%><% else %>image <% end %>,
+                                icon: image,
                                 label: {
                                      fontFamily: "'Font Awesome 5 Free'",
                                       text: '\uf6e3', //icon code
