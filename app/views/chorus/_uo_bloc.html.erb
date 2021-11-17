@@ -1,7 +1,7 @@
 
 <% if !@uo.nil? &&  !@uo.first.nil?%>
 <div class="box_page" id="dynamique-uo">
-  <div><span class="titre_section">Visualisation au niveau des UO (<%= @uo_arr.length %>)</span>     
+  <div><span class="titre_section"><% if @vision == "0" || @vision == "2"%>Visualisation de la consommation et des crédits ouverts<%else%>Visualisation des mouvements de crédits<%end%> au niveau des UO (<%= @uo_arr.length %>)</span>     
   </div>
   <div class="i32"></div>
   <div class="chorus-dropdown-box">

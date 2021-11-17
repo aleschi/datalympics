@@ -1,27 +1,48 @@
 <div class="box_page" id="dynamique-programme">
-  <div><span class="titre_section">Visualisation du Programme <%= @search %> <% if ChorusNomenclature.where('nom = ?',@search).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',@search).first.designation %><%end%></span></div>
+  <div><span class="titre_section"><% if @vision == "0" || @vision == "2"%>Visualisation de la consommation et des crédits ouverts<%else%>Visualisation des mouvements de crédits<%end%> au niveau du Programme <%= @search %> <% if ChorusNomenclature.where('nom = ?',@search).count > 0 %>- <%= ChorusNomenclature.where('nom = ?',@search).first.designation %><%end%></span></div>
     <div class="i32"></div>
   
   <div class="w100 text-center pd32">
-    <div class="box_chiffres inline-flex">
-      <div>
-        <div class="box_i1_t1">LFI </div>
-        <div class="box_chiffres_number c3"><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+    <% if @vision == "0" || @vision == "2"%> 
+      <div class="box_chiffres inline-flex">
+        <div>
+          <div class="box_i1_t1">LFI </div>
+          <div class="box_chiffres_number c3"><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+        </div>
+        <div>
+          <div class="box_i1_t1">Crédits ouverts</div>
+          <div class="box_chiffres_number c4"><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+        </div>
+        <div>
+          <div class="box_i1_t1">Consommation </div> 
+          <div class="box_chiffres_number c7"><%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</div>
+        </div>
+        <div>
+          <div class="box_i1_t1">Réserve </div>
+          <div class="box_chiffres_number"><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+        </div>
       </div>
-      <div>
-        <div class="box_i1_t1">Crédits ouverts</div>
-        <div class="box_chiffres_number c4"><% if !@montant_dispo.nil? %> <%= number_with_delimiter(@montant_dispo, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+    <% else %>
+      <div class="box_chiffres inline-flex">
+        <div>
+          <div class="box_i1_t1">LFI </div>
+          <div class="box_chiffres_number c3"><% if !@montant_lfi.nil? %><%= number_with_delimiter(@montant_lfi, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
+        </div>
+        <div>
+          <div class="box_i1_t1">MADI</div>
+          <div class="box_chiffres_number c8"><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(2020,1,1),Date.new(2020,12,31),'MADI').sum('montant').round, :delimiter => ' ') %> €</div>
+        </div>
+        <div>
+          <div class="box_i1_t1">MOUVEMENTS </div> 
+          <div class="box_chiffres_number c8"><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece != ? AND type_piece != ?',Date.new(2020,1,1),Date.new(2020,12,31),'MADI', "LFRA").sum('montant').round, :delimiter => ' ') %> €</div>
+        </div>
+        <div>
+          <div class="box_i1_t1">LFRA </div>
+          <div class="box_chiffres_number c8"><%= number_with_delimiter(@programme.where('date >= ? AND date <= ? AND type_piece = ?',Date.new(2020,1,1),Date.new(2020,12,31),'LFRA').sum('montant').round, :delimiter => ' ') %> €</div>
+        </div>
       </div>
-      <div>
-        <div class="box_i1_t1">Consommation </div> 
-        <div class="box_chiffres_number c7"><%= number_with_delimiter(@montant_conso, :delimiter => ' ') %> €</div>
-      </div>
-      <div>
-        <div class="box_i1_t1">Réserve </div>
-        <div class="box_chiffres_number"><% if !@montant_reserve.nil? %> <%= number_with_delimiter(@montant_reserve, :delimiter => ' ') %> €<% else%>Nil<%end %></div>
-      </div>
-    </div>
-    </div>
+    <% end %>
+  </div>
   
   <% if !@programme.nil? && @programme.count > 0%>
   <div class="row">
@@ -78,7 +99,7 @@
 <div class="i24"></div>
 <% if !@programme.nil? && @programme.count > 0%>
 <div class="box_page" id="dynamique-bop">
-  <div><span class="titre_section">Visualisation des mouvements de crédits au niveau des BOP (<%= @bop_arr.length%>)</span></div>
+  <div><span class="titre_section"><% if @vision == "0" || @vision == "2"%>Visualisation de la consommation et des crédits ouverts<%else%>Visualisation des mouvements de crédits<%end%> au niveau des BOP (<%= @bop_arr.length%>)</span></div>
   <div class="i32"></div>
   <div class="chorus-dropdown-box">
      <div class="dropdown dropdown-chorus">
@@ -468,7 +489,7 @@ Highcharts.stockChart('programme', {
       <% end %>
       <% if @vision == "1" || @vision == "2"%> 
              {
-        name: 'Solde Budgétaire',
+        name: 'Crédits disponibles à répartir au niveau du programme',
         color: '#76505B',
          tooltip: {
            pointFormatter: function() {
@@ -478,7 +499,7 @@ Highcharts.stockChart('programme', {
         number = Highcharts.numberFormat(point.y, -1, ',',' '),
         header = '<span style="font-size: 12px">' + firstDate  + '</span><br/>',
          
-        content =  point.name + '<br/>'+'<b>Solde Budgétaire : '+ number + ' k€</b><br/>';
+        content =  point.name + '<br/>'+'<b>Crédits disponibles à répartir : '+ number + ' k€</b><br/>';
 
       return header + content;
     },

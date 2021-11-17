@@ -21,15 +21,15 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3 
+  #<<: *default
+  #database: db/production.sqlite3 
 
   #pour gcloud en dessous (au dessus ok pour heroku)
-  #adapter: postgresql
-  #encoding: unicode
-  #pool: 5
-  #timeout: 5000
-  #username: "postgres"
-  #password: "Datalympics2021!"
-  #database: "postgres"
-  #host:   "/cloudsql/datalympics:europe-west1:datalympics"
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: "postgres"
+  password: "Budget****2021"
+  database: "datalympics"
+  host:   "/cloudsql/propane-flag-332315:europe-west1:direction-budget"
